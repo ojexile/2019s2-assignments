@@ -1,16 +1,23 @@
-#ifndef SCENE_KINEMATICS_H
-#define SCENE_KINEMATICS_H
+#ifndef SCENE_BASE_H
+#define SCENE_BASE_H
 
-#include "Scene.h"
+#include "Renderer.h"
+
+#include "GL\glew.h"
 #include "Mtx44.h"
 #include "Camera.h"
-#include "Mesh.h"
 #include "MatrixStack.h"
 #include "Light.h"
 #include "GameObject.h"
 #include <vector>
+#include "Mesh.h"
 
-class SceneKinematics : public Scene
+#include "shader.hpp"
+#include "Utility.h"
+#include "LoadTGA.h"
+#include "Application.h"
+
+class RenderingManagerBase : public Renderer
 {
 	enum UNIFORM_TYPE
 	{
@@ -40,30 +47,21 @@ class SceneKinematics : public Scene
 		U_TEXT_COLOR,
 		U_TOTAL,
 	};
-	enum GEOMETRY_TYPE
-	{
-		GEO_AXES,
-		GEO_TEXT,
-		GEO_BALL,
-		GEO_CUBE,
-		NUM_GEOMETRY,
-	};
 public:
-	SceneKinematics();
-	~SceneKinematics();
+	RenderingManagerBase();
+	~RenderingManagerBase();
 
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
 
+protected:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderMesh(Mesh *mesh, bool enableLight);
-	void RenderGO(GameObject *go);
-private:
+
 	unsigned m_vertexArrayID;
-	Mesh* meshList[NUM_GEOMETRY];
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];
 
@@ -78,21 +76,6 @@ private:
 	bool bLightEnabled;
 
 	float fps;
-
-	//Physics
-	std::vector<GameObject *> m_goList;
-	float m_speed;
-	float m_worldWidth;
-	float m_worldHeight;
-	Vector3 m_gravity;
-	GameObject *m_ghost;
-	GameObject *m_timeGO;
-	float m_timeEstimated1;
-	float m_timeTaken1;
-	float m_timeEstimated2;
-	float m_timeTaken2;
-	float m_heightEstimated;
-	float m_heightMax;
 };
 
 #endif

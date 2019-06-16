@@ -1,23 +1,24 @@
 #ifndef SCENE_ASTEROID_H
 #define SCENE_ASTEROID_H
 
-#include "GameObject.h"
-#include <vector>
-#include "SceneBase.h"
+#include "Application.h"
+#include "RenderingManagerBase.h"
 
-class SceneAsteroid : public SceneBase
+#include "GL\glew.h"
+#include <vector>
+#include <sstream>
+
+class RenderingManager : public RenderingManagerBase
 {
 public:
-	SceneAsteroid();
-	~SceneAsteroid();
+	RenderingManager();
+	~RenderingManager();
 
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
 protected:
-
-	//Physics
 	float m_speed;
 	float m_worldWidth;
 	float m_worldHeight;

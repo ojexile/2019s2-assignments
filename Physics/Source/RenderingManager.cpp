@@ -1,19 +1,16 @@
-#include "SceneAsteroid.h"
-#include "GL\glew.h"
-#include "Application.h"
-#include <sstream>
+#include "RenderingManager.h"
 
-SceneAsteroid::SceneAsteroid()
+RenderingManager::RenderingManager()
 {
 }
 
-SceneAsteroid::~SceneAsteroid()
+RenderingManager::~RenderingManager()
 {
 }
 
-void SceneAsteroid::Init()
+void RenderingManager::Init()
 {
-	SceneBase::Init();
+	RenderingManagerBase::Init();
 
 	//Physics code here
 	m_speed = 1.f;
@@ -21,12 +18,12 @@ void SceneAsteroid::Init()
 	Math::InitRNG();
 }
 
-void SceneAsteroid::Update(double dt)
+void RenderingManager::Update(double dt)
 {
-	SceneBase::Update(dt);
+	RenderingManagerBase::Update(dt);
 }
 
-void SceneAsteroid::Render()
+void RenderingManager::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -49,24 +46,11 @@ void SceneAsteroid::Render()
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
-	RenderMesh(meshList[GEO_AXES], false);
-
-	//On screen text
-	std::ostringstream ss2;
-	ss2.precision(3);
-	ss2 << "Speed: " << m_speed;
-	RenderTextOnScreen(meshList[GEO_TEXT], ss2.str(), Color(0, 1, 0), 3, 0, 6);
-
-	std::ostringstream ss;
-	ss.precision(5);
-	ss << "FPS: " << fps;
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 3);
-
-	RenderTextOnScreen(meshList[GEO_TEXT], "Asteroid", Color(0, 1, 0), 3, 0, 0);
+	// TODO Render loops goes here
 }
 
-void SceneAsteroid::Exit()
+void RenderingManager::Exit()
 {
-	SceneBase::Exit();
+	RenderingManagerBase::Exit();
 	//Cleanup GameObjects
 }

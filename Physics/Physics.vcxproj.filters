@@ -21,12 +21,6 @@
     <Filter Include="Header Files\Mesh">
       <UniqueIdentifier>{07f83471-3e07-4736-b2e6-77f396be8e0e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Scene">
-      <UniqueIdentifier>{55f0df1e-9cb5-4206-bbb8-cf6f69765611}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scene">
-      <UniqueIdentifier>{f17db684-f884-4ee6-bc7d-39e9184fda19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Application">
       <UniqueIdentifier>{ebed8d3a-c3be-4fe6-afa5-3a83637eb2b3}</UniqueIdentifier>
     </Filter>
@@ -48,6 +42,15 @@
     <Filter Include="Header Files\GameObject">
       <UniqueIdentifier>{758241ef-58fa-414e-ac4b-2c1fa04d07af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{32177c2c-9d45-4194-ba10-c280f41af340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering">
+      <UniqueIdentifier>{55f0df1e-9cb5-4206-bbb8-cf6f69765611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering">
+      <UniqueIdentifier>{f17db684-f884-4ee6-bc7d-39e9184fda19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\LoadOBJ.cpp">
@@ -65,9 +68,6 @@
     <ClCompile Include="Source\MeshBuilder.cpp">
       <Filter>Source Files\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneKinematics.cpp">
-      <Filter>Source Files\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Source\main.cpp">
       <Filter>Source Files\Application</Filter>
     </ClCompile>
@@ -83,11 +83,14 @@
     <ClCompile Include="Source\Utility.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneAsteroid.cpp">
-      <Filter>Source Files\Scene</Filter>
+    <ClCompile Include="Source\Engine.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SceneBase.cpp">
-      <Filter>Source Files\Scene</Filter>
+    <ClCompile Include="Source\RenderingManagerBase.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderingManager.cpp">
+      <Filter>Source Files\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,12 +115,6 @@
     <ClInclude Include="Source\MeshBuilder.h">
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene.h">
-      <Filter>Header Files\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SceneKinematics.h">
-      <Filter>Header Files\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Application.h">
       <Filter>Header Files\Application</Filter>
     </ClInclude>
@@ -133,11 +130,17 @@
     <ClInclude Include="Source\GameObject.h">
       <Filter>Header Files\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneAsteroid.h">
-      <Filter>Header Files\Scene</Filter>
+    <ClInclude Include="Source\Engine.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SceneBase.h">
-      <Filter>Header Files\Scene</Filter>
+    <ClInclude Include="Source\Renderer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderingManager.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderingManagerBase.h">
+      <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

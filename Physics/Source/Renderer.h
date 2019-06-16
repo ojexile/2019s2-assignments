@@ -1,11 +1,11 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-class Scene
+class Renderer
 {
 public:
-	Scene() {}
-	~Scene() {}
+	Renderer() {}
+	~Renderer() {}
 
 	virtual void Init() = 0;
 	virtual void Update(double dt) = 0;
