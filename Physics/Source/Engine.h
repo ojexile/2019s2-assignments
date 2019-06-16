@@ -2,6 +2,9 @@
 #include "Renderer.h"
 #include "RenderingManager.h"
 
+#include "Scene.h"
+#include "TestScene.h"
+
 class Engine
 {
 public:
@@ -13,4 +16,5 @@ public:
 	void Exit();
 private:
 	static Renderer* m_Renderer;
+	Scene* firstScene;
 };

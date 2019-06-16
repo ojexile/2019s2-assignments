@@ -3,23 +3,13 @@
 
 #include "Vector3.h"
 
-struct GameObject
+class GameObject
 {
-	enum GAMEOBJECT_TYPE
-	{
-		GO_NONE = 0,
-		GO_BALL,
-		GO_CUBE,
-		GO_TOTAL, //must be last
-	};
-	GAMEOBJECT_TYPE type;
-	Vector3 pos;
-	Vector3 vel;
-	Vector3 scale;
+public:
+	Vector3 m_vPosition;
 	bool active;
-	float mass;
-
-	GameObject(GAMEOBJECT_TYPE typeValue = GO_BALL);
+public:
+	GameObject();
 	~GameObject();
 };
 

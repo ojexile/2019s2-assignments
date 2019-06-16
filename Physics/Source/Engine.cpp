@@ -4,6 +4,8 @@ Renderer* Engine::m_Renderer;
 
 Engine::Engine()
 {
+	firstScene = new TestScene;
+	firstScene->Init();
 }
 
 Engine::~Engine()

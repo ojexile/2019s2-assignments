@@ -2,8 +2,12 @@
 #define SCENE_ASTEROID_H
 
 #include "RenderingManagerBase.h"
-
 #include "GL\glew.h"
+
+#include "GameObject.h"
+#include "GameObjectManager.h"
+#include "DataContainer.h"
+
 #include <vector>
 #include <sstream>
 

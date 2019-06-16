@@ -49,6 +49,15 @@ void RenderingManager::Render()
 	modelStack.LoadIdentity();
 
 	// TODO Render loops goes here
+	std::vector<GameObject*>* GOList = GameObjectManager::GetGOList();
+	for (unsigned i = 0; i < GOList->size(); ++i)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate((*GOList)[i]->m_vPosition.x, (*GOList)[i]->m_vPosition.y, 0);
+		DataContainer dataContainer;
+		RenderMesh(dataContainer.TestMesh, false);
+		modelStack.PopMatrix();
+	}
 }
 
 void RenderingManager::Exit()
