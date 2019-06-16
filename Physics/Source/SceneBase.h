@@ -41,15 +41,6 @@ class SceneBase : public Scene
 		U_TOTAL,
 	};
 public:
-	enum GEOMETRY_TYPE
-	{
-		GEO_AXES,
-		GEO_TEXT,
-		GEO_BALL,
-		GEO_CUBE,
-		NUM_GEOMETRY,
-	};
-public:
 	SceneBase();
 	~SceneBase();
 
@@ -66,7 +57,6 @@ public:
 	GameObject* FetchGO();
 protected:
 	unsigned m_vertexArrayID;
-	Mesh* meshList[NUM_GEOMETRY];
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];
 
