@@ -15,7 +15,6 @@
 #include "shader.hpp"
 #include "Utility.h"
 #include "LoadTGA.h"
-#include "Application.h"
 
 class RenderingManagerBase : public Renderer
 {

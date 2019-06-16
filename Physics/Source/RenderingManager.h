@@ -1,7 +1,6 @@
 #ifndef SCENE_ASTEROID_H
 #define SCENE_ASTEROID_H
 
-#include "Application.h"
 #include "RenderingManagerBase.h"
 
 #include "GL\glew.h"

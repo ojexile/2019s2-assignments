@@ -11,6 +11,8 @@ RenderingManager::~RenderingManager()
 void RenderingManager::Init()
 {
 	RenderingManagerBase::Init();
+	m_worldHeight = 600.f;
+	m_worldWidth = 800;
 
 	//Physics code here
 	m_speed = 1.f;
@@ -28,8 +30,8 @@ void RenderingManager::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Calculating aspect ratio
-	m_worldHeight = 100.f;
-	m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
+	// m_worldHeight = 100.f;
+	// m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
 	// Projection matrix : Orthographic Projection
 	Mtx44 projection;
