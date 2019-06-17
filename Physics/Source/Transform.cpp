@@ -31,3 +31,7 @@ void Transform::SetPosition(Vector3 pos)
 {
 	m_vPosition = pos;
 }
+void Transform::SetPosition(float x, float y, float z)
+{
+	m_vPosition = { x,y,z };
+}

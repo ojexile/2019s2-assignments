@@ -1,10 +1,9 @@
 #pragma once
 #include "GameObjectManager.h"
 #include "Camera.h"
+#include "CameraComponent.h"
 class Scene
 {
-private:
-	virtual void InitCamera() = 0;
 public:
 	Scene();
 	~Scene();

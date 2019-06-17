@@ -20,4 +20,5 @@ public:
 	Vector3 GetScale();
 
 	void SetPosition(Vector3 pos);
+	void SetPosition(float x = 0, float y = 0, float z = 0);
 };

@@ -13,5 +13,4 @@ public:
 	virtual ~TestScene();
 
 	virtual void Init() override;
-	virtual void InitCamera() override;
 };
