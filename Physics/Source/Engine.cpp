@@ -4,8 +4,8 @@ Renderer* Engine::m_Renderer;
 
 Engine::Engine()
 {
-	firstScene = new TestScene;
-	firstScene->Init();
+	CurrentScene = new TestScene;
+	CurrentScene->Init();
 }
 
 Engine::~Engine()
@@ -21,7 +21,7 @@ void Engine::Update(double dt)
 {
 	// TODO Update gameobject here
 	m_Renderer->Update(dt);
-	m_Renderer->Render();
+	m_Renderer->Render(CurrentScene);
 }
 void Engine::Exit()
 {

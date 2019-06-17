@@ -7,12 +7,21 @@ TestScene::TestScene()
 TestScene::~TestScene()
 {
 }
+void TestScene::InitCamera()
+{
+	GameObject* CameraGO = new GameObject;
+	CameraGO->AddComponent(new CameraComponent);
+	m_CameraGO = CameraGO;
+	m_Camera = CameraGO->GetComponent<CameraComponent>()->GetCamera();
+	Transform& trans = *CameraGO->GetComponent<Transform>();
+	trans.SetPosition({ 0, 0, 5 });
+	m_GameObjectManager.AddGameObject(CameraGO);
+}
 void TestScene::Init()
 {
-	std::vector<GameObject*>* GOList = GameObjectManager::GetGOList();
+	InitCamera();
 	// Square
 	GameObject* square = new GameObject;
-	square->m_vPosition = { 10,10,0 };
-	GOList->push_back(square);
+	m_GameObjectManager.AddGameObject(square);
 	//
 }

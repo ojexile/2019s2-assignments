@@ -11,8 +11,8 @@ RenderingManager::~RenderingManager()
 void RenderingManager::Init()
 {
 	RenderingManagerBase::Init();
-	m_worldHeight = 600.f;
-	m_worldWidth = 800;
+	m_worldHeight = 100.f;
+	m_worldWidth = 100.f;
 
 	//Physics code here
 	m_speed = 1.f;
@@ -25,9 +25,18 @@ void RenderingManager::Update(double dt)
 	RenderingManagerBase::Update(dt);
 }
 
-void RenderingManager::Render()
+void RenderingManager::Render(Scene* scene)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	GameObject* CameraObject = scene->GetCameraGameObject();
+	Vector3 vCamPosition = CameraObject->GetTransform()->GetPosition();
+	Camera* Camera = scene->GetCamera();
+	// TODO proper target == pos handling
+	if (vCamPosition == Camera->target)
+	{
+		vCamPosition.z += 1;
+	}
 
 	//Calculating aspect ratio
 	// m_worldHeight = 100.f;
@@ -41,21 +50,33 @@ void RenderingManager::Render()
 	// Camera matrix
 	viewStack.LoadIdentity();
 	viewStack.LookAt(
-		camera.position.x, camera.position.y, camera.position.z,
-		camera.target.x, camera.target.y, camera.target.z,
-		camera.up.x, camera.up.y, camera.up.z
+		vCamPosition.x, vCamPosition.y, vCamPosition.z,
+		Camera->target.x, Camera->target.y, Camera->target.z,
+		Camera->up.x, Camera->up.y, Camera->up.z
 	);
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
 	// TODO Render loops goes here
-	std::vector<GameObject*>* GOList = GameObjectManager::GetGOList();
-	for (unsigned i = 0; i < GOList->size(); ++i)
+	std::vector<GameObject*> GOList = *scene->GetGameObjectManager().GetGOList();
+	for (unsigned i = 0; i < GOList.size(); ++i)
 	{
+		if (!GOList[i]->IsActive())
+			continue;
 		modelStack.PushMatrix();
-		modelStack.Translate((*GOList)[i]->m_vPosition.x, (*GOList)[i]->m_vPosition.y, 0);
+
+		Vector3 vGameObjectPosition = (GOList)[i]->GetTransform()->GetPosition();
+		Vector3 vGameObjectRotation = (GOList)[i]->GetTransform()->GetRotation();
+		Vector3 vGameObjectScale = (GOList)[i]->GetTransform()->GetScale();
+
+		// TODO Rotations
+		// TODO correct order to tranformations
+		modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
+		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
+
 		DataContainer dataContainer;
 		RenderMesh(dataContainer.TestMesh, false);
+
 		modelStack.PopMatrix();
 	}
 }

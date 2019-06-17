@@ -11,6 +11,7 @@
 #include "GameObject.h"
 #include <vector>
 #include "Mesh.h"
+#include "Scene.h"
 
 #include "shader.hpp"
 #include "Utility.h"
@@ -51,7 +52,7 @@ public:
 
 	virtual void Init();
 	virtual void Update(double dt);
-	virtual void Render();
+	virtual void Render(Scene* scene);
 	virtual void Exit();
 
 protected:
@@ -62,8 +63,6 @@ protected:
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];
-
-	Camera camera;
 
 	MS modelStack;
 	MS viewStack;

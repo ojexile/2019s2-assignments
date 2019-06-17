@@ -16,5 +16,5 @@ public:
 	void Exit();
 private:
 	static Renderer* m_Renderer;
-	Scene* firstScene;
+	Scene* CurrentScene;
 };

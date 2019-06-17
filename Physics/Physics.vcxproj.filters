@@ -51,6 +51,24 @@
     <Filter Include="Source Files\Rendering">
       <UniqueIdentifier>{f17db684-f884-4ee6-bc7d-39e9184fda19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{ba1b5dc5-0a54-406e-8f85-63310ab160f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes\Base">
+      <UniqueIdentifier>{a0f934c7-a8ba-48f4-ac05-63cafa2f5d8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{184d613b-996d-4fe2-8dcb-f093e54a99f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject\Component">
+      <UniqueIdentifier>{01fd5caf-5b07-4b01-af08-5b9b8777dca9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataContainer">
+      <UniqueIdentifier>{486070f2-07b2-492f-bdb4-55e527f97dff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Print">
+      <UniqueIdentifier>{d9267b3e-44ea-4daf-91fb-663151cf3d12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\LoadOBJ.cpp">
@@ -92,17 +110,29 @@
     <ClCompile Include="Source\RenderingManager.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameObjectManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DataContainer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\TestScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scenes\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Source\TestScene.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\GameObjectManager.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DataContainer.cpp">
+      <Filter>Source Files\DataContainer</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ComponentBase.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Transform.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Print.cpp">
+      <Filter>Source Files\Print</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,16 +184,28 @@
     <ClInclude Include="Source\RenderingManagerBase.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameObjectManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\DataContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\TestScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameObjectManager.h">
+      <Filter>Header Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ComponentBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CameraComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Print.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

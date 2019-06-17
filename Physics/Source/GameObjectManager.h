@@ -7,10 +7,11 @@
 class GameObjectManager
 {
 private:
-	static std::vector<GameObject*> m_GOList;
+	std::vector<GameObject*> m_vec_GOList;
 public:
 	GameObjectManager();
 	~GameObjectManager();
 
-	static std::vector<GameObject*>* GetGOList();
+	std::vector<GameObject*>* GetGOList();
+	bool AddGameObject(GameObject* go);
 };

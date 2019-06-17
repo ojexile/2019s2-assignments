@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "GameObjectManager.h"
 #include "DataContainer.h"
+#include "Scene.h"
 
 #include <vector>
 #include <sstream>
@@ -19,7 +20,7 @@ public:
 
 	virtual void Init();
 	virtual void Update(double dt);
-	virtual void Render();
+	virtual void Render(Scene* scene);
 	virtual void Exit();
 protected:
 	float m_speed;
