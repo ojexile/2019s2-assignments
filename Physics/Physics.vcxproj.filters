@@ -69,6 +69,12 @@
     <Filter Include="Source Files\Print">
       <UniqueIdentifier>{d9267b3e-44ea-4daf-91fb-663151cf3d12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Print">
+      <UniqueIdentifier>{6d806408-c14e-4e98-bfb5-bda2692aa8c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Misc">
+      <UniqueIdentifier>{bd4d5cf6-9915-4d46-8923-2b1ffb6df798}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\LoadOBJ.cpp">
@@ -134,6 +140,9 @@
     <ClCompile Include="Source\Print.cpp">
       <Filter>Source Files\Print</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneManager.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\LoadTGA.h">
@@ -184,9 +193,6 @@
     <ClInclude Include="Source\RenderingManagerBase.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Source\DataContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
@@ -196,17 +202,23 @@
     <ClInclude Include="Source\GameObjectManager.h">
       <Filter>Header Files\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ComponentBase.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\Print.h">
+      <Filter>Header Files\Print</Filter>
     </ClInclude>
     <ClInclude Include="Source\CameraComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneManager.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ComponentBase.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataContainer.h">
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
     <ClInclude Include="Source\Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Print.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

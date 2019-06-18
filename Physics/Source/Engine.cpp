@@ -4,8 +4,6 @@ Renderer* Engine::m_Renderer;
 
 Engine::Engine()
 {
-	CurrentScene = new TestScene;
-	CurrentScene->Init();
 }
 
 Engine::~Engine()
@@ -19,6 +17,8 @@ void Engine::Init()
 }
 void Engine::Update(double dt)
 {
+	SceneManager SceneManager;
+	Scene* CurrentScene = SceneManager.GetScene();
 	// TODO Update gameobject here
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);

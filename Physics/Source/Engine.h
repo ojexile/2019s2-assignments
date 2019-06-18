@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderer.h"
 #include "RenderingManager.h"
+#include "SceneManager.h"
 
 #include "Scene.h"
 #include "TestScene.h"
@@ -16,5 +17,4 @@ public:
 	void Exit();
 private:
 	static Renderer* m_Renderer;
-	Scene* CurrentScene;
 };
