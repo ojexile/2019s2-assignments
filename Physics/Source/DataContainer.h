@@ -2,11 +2,12 @@
 
 #include "Mesh.h"
 #include "MeshBuilder.h"
-class DataContainer
+#include "Singleton.h"
+class DataContainer : public Singleton<DataContainer>
 {
+private:
 public:
 	DataContainer();
 	~DataContainer();
 	Mesh* TestMesh;
-private:
 };

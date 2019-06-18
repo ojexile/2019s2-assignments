@@ -11,6 +11,7 @@
 class GameObject
 {
 private:
+	bool m_bStatic;
 	bool m_bActive;
 	std::vector<ComponentBase*> m_vec_ComponentList;
 	Transform* m_Transform;

@@ -8,13 +8,14 @@
 
 class Engine
 {
-public:
+	friend class Application;
+private:
 	Engine();
 	~Engine();
 
 	void Init();
 	void Update(double dt);
 	void Exit();
-private:
 	static Renderer* m_Renderer;
+public:
 };

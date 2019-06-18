@@ -12,4 +12,5 @@ public:
 
 	void ChangeScene(Scene* scene);
 	Scene* GetScene();
+	void DeleteScene();
 };

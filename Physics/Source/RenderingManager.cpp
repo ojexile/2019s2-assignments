@@ -74,8 +74,8 @@ void RenderingManager::Render(Scene* scene)
 		modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
 
-		DataContainer dataContainer;
-		RenderMesh(dataContainer.TestMesh, false);
+		DataContainer* dataContainer = DataContainer::GetInstance();
+		RenderMesh(dataContainer->TestMesh, false);
 
 		modelStack.PopMatrix();
 	}

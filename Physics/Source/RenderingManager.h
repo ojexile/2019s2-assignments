@@ -14,15 +14,16 @@
 
 class RenderingManager : public RenderingManagerBase
 {
+	friend class Engine;
 public:
+protected:
 	RenderingManager();
-	~RenderingManager();
+	virtual ~RenderingManager();
 
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render(Scene* scene);
 	virtual void Exit();
-protected:
 	float m_speed;
 	float m_worldWidth;
 	float m_worldHeight;

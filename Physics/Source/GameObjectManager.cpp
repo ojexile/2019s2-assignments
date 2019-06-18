@@ -6,6 +6,11 @@ GameObjectManager::GameObjectManager()
 
 GameObjectManager::~GameObjectManager()
 {
+	for (int i = (int)m_vec_GOList.size() - 1; i >= 0; --i)
+	{
+		delete m_vec_GOList[i];
+		m_vec_GOList.erase(m_vec_GOList.begin() + i);
+	}
 }
 
 std::vector<GameObject*>* GameObjectManager::GetGOList()
@@ -19,4 +24,14 @@ bool GameObjectManager::AddGameObject(GameObject* go)
 
 	m_vec_GOList.push_back(go);
 	return true;
+}
+
+void GameObjectManager::ClearGameObjects()
+{
+	// TODO ignore static objects
+	for (unsigned i = m_vec_GOList.size() - 1; i >= 0; --i)
+	{
+		delete m_vec_GOList[i];
+		m_vec_GOList.erase(m_vec_GOList.begin() + i);
+	}
 }

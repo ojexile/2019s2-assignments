@@ -48,7 +48,7 @@ class RenderingManagerBase : public Renderer
 	};
 public:
 	RenderingManagerBase();
-	~RenderingManagerBase();
+	virtual ~RenderingManagerBase();
 
 	virtual void Init();
 	virtual void Update(double dt);

@@ -7,4 +7,5 @@ DataContainer::DataContainer()
 
 DataContainer::~DataContainer()
 {
+	delete TestMesh;
 }

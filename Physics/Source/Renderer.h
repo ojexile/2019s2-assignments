@@ -7,7 +7,7 @@ class Renderer
 {
 public:
 	Renderer() {}
-	~Renderer() {}
+	virtual ~Renderer() {}
 
 	virtual void Init() = 0;
 	virtual void Update(double dt) = 0;
