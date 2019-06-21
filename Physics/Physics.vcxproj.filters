@@ -143,6 +143,9 @@
     <ClCompile Include="Source\SceneManager.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\MemoryLog.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\LoadTGA.h">
@@ -221,6 +224,15 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\Singleton.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Debug.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MemoryLeak.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MemoryLog.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
   </ItemGroup>
