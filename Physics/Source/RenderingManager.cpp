@@ -63,6 +63,10 @@ void RenderingManager::Render(Scene* scene)
 	{
 		if (!GOList[i]->IsActive())
 			continue;
+		if (GOList[i]->GetComponent<RenderComponent>() == nullptr)
+			continue;
+		RenderComponent* RenderComponent = GOList[i]->GetComponent<RenderComponent>();
+		Mesh* CurrentMesh = RenderComponent->GetMesh();
 		modelStack.PushMatrix();
 
 		Vector3 vGameObjectPosition = (GOList)[i]->GetTransform()->GetPosition();
@@ -74,8 +78,8 @@ void RenderingManager::Render(Scene* scene)
 		modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
 
-		DataContainer* dataContainer = DataContainer::GetInstance();
-		RenderMesh(dataContainer->TestMesh, false);
+		// DataContainer* dataContainer = DataContainer::GetInstance();
+		RenderMesh(CurrentMesh, RenderComponent->GetLightEnabled());
 
 		modelStack.PopMatrix();
 	}

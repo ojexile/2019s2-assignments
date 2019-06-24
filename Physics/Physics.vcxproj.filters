@@ -146,6 +146,9 @@
     <ClCompile Include="Source\MemoryLog.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="Source\RenderComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\LoadTGA.h">
@@ -234,6 +237,9 @@
     </ClInclude>
     <ClInclude Include="Source\MemoryLog.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

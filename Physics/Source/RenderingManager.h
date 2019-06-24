@@ -8,6 +8,7 @@
 #include "GameObjectManager.h"
 #include "DataContainer.h"
 #include "Scene.h"
+#include "RenderComponent.h"
 
 #include <vector>
 #include <sstream>
