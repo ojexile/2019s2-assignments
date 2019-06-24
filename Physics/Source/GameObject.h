@@ -5,6 +5,7 @@
 #include "ComponentBase.h"
 #include "Transform.h"
 #include "RenderComponent.h"
+#include "TransformComponent.h"
 
 #include <vector>
 #include <string>
@@ -15,14 +16,14 @@ private:
 	bool m_bStatic;
 	bool m_bActive;
 	std::vector<ComponentBase*> m_vec_ComponentList;
-	Transform* m_Transform;
+	//Transform* m_Transform;
 public:
 	GameObject();
 	~GameObject();
 
 	ComponentBase* AddComponent(ComponentBase* comp);
 	bool IsActive();
-	Transform* GetTransform();
+	//Transform* GetTransform();
 
 	// Duplicated from component
 	template <class t>
