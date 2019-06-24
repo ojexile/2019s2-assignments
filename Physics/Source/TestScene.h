@@ -5,6 +5,8 @@
 
 // Components
 #include "CameraComponent.h"
+#include "DataContainer.h"
+
 class TestScene :
 	public Scene
 {

@@ -4,6 +4,7 @@
 #include "Vector3.h"
 #include "ComponentBase.h"
 #include "Transform.h"
+#include "RenderComponent.h"
 
 #include <vector>
 #include <string>
@@ -19,7 +20,7 @@ public:
 	GameObject();
 	~GameObject();
 
-	bool AddComponent(ComponentBase* comp);
+	ComponentBase* AddComponent(ComponentBase* comp);
 	bool IsActive();
 	Transform* GetTransform();
 
@@ -34,7 +35,7 @@ public:
 				return out;
 		}
 		std::string sTypeName = typeid(t).name();
-		Print::PrintLn("No component of type " + sTypeName + " found.");
+		// Print::PrintLn("No component of type " + sTypeName + " found.");
 		return nullptr;
 	};
 };

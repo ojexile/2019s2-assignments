@@ -61,17 +61,22 @@ void RenderingManager::Render(Scene* scene)
 	std::vector<GameObject*> GOList = *scene->GetGameObjectManager().GetGOList();
 	for (unsigned i = 0; i < GOList.size(); ++i)
 	{
-		if (!GOList[i]->IsActive())
+		GameObject* go = (GOList)[i];
+		if (!go->IsActive())
 			continue;
-		if (GOList[i]->GetComponent<RenderComponent>() == nullptr)
+		if (go->GetComponent<RenderComponent>() == nullptr)
 			continue;
-		RenderComponent* RenderComponent = GOList[i]->GetComponent<RenderComponent>();
-		Mesh* CurrentMesh = RenderComponent->GetMesh();
+		Mesh* CurrentMesh = go->GetComponent<RenderComponent>()->GetMesh();
+		if (!CurrentMesh)
+		{
+			std::cout << "ERROR: Mesh uninitialised." << std::endl;
+			continue;
+		}
 		modelStack.PushMatrix();
 
-		Vector3 vGameObjectPosition = (GOList)[i]->GetTransform()->GetPosition();
-		Vector3 vGameObjectRotation = (GOList)[i]->GetTransform()->GetRotation();
-		Vector3 vGameObjectScale = (GOList)[i]->GetTransform()->GetScale();
+		Vector3 vGameObjectPosition = go->GetTransform()->GetPosition();
+		Vector3 vGameObjectRotation = go->GetTransform()->GetRotation();
+		Vector3 vGameObjectScale = go->GetTransform()->GetScale();
 
 		// TODO Rotations
 		// TODO correct order to tranformations
@@ -79,7 +84,7 @@ void RenderingManager::Render(Scene* scene)
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
 
 		// DataContainer* dataContainer = DataContainer::GetInstance();
-		RenderMesh(CurrentMesh, RenderComponent->GetLightEnabled());
+		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 
 		modelStack.PopMatrix();
 	}

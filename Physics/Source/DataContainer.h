@@ -15,7 +15,6 @@ private:
 public:
 	DataContainer();
 	~DataContainer();
-	Mesh* TestMesh;
 
 	Mesh* GetMesh(std::string name);
 };

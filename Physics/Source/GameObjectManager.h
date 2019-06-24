@@ -13,7 +13,7 @@ public:
 	~GameObjectManager();
 
 	std::vector<GameObject*>* GetGOList();
-	bool AddGameObject(GameObject* go);
+	GameObject* AddGameObject(GameObject* go);
 
 	void ClearGameObjects();
 };

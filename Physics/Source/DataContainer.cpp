@@ -8,10 +8,13 @@ DataContainer::DataContainer()
 
 DataContainer::~DataContainer()
 {
-	delete TestMesh;
+	m_map_Meshes.clear();
 }
 
 Mesh* DataContainer::GetMesh(std::string name)
 {
-	return m_map_Meshes[name];
+	Mesh* mesh = m_map_Meshes[name];
+	if (!mesh)
+		std::cout << "ERROR: Mesh not found of name: " << name << std::endl;
+	return mesh;
 }

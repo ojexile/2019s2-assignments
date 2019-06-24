@@ -18,13 +18,13 @@ GameObject::~GameObject()
 	}
 	m_Transform = nullptr;
 }
-bool GameObject::AddComponent(ComponentBase* comp)
+ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 {
 	// TODO check if component already exists?
 	// Should there be duplicate components?
 	comp->Init(&m_vec_ComponentList);
 	m_vec_ComponentList.push_back(comp);
-	return true;
+	return comp;
 }
 
 bool GameObject::IsActive()

@@ -22,3 +22,7 @@ bool RenderComponent::GetLightEnabled()
 {
 	return m_bLightEnabled;
 }
+void RenderComponent::Update(double dt)
+{
+
+}
