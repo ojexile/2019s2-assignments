@@ -6,6 +6,9 @@
 #include "Scene.h"
 #include "TestScene.h"
 
+#include "Logger.h"
+#include "Locator.h"
+
 class Engine
 {
 	friend class Application;

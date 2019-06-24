@@ -1,5 +1,8 @@
 #include "Engine.h"
 
+#define USER CHENG
+#define USER_S "CHENG"
+
 Renderer* Engine::m_Renderer;
 
 Engine::Engine()
@@ -17,6 +20,12 @@ void Engine::Init()
 	// Init first scene
 	SceneManager SceneManager;
 	SceneManager.ChangeScene(new TestScene);
+
+	// Console
+	HWND hwnd = GetConsoleWindow();
+	if (hwnd != NULL) { MoveWindow(hwnd, 900, 0, 1000, 1000, TRUE); }
+
+	std::cout << "--------------" << "Current logger user is " << USER_S << "--------------" << std::endl;
 }
 void Engine::Update(double dt)
 {
@@ -25,6 +34,8 @@ void Engine::Update(double dt)
 	// TODO Update gameobject here
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
+	// Log
+	Locator::GetLogger(Locator::USER).PrintLogs();
 }
 void Engine::Exit()
 {

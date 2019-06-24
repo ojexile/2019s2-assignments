@@ -9,6 +9,9 @@
 #include <vector>
 #include <string>
 
+#include "Locator.h"
+#include "Logger.h"
+
 class GameObject
 {
 private:
@@ -36,6 +39,7 @@ public:
 		}
 		std::string sTypeName = typeid(t).name();
 		// Print::PrintLn("No component of type " + sTypeName + " found.");
+		Locator::GetLogger(Locator::CHENG).Log("No component of type " + sTypeName + " found.");
 		return nullptr;
 	};
 };
