@@ -10,6 +10,8 @@
 #include "Locator.h"
 #include "WindowData.h"
 
+#define LOG_UPDATE_RATE 1
+
 class Engine
 {
 	friend class Application;
@@ -17,6 +19,7 @@ private:
 	Engine();
 	~Engine();
 
+	float m_fLogUpdateTimer;
 	void Init();
 	void Update(double dt);
 	void Exit();

@@ -13,6 +13,7 @@ Renderer* Engine::m_Renderer;
 Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
+	m_fLogUpdateTimer = LOG_UPDATE_RATE;
 }
 
 Engine::~Engine()
@@ -27,11 +28,6 @@ void Engine::Init()
 	SceneManager.ChangeScene(new TestScene);
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
-	// Hide cursor
-	CONSOLE_CURSOR_INFO ci;
-	ci.bVisible = false;
-	ci.dwSize = 0;
-	SetConsoleCursorInfo(output, &ci);
 	// Window size and position
 	WindowData* windowData = WindowData::GetInstance();
 	// Console
@@ -49,8 +45,11 @@ void Engine::Init()
 	//color
 	SHORT color = 0x0C;
 	SetConsoleTextAttribute(output, color);
-	// Print current logger user
-	std::cout << "--------------" << "Current logger user is " << USER_S << "--------------" << std::endl;
+	// Hide cursor
+	CONSOLE_CURSOR_INFO ci;
+	ci.bVisible = FALSE;
+	ci.dwSize = 10;
+	SetConsoleCursorInfo(output, &ci);
 }
 void Engine::Update(double dt)
 {
@@ -60,8 +59,16 @@ void Engine::Update(double dt)
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
 	// Log
-	int iYOffset = Locator::GetLogger(Locator::USER).PrintLogs(0);
-	Locator::GetLogger(Locator::DEFAULT).PrintLogs(iYOffset);
+	m_fLogUpdateTimer += (float)dt;
+	if (m_fLogUpdateTimer >= LOG_UPDATE_RATE)
+	{
+		system("cls");
+		// Print current logger user
+		std::cout << "--------------" << "Current logger user is " << USER_S << "--------------" << std::endl;
+		int iYOffset = Locator::GetLogger(Locator::USER).PrintLogs(0);
+		Locator::GetLogger(Locator::DEFAULT).PrintLogs(iYOffset);
+		m_fLogUpdateTimer = 0;
+	}
 }
 void Engine::Exit()
 {

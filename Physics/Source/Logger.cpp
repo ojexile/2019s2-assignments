@@ -35,7 +35,9 @@ int Logger::PrintLogs(int iYOffset)
 		const int WINDOW_LENGTH = (int)WinData->GetConsoleSize().x;
 		iYOffset += log.m_sLog.size() / WINDOW_LENGTH;
 		// Print
-		std::cout << log.m_iNumCalls << "  " << log.m_sLog << std::endl;
+		std::cout << log.m_iNumCalls << "  " << log.m_sLog << '\n';
 	}
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
+	std::cout.flush();
 	return iYOffset;
 }
