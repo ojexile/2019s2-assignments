@@ -34,8 +34,8 @@ void Engine::Init()
 	CONSOLE_FONT_INFOEX cfi;//CONSOLE_FONT_INFOEX is defined in some windows header
 	cfi.cbSize = sizeof(cfi);
 	cfi.nFont = 0;
-	cfi.dwFontSize.X = windowData->GetFontSize().x;                   // Width of each character in the font
-	cfi.dwFontSize.Y = windowData->GetFontSize().y;                  // Height
+	cfi.dwFontSize.X = (SHORT)windowData->GetFontSize().x;                   // Width of each character in the font
+	cfi.dwFontSize.Y = (SHORT)windowData->GetFontSize().y;                  // Height
 	cfi.FontFamily = FF_DONTCARE;
 	cfi.FontWeight = FW_NORMAL;
 	std::wcscpy(cfi.FaceName, L"Consolas"); // Choose your font

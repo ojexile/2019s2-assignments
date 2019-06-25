@@ -7,7 +7,7 @@ WindowData::WindowData()
 	m_vConsoleSize = { 1280, 1000 };
 	m_vWindowPosition = { 0, 80 };
 	m_vConsolePosition = { 1280, 50 };
-	m_vFontSize = { 8,16 };
+	m_vFontSize = { 12,22 };
 
 	GetData();
 }
