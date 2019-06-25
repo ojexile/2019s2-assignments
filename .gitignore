@@ -267,3 +267,4 @@ __pycache__/
 *.lastcodeanalysissucceeded
 *.exe
 *.lib
+/Physics/windowData/windowData.txt

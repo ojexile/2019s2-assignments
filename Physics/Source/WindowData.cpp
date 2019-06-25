@@ -40,7 +40,7 @@ void WindowData::GetData()
 		{
 			if (sLine[i] == ' ')
 			{
-				sLine.erase(i);
+				sLine.erase(i,1);
 				--i;
 			}
 		}
