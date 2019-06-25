@@ -2,9 +2,8 @@
 
 #define USER CHENG
 
-#define TO_STR2(x) #x
-#define TO_STR(x) TO_STR2(x)
-#define USER_S ( TO_STR(CHENG) )
+#define TO_STR(x) #x
+#define USER_S ( TO_STR(USER) )
 
 Renderer* Engine::m_Renderer;
 
