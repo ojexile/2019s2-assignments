@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include "Print.h"
 class ComponentBase
 {
 private:
@@ -13,7 +12,7 @@ public:
 	virtual void Update(double dt) = 0;
 
 	template <class t>
-	t* GetComponent()
+	t* GetComponent(bool bOptional = false)
 	{
 		for (unsigned i = 0; i < (*m_vec_RefList)->size(); ++i)
 		{
@@ -22,7 +21,8 @@ public:
 				return out;
 		}
 		std::string sTypeName = typeid(t).name();
-		Print::PrintLn("No component of type " + sTypeName + " found.");
+		if (!bOptional)
+			DEFAULT_LOG("Component of type " + sTypeName + " not found");
 		return nullptr;
 	};
 };

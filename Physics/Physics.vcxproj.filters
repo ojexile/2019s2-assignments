@@ -143,9 +143,6 @@
     <ClCompile Include="Source\Transform.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Print.cpp">
-      <Filter>Source Files\Print</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SceneManager.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -163,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="Source\Logger.cpp">
       <Filter>Source Files\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WindowData.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,9 +223,6 @@
     <ClInclude Include="Source\GameObjectManager.h">
       <Filter>Header Files\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Print.h">
-      <Filter>Header Files\Print</Filter>
-    </ClInclude>
     <ClInclude Include="Source\CameraComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -264,6 +261,9 @@
     </ClInclude>
     <ClInclude Include="Source\Logger.h">
       <Filter>Header Files\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WindowData.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

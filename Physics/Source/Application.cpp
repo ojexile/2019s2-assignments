@@ -10,8 +10,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define WINDOW_POS 5,50
-
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
@@ -86,10 +84,11 @@ void Application::Init()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
 
 	//Create a window and create its OpenGL context
-	m_width = 1280;
-	m_height = 720;
+	WindowData* windowData = WindowData::GetInstance();
+	m_width = (int)windowData->GetWindowSize().x;
+	m_height = (int)windowData->GetWindowSize().y;
 	m_window = glfwCreateWindow(m_width, m_height, "SP-Framework", NULL, NULL);
-	glfwSetWindowPos(m_window, WINDOW_POS);
+	glfwSetWindowPos(m_window, (int)windowData->GetWindowPosition().x, (int)windowData->GetWindowPosition().y);
 	//If the window couldn't be created
 	if (!m_window)
 	{

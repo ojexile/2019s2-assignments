@@ -22,9 +22,8 @@ void Logger::Log(std::string s)
 	m_vec_LogList.push_back(LogData(s));
 }
 
-void Logger::PrintLogs()
+int Logger::PrintLogs(int iYOffset)
 {
-	int iYOffset = 0;
 	for (unsigned i = 0; i < m_vec_LogList.size(); ++i)
 	{
 		COORD coord;
@@ -32,9 +31,11 @@ void Logger::PrintLogs()
 		coord.Y = i + 4 + iYOffset;
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		LogData log = m_vec_LogList[i];
-		const int WINDOW_LENGTH = 1000;
-		iYOffset += log.m_sLog.size() % WINDOW_LENGTH;
+		WindowData* WinData = WindowData::GetInstance();
+		const int WINDOW_LENGTH = (int)WinData->GetConsoleSize().x;
+		iYOffset += log.m_sLog.size() / WINDOW_LENGTH;
 		// Print
 		std::cout << log.m_iNumCalls << "  " << log.m_sLog << std::endl;
 	}
+	return iYOffset;
 }

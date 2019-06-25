@@ -169,7 +169,6 @@
     <ClCompile Include="Source\MemoryLog.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
-    <ClCompile Include="Source\Print.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
@@ -179,6 +178,7 @@
     <ClCompile Include="Source\TestScene.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\WindowData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -201,7 +201,6 @@
     <ClInclude Include="Source\MemoryLog.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
-    <ClInclude Include="Source\Print.h" />
     <ClInclude Include="Source\RenderComponent.h" />
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />
@@ -214,6 +213,7 @@
     <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\WindowData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

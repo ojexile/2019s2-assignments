@@ -5,6 +5,7 @@
 #include <iostream>
 #include <conio.h>
 #include "LogData.h"
+#include "WindowData.h"
 
 class Logger
 {
@@ -15,5 +16,5 @@ public:
 	~Logger();
 
 	void Log(std::string);
-	void PrintLogs();
+	int PrintLogs(int iYOffset);
 };

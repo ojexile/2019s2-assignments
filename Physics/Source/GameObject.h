@@ -28,7 +28,7 @@ public:
 
 	// Duplicated from component
 	template <class t>
-	t* GetComponent()
+	t* GetComponent(bool bOptional = false)
 	{
 		for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 		{
@@ -38,7 +38,8 @@ public:
 		}
 		std::string sTypeName = typeid(t).name();
 		// Locator::GetLogger(Locator::CHENG).Log("No component of type " + sTypeName + " found.");
-		CHENG_LOG("Component of type " + sTypeName + " not found");
+		if (!bOptional)
+			DEFAULT_LOG("Component of type " + sTypeName + " not found");
 		return nullptr;
 	};
 };

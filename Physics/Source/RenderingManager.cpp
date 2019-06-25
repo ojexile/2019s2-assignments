@@ -66,7 +66,7 @@ void RenderingManager::Render(Scene* scene)
 			continue;
 		if (go->GetComponent<RenderComponent>() == nullptr)
 			continue;
-		Mesh* CurrentMesh = go->GetComponent<RenderComponent>()->GetMesh();
+		Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
 		if (!CurrentMesh)
 		{
 			std::cout << "ERROR: Mesh uninitialised." << std::endl;

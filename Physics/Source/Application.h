@@ -3,7 +3,7 @@
 
 #include "timer.h"
 #include "Engine.h"
-
+#include "WindowData.h"
 class Application
 {
 public:

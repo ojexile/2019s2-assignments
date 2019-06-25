@@ -8,6 +8,7 @@
 
 #include "Logger.h"
 #include "Locator.h"
+#include "WindowData.h"
 
 class Engine
 {
