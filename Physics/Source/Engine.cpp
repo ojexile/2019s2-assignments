@@ -1,7 +1,10 @@
 #include "Engine.h"
 
 #define USER CHENG
-#define USER_S "CHENG"
+
+#define TO_STR2(x) #x
+#define TO_STR(x) TO_STR2(x)
+#define USER_S ( TO_STR(CHENG) )
 
 Renderer* Engine::m_Renderer;
 
@@ -23,7 +26,7 @@ void Engine::Init()
 
 	// Console
 	HWND hwnd = GetConsoleWindow();
-	if (hwnd != NULL) { MoveWindow(hwnd, 900, 0, 1000, 1000, TRUE); }
+	if (hwnd != NULL) { MoveWindow(hwnd, 960, 0, 960, 1020, TRUE); }
 
 	std::cout << "--------------" << "Current logger user is " << USER_S << "--------------" << std::endl;
 }

@@ -1,11 +1,8 @@
 #include "Logger.h"
 
-
-
 Logger::Logger()
 {
 }
-
 
 Logger::~Logger()
 {
@@ -31,7 +28,7 @@ void Logger::PrintLogs()
 	{
 		COORD coord;
 		coord.X = 0;
-		coord.Y = i+4;
+		coord.Y = i + 4;
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		LogData log = m_vec_LogList[i];
 		if (log.m_sLog.size() >= 1000)

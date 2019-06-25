@@ -8,7 +8,6 @@ Locator::Locator()
 {
 }
 
-
 Locator::~Locator()
 {
 }

@@ -15,7 +15,5 @@ public:
 	~Logger();
 
 	void Log(std::string);
-
 	void PrintLogs();
 };
-
