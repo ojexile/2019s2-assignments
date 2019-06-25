@@ -28,16 +28,15 @@ int Logger::PrintLogs(int iYOffset)
 	{
 		COORD coord;
 		coord.X = 0;
-		coord.Y = i + 4 + iYOffset;
+		coord.Y = i + 1 + iYOffset;
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		LogData log = m_vec_LogList[i];
 		WindowData* WinData = WindowData::GetInstance();
 		const int WINDOW_LENGTH = (int)WinData->GetConsoleSize().x;
-		iYOffset += log.m_sLog.size() / WINDOW_LENGTH;
+		const int WINDOW_CHAR_LENGTH = WINDOW_LENGTH / (int)WinData->GetFontSize().x;
+		iYOffset += log.m_sLog.size() / WINDOW_CHAR_LENGTH;
 		// Print
 		std::cout << log.m_iNumCalls << "  " << log.m_sLog << '\n';
 	}
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), COORD{ 0,0 });
-	std::cout.flush();
 	return iYOffset;
 }

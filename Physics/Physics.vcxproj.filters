@@ -134,9 +134,6 @@
     <ClCompile Include="Source\DataContainer.cpp">
       <Filter>Source Files\DataContainer</Filter>
     </ClCompile>
-    <ClCompile Include="CameraComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ComponentBase.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -155,13 +152,16 @@
     <ClCompile Include="Source\Locator.cpp">
       <Filter>Source Files\Logger</Filter>
     </ClCompile>
-    <ClCompile Include="LogData.cpp">
-      <Filter>Source Files\Logger</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Logger.cpp">
       <Filter>Source Files\Logger</Filter>
     </ClCompile>
     <ClCompile Include="Source\WindowData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CameraComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LogData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

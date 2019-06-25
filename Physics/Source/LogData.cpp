@@ -1,6 +1,4 @@
-#include "Source\LogData.h"
-
-
+#include "LogData.h"
 
 LogData::LogData(std::string sLog)
 {

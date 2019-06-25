@@ -1,4 +1,4 @@
-#include "Source\CameraComponent.h"
+#include "CameraComponent.h"
 
 CameraComponent::CameraComponent()
 {

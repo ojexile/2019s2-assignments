@@ -30,18 +30,16 @@ void Engine::Init()
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
 	WindowData* windowData = WindowData::GetInstance();
-	// Console
-	HWND hwnd = GetConsoleWindow();
-	if (hwnd != NULL) {
-		MoveWindow(hwnd, (int)windowData->GetConsolePosition().x, (int)windowData->GetConsolePosition().y
-			, (int)windowData->GetConsoleSize().x, (int)windowData->GetConsoleSize().y, TRUE);
-	}
 	// Font
-	CONSOLE_FONT_INFOEX font;//CONSOLE_FONT_INFOEX is defined in some windows header
-	GetCurrentConsoleFontEx(output, false, &font);//PCONSOLE_FONT_INFOEX is the same as CONSOLE_FONT_INFOEX*
-	font.dwFontSize.X = (SHORT)windowData->GetFontSize().x;
-	font.dwFontSize.Y = (SHORT)windowData->GetFontSize().y;
-	SetCurrentConsoleFontEx(output, false, &font);
+	CONSOLE_FONT_INFOEX cfi;//CONSOLE_FONT_INFOEX is defined in some windows header
+	cfi.cbSize = sizeof(cfi);
+	cfi.nFont = 0;
+	cfi.dwFontSize.X = windowData->GetFontSize().x;                   // Width of each character in the font
+	cfi.dwFontSize.Y = windowData->GetFontSize().y;                  // Height
+	cfi.FontFamily = FF_DONTCARE;
+	cfi.FontWeight = FW_NORMAL;
+	std::wcscpy(cfi.FaceName, L"Consolas"); // Choose your font
+	SetCurrentConsoleFontEx(output, FALSE, &cfi);
 	//color
 	SHORT color = 0x0C;
 	SetConsoleTextAttribute(output, color);
@@ -50,6 +48,12 @@ void Engine::Init()
 	ci.bVisible = FALSE;
 	ci.dwSize = 10;
 	SetConsoleCursorInfo(output, &ci);
+	// Console
+	HWND hwnd = GetConsoleWindow();
+	if (hwnd != NULL) {
+		MoveWindow(hwnd, (int)windowData->GetConsolePosition().x, (int)windowData->GetConsolePosition().y
+			, (int)windowData->GetConsoleSize().x, (int)windowData->GetConsoleSize().y, TRUE);
+	}
 }
 void Engine::Update(double dt)
 {
