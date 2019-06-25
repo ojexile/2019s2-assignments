@@ -24,17 +24,16 @@ void Logger::Log(std::string s)
 
 void Logger::PrintLogs()
 {
+	int iYOffset = 0;
 	for (unsigned i = 0; i < m_vec_LogList.size(); ++i)
 	{
 		COORD coord;
 		coord.X = 0;
-		coord.Y = i + 4;
+		coord.Y = i + 4 + iYOffset;
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		LogData log = m_vec_LogList[i];
-		if (log.m_sLog.size() >= 1000)
-		{
-			// Do something
-		}
+		const int WINDOW_LENGTH = 1000;
+		iYOffset += log.m_sLog.size() % WINDOW_LENGTH;
 		// Print
 		std::cout << log.m_iNumCalls << "  " << log.m_sLog << std::endl;
 	}
