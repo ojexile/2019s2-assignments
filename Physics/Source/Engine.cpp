@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+// Select Debug logger user
+// Users are enums located in locator.h
 #define USER CHENG
 
 #define TO_STR(x) #x
@@ -26,7 +28,13 @@ void Engine::Init()
 	// Console
 	HWND hwnd = GetConsoleWindow();
 	if (hwnd != NULL) { MoveWindow(hwnd, 1280, 0, 640, 1020, TRUE); }
-
+	// Hide cursor
+	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO ci;
+	ci.bVisible = false;
+	ci.dwSize = 0;
+	SetConsoleCursorInfo(output, &ci);
+	// Print current logger user
 	std::cout << "--------------" << "Current logger user is " << USER_S << "--------------" << std::endl;
 }
 void Engine::Update(double dt)
