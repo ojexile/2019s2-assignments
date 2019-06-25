@@ -25,7 +25,7 @@ void Engine::Init()
 
 	// Console
 	HWND hwnd = GetConsoleWindow();
-	if (hwnd != NULL) { MoveWindow(hwnd, 960, 0, 960, 1020, TRUE); }
+	if (hwnd != NULL) { MoveWindow(hwnd, 1280, 0, 640, 1020, TRUE); }
 
 	std::cout << "--------------" << "Current logger user is " << USER_S << "--------------" << std::endl;
 }
