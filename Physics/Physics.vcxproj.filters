@@ -155,13 +155,13 @@
     <ClCompile Include="Source\RenderComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Logger.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Locator.cpp">
+      <Filter>Source Files\Logger</Filter>
     </ClCompile>
     <ClCompile Include="LogData.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Logger</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Locator.cpp">
+    <ClCompile Include="Source\Logger.cpp">
       <Filter>Source Files\Logger</Filter>
     </ClCompile>
   </ItemGroup>
