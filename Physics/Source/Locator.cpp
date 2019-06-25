@@ -2,7 +2,9 @@
 
 Logger Locator::DefaultLogger;
 Logger Locator::ChengLogger;
-Logger Locator::NotChengLogger;
+Logger Locator::RyanLogger;
+Logger Locator::KZLogger;
+Logger Locator::LZLogger;
 
 Locator::Locator()
 {
@@ -22,8 +24,14 @@ Logger& Locator::GetLogger(eLoggerUsers user)
 	case Locator::CHENG:
 		return ChengLogger;
 		break;
-	case Locator::NOT_CHENG:
-		return NotChengLogger;
+	case Locator::RYAN:
+		return RyanLogger;
+		break;
+	case Locator::KZ:
+		return KZLogger;
+		break;
+	case Locator::LZ:
+		return LZLogger;
 		break;
 	default:
 		return DefaultLogger;
