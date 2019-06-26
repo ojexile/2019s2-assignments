@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "Locator.h"
 class ComponentBase
 {
 private:
@@ -14,7 +15,7 @@ public:
 	template <class t>
 	t* GetComponent(bool bOptional = false)
 	{
-		for (unsigned i = 0; i < (*m_vec_RefList)->size(); ++i)
+		for (unsigned i = 0; i < (*m_vec_RefList).size(); ++i)
 		{
 			t* out = dynamic_cast<t*>((*m_vec_RefList)[i]);
 			if (out)

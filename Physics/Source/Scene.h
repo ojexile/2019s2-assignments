@@ -11,7 +11,7 @@ public:
 	virtual void Init() = 0;
 	GameObject* GetCameraGameObject();
 	Camera* GetCamera();
-	GameObjectManager& GetGameObjectManager();
+	GameObjectManager* GetGameObjectManager();
 protected:
 	GameObjectManager m_GameObjectManager;
 	GameObject* m_CameraGO;

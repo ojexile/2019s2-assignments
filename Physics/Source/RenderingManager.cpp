@@ -19,6 +19,18 @@ void RenderingManager::Init()
 
 	Math::InitRNG();
 }
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	SceneManager* SceneManager = SceneManager::GetInstance();
+	Scene* CurrentScene = SceneManager->GetScene();
+	Camera* Cam = CurrentScene->GetCamera();
+
+	Cam->UpdateYawPitchMouse((float)xpos, (float)ypos);
+}
+void RenderingManager::SetMouseCallback(GLFWwindow* window)
+{
+	glfwSetCursorPosCallback(window, mouse_callback);
+}
 
 void RenderingManager::Update(double dt)
 {
@@ -30,10 +42,12 @@ void RenderingManager::Render(Scene* scene)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	GameObject* CameraObject = scene->GetCameraGameObject();
+	if (!CameraObject)
+		return;
 	Vector3 vCamPosition = CameraObject->GetTransform()->GetPosition();
 	Camera* Camera = scene->GetCamera();
 	// TODO proper target == pos handling
-	if (vCamPosition == Camera->target)
+	if (vCamPosition == Camera->m_vTarget)
 	{
 		vCamPosition.z += 1;
 	}
@@ -46,19 +60,18 @@ void RenderingManager::Render(Scene* scene)
 	Mtx44 projection;
 	projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
 	projectionStack.LoadMatrix(projection);
-
 	// Camera matrix
 	viewStack.LoadIdentity();
 	viewStack.LookAt(
 		vCamPosition.x, vCamPosition.y, vCamPosition.z,
-		Camera->target.x, Camera->target.y, Camera->target.z,
-		Camera->up.x, Camera->up.y, Camera->up.z
+		Camera->m_vTarget.x, Camera->m_vTarget.y, Camera->m_vTarget.z,
+		Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z
 	);
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
-	// TODO Render loops goes here
-	std::vector<GameObject*> GOList = *scene->GetGameObjectManager().GetGOList();
+	// Render loops goes here
+	std::vector<GameObject*> GOList = *(scene->GetGameObjectManager()->GetGOList());
 	for (unsigned i = 0; i < GOList.size(); ++i)
 	{
 		GameObject* go = (GOList)[i];
@@ -69,7 +82,7 @@ void RenderingManager::Render(Scene* scene)
 		Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
 		if (!CurrentMesh)
 		{
-			std::cout << "ERROR: Mesh uninitialised." << std::endl;
+			DEFAULT_LOG ("ERROR: Mesh uninitialised." );
 			continue;
 		}
 		modelStack.PushMatrix();
@@ -89,7 +102,6 @@ void RenderingManager::Render(Scene* scene)
 		modelStack.PopMatrix();
 	}
 }
-
 void RenderingManager::Exit()
 {
 	RenderingManagerBase::Exit();

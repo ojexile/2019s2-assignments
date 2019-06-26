@@ -36,3 +36,10 @@ Transform* GameObject::GetTransform()
 {
 	return m_Transform;
 }
+void GameObject::Update(double dt)
+{
+	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
+	{
+		m_vec_ComponentList[i]->Update(dt);
+	}
+}

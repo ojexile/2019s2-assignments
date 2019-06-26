@@ -24,8 +24,8 @@ void Engine::Init()
 {
 	m_Renderer->Init();
 	// Init first scene
-	SceneManager SceneManager;
-	SceneManager.ChangeScene(new TestScene);
+	SceneManager* SceneManager = SceneManager::GetInstance();
+	SceneManager->ChangeScene(new TestScene);
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
@@ -55,11 +55,22 @@ void Engine::Init()
 			, (int)windowData->GetConsoleSize().x, (int)windowData->GetConsoleSize().y, TRUE);
 	}
 }
+void Engine::SetMouseCallback(GLFWwindow* window)
+{
+	m_Renderer->SetMouseCallback(window);
+}
 void Engine::Update(double dt)
 {
-	SceneManager SceneManager;
-	Scene* CurrentScene = SceneManager.GetScene();
+	SceneManager* SceneManager = SceneManager::GetInstance();
+	Scene* CurrentScene = SceneManager->GetScene();
 	// TODO Update gameobject here
+	GameObjectManager* GOM = CurrentScene->GetGameObjectManager();
+	std::vector<GameObject*> GOList = *(GOM->GetGOList());
+	for (unsigned i = 0; i < GOList.size(); ++i)
+	{
+		GOList[i]->Update(dt);
+	}
+
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
 	// Log

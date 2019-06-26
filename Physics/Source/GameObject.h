@@ -25,6 +25,7 @@ public:
 	ComponentBase* AddComponent(ComponentBase* comp);
 	bool IsActive();
 	Transform* GetTransform();
+	void Update(double dt);
 
 	// Duplicated from component
 	template <class t>

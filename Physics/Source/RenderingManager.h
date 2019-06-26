@@ -2,12 +2,18 @@
 #define SCENE_ASTEROID_H
 
 #include "RenderingManagerBase.h"
-#include "GL\glew.h"
+//Include GLEW
+#include <GL/glew.h>
+
+//Include GLFW
+#include <GLFW/glfw3.h>
 
 #include "GameObject.h"
 #include "GameObjectManager.h"
 #include "DataContainer.h"
 #include "Scene.h"
+#include "SceneManager.h"
+#include "Locator.h"
 
 #include <vector>
 #include <sstream>
@@ -16,6 +22,7 @@ class RenderingManager : public RenderingManagerBase
 {
 	friend class Engine;
 public:
+	virtual void SetMouseCallback(GLFWwindow* window) override;
 protected:
 	RenderingManager();
 	virtual ~RenderingManager();

@@ -1,8 +1,9 @@
 #pragma once
 #include "Scene.h"
 #include "TestScene.h"
+#include "Singleton.h"
 
-class SceneManager
+class SceneManager : public Singleton<SceneManager>
 {
 private:
 	static Scene* m_CurrentScene;

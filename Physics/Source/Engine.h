@@ -10,11 +10,15 @@
 #include "Locator.h"
 #include "WindowData.h"
 
+#include <vector>
+
 #define LOG_UPDATE_RATE 1
 
 class Engine
 {
 	friend class Application;
+public:
+	void SetMouseCallback(GLFWwindow* window);
 private:
 	Engine();
 	~Engine();

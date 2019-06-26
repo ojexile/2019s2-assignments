@@ -117,6 +117,9 @@ void Application::Init()
 
 	// Engine
 	m_Engine.Init();
+	m_Engine.SetMouseCallback(m_window);
+	// Camera
+	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void Application::Run()

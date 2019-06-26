@@ -21,7 +21,7 @@ Camera* Scene::GetCamera()
 {
 	return m_Camera;
 }
-GameObjectManager& Scene::GetGameObjectManager()
+GameObjectManager* Scene::GetGameObjectManager()
 {
-	return m_GameObjectManager;
+	return &m_GameObjectManager;
 }
