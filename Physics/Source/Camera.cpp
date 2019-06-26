@@ -44,6 +44,7 @@ void Camera::UpdateFirstPersonView(double dt, Vector3 vPos)
 	m_vTarget.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
 	m_vTarget.Normalize();
 
+	m_vTarget += vPos;
 }
 void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 {

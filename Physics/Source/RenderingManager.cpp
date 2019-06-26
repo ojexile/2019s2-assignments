@@ -58,8 +58,8 @@ void RenderingManager::Render(Scene* scene)
 
 	// Projection matrix : Orthographic Projection
 	Mtx44 projection;
-	projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
-	//projection.SetToPerspective(45, 45, 1, 100);
+	//projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
+	projection.SetToPerspective(45, 45, 1, 100);
 	projectionStack.LoadMatrix(projection);
 	// Camera matrix
 	viewStack.LoadIdentity();

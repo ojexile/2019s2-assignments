@@ -4,7 +4,7 @@
 
 #define TRUNC_FILE_PATH(PATH)	std::string(PATH).substr(std::string(PATH).find_last_of("\\") + 1)
 
-#define LOG(sLog)				.Log(std::string(sLog) + " at " __FUNCTION__ + " " + TRUNC_FILE_PATH(__FILE__) )
+#define LOG(sLog)				.Log(std::string(sLog) + " at " __FUNCTION__ + " in " + TRUNC_FILE_PATH(__FILE__) )
 #define CHENG_LOG(sLog)			Locator::ChengLogger LOG(sLog)
 #define DEFAULT_LOG(sLog)		Locator::DefaultLogger LOG(sLog)
 #define RYAN_LOG(sLog)			Locator::RyanLogger LOG(sLog)

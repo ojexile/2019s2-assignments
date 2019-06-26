@@ -17,7 +17,7 @@ void RenderingManagerBase::Init()
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
 
-	glEnable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
