@@ -14,10 +14,10 @@ void TestScene::Init()
 	m_CameraGO->GetTransform()->SetPosition(0, 0, 0);
 	m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
 	// Square
-	 GameObject* square = m_GameObjectManager.AddGameObject(new GameObject);
-	 Transform* squareTrans = square->GetTransform();
-	 squareTrans->SetPosition(10, 10, -50);
-	 RenderComponent* squareRender = new RenderComponent(dataContainer->GetMesh("CUBE"));
-	 square->AddComponent(squareRender);
+	GameObject* square = m_GameObjectManager.AddGameObject(new GameObject);
+	Transform* squareTrans = square->GetTransform();
+	squareTrans->SetPosition(10, 10, -10);
+	RenderComponent* squareRender = new RenderComponent(dataContainer->GetMesh("CUBE"));
+	square->AddComponent(squareRender);
 	//
 }

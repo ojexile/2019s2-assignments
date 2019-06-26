@@ -5,7 +5,7 @@
 #include "Singleton.h"
 #include <map>
 #include <string>
-
+#include "LoadTGA.h"
 #include "MeshBuilder.h"
 
 class DataContainer : public Singleton<DataContainer>

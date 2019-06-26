@@ -63,15 +63,6 @@
     <Filter Include="Header Files\GameObject\Component">
       <UniqueIdentifier>{01fd5caf-5b07-4b01-af08-5b9b8777dca9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\DataContainer">
-      <UniqueIdentifier>{486070f2-07b2-492f-bdb4-55e527f97dff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Print">
-      <UniqueIdentifier>{d9267b3e-44ea-4daf-91fb-663151cf3d12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Print">
-      <UniqueIdentifier>{6d806408-c14e-4e98-bfb5-bda2692aa8c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Misc">
       <UniqueIdentifier>{bd4d5cf6-9915-4d46-8923-2b1ffb6df798}</UniqueIdentifier>
     </Filter>
@@ -80,6 +71,9 @@
     </Filter>
     <Filter Include="Header Files\Logger">
       <UniqueIdentifier>{96f02d2a-586a-49cc-9a69-06e9a48ee2f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{9256703a-3441-4146-bfbd-f457b16c9648}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +125,6 @@
     <ClCompile Include="Source\GameObjectManager.cpp">
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DataContainer.cpp">
-      <Filter>Source Files\DataContainer</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ComponentBase.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -155,14 +146,17 @@
     <ClCompile Include="Source\Logger.cpp">
       <Filter>Source Files\Logger</Filter>
     </ClCompile>
-    <ClCompile Include="Source\WindowData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\CameraComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\LogData.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WindowData.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DataContainer.cpp">
+      <Filter>Source Files\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,7 +257,7 @@
       <Filter>Header Files\Logger</Filter>
     </ClInclude>
     <ClInclude Include="Source\WindowData.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Misc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

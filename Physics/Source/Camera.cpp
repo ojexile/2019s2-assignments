@@ -4,11 +4,10 @@
 
 Camera::Camera()
 {
-
 	Reset();
-	m_fCamSpeed = 1;
+	m_fCamSpeed = 0.2f;
 	m_fPitch = 0;
-	m_fYaw = 0;
+	m_fYaw = 270;
 	m_bIsFirstMouseMove = true;
 }
 
@@ -30,7 +29,6 @@ void Camera::Reset()
 
 void Camera::Update(double dt)
 {
-
 }
 void Camera::UpdateFirstPersonView(double dt, Vector3 vPos)
 {
@@ -42,9 +40,27 @@ void Camera::UpdateFirstPersonView(double dt, Vector3 vPos)
 	m_vTarget.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
 	m_vTarget.y = sin(Math::DegreeToRadian(m_fPitch));
 	m_vTarget.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
-	m_vTarget.Normalize();
 
+	const float speed = 1000.f * (float)dt;
+	if (Application::IsKeyPressed(VK_LEFT))
+	{
+		m_fYaw -= speed * (float)dt;
+	}
+	if (Application::IsKeyPressed(VK_RIGHT))
+	{
+		m_fYaw += speed * (float)dt;
+	}
+	if (Application::IsKeyPressed(VK_UP))
+	{
+		m_fPitch += speed * (float)dt;
+	}
+	if (Application::IsKeyPressed(VK_DOWN))
+	{
+		m_fPitch -= speed * (float)dt;
+	}
 	m_vTarget += vPos;
+	if (!m_vTarget.IsZero())
+		m_vTarget.Normalize();
 }
 void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 {
@@ -60,9 +76,10 @@ void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 	m_fLastX = xpos;
 	m_fLastY = ypos;
 
+	// TODO camera movement bound to frame rate not time
 	xoffset *= this->m_fCamSpeed;
 	yoffset *= this->m_fCamSpeed;
 
 	m_fYaw += xoffset;
 	m_fPitch += yoffset;
-}	
+}

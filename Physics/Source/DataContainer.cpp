@@ -3,7 +3,9 @@
 DataContainer::DataContainer()
 {
 	m_map_Meshes["QUAD"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 5);
-	m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
+	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
+	m_map_Meshes["CUBE"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/cube.obj");
+	m_map_Meshes["CUBE"]->textureID = LoadTGA("textures/cube.tga");
 }
 
 DataContainer::~DataContainer()

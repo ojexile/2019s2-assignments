@@ -1,9 +1,10 @@
 #include "CameraComponent.h"
+#include "Application.h"
 
 CameraComponent::CameraComponent()
 {
 	m_eCameraType = CAM_NONE;
-	m_Camera.Init( Vector3(0, 0, 0), Vector3(0, 1, 0));
+	m_Camera.Init(Vector3(0, 0, 0), Vector3(0, 1, 0));
 }
 
 CameraComponent::~CameraComponent()
@@ -17,7 +18,8 @@ Camera* CameraComponent::GetCamera()
 
 void CameraComponent::Update(double dt)
 {
-	Vector3 vPos = GetComponent<Transform>()->GetPosition();
+	Transform* Trans = GetComponent<Transform>();
+	Vector3 vPos = Trans->GetPosition();
 	switch (m_eCameraType)
 	{
 	case CameraComponent::CAM_NONE:

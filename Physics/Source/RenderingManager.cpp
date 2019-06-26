@@ -59,7 +59,7 @@ void RenderingManager::Render(Scene* scene)
 	// Projection matrix : Orthographic Projection
 	Mtx44 projection;
 	//projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
-	projection.SetToPerspective(45, 45, 1, 100);
+	projection.SetToPerspective(45, 16.f / 9.f, 1, 100);
 	projectionStack.LoadMatrix(projection);
 	// Camera matrix
 	viewStack.LoadIdentity();
@@ -68,6 +68,11 @@ void RenderingManager::Render(Scene* scene)
 		Camera->m_vTarget.x, Camera->m_vTarget.y, Camera->m_vTarget.z,
 		Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z
 	);
+	std::stringstream ss;
+	ss.precision(1);
+	ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
+	std::string target = ss.str();
+	DEFAULT_LOG("TARGET: ", ss.str());
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
@@ -83,7 +88,7 @@ void RenderingManager::Render(Scene* scene)
 		Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
 		if (!CurrentMesh)
 		{
-			DEFAULT_LOG ("ERROR: Mesh uninitialised." );
+			DEFAULT_LOG("ERROR: Mesh uninitialised.");
 			continue;
 		}
 		modelStack.PushMatrix();

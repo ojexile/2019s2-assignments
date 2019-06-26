@@ -8,7 +8,7 @@ Logger::~Logger()
 {
 }
 
-void Logger::Log(std::string s)
+void Logger::Log(std::string s, std::string sOptional)
 {
 	// check if exists
 	for (unsigned i = 0; i < m_vec_LogList.size(); i++)
@@ -16,10 +16,11 @@ void Logger::Log(std::string s)
 		if (m_vec_LogList[i].m_sLog == s)
 		{
 			++m_vec_LogList[i].m_iNumCalls;
+			m_vec_LogList[i].m_sOptional = sOptional;
 			return;
 		}
 	}
-	m_vec_LogList.push_back(LogData(s));
+	m_vec_LogList.push_back(LogData(s, sOptional));
 }
 
 int Logger::PrintLogs(int iYOffset)
@@ -36,7 +37,7 @@ int Logger::PrintLogs(int iYOffset)
 		const int WINDOW_CHAR_LENGTH = WINDOW_LENGTH / (int)WinData->GetFontSize().x;
 		iYOffset += log.m_sLog.size() / WINDOW_CHAR_LENGTH;
 		// Print
-		std::cout << log.m_iNumCalls << "  " << log.m_sLog << '\n';
+		std::cout << log.m_iNumCalls << "  " << log.m_sLog << log.m_sOptional << '\n';
 	}
 	return iYOffset;
 }

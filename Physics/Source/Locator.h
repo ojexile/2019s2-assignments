@@ -4,12 +4,12 @@
 
 #define TRUNC_FILE_PATH(PATH)	std::string(PATH).substr(std::string(PATH).find_last_of("\\") + 1)
 
-#define LOG(sLog)				.Log(std::string(sLog) + " at " __FUNCTION__ + " in " + TRUNC_FILE_PATH(__FILE__) )
-#define CHENG_LOG(sLog)			Locator::ChengLogger LOG(sLog)
-#define DEFAULT_LOG(sLog)		Locator::DefaultLogger LOG(sLog)
-#define RYAN_LOG(sLog)			Locator::RyanLogger LOG(sLog)
-#define KZ_LOG(sLog)			Locator::KZLogger LOG(sLog)
-#define LZ_LOG(sLog)			Locator::LZLogger LOG(sLog)
+#define LOG(...)				.Log(__VA_ARGS__ + std::string(" at ") + std::string(__FUNCTION__) + std::string(" in ") + TRUNC_FILE_PATH(__FILE__) )
+#define CHENG_LOG(...)			Locator::ChengLogger LOG(__VA_ARGS__)
+#define DEFAULT_LOG(...)		Locator::DefaultLogger LOG(__VA_ARGS__)
+#define RYAN_LOG(...)			Locator::RyanLogger LOG(__VA_ARGS__)
+#define KZ_LOG(...)				Locator::KZLogger LOG(__VA_ARGS__)
+#define LZ_LOG(...)				Locator::LZLogger LOG(__VA_ARGS__)
 
 class Locator
 {
