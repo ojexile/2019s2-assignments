@@ -6,7 +6,7 @@ Camera::Camera()
 {
 
 	Reset();
-	m_fCamSpeed = 5;
+	m_fCamSpeed = 1;
 	m_fPitch = 0;
 	m_fYaw = 0;
 	m_bIsFirstMouseMove = true;

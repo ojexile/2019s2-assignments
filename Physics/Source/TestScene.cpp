@@ -11,7 +11,7 @@ void TestScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	// Set up camera
-	m_CameraGO->GetTransform()->SetPosition(0, 0, 5);
+	m_CameraGO->GetTransform()->SetPosition(0, 0, 10);
 	m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
 	// Square
 	 GameObject* square = m_GameObjectManager.AddGameObject(new GameObject);
