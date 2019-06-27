@@ -78,9 +78,6 @@
     <Filter Include="Source Files\Logger">
       <UniqueIdentifier>{bd12be47-4de7-4acf-b67f-6790682fbc36}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Logger">
-      <UniqueIdentifier>{96f02d2a-586a-49cc-9a69-06e9a48ee2f9}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\LoadOBJ.cpp">
@@ -137,9 +134,6 @@
     <ClCompile Include="Source\ComponentBase.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Transform.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SceneManager.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -151,6 +145,21 @@
     </ClCompile>
     <ClCompile Include="Source\TransformComponent.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CameraComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Locator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LogData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WindowData.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,9 +232,6 @@
     <ClInclude Include="Source\DataContainer.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Transform.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Singleton.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
@@ -243,6 +249,18 @@
     </ClInclude>
     <ClInclude Include="Source\TransformComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Locator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LogData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WindowData.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

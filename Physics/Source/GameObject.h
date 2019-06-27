@@ -3,7 +3,6 @@
 
 #include "Vector3.h"
 #include "ComponentBase.h"
-#include "Transform.h"
 #include "RenderComponent.h"
 #include "TransformComponent.h"
 
