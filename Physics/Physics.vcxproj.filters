@@ -149,20 +149,8 @@
     <ClCompile Include="Source\RenderComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Locator.cpp">
-      <Filter>Source Files\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Logger.cpp">
-      <Filter>Source Files\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\WindowData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CameraComponent.cpp">
+    <ClCompile Include="Source\TransformComponent.cpp">
       <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LogData.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,17 +241,8 @@
     <ClInclude Include="Source\RenderComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Locator.h">
-      <Filter>Header Files\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LogData.h">
-      <Filter>Header Files\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Logger.h">
-      <Filter>Header Files\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\WindowData.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Source\TransformComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

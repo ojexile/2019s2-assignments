@@ -30,7 +30,7 @@ void RenderingManager::Render(Scene* scene)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	GameObject* CameraObject = scene->GetCameraGameObject();
-	Vector3 vCamPosition = CameraObject->GetTransform()->GetPosition();
+	Vector3 vCamPosition = CameraObject->GetComponent<TransformComponent>()->GetPosition();
 	Camera* Camera = scene->GetCamera();
 	// TODO proper target == pos handling
 	if (vCamPosition == Camera->target)
@@ -74,15 +74,16 @@ void RenderingManager::Render(Scene* scene)
 		}
 		modelStack.PushMatrix();
 
-		Vector3 vGameObjectPosition = go->GetTransform()->GetPosition();
-		Vector3 vGameObjectRotation = go->GetTransform()->GetRotation();
-		Vector3 vGameObjectScale = go->GetTransform()->GetScale();
+		Vector3 vGameObjectPosition = go->GetComponent<TransformComponent>()->GetPosition();
+		Vector3 vGameObjectRotation = go->GetComponent<TransformComponent>()->GetRotation();
+		float fGameObjectRotationDegrees = go->GetComponent<TransformComponent>()->GetDegrees();
+		Vector3 vGameObjectScale = go->GetComponent<TransformComponent>()->GetScale();
 
 		// TODO Rotations
 		// TODO correct order to tranformations
 		modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
-
+		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 		// DataContainer* dataContainer = DataContainer::GetInstance();
 		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 

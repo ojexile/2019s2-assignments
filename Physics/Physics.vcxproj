@@ -177,6 +177,7 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\TestScene.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
+    <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WindowData.cpp" />
   </ItemGroup>
@@ -211,6 +212,7 @@
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\TestScene.h" />
     <ClInclude Include="Source\Transform.h" />
+    <ClInclude Include="Source\TransformComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WindowData.h" />
