@@ -45,13 +45,22 @@ void GameObject::Update(double dt)
 	}
 	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
+		// Update pos
+		m_vec_ChildList[i]->GetComponent<TransformComponent>()
+			->SetPosition(
+				this->GetComponent<TransformComponent>()->GetPosition()
+				+ m_vec_ChildList[i]->GetComponent<TransformComponent>()->GetRelativePosition());
 		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
 		{
-			m_vec_ChildList[i]->m_vec_ComponentList[i]->Update(dt);
+			m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
 		}
 	}
 }
 void GameObject::AddChild(GameObject* go)
 {
 	m_vec_ChildList.push_back(go);
+}
+std::vector<GameObject*>* GameObject::GetChildList()
+{
+	return &m_vec_ChildList;
 }

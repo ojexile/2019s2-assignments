@@ -25,26 +25,26 @@ void PlayerScript::Update(double dt)
 
 	if (Application::IsKeyPressed('W'))
 	{
-		trans->translateObject(fSpeed * vDirFront);
+		trans->Translate(fSpeed * vDirFront);
 	}
 	if (Application::IsKeyPressed('S'))
 	{
-		trans->translateObject(-fSpeed * vDirFront);
+		trans->Translate(-fSpeed * vDirFront);
 	}
 	if (Application::IsKeyPressed('A'))
 	{
-		trans->translateObject(-fSpeed * vRight);
+		trans->Translate(-fSpeed * vRight);
 	}
 	if (Application::IsKeyPressed('D'))
 	{
-		trans->translateObject(fSpeed * vRight);
+		trans->Translate(fSpeed * vRight);
 	}
 	if (Application::IsKeyPressed('E'))
 	{
-		trans->translateObject(fSpeed * *m_vCameraUp);
+		trans->Translate(fSpeed * *m_vCameraUp);
 	}
 	if (Application::IsKeyPressed('Q'))
 	{
-		trans->translateObject(-fSpeed * *m_vCameraUp);
+		trans->Translate(-fSpeed * *m_vCameraUp);
 	}
 }

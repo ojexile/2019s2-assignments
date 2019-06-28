@@ -89,8 +89,11 @@ void RenderingManager::Render(Scene* scene)
 	std::stringstream ss;
 	ss.precision(1);
 	ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
-	std::string target = ss.str();
-	DEFAULT_LOG("TARGET: ", ss.str());
+	CHENG_LOG("TARGET: ", ss.str());
+	std::stringstream ss2;
+	ss2.precision(1);
+	ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
+	CHENG_LOG("CAM POS: ", ss2.str());
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
@@ -98,33 +101,43 @@ void RenderingManager::Render(Scene* scene)
 	std::vector<GameObject*> GOList = *(scene->GetGameObjectManager()->GetGOList());
 	for (unsigned i = 0; i < GOList.size(); ++i)
 	{
-		GameObject* go = (GOList)[i];
+		GameObject* go = GOList[i];
 		if (!go->IsActive())
 			continue;
-		if (go->GetComponent<RenderComponent>(true) == nullptr)
-			continue;
-		Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
-		if (!CurrentMesh)
+
+		RenderGameObject(go);
+		for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
 		{
-			continue;
+			GameObject* goChild = GOList[i];
+			if (!go->IsActive())
+				continue;
+			RenderGameObject(goChild);
 		}
-		modelStack.PushMatrix();
-
-		Vector3 vGameObjectPosition = go->GetComponent<TransformComponent>()->GetPosition();
-		Vector3 vGameObjectRotation = go->GetComponent<TransformComponent>()->GetRotation();
-		float fGameObjectRotationDegrees = go->GetComponent<TransformComponent>()->GetDegrees();
-		Vector3 vGameObjectScale = go->GetComponent<TransformComponent>()->GetScale();
-
-		// TODO Rotations
-		modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
-		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
-		if (fGameObjectRotationDegrees != 0)
-			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-
-		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
-
-		modelStack.PopMatrix();
 	}
+}
+void RenderingManager::RenderGameObject(GameObject* go)
+{
+	if (go->GetComponent<RenderComponent>(true) == nullptr)
+		return;
+	Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
+	if (!CurrentMesh)
+	{
+		DEFAULT_LOG("Mesh not initialised");
+		return;
+	}
+	modelStack.PushMatrix();
+	Vector3 vGameObjectPosition = go->GetComponent<TransformComponent>()->GetPosition();
+	Vector3 vGameObjectRotation = go->GetComponent<TransformComponent>()->GetRotation();
+	float fGameObjectRotationDegrees = go->GetComponent<TransformComponent>()->GetDegrees();
+	Vector3 vGameObjectScale = go->GetComponent<TransformComponent>()->GetScale();
+
+	modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
+	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
+	if (fGameObjectRotationDegrees != 0)
+		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
+
+	RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
+	modelStack.PopMatrix();
 }
 void RenderingManager::Exit()
 {

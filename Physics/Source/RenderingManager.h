@@ -30,6 +30,7 @@ protected:
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render(Scene* scene);
+	void RenderGameObject(GameObject* go);
 	virtual void Exit();
 	float m_speed;
 	float m_worldWidth;

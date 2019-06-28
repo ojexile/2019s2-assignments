@@ -45,6 +45,7 @@ public:
 		return nullptr;
 	};
 	void AddChild(GameObject* go);
+	std::vector<GameObject*>* GetChildList();
 };
 
 #endif
