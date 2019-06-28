@@ -56,10 +56,28 @@ void RenderingManager::Render(Scene* scene)
 	// m_worldHeight = 100.f;
 	// m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
-	// Projection matrix : Orthographic Projection
+	// Projection matrix
 	Mtx44 projection;
-	//projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
-	projection.SetToPerspective(45, 16.f / 9.f, 1, 100);
+	switch (CameraObject->GetComponent<CameraComponent>()->GetCameraType())
+	{
+	case CameraComponent::CAM_NONE:
+		DEFAULT_LOG("Camera type not initialised.");
+		__debugbreak();
+		break;
+	case CameraComponent::CAM_FIRST:
+	case CameraComponent::CAM_CUSTOM_PERSPECT:
+		projection.SetToPerspective(45, 16.f / 9.f, 1, 100);
+		break;
+	case CameraComponent::CAM_ORTHO:
+	case CameraComponent::CAM_CUSTOM_ORTHO:
+		projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
+		break;
+	default:
+		DEFAULT_LOG("Camera type not unknown.");
+		__debugbreak();
+		break;
+	}
+
 	projectionStack.LoadMatrix(projection);
 	// Camera matrix
 	viewStack.LoadIdentity();
@@ -83,7 +101,7 @@ void RenderingManager::Render(Scene* scene)
 		GameObject* go = (GOList)[i];
 		if (!go->IsActive())
 			continue;
-		if (go->GetComponent<RenderComponent>() == nullptr)
+		if (go->GetComponent<RenderComponent>(true) == nullptr)
 			continue;
 		Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
 		if (!CurrentMesh)
@@ -100,7 +118,8 @@ void RenderingManager::Render(Scene* scene)
 		// TODO Rotations
 		modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
-		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
+		if (fGameObjectRotationDegrees != 0)
+			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 
 		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 

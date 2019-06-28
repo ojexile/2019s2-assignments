@@ -27,10 +27,6 @@ void CameraComponent::Update(double dt)
 	case CameraComponent::CAM_FIRST:
 		m_Camera.UpdateFirstPersonView(dt, vPos);
 		break;
-	case CameraComponent::CAM_THIRD:
-		break;
-	case CameraComponent::CAM_CUSTOM:
-		break;
 	default:
 		break;
 	}
@@ -57,4 +53,8 @@ void CameraComponent::Update(double dt)
 void CameraComponent::SetCameraType(eCameraTypes eCameratype)
 {
 	m_eCameraType = eCameratype;
+}
+CameraComponent::eCameraTypes CameraComponent::GetCameraType()
+{
+	return m_eCameraType;
 }

@@ -10,8 +10,9 @@ public:
 	{
 		CAM_NONE,
 		CAM_FIRST,
-		CAM_THIRD,
-		CAM_CUSTOM,
+		CAM_ORTHO,
+		CAM_CUSTOM_PERSPECT,
+		CAM_CUSTOM_ORTHO,
 	};
 private:
 	eCameraTypes m_eCameraType;
@@ -23,4 +24,5 @@ public:
 	virtual void Update(double dt) override;
 	Camera* GetCamera();
 	void SetCameraType(eCameraTypes eCameratype);
+	eCameraTypes GetCameraType();
 };

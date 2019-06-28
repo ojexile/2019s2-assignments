@@ -40,7 +40,6 @@ public:
 		if (!bOptional)
 		{
 			DEFAULT_LOG("Component of type " + sTypeName + " not found");
-			DEFAULT_LOG("agy of type " + sTypeName + " not found");
 		}
 		return nullptr;
 	};

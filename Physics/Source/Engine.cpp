@@ -38,10 +38,10 @@ void Engine::Init()
 	cfi.dwFontSize.Y = (SHORT)windowData->GetFontSize().y;                  // Height
 	cfi.FontFamily = FF_DONTCARE;
 	cfi.FontWeight = FW_NORMAL;
-	std::wcscpy(cfi.FaceName, L"Consolas"); // Choose your font
+	//std::wcscpy(cfi.FaceName, L"Consolas"); // Choose your font
 	SetCurrentConsoleFontEx(output, FALSE, &cfi);
 	//color
-	SHORT color = 0x0C;
+	SHORT color = 0x0F;
 	SetConsoleTextAttribute(output, color);
 	// Hide cursor
 	CONSOLE_CURSOR_INFO ci;

@@ -5,6 +5,7 @@ TransformComponent::TransformComponent()
 	m_vPosition.SetZero();
 	m_vRotateAxis.SetZero();
 	m_vScale.Set(1, 1, 1);
+	m_fdegrees = 0.f;
 }
 
 TransformComponent::TransformComponent(Vector3 pos)
@@ -12,6 +13,7 @@ TransformComponent::TransformComponent(Vector3 pos)
 	m_vPosition.Set(pos.x, pos.y, pos.z);
 	m_vRotateAxis.SetZero();
 	m_vScale.Set(1, 1, 1);
+	m_fdegrees = 0.f;
 }
 
 TransformComponent::~TransformComponent()
