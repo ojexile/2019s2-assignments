@@ -28,6 +28,10 @@ public:
 	virtual void Reset();
 	virtual void Update(double dt);
 	void UpdateYawPitchMouse(float xpos, float ypos);
+
+	// Getters
+	Vector3* GetTarget();
+	Vector3* GetUp();
 };
 
 #endif

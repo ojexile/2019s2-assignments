@@ -14,6 +14,7 @@ public:
 
 	std::vector<GameObject*>* GetGOList();
 	GameObject* AddGameObject(GameObject* go);
+	GameObject* AddGameObject();
 
 	void ClearGameObjects();
 };

@@ -87,6 +87,12 @@
     <Filter Include="Source Files\Application\Scene\Base">
       <UniqueIdentifier>{dabeed8d-5f68-4888-abc3-993dfc201a41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scripts">
+      <UniqueIdentifier>{04b66ecb-8bef-4550-8299-870232253bea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scripts">
+      <UniqueIdentifier>{e2891f93-248a-4b5f-a7ba-cb3e61a49ae8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\LoadOBJ.cpp">
@@ -171,7 +177,10 @@
       <Filter>Source Files\Application\Scene\Base</Filter>
     </ClCompile>
     <ClCompile Include="Source\ScriptComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Application\Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayerScript.cpp">
+      <Filter>Source Files\Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,7 +284,10 @@
       <Filter>Header Files\Application\Engine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Source\ScriptComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Application\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerScript.h">
+      <Filter>Header Files\Scripts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

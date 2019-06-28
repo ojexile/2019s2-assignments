@@ -83,3 +83,12 @@ void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 	m_fYaw += xoffset;
 	m_fPitch += yoffset;
 }
+// Getters
+Vector3* Camera::GetTarget()
+{
+	return &m_vTarget;
+}
+Vector3* Camera::GetUp()
+{
+	return &m_vUp;
+}

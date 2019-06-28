@@ -17,6 +17,7 @@ private:
 	bool m_bStatic;
 	bool m_bActive;
 	std::vector<ComponentBase*> m_vec_ComponentList;
+	std::vector<GameObject*> m_vec_ChildList;
 	//Transform* m_Transform;
 public:
 	GameObject();
@@ -43,6 +44,7 @@ public:
 		}
 		return nullptr;
 	};
+	void AddChild(GameObject* go);
 };
 
 #endif

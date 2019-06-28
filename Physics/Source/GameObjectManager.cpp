@@ -25,6 +25,12 @@ GameObject* GameObjectManager::AddGameObject(GameObject* go)
 	m_vec_GOList.push_back(go);
 	return go;
 }
+GameObject* GameObjectManager::AddGameObject()
+{
+	GameObject* go = new GameObject;
+	m_vec_GOList.push_back(go);
+	return go;
+}
 
 void GameObjectManager::ClearGameObjects()
 {
