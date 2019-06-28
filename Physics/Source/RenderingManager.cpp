@@ -45,7 +45,6 @@ void RenderingManager::Render(Scene* scene)
 	Vector3 vCamPosition = CameraObject->GetComponent<TransformComponent>()->GetPosition();
 	if (!CameraObject)
 		return;
-	Vector3 vCamPosition = CameraObject->GetTransform()->GetPosition();
 	Camera* Camera = scene->GetCamera();
 	// TODO proper target == pos handling
 	if (vCamPosition == Camera->m_vTarget)
@@ -78,7 +77,7 @@ void RenderingManager::Render(Scene* scene)
 	modelStack.LoadIdentity();
 
 	// Render loops goes here
-	std::vector<GameObject*> GOList = *scene->GetGameObjectManager().GetGOList();
+	std::vector<GameObject*> GOList = *(scene->GetGameObjectManager()->GetGOList());
 	for (unsigned i = 0; i < GOList.size(); ++i)
 	{
 		GameObject* go = (GOList)[i];

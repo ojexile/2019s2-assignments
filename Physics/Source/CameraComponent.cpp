@@ -18,7 +18,7 @@ Camera* CameraComponent::GetCamera()
 
 void CameraComponent::Update(double dt)
 {
-	Transform* Trans = GetComponent<Transform>();
+	TransformComponent* Trans = GetComponent<TransformComponent>();
 	Vector3 vPos = Trans->GetPosition();
 	switch (m_eCameraType)
 	{

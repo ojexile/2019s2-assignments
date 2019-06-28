@@ -24,8 +24,6 @@ public:
 
 	ComponentBase* AddComponent(ComponentBase* comp);
 	bool IsActive();
-	//Transform* GetTransform();
-	Transform* GetTransform();
 	void Update(double dt);
 
 	// Duplicated from component
@@ -39,11 +37,10 @@ public:
 				return out;
 		}
 		std::string sTypeName = typeid(t).name();
-		// Locator::GetLogger(Locator::CHENG).Log("No component of type " + sTypeName + " found.");
 		if (!bOptional)
 		{
 			DEFAULT_LOG("Component of type " + sTypeName + " not found");
-		DEFAULT_LOG("agy of type " + sTypeName + " not found");
+			DEFAULT_LOG("agy of type " + sTypeName + " not found");
 		}
 		return nullptr;
 	};

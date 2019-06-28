@@ -2,7 +2,6 @@
 #define CAMERA_H
 
 #include "Vector3.h"
-#include "Transform.h"
 
 class Camera
 {
