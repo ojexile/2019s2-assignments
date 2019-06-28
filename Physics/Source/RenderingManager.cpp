@@ -57,7 +57,7 @@ void RenderingManager::Render(Scene* scene)
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
-	// TODO Render loops goes here
+	// Render loops goes here
 	std::vector<GameObject*> GOList = *scene->GetGameObjectManager().GetGOList();
 	for (unsigned i = 0; i < GOList.size(); ++i)
 	{
@@ -69,7 +69,6 @@ void RenderingManager::Render(Scene* scene)
 		Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
 		if (!CurrentMesh)
 		{
-			std::cout << "ERROR: Mesh uninitialised." << std::endl;
 			continue;
 		}
 		modelStack.PushMatrix();
@@ -80,11 +79,10 @@ void RenderingManager::Render(Scene* scene)
 		Vector3 vGameObjectScale = go->GetComponent<TransformComponent>()->GetScale();
 
 		// TODO Rotations
-		// TODO correct order to tranformations
 		modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
 		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-		// DataContainer* dataContainer = DataContainer::GetInstance();
+
 		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 
 		modelStack.PopMatrix();

@@ -1,7 +1,5 @@
 #include "TransformComponent.h"
 
-
-
 TransformComponent::TransformComponent()
 {
 	m_vPosition.SetZero();
@@ -16,10 +14,8 @@ TransformComponent::TransformComponent(Vector3 pos)
 	m_vScale.Set(1, 1, 1);
 }
 
-
 TransformComponent::~TransformComponent()
 {
-
 }
 
 /*****
@@ -28,7 +24,6 @@ Update
 
 void TransformComponent::Update(double dt)
 {
-
 }
 
 /***************
