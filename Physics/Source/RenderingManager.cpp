@@ -42,6 +42,7 @@ void RenderingManager::Render(Scene* scene)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	GameObject* CameraObject = scene->GetCameraGameObject();
+	Vector3 vCamPosition = CameraObject->GetComponent<TransformComponent>()->GetPosition();
 	if (!CameraObject)
 		return;
 	Vector3 vCamPosition = CameraObject->GetTransform()->GetPosition();
@@ -77,7 +78,7 @@ void RenderingManager::Render(Scene* scene)
 	modelStack.LoadIdentity();
 
 	// Render loops goes here
-	std::vector<GameObject*> GOList = *(scene->GetGameObjectManager()->GetGOList());
+	std::vector<GameObject*> GOList = *scene->GetGameObjectManager().GetGOList();
 	for (unsigned i = 0; i < GOList.size(); ++i)
 	{
 		GameObject* go = (GOList)[i];
@@ -88,21 +89,20 @@ void RenderingManager::Render(Scene* scene)
 		Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
 		if (!CurrentMesh)
 		{
-			DEFAULT_LOG("ERROR: Mesh uninitialised.");
 			continue;
 		}
 		modelStack.PushMatrix();
 
-		Vector3 vGameObjectPosition = go->GetTransform()->GetPosition();
-		Vector3 vGameObjectRotation = go->GetTransform()->GetRotation();
-		Vector3 vGameObjectScale = go->GetTransform()->GetScale();
+		Vector3 vGameObjectPosition = go->GetComponent<TransformComponent>()->GetPosition();
+		Vector3 vGameObjectRotation = go->GetComponent<TransformComponent>()->GetRotation();
+		float fGameObjectRotationDegrees = go->GetComponent<TransformComponent>()->GetDegrees();
+		Vector3 vGameObjectScale = go->GetComponent<TransformComponent>()->GetScale();
 
 		// TODO Rotations
-		// TODO correct order to tranformations
 		modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
+		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 
-		// DataContainer* dataContainer = DataContainer::GetInstance();
 		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 
 		modelStack.PopMatrix();

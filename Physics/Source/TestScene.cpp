@@ -11,13 +11,12 @@ void TestScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	// Set up camera
-	m_CameraGO->GetTransform()->SetPosition(0, 0, 0);
-	m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
+	m_CameraGO->GetComponent<TransformComponent>()->setPosition(0, 0, 0);
 	// Square
 	GameObject* square = m_GameObjectManager.AddGameObject(new GameObject);
-	Transform* squareTrans = square->GetTransform();
-	squareTrans->SetPosition(10, 10, -10);
-	RenderComponent* squareRender = new RenderComponent(dataContainer->GetMesh("CUBE"));
-	square->AddComponent(squareRender);
+	square->GetComponent<TransformComponent>()->setPosition(50, 50, 10);
+	square->GetComponent<TransformComponent>()->setScale(2, 2, 1);
+	square->GetComponent<TransformComponent>()->setRotation(45, 0, 1, 0);
+	square->AddComponent(new RenderComponent(dataContainer->GetMesh("CUBE")));
 	//
 }
