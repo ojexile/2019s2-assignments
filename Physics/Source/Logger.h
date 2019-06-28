@@ -11,10 +11,12 @@ class Logger
 {
 private:
 	std::vector<LogData> m_vec_LogList;
+	const SHORT m_Color;
+	std::string m_sUser;
 public:
-	Logger();
+	Logger(std::string sUser, SHORT Color);
 	~Logger();
 
-	void Log(std::string, std::string optional = "");
+	void Log(std::string slog, std::string optional = "");
 	int PrintLogs(int iYOffset);
 };

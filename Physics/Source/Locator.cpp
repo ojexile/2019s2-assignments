@@ -1,10 +1,10 @@
 #include "Locator.h"
 
-Logger Locator::DefaultLogger;
-Logger Locator::ChengLogger;
-Logger Locator::RyanLogger;
-Logger Locator::KZLogger;
-Logger Locator::LZLogger;
+Logger Locator::DefaultLogger("DEFAULT", 0x0F);
+Logger Locator::ChengLogger("CHENG", 0x0B);
+Logger Locator::RyanLogger("RYAN", 0x0C);
+Logger Locator::KZLogger("KZ", 0x0C);
+Logger Locator::LZLogger("LZ", 0x0C);
 
 Locator::Locator()
 {

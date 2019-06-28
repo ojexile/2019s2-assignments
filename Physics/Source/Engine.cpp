@@ -75,13 +75,33 @@ void Engine::Update(double dt)
 	m_Renderer->Render(CurrentScene);
 	// Log
 	m_fLogUpdateTimer += (float)dt;
+	CHENG_LOG("CHENG");
+	RYAN_LOG("RYAN");
+	KZ_LOG("KZ");
+	LZ_LOG("LZ");
 	if (m_fLogUpdateTimer >= LOG_UPDATE_RATE)
 	{
 		system("cls");
 		// Print current logger user
 		std::cout << "--------------" << "Current logger user is " << USER_S << "--------------" << std::endl;
-		int iYOffset = Locator::GetLogger(Locator::USER).PrintLogs(0);
-		Locator::GetLogger(Locator::DEFAULT).PrintLogs(iYOffset);
+		int iYOffset = 0;
+		switch (Locator::USER)
+		{
+		case Locator::ALL:
+		{
+			Locator::eLoggerUsers eCurrentUser = Locator::DEFAULT;
+			while (eCurrentUser != Locator::eLoggerUsers::ALL)
+			{
+				iYOffset = Locator::GetLogger(eCurrentUser).PrintLogs(iYOffset);
+				eCurrentUser = static_cast<Locator::eLoggerUsers>(eCurrentUser + 1);
+			}
+		}
+		break;
+		default:
+			iYOffset = Locator::GetLogger(Locator::DEFAULT).PrintLogs(iYOffset);
+			Locator::GetLogger(Locator::USER).PrintLogs(iYOffset);
+			break;
+		}
 		m_fLogUpdateTimer = 0;
 	}
 }
