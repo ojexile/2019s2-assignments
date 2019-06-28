@@ -6,4 +6,7 @@ class ScriptComponent :
 public:
 	ScriptComponent();
 	virtual ~ScriptComponent();
+
+	virtual void Update(double dt) = 0;
+	virtual void Start() = 0;
 };
