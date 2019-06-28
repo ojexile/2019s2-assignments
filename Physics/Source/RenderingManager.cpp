@@ -89,11 +89,14 @@ void RenderingManager::Render(Scene* scene)
 	std::stringstream ss;
 	ss.precision(1);
 	ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
-	CHENG_LOG("TARGET: ", ss.str());
+	CHENG_LOG("CAM TAR: ", ss.str());
 	std::stringstream ss2;
 	ss2.precision(1);
 	ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
 	CHENG_LOG("CAM POS: ", ss2.str());
+	ss.str("");
+	ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
+	CHENG_LOG("CAM DIR: ", ss.str());
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 

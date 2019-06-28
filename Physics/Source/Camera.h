@@ -9,6 +9,7 @@ class Camera
 	friend class RenderingManager;
 private:
 	Vector3 m_vTarget;
+	Vector3 m_vDir;
 	Vector3 m_vUp;
 
 	float m_fLastX;
@@ -32,6 +33,7 @@ public:
 	// Getters
 	Vector3* GetTarget();
 	Vector3* GetUp();
+	Vector3* GetDir();
 };
 
 #endif

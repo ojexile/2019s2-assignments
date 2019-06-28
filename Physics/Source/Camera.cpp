@@ -37,11 +37,11 @@ void Camera::UpdateFirstPersonView(double dt, Vector3 vPos)
 	if (m_fPitch < -80.0f)
 		m_fPitch = -80.0f;
 
-	m_vTarget.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
-	m_vTarget.y = sin(Math::DegreeToRadian(m_fPitch));
-	m_vTarget.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
+	m_vDir.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
+	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
+	m_vDir.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
 
-	const float speed = 1000.f * (float)dt;
+	/*const float speed = 1000.f * (float)dt;
 	if (Application::IsKeyPressed(VK_LEFT))
 	{
 		m_fYaw -= speed * (float)dt;
@@ -57,10 +57,8 @@ void Camera::UpdateFirstPersonView(double dt, Vector3 vPos)
 	if (Application::IsKeyPressed(VK_DOWN))
 	{
 		m_fPitch -= speed * (float)dt;
-	}
-	m_vTarget += vPos;
-	if (!m_vTarget.IsZero())
-		m_vTarget.Normalize();
+	}*/
+	m_vTarget = vPos + m_vDir;
 }
 void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 {
@@ -91,4 +89,8 @@ Vector3* Camera::GetTarget()
 Vector3* Camera::GetUp()
 {
 	return &m_vUp;
+}
+Vector3* Camera::GetDir()
+{
+	return &m_vDir;
 }

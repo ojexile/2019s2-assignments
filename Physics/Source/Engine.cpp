@@ -75,10 +75,10 @@ void Engine::Update(double dt)
 	m_Renderer->Render(CurrentScene);
 	// Log
 	m_fLogUpdateTimer += (float)dt;
-	CHENG_LOG("CHENG");
-	RYAN_LOG("RYAN");
-	KZ_LOG("KZ");
-	LZ_LOG("LZ");
+	//CHENG_LOG("CHENG");
+	//RYAN_LOG("RYAN");
+	//KZ_LOG("KZ");
+	//LZ_LOG("LZ");
 	if (m_fLogUpdateTimer >= LOG_UPDATE_RATE)
 	{
 		system("cls");
