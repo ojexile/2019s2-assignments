@@ -28,12 +28,14 @@ void TestScene::Init()
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
 	SkyPlane->GetComponent<TransformComponent>()->SetPosition(0, 100, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
+	//SkyPlane->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	//
 
 	// Terrain
 	GameObject* ground = m_GameObjectManager.AddGameObject();
 	ground->GetComponent<TransformComponent>()->SetScale(500, 20, 500);
 	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("TERRAIN")));
+	ground->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	//
 
 	//Player
