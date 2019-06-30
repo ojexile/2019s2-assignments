@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <iostream>
 #include <conio.h>
+#include <sstream>
 #include "LogData.h"
 #include "WindowData.h"
 
