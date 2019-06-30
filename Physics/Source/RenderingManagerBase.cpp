@@ -27,7 +27,7 @@ void RenderingManagerBase::Init()
 	glGenVertexArrays(1, &m_vertexArrayID);
 	glBindVertexArray(m_vertexArrayID);
 
-	m_programID = LoadShaders("Shader//comg.vertexshader", "Shader//comg.fragmentshader");
+	m_programID = LoadShaders("Shader//FOG.vertexshader", "Shader//FOG.fragmentshader");
 
 	// Get a handle for our uniform
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
@@ -58,6 +58,27 @@ void RenderingManagerBase::Init()
 	// Get a handle for our "textColor" uniform
 	m_parameters[U_TEXT_ENABLED] = glGetUniformLocation(m_programID, "textEnabled");
 	m_parameters[U_TEXT_COLOR] = glGetUniformLocation(m_programID, "textColor");
+
+	// Fog
+	m_parameters[U_FOG_COLOR] = glGetUniformLocation(m_programID, "fogParam.color");
+	m_parameters[U_FOG_START] = glGetUniformLocation(m_programID, "fogParam.start");
+	m_parameters[U_FOG_END] = glGetUniformLocation(m_programID, "fogParam.end");
+	m_parameters[U_FOG_DENSITY] = glGetUniformLocation(m_programID, "fogParam.density");
+	m_parameters[U_FOG_TYPE] = glGetUniformLocation(m_programID, "fogParam.type");
+	m_parameters[U_FOG_ENABLED] = glGetUniformLocation(m_programID, "fogParam.enabled");
+	m_parameters[U_FOCUS] = glGetUniformLocation(m_programID, "focus");
+	//texture
+	m_parameters[U_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_programID,
+		"colorTextureEnabled[0]");
+	m_parameters[U_COLOR_TEXTURE] = glGetUniformLocation(m_programID, "colorTexture[0]");
+
+	m_parameters[U_COLOR_TEXTURE_ENABLED1] = glGetUniformLocation(m_programID,
+		"colorTextureEnabled[1]");
+	m_parameters[U_COLOR_TEXTURE1] = glGetUniformLocation(m_programID, "colorTexture[1]");
+
+	m_parameters[U_COLOR_TEXTURE_ENABLED1] = glGetUniformLocation(m_programID,
+		"colorTextureEnabled[2]");
+	m_parameters[U_COLOR_TEXTURE1] = glGetUniformLocation(m_programID, "colorTexture[2]");
 
 	// Use our shader
 	glUseProgram(m_programID);
@@ -109,7 +130,7 @@ void RenderingManagerBase::Update(double dt)
 
 void RenderingManagerBase::RenderText(Mesh* mesh, std::string text, Color color)
 {
-	if (!mesh || mesh->textureID <= 0)
+	if (!mesh || mesh->m_uTextureArray[0] <= 0)
 		return;
 
 	glDisable(GL_DEPTH_TEST);
@@ -118,7 +139,7 @@ void RenderingManagerBase::RenderText(Mesh* mesh, std::string text, Color color)
 	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
 	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
+	glBindTexture(GL_TEXTURE_2D, mesh->m_uTextureArray[0]);
 	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
@@ -136,7 +157,7 @@ void RenderingManagerBase::RenderText(Mesh* mesh, std::string text, Color color)
 
 void RenderingManagerBase::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
-	if (!mesh || mesh->textureID <= 0)
+	if (!mesh || mesh->m_uTextureArray[0] <= 0)
 		return;
 
 	glDisable(GL_DEPTH_TEST);
@@ -155,7 +176,7 @@ void RenderingManagerBase::RenderTextOnScreen(Mesh* mesh, std::string text, Colo
 	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
 	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
+	glBindTexture(GL_TEXTURE_2D, mesh->m_uTextureArray[0]);
 	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
@@ -198,21 +219,27 @@ void RenderingManagerBase::RenderMesh(Mesh *mesh, bool enableLight)
 	{
 		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
 	}
-	if (mesh->textureID > 0)
+	for (int i = 0; i < MAX_TEXTURES; ++i)
 	{
-		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-		glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-	}
-	else
-	{
-		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
+		if (mesh->m_uTextureArray[i] > 0)
+		{
+			glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED + i], 1);
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, mesh->m_uTextureArray[i]);
+			glUniform1i(m_parameters[U_COLOR_TEXTURE + i], i);
+		}
+		else
+		{
+			glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED + i], 0);
+		}
 	}
 	mesh->Render();
-	if (mesh->textureID > 0)
+	for (int i = 0; i < MAX_TEXTURES; ++i)
 	{
-		glBindTexture(GL_TEXTURE_2D, 0);
+		if (mesh->m_uTextureArray[i] > 0)
+		{
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 	}
 }
 

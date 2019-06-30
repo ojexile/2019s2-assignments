@@ -219,6 +219,17 @@
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WindowData.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\comg.fragmentshader" />
+    <None Include="Shader\comg.vertexshader" />
+    <None Include="Shader\Fog.fragmentshader" />
+    <None Include="Shader\Fog.vertexshader" />
+    <None Include="Shader\HeatWave.fragmentshader" />
+    <None Include="Shader\HeatWave.vertexshader" />
+    <None Include="Shader\MultiTexture.fragmentshader" />
+    <None Include="Shader\water.fragmentshader" />
+    <None Include="Shader\water.vertexshader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

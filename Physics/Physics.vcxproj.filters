@@ -93,6 +93,12 @@
     <Filter Include="Header Files\Scripts">
       <UniqueIdentifier>{e2891f93-248a-4b5f-a7ba-cb3e61a49ae8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{7d2d3a22-23ed-4423-9236-be7ff6b1b041}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{06277b32-8c1a-4361-97d1-f01d9c07a8f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\LoadOBJ.cpp">
@@ -289,5 +295,34 @@
     <ClInclude Include="Source\PlayerScript.h">
       <Filter>Header Files\Scripts</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\water.vertexshader">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="Shader\comg.fragmentshader">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="Shader\comg.vertexshader">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="Shader\Fog.fragmentshader">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="Shader\Fog.vertexshader">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="Shader\HeatWave.fragmentshader">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="Shader\HeatWave.vertexshader">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="Shader\MultiTexture.fragmentshader">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="Shader\water.fragmentshader">
+      <Filter>Resources\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

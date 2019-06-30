@@ -1,6 +1,6 @@
 #ifndef MESH_H
 #define MESH_H
-
+#define MAX_TEXTURES 8
 #include <string>
 #include "Material.h"
 
@@ -26,7 +26,8 @@ public:
 	unsigned indexSize;
 
 	Material material;
-	unsigned textureID;
+	//unsigned textureID;
+	unsigned m_uTextureArray[MAX_TEXTURES];
 };
 
 #endif

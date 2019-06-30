@@ -17,16 +17,25 @@ uniform mat4 MVP;
 uniform mat4 MV;
 uniform mat4 MV_inverse_transpose;
 uniform bool lightEnabled;
-uniform float et;
+uniform float vet;
+
 
 void main(){
 	// Output position of the vertex, in clip space : MVP * position
 	gl_Position =  MVP * vec4(vertexPosition_modelspace, 1);
-	if(lightEnabled == true)
+
+
+	// Vector position, in camera space
+	vertexPosition_cameraspace = ( MV * vec4(vertexPosition_modelspace, 1) ).xyz;
+	if(vertexPosition_cameraspace.z < -50)
 	{
-		// Vector position, in camera space
-		vertexPosition_cameraspace = ( MV * vec4(vertexPosition_modelspace, 1) ).xyz;
-		
+		//if(vertexPosition_modelspace.y > 0)
+		{
+			gl_Position.x += 0.010f*(-vertexPosition_cameraspace.z)*sin(0.1f*gl_Position.x + vet*2);
+		}
+	}
+	if(lightEnabled == true)
+	{		
 		// Vertex normal, in camera space
 		// Use MV if ModelMatrix does not scale the model ! Use its inverse transpose otherwise.
 		vertexNormal_cameraspace = ( MV_inverse_transpose * vec4(vertexNormal_modelspace, 0) ).xyz;
@@ -35,5 +44,6 @@ void main(){
 	fragmentColor = vertexColor;
 	// A simple pass through. The texCoord of each fragment will be interpolated from texCoord of each vertex
 	texCoord = vertexTexCoord;
+
 }
 

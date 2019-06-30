@@ -17,11 +17,17 @@ uniform mat4 MVP;
 uniform mat4 MV;
 uniform mat4 MV_inverse_transpose;
 uniform bool lightEnabled;
-uniform float et;
+uniform float vet;
 
 void main(){
+	float speed = vet/50000;
+	vec3 vertexPosition_modelspaceOG = vertexPosition_modelspace;
+	vec3 vertexPosition_modelspace = vertexPosition_modelspaceOG;
+	vertexPosition_modelspace.y += sin(100 * (vertexPosition_modelspace.x) * speed) - sin(100 * (vertexPosition_modelspace.z) * speed) * 1.2;
+	vertexPosition_modelspace.x += sin(100 * vertexPosition_modelspace.z * speed) * 1.2;
 	// Output position of the vertex, in clip space : MVP * position
 	gl_Position =  MVP * vec4(vertexPosition_modelspace, 1);
+	
 	if(lightEnabled == true)
 	{
 		// Vector position, in camera space
