@@ -459,7 +459,10 @@ Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, const std::strin
 	const float SCALE_FACTOR = 256.0f;
 
 	if (!LoadHeightMap(file_path.c_str(), heightMap))
+	{
+		__debugbreak();
 		return NULL;
+	}
 
 	unsigned terrainSize = (unsigned)sqrt((double)heightMap.size());
 

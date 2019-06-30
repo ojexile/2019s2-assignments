@@ -24,12 +24,18 @@ void TestScene::Init()
 	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	//
 
-	// ground
+	//// ground
+	//GameObject* ground = m_GameObjectManager.AddGameObject();
+	//ground->GetComponent<TransformComponent>()->SetPosition(0, 0, 0);
+	//ground->GetComponent<TransformComponent>()->SetScale(1, 1, 1);
+	//ground->GetComponent<TransformComponent>()->SetRotation(-90, 1, 0, 0);
+	//ground->AddComponent(new RenderComponent(dataContainer->GetMesh("GROUND")));
+	////
+
+	// Terrain
 	GameObject* ground = m_GameObjectManager.AddGameObject();
-	ground->GetComponent<TransformComponent>()->SetPosition(0, 0, 0);
-	ground->GetComponent<TransformComponent>()->SetScale(1, 1, 1);
-	ground->GetComponent<TransformComponent>()->SetRotation(-90, 1, 0, 0);
-	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("GROUND")));
+	ground->GetComponent<TransformComponent>()->SetScale(500, 20, 500);
+	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("TERRAIN")));
 	//
 
 	//Player
