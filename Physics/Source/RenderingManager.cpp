@@ -66,7 +66,7 @@ void RenderingManager::Render(Scene* scene)
 		break;
 	case CameraComponent::CAM_FIRST:
 	case CameraComponent::CAM_CUSTOM_PERSPECT:
-		projection.SetToPerspective(45, 16.f / 9.f, 1, 100);
+		projection.SetToPerspective(45, 16.f / 9.f, 1, 1000);
 		break;
 	case CameraComponent::CAM_ORTHO:
 	case CameraComponent::CAM_CUSTOM_ORTHO:
