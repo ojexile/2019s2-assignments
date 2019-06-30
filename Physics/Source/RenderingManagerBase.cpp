@@ -108,7 +108,18 @@ void RenderingManagerBase::Init()
 	glUniform1f(m_parameters[U_LIGHT0_COSINNER], lights[0].cosInner);
 	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], lights[0].exponent);
 
-	bLightEnabled = false;
+	bLightEnabled = true;
+
+	// Init fog
+	Color fogColor{ 0.5f, 0.5f, 0.5f };
+
+	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
+	glUniform1f(m_parameters[U_FOG_START], 5);
+	glUniform1f(m_parameters[U_FOG_END], 100);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 5.5505f);
+	glUniform1i(m_parameters[U_FOG_TYPE], 2);
+	glUniform1i(m_parameters[U_FOG_ENABLED], true);
+	// glUniform1i(m_parameters[U_FOCUS], focus);
 }
 
 void RenderingManagerBase::Update(double dt)
