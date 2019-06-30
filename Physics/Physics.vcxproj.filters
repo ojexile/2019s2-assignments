@@ -188,6 +188,9 @@
     <ClCompile Include="Source\PlayerScript.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LoadHmap.cpp">
+      <Filter>Source Files\Application\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\LoadTGA.h">
@@ -294,6 +297,9 @@
     </ClInclude>
     <ClInclude Include="Source\PlayerScript.h">
       <Filter>Header Files\Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadHmap.h">
+      <Filter>Header Files\Application\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
