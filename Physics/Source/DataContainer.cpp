@@ -13,6 +13,9 @@ DataContainer::DataContainer()
 	std::vector<unsigned char> heightMap;
 	m_map_Meshes["TERRAIN"] = MeshBuilder::GenerateTerrain("terrain", "data/heightMaps/heightmap.raw", heightMap);
 	m_map_Meshes["TERRAIN"]->m_uTextureArray[0] = LoadTGA("textures/moss1.tga");
+
+	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 50, 4, 4);
+	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("textures/moss1.tga");
 }
 
 DataContainer::~DataContainer()

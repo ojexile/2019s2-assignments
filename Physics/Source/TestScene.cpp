@@ -17,20 +17,18 @@ void TestScene::Init()
 	//m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 	// Square
 	GameObject* cube = m_GameObjectManager.AddGameObject();
-	cube->GetComponent<TransformComponent>()->SetPosition(0, 5, 0);
+	cube->GetComponent<TransformComponent>()->SetPosition(0, 10, 0);
 	cube->GetComponent<TransformComponent>()->SetScale(1, 1, 1);
 	cube->GetComponent<TransformComponent>()->SetRotation(90, 1, 0, 0);
 	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("CUBE")));
 	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	//
 
-	//// ground
-	//GameObject* ground = m_GameObjectManager.AddGameObject();
-	//ground->GetComponent<TransformComponent>()->SetPosition(0, 0, 0);
-	//ground->GetComponent<TransformComponent>()->SetScale(1, 1, 1);
-	//ground->GetComponent<TransformComponent>()->SetRotation(-90, 1, 0, 0);
-	//ground->AddComponent(new RenderComponent(dataContainer->GetMesh("GROUND")));
-	////
+	// Skyplane
+	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
+	SkyPlane->GetComponent<TransformComponent>()->SetPosition(0, 100, 0);
+	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
+	//
 
 	// Terrain
 	GameObject* ground = m_GameObjectManager.AddGameObject();

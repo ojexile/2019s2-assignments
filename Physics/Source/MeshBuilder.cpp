@@ -509,3 +509,83 @@ Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, const std::strin
 
 	return mesh;
 }
+Mesh* MeshBuilder::GenerateSkyPlane(const std::string &meshName, Color color, int slices, float PlanetRadius, float AtmosphereRadius, float hTile, float vTile)
+{
+	Vertex v;
+	std::vector<Vertex> vertex_buffer_data;
+	std::vector<GLuint> index_buffer_data;
+
+	// To ensure no of slices is between 1 - 256
+	slices = Math::Clamp(slices, 1, 256);
+
+	// Calculate some values we will need
+	float planeSize = 2.0f * (float)sqrtf((AtmosphereRadius*AtmosphereRadius) + (PlanetRadius*PlanetRadius));
+
+	float delta = planeSize / (float)slices; //Divide plane evenly
+
+	// Calculate texture coordinate as per slice. Using 2.0f to divide or 1.0f to divide is a factor for us to use further for purpose of tiling when possible. (Tiling meant to duplicate a texture image multiple times over a mesh.)
+	float texDelta = 2.0f / (float)slices;
+
+	// Calculate x and z vertices
+	for (int z = 0; z <= slices; ++z)
+	{
+		for (int x = 0; x <= slices; ++x)
+		{
+			float xDist = (-0.5f * planeSize) + ((float)x * delta);
+			float zDist = (-0.5f * planeSize) + ((float)z * delta);
+
+			// Divide by AtmosphereRadius is to normalize height value for use in your scene.
+			// With reference to a parabola curve, we use quadratics y = xsquare
+			float xHeight = (xDist * xDist) / AtmosphereRadius;
+			float zHeight = (zDist * zDist) / AtmosphereRadius;
+			float height = xHeight + zHeight;
+
+			// Assign position for x, y, z.
+			// y is -height to get an inverted U shape of a parabola curve shape.
+			v.pos.x = xDist;
+			v.pos.y = 0.0f - height;
+			v.pos.z = zDist;
+
+			// Calculate the texture coordinates
+			v.texCoord.u = hTile * ((float)x * texDelta * 0.5f);
+			v.texCoord.v = vTile * (1.0f - (float)z * texDelta * 0.5f);
+
+			v.color = color;
+
+			vertex_buffer_data.push_back(v);
+		}
+	}
+
+	// Calculate the indices
+	int index = 0;	// Indices
+	for (int i = 0; i < slices; ++i)
+	{
+		for (int j = 0; j < slices; ++j)
+		{
+			// To understand further, try to use numbers to test. Check lesson slides.
+			// There are various way to plot indices.
+			int startvert = (i * (slices + 1) + j);
+			index_buffer_data.push_back(startvert);			// tri 1   (0)
+			index_buffer_data.push_back(startvert + 1);				// (1)
+			index_buffer_data.push_back(startvert + slices + 1);	// (2)
+
+			index_buffer_data.push_back(startvert + 1); 	// tri 2   (3)
+			index_buffer_data.push_back(startvert + slices + 2);	// (2)
+			index_buffer_data.push_back(startvert + slices + 1);	// (1)
+		}
+	}
+
+	Mesh *mesh = new Mesh(meshName);
+
+	mesh->mode = Mesh::DRAW_TRIANGLES;
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+
+	mesh->indexSize = index_buffer_data.size();
+
+	return mesh;
+}
