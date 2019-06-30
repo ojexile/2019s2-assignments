@@ -71,6 +71,9 @@ class RenderingManagerBase : public Renderer
 		U_FOG_TYPE,
 		U_FOG_ENABLED,
 		U_FOCUS,
+		U_FACTOR,
+
+		U_ET,
 
 		U_TOTAL,
 	};
@@ -101,6 +104,8 @@ protected:
 	bool bLightEnabled;
 
 	float fps;
+
+	float m_fElapsedTime;
 };
 
 #endif

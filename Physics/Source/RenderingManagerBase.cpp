@@ -2,6 +2,7 @@
 
 RenderingManagerBase::RenderingManagerBase()
 {
+	m_fElapsedTime = 0;
 }
 
 RenderingManagerBase::~RenderingManagerBase()
@@ -27,7 +28,7 @@ void RenderingManagerBase::Init()
 	glGenVertexArrays(1, &m_vertexArrayID);
 	glBindVertexArray(m_vertexArrayID);
 
-	m_programID = LoadShaders("Shader//FOG.vertexshader", "Shader//FOG.fragmentshader");
+	m_programID = LoadShaders("Shader//comg.vertexshader", "Shader//FOG.fragmentshader");
 
 	// Get a handle for our uniform
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
@@ -66,7 +67,9 @@ void RenderingManagerBase::Init()
 	m_parameters[U_FOG_DENSITY] = glGetUniformLocation(m_programID, "fogParam.density");
 	m_parameters[U_FOG_TYPE] = glGetUniformLocation(m_programID, "fogParam.type");
 	m_parameters[U_FOG_ENABLED] = glGetUniformLocation(m_programID, "fogParam.enabled");
-	m_parameters[U_FOCUS] = glGetUniformLocation(m_programID, "focus");
+
+	m_parameters[U_ET] = glGetUniformLocation(m_programID, "fogParam.enabled");
+
 	//texture
 	m_parameters[U_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_programID,
 		"colorTextureEnabled[0]");
@@ -114,10 +117,10 @@ void RenderingManagerBase::Init()
 	Color fogColor{ 0.5f, 0.5f, 0.5f };
 
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
-	glUniform1f(m_parameters[U_FOG_START], 5);
-	glUniform1f(m_parameters[U_FOG_END], 100);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 5.5505f);
-	glUniform1i(m_parameters[U_FOG_TYPE], 2);
+	glUniform1f(m_parameters[U_FOG_START], 1);
+	glUniform1f(m_parameters[U_FOG_END], 50);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 0.05f);
+	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], true);
 	// glUniform1i(m_parameters[U_FOCUS], focus);
 }

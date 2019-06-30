@@ -14,7 +14,7 @@ public:
 
 	Mesh* GetMesh();
 	bool GetLightEnabled();
+	void SetLightEnabled(bool b);
 
 	void Update(double dt) override;
 };
-

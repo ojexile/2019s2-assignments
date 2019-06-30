@@ -21,6 +21,7 @@ void TestScene::Init()
 	cube->GetComponent<TransformComponent>()->SetScale(1, 1, 1);
 	cube->GetComponent<TransformComponent>()->SetRotation(90, 1, 0, 0);
 	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("CUBE")));
+	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	//
 
 	// ground
