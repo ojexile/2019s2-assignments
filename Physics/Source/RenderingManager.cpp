@@ -39,7 +39,6 @@ void RenderingManager::Update(double dt)
 
 void RenderingManager::Render(Scene* scene)
 {
-	lights[0].position.x += 0.05f;
 	//******************************* PRE RENDER PASS
 	//*************************************
 	RenderPassGPass(scene);
@@ -86,8 +85,9 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(m_gPassShaderID);
 	//These matrices should change when light position or direction changes
+	const float size = 250;
 	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
-		m_lightDepthProj.SetToOrtho(-100, 100, -100, 100, -100, 100);
+		m_lightDepthProj.SetToOrtho(-size, size, -size, size, -100, 100);
 	else
 		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
 

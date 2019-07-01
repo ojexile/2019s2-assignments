@@ -9,11 +9,14 @@
 #include "MeshBuilder.h"
 #include "GameObject.h"
 
+#include "shader.hpp"
+
 class DataContainer : public Singleton<DataContainer>
 {
 private:
 	std::map<std::string, Mesh*> m_map_Meshes;
 	std::map<std::string, GameObject*> m_map_GO;
+	std::map<std::string, unsigned> m_map_Shaders;
 public:
 	DataContainer();
 	~DataContainer();

@@ -96,14 +96,14 @@ void RenderingManagerBase::Init()
 	// Shadows
 	m_parameters[U_LIGHT_DEPTH_MVP] =
 		glGetUniformLocation(m_programID, "lightDepthMVP");
-		m_parameters[U_SHADOW_MAP] = glGetUniformLocation(m_programID,
-			"shadowMap");
+	m_parameters[U_SHADOW_MAP] = glGetUniformLocation(m_programID,
+		"shadowMap");
 	m_lightDepthFBO.Init(1024, 1024);
 	// Use our shader
 	glUseProgram(m_programID);
 
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
-	lights[0].position.Set(0.01f, 10, 0);
+	lights[0].position.Set(0.01f, 30, 0);
 	lights[0].color.Set(1, 1, 1);
 	lights[0].power = 1;
 	lights[0].kC = 1.f;
@@ -252,8 +252,8 @@ void RenderingManagerBase::RenderMesh(Mesh *mesh, bool enableLight)
 		//Shadows--
 		Mtx44 lightDepthMVP = m_lightDepthProj *
 			m_lightDepthView * modelStack.Top();
-			glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1,
-				GL_FALSE, &lightDepthMVP.a[0]);
+		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1,
+			GL_FALSE, &lightDepthMVP.a[0]);
 		//--
 		//load material
 		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh->material.kAmbient.r);
