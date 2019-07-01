@@ -21,10 +21,15 @@ void PlayerScript::Update(double dt)
 
 	float fSpeed = 5 * (float)dt;
 	Vector3 vRight = m_vCameraFront->Cross(*m_vCameraUp);
-
+	static bool triggered = false;
 	if (Application::IsKeyPressed('W'))
 	{
 		trans->Translate(fSpeed * *m_vCameraFront);
+		if (!triggered)
+		{
+			Instantiate("CUBE");
+			triggered = true;
+		}
 	}
 	if (Application::IsKeyPressed('S'))
 	{

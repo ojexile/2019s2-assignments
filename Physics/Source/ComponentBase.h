@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include "Locator.h"
+#include <string>
+
 class ComponentBase
 {
 private:
@@ -26,4 +28,5 @@ public:
 			DEFAULT_LOG("Component of type " + sTypeName + " not found");
 		return nullptr;
 	};
+	void Instantiate(std::string sName, Vector3 pos = {}, Vector3 vRot = {}, Vector3 vScal = { 1,1,1 });
 };
