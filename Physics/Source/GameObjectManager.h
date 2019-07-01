@@ -9,6 +9,7 @@ class GameObjectManager
 {
 private:
 	std::map<std::string, std::vector<GameObject*>*> m_map_Layers;
+	std::map<std::string, unsigned> m_map_Shaders;
 public:
 	GameObjectManager();
 	~GameObjectManager();

@@ -39,6 +39,7 @@ void RenderingManager::Update(double dt)
 
 void RenderingManager::Render(Scene* scene)
 {
+	lights[0].position.x += 0.05f;
 	//******************************* PRE RENDER PASS
 	//*************************************
 	RenderPassGPass(scene);
