@@ -50,7 +50,7 @@ artifacts/
 *_i.h
 *.ilk
 *.meta
-*.obj
+#*.obj
 *.pch
 *.pdb
 *.pgc
@@ -268,3 +268,5 @@ __pycache__/
 *.exe
 *.lib
 /Physics/windowData/windowData.txt
+/Common/Debug
+/Physics/Debug
