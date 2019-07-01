@@ -79,21 +79,21 @@ void RenderingManager::Exit()
 void RenderingManager::RenderPassGPass(Scene* scene)
 {
 	m_renderPass = RENDER_PASS_PRE;
-		m_lightDepthFBO.BindForWriting();
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		glUseProgram(m_gPassShaderID);
-		//These matrices should change when light position or direction changes
-		if (lights[0].type == Light::LIGHT_DIRECTIONAL)
-			m_lightDepthProj.SetToOrtho(-100, 100, -100, 100, -100, 100);
-		else
-			m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
+	m_lightDepthFBO.BindForWriting();
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glUseProgram(m_gPassShaderID);
+	//These matrices should change when light position or direction changes
+	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
+		m_lightDepthProj.SetToOrtho(-100, 100, -100, 100, -100, 100);
+	else
+		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
 
-		m_lightDepthView.SetToLookAt(
-			lights[0].position.x, lights[0].position.y, lights[0].position.z, 
-			0, 0, 0, 
-			0, 1, 0);
+	m_lightDepthView.SetToLookAt(
+		lights[0].position.x, lights[0].position.y, lights[0].position.z,
+		0, 0, 0,
+		0, 1, 0);
 	RenderWorld(scene);
 }
 void RenderingManager::RenderPassMain(Scene* scene)
@@ -178,8 +178,8 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z
 	);
 	/*viewStack.LookAt(
-			lights[0].position.x, lights[0].position.y, lights[0].position.z, 
-			0, 0, 0, 
+			lights[0].position.x, lights[0].position.y, lights[0].position.z,
+			0, 0, 0,
 			0, 1, 0);*/
 	std::stringstream ss;
 	ss.precision(1);
@@ -199,20 +199,27 @@ void RenderingManager::RenderPassMain(Scene* scene)
 }
 void RenderingManager::RenderWorld(Scene* scene)
 {
-	std::vector<GameObject*> GOList = *(scene->GetGameObjectManager()->GetGOList());
-	for (unsigned i = 0; i < GOList.size(); ++i)
+	GameObjectManager* GOM = scene->GetGameObjectManager();
+	std::map<std::string, std::vector<GameObject*>*>::iterator it;
+	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
-		GameObject* go = GOList[i];
-		if (!go->IsActive())
-			continue;
-
-		RenderGameObject(go);
-		for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
+		// it->first == key
+		// it->second == value
+		std::vector<GameObject*> GOList = *it->second;
+		for (unsigned i = 0; i < GOList.size(); ++i)
 		{
-			GameObject* goChild = GOList[i];
+			GameObject* go = GOList[i];
 			if (!go->IsActive())
 				continue;
-			RenderGameObject(goChild);
+
+			RenderGameObject(go);
+			for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
+			{
+				GameObject* goChild = GOList[i];
+				if (!go->IsActive())
+					continue;
+				RenderGameObject(goChild);
+			}
 		}
 	}
 }

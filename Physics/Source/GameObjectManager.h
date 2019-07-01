@@ -16,6 +16,7 @@ public:
 	std::map<std::string, std::vector<GameObject*>*>* GetLayerList();
 	GameObject* AddGameObject(GameObject* go, std::string layer = "default");
 	GameObject* AddGameObject(std::string layer = "default");
+	bool CreateLayer(std::string layer = "default");
 
 	void ClearGameObjects();
 };
