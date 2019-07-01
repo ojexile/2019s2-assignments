@@ -20,7 +20,6 @@ public:
 	virtual void Exit() = 0;
 
 	virtual void SetMouseCallback(GLFWwindow* window) = 0; 
-	
 
 };
 
