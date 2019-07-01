@@ -117,6 +117,7 @@ protected:
 	MS projectionStack;
 
 	Light lights[1];
+	bool bLightEnabled;
 	float fps;
 	float m_fElapsedTime;
 

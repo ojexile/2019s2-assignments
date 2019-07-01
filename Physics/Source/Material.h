@@ -1,6 +1,11 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
+#define DEFAULT_DIFFUSE 0.6f
+#define DEFAULT_AMBIENT 0.2f
+#define DEFAULT_SPECULAR 0.3f
+#define DEFAULT_SHININESS 5.f
+
 struct Component
 {
 	float r, g, b;
@@ -17,10 +22,10 @@ struct Material
 	Material()
 	{
 		//some default values
-		kAmbient.Set(0.6f, 0.6f, 0.6f);
-		kDiffuse.Set(0.6f, 0.6f, 0.6f);
-		kSpecular.Set(0.3f, 0.3f, 0.3f);
-		kShininess = 5.f;
+		kAmbient.Set(DEFAULT_AMBIENT, DEFAULT_AMBIENT, DEFAULT_AMBIENT);
+		kDiffuse.Set(DEFAULT_DIFFUSE, DEFAULT_DIFFUSE, DEFAULT_DIFFUSE);
+		kSpecular.Set(DEFAULT_SPECULAR, DEFAULT_SPECULAR, DEFAULT_SPECULAR);
+		kShininess = DEFAULT_SHININESS;
 	}
 };
 
