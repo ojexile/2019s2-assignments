@@ -1,8 +1,8 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#define DEFAULT_DIFFUSE 0.6f
-#define DEFAULT_AMBIENT 0.2f
+#define DEFAULT_DIFFUSE 0.8f
+#define DEFAULT_AMBIENT 0.0f
 #define DEFAULT_SPECULAR 0.3f
 #define DEFAULT_SHININESS 5.f
 

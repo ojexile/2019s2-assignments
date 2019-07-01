@@ -86,12 +86,15 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 		glUseProgram(m_gPassShaderID);
 		//These matrices should change when light position or direction changes
 		if (lights[0].type == Light::LIGHT_DIRECTIONAL)
-			m_lightDepthProj.SetToOrtho(10, 10, 10, 10, 10, 20);
+			m_lightDepthProj.SetToOrtho(-100, 100, -100, 100, -100, 100);
 		else
 			m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
-		m_lightDepthView.SetToLookAt(lights[0].position.x,
-				lights[0].position.y+10, lights[0].position.z, 0, 0, 0, 0, 1, 0);
-			RenderWorld(scene);
+
+		m_lightDepthView.SetToLookAt(
+			lights[0].position.x, lights[0].position.y, lights[0].position.z, 
+			0, 0, 0, 
+			0, 1, 0);
+	RenderWorld(scene);
 }
 void RenderingManager::RenderPassMain(Scene* scene)
 {
@@ -100,76 +103,99 @@ void RenderingManager::RenderPassMain(Scene* scene)
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, Application::GetWindowWidth(),
 		Application::GetWindowHeight());
-		glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glUseProgram(m_programID);
-		//pass light depth texture
-		m_lightDepthFBO.BindForReading(GL_TEXTURE8);
-		glUniform1i(m_parameters[U_SHADOW_MAP], 8);
+	//pass light depth texture
+	m_lightDepthFBO.BindForReading(GL_TEXTURE8);
+	glUniform1i(m_parameters[U_SHADOW_MAP], 8);
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		GameObject* CameraObject = scene->GetCameraGameObject();
-		Vector3 vCamPosition = CameraObject->GetComponent<TransformComponent>()->GetPosition();
-		if (!CameraObject)
-			return;
-		Camera* Camera = scene->GetCamera();
-		// TODO proper target == pos handling
-		if (vCamPosition == Camera->m_vTarget)
-		{
-			vCamPosition.z += 1;
-		}
+	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
+	{
+		Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
+		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
+	}
+	else if (lights[0].type == Light::LIGHT_SPOT)
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[0].spotDirection;
+		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+	}
+	else
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+	}
+	GameObject* CameraObject = scene->GetCameraGameObject();
+	Vector3 vCamPosition = CameraObject->GetComponent<TransformComponent>()->GetPosition();
+	if (!CameraObject)
+		return;
+	Camera* Camera = scene->GetCamera();
+	// TODO proper target == pos handling
+	if (vCamPosition == Camera->m_vTarget)
+	{
+		vCamPosition.z += 1;
+	}
 
-		//Calculating aspect ratio
-		// m_worldHeight = 100.f;
-		// m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
+	//Calculating aspect ratio
+	// m_worldHeight = 100.f;
+	// m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
 
-		// Projection matrix
-		Mtx44 projection;
-		switch (CameraObject->GetComponent<CameraComponent>()->GetCameraType())
-		{
-		case CameraComponent::CAM_NONE:
-			DEFAULT_LOG("Camera type not initialised.");
-			__debugbreak();
-			break;
-		case CameraComponent::CAM_FIRST:
-		case CameraComponent::CAM_CUSTOM_PERSPECT:
-			projection.SetToPerspective(45, 16.f / 9.f, 1, 1000);
-			break;
-		case CameraComponent::CAM_ORTHO:
-		case CameraComponent::CAM_CUSTOM_ORTHO:
-			projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
-			break;
-		default:
-			DEFAULT_LOG("Camera type not unknown.");
-			__debugbreak();
-			break;
-		}
+	// Projection matrix
+	Mtx44 projection;
+	switch (CameraObject->GetComponent<CameraComponent>()->GetCameraType())
+	{
+	case CameraComponent::CAM_NONE:
+		DEFAULT_LOG("Camera type not initialised.");
+		__debugbreak();
+		break;
+	case CameraComponent::CAM_FIRST:
+	case CameraComponent::CAM_CUSTOM_PERSPECT:
+		projection.SetToPerspective(45, 16.f / 9.f, 1, 1000);
+		break;
+	case CameraComponent::CAM_ORTHO:
+	case CameraComponent::CAM_CUSTOM_ORTHO:
+		projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
+		break;
+	default:
+		DEFAULT_LOG("Camera type not unknown.");
+		__debugbreak();
+		break;
+	}
+	//projection.SetToOrtho(-100, 100, -100, 100, -100, 100);
 
-		projectionStack.LoadMatrix(projection);
-		// Camera matrix
-		viewStack.LoadIdentity();
-		viewStack.LookAt(
-			vCamPosition.x, vCamPosition.y, vCamPosition.z,
-			Camera->m_vTarget.x, Camera->m_vTarget.y, Camera->m_vTarget.z,
-			Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z
-		);
-		std::stringstream ss;
-		ss.precision(1);
-		ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
-		CHENG_LOG("CAM TAR: ", ss.str());
-		std::stringstream ss2;
-		ss2.precision(1);
-		ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
-		CHENG_LOG("CAM POS: ", ss2.str());
-		ss.str("");
-		ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
-		CHENG_LOG("CAM DIR: ", ss.str());
-		// Model matrix : an identity matrix (model will be at the origin)
-		modelStack.LoadIdentity();
+	projectionStack.LoadMatrix(projection);
+	// Camera matrix
+	viewStack.LoadIdentity();
+	viewStack.LookAt(
+		vCamPosition.x, vCamPosition.y, vCamPosition.z,
+		Camera->m_vTarget.x, Camera->m_vTarget.y, Camera->m_vTarget.z,
+		Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z
+	);
+	/*viewStack.LookAt(
+			lights[0].position.x, lights[0].position.y, lights[0].position.z, 
+			0, 0, 0, 
+			0, 1, 0);*/
+	std::stringstream ss;
+	ss.precision(1);
+	ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
+	CHENG_LOG("CAM TAR: ", ss.str());
+	std::stringstream ss2;
+	ss2.precision(1);
+	ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
+	CHENG_LOG("CAM POS: ", ss2.str());
+	ss.str("");
+	ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
+	CHENG_LOG("CAM DIR: ", ss.str());
+	// Model matrix : an identity matrix (model will be at the origin)
+	modelStack.LoadIdentity();
 
-		RenderWorld(scene);
+	RenderWorld(scene);
 }
 void RenderingManager::RenderWorld(Scene* scene)
 {

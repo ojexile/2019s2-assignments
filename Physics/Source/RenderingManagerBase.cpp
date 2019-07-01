@@ -38,7 +38,7 @@ void RenderingManagerBase::Init()
 	m_parameters[U_LIGHT_DEPTH_MVP_GPASS] =
 		glGetUniformLocation(m_gPassShaderID, "lightDepthMVP");
 	// Main Shader--------------------------------------------------------------------------------
-	m_programID = LoadShaders("Shader//comg.vertexshader", "Shader//FOG.fragmentshader");
+	m_programID = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
 
 	// Get a handle for our uniform
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
@@ -92,6 +92,7 @@ void RenderingManagerBase::Init()
 	m_parameters[U_COLOR_TEXTURE_ENABLED1] = glGetUniformLocation(m_programID,
 		"colorTextureEnabled[2]");
 	m_parameters[U_COLOR_TEXTURE1] = glGetUniformLocation(m_programID, "colorTexture[2]");
+
 	// Shadows
 	m_parameters[U_LIGHT_DEPTH_MVP] =
 		glGetUniformLocation(m_programID, "lightDepthMVP");
@@ -102,9 +103,9 @@ void RenderingManagerBase::Init()
 	glUseProgram(m_programID);
 
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
-	lights[0].position.Set(0, 20, 0);
-	lights[0].color.Set(1, 0, 0);
-	lights[0].power = 10;
+	lights[0].position.Set(0.01f, 10, 0);
+	lights[0].color.Set(1, 1, 1);
+	lights[0].power = 1;
 	lights[0].kC = 1.f;
 	lights[0].kL = 0.01f;
 	lights[0].kQ = 0.001f;

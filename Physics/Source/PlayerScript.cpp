@@ -19,7 +19,7 @@ void PlayerScript::Update(double dt)
 	m_vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
 	TransformComponent* trans = GetComponent<TransformComponent>();
 
-	float fSpeed = 5 * (float)dt;
+	float fSpeed = 50 * (float)dt;
 	Vector3 vRight = m_vCameraFront->Cross(*m_vCameraUp);
 
 	if (Application::IsKeyPressed('W'))
