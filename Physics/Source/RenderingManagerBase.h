@@ -75,11 +75,25 @@ class RenderingManagerBase : public Renderer
 
 		U_ET,
 
+		// Shadoe
+		U_LIGHT_DEPTH_MVP_GPASS,
+		U_LIGHT_DEPTH_MVP,
+		U_SHADOW_MAP,
+
 		U_TOTAL,
+	};
+	enum RENDER_PASS
+	{
+		RENDER_PASS_PRE,
+		RENDER_PASS_MAIN,
 	};
 public:
 	RenderingManagerBase();
 	virtual ~RenderingManagerBase();
+
+	void RenderPassGPass();
+	void RenderPassMain();
+	void RenderWorld();
 
 	virtual void Init();
 	virtual void Update(double dt);
@@ -100,12 +114,16 @@ protected:
 	MS projectionStack;
 
 	Light lights[1];
-
 	bool bLightEnabled;
-
 	float fps;
-
 	float m_fElapsedTime;
+
+	// Shadow
+	unsigned m_gPassShaderID;
+	DepthFBO m_lightDepthFBO;
+	Mtx44 m_lightDepthProj;
+	Mtx44 m_lightDepthView;
+	RENDER_PASS m_renderPass;
 };
 
 #endif
