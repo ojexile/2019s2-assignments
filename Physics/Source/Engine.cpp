@@ -63,12 +63,19 @@ void Engine::Update(double dt)
 {
 	SceneManager* SceneManager = SceneManager::GetInstance();
 	Scene* CurrentScene = SceneManager->GetScene();
-	// TODO Update gameobject here
+	// Update gameobject here
+
 	GameObjectManager* GOM = CurrentScene->GetGameObjectManager();
-	std::vector<GameObject*> GOList = *(GOM->GetGOList());
-	for (unsigned i = 0; i < GOList.size(); ++i)
+	std::map<std::string, std::vector<GameObject*>*>::iterator it;
+	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
-		GOList[i]->Update(dt);
+		// it->first == key
+		// it->second == value
+		std::vector<GameObject*>* GOList = it->second;
+		for (unsigned i = 0; i < GOList->size(); ++i)
+		{
+			(*GOList)[i]->Update(dt);
+		}
 	}
 
 	m_Renderer->Update(dt);

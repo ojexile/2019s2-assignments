@@ -1,43 +1,58 @@
 #include "GameObjectManager.h"
-
 GameObjectManager::GameObjectManager()
 {
 }
 
 GameObjectManager::~GameObjectManager()
 {
-	for (int i = (int)m_vec_GOList.size() - 1; i >= 0; --i)
+	std::map<std::string, std::vector<GameObject*>*>::iterator it;
+
+	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
 	{
-		delete m_vec_GOList[i];
-		m_vec_GOList.erase(m_vec_GOList.begin() + i);
+		// it->first == key
+		// it->second == value
+		std::vector<GameObject*>* list = it->second;
+		for (unsigned i = list->size() - 1; i >= 0; --i)
+		{
+			delete (*list)[i];
+			(*list).erase((*list).begin() + i);
+		}
 	}
 }
 
-std::vector<GameObject*>* GameObjectManager::GetGOList()
+std::map<std::string, std::vector<GameObject*>*>* GameObjectManager::GetLayerList()
 {
-	return &m_vec_GOList;
+	return &m_map_Layers;
 }
 
-GameObject* GameObjectManager::AddGameObject(GameObject* go)
+GameObject* GameObjectManager::AddGameObject(GameObject* go, std::string layer)
 {
 	// TODO check if object already exists
 
-	m_vec_GOList.push_back(go);
+	m_map_Layers[layer]->push_back(go);
 	return go;
 }
-GameObject* GameObjectManager::AddGameObject()
+GameObject* GameObjectManager::AddGameObject(std::string layer)
 {
 	GameObject* go = new GameObject;
-	m_vec_GOList.push_back(go);
+	m_map_Layers[layer]->push_back(go);
 	return go;
 }
 
 void GameObjectManager::ClearGameObjects()
 {
 	// TODO ignore static objects
-	for (unsigned i = m_vec_GOList.size() - 1; i >= 0; --i)
+	std::map<std::string, std::vector<GameObject*>*>::iterator it;
+
+	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
 	{
-		delete m_vec_GOList[i];
-		m_vec_GOList.erase(m_vec_GOList.begin() + i);
+		// it->first == key
+		// it->second == value
+		std::vector<GameObject*>* list = it->second;
+		for (unsigned i = list->size() - 1; i >= 0; --i)
+		{
+			delete (*list)[i];
+			(*list).erase((*list).begin() + i);
+		}
 	}
 }
