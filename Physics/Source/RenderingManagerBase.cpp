@@ -3,6 +3,10 @@
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
+	m_DepthQuad =
+		MeshBuilder::GenerateQuad("LIGHT_DEPTH_TEXTURE", Color(1, 1, 1), 1.f);
+	m_DepthQuad->m_uTextureArray[0] =
+		m_lightDepthFBO.GetTexture();
 }
 
 RenderingManagerBase::~RenderingManagerBase()
@@ -28,7 +32,13 @@ void RenderingManagerBase::Init()
 	glGenVertexArrays(1, &m_vertexArrayID);
 	glBindVertexArray(m_vertexArrayID);
 
-	m_programID = LoadShaders("Shader//comg.vertexshader", "Shader//FOG.fragmentshader");
+	// Shadows--------------------------------------------------------------------------------
+	m_gPassShaderID = LoadShaders("Shader//shadow/GPass.vertexshader",
+		"Shader//shadow/GPass.fragmentshader");
+	m_parameters[U_LIGHT_DEPTH_MVP_GPASS] =
+		glGetUniformLocation(m_gPassShaderID, "lightDepthMVP");
+	// Main Shader--------------------------------------------------------------------------------
+	m_programID = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
 
 	// Get a handle for our uniform
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
@@ -83,11 +93,17 @@ void RenderingManagerBase::Init()
 		"colorTextureEnabled[2]");
 	m_parameters[U_COLOR_TEXTURE1] = glGetUniformLocation(m_programID, "colorTexture[2]");
 
+	// Shadows
+	m_parameters[U_LIGHT_DEPTH_MVP] =
+		glGetUniformLocation(m_programID, "lightDepthMVP");
+		m_parameters[U_SHADOW_MAP] = glGetUniformLocation(m_programID,
+			"shadowMap");
+	m_lightDepthFBO.Init(1024, 1024);
 	// Use our shader
 	glUseProgram(m_programID);
 
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
-	lights[0].position.Set(0, 20, 0);
+	lights[0].position.Set(0.01f, 10, 0);
 	lights[0].color.Set(1, 1, 1);
 	lights[0].power = 1;
 	lights[0].kC = 1.f;
@@ -98,7 +114,7 @@ void RenderingManagerBase::Init()
 	lights[0].exponent = 3.f;
 	lights[0].spotDirection.Set(0.f, 1.f, 0.f);
 
-	glUniform1i(m_parameters[U_NUMLIGHTS], 0);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 
 	glUniform1i(m_parameters[U_LIGHT0_TYPE], lights[0].type);
@@ -122,7 +138,6 @@ void RenderingManagerBase::Init()
 	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], true);
-	// glUniform1i(m_parameters[U_FOCUS], focus);
 }
 
 void RenderingManagerBase::Update(double dt)
@@ -213,6 +228,18 @@ void RenderingManagerBase::RenderMesh(Mesh *mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 
+	//Shadows
+	if (m_renderPass == RENDER_PASS_PRE)
+	{
+		Mtx44 lightDepthMVP = m_lightDepthProj *
+			m_lightDepthView * modelStack.Top();
+		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1,
+			GL_FALSE, &lightDepthMVP.a[0]);
+		mesh->Render();
+		return;
+	}
+	//--
+
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 	if (enableLight && bLightEnabled)
@@ -222,7 +249,12 @@ void RenderingManagerBase::RenderMesh(Mesh *mesh, bool enableLight)
 		glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
 		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
 		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView.a[0]);
-
+		//Shadows--
+		Mtx44 lightDepthMVP = m_lightDepthProj *
+			m_lightDepthView * modelStack.Top();
+			glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1,
+				GL_FALSE, &lightDepthMVP.a[0]);
+		//--
 		//load material
 		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh->material.kAmbient.r);
 		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh->material.kDiffuse.r);
@@ -267,4 +299,5 @@ void RenderingManagerBase::Exit()
 	// Cleanup VBO
 	glDeleteProgram(m_programID);
 	glDeleteVertexArrays(1, &m_vertexArrayID);
+	glDeleteProgram(m_gPassShaderID);
 }
