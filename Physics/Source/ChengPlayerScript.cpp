@@ -3,7 +3,7 @@
 #include "SceneManager.h"
 ChengPlayerScript::ChengPlayerScript()
 {
-	m_CurrentState = new StandingState;
+	m_CurrentState = nullptr;
 }
 
 ChengPlayerScript::~ChengPlayerScript()
@@ -11,10 +11,14 @@ ChengPlayerScript::~ChengPlayerScript()
 }
 void ChengPlayerScript::Start()
 {
-	m_CurrentState->OnEnter(this);
 }
 void ChengPlayerScript::Update(double dt)
 {
+	if (!m_CurrentState)
+	{
+		m_CurrentState = new StandingState;
+		m_CurrentState->OnEnter(this);
+	}
 	PlayerState* state = m_CurrentState->HandleInput(this, dt);
 	if (m_CurrentState != state && state != nullptr)
 	{
@@ -31,19 +35,19 @@ void ChengPlayerScript::Update(double dt)
 	// Movement
 	if (Application::IsKeyPressed('W'))
 	{
-		trans->Translate(m_fMovementSpeed* dt * vPlayerFront);
+		trans->Translate(m_fMovementSpeed* (float)dt * vPlayerFront);
 	}
 	if (Application::IsKeyPressed('S'))
 	{
-		trans->Translate(-m_fMovementSpeed * dt * vPlayerFront);
+		trans->Translate(-m_fMovementSpeed * (float)dt * vPlayerFront);
 	}
 	if (Application::IsKeyPressed('A'))
 	{
-		trans->Translate(-m_fMovementSpeed * dt* vRight);
+		trans->Translate(-m_fMovementSpeed * (float)dt* vRight);
 	}
 	if (Application::IsKeyPressed('D'))
 	{
-		trans->Translate(m_fMovementSpeed* dt * vRight);
+		trans->Translate(m_fMovementSpeed* (float)dt * vRight);
 	}
 	/*if (Application::IsKeyPressed('E'))
 	{

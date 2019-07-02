@@ -5,6 +5,7 @@
 StandingState::StandingState()
 {
 	m_fSprintMultiplier = 2.0f;
+	m_fBaseMovementSpeed = 10;
 }
 
 StandingState::~StandingState()
