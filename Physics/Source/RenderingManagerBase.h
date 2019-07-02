@@ -107,6 +107,7 @@ protected:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderMesh(Mesh *mesh, bool enableLight);
+	void BindUniforms();
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;

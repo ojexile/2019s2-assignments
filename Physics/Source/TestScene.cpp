@@ -12,7 +12,7 @@ void TestScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	// Layers
-	m_GameObjectManager.CreateLayer(dataContainer->GetShader("default"), "second");
+	m_GameObjectManager.CreateLayer(dataContainer->GetShader("water"), "second");
 	// Set up camera
 	m_CameraGO->GetComponent<TransformComponent>()->SetPosition(0, 0, 0);
 	m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);

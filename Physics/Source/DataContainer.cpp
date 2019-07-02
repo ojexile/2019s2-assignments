@@ -32,6 +32,7 @@ DataContainer::DataContainer()
 	//--------------------------------------------------------------------------------
 	// Shaders--------------------------------------------------------------------------------
 	m_map_Shaders["default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
+	m_map_Shaders["water"] = LoadShaders("Shader//water.vertexshader", "Shader//water.fragmentshader");
 	m_map_Shaders["gpass"] = LoadShaders("Shader//shadow/GPass.vertexshader", "Shader//shadow/GPass.fragmentshader");
 	//--------------------------------------------------------------------------------
 }

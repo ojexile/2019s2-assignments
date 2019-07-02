@@ -207,7 +207,8 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// it->first == key
 		// it->second == value
 		// Switch shader
-		//glUseProgram(it->second->GetShader());
+		//m_programID = it->second->GetShader();
+		//BindUniforms();
 		std::vector<GameObject*> GOList = *it->second->GetGOList();
 		for (unsigned i = 0; i < GOList.size(); ++i)
 		{

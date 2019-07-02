@@ -1,5 +1,5 @@
 #include "RenderingManagerBase.h"
-
+#include "DataContainer.h"
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
@@ -13,33 +13,8 @@ RenderingManagerBase::~RenderingManagerBase()
 {
 }
 
-void RenderingManagerBase::Init()
+void RenderingManagerBase::BindUniforms()
 {
-	// Black background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
-	// Enable depth test
-	glEnable(GL_DEPTH_TEST);
-	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS);
-
-	glEnable(GL_CULL_FACE);
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glGenVertexArrays(1, &m_vertexArrayID);
-	glBindVertexArray(m_vertexArrayID);
-
-	// Shadows--------------------------------------------------------------------------------
-	m_gPassShaderID = LoadShaders("Shader//shadow/GPass.vertexshader",
-		"Shader//shadow/GPass.fragmentshader");
-	m_parameters[U_LIGHT_DEPTH_MVP_GPASS] =
-		glGetUniformLocation(m_gPassShaderID, "lightDepthMVP");
-	// Main Shader--------------------------------------------------------------------------------
-	m_programID = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
-
 	// Get a handle for our uniform
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
 	//m_parameters[U_MODEL] = glGetUniformLocation(m_programID, "M");
@@ -98,9 +73,51 @@ void RenderingManagerBase::Init()
 		glGetUniformLocation(m_programID, "lightDepthMVP");
 	m_parameters[U_SHADOW_MAP] = glGetUniformLocation(m_programID,
 		"shadowMap");
-	m_lightDepthFBO.Init(1024, 1024);
+	m_parameters[U_LIGHT_DEPTH_MVP_GPASS] =
+		glGetUniformLocation(m_gPassShaderID, "lightDepthMVP");
+
 	// Use our shader
 	glUseProgram(m_programID);
+}
+void RenderingManagerBase::Init()
+{
+	// Black background
+	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
+
+	glEnable(GL_CULL_FACE);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glGenVertexArrays(1, &m_vertexArrayID);
+	glBindVertexArray(m_vertexArrayID);
+
+	// Shadows--------------------------------------------------------------------------------
+	m_gPassShaderID = DataContainer::GetInstance()->GetShader("gpass");
+
+	// Main Shader--------------------------------------------------------------------------------
+	m_programID = DataContainer::GetInstance()->GetShader("default");
+
+	// Shadows
+	m_lightDepthFBO.Init(1024, 1024);
+
+	BindUniforms();
+
+	// Init fog
+	Color fogColor{ 0.5f, 0.5f, 0.5f };
+
+	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
+	glUniform1f(m_parameters[U_FOG_START], 1);
+	glUniform1f(m_parameters[U_FOG_END], 1000);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
+	glUniform1i(m_parameters[U_FOG_TYPE], 1);
+	glUniform1i(m_parameters[U_FOG_ENABLED], true);
 
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
 	lights[0].position.Set(0.01f, 30, 0);
@@ -128,16 +145,6 @@ void RenderingManagerBase::Init()
 	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], lights[0].exponent);
 
 	bLightEnabled = true;
-
-	// Init fog
-	Color fogColor{ 0.5f, 0.5f, 0.5f };
-
-	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
-	glUniform1f(m_parameters[U_FOG_START], 1);
-	glUniform1f(m_parameters[U_FOG_END], 1000);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
-	glUniform1i(m_parameters[U_FOG_TYPE], 1);
-	glUniform1i(m_parameters[U_FOG_ENABLED], true);
 }
 
 void RenderingManagerBase::Update(double dt)
