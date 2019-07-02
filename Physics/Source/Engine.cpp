@@ -66,12 +66,12 @@ void Engine::Update(double dt)
 	// Update gameobject here
 
 	GameObjectManager* GOM = CurrentScene->GetGameObjectManager();
-	std::map<std::string, std::vector<GameObject*>*>::iterator it;
+	std::map<std::string, LayerData*>::iterator it;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
 		// it->first == key
 		// it->second == value
-		std::vector<GameObject*>* GOList = it->second;
+		std::vector<GameObject*>* GOList = it->second->GetGOList();
 		for (unsigned i = 0; i < GOList->size(); ++i)
 		{
 			(*GOList)[i]->Update(dt);

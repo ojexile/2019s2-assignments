@@ -201,12 +201,14 @@ void RenderingManager::RenderPassMain(Scene* scene)
 void RenderingManager::RenderWorld(Scene* scene)
 {
 	GameObjectManager* GOM = scene->GetGameObjectManager();
-	std::map<std::string, std::vector<GameObject*>*>::iterator it;
+	std::map<std::string, LayerData*>::iterator it;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
 		// it->first == key
 		// it->second == value
-		std::vector<GameObject*> GOList = *it->second;
+		// Switch shader
+		//glUseProgram(it->second->GetShader());
+		std::vector<GameObject*> GOList = *it->second->GetGOList();
 		for (unsigned i = 0; i < GOList.size(); ++i)
 		{
 			GameObject* go = GOList[i];

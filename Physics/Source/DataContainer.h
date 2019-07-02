@@ -23,4 +23,5 @@ public:
 
 	Mesh* GetMesh(std::string name);
 	GameObject* GetGameObject(std::string name);
+	unsigned GetShader(std::string key);
 };

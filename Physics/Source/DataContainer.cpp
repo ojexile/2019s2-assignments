@@ -55,3 +55,11 @@ GameObject* DataContainer::GetGameObject(std::string name)
 		std::cout << "ERROR: Mesh not found of name: " << name << std::endl;
 	return go;
 }
+unsigned DataContainer::GetShader(std::string key)
+{
+	unsigned shader = -1;
+	shader = m_map_Shaders[key];
+	if (shader < 0)
+		std::cout << "ERROR: Shader not found of name: " << key << std::endl;
+	return shader;
+}
