@@ -10,21 +10,19 @@ PlayerScript::~PlayerScript()
 }
 void PlayerScript::Start()
 {
-	m_vCameraFront = SceneManager::GetInstance()->GetScene()->GetCamera()->GetTarget();
-	m_vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
 }
 void PlayerScript::Update(double dt)
 {
-	m_vCameraFront = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
-	m_vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
+	Vector3 vCameraFront = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
+	Vector3 vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
 	TransformComponent* trans = GetComponent<TransformComponent>();
 
 	float fSpeed = 50 * (float)dt;
-	Vector3 vRight = m_vCameraFront->Cross(*m_vCameraUp);
+	Vector3 vRight = vCameraFront.Cross(vCameraUp);
 	static bool triggered = false;
 	if (Application::IsKeyPressed('W'))
 	{
-		trans->Translate(fSpeed * *m_vCameraFront);
+		trans->Translate(fSpeed * vCameraUp);
 		if (!triggered)
 		{
 			Instantiate("CUBE");
@@ -33,7 +31,7 @@ void PlayerScript::Update(double dt)
 	}
 	if (Application::IsKeyPressed('S'))
 	{
-		trans->Translate(-fSpeed * *m_vCameraFront);
+		trans->Translate(-fSpeed * vCameraFront);
 	}
 	if (Application::IsKeyPressed('A'))
 	{
@@ -45,10 +43,10 @@ void PlayerScript::Update(double dt)
 	}
 	if (Application::IsKeyPressed('E'))
 	{
-		trans->Translate(fSpeed * *m_vCameraUp);
+		trans->Translate(fSpeed * vCameraUp);
 	}
 	if (Application::IsKeyPressed('Q'))
 	{
-		trans->Translate(-fSpeed * *m_vCameraUp);
+		trans->Translate(-fSpeed * vCameraUp);
 	}
 }

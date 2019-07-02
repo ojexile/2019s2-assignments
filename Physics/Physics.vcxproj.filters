@@ -99,6 +99,18 @@
     <Filter Include="Resources\Shaders">
       <UniqueIdentifier>{06277b32-8c1a-4361-97d1-f01d9c07a8f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Content">
+      <UniqueIdentifier>{87302a1e-7896-4917-9f04-405bd80eb12d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Content">
+      <UniqueIdentifier>{b342a481-abad-46df-a17e-3e269ddb7a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Content\PlayerStates">
+      <UniqueIdentifier>{48b4a556-f5c7-45d9-96cc-e6c5957c038d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Content\PLayerStates">
+      <UniqueIdentifier>{f6ac003c-8424-428d-baca-f4a08df5a58c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\LoadOBJ.cpp">
@@ -202,6 +214,15 @@
     </ClCompile>
     <ClCompile Include="Source\ChengAssignmentScene.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayerState.cpp">
+      <Filter>Source Files\Content\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StandingState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CrouchingState.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +345,15 @@
     </ClInclude>
     <ClInclude Include="Source\ChengAssignmentScene.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerState.h">
+      <Filter>Header Files\Content\PLayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StandingState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CrouchingState.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -158,6 +158,7 @@
     <ClCompile Include="Source\ChengAssignmentScene.cpp" />
     <ClCompile Include="Source\ChengPlayerScript.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
+    <ClCompile Include="Source\CrouchingState.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
     <ClCompile Include="Source\DepthFBO.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
+    <ClCompile Include="Source\PlayerState.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
@@ -182,6 +184,7 @@
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\ScriptComponent.cpp" />
     <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\StandingState.cpp" />
     <ClCompile Include="Source\TestScene.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
@@ -194,6 +197,7 @@
     <ClInclude Include="Source\ChengAssignmentScene.h" />
     <ClInclude Include="Source\ChengPlayerScript.h" />
     <ClInclude Include="Source\ComponentBase.h" />
+    <ClInclude Include="Source\CrouchingState.h" />
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\DepthFBO.h" />
@@ -214,6 +218,7 @@
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\PlayerScript.h" />
+    <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\RenderComponent.h" />
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />
@@ -223,6 +228,7 @@
     <ClInclude Include="Source\ScriptComponent.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Singleton.h" />
+    <ClInclude Include="Source\StandingState.h" />
     <ClInclude Include="Source\TestScene.h" />
     <ClInclude Include="Source\TransformComponent.h" />
     <ClInclude Include="Source\Utility.h" />
