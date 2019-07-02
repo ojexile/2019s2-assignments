@@ -155,6 +155,8 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
+    <ClCompile Include="Source\ChengAssignmentScene.cpp" />
+    <ClCompile Include="Source\ChengPlayerScript.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
     <ClCompile Include="Source\DepthFBO.cpp" />
@@ -189,6 +191,8 @@
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
+    <ClInclude Include="Source\ChengAssignmentScene.h" />
+    <ClInclude Include="Source\ChengPlayerScript.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\Debug.h" />

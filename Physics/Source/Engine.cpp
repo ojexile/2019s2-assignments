@@ -1,5 +1,5 @@
 #include "Engine.h"
-
+#include "ChengAssignmentScene.h"
 // Select Debug logger user
 // Users are enums located in locator.h
 #define USER CHENG
@@ -25,7 +25,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new TestScene);
+	SceneManager->ChangeScene(new ChengAssignmentScene);
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
