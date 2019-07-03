@@ -181,6 +181,10 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// Switch shader
 		//m_programID = it->second->GetShader();
 		//BindUniforms();
+		if (it->first == "UI")
+		{
+			continue;
+		}
 		std::vector<GameObject*> GOList = *it->second->GetGOList();
 		for (unsigned i = 0; i < GOList.size(); ++i)
 		{
@@ -188,18 +192,37 @@ void RenderingManager::RenderWorld(Scene* scene)
 			if (!go->IsActive())
 				continue;
 			Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
-			RenderGameObject(go, vCamPos);
+			RenderGameObject(go, vCamPos, false);
 			for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
 			{
 				GameObject* goChild = GOList[i];
 				if (!go->IsActive())
 					continue;
-				RenderGameObject(goChild, vCamPos);
+				RenderGameObject(goChild, vCamPos, false);
 			}
 		}
 	}
+	// Render UI
+	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
+	std::vector<GameObject*> GOList = *(*map)["UI"]->GetGOList();
+	for (unsigned i = 0; i < GOList.size(); ++i)
+	{
+		GameObject* go = GOList[i];
+		if (!go->IsActive())
+			continue;
+		Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
+		RenderGameObject(go, vCamPos, true);
+		for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
+		{
+			GameObject* goChild = GOList[i];
+			if (!go->IsActive())
+				continue;
+			RenderGameObject(goChild, vCamPos, true);
+		}
+	}
+
 }
-void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos)
+void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI)
 {
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent == nullptr)
@@ -219,6 +242,8 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos)
 
 	modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
 	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
+	if (fGameObjectRotationDegrees != 0)
+		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 	if (renderComponent->IsBillboard())
 	{
 		float rAngle = atan2((vCamPos.x - trans->GetPosition().x), (vCamPos.z - trans->GetPosition().z));
@@ -226,13 +251,11 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos)
 
 		modelStack.Rotate(dAngle, 0.f, 1.f, 0.f);
 	}
+	if(!bIsUI)
+		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 	else
-	{
-		if (fGameObjectRotationDegrees != 0)
-			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-	}
+		RenderUI(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled()); 
 
-	RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 	modelStack.PopMatrix();
 }
 void RenderingManager::Exit()

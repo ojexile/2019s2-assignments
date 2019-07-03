@@ -1,5 +1,5 @@
 #include "PlayerScript.h"
-#include "Application.h"
+#include "KeyboardManager.h"
 #include "SceneManager.h"
 PlayerScript::PlayerScript()
 {
@@ -20,7 +20,7 @@ void PlayerScript::Update(double dt)
 	float fSpeed = 50 * (float)dt;
 	Vector3 vRight = vCameraFront.Cross(vCameraUp);
 	static bool triggered = false;
-	if (Application::IsKeyPressed('W'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
 	{
 		trans->Translate(fSpeed * vCameraUp);
 		if (!triggered)
@@ -29,23 +29,23 @@ void PlayerScript::Update(double dt)
 			triggered = true;
 		}
 	}
-	if (Application::IsKeyPressed('S'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
 	{
 		trans->Translate(-fSpeed * vCameraFront);
 	}
-	if (Application::IsKeyPressed('A'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
 	{
 		trans->Translate(-fSpeed * vRight);
 	}
-	if (Application::IsKeyPressed('D'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveRight"))
 	{
 		trans->Translate(fSpeed * vRight);
 	}
-	if (Application::IsKeyPressed('E'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
 	{
 		trans->Translate(fSpeed * vCameraUp);
 	}
-	if (Application::IsKeyPressed('Q'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
 	{
 		trans->Translate(-fSpeed * vCameraUp);
 	}
