@@ -1,5 +1,6 @@
 #include "RenderingManager.h"
 #include "Application.h"
+
 RenderingManager::RenderingManager()
 {
 }
@@ -157,11 +158,11 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		break;
 	case CameraComponent::CAM_FIRST:
 	case CameraComponent::CAM_CUSTOM_PERSPECT:
-		projection.SetToPerspective(45, 16.f / 9.f, 1, 1000);
+		projection.SetToPerspective(45, (float)Application::GetWindowWidth() / (float)Application::GetWindowHeight(), 0.1f, 1000);
 		break;
 	case CameraComponent::CAM_ORTHO:
 	case CameraComponent::CAM_CUSTOM_ORTHO:
-		projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
+		projection.SetToOrtho(0, Application::GetWindowWidth(), 0, Application::GetWindowHeight(), -10, 10);
 		break;
 	default:
 		DEFAULT_LOG("Camera type not unknown.");
