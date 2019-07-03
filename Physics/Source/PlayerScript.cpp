@@ -1,6 +1,7 @@
 #include "PlayerScript.h"
 #include "Application.h"
 #include "SceneManager.h"
+#include "AudioManager.h"
 PlayerScript::PlayerScript()
 {
 }
@@ -50,5 +51,9 @@ void PlayerScript::Update(double dt)
 	if (Application::IsKeyPressed('Q'))
 	{
 		trans->Translate(-fSpeed * *m_vCameraUp);
+	}
+	if (Application::IsKeyPressed('X'))
+	{
+		AudioManager::GetInstance()->Play3D("susu.wav", Vector3(0,0,2));
 	}
 }

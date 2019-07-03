@@ -197,6 +197,9 @@
     <ClCompile Include="Source\LayerData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\AudioManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\LoadTGA.h">
@@ -311,6 +314,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\LayerData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AudioManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

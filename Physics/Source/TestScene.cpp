@@ -1,6 +1,6 @@
 #include "TestScene.h"
 #include "PlayerScript.h"
-
+#include "AudioManager.h"
 TestScene::TestScene()
 {
 }
@@ -63,4 +63,6 @@ void TestScene::Init()
 	player->TRANSFORM->SetPosition(0, 15, 50);
 	player->AddComponent(new PlayerScript);
 	player->AddChild(m_CameraGO);
+
+	AudioManager::GetInstance()->PlayBGM("despacito.wav");
 }
