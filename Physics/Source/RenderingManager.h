@@ -24,9 +24,9 @@ class RenderingManager : public RenderingManagerBase
 public:
 	virtual void SetMouseCallback(GLFWwindow* window) override;
 
-	virtual void RenderPassGPass(Scene* scene) override;
-	virtual void RenderPassMain(Scene* scene) override;
-	virtual void RenderWorld(Scene* scene) override;
+	virtual void RenderPassGPass(Scene* scene);
+	virtual void RenderPassMain(Scene* scene);
+	virtual void RenderWorld(Scene* scene);
 protected:
 	RenderingManager();
 	virtual ~RenderingManager();
@@ -34,7 +34,7 @@ protected:
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render(Scene* scene);
-	void RenderGameObject(GameObject* go);
+	void RenderGameObject(GameObject* go, Vector3 vCamPos);
 	virtual void Exit();
 	float m_speed;
 	float m_worldWidth;

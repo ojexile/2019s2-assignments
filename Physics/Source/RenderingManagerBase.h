@@ -94,9 +94,6 @@ public:
 	RenderingManagerBase();
 	virtual ~RenderingManagerBase();
 
-	virtual void RenderPassGPass(Scene* scene) = 0;
-	virtual void RenderPassMain(Scene* scene) = 0;
-	virtual void RenderWorld(Scene* scene) = 0;
 
 	virtual void Init();
 	virtual void Update(double dt);

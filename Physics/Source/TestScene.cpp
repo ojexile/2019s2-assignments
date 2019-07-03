@@ -25,6 +25,7 @@ void TestScene::Init()
 	cube->TRANSFORM->SetRotation(90, 1, 0, 0);
 	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("CUBE")));
 	cube->RENDER->SetLightEnabled(true);
+	cube->RENDER->SetBillboard(true);
 	//
 	// Skyplane
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
