@@ -9,6 +9,10 @@ DataContainer::DataContainer()
 	m_map_Meshes["CUBE"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
 	m_map_Meshes["CUBE"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
 
+	// Gun
+	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, .5f);
+	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
+
 	m_map_Meshes["GROUND"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
 	m_map_Meshes["DEPTH"] = MeshBuilder::GenerateQuad("DEPTH", { 1.f,1.f,1.f }, 10);

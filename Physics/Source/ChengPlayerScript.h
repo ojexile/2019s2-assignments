@@ -7,12 +7,11 @@ class ChengPlayerScript : public ScriptComponent
 {
 	friend class PlayerState;
 private:
-
-private:
 	PlayerState* m_CurrentState;
 	float m_fMovementSpeed;
+	GameObject* m_Gun;
 public:
-	ChengPlayerScript();
+	ChengPlayerScript(GameObject* Gun);
 	~ChengPlayerScript();
 
 	void Update(double dt) override;

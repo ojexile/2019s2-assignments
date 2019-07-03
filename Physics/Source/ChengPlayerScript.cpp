@@ -1,7 +1,8 @@
 #include "ChengPlayerScript.h"
 #include "Application.h"
 #include "SceneManager.h"
-ChengPlayerScript::ChengPlayerScript()
+ChengPlayerScript::ChengPlayerScript(GameObject* gun)
+	:m_Gun(gun)
 {
 	m_CurrentState = nullptr;
 }
@@ -57,7 +58,8 @@ void ChengPlayerScript::Update(double dt)
 	{
 		trans->Translate(-fSpeed * *m_vCameraUp);
 	}*/
-
+	// Gun Position
+	m_Gun->GetComponent<TransformComponent>()->SetRelativePosition({ vCameraFront .x, vCameraFront.y+2, vCameraFront .z});
 	// TODO Constrain to terrain
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
