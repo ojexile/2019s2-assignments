@@ -48,36 +48,6 @@ void RenderingManager::Render(Scene* scene)
 	//************************************
 	RenderPassMain(scene);
 }
-void RenderingManager::RenderGameObject(GameObject* go)
-{
-	if (go->GetComponent<RenderComponent>(true) == nullptr)
-		return;
-	Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
-	if (!CurrentMesh)
-	{
-		DEFAULT_LOG("Mesh not initialised");
-		return;
-	}
-	modelStack.PushMatrix();
-	Vector3 vGameObjectPosition = go->GetComponent<TransformComponent>()->GetPosition();
-	Vector3 vGameObjectRotation = go->GetComponent<TransformComponent>()->GetRotation();
-	float fGameObjectRotationDegrees = go->GetComponent<TransformComponent>()->GetDegrees();
-	Vector3 vGameObjectScale = go->GetComponent<TransformComponent>()->GetScale();
-
-	modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
-	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
-	if (fGameObjectRotationDegrees != 0)
-		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-
-	RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
-	modelStack.PopMatrix();
-}
-void RenderingManager::Exit()
-{
-	RenderingManagerBase::Exit();
-	//Cleanup GameObjects
-}
-
 void RenderingManager::RenderPassGPass(Scene* scene)
 {
 	m_renderPass = RENDER_PASS_PRE;
@@ -217,14 +187,15 @@ void RenderingManager::RenderWorld(Scene* scene)
 			GameObject* go = GOList[i];
 			if (!go->IsActive())
 				continue;
-
-		RenderGameObject(go);
-		for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
-		{
-			GameObject* goChild = GOList[i];
-			if (!go->IsActive())
-				continue;
-			RenderGameObject(goChild);
+			Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
+			RenderGameObject(go, vCamPos);
+			for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
+			{
+				GameObject* goChild = GOList[i];
+				if (!go->IsActive())
+					continue;
+				RenderGameObject(goChild, vCamPos);
+			}
 		}
 	}
 }

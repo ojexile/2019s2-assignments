@@ -105,7 +105,7 @@ void RenderingManagerBase::Init()
 	m_programID = DataContainer::GetInstance()->GetShader("default");
 
 	// Shadows
-	m_lightDepthFBO.Init(1024, 1024);
+	m_lightDepthFBO.Init(2048, 2048);
 
 	BindUniforms();
 
