@@ -116,8 +116,9 @@ void Application::Init()
 	}
 
 	// Engine
-	m_Engine.Init();
-	m_Engine.SetMouseCallback(m_window);
+	m_Engine = new Engine;
+	m_Engine->Init();
+	m_Engine->SetMouseCallback(m_window);
 	// Camera
 	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
@@ -132,14 +133,14 @@ void Application::Run()
 		// Get delta time
 		double dt = m_timer.getElapsedTime();
 		// Run GameEngine
-		m_Engine.Update(dt);
+		m_Engine->Update(dt);
 		//Swap buffers
 		glfwSwapBuffers(m_window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
 		glfwPollEvents();
 		m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.
 	} //Check if the ESC key had been pressed or if the window had been closed
-	m_Engine.Exit();
+	m_Engine->Exit();
 }
 
 void Application::Exit()
@@ -148,4 +149,5 @@ void Application::Exit()
 	glfwDestroyWindow(m_window);
 	//Finalize and clean up GLFW
 	glfwTerminate();
+	delete m_Engine;
 }

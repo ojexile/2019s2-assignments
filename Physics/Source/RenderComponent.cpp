@@ -4,6 +4,7 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 	:m_Mesh(Mesh)
 {
 	m_bLightEnabled = false;
+	m_bBillboard = false;
 }
 
 RenderComponent::~RenderComponent()
@@ -25,4 +26,12 @@ void RenderComponent::SetLightEnabled(bool b)
 }
 void RenderComponent::Update(double dt)
 {
+}
+void RenderComponent::SetBillboard(bool b)
+{
+	m_bBillboard = b;
+}
+bool RenderComponent::IsBillboard()
+{
+	return m_bBillboard;
 }

@@ -46,6 +46,8 @@ public:
 	};
 	void AddChild(GameObject* go);
 	std::vector<GameObject*>* GetChildList();
+
+	void SetActive(bool b);
 };
 
 #endif

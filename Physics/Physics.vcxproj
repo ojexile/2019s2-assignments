@@ -161,6 +161,7 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
+    <ClCompile Include="Source\LayerData.cpp" />
     <ClCompile Include="Source\LoadHmap.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
@@ -191,9 +192,11 @@
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\Debug.h" />
+    <ClInclude Include="Source\DepthFBO.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
+    <ClInclude Include="Source\LayerData.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadHmap.h" />
     <ClInclude Include="Source\LoadOBJ.h" />

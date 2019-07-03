@@ -19,12 +19,17 @@ void PlayerScript::Update(double dt)
 	m_vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
 	TransformComponent* trans = GetComponent<TransformComponent>();
 
-	float fSpeed = 5 * (float)dt;
+	float fSpeed = 50 * (float)dt;
 	Vector3 vRight = m_vCameraFront->Cross(*m_vCameraUp);
-
+	static bool triggered = false;
 	if (Application::IsKeyPressed('W'))
 	{
 		trans->Translate(fSpeed * *m_vCameraFront);
+		if (!triggered)
+		{
+			Instantiate("CUBE");
+			triggered = true;
+		}
 	}
 	if (Application::IsKeyPressed('S'))
 	{

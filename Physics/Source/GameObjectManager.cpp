@@ -1,43 +1,74 @@
 #include "GameObjectManager.h"
-
+#include "DataContainer.h"
 GameObjectManager::GameObjectManager()
 {
+	this->CreateLayer(DataContainer::GetInstance()->GetShader("default"));
 }
 
 GameObjectManager::~GameObjectManager()
 {
-	for (int i = (int)m_vec_GOList.size() - 1; i >= 0; --i)
+	std::map<std::string, LayerData*>::iterator it;
+
+	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
 	{
-		delete m_vec_GOList[i];
-		m_vec_GOList.erase(m_vec_GOList.begin() + i);
+		// it->first == key
+		// it->second == value
+		delete it->second;
 	}
 }
 
-std::vector<GameObject*>* GameObjectManager::GetGOList()
+std::map<std::string, LayerData*>* GameObjectManager::GetLayerList()
 {
-	return &m_vec_GOList;
+	return &m_map_Layers;
 }
 
-GameObject* GameObjectManager::AddGameObject(GameObject* go)
+GameObject* GameObjectManager::AddGameObject(GameObject* go, std::string layer)
 {
 	// TODO check if object already exists
-
-	m_vec_GOList.push_back(go);
+	if (m_map_Layers.count(layer) <= 0)
+	{
+		DEFAULT_LOG("Layer doesn't exists.");
+		return nullptr;
+	}
+	m_map_Layers[layer]->GetGOList()->push_back(go);
 	return go;
 }
-GameObject* GameObjectManager::AddGameObject()
+GameObject* GameObjectManager::AddGameObject(std::string layer)
 {
+	if (m_map_Layers.count(layer) <= 0)
+	{
+		DEFAULT_LOG("Layer doesn't exists.");
+		return nullptr;
+	}
 	GameObject* go = new GameObject;
-	m_vec_GOList.push_back(go);
+	m_map_Layers[layer]->GetGOList()->push_back(go);
 	return go;
+}
+bool GameObjectManager::CreateLayer(unsigned shader, std::string layer)
+{
+	if (m_map_Layers.count(layer) > 0)
+	{
+		DEFAULT_LOG("Layer already exists.");
+		return false;
+	}
+	m_map_Layers[layer] = new LayerData(shader);
+	return true;
 }
 
 void GameObjectManager::ClearGameObjects()
 {
 	// TODO ignore static objects
-	for (unsigned i = m_vec_GOList.size() - 1; i >= 0; --i)
+	std::map<std::string, LayerData*>::iterator it;
+
+	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
 	{
-		delete m_vec_GOList[i];
-		m_vec_GOList.erase(m_vec_GOList.begin() + i);
+		// it->first == key
+		// it->second == value
+		std::vector<GameObject*>* list = it->second->GetGOList();
+		for (unsigned i = list->size() - 1; i >= 0; --i)
+		{
+			delete (*list)[i];
+			(*list).erase((*list).begin() + i);
+		}
 	}
 }
