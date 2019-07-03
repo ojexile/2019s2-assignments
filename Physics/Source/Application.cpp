@@ -9,6 +9,7 @@
 //Include the standard C++ headers
 #include <stdio.h>
 #include <stdlib.h>
+#include "KeyboardManager.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -38,6 +39,7 @@ void resize_callback(GLFWwindow* window, int w, int h)
 
 bool Application::IsKeyPressed(unsigned short key)
 {
+	KZ_LOG("IsKeyPressed(unsigned short) is deprecated");
 	return ((GetAsyncKeyState(key) & 0x8001) != 0);
 }
 bool Application::IsMousePressed(unsigned short key) //0 - Left, 1 - Right, 2 - Middle
@@ -128,7 +130,7 @@ void Application::Run()
 	//Main Loop
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
-	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
+	while (!glfwWindowShouldClose(m_window) || KeyboardManager::GetInstance()->GetKeyDown("ExitGame"))
 	{
 		// Get delta time
 		double dt = m_timer.getElapsedTime();

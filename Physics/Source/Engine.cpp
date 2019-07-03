@@ -2,7 +2,7 @@
 
 // Select Debug logger user
 // Users are enums located in locator.h
-#define USER CHENG
+#define USER KZ
 
 #define TO_STR2(x) #x
 #define TO_STR(x) TO_STR2(x)
