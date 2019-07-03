@@ -191,10 +191,13 @@
     <ClCompile Include="Source\LoadHmap.cpp">
       <Filter>Source Files\Application\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DepthFBO.cpp">
+    <ClCompile Include="Source\LayerData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\LayerData.cpp">
+    <ClCompile Include="Source\Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DepthFBO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

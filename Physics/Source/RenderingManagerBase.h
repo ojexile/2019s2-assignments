@@ -12,10 +12,10 @@
 #include <vector>
 #include "Mesh.h"
 #include "Scene.h"
-
+#include "DepthFBO.h"
 #include "shader.hpp"
 #include "Utility.h"
-#include "DepthFBO.h"
+
 #include "MeshBuilder.h"
 
 class RenderingManagerBase : public Renderer
@@ -125,7 +125,6 @@ protected:
 	Mtx44 m_lightDepthProj;
 	Mtx44 m_lightDepthView;
 	RENDER_PASS m_renderPass;
-
 	Mesh* m_DepthQuad;
 };
 

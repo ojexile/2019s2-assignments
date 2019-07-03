@@ -1,5 +1,6 @@
 #include "RenderingManagerBase.h"
 #include "DataContainer.h"
+
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
@@ -11,6 +12,7 @@ RenderingManagerBase::RenderingManagerBase()
 
 RenderingManagerBase::~RenderingManagerBase()
 {
+
 }
 
 void RenderingManagerBase::BindUniforms()
