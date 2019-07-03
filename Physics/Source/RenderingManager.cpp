@@ -1,5 +1,6 @@
 #include "RenderingManager.h"
 #include "Application.h"
+#include "RenderComponent.h"
 
 RenderingManager::RenderingManager()
 {
@@ -119,26 +120,38 @@ void RenderingManager::Render(Scene* scene)
 		}
 	}
 }
-void RenderingManager::RenderGameObject(GameObject* go)
+void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos)
 {
-	if (go->GetComponent<RenderComponent>(true) == nullptr)
+	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
+	if (renderComponent == nullptr)
 		return;
-	Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
+	Mesh* CurrentMesh = renderComponent->GetMesh();
 	if (!CurrentMesh)
 	{
 		DEFAULT_LOG("Mesh not initialised");
 		return;
 	}
 	modelStack.PushMatrix();
-	Vector3 vGameObjectPosition = go->GetComponent<TransformComponent>()->GetPosition();
-	Vector3 vGameObjectRotation = go->GetComponent<TransformComponent>()->GetRotation();
-	float fGameObjectRotationDegrees = go->GetComponent<TransformComponent>()->GetDegrees();
-	Vector3 vGameObjectScale = go->GetComponent<TransformComponent>()->GetScale();
+	TransformComponent* trans = go->GetComponent<TransformComponent>();
+	Vector3 vGameObjectPosition = trans->GetPosition();
+	Vector3 vGameObjectRotation = trans->GetRotation();
+	float fGameObjectRotationDegrees = trans->GetDegrees();
+	Vector3 vGameObjectScale = trans->GetScale();
 
 	modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
 	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
-	if (fGameObjectRotationDegrees != 0)
-		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
+	if (renderComponent->IsBillboard())
+	{
+		float rAngle = atan2((vCamPos.x - trans->GetPosition().x), (vCamPos.z - trans->GetPosition().z));
+		float dAngle = Math::RadianToDegree(rAngle);
+
+		modelStack.Rotate(dAngle, 0.f, 1.f, 0.f);
+	}
+	else
+	{
+		if (fGameObjectRotationDegrees != 0)
+			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
+	}
 
 	RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 	modelStack.PopMatrix();
