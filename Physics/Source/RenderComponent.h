@@ -12,6 +12,10 @@ private:
 public:
 	RenderComponent(Mesh* mesh);
 	virtual ~RenderComponent();
+	virtual ComponentBase* Clone()
+	{
+		return new RenderComponent(*this);
+	}
 
 	Mesh* GetMesh();
 	bool GetLightEnabled();
