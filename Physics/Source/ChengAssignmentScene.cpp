@@ -1,5 +1,6 @@
 #include "ChengAssignmentScene.h"
 #include "ChengPlayerScript.h"
+#include "GunScript.h"
 
 ChengAssignmentScene::ChengAssignmentScene()
 {
@@ -65,6 +66,7 @@ void ChengAssignmentScene::Init()
 	GameObject* gun = m_GameObjectManager.AddGameObject();
 	gun->AddComponent(new RenderComponent(dataContainer->GetMesh("Gun")));
 	gun->RENDER->SetBillboard(true);
+	gun->AddComponent(new GunScript("Bullet"));
 	//Player
 	GameObject* player = m_GameObjectManager.AddGameObject();
 	player->TRANSFORM->SetPosition(0, 0, 50);

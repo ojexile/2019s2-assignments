@@ -1,5 +1,5 @@
 #include "DataContainer.h"
-
+#include "BulletScript.h"
 DataContainer::DataContainer()
 {
 	// Meshs--------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ DataContainer::DataContainer()
 
 	// Gun
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, .5f);
-	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
+	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("textures/PLAYER_PISTOL.tga");
 
 	m_map_Meshes["GROUND"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
@@ -33,6 +33,13 @@ DataContainer::DataContainer()
 	cube->AddComponent(new RenderComponent(this->GetMesh("CUBE")));
 	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	m_map_GO["CUBE"] = cube;
+	//Bullet
+	GameObject* bullet = new GameObject();
+	bullet->AddComponent(new RenderComponent(this->GetMesh("CUBE")));
+	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
+	bullet->GetComponent<RenderComponent>()->SetBillboard(true);
+	bullet->AddComponent(new BulletScript());
+	m_map_GO["Bullet"] = bullet;
 	//--------------------------------------------------------------------------------
 	// Shaders--------------------------------------------------------------------------------
 	m_map_Shaders["default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
