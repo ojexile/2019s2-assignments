@@ -36,6 +36,7 @@ DataContainer::DataContainer()
 	//Bullet
 	GameObject* bullet = new GameObject();
 	bullet->AddComponent(new RenderComponent(this->GetMesh("CUBE")));
+	bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	bullet->GetComponent<RenderComponent>()->SetBillboard(true);
 	bullet->AddComponent(new BulletScript());

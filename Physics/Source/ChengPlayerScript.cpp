@@ -64,7 +64,7 @@ void ChengPlayerScript::Update(double dt)
 	// Fire
 	if (Application::IsKeyPressed(VK_SPACE))
 	{
-		this->m_Gun->GetComponent<GunScript>()->Shoot();
+		this->m_Gun->GetComponent<GunScript>()->Shoot(vCameraFront);
 	}
 	// TODO Constrain to terrain
 }

@@ -1,5 +1,5 @@
 #include "GunScript.h"
-
+#include "BulletScript.h"
 
 
 GunScript::GunScript(std::string bullet)
@@ -20,11 +20,12 @@ void GunScript::Update(double dt)
 	m_fTimer += dt;
 }
 
-void GunScript::Shoot()
+void GunScript::Shoot(Vector3 vDir)
 {
 	if (m_fTimer >= m_fFireRate)
 	{
-		Instantiate(m_sBullet, GetComponent<TransformComponent>()->GetPosition());
+		GameObject* bul = Instantiate(m_sBullet, GetComponent<TransformComponent>()->GetPosition());
+		bul->GetComponent<BulletScript>()->SetDirection(vDir);
 		m_fTimer = 0;
 	}
 }

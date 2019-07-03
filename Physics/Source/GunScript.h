@@ -17,6 +17,6 @@ public:
 	}
 
 	void Update(double dt) override;
-	void Shoot();
+	void Shoot(Vector3 vDir);
 };
 
