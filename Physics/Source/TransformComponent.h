@@ -15,6 +15,10 @@ public:
 	TransformComponent();
 	TransformComponent(Vector3);
 	virtual ~TransformComponent();
+	virtual ComponentBase* Clone()
+	{
+		return new TransformComponent(*this);
+	}
 
 	virtual void Update(double dt) override;
 
