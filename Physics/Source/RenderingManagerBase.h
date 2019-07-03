@@ -15,9 +15,12 @@
 
 #include "shader.hpp"
 #include "Utility.h"
+#include "DepthFBO.h"
+#include "MeshBuilder.h"
 
 class RenderingManagerBase : public Renderer
 {
+protected:
 	enum UNIFORM_TYPE
 	{
 		U_MVP = 0,
@@ -75,11 +78,25 @@ class RenderingManagerBase : public Renderer
 
 		U_ET,
 
+		// Shadoe
+		U_LIGHT_DEPTH_MVP_GPASS,
+		U_LIGHT_DEPTH_MVP,
+		U_SHADOW_MAP,
+
 		U_TOTAL,
+	};
+	enum RENDER_PASS
+	{
+		RENDER_PASS_PRE,
+		RENDER_PASS_MAIN,
 	};
 public:
 	RenderingManagerBase();
 	virtual ~RenderingManagerBase();
+
+	virtual void RenderPassGPass(Scene* scene) = 0;
+	virtual void RenderPassMain(Scene* scene) = 0;
+	virtual void RenderWorld(Scene* scene) = 0;
 
 	virtual void Init();
 	virtual void Update(double dt);
@@ -90,6 +107,7 @@ protected:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderMesh(Mesh *mesh, bool enableLight);
+	void BindUniforms();
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
@@ -100,12 +118,18 @@ protected:
 	MS projectionStack;
 
 	Light lights[1];
-
 	bool bLightEnabled;
-
 	float fps;
-
 	float m_fElapsedTime;
+
+	// Shadow
+	unsigned m_gPassShaderID;
+	DepthFBO m_lightDepthFBO;
+	Mtx44 m_lightDepthProj;
+	Mtx44 m_lightDepthView;
+	RENDER_PASS m_renderPass;
+
+	Mesh* m_DepthQuad;
 };
 
 #endif

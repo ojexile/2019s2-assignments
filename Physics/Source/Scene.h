@@ -2,6 +2,11 @@
 #include "GameObjectManager.h"
 #include "Camera.h"
 #include "CameraComponent.h"
+
+#define TRANSFORM GetComponent<TransformComponent>()
+#define RENDER GetComponent<RenderComponent>()
+#define CAMERA GetComponent<CameraComponent>()
+
 class Scene
 {
 public:

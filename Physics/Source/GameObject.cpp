@@ -64,3 +64,7 @@ std::vector<GameObject*>* GameObject::GetChildList()
 {
 	return &m_vec_ChildList;
 }
+void GameObject::SetActive(bool b)
+{
+	m_bActive = b;
+}

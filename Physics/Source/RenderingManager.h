@@ -23,6 +23,10 @@ class RenderingManager : public RenderingManagerBase
 	friend class Engine;
 public:
 	virtual void SetMouseCallback(GLFWwindow* window) override;
+
+	virtual void RenderPassGPass(Scene* scene) override;
+	virtual void RenderPassMain(Scene* scene) override;
+	virtual void RenderWorld(Scene* scene) override;
 protected:
 	RenderingManager();
 	virtual ~RenderingManager();
