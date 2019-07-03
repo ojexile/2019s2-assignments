@@ -1,20 +1,24 @@
 #pragma once
 
 #include "GameObject.h"
+#include "LayerData.h"
 
 #include <vector>
+#include <map>
 
 class GameObjectManager
 {
 private:
-	std::vector<GameObject*> m_vec_GOList;
+	std::map<std::string, LayerData*> m_map_Layers;
 public:
 	GameObjectManager();
 	~GameObjectManager();
 
-	std::vector<GameObject*>* GetGOList();
-	GameObject* AddGameObject(GameObject* go);
-	GameObject* AddGameObject();
+	std::map<std::string, LayerData*>* GetLayerList();
+
+	GameObject* AddGameObject(GameObject* go, std::string layer = "default");
+	GameObject* AddGameObject(std::string layer = "default");
+	bool CreateLayer(unsigned shader, std::string layer = "default");
 
 	void ClearGameObjects();
 };
