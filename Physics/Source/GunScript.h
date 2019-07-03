@@ -8,8 +8,9 @@ private:
 	std::string m_sBullet;;
 	float m_fTimer;
 	float m_fFireRate;
+	GameObject* m_Player;
 public:
-	GunScript(std::string bullet);
+	GunScript(std::string bullet, GameObject* player);
 	~GunScript();
 	virtual ComponentBase* Clone()
 	{
@@ -19,4 +20,3 @@ public:
 	void Update(double dt) override;
 	void Shoot(Vector3 vDir);
 };
-
