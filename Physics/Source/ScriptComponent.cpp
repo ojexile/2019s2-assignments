@@ -26,6 +26,7 @@ GameObject* ScriptComponent::Instantiate(std::string sName, Vector3 pos, Vector3
 	if (dataContainer->GetGameObject(sName))
 	{
 		GameObject* go = dataContainer->GetGameObject(sName)->Clone();
+		go->GetComponent<TransformComponent>()->SetPosition(pos);
 		sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go);
 		return go;
 	}

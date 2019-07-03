@@ -13,6 +13,10 @@ private:
 public:
 	ChengPlayerScript(GameObject* Gun);
 	~ChengPlayerScript();
+	virtual ComponentBase* Clone()
+	{
+		return new ChengPlayerScript(*this);
+	}
 
 	void Update(double dt) override;
 	virtual void Start() override;

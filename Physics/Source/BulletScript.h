@@ -7,6 +7,10 @@ private:
 public:
 	BulletScript();
 	~BulletScript();
+	virtual ComponentBase* Clone()
+	{
+		return new BulletScript(*this);
+	}
 
 	void SetDirection(Vector3 vDir);
 	void Update(double dt) override;

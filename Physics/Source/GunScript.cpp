@@ -25,5 +25,6 @@ void GunScript::Shoot()
 	if (m_fTimer >= m_fFireRate)
 	{
 		Instantiate(m_sBullet, GetComponent<TransformComponent>()->GetPosition());
+		m_fTimer = 0;
 	}
 }

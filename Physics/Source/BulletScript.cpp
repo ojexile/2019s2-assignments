@@ -14,7 +14,8 @@ BulletScript::~BulletScript()
 
 void BulletScript::Update(double dt)
 {
-	GetComponent<TransformComponent>()->Translate(m_vDir * 1 * dt);
+	GetComponent<TransformComponent>()->Translate({0,0,-10});
+	CHENG_LOG("pos", std::to_string(GetComponent<TransformComponent>()->GetPosition().z));
 }
 void BulletScript::SetDirection(Vector3 vDir)
 {

@@ -11,6 +11,10 @@ private:
 public:
 	GunScript(std::string bullet);
 	~GunScript();
+	virtual ComponentBase* Clone()
+	{
+		return new GunScript(*this);
+	}
 
 	void Update(double dt) override;
 	void Shoot();
