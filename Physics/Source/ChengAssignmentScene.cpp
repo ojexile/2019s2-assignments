@@ -12,8 +12,6 @@ ChengAssignmentScene::~ChengAssignmentScene()
 void ChengAssignmentScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
-	// Layers
-	m_GameObjectManager.CreateLayer(dataContainer->GetShader("water"), "second");
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
 	m_CameraGO->TRANSFORM->SetRelativePosition(0, 5, 0);
@@ -41,7 +39,7 @@ void ChengAssignmentScene::Init()
 	terrain->TRANSFORM->SetScale(500, 20, 500);
 	terrain->AddComponent(new RenderComponent(dataContainer->GetMesh("TERRAIN")));
 	terrain->RENDER->SetLightEnabled(true);
-	//terrain->SetActive(false);
+	terrain->SetActive(false);
 	//
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject();
@@ -49,7 +47,7 @@ void ChengAssignmentScene::Init()
 	ground->TRANSFORM->SetRotation(-90, 1, 0, 0);
 	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("GROUND")));
 	ground->RENDER->SetLightEnabled(true);
-	ground->SetActive(false);
+	ground->SetActive(true);
 	//
 
 	// depth
@@ -63,17 +61,14 @@ void ChengAssignmentScene::Init()
 	//
 
 	// Gun
-	GameObject* gun = m_GameObjectManager.AddGameObject();
+	GameObject* gun = m_GameObjectManager.AddGameObject("UI");
+	gun->TRANSFORM->SetPosition(500, 500, 0);
 	gun->AddComponent(new RenderComponent(dataContainer->GetMesh("Gun")));
-	gun->RENDER->SetBillboard(true);
+	gun->RENDER->SetBillboard(false);
 	gun->AddComponent(new GunScript("Bullet"));
 	//Player
 	GameObject* player = m_GameObjectManager.AddGameObject();
 	player->TRANSFORM->SetPosition(0, 0, 50);
 	player->AddComponent(new ChengPlayerScript(gun));
 	player->AddChild(m_CameraGO);
-	player->AddChild(gun);
-
-
-	
 }

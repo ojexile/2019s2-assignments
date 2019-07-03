@@ -60,7 +60,7 @@ void ChengPlayerScript::Update(double dt)
 		trans->Translate(-fSpeed * *m_vCameraUp);
 	}*/
 	// Gun Position
-	m_Gun->GetComponent<TransformComponent>()->SetRelativePosition({ vCameraFront.x, vCameraFront.y+1.7f, vCameraFront .z});
+	//m_Gun->GetComponent<TransformComponent>()->SetRelativePosition({ vCameraFront.x, vCameraFront.y+1.7f, vCameraFront .z});
 	// Fire
 	if (Application::IsKeyPressed(VK_SPACE))
 	{
