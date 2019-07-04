@@ -26,6 +26,7 @@ void RenderComponent::SetLightEnabled(bool b)
 }
 void RenderComponent::Update(double dt)
 {
+	this->m_Mesh->Update(dt);
 }
 void RenderComponent::SetBillboard(bool b)
 {

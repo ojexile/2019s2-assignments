@@ -54,31 +54,22 @@ void AnimatedMesh::Update(double dt)
 }
 void AnimatedMesh::Render(bool bEnableLight)
 {
-	//---------------------------------------------------------------------
-	// Render VBO here
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, m_uiVertexBuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	// Colour
 	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, m_uiColorBuffer);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	//Normal
-	if (bEnableLight)
-	{
-		glEnableVertexAttribArray(2); // 3rd attribute : normals
-		glBindBuffer(GL_ARRAY_BUFFER, m_uiNormalBuffer);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	}
-	//Index
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_uiIndexBuffer);
-	//Texture
-	if (m_aTextureArray[0] > 0)
+	glEnableVertexAttribArray(2);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(Position));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color)));
+	if (m_uTextureArray[0] > 0)
 	{
 		glEnableVertexAttribArray(3);
-		glBindBuffer(GL_ARRAY_BUFFER, m_uiTexturesBuffer);
-		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color) + sizeof(Vector3)));
 	}
+
+	//glDrawArrays(GL_TRIANGLES, offset, count);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	//Draw------------------------------------------------------------------
 	switch (mode)
 	{
@@ -88,14 +79,6 @@ void AnimatedMesh::Render(bool bEnableLight)
 	case Mesh::DRAW_TRIANGLE_STRIP:
 		glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_INT, (void*)(m_currentFrame * 6 * sizeof(GLuint)));
 		//glDrawArrays(GL_TRIANGLE_STRIP, 0, uiVertexSize);
-		break;
-	case Mesh::DRAW_LINE_STRIP:
-		glDrawElements(GL_LINE_STRIP, 6, GL_UNSIGNED_INT, (void*)(m_currentFrame * 6 * sizeof(GLuint)));
-		//glDrawArrays(GL_TRIANGLE_STRIP, 0, uiVertexSize);
-		break;
-	case Mesh::DRAW_TRIANGLE_FAN:
-		glDrawElements(GL_TRIANGLE_FAN, 6, GL_UNSIGNED_INT, (void*)(m_currentFrame * 6 * sizeof(GLuint)));
-		//glDrawArrays(GL_TRIANGLE_FAN, 0, uiVertexSize);
 		break;
 	case Mesh::DRAW_LINES:
 		glDrawElements(GL_LINES, 6, GL_UNSIGNED_INT, (void*)(m_currentFrame * 6 * sizeof(GLuint)));
@@ -111,7 +94,7 @@ void AnimatedMesh::Render(bool bEnableLight)
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
-	if (m_aTextureArray[0] > 0)
+	if (m_uTextureArray[0] > 0)
 	{
 		glDisableVertexAttribArray(3);
 	}
