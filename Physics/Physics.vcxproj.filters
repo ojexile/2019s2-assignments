@@ -87,17 +87,23 @@
     <Filter Include="Source Files\Application\Scene\Base">
       <UniqueIdentifier>{dabeed8d-5f68-4888-abc3-993dfc201a41}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Scripts">
-      <UniqueIdentifier>{04b66ecb-8bef-4550-8299-870232253bea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Scripts">
-      <UniqueIdentifier>{e2891f93-248a-4b5f-a7ba-cb3e61a49ae8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{7d2d3a22-23ed-4423-9236-be7ff6b1b041}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\Shaders">
       <UniqueIdentifier>{06277b32-8c1a-4361-97d1-f01d9c07a8f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Content">
+      <UniqueIdentifier>{fcab98c2-29b0-43d9-a0a2-6adc34ed32ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Content">
+      <UniqueIdentifier>{24d9c03a-34c1-4b53-bcc2-235fac5580a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Content\Scripts">
+      <UniqueIdentifier>{04b66ecb-8bef-4550-8299-870232253bea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Content\Scripts">
+      <UniqueIdentifier>{e2891f93-248a-4b5f-a7ba-cb3e61a49ae8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -186,19 +192,19 @@
       <Filter>Source Files\Application\Engine\Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\PlayerScript.cpp">
-      <Filter>Source Files\Scripts</Filter>
+      <Filter>Source Files\Content\Scripts</Filter>
     </ClCompile>
     <ClCompile Include="Source\LoadHmap.cpp">
       <Filter>Source Files\Application\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Source\DepthFBO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LayerData.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Application\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Source\KeyboardManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Application\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LayerData.cpp">
+      <Filter>Source Files\Application\Engine\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,19 +311,19 @@
       <Filter>Header Files\Application\Engine\Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\PlayerScript.h">
-      <Filter>Header Files\Scripts</Filter>
+      <Filter>Header Files\Content\Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Source\LoadHmap.h">
       <Filter>Header Files\Application\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Source\DepthFBO.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Application\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Source\LayerData.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Application\Engine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Source\KeyboardManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Application\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
