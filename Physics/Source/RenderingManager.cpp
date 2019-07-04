@@ -248,7 +248,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 
 		modelStack.Rotate(dAngle, 0.f, 1.f, 0.f);
 	}
-	else if (fGameObjectRotationDegrees != 0)
+	if (fGameObjectRotationDegrees != 0)
 		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 	if (!bIsUI)
 		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());

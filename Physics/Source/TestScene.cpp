@@ -22,7 +22,7 @@ void TestScene::Init()
 	GameObject* cube = m_GameObjectManager.AddGameObject("UI");
 	cube->TRANSFORM->SetPosition(0, 1000, 5);
 	cube->TRANSFORM->SetScale(100.f, 100.f, 1.f);
-	cube->TRANSFORM->SetRotation(90, 1, 0, 0);
+	cube->TRANSFORM->SetRotation(90, 0, 1, 0);
 	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	cube->RENDER->SetLightEnabled(true);
 	cube->SetActive(true);
@@ -71,9 +71,9 @@ void TestScene::Init()
 
 	// Cat
 	GameObject* cat = m_GameObjectManager.AddGameObject();
-	cat->TRANSFORM->SetPosition(0, 50, 0);
-	cat->TRANSFORM->SetScale(100.f, 100.f, 1.f);
-	cat->AddComponent(new RenderComponent(dataContainer->GetMesh("Animated")));
+	cat->TRANSFORM->SetPosition(0, 20, 0);
+	cat->TRANSFORM->SetScale(50.f, 50.f, 50.f);
+	cat->AddComponent(new RenderComponent(dataContainer->GetMesh("Cat")));
 	cat->RENDER->SetLightEnabled(false);
 	cat->RENDER->SetBillboard(true);
 }

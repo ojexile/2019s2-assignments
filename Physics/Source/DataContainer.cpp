@@ -21,14 +21,14 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("textures/sky.tga");
 
-	m_map_Meshes["Animated"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
-	m_map_Meshes["Animated"]->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
+	m_map_Meshes["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
+	m_map_Meshes["Cat"]->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();
 	cube->GetComponent<TransformComponent>()->SetPosition(0, 10, 0);
 	cube->GetComponent<TransformComponent>()->SetScale(10, 1, 10);
-	cube->GetComponent<TransformComponent>()->SetRotation(90, 1, 0, 0);
+	cube->GetComponent<TransformComponent>()->SetRotation(45, 0, 1, 0);
 	cube->AddComponent(new RenderComponent(this->GetMesh("Cube")));
 	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	cube->GetComponent<RenderComponent>()->SetBillboard(true);
