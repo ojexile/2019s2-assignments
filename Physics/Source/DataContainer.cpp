@@ -5,9 +5,9 @@ DataContainer::DataContainer()
 	// Meshs--------------------------------------------------------------------------------
 	m_map_Meshes["QUAD"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 5);
 	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
-	m_map_Meshes["CUBE"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/cube.obj");
-	m_map_Meshes["CUBE"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
-	m_map_Meshes["CUBE"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
+	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/cube.obj");
+	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
+	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
 
 	// Gun
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
@@ -24,14 +24,19 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("textures/sky.tga");
+
+	m_map_Meshes["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
+	m_map_Meshes["Cat"]->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();
 	cube->GetComponent<TransformComponent>()->SetPosition(0, 10, 0);
 	cube->GetComponent<TransformComponent>()->SetScale(10, 1, 10);
-	cube->GetComponent<TransformComponent>()->SetRotation(90, 1, 0, 0);
-	cube->AddComponent(new RenderComponent(this->GetMesh("CUBE")));
+	cube->GetComponent<TransformComponent>()->SetRotation(45, 0, 1, 0);
+	cube->AddComponent(new RenderComponent(this->GetMesh("Cube")));
 	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
+	cube->GetComponent<RenderComponent>()->SetBillboard(true);
+	m_map_GO["Cube"] = cube;
 	m_map_GO["CUBE"] = cube;
 	//Bullet
 	GameObject* bullet = new GameObject();
@@ -58,14 +63,14 @@ Mesh* DataContainer::GetMesh(std::string name)
 {
 	Mesh* mesh = m_map_Meshes[name];
 	if (!mesh)
-		std::cout << "ERROR: Mesh not found of name: " << name << std::endl;
+		DEFAULT_LOG("ERROR: Mesh not found of name: " + name);
 	return mesh;
 }
 GameObject* DataContainer::GetGameObject(std::string name)
 {
 	GameObject* go = m_map_GO[name];
 	if (!go)
-		std::cout << "ERROR: Mesh not found of name: " << name << std::endl;
+		DEFAULT_LOG("ERROR: GameObject not found of name: " + name);
 	return go;
 }
 unsigned DataContainer::GetShader(std::string key)
@@ -73,6 +78,6 @@ unsigned DataContainer::GetShader(std::string key)
 	unsigned shader = -1;
 	shader = m_map_Shaders[key];
 	if (shader < 0)
-		std::cout << "ERROR: Shader not found of name: " << key << std::endl;
+		DEFAULT_LOG("ERROR: Shader not found of name: " + key);
 	return shader;
 }

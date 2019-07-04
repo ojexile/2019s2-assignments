@@ -1,6 +1,7 @@
 #include "PlayerScript.h"
 #include "KeyboardManager.h"
 #include "SceneManager.h"
+#include "AudioManager.h"
 PlayerScript::PlayerScript()
 {
 }
@@ -25,7 +26,7 @@ void PlayerScript::Update(double dt)
 		trans->Translate(fSpeed * vCameraUp);
 		if (!triggered)
 		{
-			Instantiate("CUBE");
+			Instantiate("Cube");
 			triggered = true;
 		}
 	}
@@ -48,5 +49,9 @@ void PlayerScript::Update(double dt)
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
 	{
 		trans->Translate(-fSpeed * vCameraUp);
+	}
+	if (KeyboardManager::GetInstance()->GetKeyDown("Susu"))
+	{
+		AudioManager::GetInstance()->Play3D("susu.wav", Vector3(0, 0, 2));
 	}
 }

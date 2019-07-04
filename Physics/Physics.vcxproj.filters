@@ -209,6 +209,13 @@
     <ClCompile Include="Source\LayerData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\AudioManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\KeyboardManager.cpp>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AnimatedMesh.cpp">
     <ClCompile Include="Source\ChengPlayerScript.cpp">
       <Filter>Source Files\Scripts</Filter>
     </ClCompile>
@@ -376,7 +383,16 @@
     <ClInclude Include="Source\BulletScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\AudioManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Source\KeyboardManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AnimatedMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #include "TestScene.h"
 #include "PlayerScript.h"
-
+#include "AudioManager.h"
 TestScene::TestScene()
 {
 }
@@ -20,19 +20,20 @@ void TestScene::Init()
 
 	// Cube
 	GameObject* cube = m_GameObjectManager.AddGameObject("UI");
-	cube->TRANSFORM->SetPosition(500, 500, 5);
+	cube->TRANSFORM->SetPosition(0, 1000, 5);
 	cube->TRANSFORM->SetScale(100.f, 100.f, 1.f);
-	cube->TRANSFORM->SetRotation(90, 1, 0, 0);
-	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("CUBE")));
+	cube->TRANSFORM->SetRotation(90, 0, 1, 0);
+	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	cube->RENDER->SetLightEnabled(true);
-	//cube->RENDER->SetBillboard(true);
+	cube->SetActive(true);
+
 	//
 	// Skyplane
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
 	SkyPlane->TRANSFORM->SetPosition(0, 100, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
-	//SkyPlane->RENDER->SetLightEnabled(true);
-	//SkyPlane->SetActive(false);
+	SkyPlane->RENDER->SetLightEnabled(false);
+	SkyPlane->SetActive(false);
 	//
 
 	// Terrain
@@ -42,6 +43,7 @@ void TestScene::Init()
 	terrain->RENDER->SetLightEnabled(true);
 	terrain->SetActive(false);
 	//
+
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject();
 	ground->TRANSFORM->SetScale(1, 1, 1);
@@ -56,7 +58,8 @@ void TestScene::Init()
 	depth->TRANSFORM->SetPosition(20, 10, 1);
 	//depth->TRANSFORM->SetRotation(-90, 1, 0, 0);
 	depth->AddComponent(new RenderComponent(dataContainer->GetMesh("DEPTH")));
-	//depth->RENDER->SetLightEnabled(true);
+	depth->RENDER->SetLightEnabled(true);
+	depth->SetActive(false);
 	//
 
 	//Player
@@ -64,4 +67,13 @@ void TestScene::Init()
 	player->TRANSFORM->SetPosition(0, 15, 50);
 	player->AddComponent(new PlayerScript);
 	player->AddChild(m_CameraGO);
+	AudioManager::GetInstance()->PlayBGM("despacito.wav");
+
+	// Cat
+	GameObject* cat = m_GameObjectManager.AddGameObject();
+	cat->TRANSFORM->SetPosition(0, 20, 0);
+	cat->TRANSFORM->SetScale(50.f, 50.f, 50.f);
+	cat->AddComponent(new RenderComponent(dataContainer->GetMesh("Cat")));
+	cat->RENDER->SetLightEnabled(false);
+	cat->RENDER->SetBillboard(true);
 }
