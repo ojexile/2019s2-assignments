@@ -23,7 +23,7 @@ void ChengAssignmentScene::Init()
 	cube->TRANSFORM->SetPosition(0, 15, 0);
 	cube->TRANSFORM->SetScale(1.f, 1.f, 1.f);
 	cube->TRANSFORM->SetRotation(90, 1, 0, 0);
-	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("CUBE")));
+	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	cube->RENDER->SetLightEnabled(true);
 	//
 	// Skyplane

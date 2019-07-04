@@ -37,10 +37,9 @@ DataContainer::DataContainer()
 	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	cube->GetComponent<RenderComponent>()->SetBillboard(true);
 	m_map_GO["Cube"] = cube;
-	m_map_GO["CUBE"] = cube;
 	//Bullet
 	GameObject* bullet = new GameObject();
-	bullet->AddComponent(new RenderComponent(this->GetMesh("CUBE")));
+	bullet->AddComponent(new RenderComponent(this->GetMesh("Cube")));
 	bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	bullet->GetComponent<RenderComponent>()->SetBillboard(true);
