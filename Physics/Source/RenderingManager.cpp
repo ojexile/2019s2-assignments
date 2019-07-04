@@ -16,7 +16,6 @@ void RenderingManager::Init()
 	m_worldHeight = 100.f;
 	m_worldWidth = 100.f;
 
-	//Physics code here
 	m_speed = 1.f;
 
 	Math::InitRNG();
