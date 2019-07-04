@@ -19,7 +19,7 @@ void TestScene::Init()
 	//m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 
 	// Cube
-	GameObject* cube = m_GameObjectManager.AddGameObject("UI");
+	GameObject* cube = m_GameObjectManager.AddGameObject();
 	cube->TRANSFORM->SetPosition(500, 500, 5);
 	cube->TRANSFORM->SetScale(100.f, 100.f, 1.f);
 	cube->TRANSFORM->SetRotation(90, 1, 0, 0);
@@ -64,6 +64,5 @@ void TestScene::Init()
 	player->TRANSFORM->SetPosition(0, 15, 50);
 	player->AddComponent(new PlayerScript);
 	player->AddChild(m_CameraGO);
-
 	AudioManager::GetInstance()->PlayBGM("despacito.wav");
 }
