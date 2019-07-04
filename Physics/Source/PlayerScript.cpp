@@ -28,7 +28,7 @@ void PlayerScript::Update(double dt)
 		trans->Translate(fSpeed * *m_vCameraFront);
 		if (!triggered)
 		{
-			Instantiate("CUBE");
+			Instantiate("Cube");
 			triggered = true;
 		}
 	}
@@ -54,6 +54,6 @@ void PlayerScript::Update(double dt)
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("Susu"))
 	{
-		AudioManager::GetInstance()->Play3D("susu.wav", Vector3(0,0,2));
+		AudioManager::GetInstance()->Play3D("susu.wav", Vector3(0, 0, 2));
 	}
 }
