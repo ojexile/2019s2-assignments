@@ -1,5 +1,7 @@
 #include "RenderingManager.h"
 #include "Application.h"
+#include "RenderComponent.h"
+
 RenderingManager::RenderingManager()
 {
 }
@@ -46,36 +48,6 @@ void RenderingManager::Render(Scene* scene)
 	//************************************
 	RenderPassMain(scene);
 }
-void RenderingManager::RenderGameObject(GameObject* go)
-{
-	if (go->GetComponent<RenderComponent>(true) == nullptr)
-		return;
-	Mesh* CurrentMesh = go->GetComponent<RenderComponent>(true)->GetMesh();
-	if (!CurrentMesh)
-	{
-		DEFAULT_LOG("Mesh not initialised");
-		return;
-	}
-	modelStack.PushMatrix();
-	Vector3 vGameObjectPosition = go->GetComponent<TransformComponent>()->GetPosition();
-	Vector3 vGameObjectRotation = go->GetComponent<TransformComponent>()->GetRotation();
-	float fGameObjectRotationDegrees = go->GetComponent<TransformComponent>()->GetDegrees();
-	Vector3 vGameObjectScale = go->GetComponent<TransformComponent>()->GetScale();
-
-	modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
-	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
-	if (fGameObjectRotationDegrees != 0)
-		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-
-	RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
-	modelStack.PopMatrix();
-}
-void RenderingManager::Exit()
-{
-	RenderingManagerBase::Exit();
-	//Cleanup GameObjects
-}
-
 void RenderingManager::RenderPassGPass(Scene* scene)
 {
 	m_renderPass = RENDER_PASS_PRE;
@@ -157,11 +129,11 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		break;
 	case CameraComponent::CAM_FIRST:
 	case CameraComponent::CAM_CUSTOM_PERSPECT:
-		projection.SetToPerspective(45, 16.f / 9.f, 1, 1000);
+		projection.SetToPerspective(45, (float)Application::GetWindowWidth() / (float)Application::GetWindowHeight(), 0.1f, 1000);
 		break;
 	case CameraComponent::CAM_ORTHO:
 	case CameraComponent::CAM_CUSTOM_ORTHO:
-		projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
+		projection.SetToOrtho(0, Application::GetWindowWidth(), 0, Application::GetWindowHeight(), -10, 10);
 		break;
 	default:
 		DEFAULT_LOG("Camera type not unknown.");
@@ -209,21 +181,85 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// Switch shader
 		//m_programID = it->second->GetShader();
 		//BindUniforms();
+		if (it->first == "UI")
+		{
+			continue;
+		}
 		std::vector<GameObject*> GOList = *it->second->GetGOList();
 		for (unsigned i = 0; i < GOList.size(); ++i)
 		{
 			GameObject* go = GOList[i];
 			if (!go->IsActive())
 				continue;
-
-			RenderGameObject(go);
+			Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
+			RenderGameObject(go, vCamPos, false);
 			for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
 			{
 				GameObject* goChild = GOList[i];
 				if (!go->IsActive())
 					continue;
-				RenderGameObject(goChild);
+				RenderGameObject(goChild, vCamPos, false);
 			}
 		}
 	}
+	// Render UI
+	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
+	std::vector<GameObject*> GOList = *(*map)["UI"]->GetGOList();
+	for (unsigned i = 0; i < GOList.size(); ++i)
+	{
+		GameObject* go = GOList[i];
+		if (!go->IsActive())
+			continue;
+		Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
+		RenderGameObject(go, vCamPos, true);
+		for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
+		{
+			GameObject* goChild = GOList[i];
+			if (!go->IsActive())
+				continue;
+			RenderGameObject(goChild, vCamPos, true);
+		}
+	}
+
+}
+void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI)
+{
+	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
+	if (renderComponent == nullptr)
+		return;
+	Mesh* CurrentMesh = renderComponent->GetMesh();
+	if (!CurrentMesh)
+	{
+		DEFAULT_LOG("Mesh not initialised");
+		return;
+	}
+	modelStack.PushMatrix();
+	TransformComponent* trans = go->GetComponent<TransformComponent>();
+	Vector3 vGameObjectPosition = trans->GetPosition();
+	Vector3 vGameObjectRotation = trans->GetRotation();
+	float fGameObjectRotationDegrees = trans->GetDegrees();
+	Vector3 vGameObjectScale = trans->GetScale();
+
+	modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
+	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
+	if (fGameObjectRotationDegrees != 0)
+		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
+	if (renderComponent->IsBillboard())
+	{
+		float rAngle = atan2((vCamPos.x - trans->GetPosition().x), (vCamPos.z - trans->GetPosition().z));
+		float dAngle = Math::RadianToDegree(rAngle);
+
+		modelStack.Rotate(dAngle, 0.f, 1.f, 0.f);
+	}
+	if(!bIsUI)
+		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
+	else
+		RenderUI(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled()); 
+
+	modelStack.PopMatrix();
+}
+void RenderingManager::Exit()
+{
+	RenderingManagerBase::Exit();
+	//Cleanup GameObjects
 }

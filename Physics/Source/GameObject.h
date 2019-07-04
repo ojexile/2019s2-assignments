@@ -21,6 +21,7 @@ private:
 	//Transform* m_Transform;
 public:
 	GameObject();
+	GameObject(GameObject& go);
 	~GameObject();
 
 	ComponentBase* AddComponent(ComponentBase* comp);
@@ -48,6 +49,7 @@ public:
 	std::vector<GameObject*>* GetChildList();
 
 	void SetActive(bool b);
+	GameObject* Clone();
 };
 
 #endif

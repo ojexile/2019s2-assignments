@@ -20,6 +20,10 @@ private:
 public:
 	CameraComponent();
 	virtual ~CameraComponent();
+	virtual ComponentBase* Clone()
+	{
+		return new CameraComponent(*this);
+	}
 
 	virtual void Update(double dt) override;
 	Camera* GetCamera();

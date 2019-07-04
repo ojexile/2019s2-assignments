@@ -3,6 +3,7 @@
 GameObjectManager::GameObjectManager()
 {
 	this->CreateLayer(DataContainer::GetInstance()->GetShader("default"));
+	this->CreateLayer(DataContainer::GetInstance()->GetShader("default"), "UI");
 }
 
 GameObjectManager::~GameObjectManager()

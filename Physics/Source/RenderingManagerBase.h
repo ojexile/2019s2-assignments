@@ -94,9 +94,6 @@ public:
 	RenderingManagerBase();
 	virtual ~RenderingManagerBase();
 
-	virtual void RenderPassGPass(Scene* scene) = 0;
-	virtual void RenderPassMain(Scene* scene) = 0;
-	virtual void RenderWorld(Scene* scene) = 0;
 
 	virtual void Init();
 	virtual void Update(double dt);
@@ -106,6 +103,7 @@ public:
 protected:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
+	void RenderUI(Mesh* mesh, bool enableLight);
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void BindUniforms();
 
