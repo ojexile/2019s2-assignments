@@ -26,15 +26,6 @@ void TestScene::Init()
 	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	cube->RENDER->SetLightEnabled(true);
 	cube->SetActive(true);
-	//cube->RENDER->SetBillboard(true);
-
-	// Cube
-	GameObject* cat = m_GameObjectManager.AddGameObject();
-	cat->TRANSFORM->SetPosition(0, 50, 0);
-	cat->TRANSFORM->SetScale(100.f, 100.f, 1.f);
-	cat->AddComponent(new RenderComponent(dataContainer->GetMesh("Animated")));
-	cat->RENDER->SetLightEnabled(true);
-	cat->RENDER->SetBillboard(true);
 
 	//
 	// Skyplane
@@ -52,6 +43,7 @@ void TestScene::Init()
 	terrain->RENDER->SetLightEnabled(true);
 	terrain->SetActive(false);
 	//
+
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject();
 	ground->TRANSFORM->SetScale(1, 1, 1);
@@ -76,4 +68,12 @@ void TestScene::Init()
 	player->AddComponent(new PlayerScript);
 	player->AddChild(m_CameraGO);
 	AudioManager::GetInstance()->PlayBGM("despacito.wav");
+
+	// Cat
+	GameObject* cat = m_GameObjectManager.AddGameObject();
+	cat->TRANSFORM->SetPosition(0, 50, 0);
+	cat->TRANSFORM->SetScale(100.f, 100.f, 1.f);
+	cat->AddComponent(new RenderComponent(dataContainer->GetMesh("Animated")));
+	cat->RENDER->SetLightEnabled(false);
+	cat->RENDER->SetBillboard(true);
 }

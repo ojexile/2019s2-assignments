@@ -219,7 +219,6 @@ void RenderingManager::RenderWorld(Scene* scene)
 			RenderGameObject(goChild, vCamPos, true);
 		}
 	}
-
 }
 void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI)
 {
@@ -241,8 +240,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 
 	modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
 	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
-	if (fGameObjectRotationDegrees != 0)
-		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
+
 	if (renderComponent->IsBillboard())
 	{
 		float rAngle = atan2((vCamPos.x - trans->GetPosition().x), (vCamPos.z - trans->GetPosition().z));
@@ -250,10 +248,12 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 
 		modelStack.Rotate(dAngle, 0.f, 1.f, 0.f);
 	}
-	if(!bIsUI)
+	else if (fGameObjectRotationDegrees != 0)
+		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
+	if (!bIsUI)
 		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 	else
-		RenderUI(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled()); 
+		RenderUI(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 
 	modelStack.PopMatrix();
 }

@@ -31,6 +31,7 @@ DataContainer::DataContainer()
 	cube->GetComponent<TransformComponent>()->SetRotation(90, 1, 0, 0);
 	cube->AddComponent(new RenderComponent(this->GetMesh("Cube")));
 	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
+	cube->GetComponent<RenderComponent>()->SetBillboard(true);
 	m_map_GO["Cube"] = cube;
 	//--------------------------------------------------------------------------------
 	// Shaders--------------------------------------------------------------------------------

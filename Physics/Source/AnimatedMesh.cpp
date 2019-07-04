@@ -25,7 +25,7 @@ void AnimatedMesh::Update(double dt)
 		m_currentTime += static_cast<float>(dt);
 
 		// Find num frame
-		int numFrame = Math::Max(1, m_anim->endFrame - m_anim->startFrame);
+		int numFrame = Math::Max(1, m_anim->endFrame - m_anim->startFrame + 1);
 		float frameTime = m_anim->animTime / numFrame;
 
 		// Get current frame
@@ -67,8 +67,9 @@ void AnimatedMesh::Render()
 		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color) + sizeof(Vector3)));
 	}
 
-	//glDrawArrays(GL_TRIANGLES, offset, count);
+	//glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+
 	//Draw------------------------------------------------------------------
 	switch (mode)
 	{
