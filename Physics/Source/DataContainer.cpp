@@ -20,6 +20,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("textures/sky.tga");
+
+	m_map_Meshes["Animated"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6);
+	m_map_Meshes["Animated"]->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();
