@@ -19,20 +19,30 @@ void TestScene::Init()
 	//m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 
 	// Cube
-	GameObject* cube = m_GameObjectManager.AddGameObject();
-	cube->TRANSFORM->SetPosition(500, 500, 5);
+	GameObject* cube = m_GameObjectManager.AddGameObject("UI");
+	cube->TRANSFORM->SetPosition(0, 1000, 5);
 	cube->TRANSFORM->SetScale(100.f, 100.f, 1.f);
 	cube->TRANSFORM->SetRotation(90, 1, 0, 0);
-	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("CUBE")));
+	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	cube->RENDER->SetLightEnabled(true);
+	cube->SetActive(true);
 	//cube->RENDER->SetBillboard(true);
+
+	// Cube
+	GameObject* cat = m_GameObjectManager.AddGameObject();
+	cat->TRANSFORM->SetPosition(0, 50, 0);
+	cat->TRANSFORM->SetScale(100.f, 100.f, 1.f);
+	cat->AddComponent(new RenderComponent(dataContainer->GetMesh("Animated")));
+	cat->RENDER->SetLightEnabled(true);
+	cat->RENDER->SetBillboard(true);
+
 	//
 	// Skyplane
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
 	SkyPlane->TRANSFORM->SetPosition(0, 100, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
-	//SkyPlane->RENDER->SetLightEnabled(true);
-	//SkyPlane->SetActive(false);
+	SkyPlane->RENDER->SetLightEnabled(false);
+	SkyPlane->SetActive(false);
 	//
 
 	// Terrain
@@ -56,7 +66,8 @@ void TestScene::Init()
 	depth->TRANSFORM->SetPosition(20, 10, 1);
 	//depth->TRANSFORM->SetRotation(-90, 1, 0, 0);
 	depth->AddComponent(new RenderComponent(dataContainer->GetMesh("DEPTH")));
-	//depth->RENDER->SetLightEnabled(true);
+	depth->RENDER->SetLightEnabled(true);
+	depth->SetActive(false);
 	//
 
 	//Player

@@ -12,7 +12,7 @@ struct Animation
 	}
 	int startFrame;
 	int endFrame;
-	int repeatCount;
+	bool repeatCount;
 	float animTime;
 	bool ended;
 	bool animActive;

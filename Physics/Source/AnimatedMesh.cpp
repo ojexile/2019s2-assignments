@@ -1,6 +1,6 @@
 #include "AnimatedMesh.h"
 
-AnimatedMesh::AnimatedMesh(std::string sMeshName, int row, int col)
+AnimatedMesh::AnimatedMesh(std::string sMeshName, int row, int col, int start, int end, float time, bool loop)
 	: Mesh(sMeshName)
 	, m_col(col)
 	, m_row(row)
@@ -8,7 +8,8 @@ AnimatedMesh::AnimatedMesh(std::string sMeshName, int row, int col)
 	, m_currentFrame(0)
 	, m_playCount(0)
 {
-	m_anim = NULL;
+	m_anim = new Animation();
+	m_anim->Set(start, end, loop, time, true);
 }
 
 AnimatedMesh::~AnimatedMesh()
@@ -33,26 +34,24 @@ void AnimatedMesh::Update(double dt)
 		// Check time
 		if (m_currentTime >= m_anim->animTime)
 		{
-			m_anim->ended = true;
-
 			// Repeat
-			if (m_anim->repeatCount == 0)
+			if (m_anim->repeatCount)
 			{
-				m_anim->animActive = false;
 				m_currentTime = 0.f;
 				m_currentFrame = m_anim->startFrame;
 			}
 
 			// Don't Repeat
-			if (m_anim->repeatCount == 1)
+			else
 			{
+				m_anim->animActive = false;
 				m_currentTime = 0.f;
 				m_currentFrame = m_anim->startFrame;
 			}
 		}
 	}
 }
-void AnimatedMesh::Render(bool bEnableLight)
+void AnimatedMesh::Render()
 {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

@@ -589,7 +589,7 @@ Mesh* MeshBuilder::GenerateSkyPlane(const std::string &meshName, Color color, in
 
 	return mesh;
 }
-AnimatedMesh* MeshBuilder::GenerateAnimatedMesh(std::string sMeshName, int numRow, int numCol)
+AnimatedMesh* MeshBuilder::GenerateAnimatedMesh(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop)
 {
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;
@@ -631,7 +631,7 @@ AnimatedMesh* MeshBuilder::GenerateAnimatedMesh(std::string sMeshName, int numRo
 			offset += 4;
 		}
 	}
-	AnimatedMesh *mesh = new AnimatedMesh(sMeshName, numRow, numCol);
+	AnimatedMesh *mesh = new AnimatedMesh(sMeshName, numRow, numCol, start, end, time, loop);
 
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 

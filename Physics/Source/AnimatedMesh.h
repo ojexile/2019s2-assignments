@@ -15,10 +15,10 @@ class AnimatedMesh : public Mesh
 {
 public:
 public:
-	AnimatedMesh(std::string sMeshName, int row, int col);
+	AnimatedMesh(std::string sMeshName, int row, int col, int start, int end, float time, bool loop);
 	~AnimatedMesh();
 	virtual void Update(double dt) override;
-	virtual void Render(bool bEnabledLight); // Polymorphism
+	virtual void Render() override; // Polymorphism
 	int m_row;
 	int m_col;
 	float m_currentTime;

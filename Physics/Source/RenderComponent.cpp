@@ -26,7 +26,10 @@ void RenderComponent::SetLightEnabled(bool b)
 }
 void RenderComponent::Update(double dt)
 {
-	this->m_Mesh->Update(dt);
+	if (m_Mesh)
+		this->m_Mesh->Update(dt);
+	else
+		DEFAULT_LOG("Mesh uninitialsed.");
 }
 void RenderComponent::SetBillboard(bool b)
 {
