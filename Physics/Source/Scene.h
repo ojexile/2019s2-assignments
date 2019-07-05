@@ -17,6 +17,7 @@ public:
 	GameObject* GetCameraGameObject();
 	Camera* GetCamera();
 	GameObjectManager* GetGameObjectManager();
+
 protected:
 	GameObjectManager m_GameObjectManager;
 	GameObject* m_CameraGO;
