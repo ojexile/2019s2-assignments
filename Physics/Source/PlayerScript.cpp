@@ -2,7 +2,8 @@
 #include "KeyboardManager.h"
 #include "SceneManager.h"
 #include "AudioManager.h"
-PlayerScript::PlayerScript()
+PlayerScript::PlayerScript(GameObject* goRef)
+	:m_GORef(goRef)
 {
 }
 
@@ -28,7 +29,7 @@ void PlayerScript::Update(double dt)
 		trans->Translate(fSpeed * *m_vCameraFront);
 		if (!triggered)
 		{
-			Instantiate("Cube");
+			Instantiate(m_GORef);
 			triggered = true;
 		}
 	}

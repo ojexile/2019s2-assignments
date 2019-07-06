@@ -599,9 +599,9 @@ AnimatedMesh* MeshBuilder::GenerateAnimatedMesh(std::string sMeshName, int numRo
 	float height = 1.f / numRow;
 	int offset = 0;
 
-	for (unsigned i = 0; i < numRow; ++i)
+	for (int i = 0; i < numRow; ++i)
 	{
-		for (unsigned j = 0; j < numCol; ++j)
+		for (int j = 0; j < numCol; ++j)
 		{
 			float u1 = j * width;
 			float v1 = 1.f - height - i * height;

@@ -17,18 +17,24 @@ void ScriptComponent::Start()
 {
 	return;
 }
-GameObject* ScriptComponent::Instantiate(std::string sName, Vector3 pos, Vector3 vRot, Vector3 vScal)
+GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, Vector3 vRot, Vector3 vScal)
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
-	DataContainer* dataContainer = DataContainer::GetInstance();
 
 	// TODO change to pooling
-	if (dataContainer->GetGameObject(sName))
+	if (goRef)
 	{
-		GameObject* go = dataContainer->GetGameObject(sName)->Clone();
-		sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go);
-		return go;
+		try
+		{
+			GameObject* go = goRef->Clone();
+			sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go);
+			return go;
+		}
+		catch (const std::exception&)
+		{
+			DEFAULT_LOG("Instantiate failed.");
+		}
 	}
-	DEFAULT_LOG("Instantiate failed.");
+	DEFAULT_LOG("Instantiate failed, GORef is null.");
 	return nullptr;
 }
