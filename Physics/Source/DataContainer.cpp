@@ -1,6 +1,7 @@
 #include "DataContainer.h"
 #include "BulletScript.h"
 #include "ParticleScript.h"
+#include "ParticleSpawnerScript.h"
 DataContainer::DataContainer()
 {
 	// Meshs--------------------------------------------------------------------------------
@@ -45,12 +46,18 @@ DataContainer::DataContainer()
 	cube->GetComponent<RenderComponent>()->SetBillboard(true);
 	m_map_GO["Cube"] = cube;
 	//Bullet
+	// Spawner
+	GameObject* Spawner = new GameObject;
+	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("TestParticle"), 0.5f, { 10,10,10 }, .25f));
+	//
+
 	GameObject* bullet = new GameObject();
 	bullet->AddComponent(new RenderComponent(this->GetMesh("Cube")));
 	bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	bullet->GetComponent<RenderComponent>()->SetBillboard(true);
 	bullet->AddComponent(new BulletScript());
+	bullet->AddChild(Spawner);
 	m_map_GO["Bullet"] = bullet;
 	// Particle
 	GameObject* TestParticle = new GameObject;
