@@ -25,7 +25,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["Cat"]->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
 
 	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
-	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
+	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();
