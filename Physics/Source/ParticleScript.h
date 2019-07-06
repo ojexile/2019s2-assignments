@@ -4,14 +4,15 @@ class ParticleScript :
 	public ScriptComponent
 {
 private:
-	const float m_fLiftTime;
-	const float m_fAngle;
-	const float m_fGravity;
-	const float m_fSpeed;
-	const float m_fAccel;
-	const float m_fSizeChange;
+	const float m_fLifeTime;
+	Vector3 m_vSpeed;
+	const Vector3 m_vGravity;
+	const Vector3 m_vAccel;
+	const Vector3 m_vSizeChange;
+
+	float m_CurrentDuration;
 public:
-	ParticleScript(const float fLifeTime, const float fAngle, const float fGravity, const float fSpeed, const float fAccel, const float fSizeChange);
+	ParticleScript(const float fLifeTime, const Vector3 vSpeed, const Vector3 vGravity, const Vector3 vAccel, const Vector3 vSizeChange);
 	virtual ~ParticleScript();
 
 	// virtual void Start();
