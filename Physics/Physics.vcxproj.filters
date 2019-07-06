@@ -45,6 +45,7 @@
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WindowData.cpp" />
     <ClCompile Include="Source\ParticleScript.cpp" />
+    <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equipment.h" />
@@ -98,6 +99,7 @@
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WindowData.h" />
     <ClInclude Include="Source\ParticleScript.h" />
+    <ClInclude Include="Source\ParticleSpawnerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

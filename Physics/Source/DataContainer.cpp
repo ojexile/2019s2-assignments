@@ -1,5 +1,6 @@
 #include "DataContainer.h"
 #include "BulletScript.h"
+#include "ParticleScript.h"
 DataContainer::DataContainer()
 {
 	// Meshs--------------------------------------------------------------------------------
@@ -27,6 +28,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
 	m_map_Meshes["Cat"]->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
+
+	m_map_Meshes["TestParticle"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 2);
+	m_map_Meshes["TestParticle"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();
@@ -45,6 +49,12 @@ DataContainer::DataContainer()
 	bullet->GetComponent<RenderComponent>()->SetBillboard(true);
 	bullet->AddComponent(new BulletScript());
 	m_map_GO["Bullet"] = bullet;
+	// Particle
+	GameObject* TestParticle = new GameObject;
+	TestParticle->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
+	TestParticle->GetComponent<RenderComponent>()->SetBillboard(true);
+	TestParticle->AddComponent(new ParticleScript(3, { 0,0.01,0 }, { 2,0,0 }, { 0,0.5,0 }, { 5.5f, 0.5f, 0 }));
+	m_map_GO["TestParticle"] = TestParticle;
 	//--------------------------------------------------------------------------------
 	// Shaders--------------------------------------------------------------------------------
 	m_map_Shaders["Default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");

@@ -14,6 +14,10 @@ private:
 public:
 	ParticleScript(const float fLifeTime, const Vector3 vSpeed, const Vector3 vGravity, const Vector3 vAccel, const Vector3 vSizeChange);
 	virtual ~ParticleScript();
+	virtual ComponentBase* Clone()
+	{
+		return new ParticleScript(*this);
+	}
 
 	// virtual void Start();
 	virtual void Update(double dt) override;
