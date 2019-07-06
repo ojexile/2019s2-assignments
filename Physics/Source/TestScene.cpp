@@ -47,8 +47,8 @@ void TestScene::Init()
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject("Water");
 	ground->TRANSFORM->SetScale(1, 1, 1);
-	ground->TRANSFORM->SetRotation(-90, 1, 0, 0);
-	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("Ground")));
+	//ground->TRANSFORM->SetRotation(-90, 1, 0, 0);
+	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("Water")));
 	ground->RENDER->SetLightEnabled(true);
 	//
 

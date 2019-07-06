@@ -156,14 +156,14 @@ void RenderingManager::RenderPassMain(Scene* scene)
 	std::stringstream ss;
 	ss.precision(1);
 	ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
-	CHENG_LOG("CAM TAR: ", ss.str());
+	//CHENG_LOG("CAM TAR: ", ss.str());
 	std::stringstream ss2;
 	ss2.precision(1);
 	ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
-	CHENG_LOG("CAM POS: ", ss2.str());
+	//CHENG_LOG("CAM POS: ", ss2.str());
 	ss.str("");
 	ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
-	CHENG_LOG("CAM DIR: ", ss.str());
+	//CHENG_LOG("CAM DIR: ", ss.str());
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
@@ -178,12 +178,10 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// it->first == key
 		// it->second == value
 		// Switch shader
+		if (it->first == "UI")
+			continue;
 		m_programID = it->second->GetShader();
 		BindUniforms();
-		if (it->first == "UI")
-		{
-			continue;
-		}
 		std::vector<GameObject*> GOList = *it->second->GetGOList();
 		for (unsigned i = 0; i < GOList.size(); ++i)
 		{

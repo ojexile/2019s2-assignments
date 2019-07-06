@@ -72,8 +72,7 @@ uniform sampler2D colorTexture[MAX_TEXTURES];
 uniform bool textEnabled;
 uniform vec3 textColor;
 uniform FogParam fogParam;
-uniform float et;
-uniform float focus;
+uniform float frag_et;
 
 float GetFogFactor(FogParam fog, float fogDistance)
 {
@@ -98,7 +97,7 @@ float GetFogFactor(FogParam fog, float fogDistance)
 	}
 
 	float speed = 1.0f/1.0f;
-	float rate = et * speed;
+	float rate = frag_et * speed;
 	factor = 0.5f*sin(rate) + 1;
 	
 
@@ -108,8 +107,9 @@ float GetFogFactor(FogParam fog, float fogDistance)
 void main(){
 	vec2 texCoordOG = texCoord;
 	vec2 texCoord = texCoordOG;
-	texCoord.x += sin(et/100) + sin(et/160);
-	texCoord.y += cos(et/130) + sin(et/190);
+	float speed = frag_et / 50;
+	texCoord.x += sin(speed/100) + sin(speed/160);
+	texCoord.y += cos(speed/130) + sin(speed/190);
 	if(lightEnabled == true)
 	{
 		// Material properties
