@@ -4,8 +4,11 @@
 class PlayerScript : public ScriptComponent
 {
 private:
+	Vector3* m_vCameraFront;
+	Vector3* m_vCameraUp;
+	GameObject* m_GORef;
 public:
-	PlayerScript();
+	PlayerScript(GameObject* goRef);
 	~PlayerScript();
 	virtual ComponentBase* Clone()
 	{

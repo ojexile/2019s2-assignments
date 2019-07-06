@@ -99,10 +99,10 @@ void RenderingManagerBase::Init()
 	glBindVertexArray(m_vertexArrayID);
 
 	// Shadows--------------------------------------------------------------------------------
-	m_gPassShaderID = DataContainer::GetInstance()->GetShader("gpass");
+	m_gPassShaderID = DataContainer::GetInstance()->GetShader("GPass");
 
 	// Main Shader--------------------------------------------------------------------------------
-	m_programID = DataContainer::GetInstance()->GetShader("default");
+	m_programID = DataContainer::GetInstance()->GetShader("Default");
 
 	// Shadows
 	m_lightDepthFBO.Init(2048, 2048);

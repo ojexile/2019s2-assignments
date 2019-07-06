@@ -39,7 +39,7 @@ void TestScene::Init()
 	// Terrain
 	GameObject* terrain = m_GameObjectManager.AddGameObject();
 	terrain->TRANSFORM->SetScale(500, 20, 500);
-	terrain->AddComponent(new RenderComponent(dataContainer->GetMesh("TERRAIN")));
+	terrain->AddComponent(new RenderComponent(dataContainer->GetMesh("Terrain")));
 	terrain->RENDER->SetLightEnabled(true);
 	terrain->SetActive(false);
 	//
@@ -48,7 +48,7 @@ void TestScene::Init()
 	GameObject* ground = m_GameObjectManager.AddGameObject();
 	ground->TRANSFORM->SetScale(1, 1, 1);
 	ground->TRANSFORM->SetRotation(-90, 1, 0, 0);
-	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("GROUND")));
+	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("Ground")));
 	ground->RENDER->SetLightEnabled(true);
 	//
 
@@ -57,7 +57,7 @@ void TestScene::Init()
 	depth->TRANSFORM->SetScale(1, 1, 1);
 	depth->TRANSFORM->SetPosition(20, 10, 1);
 	//depth->TRANSFORM->SetRotation(-90, 1, 0, 0);
-	depth->AddComponent(new RenderComponent(dataContainer->GetMesh("DEPTH")));
+	depth->AddComponent(new RenderComponent(dataContainer->GetMesh("Depth")));
 	depth->RENDER->SetLightEnabled(true);
 	depth->SetActive(false);
 	//
@@ -65,7 +65,7 @@ void TestScene::Init()
 	//Player
 	GameObject* player = m_GameObjectManager.AddGameObject();
 	player->TRANSFORM->SetPosition(0, 15, 50);
-	player->AddComponent(new PlayerScript);
+	player->AddComponent(new PlayerScript(dataContainer->GetGameObject("Cube")));
 	player->AddChild(m_CameraGO);
 	AudioManager::GetInstance()->PlayBGM("despacito.wav");
 
