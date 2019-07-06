@@ -13,6 +13,8 @@ ChengAssignmentScene::~ChengAssignmentScene()
 void ChengAssignmentScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
+	// Layers
+	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
 	m_CameraGO->TRANSFORM->SetRelativePosition(0, 5, 0);
@@ -26,6 +28,13 @@ void ChengAssignmentScene::Init()
 	cube->TRANSFORM->SetRotation(90, 1, 0, 0);
 	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	cube->RENDER->SetLightEnabled(true);
+	// Cat
+	GameObject* cat = m_GameObjectManager.AddGameObject();
+	cat->TRANSFORM->SetPosition(0, 21, 0);
+	cat->TRANSFORM->SetScale(20.f, 20.f, 20.f);
+	cat->AddComponent(new RenderComponent(dataContainer->GetMesh("Cat")));
+	cat->RENDER->SetLightEnabled(false);
+	cat->RENDER->SetBillboard(true);
 	//
 	// Skyplane
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
@@ -40,7 +49,7 @@ void ChengAssignmentScene::Init()
 	terrain->TRANSFORM->SetScale(500, 20, 500);
 	terrain->AddComponent(new RenderComponent(dataContainer->GetMesh("Terrain")));
 	terrain->RENDER->SetLightEnabled(true);
-	terrain->SetActive(false);
+	terrain->SetActive(true);
 	//
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject();
@@ -48,7 +57,7 @@ void ChengAssignmentScene::Init()
 	ground->TRANSFORM->SetRotation(-90, 1, 0, 0);
 	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("Ground")));
 	ground->RENDER->SetLightEnabled(true);
-	ground->SetActive(true);
+	ground->SetActive(false);
 	//
 
 	// depth
@@ -79,5 +88,11 @@ void ChengAssignmentScene::Init()
 	GameObject* Spawner = m_GameObjectManager.AddGameObject();
 	Spawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("TestParticle"), 0.5f, { 10,10,10 }, .25f));
 	Spawner->SetActive(true);
+	//
+
+	// water
+	GameObject* water = m_GameObjectManager.AddGameObject("Water");
+	water->AddComponent(new RenderComponent(dataContainer->GetMesh("Water")));
+	water->RENDER->SetLightEnabled(true);
 	//
 }
