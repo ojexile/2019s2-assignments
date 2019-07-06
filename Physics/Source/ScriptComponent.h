@@ -5,7 +5,9 @@ class ScriptComponent :
 	public ComponentBase
 {
 protected:
-	GameObject* Instantiate(GameObject* goRef, Vector3 pos, Vector3 vScal = { 1,1,1 }, Vector3 vRot = {}, float fAngle = 0);
+	GameObject* Instantiate(GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle);
+	GameObject* Instantiate(GameObject* goRef, Vector3 pos, Vector3 vScal);
+	GameObject* Instantiate(GameObject* goRef, Vector3 pos);
 	GameObject* Instantiate(GameObject* goRef);
 public:
 	ScriptComponent();
