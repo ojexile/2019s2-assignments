@@ -1,6 +1,7 @@
 #include "ChengAssignmentScene.h"
 #include "ChengPlayerScript.h"
 #include "GunScript.h"
+#include "ParticleSpawnerScript.h"
 
 ChengAssignmentScene::ChengAssignmentScene()
 {
@@ -59,12 +60,11 @@ void ChengAssignmentScene::Init()
 	//depth->RENDER->SetLightEnabled(true);
 	depth->SetActive(false);
 	//
-		// Gun
 
 	//Player
 	GameObject* player = m_GameObjectManager.AddGameObject();
 	player->TRANSFORM->SetPosition(0, 0, 50);
-
+	// Gun
 	GameObject* gun = m_GameObjectManager.AddGameObject("UI");
 	gun->TRANSFORM->SetPosition(1900, 80, 0);
 	gun->AddComponent(new RenderComponent(dataContainer->GetMesh("Gun")));
@@ -74,4 +74,10 @@ void ChengAssignmentScene::Init()
 
 	player->AddComponent(new ChengPlayerScript(gun));
 	player->AddChild(m_CameraGO);
+
+	// Spawner
+	GameObject* Spawner = m_GameObjectManager.AddGameObject();
+	Spawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("TestParticle"), 0.5f, { 10,10,10 }, 25.f));
+	Spawner->SetActive(true);
+	//
 }
