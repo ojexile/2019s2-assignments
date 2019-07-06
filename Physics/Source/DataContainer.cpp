@@ -45,12 +45,20 @@ DataContainer::DataContainer()
 	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	cube->GetComponent<RenderComponent>()->SetBillboard(true);
 	m_map_GO["Cube"] = cube;
-	//Bullet
+	//
+	// Particle
+	GameObject* TestParticle = new GameObject;
+	TestParticle->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
+	TestParticle->GetComponent<RenderComponent>()->SetBillboard(true);
+	TestParticle->AddComponent(new ParticleScript(3, { 0,0.01,0 }, { 2,0,0 }, { 0,0.5,0 }, { 5.5f, 0.5f, 0 }));
+	m_map_GO["TestParticle"] = TestParticle;
+	//
 	// Spawner
 	GameObject* Spawner = new GameObject;
 	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("TestParticle"), 0.5f, { 10,10,10 }, .25f));
 	//
 
+	//Bullet
 	GameObject* bullet = new GameObject();
 	bullet->AddComponent(new RenderComponent(this->GetMesh("Cube")));
 	bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
@@ -59,12 +67,7 @@ DataContainer::DataContainer()
 	bullet->AddComponent(new BulletScript());
 	bullet->AddChild(Spawner);
 	m_map_GO["Bullet"] = bullet;
-	// Particle
-	GameObject* TestParticle = new GameObject;
-	TestParticle->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
-	TestParticle->GetComponent<RenderComponent>()->SetBillboard(true);
-	TestParticle->AddComponent(new ParticleScript(3, { 0,0.01,0 }, { 2,0,0 }, { 0,0.5,0 }, { 5.5f, 0.5f, 0 }));
-	m_map_GO["TestParticle"] = TestParticle;
+	//
 	//--------------------------------------------------------------------------------
 	// Shaders--------------------------------------------------------------------------------
 	m_map_Shaders["Default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");

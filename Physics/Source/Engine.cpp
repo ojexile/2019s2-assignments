@@ -13,7 +13,7 @@ Renderer* Engine::m_Renderer;
 Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
-	m_fLogUpdateTimer = 0;
+	m_fLogUpdateTimer = LOG_UPDATE_RATE;
 }
 
 Engine::~Engine()

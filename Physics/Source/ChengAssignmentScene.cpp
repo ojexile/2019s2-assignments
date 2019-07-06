@@ -85,9 +85,9 @@ void ChengAssignmentScene::Init()
 	player->AddChild(m_CameraGO);
 
 	// Spawner
-	GameObject* Spawner = m_GameObjectManager.AddGameObject();
+	/*GameObject* Spawner = m_GameObjectManager.AddGameObject();
 	Spawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("TestParticle"), 0.5f, { 10,10,10 }, .25f));
-	Spawner->SetActive(true);
+	Spawner->SetActive(false);*/
 	//
 
 	// water

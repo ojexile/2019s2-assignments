@@ -22,7 +22,8 @@ void GunScript::Shoot(Vector3 vDir)
 {
 	if (m_fTimer >= m_fFireRate)
 	{
-		GameObject* bul = Instantiate(m_Bullet, m_Player->GetComponent<TransformComponent>()->GetPosition());
+		Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
+		GameObject* bul = Instantiate(m_Bullet, pos);
 		bul->GetComponent<BulletScript>()->SetDirection(vDir);
 		m_fTimer = 0;
 	}
