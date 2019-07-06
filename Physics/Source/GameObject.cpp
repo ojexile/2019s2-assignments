@@ -19,7 +19,7 @@ GameObject::GameObject(GameObject& go)
 	}
 	for (unsigned i = 0; i < go.m_vec_ChildList.size(); ++i)
 	{
-		GameObject* child = new GameObject(*m_vec_ChildList[i]);
+		GameObject* child = m_vec_ChildList[i]->Clone();
 		m_vec_ChildList.push_back(child);
 	}
 }
