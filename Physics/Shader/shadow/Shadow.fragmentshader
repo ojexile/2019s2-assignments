@@ -107,7 +107,6 @@ float getShadowEffect()
 }
 
 void main(){
-if (color.a < .3f) discard;
 	if(lightEnabled == true)
 	{
 		// Material properties
@@ -206,6 +205,8 @@ if (color.a < .3f) discard;
 		
 	}
 
+	if (color.a < .3f) discard;
+	return;
 	if(fogParam.enabled)
 	{
 		float fogDistance = abs(vertexPosition_cameraspace.z);
