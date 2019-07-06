@@ -9,6 +9,9 @@ private:
 	float m_fTimer;
 	float m_fFireRate;
 	GameObject* m_Player;
+	bool m_bSemi;
+
+	bool m_bTriggerDown;
 public:
 	GunScript(GameObject* bullet, GameObject* player);
 	~GunScript();
@@ -18,5 +21,6 @@ public:
 	}
 
 	void Update(double dt) override;
-	void Shoot(Vector3 vDir);
+	void PullTrigger(Vector3 vDir);
+	void ReleaseTrigger();
 };

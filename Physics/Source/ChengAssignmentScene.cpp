@@ -28,6 +28,16 @@ void ChengAssignmentScene::Init()
 	cube->TRANSFORM->SetRotation(90, 1, 0, 0);
 	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	cube->RENDER->SetLightEnabled(true);
+	//
+	// Crosshair
+	GameObject* Crosshair = m_GameObjectManager.AddGameObject("UI");
+	Crosshair->TRANSFORM->SetPosition(1920 / 2, 1080 / 2, 5);
+	Crosshair->TRANSFORM->SetScale(100.f, 100.f, 1.f);
+	// ui->TRANSFORM->SetRotation(90, 0, 1, 0);
+	Crosshair->AddComponent(new RenderComponent(dataContainer->GetMesh("Crosshair")));
+	Crosshair->RENDER->SetLightEnabled(false);
+	Crosshair->SetActive(true);
+	//
 	// Cat
 	GameObject* cat = m_GameObjectManager.AddGameObject();
 	cat->TRANSFORM->SetPosition(0, 21, 0);

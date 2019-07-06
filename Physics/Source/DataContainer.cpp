@@ -35,6 +35,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
 	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
+
+	m_map_Meshes["Crosshair"] = MeshBuilder::GenerateQuad("Crosshair", { 1.f,1.f,1.f }, 2);
+	m_map_Meshes["Crosshair"]->m_uTextureArray[0] = LoadTGA("textures/Crosshair.tga");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();
@@ -61,7 +64,7 @@ DataContainer::DataContainer()
 	//Bullet
 	GameObject* bullet = new GameObject();
 	bullet->AddComponent(new RenderComponent(this->GetMesh("Cube")));
-	bullet->GetComponent<TransformComponent>()->SetScale(0.001f, 0.01f, 0.01f);
+	bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	bullet->GetComponent<RenderComponent>()->SetBillboard(true);
 	bullet->AddComponent(new BulletScript());

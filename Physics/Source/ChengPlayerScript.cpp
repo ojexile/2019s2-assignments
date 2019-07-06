@@ -62,9 +62,13 @@ void ChengPlayerScript::Update(double dt)
 	// Gun Position
 	//m_Gun->GetComponent<TransformComponent>()->SetRelativePosition({ vCameraFront.x, vCameraFront.y+1.7f, vCameraFront .z});
 	// Fire
-	if (Application::IsKeyPressed(VK_SPACE))
+	if (Application::IsMousePressed(0))
 	{
-		this->m_Gun->GetComponent<GunScript>()->Shoot(vCameraFront);
+		this->m_Gun->GetComponent<GunScript>()->PullTrigger(vCameraFront);
+	}
+	else
+	{
+		this->m_Gun->GetComponent<GunScript>()->ReleaseTrigger();
 	}
 	// TODO Constrain to terrain
 }
