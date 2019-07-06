@@ -2,7 +2,7 @@
 #include "ChengAssignmentScene.h"
 // Select Debug logger user
 // Users are enums located in locator.h
-#define USER KZ
+#define USER CHENG
 
 #define TO_STR2(x) #x
 #define TO_STR(x) TO_STR2(x)
@@ -13,7 +13,7 @@ Renderer* Engine::m_Renderer;
 Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
-	m_fLogUpdateTimer = LOG_UPDATE_RATE;
+	m_fLogUpdateTimer = 0;
 }
 
 Engine::~Engine()

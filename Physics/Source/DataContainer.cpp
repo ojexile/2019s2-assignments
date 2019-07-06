@@ -20,7 +20,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["Depth"]->m_uTextureArray[0] = 1;
 
 	std::vector<unsigned char> heightMap;
-	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("terrain", "data/heightMaps/heightmap.raw", heightMap);
+	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("terrain", "data/heightMaps/heightmapMain.raw", heightMap);
 	m_map_Meshes["Terrain"]->m_uTextureArray[0] = LoadTGA("textures/moss1.tga");
 
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
@@ -31,6 +31,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["TestParticle"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 2);
 	m_map_Meshes["TestParticle"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
+
+	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
+	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();
@@ -84,9 +87,8 @@ GameObject* DataContainer::GetGameObject(std::string name)
 }
 unsigned DataContainer::GetShader(std::string key)
 {
-	unsigned shader = -1;
-	shader = m_map_Shaders[key];
-	if (shader < 0)
+	if (m_map_Shaders.count(key) <= 0)
 		DEFAULT_LOG("ERROR: Shader not found of name: " + key);
+	unsigned shader = m_map_Shaders[key];
 	return shader;
 }

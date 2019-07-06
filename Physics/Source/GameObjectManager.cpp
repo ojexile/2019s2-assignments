@@ -2,8 +2,8 @@
 #include "DataContainer.h"
 GameObjectManager::GameObjectManager()
 {
-	this->CreateLayer(DataContainer::GetInstance()->GetShader("default"));
-	this->CreateLayer(DataContainer::GetInstance()->GetShader("default"), "UI");
+	this->CreateLayer(DataContainer::GetInstance()->GetShader("Default"));
+	this->CreateLayer(DataContainer::GetInstance()->GetShader("Default"), "UI");
 }
 
 GameObjectManager::~GameObjectManager()
