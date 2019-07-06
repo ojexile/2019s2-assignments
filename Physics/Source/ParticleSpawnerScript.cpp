@@ -21,11 +21,14 @@ void ParticleSpawnerScript::Update(double dt)
 		return;
 	m_fCurrentTime = 0;
 	TransformComponent* Trans = GetComponent<TransformComponent>();
-	Vector3 vScale = { Math::RandFloatMinMax(-(100 - m_fSizeOffset), (100 + m_fSizeOffset)),Math::RandFloatMinMax(-(100 - m_fSizeOffset), (100 + m_fSizeOffset)) , Math::RandFloatMinMax(-(100 - m_fSizeOffset), (100 + m_fSizeOffset)) };
+	Vector3 vScale;
+	vScale.x = Math::RandFloatMinMax((1 - m_fSizeOffset), (1 + m_fSizeOffset));
+	vScale.y = Math::RandFloatMinMax((1 - m_fSizeOffset), (1 + m_fSizeOffset));
+	vScale.z = Math::RandFloatMinMax((1 - m_fSizeOffset), (1 + m_fSizeOffset));
 
 	float fXPos = Trans->GetPosition().x + Math::RandFloatMinMax(-m_vSpawnRadius.x, m_vSpawnRadius.x);
 	float fYPos = Trans->GetPosition().x + Math::RandFloatMinMax(-m_vSpawnRadius.y, m_vSpawnRadius.y);
 	float fZPos = Trans->GetPosition().x + Math::RandFloatMinMax(-m_vSpawnRadius.z, m_vSpawnRadius.z);
 	Vector3 SpawnPosition = { fXPos, fYPos, fZPos };
-	Instantiate(m_ParticleRef, SpawnPosition, {}, vScale);
+	Instantiate(m_ParticleRef, SpawnPosition, vScale);
 }

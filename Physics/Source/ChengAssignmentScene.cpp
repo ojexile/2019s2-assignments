@@ -77,7 +77,7 @@ void ChengAssignmentScene::Init()
 
 	// Spawner
 	GameObject* Spawner = m_GameObjectManager.AddGameObject();
-	Spawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("TestParticle"), 0.5f, { 10,10,10 }, 25.f));
+	Spawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("TestParticle"), 0.5f, { 10,10,10 }, .25f));
 	Spawner->SetActive(true);
 	//
 }
