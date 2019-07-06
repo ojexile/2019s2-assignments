@@ -94,7 +94,6 @@ public:
 	RenderingManagerBase();
 	virtual ~RenderingManagerBase();
 
-
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render(Scene* scene);
@@ -125,6 +124,8 @@ protected:
 	DepthFBO m_lightDepthFBO;
 	Mtx44 m_lightDepthProj;
 	Mtx44 m_lightDepthView;
+	Mtx44 m_lightDepthMVP;
+	Mtx44 m_lightDepthMVPGPass;
 	RENDER_PASS m_renderPass;
 
 	Mesh* m_DepthQuad;

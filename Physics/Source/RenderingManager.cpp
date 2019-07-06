@@ -178,8 +178,8 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// it->first == key
 		// it->second == value
 		// Switch shader
-		//m_programID = it->second->GetShader();
-		//BindUniforms();
+		m_programID = it->second->GetShader();
+		BindUniforms();
 		if (it->first == "UI")
 		{
 			continue;
@@ -204,6 +204,8 @@ void RenderingManager::RenderWorld(Scene* scene)
 	// Render UI
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
 	std::vector<GameObject*> GOList = *(*map)["UI"]->GetGOList();
+	m_programID = (*map)["UI"]->GetShader();
+	BindUniforms();
 	for (unsigned i = 0; i < GOList.size(); ++i)
 	{
 		GameObject* go = GOList[i];

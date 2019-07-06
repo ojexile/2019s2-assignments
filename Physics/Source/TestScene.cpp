@@ -12,7 +12,7 @@ void TestScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	// Layers
-	// m_GameObjectManager.CreateLayer(dataContainer->GetShader("water"), "second");
+	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
@@ -33,7 +33,7 @@ void TestScene::Init()
 	SkyPlane->TRANSFORM->SetPosition(0, 100, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
 	SkyPlane->RENDER->SetLightEnabled(false);
-	SkyPlane->SetActive(false);
+	SkyPlane->SetActive(true);
 	//
 
 	// Terrain
@@ -45,7 +45,7 @@ void TestScene::Init()
 	//
 
 	// Ground
-	GameObject* ground = m_GameObjectManager.AddGameObject();
+	GameObject* ground = m_GameObjectManager.AddGameObject("Water");
 	ground->TRANSFORM->SetScale(1, 1, 1);
 	ground->TRANSFORM->SetRotation(-90, 1, 0, 0);
 	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("Ground")));

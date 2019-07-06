@@ -28,8 +28,6 @@ void RenderComponent::Update(double dt)
 {
 	if (m_Mesh)
 		this->m_Mesh->Update(dt);
-	else
-		DEFAULT_LOG("Mesh uninitialsed.");
 }
 void RenderComponent::SetBillboard(bool b)
 {

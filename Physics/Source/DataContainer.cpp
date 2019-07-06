@@ -62,9 +62,8 @@ GameObject* DataContainer::GetGameObject(std::string name)
 }
 unsigned DataContainer::GetShader(std::string key)
 {
-	unsigned shader = -1;
-	shader = m_map_Shaders[key];
-	if (shader < 0)
+	if (m_map_Shaders.count(key) <= 0)
 		DEFAULT_LOG("ERROR: Shader not found of name: " + key);
+	unsigned shader = m_map_Shaders[key];
 	return shader;
 }
