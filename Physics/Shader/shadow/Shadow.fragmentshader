@@ -107,6 +107,7 @@ float getShadowEffect()
 }
 
 void main(){
+if (color.a < .3f) discard;
 	if(lightEnabled == true)
 	{
 		// Material properties
@@ -212,5 +213,5 @@ void main(){
 		color = mix(color, vec4(fogParam.color, 1), fogFactor);
 	}
 
-	if (color.a < .3f) discard;
+	
 }

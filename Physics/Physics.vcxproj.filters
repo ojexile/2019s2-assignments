@@ -1,367 +1,99 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Application">
-      <UniqueIdentifier>{ebed8d3a-c3be-4fe6-afa5-3a83637eb2b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application">
-      <UniqueIdentifier>{0a90807d-e20c-4a87-b410-4da948fc15ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scenes">
-      <UniqueIdentifier>{ba1b5dc5-0a54-406e-8f85-63310ab160f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Scenes">
-      <UniqueIdentifier>{184d613b-996d-4fe2-8dcb-f093e54a99f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Utility">
-      <UniqueIdentifier>{91f6ce7d-453e-4ce9-8ac2-b4e0bbea821d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Engine">
-      <UniqueIdentifier>{568689a2-1d31-4361-bfdf-f12813641f76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Utility\DataContainer">
-      <UniqueIdentifier>{486070f2-07b2-492f-bdb4-55e527f97dff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Engine\GameObject">
-      <UniqueIdentifier>{439a16a9-a64e-4f62-ac17-965e1eb2d3c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Engine\Rendering">
-      <UniqueIdentifier>{f17db684-f884-4ee6-bc7d-39e9184fda19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Engine\Mesh">
-      <UniqueIdentifier>{fa4e43fb-17fd-465a-8e2f-d09dc4b944a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Misc">
-      <UniqueIdentifier>{fe5b8490-61a9-48d3-923a-c522b32d7d55}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Misc\Logger">
-      <UniqueIdentifier>{9b9a8fb5-16c4-41bc-a5cb-a7f40c779505}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Engine\Components">
-      <UniqueIdentifier>{cc337bdc-c367-4ecc-8428-5f2cfc45df77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Utility">
-      <UniqueIdentifier>{dfe7fd1d-3b07-4690-bcae-13fb5db1db63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Engine">
-      <UniqueIdentifier>{32177c2c-9d45-4194-ba10-c280f41af340}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Engine\Rendering">
-      <UniqueIdentifier>{55f0df1e-9cb5-4206-bbb8-cf6f69765611}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Engine\Misc">
-      <UniqueIdentifier>{bd4d5cf6-9915-4d46-8923-2b1ffb6df798}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Engine\Misc\Logger">
-      <UniqueIdentifier>{c0e36e1e-524b-4983-9c30-0ea7e299029b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Engine\Mesh">
-      <UniqueIdentifier>{07f83471-3e07-4736-b2e6-77f396be8e0e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Engine\GameObject">
-      <UniqueIdentifier>{758241ef-58fa-414e-ac4b-2c1fa04d07af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Engine\GameObject\Component">
-      <UniqueIdentifier>{01fd5caf-5b07-4b01-af08-5b9b8777dca9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Engine\Components">
-      <UniqueIdentifier>{57e867ed-4ff6-45f5-94bd-85d095b7cbbe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Engine\Scene">
-      <UniqueIdentifier>{59e841b7-f907-49a2-a8d8-1a39a0419b35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Application\Engine\Scene\Base">
-      <UniqueIdentifier>{a9c75a16-7174-463e-8a44-d29e8ca4d805}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Scene">
-      <UniqueIdentifier>{a0f934c7-a8ba-48f4-ac05-63cafa2f5d8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Application\Scene\Base">
-      <UniqueIdentifier>{dabeed8d-5f68-4888-abc3-993dfc201a41}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scripts">
-      <UniqueIdentifier>{04b66ecb-8bef-4550-8299-870232253bea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Scripts">
-      <UniqueIdentifier>{e2891f93-248a-4b5f-a7ba-cb3e61a49ae8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{7d2d3a22-23ed-4423-9236-be7ff6b1b041}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Shaders">
-      <UniqueIdentifier>{06277b32-8c1a-4361-97d1-f01d9c07a8f4}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Source\AnimatedMesh.cpp" />
+    <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\AudioManager.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\CameraComponent.cpp" />
+    <ClCompile Include="Source\ComponentBase.cpp" />
+    <ClCompile Include="Source\DataContainer.cpp" />
+    <ClCompile Include="Source\DepthFBO.cpp" />
+    <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\GameObjectManager.cpp" />
+    <ClCompile Include="Source\KeyboardManager.cpp" />
+    <ClCompile Include="Source\LayerData.cpp" />
+    <ClCompile Include="Source\LoadHmap.cpp" />
+    <ClCompile Include="Source\LoadOBJ.cpp" />
+    <ClCompile Include="Source\LoadTGA.cpp" />
+    <ClCompile Include="Source\Locator.cpp" />
+    <ClCompile Include="Source\LogData.cpp" />
+    <ClCompile Include="Source\Logger.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MemoryLog.cpp" />
+    <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\PlayerScript.cpp" />
+    <ClCompile Include="Source\RenderComponent.cpp" />
+    <ClCompile Include="Source\RenderingManager.cpp" />
+    <ClCompile Include="Source\RenderingManagerBase.cpp" />
+    <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\SceneManager.cpp" />
+    <ClCompile Include="Source\ScriptComponent.cpp" />
+    <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\TestScene.cpp" />
+    <ClCompile Include="Source\TransformComponent.cpp" />
+    <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\WindowData.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\LoadOBJ.cpp">
-      <Filter>Source Files\Application\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadTGA.cpp">
-      <Filter>Source Files\Application\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\shader.cpp">
-      <Filter>Source Files\Application\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Mesh.cpp">
-      <Filter>Source Files\Application\Engine\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MeshBuilder.cpp">
-      <Filter>Source Files\Application\Engine\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files\Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameObject.cpp">
-      <Filter>Source Files\Application\Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Application.cpp">
-      <Filter>Source Files\Application</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Utility.cpp">
-      <Filter>Source Files\Application\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Engine.cpp">
-      <Filter>Source Files\Application\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\RenderingManagerBase.cpp">
-      <Filter>Source Files\Application\Engine\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\RenderingManager.cpp">
-      <Filter>Source Files\Application\Engine\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TestScene.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameObjectManager.cpp">
-      <Filter>Source Files\Application\Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DataContainer.cpp">
-      <Filter>Source Files\Application\Utility\DataContainer</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ComponentBase.cpp">
-      <Filter>Source Files\Application\Engine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MemoryLog.cpp">
-      <Filter>Source Files\Application\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\RenderComponent.cpp">
-      <Filter>Source Files\Application\Engine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TransformComponent.cpp">
-      <Filter>Source Files\Application\Engine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CameraComponent.cpp">
-      <Filter>Source Files\Application\Engine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Locator.cpp">
-      <Filter>Source Files\Application\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LogData.cpp">
-      <Filter>Source Files\Application\Misc\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Logger.cpp">
-      <Filter>Source Files\Application\Misc\Logger</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\WindowData.cpp">
-      <Filter>Source Files\Application\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Camera.cpp">
-      <Filter>Source Files\Application\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SceneManager.cpp">
-      <Filter>Source Files\Application\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene.cpp">
-      <Filter>Source Files\Application\Scene\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ScriptComponent.cpp">
-      <Filter>Source Files\Application\Engine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\PlayerScript.cpp">
-      <Filter>Source Files\Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LoadHmap.cpp">
-      <Filter>Source Files\Application\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DepthFBO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LayerData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\AudioManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\KeyboardManager.cpp>
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\AnimatedMesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Source\AnimatedMesh.h" />
+    <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\AudioManager.h" />
+    <ClInclude Include="Source\Camera.h" />
+    <ClInclude Include="Source\CameraComponent.h" />
+    <ClInclude Include="Source\ComponentBase.h" />
+    <ClInclude Include="Source\DataContainer.h" />
+    <ClInclude Include="Source\Debug.h" />
+    <ClInclude Include="Source\DepthFBO.h" />
+    <ClInclude Include="Source\Engine.h" />
+    <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\GameObjectManager.h" />
+    <ClInclude Include="Source\KeyboardManager.h" />
+    <ClInclude Include="Source\LayerData.h" />
+    <ClInclude Include="Source\Light.h" />
+    <ClInclude Include="Source\LoadHmap.h" />
+    <ClInclude Include="Source\LoadOBJ.h" />
+    <ClInclude Include="Source\LoadTGA.h" />
+    <ClInclude Include="Source\Locator.h" />
+    <ClInclude Include="Source\LogData.h" />
+    <ClInclude Include="Source\Logger.h" />
+    <ClInclude Include="Source\Material.h" />
+    <ClInclude Include="Source\MemoryLeak.h" />
+    <ClInclude Include="Source\MemoryLog.h" />
+    <ClInclude Include="Source\Mesh.h" />
+    <ClInclude Include="Source\MeshBuilder.h" />
+    <ClInclude Include="Source\PlayerScript.h" />
+    <ClInclude Include="Source\RenderComponent.h" />
+    <ClInclude Include="Source\Renderer.h" />
+    <ClInclude Include="Source\RenderingManager.h" />
+    <ClInclude Include="Source\RenderingManagerBase.h" />
+    <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\SceneManager.h" />
+    <ClInclude Include="Source\ScriptComponent.h" />
+    <ClInclude Include="Source\shader.hpp" />
+    <ClInclude Include="Source\Singleton.h" />
+    <ClInclude Include="Source\TestScene.h" />
+    <ClInclude Include="Source\TransformComponent.h" />
+    <ClInclude Include="Source\Utility.h" />
+    <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\WindowData.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\LoadTGA.h">
-      <Filter>Header Files\Application\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LoadOBJ.h">
-      <Filter>Header Files\Application\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utility.h">
-      <Filter>Header Files\Application\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Vertex.h">
-      <Filter>Header Files\Application\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\shader.hpp">
-      <Filter>Header Files\Application\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Mesh.h">
-      <Filter>Header Files\Application\Engine\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MeshBuilder.h">
-      <Filter>Header Files\Application\Engine\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Application.h">
-      <Filter>Header Files\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Light.h">
-      <Filter>Header Files\Application\Engine\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Material.h">
-      <Filter>Header Files\Application\Engine\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Camera.h">
-      <Filter>Header Files\Application\Engine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameObject.h">
-      <Filter>Header Files\Application\Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Engine.h">
-      <Filter>Header Files\Application\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Renderer.h">
-      <Filter>Header Files\Application\Engine\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\RenderingManager.h">
-      <Filter>Header Files\Application\Engine\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\RenderingManagerBase.h">
-      <Filter>Header Files\Application\Engine\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\TestScene.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameObjectManager.h">
-      <Filter>Header Files\Application\Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\CameraComponent.h">
-      <Filter>Header Files\Application\Engine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ComponentBase.h">
-      <Filter>Header Files\Application\Engine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DataContainer.h">
-      <Filter>Header Files\Application\Engine\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Singleton.h">
-      <Filter>Header Files\Application\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Debug.h">
-      <Filter>Header Files\Application\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MemoryLeak.h">
-      <Filter>Header Files\Application\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MemoryLog.h">
-      <Filter>Header Files\Application\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\RenderComponent.h">
-      <Filter>Header Files\Application\Engine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\TransformComponent.h">
-      <Filter>Header Files\Application\Engine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Logger.h">
-      <Filter>Header Files\Application\Engine\Misc\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LogData.h">
-      <Filter>Header Files\Application\Engine\Misc\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Locator.h">
-      <Filter>Header Files\Application\Engine\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\WindowData.h">
-      <Filter>Header Files\Application\Engine\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene.h">
-      <Filter>Header Files\Application\Engine\Scene\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SceneManager.h">
-      <Filter>Header Files\Application\Engine\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ScriptComponent.h">
-      <Filter>Header Files\Application\Engine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\PlayerScript.h">
-      <Filter>Header Files\Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LoadHmap.h">
-      <Filter>Header Files\Application\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DepthFBO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\LayerData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\AudioManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\KeyboardManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\AnimatedMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Animation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Shader\water.vertexshader">
-      <Filter>Resources\Shaders</Filter>
-    </None>
-    <None Include="Shader\comg.fragmentshader">
-      <Filter>Resources\Shaders</Filter>
-    </None>
-    <None Include="Shader\comg.vertexshader">
-      <Filter>Resources\Shaders</Filter>
-    </None>
-    <None Include="Shader\Fog.fragmentshader">
-      <Filter>Resources\Shaders</Filter>
-    </None>
-    <None Include="Shader\Fog.vertexshader">
-      <Filter>Resources\Shaders</Filter>
-    </None>
-    <None Include="Shader\HeatWave.fragmentshader">
-      <Filter>Resources\Shaders</Filter>
-    </None>
-    <None Include="Shader\HeatWave.vertexshader">
-      <Filter>Resources\Shaders</Filter>
-    </None>
-    <None Include="Shader\MultiTexture.fragmentshader">
-      <Filter>Resources\Shaders</Filter>
-    </None>
-    <None Include="Shader\water.fragmentshader">
-      <Filter>Resources\Shaders</Filter>
-    </None>
+    <None Include="Shader\comg.fragmentshader" />
+    <None Include="Shader\comg.vertexshader" />
+    <None Include="Shader\Fog.fragmentshader" />
+    <None Include="Shader\Fog.vertexshader" />
+    <None Include="Shader\HeatWave.fragmentshader" />
+    <None Include="Shader\HeatWave.vertexshader" />
+    <None Include="Shader\MultiTexture.fragmentshader" />
+    <None Include="Shader\water.fragmentshader" />
+    <None Include="Shader\water.vertexshader" />
+    <None Include="Shader\shadow\Shadow.fragmentshader" />
+    <None Include="Shader\shadow\GPass.fragmentshader" />
+    <None Include="Shader\shadow\GPass.vertexshader" />
+    <None Include="Shader\shadow\Shadow.vertexshader" />
   </ItemGroup>
 </Project>
