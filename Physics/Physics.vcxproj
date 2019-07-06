@@ -260,6 +260,10 @@
     <None Include="Shader\HeatWave.fragmentshader" />
     <None Include="Shader\HeatWave.vertexshader" />
     <None Include="Shader\MultiTexture.fragmentshader" />
+    <None Include="Shader\shadow\GPass.fragmentshader" />
+    <None Include="Shader\shadow\GPass.vertexshader" />
+    <None Include="Shader\shadow\Shadow.fragmentshader" />
+    <None Include="Shader\shadow\Shadow.vertexshader" />
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>

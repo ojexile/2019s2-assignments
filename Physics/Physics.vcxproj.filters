@@ -46,6 +46,41 @@
     <ClCompile Include="Source\WindowData.cpp" />
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
+    <ClCompile Include="Source\AnimatedMesh.cpp" />
+    <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\AudioManager.cpp" />
+    <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\CameraComponent.cpp" />
+    <ClCompile Include="Source\ComponentBase.cpp" />
+    <ClCompile Include="Source\DataContainer.cpp" />
+    <ClCompile Include="Source\DepthFBO.cpp" />
+    <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\GameObjectManager.cpp" />
+    <ClCompile Include="Source\KeyboardManager.cpp" />
+    <ClCompile Include="Source\LayerData.cpp" />
+    <ClCompile Include="Source\LoadHmap.cpp" />
+    <ClCompile Include="Source\LoadOBJ.cpp" />
+    <ClCompile Include="Source\LoadTGA.cpp" />
+    <ClCompile Include="Source\Locator.cpp" />
+    <ClCompile Include="Source\LogData.cpp" />
+    <ClCompile Include="Source\Logger.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MemoryLog.cpp" />
+    <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\PlayerScript.cpp" />
+    <ClCompile Include="Source\RenderComponent.cpp" />
+    <ClCompile Include="Source\RenderingManager.cpp" />
+    <ClCompile Include="Source\RenderingManagerBase.cpp" />
+    <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\SceneManager.cpp" />
+    <ClCompile Include="Source\ScriptComponent.cpp" />
+    <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\TestScene.cpp" />
+    <ClCompile Include="Source\TransformComponent.cpp" />
+    <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\WindowData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equipment.h" />
@@ -102,6 +137,19 @@
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shader\comg.fragmentshader" />
+    <None Include="Shader\comg.vertexshader" />
+    <None Include="Shader\Fog.fragmentshader" />
+    <None Include="Shader\Fog.vertexshader" />
+    <None Include="Shader\HeatWave.fragmentshader" />
+    <None Include="Shader\HeatWave.vertexshader" />
+    <None Include="Shader\MultiTexture.fragmentshader" />
+    <None Include="Shader\water.fragmentshader" />
+    <None Include="Shader\water.vertexshader" />
+    <None Include="Shader\shadow\Shadow.fragmentshader" />
+    <None Include="Shader\shadow\GPass.fragmentshader" />
+    <None Include="Shader\shadow\GPass.vertexshader" />
+    <None Include="Shader\shadow\Shadow.vertexshader" />
     <None Include="Shader\comg.fragmentshader" />
     <None Include="Shader\comg.vertexshader" />
     <None Include="Shader\Fog.fragmentshader" />
