@@ -47,21 +47,21 @@ DataContainer::DataContainer()
 	m_map_GO["Cube"] = cube;
 	//
 	// Particle
-	GameObject* TestParticle = new GameObject;
-	TestParticle->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
-	TestParticle->GetComponent<RenderComponent>()->SetBillboard(true);
-	TestParticle->AddComponent(new ParticleScript(3, { 0,0.01,0 }, { 2,0,0 }, { 0,0.5,0 }, { 5.5f, 0.5f, 0 }));
-	m_map_GO["TestParticle"] = TestParticle;
+	GameObject* SmokeParticle = new GameObject;
+	SmokeParticle->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
+	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
+	SmokeParticle->AddComponent(new ParticleScript(0, { 0,0.3f,0 }, { 2.f,0,0 }, { 0,0,0 }, { -2,-2,0 }));
+	m_map_GO["SmokeParticle"] = SmokeParticle;
 	//
 	// Spawner
 	GameObject* Spawner = new GameObject;
-	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("TestParticle"), 0.5f, { 10,10,10 }, .25f));
+	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.2f, { 0,0,0 }, .5f));
 	//
 
 	//Bullet
 	GameObject* bullet = new GameObject();
 	bullet->AddComponent(new RenderComponent(this->GetMesh("Cube")));
-	bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
+	bullet->GetComponent<TransformComponent>()->SetScale(0.001f, 0.01f, 0.01f);
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	bullet->GetComponent<RenderComponent>()->SetBillboard(true);
 	bullet->AddComponent(new BulletScript());

@@ -79,7 +79,7 @@ void ChengAssignmentScene::Init()
 	gun->AddComponent(new RenderComponent(dataContainer->GetMesh("Gun")));
 	gun->RENDER->SetBillboard(false);
 	gun->RENDER->SetLightEnabled(false);
-	gun->AddComponent(new GunScript(dataContainer->GetGameObject("Bullet"), player));
+	gun->AddComponent(new GunScript(dataContainer->GetGameObject("Bullet"), m_CameraGO));
 
 	player->AddComponent(new ChengPlayerScript(gun));
 	player->AddChild(m_CameraGO);
