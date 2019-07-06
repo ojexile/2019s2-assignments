@@ -17,7 +17,7 @@ void ScriptComponent::Start()
 {
 	return;
 }
-GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, Vector3 vRot, Vector3 vScal)
+GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle)
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
 
@@ -28,6 +28,10 @@ GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, Vector3
 		{
 			GameObject* go = goRef->Clone();
 			sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go);
+			TransformComponent* Trans = go->GetComponent<TransformComponent>();
+			Trans->SetPosition(pos);
+			Trans->SetRotation(fAngle, (int)vRot.x, (int)vRot.y, (int)vRot.z);
+			Trans->SetScale(vScal.x, vScal.y, vScal.z);
 			return go;
 		}
 		catch (const std::exception&)
