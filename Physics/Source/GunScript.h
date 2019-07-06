@@ -5,12 +5,12 @@
 class GunScript : public ScriptComponent
 {
 private:
-	std::string m_sBullet;;
+	GameObject* m_Bullet;;
 	float m_fTimer;
 	float m_fFireRate;
 	GameObject* m_Player;
 public:
-	GunScript(std::string bullet, GameObject* player);
+	GunScript(GameObject* bullet, GameObject* player);
 	~GunScript();
 	virtual ComponentBase* Clone()
 	{
