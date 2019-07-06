@@ -17,6 +17,11 @@ GameObject::GameObject(GameObject& go)
 		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());
 		this->AddComponent(cb);
 	}
+	for (unsigned i = 0; i < go.m_vec_ChildList.size(); ++i)
+	{
+		GameObject* child = new GameObject(*m_vec_ChildList[i]);
+		m_vec_ChildList.push_back(child);
+	}
 }
 
 GameObject::~GameObject()
