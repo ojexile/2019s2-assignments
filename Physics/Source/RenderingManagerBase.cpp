@@ -1,8 +1,6 @@
 #include "RenderingManagerBase.h"
 #include "DataContainer.h"
 #include "Locator.h"
-#include "Application.h"
-
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
@@ -30,7 +28,6 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
 	m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
 	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
-
 	m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
 	m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
 	m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
@@ -42,31 +39,6 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
 	m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
 	m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
-
-	m_parameters[U_LIGHT1_TYPE] = glGetUniformLocation(m_programID, "lights[1].type");
-	m_parameters[U_LIGHT1_POSITION] = glGetUniformLocation(m_programID, "lights[1].position_cameraspace");
-	m_parameters[U_LIGHT1_COLOR] = glGetUniformLocation(m_programID, "lights[1].color");
-	m_parameters[U_LIGHT1_POWER] = glGetUniformLocation(m_programID, "lights[1].power");
-	m_parameters[U_LIGHT1_KC] = glGetUniformLocation(m_programID, "lights[1].kC");
-	m_parameters[U_LIGHT1_KL] = glGetUniformLocation(m_programID, "lights[1].kL");
-	m_parameters[U_LIGHT1_KQ] = glGetUniformLocation(m_programID, "lights[1].kQ");
-	m_parameters[U_LIGHT1_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[1].spotDirection");
-	m_parameters[U_LIGHT1_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[1].cosCutoff");
-	m_parameters[U_LIGHT1_COSINNER] = glGetUniformLocation(m_programID, "lights[1].cosInner");
-	m_parameters[U_LIGHT1_EXPONENT] = glGetUniformLocation(m_programID, "lights[1].exponent");
-
-	m_parameters[U_LIGHT2_TYPE] = glGetUniformLocation(m_programID, "lights[2].type");
-	m_parameters[U_LIGHT2_POSITION] = glGetUniformLocation(m_programID, "lights[2].position_cameraspace");
-	m_parameters[U_LIGHT2_COLOR] = glGetUniformLocation(m_programID, "lights[2].color");
-	m_parameters[U_LIGHT2_POWER] = glGetUniformLocation(m_programID, "lights[2].power");
-	m_parameters[U_LIGHT2_KC] = glGetUniformLocation(m_programID, "lights[2].kC");
-	m_parameters[U_LIGHT2_KL] = glGetUniformLocation(m_programID, "lights[2].kL");
-	m_parameters[U_LIGHT2_KQ] = glGetUniformLocation(m_programID, "lights[2].kQ");
-	m_parameters[U_LIGHT2_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[2].spotDirection");
-	m_parameters[U_LIGHT2_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[2].cosCutoff");
-	m_parameters[U_LIGHT2_COSINNER] = glGetUniformLocation(m_programID, "lights[2].cosInner");
-	m_parameters[U_LIGHT2_EXPONENT] = glGetUniformLocation(m_programID, "lights[2].exponent");
-
 	// Get a handle for our "colorTexture" uniform
 	m_parameters[U_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_programID, "colorTextureEnabled");
 	m_parameters[U_COLOR_TEXTURE] = glGetUniformLocation(m_programID, "colorTexture");
@@ -171,62 +143,17 @@ void RenderingManagerBase::Init()
 	// Shadows
 	m_lightDepthFBO.Init(2048, 2048);
 
-	BindUniforms();
-
-	// Init fog
-	Color fogColor{ 0.5f, 0.5f, 0.5f };
-
-	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
-	glUniform1f(m_parameters[U_FOG_START], 1);
-	glUniform1f(m_parameters[U_FOG_END], 1000);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
-	glUniform1i(m_parameters[U_FOG_TYPE], 1);
-	glUniform1i(m_parameters[U_FOG_ENABLED], true);
-
-	//lights[0].type = Light::LIGHT_DIRECTIONAL;
-	//lights[0].position.Set(0.01f, 30, 0);
-	//lights[0].color.Set(1, 1, 1);
-	//lights[0].power = 1;
-	//lights[0].kC = 1.f;
-	//lights[0].kL = 0.01f;
-	//lights[0].kQ = 0.001f;
-	//lights[0].cosCutoff = cos(Math::DegreeToRadian(45));
-	//lights[0].cosInner = cos(Math::DegreeToRadian(30));
-	//lights[0].exponent = 3.f;
-	//lights[0].spotDirection.Set(0.f, 1.f, 0.f);
-
-	for (std::vector<Light*>::iterator it = m_LightManager.GetSceneLights().begin(); it != m_LightManager.GetSceneLights().end(); ++it)
-	{
-		Light* L = static_cast<Light*>(*it);
-		L->position.Set(0.01f, 30, 0);
-		L->color.Set(1, 1, 1);
-		L->power = 1;
-		L->kC = 1.f;
-		L->kL = 0.01f;
-		L->kQ = 0.001f;
-		L->cosCutoff = cos(Math::DegreeToRadian(45));
-		L->cosInner = cos(Math::DegreeToRadian(30));
-		L->exponent = 3.f;
-		L->spotDirection.Set(0.f, 1.f, 0.f);
-	}
-
-	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
-
-	int iNumOfLightVar = 11;
-	for (int index = 0; index < m_LightManager.GetSceneLights().size(); ++index)
-	{
-		Light* tmp = m_LightManager.GetSceneLights()[index];
-		glUniform1i(m_parameters[U_LIGHT0_TYPE + (iNumOfLightVar * index)], tmp->type);
-		glUniform3fv(m_parameters[U_LIGHT0_COLOR + (iNumOfLightVar * index)], 1, &tmp->color.r);
-		glUniform1f(m_parameters[U_LIGHT0_POWER + (iNumOfLightVar * index)], tmp->power);
-		glUniform1f(m_parameters[U_LIGHT0_KC + (iNumOfLightVar * index)], tmp->kC);
-		glUniform1f(m_parameters[U_LIGHT0_KL + (iNumOfLightVar * index)], tmp->kL);
-		glUniform1f(m_parameters[U_LIGHT0_KQ + (iNumOfLightVar * index)], tmp->kQ);
-		glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF + (iNumOfLightVar * index)], tmp->cosCutoff);
-		glUniform1f(m_parameters[U_LIGHT0_COSINNER + (iNumOfLightVar * index)], tmp->cosInner);
-		glUniform1f(m_parameters[U_LIGHT0_EXPONENT + (iNumOfLightVar * index)], tmp->exponent);
-	}
+	lights[0].type = Light::LIGHT_DIRECTIONAL;
+	lights[0].position.Set(0.01f, 30, 0);
+	lights[0].color.Set(1, 1, 1);
+	lights[0].power = 1;
+	lights[0].kC = 1.f;
+	lights[0].kL = 0.01f;
+	lights[0].kQ = 0.001f;
+	lights[0].cosCutoff = cos(Math::DegreeToRadian(45));
+	lights[0].cosInner = cos(Math::DegreeToRadian(30));
+	lights[0].exponent = 3.f;
+	lights[0].spotDirection.Set(0.f, 1.f, 0.f);
 
 	bLightEnabled = true;
 	BindUniforms();
