@@ -16,7 +16,6 @@ class AnimatedMesh : public Mesh
 public:
 public:
 	AnimatedMesh(std::string sMeshName, int row, int col, int start, int end, float time, bool loop);
-	AnimatedMesh(AnimatedMesh& mesh);
 	~AnimatedMesh();
 	virtual void Update(double dt) override;
 	virtual void Render() override; // Polymorphism
@@ -25,5 +24,5 @@ public:
 	float m_currentTime;
 	int m_currentFrame;
 	int m_playCount;
-	Animation *m_anim;
+	Animation m_anim;
 };

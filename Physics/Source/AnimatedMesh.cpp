@@ -8,55 +8,41 @@ AnimatedMesh::AnimatedMesh(std::string sMeshName, int row, int col, int start, i
 	, m_currentFrame(0)
 	, m_playCount(0)
 {
-	m_anim = new Animation();
-	m_anim->Set(start, end, loop, time, true);
-}
-AnimatedMesh::AnimatedMesh(AnimatedMesh& mesh)
-	:Mesh(mesh.name)
-{
-	m_row = mesh.m_row;
-	m_col = mesh.m_col;
-	m_currentFrame = 0;
-	m_currentFrame = 0;
-	m_playCount = 0;
-	m_anim = new Animation();
-	m_anim->Set(mesh.m_anim->startFrame, mesh.m_anim->endFrame, mesh.m_anim->repeatCount, mesh.m_anim->animTime, mesh.m_anim->animActive);
+	m_anim.Set(start, end, loop, time, true);
 }
 AnimatedMesh::~AnimatedMesh()
 {
-	if (m_anim)
-		delete m_anim;
 }
 void AnimatedMesh::Update(double dt)
 {
-	if (m_anim->animActive)
+	if (m_anim.animActive)
 	{
 		// Get Anim time
 		m_currentTime += static_cast<float>(dt);
 
 		// Find num frame
-		int numFrame = Math::Max(1, m_anim->endFrame - m_anim->startFrame + 1);
-		float frameTime = m_anim->animTime / numFrame;
+		int numFrame = Math::Max(1, m_anim.endFrame - m_anim.startFrame + 1);
+		float frameTime = m_anim.animTime / numFrame;
 
 		// Get current frame
-		m_currentFrame = Math::Min(m_anim->endFrame, m_anim->startFrame + (int)(m_currentTime / frameTime));
+		m_currentFrame = Math::Min(m_anim.endFrame, m_anim.startFrame + (int)(m_currentTime / frameTime));
 
 		// Check time
-		if (m_currentTime >= m_anim->animTime)
+		if (m_currentTime >= m_anim.animTime)
 		{
 			// Repeat
-			if (m_anim->repeatCount)
+			if (m_anim.repeatCount)
 			{
 				m_currentTime = 0.f;
-				m_currentFrame = m_anim->startFrame;
+				m_currentFrame = m_anim.startFrame;
 			}
 
 			// Don't Repeat
 			else
 			{
-				m_anim->animActive = false;
+				m_anim.animActive = false;
 				m_currentTime = 0.f;
-				m_currentFrame = m_anim->startFrame;
+				m_currentFrame = m_anim.startFrame;
 			}
 		}
 	}
