@@ -5,6 +5,7 @@
 #include "ComponentBase.h"
 #include "RenderComponent.h"
 #include "TransformComponent.h"
+#include "Light.h"
 
 #include <vector>
 #include <string>
