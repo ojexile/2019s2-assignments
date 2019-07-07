@@ -65,6 +65,30 @@ void GameObjectManager::Destroy(GameObject* go)
 		}
 	}
 }
+void GameObjectManager::DestroySelf(ComponentBase* com)
+{
+	std::map<std::string, LayerData*>::iterator it;
+
+	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
+	{
+		// it->first == key
+		// it->second == value
+		std::vector<GameObject*>* list = it->second->GetGOList();
+		for (unsigned i = list->size() - 1; i >= 0; --i)
+		{
+			GameObject* go = (*list)[i];
+			for (unsigned j = 0; j < go->m_vec_ComponentList.size(); ++j)
+			{
+				if (go->m_vec_ComponentList[j] == com)
+				{
+					delete go;
+					(*list).erase((*list).begin() + i);
+					return;
+				}
+			}
+		}
+	}
+}
 bool GameObjectManager::CreateLayer(unsigned shader, std::string layer)
 {
 	if (m_map_Layers.count(layer) > 0)

@@ -50,6 +50,8 @@ public:
 
 	void SetActive(bool b);
 	GameObject* Clone();
+
+	friend class GameObjectManager;
 };
 
 #endif

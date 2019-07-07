@@ -10,6 +10,7 @@ protected:
 	GameObject* Instantiate(GameObject* goRef, Vector3 pos);
 	GameObject* Instantiate(GameObject* goRef);
 	void Destroy(GameObject* go);
+	void DestroySelf();
 public:
 	ScriptComponent();
 	virtual ~ScriptComponent();
