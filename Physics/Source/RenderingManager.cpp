@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "RenderComponent.h"
 
+#define SWITCH_SHADER false
 RenderingManager::RenderingManager()
 {
 }
@@ -56,7 +57,7 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(m_gPassShaderID);
 	//These matrices should change when light position or direction changes
-	const float size = 250;
+	const float size = 50;
 	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
 		m_lightDepthProj.SetToOrtho(-size, size, -size, size, -100, 100);
 	else
@@ -180,8 +181,11 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// Switch shader
 		if (it->first == "UI")
 			continue;
-		m_programID = it->second->GetShader();
-		BindUniforms();
+		if (SWITCH_SHADER)
+		{
+			m_programID = it->second->GetShader();
+			BindUniforms();
+		}
 		std::vector<GameObject*> GOList = *it->second->GetGOList();
 		for (unsigned i = 0; i < GOList.size(); ++i)
 		{
@@ -202,8 +206,11 @@ void RenderingManager::RenderWorld(Scene* scene)
 	// Render UI
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
 	std::vector<GameObject*> GOList = *(*map)["UI"]->GetGOList();
-	m_programID = (*map)["UI"]->GetShader();
-	BindUniforms();
+	if (SWITCH_SHADER)
+	{
+		m_programID = (*map)["UI"]->GetShader();
+		BindUniforms();
+	}
 	for (unsigned i = 0; i < GOList.size(); ++i)
 	{
 		GameObject* go = GOList[i];

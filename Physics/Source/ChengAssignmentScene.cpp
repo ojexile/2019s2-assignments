@@ -31,6 +31,14 @@ void ChengAssignmentScene::Init()
 	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	cube->GetComponent<RenderComponent>()->SetBillboard(false);
 	//
+	// Cube
+	GameObject* cube2 = m_GameObjectManager.AddGameObject();
+	cube2->GetComponent<TransformComponent>()->SetPosition(-20, 5, 0);
+	cube2->GetComponent<TransformComponent>()->SetScale(2, 2, 2);
+	cube2->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
+	cube2->GetComponent<RenderComponent>()->SetLightEnabled(true);
+	cube2->GetComponent<RenderComponent>()->SetBillboard(true);
+	//
 	// Crosshair
 	GameObject* Crosshair = m_GameObjectManager.AddGameObject("UI");
 	Crosshair->TRANSFORM->SetPosition(1920 / 2, 1080 / 2, 5);
@@ -42,7 +50,7 @@ void ChengAssignmentScene::Init()
 	//
 
 	// Cat
-	GameObject* cat = m_GameObjectManager.AddGameObject("Smoke");
+	GameObject* cat = m_GameObjectManager.AddGameObject();
 	cat->TRANSFORM->SetPosition(0, 15, 0);
 	cat->TRANSFORM->SetScale(20.f, 20.f, 20.f);
 	cat->AddComponent(new RenderComponent(dataContainer->GetAnimation("Cat")));
@@ -80,7 +88,8 @@ void ChengAssignmentScene::Init()
 	//depth->TRANSFORM->SetRotation(-90, 1, 0, 0);
 	depth->AddComponent(new RenderComponent(dataContainer->GetMesh("Depth")));
 	//depth->RENDER->SetLightEnabled(true);
-	depth->SetActive(false);
+	depth->SetActive(true);
+	depth->RENDER->SetBillboard(true);
 	//
 
 	//Player
@@ -92,20 +101,22 @@ void ChengAssignmentScene::Init()
 	gun->AddComponent(new RenderComponent(dataContainer->GetMesh("Gun")));
 	gun->RENDER->SetBillboard(false);
 	gun->RENDER->SetLightEnabled(false);
-	gun->AddComponent(new GunScript(dataContainer->GetGameObject("Bullet"), m_CameraGO, 0.1f, false));
+	gun->AddComponent(new GunScript(dataContainer->GetGameObject("Bullet"), m_CameraGO, 0.1f, true));
 
 	player->AddComponent(new ChengPlayerScript(gun));
 	player->AddChild(m_CameraGO);
 
 	// Spawner
-	/*GameObject* Spawner = m_GameObjectManager.AddGameObject();
-	Spawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("TestParticle"), 0.5f, { 10,10,10 }, .25f));
-	Spawner->SetActive(false);*/
+	GameObject* Spawner = m_GameObjectManager.AddGameObject();
+	Spawner->TRANSFORM->SetPosition(0, 50, 0);
+	Spawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Rain"), 0.0002f, { 100,100,100 }, .8f));
+	Spawner->SetActive(true);
 	//
 
 	// water
 	GameObject* water = m_GameObjectManager.AddGameObject("Water");
 	water->AddComponent(new RenderComponent(dataContainer->GetMesh("Water")));
+	water->TRANSFORM->SetPosition(0, 0, 0);
 	water->RENDER->SetLightEnabled(true);
 	//
 }

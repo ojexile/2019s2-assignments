@@ -56,8 +56,14 @@ DataContainer::DataContainer()
 	GameObject* SmokeParticle = new GameObject;
 	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
 	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
-	SmokeParticle->AddComponent(new ParticleScript(2.2f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.2f,-0.2f,0 }));
+	SmokeParticle->AddComponent(new ParticleScript(2.2f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.8f,-0.8f,0 }));
 	m_map_GO["SmokeParticle"] = SmokeParticle;
+	// Rain
+	GameObject* Rain = new GameObject;
+	Rain->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
+	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
+	Rain->AddComponent(new ParticleScript(10.0f, { 0,-1,0 }, { 1,0,0 }, { 0,0,0 }, { -0.1,0,0 }));
+	m_map_GO["Rain"] = Rain;
 	//
 	// Spawner
 	GameObject* Spawner = new GameObject;
