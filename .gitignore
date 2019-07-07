@@ -270,3 +270,4 @@ __pycache__/
 /Physics/windowData/windowData.txt
 /Common/Debug
 /Physics/Debug
+*.mtl
