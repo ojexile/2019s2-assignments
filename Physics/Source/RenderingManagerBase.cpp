@@ -77,6 +77,14 @@ void RenderingManagerBase::BindUniforms()
 		"shadowMap");
 	m_parameters[U_LIGHT_DEPTH_MVP_GPASS] =
 		glGetUniformLocation(m_gPassShaderID, "lightDepthMVP");
+	m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_gPassShaderID, "colorTextureEnabled[0]");
+	m_parameters[U_SHADOW_COLOR_TEXTURE] = glGetUniformLocation(m_gPassShaderID, "colorTexture[0]");
+	m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED1] = glGetUniformLocation(m_gPassShaderID, "colorTextureEnabled[1]");
+	m_parameters[U_SHADOW_COLOR_TEXTURE1] = glGetUniformLocation(m_gPassShaderID, "colorTexture[1]");
+	m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED2] = glGetUniformLocation(m_gPassShaderID, "colorTextureEnabled[2]");
+	m_parameters[U_SHADOW_COLOR_TEXTURE2] = glGetUniformLocation(m_gPassShaderID, "colorTexture[2]");
+
+	//--------------------------------------------------------------------------------
 	glUseProgram(m_programID);
 
 	// Rebind light param
@@ -331,7 +339,22 @@ void RenderingManagerBase::RenderMesh(Mesh *mesh, bool enableLight)
 			m_lightDepthView * modelStack.Top();
 		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1,
 			GL_FALSE, &m_lightDepthMVPGPass.a[0]);
+		for (int i = 0; i < MAX_TEXTURES; ++i)
+		{
+			if (mesh->m_uTextureArray[i] > 0)
+			{
+				glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED + i], 1);
+				glActiveTexture(GL_TEXTURE0 + i);
+				glBindTexture(GL_TEXTURE_2D, mesh->m_uTextureArray[i]);
+				glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE + i], i);
+			}
+			else
+			{
+				glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED + i], 0);
+			}
+		}
 		mesh->Render();
+
 		return;
 	}
 	//--
