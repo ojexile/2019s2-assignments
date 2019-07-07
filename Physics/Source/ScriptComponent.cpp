@@ -22,6 +22,12 @@ void ScriptComponent::Destroy(GameObject* go)
 	SceneManager* sceneManager = SceneManager::GetInstance();
 	sceneManager->GetScene()->GetGameObjectManager()->Destroy(go);
 }
+
+void ScriptComponent::DestroySelf(GameObject* go)
+{
+	SceneManager* sceneManager = SceneManager::GetInstance();
+	sceneManager->GetScene()->GetGameObjectManager()->DestroySelf(this);
+}
 GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle)
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
