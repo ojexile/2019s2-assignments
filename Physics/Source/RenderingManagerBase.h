@@ -12,11 +12,20 @@
 #include <vector>
 #include "Mesh.h"
 #include "Scene.h"
-
+#include "DepthFBO.h"
 #include "shader.hpp"
 #include "Utility.h"
-#include "DepthFBO.h"
+
 #include "MeshBuilder.h"
+
+#include "LightManager.h"
+
+#define SCENELIGHTS m_LightManager.GetSceneLights()
+#define CURRENTLIGHT m_LightManager.GetCurrentLight()
+#define LIGHTINDEX m_LightManager.GetLightIndex()
+
+#define CYCLELIGHT_FOWARD m_LightManager.CycleLight(true)
+#define CYCLELIGHT_BACK m_LightManager.CycleLight(false)
 
 class RenderingManagerBase : public Renderer
 {
@@ -63,6 +72,55 @@ protected:
 		U_LIGHT0_COSINNER,
 		U_LIGHT0_EXPONENT,
 
+		U_LIGHT1_TYPE,
+		U_LIGHT1_POSITION,
+		U_LIGHT1_COLOR,
+		U_LIGHT1_POWER,
+		U_LIGHT1_KC,
+		U_LIGHT1_KL,
+		U_LIGHT1_KQ,
+		U_LIGHT1_SPOTDIRECTION,
+		U_LIGHT1_COSCUTOFF,
+		U_LIGHT1_COSINNER,
+		U_LIGHT1_EXPONENT,
+
+
+		U_LIGHT2_TYPE,
+		U_LIGHT2_POSITION,
+		U_LIGHT2_COLOR,
+		U_LIGHT2_POWER,
+		U_LIGHT2_KC,
+		U_LIGHT2_KL,
+		U_LIGHT2_KQ,
+		U_LIGHT2_SPOTDIRECTION,
+		U_LIGHT2_COSCUTOFF,
+		U_LIGHT2_COSINNER,
+		U_LIGHT2_EXPONENT,
+
+		U_LIGHT3_TYPE,
+		U_LIGHT3_POSITION,
+		U_LIGHT3_COLOR,
+		U_LIGHT3_POWER,
+		U_LIGHT3_KC,
+		U_LIGHT3_KL,
+		U_LIGHT3_KQ,
+		U_LIGHT3_SPOTDIRECTION,
+		U_LIGHT3_COSCUTOFF,
+		U_LIGHT3_COSINNER,
+		U_LIGHT3_EXPONENT,
+
+		U_LIGHT4_TYPE,
+		U_LIGHT4_POSITION,
+		U_LIGHT4_COLOR,
+		U_LIGHT4_POWER,
+		U_LIGHT4_KC,
+		U_LIGHT4_KL,
+		U_LIGHT4_KQ,
+		U_LIGHT4_SPOTDIRECTION,
+		U_LIGHT4_COSCUTOFF,
+		U_LIGHT4_COSINNER,
+		U_LIGHT4_EXPONENT,
+
 		U_TEXT_ENABLED,
 		U_TEXT_COLOR,
 
@@ -106,6 +164,7 @@ protected:
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void RenderAnimatedMesh(AnimatedMesh *mesh, bool enableLight);
 	void BindUniforms();
+	void UpdateLightUniforms(int index);
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
@@ -115,8 +174,10 @@ protected:
 	MS viewStack;
 	MS projectionStack;
 
-	Light lights[1];
+
+	LightManager m_LightManager;
 	bool bLightEnabled;
+	int m_iNumOfLightVar;
 	float fps;
 	float m_fElapsedTime;
 
@@ -128,7 +189,6 @@ protected:
 	Mtx44 m_lightDepthMVP;
 	Mtx44 m_lightDepthMVPGPass;
 	RENDER_PASS m_renderPass;
-
 	Mesh* m_DepthQuad;
 };
 

@@ -5,6 +5,7 @@
 #include "ComponentBase.h"
 #include "RenderComponent.h"
 #include "TransformComponent.h"
+#include "Light.h"
 
 #include <vector>
 #include <string>
@@ -16,6 +17,7 @@ class GameObject
 private:
 	bool m_bStatic;
 	bool m_bActive;
+	Light* m_HeldLight;
 	std::vector<ComponentBase*> m_vec_ComponentList;
 	std::vector<GameObject*> m_vec_ChildList;
 	//Transform* m_Transform;
@@ -46,6 +48,8 @@ public:
 		return nullptr;
 	};
 	void AddChild(GameObject* go);
+	void AttachLight(Light* light);
+	void DetachLight();
 	std::vector<GameObject*>* GetChildList();
 
 	void SetActive(bool b);

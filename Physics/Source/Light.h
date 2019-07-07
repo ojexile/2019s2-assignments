@@ -35,6 +35,17 @@ struct Light
 		cosCutoff = cosInner = 0.8f;
 		exponent = 1.f;
 	}
+	Light(LIGHT_TYPE light_type)
+	{
+		type = light_type;
+		color.Set(1, 1, 1);
+		power = 1.f;
+		kC = 1.f;
+		kL = 0.f;
+		kQ = 0.f;
+		cosCutoff = cosInner = 0.8f;
+		exponent = 1.f;
+	}
 };
 
 #endif

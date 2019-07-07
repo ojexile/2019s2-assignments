@@ -1,17 +1,21 @@
 #include "RenderingManagerBase.h"
 #include "DataContainer.h"
 #include "Locator.h"
+#include "Application.h"
+
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
 	m_DepthQuad =
 		MeshBuilder::GenerateQuad("LIGHT_DEPTH_TEXTURE", Color(1, 1, 1), 1.f);
+	m_iNumOfLightVar = 11;
 	m_DepthQuad->m_uTextureArray[0] =
 		m_lightDepthFBO.GetTexture();
 }
 
 RenderingManagerBase::~RenderingManagerBase()
 {
+
 }
 
 void RenderingManagerBase::BindUniforms()
@@ -28,6 +32,7 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
 	m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
 	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
+	
 	m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
 	m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
 	m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
@@ -39,6 +44,31 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
 	m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
 	m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
+	
+	m_parameters[U_LIGHT1_TYPE] = glGetUniformLocation(m_programID, "lights[1].type");
+	m_parameters[U_LIGHT1_POSITION] = glGetUniformLocation(m_programID, "lights[1].position_cameraspace");
+	m_parameters[U_LIGHT1_COLOR] = glGetUniformLocation(m_programID, "lights[1].color");
+	m_parameters[U_LIGHT1_POWER] = glGetUniformLocation(m_programID, "lights[1].power");
+	m_parameters[U_LIGHT1_KC] = glGetUniformLocation(m_programID, "lights[1].kC");
+	m_parameters[U_LIGHT1_KL] = glGetUniformLocation(m_programID, "lights[1].kL");
+	m_parameters[U_LIGHT1_KQ] = glGetUniformLocation(m_programID, "lights[1].kQ");
+	m_parameters[U_LIGHT1_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[1].spotDirection");
+	m_parameters[U_LIGHT1_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[1].cosCutoff");
+	m_parameters[U_LIGHT1_COSINNER] = glGetUniformLocation(m_programID, "lights[1].cosInner");
+	m_parameters[U_LIGHT1_EXPONENT] = glGetUniformLocation(m_programID, "lights[1].exponent");
+
+	m_parameters[U_LIGHT2_TYPE] = glGetUniformLocation(m_programID, "lights[2].type");
+	m_parameters[U_LIGHT2_POSITION] = glGetUniformLocation(m_programID, "lights[2].position_cameraspace");
+	m_parameters[U_LIGHT2_COLOR] = glGetUniformLocation(m_programID, "lights[2].color");
+	m_parameters[U_LIGHT2_POWER] = glGetUniformLocation(m_programID, "lights[2].power");
+	m_parameters[U_LIGHT2_KC] = glGetUniformLocation(m_programID, "lights[2].kC");
+	m_parameters[U_LIGHT2_KL] = glGetUniformLocation(m_programID, "lights[2].kL");
+	m_parameters[U_LIGHT2_KQ] = glGetUniformLocation(m_programID, "lights[2].kQ");
+	m_parameters[U_LIGHT2_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[2].spotDirection");
+	m_parameters[U_LIGHT2_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[2].cosCutoff");
+	m_parameters[U_LIGHT2_COSINNER] = glGetUniformLocation(m_programID, "lights[2].cosInner");
+	m_parameters[U_LIGHT2_EXPONENT] = glGetUniformLocation(m_programID, "lights[2].exponent");
+
 	// Get a handle for our "colorTexture" uniform
 	m_parameters[U_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_programID, "colorTextureEnabled");
 	m_parameters[U_COLOR_TEXTURE] = glGetUniformLocation(m_programID, "colorTexture");
@@ -80,18 +110,8 @@ void RenderingManagerBase::BindUniforms()
 	glUseProgram(m_programID);
 
 	// Rebind light param
-	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
+	glUniform1i(m_parameters[U_NUMLIGHTS], SCENELIGHTS.size());
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
-
-	glUniform1i(m_parameters[U_LIGHT0_TYPE], lights[0].type);
-	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &lights[0].color.r);
-	glUniform1f(m_parameters[U_LIGHT0_POWER], lights[0].power);
-	glUniform1f(m_parameters[U_LIGHT0_KC], lights[0].kC);
-	glUniform1f(m_parameters[U_LIGHT0_KL], lights[0].kL);
-	glUniform1f(m_parameters[U_LIGHT0_KQ], lights[0].kQ);
-	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], lights[0].cosCutoff);
-	glUniform1f(m_parameters[U_LIGHT0_COSINNER], lights[0].cosInner);
-	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], lights[0].exponent);
 
 	// Init fog
 	Color fogColor{ 0.5f, 0.5f, 0.5f };
@@ -102,6 +122,21 @@ void RenderingManagerBase::BindUniforms()
 	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], true);
+
+	for (int index = 0; index < m_LightManager.GetSceneLights().size(); ++index)
+	{
+		Light* L = SCENELIGHTS[index];
+		glUniform1i(m_parameters[U_LIGHT0_TYPE + (m_iNumOfLightVar * index)], L->type);
+		glUniform3fv(m_parameters[U_LIGHT0_COLOR + (m_iNumOfLightVar * index)], 1, &L->color.r);
+		glUniform1f(m_parameters[U_LIGHT0_POWER + (m_iNumOfLightVar * index)], L->power);
+		glUniform1f(m_parameters[U_LIGHT0_KC + (m_iNumOfLightVar * index)], L->kC);
+		glUniform1f(m_parameters[U_LIGHT0_KL + (m_iNumOfLightVar * index)], L->kL);
+		glUniform1f(m_parameters[U_LIGHT0_KQ + (m_iNumOfLightVar * index)], L->kQ);
+		glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF + (m_iNumOfLightVar * index)], L->cosCutoff);
+		glUniform1f(m_parameters[U_LIGHT0_COSINNER + (m_iNumOfLightVar * index)], L->cosInner);
+		glUniform1f(m_parameters[U_LIGHT0_EXPONENT + (m_iNumOfLightVar * index)], L->exponent);
+	}
+
 
 	// Shadows
 	glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1,
@@ -143,24 +178,49 @@ void RenderingManagerBase::Init()
 	// Shadows
 	m_lightDepthFBO.Init(2048, 2048);
 
-	lights[0].type = Light::LIGHT_DIRECTIONAL;
-	lights[0].position.Set(0.01f, 30, 0);
-	lights[0].color.Set(1, 1, 1);
-	lights[0].power = 1;
-	lights[0].kC = 1.f;
-	lights[0].kL = 0.01f;
-	lights[0].kQ = 0.001f;
-	lights[0].cosCutoff = cos(Math::DegreeToRadian(45));
-	lights[0].cosInner = cos(Math::DegreeToRadian(30));
-	lights[0].exponent = 3.f;
-	lights[0].spotDirection.Set(0.f, 1.f, 0.f);
+	// Init fog
+	Color fogColor{ 0.5f, 0.5f, 0.5f };
+
+	int tmp = 10.f;
+	int tmp2 = 0;
+	for (std::vector<Light*>::iterator it = m_LightManager.GetSceneLights().begin(); it != m_LightManager.GetSceneLights().end(); ++it)
+	{
+		Light* L = static_cast<Light*>(*it);
+		L->position.Set(0.01f + tmp * tmp2, 30, 0);
+		L->color.Set(1, 1, 1);
+		L->power = 1;
+		L->kC = 1.f;
+		L->kL = 0.01f;
+		L->kQ = 0.001f;
+		L->cosCutoff = cos(Math::DegreeToRadian(45));
+		L->cosInner = cos(Math::DegreeToRadian(30));
+		L->exponent = 3.f;
+		L->spotDirection.Set(0.f, 1.f, 0.f);
+		tmp2++;
+	}
+
+	glUniform1i(m_parameters[U_NUMLIGHTS], SCENELIGHTS.size());
+	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
+
 
 	bLightEnabled = true;
 	BindUniforms();
 }
-
-void RenderingManagerBase::Update(double dt)
+void RenderingManagerBase::UpdateLightUniforms(int index)
 {
+	Light* L = SCENELIGHTS[index];
+	glUniform1i(m_parameters[U_LIGHT0_TYPE + (m_iNumOfLightVar * index)], L->type);
+	glUniform3fv(m_parameters[U_LIGHT0_COLOR + (m_iNumOfLightVar * index)], 1, &L->color.r);
+	glUniform1f(m_parameters[U_LIGHT0_POWER + (m_iNumOfLightVar * index)], L->power);
+	glUniform1f(m_parameters[U_LIGHT0_KC + (m_iNumOfLightVar * index)], L->kC);
+	glUniform1f(m_parameters[U_LIGHT0_KL + (m_iNumOfLightVar * index)], L->kL);
+	glUniform1f(m_parameters[U_LIGHT0_KQ + (m_iNumOfLightVar * index)], L->kQ);
+	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF + (m_iNumOfLightVar * index)], L->cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT0_COSINNER + (m_iNumOfLightVar * index)], L->cosInner);
+	glUniform1f(m_parameters[U_LIGHT0_EXPONENT + (m_iNumOfLightVar * index)], L->exponent);
+}
+void RenderingManagerBase::Update(double dt)
+{ 
 	//Keyboard Section
 	// TODO SET DRAW MODE
 
@@ -172,6 +232,55 @@ void RenderingManagerBase::Update(double dt)
 	//	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	//if (Application::IsKeyPressed('4'))
 	//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	//Add or remove light
+	//NOTE: POSITION IS DEFAULT 0,0,0
+	if (Application::IsKeyPressed('1'))
+	{
+		m_LightManager.AddLight();
+		glUniform1i(m_parameters[U_NUMLIGHTS], SCENELIGHTS.size());
+	}
+	if (Application::IsKeyPressed('0'))
+	{
+		m_LightManager.RemoveLight();
+		glUniform1i(m_parameters[U_NUMLIGHTS], SCENELIGHTS.size());
+	}
+
+	//Change current light type
+	if (Application::IsKeyPressed('7'))
+	{
+		CURRENTLIGHT->type = Light::LIGHT_DIRECTIONAL;
+		glUniform1i(m_parameters[U_LIGHT0_TYPE + (m_iNumOfLightVar * LIGHTINDEX)], CURRENTLIGHT->type);
+	}
+	if (Application::IsKeyPressed('8'))
+	{
+		CURRENTLIGHT->type = Light::LIGHT_POINT;
+		glUniform1i(m_parameters[U_LIGHT0_TYPE + (m_iNumOfLightVar * LIGHTINDEX)], CURRENTLIGHT->type);
+	}
+	if (Application::IsKeyPressed('9'))
+	{
+		CURRENTLIGHT->type = Light::LIGHT_SPOT;
+		glUniform1i(m_parameters[U_LIGHT0_TYPE + (m_iNumOfLightVar * LIGHTINDEX)], CURRENTLIGHT->type);
+	}
+
+	//Cycle Light
+	static bool isCyclingLight = false;
+	if (!isCyclingLight && (Application::IsKeyPressed('M') || Application::IsKeyPressed('N')))
+	{
+		isCyclingLight = true;
+		if (Application::IsKeyPressed('M'))
+		{
+			CYCLELIGHT_FOWARD;
+		}
+		if (Application::IsKeyPressed('N'))
+		{
+			CYCLELIGHT_BACK;
+		}
+
+		UpdateLightUniforms(LIGHTINDEX);
+	}
+	else if(isCyclingLight && (!Application::IsKeyPressed('M') || !Application::IsKeyPressed('N')))
+		isCyclingLight = false;
 
 	fps = (float)(1.f / dt);
 	m_fElapsedTime += (float)dt;
