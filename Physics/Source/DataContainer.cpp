@@ -56,7 +56,7 @@ DataContainer::DataContainer()
 	GameObject* SmokeParticle = new GameObject;
 	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
 	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
-	SmokeParticle->AddComponent(new ParticleScript(2.2f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.2,-0.2,0 }));
+	SmokeParticle->AddComponent(new ParticleScript(2.2f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.2f,-0.2f,0 }));
 	m_map_GO["SmokeParticle"] = SmokeParticle;
 	//
 	// Spawner
@@ -70,7 +70,7 @@ DataContainer::DataContainer()
 	bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	bullet->GetComponent<RenderComponent>()->SetBillboard(true);
-	bullet->AddComponent(new BulletScript());
+	bullet->AddComponent(new BulletScript(1.f));
 	bullet->AddChild(Spawner);
 	m_map_GO["Bullet"] = bullet;
 	//
