@@ -71,30 +71,10 @@ void GameObject::Update(double dt)
 			m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
 		}
 	}
-
-	if (m_HeldLight)
-	{
-		Vector3 tmp = this->GetComponent<TransformComponent>()->GetPosition();
-		m_HeldLight->position.Set(tmp.x, tmp.y, tmp.z);
-	}
 }
 void GameObject::AddChild(GameObject* go)
 {
 	m_vec_ChildList.push_back(go);
-}
-void GameObject::AttachLight(Light* light)
-{
-	if (!m_HeldLight)
-	{
-		m_HeldLight = light;
-
-		Vector3 tmp = this->GetComponent<TransformComponent>()->GetPosition();
-		m_HeldLight->position.Set(tmp.x, tmp.y, tmp.z);
-	}
-}
-void GameObject::DetachLight()
-{
-	m_HeldLight = nullptr;
 }
 std::vector<GameObject*>* GameObject::GetChildList()
 {
