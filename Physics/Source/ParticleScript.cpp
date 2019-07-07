@@ -30,12 +30,21 @@ void ParticleScript::Update(double dt)
 	// Size change
 	Vector3 vCurrentScale = Trans->GetScale();
 	Vector3 vNewScale = vCurrentScale + (float)dt * m_vSizeChange;
-	if (vNewScale.x < 0)
-		vNewScale.x = 0;
-	if (vNewScale.y < 0)
-		vNewScale.y = 0;
-	if (vNewScale.z < 0)
-		vNewScale.z = 0;
+	if (vNewScale.x <= 0)
+	{
+		DestroySelf();
+		return;
+	}
+	if (vNewScale.y <= 0)
+	{
+		DestroySelf();
+		return;
+	}
+	if (vNewScale.z <= 0)
+	{
+		DestroySelf();
+		return;
+	}
 	// Should destroy
 	Trans->SetScale(vNewScale.y, vNewScale.y, vNewScale.z);
 	//--------------------------------------------------------------------------------
@@ -44,5 +53,6 @@ void ParticleScript::Update(double dt)
 	if (m_CurrentDuration >= m_fLifeTime)
 	{
 		// Destroy object
+		DestroySelf();
 	}
 }

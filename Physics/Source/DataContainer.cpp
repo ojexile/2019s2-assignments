@@ -53,7 +53,7 @@ DataContainer::DataContainer()
 	GameObject* SmokeParticle = new GameObject;
 	SmokeParticle->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
 	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
-	SmokeParticle->AddComponent(new ParticleScript(0, { 0,0.3f,0 }, { 2.f,0,0 }, { 0,0,0 }, { -2,-2,0 }));
+	SmokeParticle->AddComponent(new ParticleScript(0.5f, { 0,0.3f,0 }, { 2.f,0,0 }, { 0,0,0 }, { -2,-2,0 }));
 	m_map_GO["SmokeParticle"] = SmokeParticle;
 	//
 	// Spawner
