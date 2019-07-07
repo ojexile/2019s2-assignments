@@ -4,7 +4,6 @@ GameObject::GameObject()
 {
 	m_bActive = true;
 	m_bStatic = false;
-	m_HeldLight = nullptr;
 	AddComponent(new TransformComponent);
 }
 // Copy
