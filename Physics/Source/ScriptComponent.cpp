@@ -23,7 +23,7 @@ void ScriptComponent::Destroy(GameObject* go)
 	sceneManager->GetScene()->GetGameObjectManager()->Destroy(go);
 }
 
-void ScriptComponent::DestroySelf(GameObject* go)
+void ScriptComponent::DestroySelf()
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
 	sceneManager->GetScene()->GetGameObjectManager()->DestroySelf(this);
