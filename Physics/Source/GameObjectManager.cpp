@@ -45,7 +45,7 @@ GameObject* GameObjectManager::AddGameObject(std::string layer)
 	m_map_Layers[layer]->GetGOList()->push_back(go);
 	return go;
 }
-void GameObjectManager::Destory(GameObject* go)
+void GameObjectManager::Destroy(GameObject* go)
 {
 	std::map<std::string, LayerData*>::iterator it;
 

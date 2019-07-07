@@ -18,7 +18,7 @@ public:
 
 	GameObject* AddGameObject(GameObject* go, std::string layer = "Default");
 	GameObject* AddGameObject(std::string layer = "Default");
-	void Destory(GameObject*);
+	void Destroy(GameObject*);
 	bool CreateLayer(unsigned shader, std::string layer = "Default");
 
 	void ClearGameObjects();
