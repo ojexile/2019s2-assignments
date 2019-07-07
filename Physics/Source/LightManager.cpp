@@ -54,6 +54,8 @@ void LightManager::CycleLight(bool b)
 		else
 			--m_iLightIndex;
 	}
+	if (m_iLightIndex < 0)
+		m_iLightIndex = 0;
  	m_currentLight = m_vec_SceneLights[m_iLightIndex];
 
 }
@@ -68,7 +70,19 @@ void LightManager::AddLight(void)
 {
 	if (SIZE < MAX_NUMLIGHTS)
 	{
-		m_vec_SceneLights.push_back(new Light(Light::LIGHT_SPOT));
+		Light* L = new Light(Light::LIGHT_SPOT);
+		L->position.Set(10, 30, 0);
+		L->color.Set(1, 1, 1);
+		L->power = 1;
+		L->kC = 1.f;
+		L->kL = 0.01f;
+		L->kQ = 0.001f;
+		L->cosCutoff = cos(Math::DegreeToRadian(45));
+		L->cosInner = cos(Math::DegreeToRadian(30));
+		L->exponent = 3.f;
+		L->spotDirection.Set(0.f, 1.f, 0.f);
+		m_vec_SceneLights.push_back(L);
+		L = nullptr;
 	}
 }
 void LightManager::RemoveLight(void)
@@ -76,9 +90,12 @@ void LightManager::RemoveLight(void)
 	//pop from the back of the list
 	if (SIZE > MIN_NUMLIGHTS)
 	{
-		--m_iLightIndex;
 		if (m_currentLight == m_vec_SceneLights[SIZE - 1])
-			m_currentLight = m_vec_SceneLights[m_iLightIndex];
-		m_vec_SceneLights.pop_back(); 
+			m_currentLight = m_vec_SceneLights[0];
+
+		delete m_vec_SceneLights[SIZE - 1];
+		m_vec_SceneLights[SIZE - 1] = nullptr;
+		m_vec_SceneLights.pop_back();
+		--m_iLightIndex;
 	}
 }
