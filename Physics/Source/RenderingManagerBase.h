@@ -174,7 +174,7 @@ protected:
 	MS viewStack;
 	MS projectionStack;
 
-
+	Light lights[1];
 	LightManager m_LightManager;
 	bool bLightEnabled;
 	int m_iNumOfLightVar;

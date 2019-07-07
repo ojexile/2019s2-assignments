@@ -110,8 +110,18 @@ void RenderingManagerBase::BindUniforms()
 	glUseProgram(m_programID);
 
 	// Rebind light param
-	glUniform1i(m_parameters[U_NUMLIGHTS], SCENELIGHTS.size());
+	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
+
+	glUniform1i(m_parameters[U_LIGHT0_TYPE], lights[0].type);
+	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &lights[0].color.r);
+	glUniform1f(m_parameters[U_LIGHT0_POWER], lights[0].power);
+	glUniform1f(m_parameters[U_LIGHT0_KC], lights[0].kC);
+	glUniform1f(m_parameters[U_LIGHT0_KL], lights[0].kL);
+	glUniform1f(m_parameters[U_LIGHT0_KQ], lights[0].kQ);
+	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], lights[0].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT0_COSINNER], lights[0].cosInner);
+	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], lights[0].exponent);
 
 	// Init fog
 	Color fogColor{ 0.5f, 0.5f, 0.5f };
@@ -122,21 +132,6 @@ void RenderingManagerBase::BindUniforms()
 	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], true);
-
-	for (int index = 0; index < m_LightManager.GetSceneLights().size(); ++index)
-	{
-		Light* L = SCENELIGHTS[index];
-		glUniform1i(m_parameters[U_LIGHT0_TYPE + (m_iNumOfLightVar * index)], L->type);
-		glUniform3fv(m_parameters[U_LIGHT0_COLOR + (m_iNumOfLightVar * index)], 1, &L->color.r);
-		glUniform1f(m_parameters[U_LIGHT0_POWER + (m_iNumOfLightVar * index)], L->power);
-		glUniform1f(m_parameters[U_LIGHT0_KC + (m_iNumOfLightVar * index)], L->kC);
-		glUniform1f(m_parameters[U_LIGHT0_KL + (m_iNumOfLightVar * index)], L->kL);
-		glUniform1f(m_parameters[U_LIGHT0_KQ + (m_iNumOfLightVar * index)], L->kQ);
-		glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF + (m_iNumOfLightVar * index)], L->cosCutoff);
-		glUniform1f(m_parameters[U_LIGHT0_COSINNER + (m_iNumOfLightVar * index)], L->cosInner);
-		glUniform1f(m_parameters[U_LIGHT0_EXPONENT + (m_iNumOfLightVar * index)], L->exponent);
-	}
-
 
 	// Shadows
 	glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1,
@@ -178,8 +173,17 @@ void RenderingManagerBase::Init()
 	// Shadows
 	m_lightDepthFBO.Init(2048, 2048);
 
+	BindUniforms();
+
 	// Init fog
 	Color fogColor{ 0.5f, 0.5f, 0.5f };
+
+	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
+	glUniform1f(m_parameters[U_FOG_START], 1);
+	glUniform1f(m_parameters[U_FOG_END], 1000);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
+	glUniform1i(m_parameters[U_FOG_TYPE], 1);
+	glUniform1i(m_parameters[U_FOG_ENABLED], true);
 
 	int tmp = 10.f;
 	int tmp2 = 0;
@@ -202,6 +206,19 @@ void RenderingManagerBase::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], SCENELIGHTS.size());
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 
+	for (int index = 0; index < m_LightManager.GetSceneLights().size(); ++index)
+	{
+		Light* L = SCENELIGHTS[index];
+		glUniform1i(m_parameters[U_LIGHT0_TYPE + (m_iNumOfLightVar * index)], L->type);
+		glUniform3fv(m_parameters[U_LIGHT0_COLOR + (m_iNumOfLightVar * index)], 1, &L->color.r);
+		glUniform1f(m_parameters[U_LIGHT0_POWER + (m_iNumOfLightVar * index)], L->power);
+		glUniform1f(m_parameters[U_LIGHT0_KC + (m_iNumOfLightVar * index)], L->kC);
+		glUniform1f(m_parameters[U_LIGHT0_KL + (m_iNumOfLightVar * index)], L->kL);
+		glUniform1f(m_parameters[U_LIGHT0_KQ + (m_iNumOfLightVar * index)], L->kQ);
+		glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF + (m_iNumOfLightVar * index)], L->cosCutoff);
+		glUniform1f(m_parameters[U_LIGHT0_COSINNER + (m_iNumOfLightVar * index)], L->cosInner);
+		glUniform1f(m_parameters[U_LIGHT0_EXPONENT + (m_iNumOfLightVar * index)], L->exponent);
+	}
 
 	bLightEnabled = true;
 	BindUniforms();
