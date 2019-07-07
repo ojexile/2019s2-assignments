@@ -81,6 +81,8 @@
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WindowData.cpp" />
+    <ClCompile Include="Source\Debug.cpp" />
+    <ClCompile Include="Source\LightManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Equipment.h" />
@@ -135,6 +137,7 @@
     <ClInclude Include="Source\WindowData.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
+    <ClInclude Include="Source\LightManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />
@@ -159,5 +162,7 @@
     <None Include="Shader\MultiTexture.fragmentshader" />
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
+    <None Include="Shader\Smoke.fragmentshader" />
+    <None Include="Shader\Smoke.vertexshader" />
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@ void ChengAssignmentScene::Init()
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	// Layers
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
+	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Smoke"), "Smoke");
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
 	m_CameraGO->TRANSFORM->SetRelativePosition(0, 5, 0);
@@ -23,11 +24,12 @@ void ChengAssignmentScene::Init()
 
 	// Cube
 	GameObject* cube = m_GameObjectManager.AddGameObject();
-	cube->TRANSFORM->SetPosition(0, 15, 0);
-	cube->TRANSFORM->SetScale(1.f, 1.f, 1.f);
-	cube->TRANSFORM->SetRotation(90, 1, 0, 0);
+	cube->GetComponent<TransformComponent>()->SetPosition(0, 5, 0);
+	cube->GetComponent<TransformComponent>()->SetScale(10, 1, 10);
+	cube->GetComponent<TransformComponent>()->SetRotation(45, 0, 1, 0);
 	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
-	cube->RENDER->SetLightEnabled(true);
+	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
+	cube->GetComponent<RenderComponent>()->SetBillboard(false);
 	//
 	// Crosshair
 	GameObject* Crosshair = m_GameObjectManager.AddGameObject("UI");
@@ -38,9 +40,10 @@ void ChengAssignmentScene::Init()
 	Crosshair->RENDER->SetLightEnabled(false);
 	Crosshair->SetActive(true);
 	//
+
 	// Cat
-	GameObject* cat = m_GameObjectManager.AddGameObject();
-	cat->TRANSFORM->SetPosition(0, 21, 0);
+	GameObject* cat = m_GameObjectManager.AddGameObject("Smoke");
+	cat->TRANSFORM->SetPosition(0, 15, 0);
 	cat->TRANSFORM->SetScale(20.f, 20.f, 20.f);
 	cat->AddComponent(new RenderComponent(dataContainer->GetAnimation("Cat")));
 	cat->RENDER->SetLightEnabled(false);
