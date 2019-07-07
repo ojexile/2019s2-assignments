@@ -112,6 +112,12 @@ void ChengAssignmentScene::Init()
 	Spawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Rain"), 0.0002f, { 100,100,100 }, .8f));
 	Spawner->SetActive(true);
 	//
+	// Fountain
+	GameObject* Fountain = m_GameObjectManager.AddGameObject();
+	Fountain->TRANSFORM->SetPosition(39, 0, 0);
+	Fountain->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Droplet"), 0.02f, { 2,2,2 }, .4f));
+	Fountain->SetActive(true);
+	//
 
 	// water
 	GameObject* water = m_GameObjectManager.AddGameObject("Water");

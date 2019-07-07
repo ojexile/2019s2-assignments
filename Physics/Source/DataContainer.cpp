@@ -65,6 +65,13 @@ DataContainer::DataContainer()
 	Rain->AddComponent(new ParticleScript(10.0f, { 0,-1,0 }, { 1,0,0 }, { 0,0,0 }, { -0.1,0,0 }));
 	m_map_GO["Rain"] = Rain;
 	//
+	// Droplet
+	GameObject* Droplet = new GameObject;
+	Droplet->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
+	Droplet->GetComponent<RenderComponent>()->SetBillboard(true);
+	Droplet->AddComponent(new ParticleScript(10.0f, { 0,1,0 }, { 10,0,0 }, { 0,-1,0 }, { -0.2,0,0 }));
+	m_map_GO["Droplet"] = Droplet;
+	//
 	// Spawner
 	GameObject* Spawner = new GameObject;
 	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.01f, { .5f,.5f,.5f }, .8f));
