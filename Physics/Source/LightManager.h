@@ -4,6 +4,7 @@
 
 #define SIZE m_vec_SceneLights.size()
 #define MAX_NUMLIGHTS 5
+#define MIN_NUMLIGHTS 1
 
 class LightManager
 {
