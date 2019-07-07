@@ -632,7 +632,8 @@ AnimatedMesh* MeshBuilder::GenerateAnimatedMesh(std::string sMeshName, int numRo
 			offset += 4;
 		}
 	}
-	AnimatedMesh *mesh = new AnimatedMesh(sMeshName, numRow, numCol, start, end, time, loop);
+
+	Mesh *mesh = new Mesh(sMeshName);
 
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 
@@ -644,5 +645,7 @@ AnimatedMesh* MeshBuilder::GenerateAnimatedMesh(std::string sMeshName, int numRo
 
 	mesh->indexSize = index_buffer_data.size();
 
-	return mesh;
+	AnimatedMesh *anim = new AnimatedMesh(sMeshName, numRow, numCol, start, end, time, loop, mesh);
+
+	return anim;
 }

@@ -16,7 +16,6 @@ public:
 	};
 	Mesh(const std::string &meshName);
 	~Mesh();
-	virtual void Update(double dt);
 	virtual void Render();
 	void Render(unsigned offset, unsigned count);
 

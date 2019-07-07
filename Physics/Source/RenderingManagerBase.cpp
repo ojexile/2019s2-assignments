@@ -113,8 +113,6 @@ void RenderingManagerBase::BindUniforms()
 
 	glUniform1f(m_parameters[U_VERT_ET], m_fElapsedTime);
 	glUniform1f(m_parameters[U_FRAG_ET], m_fElapsedTime);
-
-	CHENG_LOG("Time: ", std::to_string(m_fElapsedTime));
 	// Use our shader
 }
 void RenderingManagerBase::Init()
@@ -381,6 +379,70 @@ void RenderingManagerBase::RenderMesh(Mesh *mesh, bool enableLight)
 	for (int i = 0; i < MAX_TEXTURES; ++i)
 	{
 		if (mesh->m_uTextureArray[i] > 0)
+		{
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+	}
+}
+void RenderingManagerBase::RenderAnimatedMesh(AnimatedMesh *anim, bool enableLight)
+{
+	Mtx44 MVP, modelView, modelView_inverse_transpose;
+	glEnable(GL_DEPTH_TEST);
+	//Shadows
+	if (m_renderPass == RENDER_PASS_PRE)
+	{
+		m_lightDepthMVPGPass = m_lightDepthProj *
+			m_lightDepthView * modelStack.Top();
+		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1,
+			GL_FALSE, &m_lightDepthMVPGPass.a[0]);
+		anim->m_Mesh->Render();
+		return;
+	}
+	//--
+
+	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+	if (enableLight && bLightEnabled)
+	{
+		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
+		modelView = viewStack.Top() * modelStack.Top();
+		glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
+		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
+		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView.a[0]);
+		//Shadows--
+		m_lightDepthMVP = m_lightDepthProj *
+			m_lightDepthView * modelStack.Top();
+		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1,
+			GL_FALSE, &m_lightDepthMVP.a[0]);
+		//--
+		//load material
+		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &anim->m_Mesh->material.kAmbient.r);
+		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &anim->m_Mesh->material.kDiffuse.r);
+		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &anim->m_Mesh->material.kSpecular.r);
+		glUniform1f(m_parameters[U_MATERIAL_SHININESS], anim->m_Mesh->material.kShininess);
+	}
+	else
+	{
+		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
+	}
+	for (int i = 0; i < MAX_TEXTURES; ++i)
+	{
+		if (anim->m_Mesh->m_uTextureArray[i] > 0)
+		{
+			glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED + i], 1);
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, anim->m_Mesh->m_uTextureArray[i]);
+			glUniform1i(m_parameters[U_COLOR_TEXTURE + i], i);
+		}
+		else
+		{
+			glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED + i], 0);
+		}
+	}
+	anim->Render();
+	for (int i = 0; i < MAX_TEXTURES; ++i)
+	{
+		if (anim->m_Mesh->m_uTextureArray[i] > 0)
 		{
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
