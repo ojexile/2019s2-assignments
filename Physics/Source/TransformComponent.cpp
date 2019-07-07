@@ -34,6 +34,11 @@ void TransformComponent::Update(double dt)
 Setter functions
 ***************/
 
+void TransformComponent::SetScale(Vector3 arg)
+{
+	this->m_vScale = arg;
+}
+
 void TransformComponent::SetScale(float scaleX, float scaleY, float scaleZ)
 {
 	this->m_vScale.Set(scaleX, scaleY, scaleZ);

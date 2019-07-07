@@ -19,6 +19,7 @@ public:
 	virtual void Update(double dt) override;
 
 	void SetScale(float, float, float);
+	void SetScale(Vector3);
 	void SetRotation(float, int, int, int);
 	void SetPosition(float translateX = 0, float translateY = 0, float translateZ = 0);
 	void SetPosition(Vector3);

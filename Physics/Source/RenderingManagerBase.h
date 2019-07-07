@@ -21,6 +21,11 @@
 #include "LightManager.h"
 
 #define SCENELIGHTS m_LightManager.GetSceneLights()
+#define CURRENTLIGHT m_LightManager.GetCurrentLight()
+#define LIGHTINDEX m_LightManager.GetLightIndex()
+
+#define CYCLELIGHT_FOWARD m_LightManager.CycleLight(true)
+#define CYCLELIGHT_BACK m_LightManager.CycleLight(false)
 
 class RenderingManagerBase : public Renderer
 {
@@ -134,6 +139,7 @@ protected:
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void BindUniforms();
+	void UpdateLightUniforms(int index);
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
@@ -146,6 +152,7 @@ protected:
 	Light lights[1];
 	LightManager m_LightManager;
 	bool bLightEnabled;
+	int m_iNumOfLightVar;
 	float fps;
 	float m_fElapsedTime;
 

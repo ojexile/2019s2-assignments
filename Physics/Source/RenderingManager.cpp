@@ -10,6 +10,7 @@ RenderingManager::~RenderingManager()
 {
 }
 
+//Look here, prob causing light errors here
 void RenderingManager::Init()
 {
 	RenderingManagerBase::Init();
@@ -58,13 +59,13 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	glUseProgram(m_gPassShaderID);
 	//These matrices should change when light position or direction changes
 	const float size = 250;
-	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
+	if (CURRENTLIGHT->type == Light::LIGHT_DIRECTIONAL)
 		m_lightDepthProj.SetToOrtho(-size, size, -size, size, -100, 100);
 	else
 		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
 
 	m_lightDepthView.SetToLookAt(
-		SCENELIGHTS[0]->position.x, SCENELIGHTS[0]->position.y, SCENELIGHTS[0]->position.z,
+		CURRENTLIGHT->position.x, CURRENTLIGHT->position.y, CURRENTLIGHT->position.z,
 		0, 0, 0,
 		0, 1, 0);
 	RenderWorld(scene);
@@ -86,27 +87,28 @@ void RenderingManager::RenderPassMain(Scene* scene)
 
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (std::vector<Light*>::iterator it = m_LightManager.GetSceneLights().begin(); it != m_LightManager.GetSceneLights().end(); ++it)
+	int iNumOfLightVar = 11;
+	for (int index = 0; index < m_LightManager.GetSceneLights().size(); ++index)
 	{
-		Light* L = static_cast<Light*>(*it);
+		Light* L = m_LightManager.GetSceneLights()[index];
 
 		if (L->type == Light::LIGHT_DIRECTIONAL)
 		{
 			Vector3 lightDir(L->position.x, L->position.y, L->position.z);
 			Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-			glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
+			glUniform3fv(m_parameters[U_LIGHT0_POSITION + (iNumOfLightVar * index)], 1, &lightDirection_cameraspace.x);
 		}
 		else if (L->type == Light::LIGHT_SPOT)
 		{
 			Position lightPosition_cameraspace = viewStack.Top() * L->position;
-			glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+			glUniform3fv(m_parameters[U_LIGHT0_POSITION + (iNumOfLightVar * index)], 1, &lightPosition_cameraspace.x);
 			Vector3 spotDirection_cameraspace = viewStack.Top() * L->spotDirection;
-			glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+			glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION + (iNumOfLightVar * index)], 1, &spotDirection_cameraspace.x);
 		}
 		else
 		{
 			Position lightPosition_cameraspace = viewStack.Top() * L->position;
-			glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+			glUniform3fv(m_parameters[U_LIGHT0_POSITION + (iNumOfLightVar * index)], 1, &lightPosition_cameraspace.x);
 		}
 	}
 
