@@ -16,9 +16,11 @@ public:
 
 	std::map<std::string, LayerData*>* GetLayerList();
 
-	GameObject* AddGameObject(GameObject* go, std::string layer = "default");
-	GameObject* AddGameObject(std::string layer = "default");
-	bool CreateLayer(unsigned shader, std::string layer = "default");
+	GameObject* AddGameObject(GameObject* go, std::string layer = "Default");
+	GameObject* AddGameObject(std::string layer = "Default");
+	void Destroy(GameObject*);
+	void DestroySelf(ComponentBase* com);
+	bool CreateLayer(unsigned shader, std::string layer = "Default");
 
 	void ClearGameObjects();
 };

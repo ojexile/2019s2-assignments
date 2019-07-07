@@ -1,7 +1,9 @@
 #include "PlayerScript.h"
-#include "Application.h"
+#include "KeyboardManager.h"
 #include "SceneManager.h"
-PlayerScript::PlayerScript()
+#include "AudioManager.h"
+PlayerScript::PlayerScript(GameObject* goRef)
+	:m_GORef(goRef)
 {
 }
 
@@ -22,33 +24,37 @@ void PlayerScript::Update(double dt)
 	float fSpeed = 50 * (float)dt;
 	Vector3 vRight = m_vCameraFront->Cross(*m_vCameraUp);
 	static bool triggered = false;
-	if (Application::IsKeyPressed('W'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
 	{
 		trans->Translate(fSpeed * *m_vCameraFront);
 		if (!triggered)
 		{
-			Instantiate("CUBE");
+			Instantiate(m_GORef);
 			triggered = true;
 		}
 	}
-	if (Application::IsKeyPressed('S'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
 	{
 		trans->Translate(-fSpeed * *m_vCameraFront);
 	}
-	if (Application::IsKeyPressed('A'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
 	{
 		trans->Translate(-fSpeed * vRight);
 	}
-	if (Application::IsKeyPressed('D'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveRight"))
 	{
 		trans->Translate(fSpeed * vRight);
 	}
-	if (Application::IsKeyPressed('E'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
 	{
 		trans->Translate(fSpeed * *m_vCameraUp);
 	}
-	if (Application::IsKeyPressed('Q'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
 	{
 		trans->Translate(-fSpeed * *m_vCameraUp);
+	}
+	if (KeyboardManager::GetInstance()->GetKeyDown("Susu"))
+	{
+		AudioManager::GetInstance()->Play3D("susu.wav", Vector3(0, 0, 2));
 	}
 }

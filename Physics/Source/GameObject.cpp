@@ -7,6 +7,22 @@ GameObject::GameObject()
 	//m_Transform = new Transform;
 	AddComponent(new TransformComponent);
 }
+// Copy
+GameObject::GameObject(GameObject& go)
+{
+	this->m_bActive = go.m_bActive;
+	this->m_bStatic = go.m_bStatic;
+	for (unsigned i = 0; i < go.m_vec_ComponentList.size(); ++i)
+	{
+		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());
+		this->AddComponent(cb);
+	}
+	for (unsigned i = 0; i < go.m_vec_ChildList.size(); ++i)
+	{
+		GameObject* child = go.m_vec_ChildList[i]->Clone();
+		m_vec_ChildList.push_back(child);
+	}
+}
 
 GameObject::~GameObject()
 {
@@ -67,4 +83,9 @@ std::vector<GameObject*>* GameObject::GetChildList()
 void GameObject::SetActive(bool b)
 {
 	m_bActive = b;
+}
+GameObject* GameObject::Clone()
+{
+	GameObject* go = new GameObject(*this);
+	return go;
 }

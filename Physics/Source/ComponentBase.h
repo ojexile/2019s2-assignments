@@ -12,7 +12,7 @@ public:
 	virtual ~ComponentBase();
 
 	void Init(std::vector<ComponentBase*>* refList);
-	virtual void Update(double dt) = 0;
+	virtual void Update(double dt);
 
 	template <class t>
 	t* GetComponent(bool bOptional = false)
@@ -28,5 +28,5 @@ public:
 			DEFAULT_LOG("Component of type " + sTypeName + " not found");
 		return nullptr;
 	};
-	void Instantiate(std::string sName, Vector3 pos = {}, Vector3 vRot = {}, Vector3 vScal = { 1,1,1 });
+	virtual ComponentBase* Clone() = 0;
 };
