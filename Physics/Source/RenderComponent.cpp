@@ -16,9 +16,14 @@ RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 }
 RenderComponent::RenderComponent(RenderComponent& ref)
 {
-	m_Mesh = ref.m_Mesh;
+	if (m_Mesh)
+		m_Mesh = ref.m_Mesh;
+	else
+		m_Mesh = nullptr;
 	if (ref.m_AnimatedMesh)
 		m_AnimatedMesh = new AnimatedMesh(*ref.m_AnimatedMesh);
+	else
+		m_AnimatedMesh = nullptr;
 	m_bLightEnabled = ref.m_bLightEnabled;
 	m_bBillboard = ref.m_bBillboard;
 }
