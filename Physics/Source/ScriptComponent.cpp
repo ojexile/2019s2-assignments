@@ -66,7 +66,7 @@ GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, Vector3
 			TransformComponent* Trans = go->GetComponent<TransformComponent>();
 			Trans->SetPosition(pos);
 			Trans->SetScale(vScal.x, vScal.y, vScal.z);
-			sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go.sLayer);
+			sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go, sLayer);
 			return go;
 		}
 		catch (const std::exception&)
