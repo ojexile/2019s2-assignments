@@ -37,7 +37,7 @@ struct Light
 	}
 	Light(LIGHT_TYPE light_type)
 	{
-		type = light_type;
+		type = type;
 		color.Set(1, 1, 1);
 		power = 1.f;
 		kC = 1.f;
