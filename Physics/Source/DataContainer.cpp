@@ -33,7 +33,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["TestParticle"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 2);
 	m_map_Meshes["TestParticle"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
 
-	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 10.f, true);
+	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, false);
 	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/Smoke.tga");
 
 	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
@@ -56,12 +56,12 @@ DataContainer::DataContainer()
 	GameObject* SmokeParticle = new GameObject;
 	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
 	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
-	SmokeParticle->AddComponent(new ParticleScript(10.0f, { 0,0.0f,0 }, { 0,0,0 }, { 0,0,0 }, { 0,0,0 }));
+	SmokeParticle->AddComponent(new ParticleScript(2.2f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.2,-0.2,0 }));
 	m_map_GO["SmokeParticle"] = SmokeParticle;
 	//
 	// Spawner
 	GameObject* Spawner = new GameObject;
-	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.05f, { 0,0,0 }, .0f));
+	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.01f, { .5f,.5f,.5f }, .8f));
 	//
 
 	//Bullet
