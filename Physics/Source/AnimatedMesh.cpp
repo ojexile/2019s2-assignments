@@ -11,7 +11,17 @@ AnimatedMesh::AnimatedMesh(std::string sMeshName, int row, int col, int start, i
 	m_anim = new Animation();
 	m_anim->Set(start, end, loop, time, true);
 }
-
+AnimatedMesh::AnimatedMesh(AnimatedMesh& mesh)
+	:Mesh(mesh.name)
+{
+	m_row = mesh.m_row;
+	m_col = mesh.m_col;
+	m_currentFrame = 0;
+	m_currentFrame = 0;
+	m_playCount = 0;
+	m_anim = new Animation();
+	m_anim->Set(mesh.m_anim->startFrame, mesh.m_anim->endFrame, mesh.m_anim->repeatCount, mesh.m_anim->animTime, mesh.m_anim->animActive);
+}
 AnimatedMesh::~AnimatedMesh()
 {
 	if (m_anim)
