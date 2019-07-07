@@ -21,8 +21,8 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("textures/sky.tga");
 
-	m_map_Meshes["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
-	m_map_Meshes["Cat"]->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
+	m_map_Animated["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
+	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
 
 	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
 	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
@@ -54,6 +54,13 @@ Mesh* DataContainer::GetMesh(std::string name)
 	Mesh* mesh = m_map_Meshes[name];
 	if (!mesh)
 		DEFAULT_LOG("ERROR: Mesh not found of name: " + name);
+	return mesh;
+}
+AnimatedMesh* DataContainer::GetAnimation(std::string name)
+{
+	AnimatedMesh* mesh = m_map_Animated[name];
+	if (!mesh)
+		DEFAULT_LOG("ERROR: Animation not found of name: " + name);
 	return mesh;
 }
 GameObject* DataContainer::GetGameObject(std::string name)

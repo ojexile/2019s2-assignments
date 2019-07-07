@@ -3,8 +3,24 @@
 RenderComponent::RenderComponent(Mesh* Mesh)
 	:m_Mesh(Mesh)
 {
+	m_AnimatedMesh = nullptr;
 	m_bLightEnabled = false;
 	m_bBillboard = false;
+}
+RenderComponent::RenderComponent(AnimatedMesh* Mesh)
+	: m_AnimatedMesh(Mesh)
+{
+	m_Mesh = nullptr;
+	m_bLightEnabled = false;
+	m_bBillboard = false;
+}
+RenderComponent::RenderComponent(RenderComponent& ref)
+{
+	m_Mesh = ref.m_Mesh;
+	if (ref.m_AnimatedMesh)
+		m_AnimatedMesh = new AnimatedMesh(*ref.m_AnimatedMesh);
+	m_bLightEnabled = ref.m_bLightEnabled;
+	m_bBillboard = ref.m_bBillboard;
 }
 
 RenderComponent::~RenderComponent()
@@ -14,6 +30,11 @@ RenderComponent::~RenderComponent()
 Mesh* RenderComponent::GetMesh()
 {
 	return m_Mesh;
+}
+
+AnimatedMesh* RenderComponent::GetAnimatedMesh()
+{
+	return m_AnimatedMesh;
 }
 
 bool RenderComponent::GetLightEnabled()
@@ -26,8 +47,8 @@ void RenderComponent::SetLightEnabled(bool b)
 }
 void RenderComponent::Update(double dt)
 {
-	if (m_Mesh)
-		this->m_Mesh->Update(dt);
+	if (m_AnimatedMesh)
+		this->m_AnimatedMesh->Update(dt);
 }
 void RenderComponent::SetBillboard(bool b)
 {

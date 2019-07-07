@@ -226,7 +226,8 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	if (renderComponent == nullptr)
 		return;
 	Mesh* CurrentMesh = renderComponent->GetMesh();
-	if (!CurrentMesh)
+	AnimatedMesh* AnimatedMesh = renderComponent->GetAnimatedMesh();
+	if (!CurrentMesh && !AnimatedMesh)
 	{
 		DEFAULT_LOG("Mesh not initialised");
 		return;
@@ -250,8 +251,14 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	}
 	if (fGameObjectRotationDegrees != 0)
 		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
+
 	if (!bIsUI)
-		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
+	{
+		if (CurrentMesh)
+			RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
+		if (AnimatedMesh)
+			RenderAnimatedMesh(AnimatedMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
+	}
 	else
 		RenderUI(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 

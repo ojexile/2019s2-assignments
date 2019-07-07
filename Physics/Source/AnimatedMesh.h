@@ -11,14 +11,16 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
-class AnimatedMesh : public Mesh
+class AnimatedMesh
 {
 public:
 public:
-	AnimatedMesh(std::string sMeshName, int row, int col, int start, int end, float time, bool loop);
+	AnimatedMesh(std::string sMeshName, int row, int col, int start, int end, float time, bool loop, Mesh* mesh);
 	~AnimatedMesh();
-	virtual void Update(double dt) override;
-	virtual void Render() override; // Polymorphism
+	virtual void Update(double dt);
+	virtual void Render(); // Polymorphism
+
+	Mesh* m_Mesh;
 	int m_row;
 	int m_col;
 	float m_currentTime;
