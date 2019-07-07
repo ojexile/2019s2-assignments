@@ -185,6 +185,18 @@ void RenderingManagerBase::Init()
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], true);
 
+	//lights[0].type = Light::LIGHT_DIRECTIONAL;
+	//lights[0].position.Set(0.01f, 30, 0);
+	//lights[0].color.Set(1, 1, 1);
+	//lights[0].power = 1;
+	//lights[0].kC = 1.f;
+	//lights[0].kL = 0.01f;
+	//lights[0].kQ = 0.001f;
+	//lights[0].cosCutoff = cos(Math::DegreeToRadian(45));
+	//lights[0].cosInner = cos(Math::DegreeToRadian(30));
+	//lights[0].exponent = 3.f;
+	//lights[0].spotDirection.Set(0.f, 1.f, 0.f);
+
 	int tmp = 10.f;
 	int tmp2 = 0;
 	for (std::vector<Light*>::iterator it = m_LightManager.GetSceneLights().begin(); it != m_LightManager.GetSceneLights().end(); ++it)
@@ -203,7 +215,7 @@ void RenderingManagerBase::Init()
 		tmp2++;
 	}
 
-	glUniform1i(m_parameters[U_NUMLIGHTS], SCENELIGHTS.size());
+	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 
 	for (int index = 0; index < m_LightManager.GetSceneLights().size(); ++index)
@@ -235,6 +247,20 @@ void RenderingManagerBase::UpdateLightUniforms(int index)
 	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF + (m_iNumOfLightVar * index)], L->cosCutoff);
 	glUniform1f(m_parameters[U_LIGHT0_COSINNER + (m_iNumOfLightVar * index)], L->cosInner);
 	glUniform1f(m_parameters[U_LIGHT0_EXPONENT + (m_iNumOfLightVar * index)], L->exponent);
+
+	/*for (int index = 0; index < m_LightManager.GetSceneLights().size(); ++index)
+	{
+		Light* L = SCENELIGHTS[index];
+		glUniform1i(m_parameters[U_LIGHT0_TYPE + (m_iNumOfLightVar * index)], L->type);
+		glUniform3fv(m_parameters[U_LIGHT0_COLOR + (m_iNumOfLightVar * index)], 1, &L->color.r);
+		glUniform1f(m_parameters[U_LIGHT0_POWER + (m_iNumOfLightVar * index)], L->power);
+		glUniform1f(m_parameters[U_LIGHT0_KC + (m_iNumOfLightVar * index)], L->kC);
+		glUniform1f(m_parameters[U_LIGHT0_KL + (m_iNumOfLightVar * index)], L->kL);
+		glUniform1f(m_parameters[U_LIGHT0_KQ + (m_iNumOfLightVar * index)], L->kQ);
+		glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF + (m_iNumOfLightVar * index)], L->cosCutoff);
+		glUniform1f(m_parameters[U_LIGHT0_COSINNER + (m_iNumOfLightVar * index)], L->cosInner);
+		glUniform1f(m_parameters[U_LIGHT0_EXPONENT + (m_iNumOfLightVar * index)], L->exponent);
+	}*/
 }
 void RenderingManagerBase::Update(double dt)
 { 
@@ -249,21 +275,6 @@ void RenderingManagerBase::Update(double dt)
 	//	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	//if (Application::IsKeyPressed('4'))
 	//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	//Add or remove light
-	//NOTE: POSITION IS DEFAULT 0,0,0
-	if (Application::IsKeyPressed('1'))
-	{
-		m_LightManager.AddLight();
-		glUniform1i(m_parameters[U_NUMLIGHTS], SCENELIGHTS.size());
-	}
-	if (Application::IsKeyPressed('0'))
-	{
-		m_LightManager.RemoveLight();
-		glUniform1i(m_parameters[U_NUMLIGHTS], SCENELIGHTS.size());
-	}
-
-	//Change current light type
 	if (Application::IsKeyPressed('7'))
 	{
 		CURRENTLIGHT->type = Light::LIGHT_DIRECTIONAL;
@@ -280,7 +291,6 @@ void RenderingManagerBase::Update(double dt)
 		glUniform1i(m_parameters[U_LIGHT0_TYPE + (m_iNumOfLightVar * LIGHTINDEX)], CURRENTLIGHT->type);
 	}
 
-	//Cycle Light
 	static bool isCyclingLight = false;
 	if (!isCyclingLight && (Application::IsKeyPressed('M') || Application::IsKeyPressed('N')))
 	{
@@ -296,7 +306,7 @@ void RenderingManagerBase::Update(double dt)
 
 		UpdateLightUniforms(LIGHTINDEX);
 	}
-	else if(isCyclingLight && (!Application::IsKeyPressed('M') || !Application::IsKeyPressed('N')))
+	else
 		isCyclingLight = false;
 
 	fps = (float)(1.f / dt);

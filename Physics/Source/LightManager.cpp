@@ -59,26 +59,13 @@ void LightManager::CycleLight(bool b)
 }
 void LightManager::AdjustLightPower(float dt, bool b)
 {
-	if (b)
-		m_currentLight->power = m_currentLight->power + dt;
-	else
-		m_currentLight->power = m_currentLight->power - dt;
+
 }
 void LightManager::AddLight(void)
 {
-	if (SIZE < MAX_NUMLIGHTS)
-	{
-		m_vec_SceneLights.push_back(new Light(Light::LIGHT_SPOT));
-	}
+
 }
 void LightManager::RemoveLight(void)
 {
-	//pop from the back of the list
-	if (SIZE > MIN_NUMLIGHTS)
-	{
-		--m_iLightIndex;
-		if (m_currentLight == m_vec_SceneLights[SIZE - 1])
-			m_currentLight = m_vec_SceneLights[m_iLightIndex];
-		m_vec_SceneLights.pop_back(); 
-	}
+
 }
