@@ -45,6 +45,26 @@ GameObject* GameObjectManager::AddGameObject(std::string layer)
 	m_map_Layers[layer]->GetGOList()->push_back(go);
 	return go;
 }
+void GameObjectManager::Destroy(GameObject* go)
+{
+	std::map<std::string, LayerData*>::iterator it;
+
+	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
+	{
+		// it->first == key
+		// it->second == value
+		std::vector<GameObject*>* list = it->second->GetGOList();
+		for (unsigned i = list->size() - 1; i >= 0; --i)
+		{
+			if ((*list)[i] == go)
+			{
+				delete(*list)[i];
+				(*list).erase((*list).begin() + i);
+				return;
+			}
+		}
+	}
+}
 bool GameObjectManager::CreateLayer(unsigned shader, std::string layer)
 {
 	if (m_map_Layers.count(layer) > 0)
