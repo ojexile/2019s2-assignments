@@ -1,6 +1,6 @@
 #pragma once
 #include "PlayerState.h"
-#define STANDING_HEIGHT 4.f
+#define STANDING_HEIGHT 3.f
 class StandingState :
 	public PlayerState
 {

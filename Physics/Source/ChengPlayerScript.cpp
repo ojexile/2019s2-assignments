@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "SceneManager.h"
 #include "GunScript.h"
+#include "LoadHmap.h"
 ChengPlayerScript::ChengPlayerScript(GameObject* gun)
 	:m_Gun(gun)
 {
@@ -81,6 +82,8 @@ void ChengPlayerScript::Update(double dt)
 		SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
 	}
 	// TODO Constrain to terrain
+	Vector3 pos = trans->GetPosition();
+	trans->SetPosition(pos.x, 100.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
 {

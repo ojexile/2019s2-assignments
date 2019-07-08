@@ -10,6 +10,7 @@ ParticleSpawnerScript::ParticleSpawnerScript(GameObject* ParticleRef, const floa
 	, m_fLifeTime(fLifeTime)
 {
 	m_fCurrentTime = 0;
+	m_fCurrentLifeTime = 0;
 }
 
 ParticleSpawnerScript::~ParticleSpawnerScript()
@@ -38,7 +39,7 @@ void ParticleSpawnerScript::Update(double dt)
 	//--------------------------------------------------------------------------------
 	if (m_fLifeTime > 0)
 	{
-		if (m_fCurrentLifeTime >= m_fCurrentLifeTime)
+		if (m_fCurrentLifeTime >= m_fLifeTime)
 			DestroySelf();
 	}
 }

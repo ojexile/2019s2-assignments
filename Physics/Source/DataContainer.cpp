@@ -21,8 +21,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["Depth"] = MeshBuilder::GenerateQuad("Depth", { 1.f,1.f,1.f }, 10);
 	m_map_Meshes["Depth"]->m_uTextureArray[0] = 1;
 
-	std::vector<unsigned char> heightMap;
-	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("terrain", "data/heightMaps/heightmapMain.raw", heightMap);
+	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("terrain", "data/heightMaps/heightmapMain.raw", heightMap, { 500,100,500 });
 	m_map_Meshes["Terrain"]->m_uTextureArray[0] = LoadTGA("textures/moss1.tga");
 
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
@@ -83,14 +82,14 @@ DataContainer::DataContainer()
 	GameObject* DropletMini = new GameObject;
 	DropletMini->AddComponent(new RenderComponent(this->GetMesh("DropletMini")));
 	DropletMini->GetComponent<RenderComponent>()->SetBillboard(true);
-	DropletMini->AddComponent(new ParticleScript(5.0f, { 0.1,0.2f,0.1 }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
+	DropletMini->AddComponent(new ParticleScript(5.0f, { 0.3f,0.4f,0.3f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
 	m_map_GO["DropletMini"] = DropletMini;
 	//
 	// Leaf
 	GameObject* Leaf = new GameObject;
 	Leaf->AddComponent(new RenderComponent(this->GetAnimation("Leaf")));
 	Leaf->GetComponent<RenderComponent>()->SetBillboard(true);
-	Leaf->AddComponent(new ParticleScript(5.0f, { 0,-0.2,0 }, { 2,0,0 }, { 0,0.01,0 }, { 0.5f,0.5f,0 }, {}));
+	Leaf->AddComponent(new ParticleScript(6.5f, { 0,-0.2,0 }, { 2,0,0 }, { 0,0.01,0 }, { -0.01f,-0.01f,0 }, {}));
 	m_map_GO["Leaf"] = Leaf;
 	//
 	// Spawner
@@ -100,14 +99,14 @@ DataContainer::DataContainer()
 	// Fountain Spawner
 	GameObject* Fountain = new GameObject;
 	//Fountain->GetChildList<TransformComponent>()->SetPosition(-39, 0, 0);
-	Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.2f, { 0,0,0 }, .7f, "Default", 2.0f));
+	Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.05f, { 0,0,0 }, .2f, "Default", 0.4f));
 	m_map_GO["Fountain"] = Fountain;
 	//
 	// Rain
 	GameObject* Rain = new GameObject;
 	Rain->AddComponent(new RenderComponent(this->GetMesh("Water")));
 	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
-	Rain->AddComponent(new ParticleScript(4.0f, { 0,-0.7,0 }, { 1,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
+	Rain->AddComponent(new ParticleScript(4.0f, { 0,-0.7,0 }, { 0,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
 	Rain->AddComponent(new RainScript(this->GetGameObject("Fountain")));
 	m_map_GO["Rain"] = Rain;
 

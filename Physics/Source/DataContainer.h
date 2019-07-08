@@ -22,6 +22,8 @@ public:
 	DataContainer();
 	~DataContainer();
 
+	std::vector<unsigned char> heightMap;
+
 	Mesh* GetMesh(std::string name);
 	AnimatedMesh* GetAnimation(std::string name);
 	GameObject* GetGameObject(std::string name);

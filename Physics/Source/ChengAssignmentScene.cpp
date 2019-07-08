@@ -43,6 +43,7 @@ void ChengAssignmentScene::Init()
 	// Terrain
 	GameObject* terrain = m_GameObjectManager.AddGameObject();
 	terrain->TRANSFORM->SetScale(500, 50, 500);
+	terrain->TRANSFORM->SetPosition(0, -20, 0);
 	terrain->AddComponent(new RenderComponent(dataContainer->GetMesh("Terrain")));
 	terrain->RENDER->SetLightEnabled(true);
 	terrain->SetActive(true);
@@ -63,7 +64,7 @@ void ChengAssignmentScene::Init()
 	//depth->TRANSFORM->SetRotation(-90, 1, 0, 0);
 	depth->AddComponent(new RenderComponent(dataContainer->GetMesh("Depth")));
 	//depth->RENDER->SetLightEnabled(true);
-	depth->SetActive(true);
+	depth->SetActive(false);
 	depth->RENDER->SetBillboard(true);
 	//
 
