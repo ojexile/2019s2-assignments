@@ -83,7 +83,7 @@ void ChengPlayerScript::Update(double dt)
 	}
 	// TODO Constrain to terrain
 	Vector3 pos = trans->GetPosition();
-	trans->SetPosition(pos.x, 100.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
+	trans->SetPosition(pos.x, 50.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
 {

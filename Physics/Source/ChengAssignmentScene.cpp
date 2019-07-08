@@ -91,8 +91,8 @@ void ChengAssignmentScene::Init()
 
 	// Fish Spawner
 	GameObject* FishSpawner = m_GameObjectManager.AddGameObject();
-	FishSpawner->TRANSFORM->SetPosition(45, 0, 0);
-	FishSpawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Fish"), 0.5f, { 2,2,2 }, .4f));
+	FishSpawner->TRANSFORM->SetPosition(55, 0, 0);
+	FishSpawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Fish"), 0.3f, { 2,2,2 }, .6f));
 	FishSpawner->SetActive(true);
 	//
 
