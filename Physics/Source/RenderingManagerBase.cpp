@@ -105,9 +105,9 @@ void RenderingManagerBase::BindUniforms()
 	Color fogColor{ 0.5f, 0.5f, 0.5f };
 
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
-	glUniform1f(m_parameters[U_FOG_START], 1);
+	glUniform1f(m_parameters[U_FOG_START], 10);
 	glUniform1f(m_parameters[U_FOG_END], 1000);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 0.001f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], true);
 
@@ -154,7 +154,7 @@ void RenderingManagerBase::Init()
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
 	lights[0].position.Set(1.f, 100, 0);
 	lights[0].color.Set(1, 1, 1);
-	lights[0].power = 1;
+	lights[0].power = 0.8f;
 	lights[0].kC = 1.f;
 	lights[0].kL = 0.01f;
 	lights[0].kQ = 0.001f;

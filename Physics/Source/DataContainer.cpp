@@ -89,7 +89,7 @@ DataContainer::DataContainer()
 	GameObject* Leaf = new GameObject;
 	Leaf->AddComponent(new RenderComponent(this->GetAnimation("Leaf")));
 	Leaf->GetComponent<RenderComponent>()->SetBillboard(true);
-	Leaf->AddComponent(new ParticleScript(6.5f, { 0,-0.2,0 }, { 2,0,0 }, { 0,0.01,0 }, { -0.01f,-0.01f,0 }, {}));
+	Leaf->AddComponent(new ParticleScript(6.5f, { 0,-0.2f,0 }, { 2,0,0 }, { 0,0.01f,0 }, { -0.01f,-0.01f,0 }, {}));
 	m_map_GO["Leaf"] = Leaf;
 	//
 	// Spawner
@@ -106,7 +106,7 @@ DataContainer::DataContainer()
 	GameObject* Rain = new GameObject;
 	Rain->AddComponent(new RenderComponent(this->GetMesh("Water")));
 	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
-	Rain->AddComponent(new ParticleScript(4.0f, { 0,-0.7,0 }, { 0,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
+	Rain->AddComponent(new ParticleScript(4.0f, { 0,-0.7f,0 }, { 0,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
 	Rain->AddComponent(new RainScript(this->GetGameObject("Fountain")));
 	m_map_GO["Rain"] = Rain;
 
