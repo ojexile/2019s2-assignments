@@ -1,21 +1,76 @@
 #include "ParticleScript.h"
 
-ParticleScript::ParticleScript(const float fLifeTime, const Vector3 vSpeed, const Vector3 vGravity, const Vector3 vAccel, const Vector3 vSizeChange)
+ParticleScript::ParticleScript(const float fLifeTime, const Vector3 vSpeed, 
+	const Vector3 vGravity, const Vector3 vAccel, const Vector3 vSizeChange, const Vector3 vRandAxis)
 	: m_fLifeTime(fLifeTime)
 	, m_vSpeed(vSpeed)
 	, m_vGravity(vGravity)
 	, m_vAccel(vAccel)
 	, m_vSizeChange(vSizeChange)
+	, m_vRandAxis(vRandAxis)
 {
 	m_CurrentDuration = 0;
+	if (m_vRandAxis.x > 0)
+	{
+		int x = 0;
+	}
+
 }
 
 ParticleScript::~ParticleScript()
 {
 }
 
+	
 void ParticleScript::Update(double dt)
 {
+	if (!Started)
+	{
+		if (m_vRandAxis.x > 0)
+		{
+			try
+			{
+			int pos = (rand() % ((int)m_vSpeed.x * 2)) - m_vSpeed.x;
+			m_vSpeed.x = pos;
+
+			}
+			catch (const std::exception&)
+			{
+
+				DEFAULT_LOG("Speed is 0 for x axis");
+			}
+		}
+
+		if (m_vRandAxis.y > 0)
+		{
+			try
+			{
+			int pos = rand() % (int)m_vSpeed.y * 2 - m_vSpeed.y;
+			m_vSpeed.y = pos;
+
+			}
+			catch (const std::exception&)
+			{
+
+				DEFAULT_LOG("Speed is 0 for y axis");
+			}
+		}
+		if (m_vRandAxis.z > 0)
+		{
+			try
+			{
+			int pos = rand() % (int)m_vSpeed.z * 2 - m_vSpeed.z;
+			m_vSpeed.z = pos;
+
+			}
+			catch (const std::exception&)
+			{
+				DEFAULT_LOG("Speed is 0 for z axis");
+			}
+		}
+
+		Started = true;
+	}
 	TransformComponent* Trans = GetComponent<TransformComponent>();
 	//--------------------------------------------------------------------------------
 	// Move

@@ -23,7 +23,8 @@ void main(){
 	float speed = vert_et / 150;
 	vec3 vertexPosition_modelspaceOG = vertexPosition_modelspace;
 	vec3 vertexPosition_modelspace = vertexPosition_modelspaceOG;
-	vertexPosition_modelspace.y += sin(0.8 * (vertexPosition_modelspace.x) * speed)  *2 - sin(0.5 * (vertexPosition_modelspace.z) * speed) * 5;
+	vertexPosition_modelspace.y += sin(0.8 * (vertexPosition_modelspace.x) * speed)  
+	*2 - sin(0.5 * (vertexPosition_modelspace.z) * speed) * 0.4;
 	vertexPosition_modelspace.x += sin(0.2 * speed/5) * 0.2f;
 	vertexPosition_modelspace.z += sin(0.2 * speed/8) * 0.3f;
 

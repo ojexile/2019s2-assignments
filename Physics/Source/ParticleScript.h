@@ -1,5 +1,6 @@
 #pragma once
 #include "ScriptComponent.h"
+#include <cstdlib>
 class ParticleScript :
 	public ScriptComponent
 {
@@ -9,10 +10,14 @@ private:
 	const Vector3 m_vGravity;
 	const Vector3 m_vAccel;
 	const Vector3 m_vSizeChange;
-
+	const Vector3 m_vRandAxis;
 	float m_CurrentDuration;
+	bool Started = false;
 public:
-	ParticleScript(const float fLifeTime, const Vector3 vSpeed, const Vector3 vGravity, const Vector3 vAccel, const Vector3 vSizeChange);
+	ParticleScript(const float fLifeTime, const Vector3 vSpeed, 
+		const Vector3 vGravity, const Vector3 vAccel, 
+		const Vector3 vSizeChange
+	, const Vector3 vRandAxis);
 	virtual ~ParticleScript();
 	virtual ComponentBase* Clone()
 	{

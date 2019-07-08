@@ -27,7 +27,7 @@ void main(){
 	vec3 vertexPosition_modelspace = vertexPosition_modelspaceOG;
 	vertexPosition_modelspace.x += sin(speed + vertexPosition_modelspace.y) * 0.5f;
 	if(vertexPosition_modelspace.y > 0)
-		vertexPosition_modelspace.y += speed/5;
+		vertexPosition_modelspace.y += speed/50;
 	vertexPosition_modelspace.y += sin(speed) * 0.2f;
 	// Output position of the vertex, in clip space : MVP * position
 	gl_Position =  MVP * vec4(vertexPosition_modelspace, 1);

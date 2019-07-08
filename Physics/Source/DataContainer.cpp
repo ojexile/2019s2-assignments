@@ -30,7 +30,7 @@ DataContainer::DataContainer()
 	m_map_Animated["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
 	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
 
-	m_map_Meshes["TestParticle"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 2);
+	m_map_Meshes["TestParticle"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["TestParticle"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
 
 	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, false);
@@ -56,20 +56,20 @@ DataContainer::DataContainer()
 	GameObject* SmokeParticle = new GameObject;
 	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
 	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
-	SmokeParticle->AddComponent(new ParticleScript(2.f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.8f,-0.8f,0 }));
+	SmokeParticle->AddComponent(new ParticleScript(2.f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.8f,-0.8f,0 }, {}));
 	m_map_GO["SmokeParticle"] = SmokeParticle;
 	// Rain
 	GameObject* Rain = new GameObject;
 	Rain->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
 	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
-	Rain->AddComponent(new ParticleScript(4.0f, { 0,-1,0 }, { 1,0,0 }, { 0,0,0 }, { 0.0f,0,0 }));
+	Rain->AddComponent(new ParticleScript(4.0f, { 0,-1,0 }, { 1,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
 	m_map_GO["Rain"] = Rain;
 	//
 	// Droplet
 	GameObject* Droplet = new GameObject;
 	Droplet->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
 	Droplet->GetComponent<RenderComponent>()->SetBillboard(true);
-	Droplet->AddComponent(new ParticleScript(5.0f, { 0,1.f,0 }, { 10.f,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }));
+	Droplet->AddComponent(new ParticleScript(5.0f, { 1,1.f,1 }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, {1,0,1}));
 	m_map_GO["Droplet"] = Droplet;
 	//
 	// Spawner

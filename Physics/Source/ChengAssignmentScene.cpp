@@ -122,7 +122,8 @@ void ChengAssignmentScene::Init()
 	// water
 	GameObject* water = m_GameObjectManager.AddGameObject("Water");
 	water->AddComponent(new RenderComponent(dataContainer->GetMesh("Water")));
-	water->TRANSFORM->SetPosition(0, 0, 0);
-	water->RENDER->SetLightEnabled(true);
+	water->TRANSFORM->SetPosition(0, -1, 0);
+	water->RENDER->SetLightEnabled(false);
+	water->SetActive(true);
 	//
 }
