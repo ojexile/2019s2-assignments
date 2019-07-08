@@ -1,13 +1,9 @@
 #include "LayerData.h"
-
-
-
 LayerData::LayerData(unsigned Shader)
 	:m_Shader(Shader)
 {
 	m_vec_GameObjects = new std::vector<GameObject*>;
 }
-
 
 LayerData::~LayerData()
 {
@@ -24,4 +20,8 @@ std::vector<GameObject*>* LayerData::GetGOList()
 unsigned LayerData::GetShader()
 {
 	return m_Shader;
+}
+void LayerData::SetShader(unsigned u)
+{
+	this->m_Shader = u;
 }
