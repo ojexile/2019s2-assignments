@@ -22,23 +22,6 @@ void ChengAssignmentScene::Init()
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
 	//m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 
-	// Cube
-	GameObject* cube = m_GameObjectManager.AddGameObject();
-	cube->GetComponent<TransformComponent>()->SetPosition(0, 5, 0);
-	cube->GetComponent<TransformComponent>()->SetScale(10, 1, 10);
-	cube->GetComponent<TransformComponent>()->SetRotation(45, 0, 1, 0);
-	cube->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
-	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
-	cube->GetComponent<RenderComponent>()->SetBillboard(false);
-	//
-	// Cube
-	GameObject* cube2 = m_GameObjectManager.AddGameObject();
-	cube2->GetComponent<TransformComponent>()->SetPosition(-20, 5, 0);
-	cube2->GetComponent<TransformComponent>()->SetScale(2, 2, 2);
-	cube2->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
-	cube2->GetComponent<RenderComponent>()->SetLightEnabled(true);
-	cube2->GetComponent<RenderComponent>()->SetBillboard(true);
-	//
 	// Crosshair
 	GameObject* Crosshair = m_GameObjectManager.AddGameObject("UI");
 	Crosshair->TRANSFORM->SetPosition(1920 / 2, 1080 / 2, 5);
@@ -49,14 +32,6 @@ void ChengAssignmentScene::Init()
 	Crosshair->SetActive(true);
 	//
 
-	// Cat
-	GameObject* cat = m_GameObjectManager.AddGameObject();
-	cat->TRANSFORM->SetPosition(0, 15, 0);
-	cat->TRANSFORM->SetScale(20.f, 20.f, 20.f);
-	cat->AddComponent(new RenderComponent(dataContainer->GetAnimation("Cat")));
-	cat->RENDER->SetLightEnabled(false);
-	cat->RENDER->SetBillboard(true);
-	//
 	// Skyplane
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
 	SkyPlane->TRANSFORM->SetPosition(0, 100, 0);
@@ -70,7 +45,7 @@ void ChengAssignmentScene::Init()
 	terrain->TRANSFORM->SetScale(500, 20, 500);
 	terrain->AddComponent(new RenderComponent(dataContainer->GetMesh("Terrain")));
 	terrain->RENDER->SetLightEnabled(true);
-	terrain->SetActive(true);
+	terrain->SetActive(false);
 	//
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject();

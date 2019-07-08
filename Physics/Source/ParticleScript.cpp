@@ -1,6 +1,6 @@
 #include "ParticleScript.h"
 
-ParticleScript::ParticleScript(const float fLifeTime, const Vector3 vSpeed, 
+ParticleScript::ParticleScript(const float fLifeTime, const Vector3 vSpeed,
 	const Vector3 vGravity, const Vector3 vAccel, const Vector3 vSizeChange, const Vector3 vRandAxis)
 	: m_fLifeTime(fLifeTime)
 	, m_vSpeed(vSpeed)
@@ -14,14 +14,12 @@ ParticleScript::ParticleScript(const float fLifeTime, const Vector3 vSpeed,
 	{
 		int x = 0;
 	}
-
 }
 
 ParticleScript::~ParticleScript()
 {
 }
 
-	
 void ParticleScript::Update(double dt)
 {
 	if (!Started)
@@ -30,13 +28,10 @@ void ParticleScript::Update(double dt)
 		{
 			try
 			{
-			int pos = (rand() % ((int)m_vSpeed.x * 2)) - m_vSpeed.x;
-			m_vSpeed.x = pos;
-
+				m_vSpeed.x = Math::RandFloatMinMax(-m_vSpeed.x, m_vSpeed.x);
 			}
 			catch (const std::exception&)
 			{
-
 				DEFAULT_LOG("Speed is 0 for x axis");
 			}
 		}
@@ -45,13 +40,10 @@ void ParticleScript::Update(double dt)
 		{
 			try
 			{
-			int pos = rand() % (int)m_vSpeed.y * 2 - m_vSpeed.y;
-			m_vSpeed.y = pos;
-
+				m_vSpeed.y = Math::RandFloatMinMax(-m_vSpeed.y, m_vSpeed.y);
 			}
 			catch (const std::exception&)
 			{
-
 				DEFAULT_LOG("Speed is 0 for y axis");
 			}
 		}
@@ -59,9 +51,7 @@ void ParticleScript::Update(double dt)
 		{
 			try
 			{
-			int pos = rand() % (int)m_vSpeed.z * 2 - m_vSpeed.z;
-			m_vSpeed.z = pos;
-
+				m_vSpeed.z = Math::RandFloatMinMax(-m_vSpeed.z, m_vSpeed.z);
 			}
 			catch (const std::exception&)
 			{

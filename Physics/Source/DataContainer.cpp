@@ -69,7 +69,7 @@ DataContainer::DataContainer()
 	GameObject* Droplet = new GameObject;
 	Droplet->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
 	Droplet->GetComponent<RenderComponent>()->SetBillboard(true);
-	Droplet->AddComponent(new ParticleScript(5.0f, { 1,1.f,1 }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, {1,0,1}));
+	Droplet->AddComponent(new ParticleScript(5.0f, { 0.2f,0.5f,0.2f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
 	m_map_GO["Droplet"] = Droplet;
 	//
 	// Spawner
