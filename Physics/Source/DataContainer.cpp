@@ -132,7 +132,16 @@ DataContainer::DataContainer()
 
 DataContainer::~DataContainer()
 {
+	std::map<std::string, Mesh*>::iterator it;
+	for (it = m_map_Meshes.begin(); it != m_map_Meshes.end(); it++)
+	{
+		// it->first == key
+		// it->second == value
+		delete it->second;
+	}
 	m_map_Meshes.clear();
+	m_map_Animated.clear();
+	m_map_GO.clear();
 }
 
 Mesh* DataContainer::GetMesh(std::string name)

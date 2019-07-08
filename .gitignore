@@ -273,3 +273,6 @@ __pycache__/
 *.mtl
 /Common/Release
 /Physics/Release
+/Common/Release
+/Physics/Release
+/Release

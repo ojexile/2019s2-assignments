@@ -32,10 +32,9 @@ GameObject::~GameObject()
 		m_vec_ComponentList.erase(m_vec_ComponentList.begin() + i);
 	}
 	//m_Transform = nullptr;
-	for (int i = (int)m_vec_ChildList.size() - 1; i >= 0; --i)
+	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
 		delete m_vec_ChildList[i];
-		m_vec_ChildList.erase(m_vec_ChildList.begin() + i);
 	}
 }
 ComponentBase* GameObject::AddComponent(ComponentBase* comp)
