@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "RenderComponent.h"
 
-#define SWITCH_SHADER true
+#define SWITCH_SHADER false
 RenderingManager::RenderingManager()
 {
 }

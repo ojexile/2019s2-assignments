@@ -2,6 +2,7 @@
 #include "BulletScript.h"
 #include "ParticleScript.h"
 #include "ParticleSpawnerScript.h"
+#include "RainScript.h"
 DataContainer::DataContainer()
 {
 	// Meshs--------------------------------------------------------------------------------
@@ -36,11 +37,14 @@ DataContainer::DataContainer()
 	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, false);
 	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/Smoke.tga");
 
-	m_map_Meshes["Fish"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.6f);
+	m_map_Meshes["Fish"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.1f);
 	m_map_Meshes["Fish"]->m_uTextureArray[0] = LoadTGA("textures/Fish.tga");
 
-	m_map_Meshes["Droplet"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.6f);
+	m_map_Meshes["Droplet"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.2f);
 	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
+
+	m_map_Meshes["DropletMini"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.5f);
+	m_map_Meshes["DropletMini"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
 
 	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
 	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
@@ -59,18 +63,13 @@ DataContainer::DataContainer()
 	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
 	SmokeParticle->AddComponent(new ParticleScript(2.f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.8f,-0.8f,0 }, {}));
 	m_map_GO["SmokeParticle"] = SmokeParticle;
-	// Rain
-	GameObject* Rain = new GameObject;
-	Rain->AddComponent(new RenderComponent(this->GetMesh("Water")));
-	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
-	Rain->AddComponent(new ParticleScript(4.0f, { 0,-1,0 }, { 1,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
-	m_map_GO["Rain"] = Rain;
+
 	//
 	// Fish
 	GameObject* Fish = new GameObject;
 	Fish->AddComponent(new RenderComponent(this->GetMesh("Fish")));
 	Fish->GetComponent<RenderComponent>()->SetBillboard(true);
-	Fish->AddComponent(new ParticleScript(5.0f, { 0.2f,0.5f,0.2f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
+	Fish->AddComponent(new ParticleScript(5.0f, { 0.15f,0.4f,0.0f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 0,0,0 }));
 	m_map_GO["Fish"] = Fish;
 	//
 	// Droplet
@@ -79,6 +78,13 @@ DataContainer::DataContainer()
 	Droplet->GetComponent<RenderComponent>()->SetBillboard(true);
 	Droplet->AddComponent(new ParticleScript(5.0f, { 0.2f,0.5f,0.2f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
 	m_map_GO["Droplet"] = Droplet;
+	//
+	// DropletMini
+	GameObject* DropletMini = new GameObject;
+	DropletMini->AddComponent(new RenderComponent(this->GetMesh("DropletMini")));
+	DropletMini->GetComponent<RenderComponent>()->SetBillboard(true);
+	DropletMini->AddComponent(new ParticleScript(5.0f, { 0.1,0.2f,0.1 }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
+	m_map_GO["DropletMini"] = DropletMini;
 	//
 	// Leaf
 	GameObject* Leaf = new GameObject;
@@ -91,6 +97,19 @@ DataContainer::DataContainer()
 	GameObject* Spawner = new GameObject;
 	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.01f, { .5f,.5f,.5f }, .8f, "Smoke"));
 	//
+	// Fountain Spawner
+	GameObject* Fountain = new GameObject;
+	//Fountain->GetChildList<TransformComponent>()->SetPosition(-39, 0, 0);
+	Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.2f, { 0,0,0 }, .7f, "Default", 2.0f));
+	m_map_GO["Fountain"] = Fountain;
+	//
+	// Rain
+	GameObject* Rain = new GameObject;
+	Rain->AddComponent(new RenderComponent(this->GetMesh("Water")));
+	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
+	Rain->AddComponent(new ParticleScript(4.0f, { 0,-0.7,0 }, { 1,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
+	Rain->AddComponent(new RainScript(this->GetGameObject("Fountain")));
+	m_map_GO["Rain"] = Rain;
 
 	//Bullet
 	GameObject* bullet = new GameObject();

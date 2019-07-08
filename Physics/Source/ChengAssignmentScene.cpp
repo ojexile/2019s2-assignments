@@ -18,7 +18,7 @@ void ChengAssignmentScene::Init()
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Smoke"), "Smoke");
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
-	m_CameraGO->TRANSFORM->SetRelativePosition(0, 5, 0);
+	m_CameraGO->TRANSFORM->SetRelativePosition(0, 10, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
 	//m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 
@@ -88,17 +88,10 @@ void ChengAssignmentScene::Init()
 	Spawner->SetActive(true);
 	//
 
-	// Fountain Spawner
-	GameObject* Fountain = m_GameObjectManager.AddGameObject();
-	Fountain->TRANSFORM->SetPosition(-39, 0, 0);
-	Fountain->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Droplet"), 0.02f, { 2,2,2 }, .4f));
-	Fountain->SetActive(true);
-	//
-
 	// Fish Spawner
 	GameObject* FishSpawner = m_GameObjectManager.AddGameObject();
-	FishSpawner->TRANSFORM->SetPosition(39, 0, 0);
-	FishSpawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Fish"), 0.02f, { 2,2,2 }, .4f));
+	FishSpawner->TRANSFORM->SetPosition(45, 0, 0);
+	FishSpawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Fish"), 0.5f, { 2,2,2 }, .4f));
 	FishSpawner->SetActive(true);
 	//
 
