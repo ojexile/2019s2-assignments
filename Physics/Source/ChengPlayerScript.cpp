@@ -53,11 +53,11 @@ void ChengPlayerScript::Update(double dt)
 	}
 	if (Application::IsKeyPressed('E'))
 	{
-		trans->Translate(m_fMovementSpeed / 4 * Vector3{ 0,1,0 });
+		trans->Translate(m_fMovementSpeed / 10 * Vector3{ 0,1,0 });
 	}
 	if (Application::IsKeyPressed('Q'))
 	{
-		trans->Translate(-m_fMovementSpeed / 4 * Vector3{ 0,1,0 });
+		trans->Translate(-m_fMovementSpeed / 10 * Vector3{ 0,1,0 });
 	}
 	// Gun Position
 	//m_Gun->GetComponent<TransformComponent>()->SetRelativePosition({ vCameraFront.x, vCameraFront.y+1.7f, vCameraFront .z});
@@ -71,13 +71,14 @@ void ChengPlayerScript::Update(double dt)
 		this->m_Gun->GetComponent<GunScript>()->ReleaseTrigger();
 	}
 	// Underwater
-	if (trans->GetPosition().y < -10)
+	if (trans->GetPosition().y < -5)
 	{
 		// Trigger underwater
-		SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->GetShader()
+		SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Underwater"));
 	}
 	else
 	{
+		SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
 	}
 	// TODO Constrain to terrain
 }

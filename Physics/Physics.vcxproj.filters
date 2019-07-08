@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Source\AnimatedMesh.cpp" />
-    <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
     <ClCompile Include="Source\BulletScript.cpp" />
@@ -85,7 +84,6 @@
     <ClCompile Include="Source\LightManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Equipment.h" />
     <ClInclude Include="Source\AnimatedMesh.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
