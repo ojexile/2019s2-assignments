@@ -42,7 +42,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["Droplet"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.2f);
 	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
 
-	m_map_Meshes["DropletMini"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.5f);
+	m_map_Meshes["DropletMini"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.2f);
 	m_map_Meshes["DropletMini"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
 
 	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
