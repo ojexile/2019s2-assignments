@@ -45,7 +45,7 @@ void ChengAssignmentScene::Init()
 	terrain->TRANSFORM->SetScale(500, 20, 500);
 	terrain->AddComponent(new RenderComponent(dataContainer->GetMesh("Terrain")));
 	terrain->RENDER->SetLightEnabled(true);
-	terrain->SetActive(false);
+	terrain->SetActive(true);
 	//
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject();
@@ -87,6 +87,7 @@ void ChengAssignmentScene::Init()
 	Spawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Rain"), 0.0002f, { 100,100,100 }, .8f));
 	Spawner->SetActive(true);
 	//
+
 	// Fountain
 	GameObject* Fountain = m_GameObjectManager.AddGameObject();
 	Fountain->TRANSFORM->SetPosition(39, 0, 0);
@@ -96,9 +97,22 @@ void ChengAssignmentScene::Init()
 
 	// water
 	GameObject* water = m_GameObjectManager.AddGameObject("Water");
-	water->AddComponent(new RenderComponent(dataContainer->GetMesh("Water")));
+	water->AddComponent(new RenderComponent(dataContainer->GetMesh("WaterPlane")));
 	water->TRANSFORM->SetPosition(0, -1, 0);
 	water->RENDER->SetLightEnabled(false);
 	water->SetActive(true);
+	//
+	// Leaf Spawner
+	GameObject* LeafSpawner = m_GameObjectManager.AddGameObject();
+	LeafSpawner->TRANSFORM->SetRelativePosition(0, 60, 0);
+	LeafSpawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Leaf"), 0.7f, { 30,0,30 }, .4f));
+	LeafSpawner->SetActive(true);
+	//
+	// Tree
+	GameObject* Tree = m_GameObjectManager.AddGameObject();
+	Tree->AddComponent(new RenderComponent(dataContainer->GetMesh("Tree")));
+	Tree->TRANSFORM->SetPosition(-30, -1, 0);
+	Tree->RENDER->SetLightEnabled(true);
+	Tree->AddChild(LeafSpawner);
 	//
 }

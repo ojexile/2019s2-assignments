@@ -29,7 +29,8 @@ void main(){
 	//vertexPosition_modelspace.x += sin(0.2 * speed/5) * 0.2f;
 	//vertexPosition_modelspace.z += sin(0.2 * speed/8) * 0.3f;
 
-	vertexPosition_modelspace.y += sin(0.2*vertexPosition_modelspace.x + speed) + cos(0.02*vertexPosition_modelspace.z + speed)* 1.2;
+	float yOffset = sin(0.2*vertexPosition_modelspace.x + speed) + cos(0.02*vertexPosition_modelspace.z + speed)* 1.2;
+	vertexPosition_modelspace.y += yOffset*0.8;
 
 
 

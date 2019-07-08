@@ -27,31 +27,26 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("textures/sky.tga");
 
-	m_map_Animated["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
-	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
+	m_map_Animated["Leaf"] = MeshBuilder::GenerateAnimatedMesh("Leaf", 4, 4, 0, 15, 2.f, true);
+	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/Leaf.tga");
 
-	m_map_Meshes["TestParticle"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1);
-	m_map_Meshes["TestParticle"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
+	m_map_Meshes["Water"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.4);
+	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
 
 	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, false);
 	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/Smoke.tga");
 
-	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
-	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
+	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
+	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
+
+	m_map_Meshes["Tree"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/tree.obj");
+	m_map_Meshes["Tree"]->m_uTextureArray[0] = LoadTGA("textures/tree.tga");
+	m_map_Meshes["Tree"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
 
 	m_map_Meshes["Crosshair"] = MeshBuilder::GenerateQuad("Crosshair", { 1.f,1.f,1.f }, 2);
 	m_map_Meshes["Crosshair"]->m_uTextureArray[0] = LoadTGA("textures/Crosshair.tga");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
-	GameObject* cube = new GameObject();
-	cube->GetComponent<TransformComponent>()->SetPosition(0, 10, 0);
-	cube->GetComponent<TransformComponent>()->SetScale(10, 1, 10);
-	cube->GetComponent<TransformComponent>()->SetRotation(45, 0, 1, 0);
-	cube->AddComponent(new RenderComponent(this->GetMesh("Cube")));
-	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
-	cube->GetComponent<RenderComponent>()->SetBillboard(true);
-	m_map_GO["Cube"] = cube;
-	//
 	// Particle
 	GameObject* SmokeParticle = new GameObject;
 	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
@@ -60,17 +55,24 @@ DataContainer::DataContainer()
 	m_map_GO["SmokeParticle"] = SmokeParticle;
 	// Rain
 	GameObject* Rain = new GameObject;
-	Rain->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
+	Rain->AddComponent(new RenderComponent(this->GetMesh("Water")));
 	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
 	Rain->AddComponent(new ParticleScript(4.0f, { 0,-1,0 }, { 1,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
 	m_map_GO["Rain"] = Rain;
 	//
 	// Droplet
 	GameObject* Droplet = new GameObject;
-	Droplet->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
+	Droplet->AddComponent(new RenderComponent(this->GetMesh("Water")));
 	Droplet->GetComponent<RenderComponent>()->SetBillboard(true);
 	Droplet->AddComponent(new ParticleScript(5.0f, { 0.2f,0.5f,0.2f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
 	m_map_GO["Droplet"] = Droplet;
+	//
+	// Leaf
+	GameObject* Leaf = new GameObject;
+	Leaf->AddComponent(new RenderComponent(this->GetAnimation("Leaf")));
+	Leaf->GetComponent<RenderComponent>()->SetBillboard(true);
+	Leaf->AddComponent(new ParticleScript(5.0f, { 0,-0.2,0 }, { 2,0,0 }, { 0,0.01,0 }, { 0.5f,0.5f,0 }, {}));
+	m_map_GO["Leaf"] = Leaf;
 	//
 	// Spawner
 	GameObject* Spawner = new GameObject;

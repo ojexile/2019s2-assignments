@@ -70,6 +70,15 @@ void ChengPlayerScript::Update(double dt)
 	{
 		this->m_Gun->GetComponent<GunScript>()->ReleaseTrigger();
 	}
+	// Underwater
+	if (trans->GetPosition().y < -10)
+	{
+		// Trigger underwater
+		SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->GetShader()
+	}
+	else
+	{
+	}
 	// TODO Constrain to terrain
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
