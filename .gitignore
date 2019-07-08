@@ -271,3 +271,6 @@ __pycache__/
 /Common/Debug
 /Physics/Debug
 *.mtl
+/Common/Release
+/Physics/Release
+/Release

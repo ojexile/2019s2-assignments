@@ -14,8 +14,15 @@ GameObjectManager::~GameObjectManager()
 	{
 		// it->first == key
 		// it->second == value
+		std::vector<GameObject*>* list = it->second->GetGOList();
+		for (unsigned i = 0; i < list->size(); ++i)
+		{
+			delete (*list)[i];
+		}
 		delete it->second;
+		delete list;
 	}
+	m_map_Layers.clear();
 }
 
 std::map<std::string, LayerData*>* GameObjectManager::GetLayerList()
