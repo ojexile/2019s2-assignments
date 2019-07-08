@@ -88,11 +88,18 @@ void ChengAssignmentScene::Init()
 	Spawner->SetActive(true);
 	//
 
-	// Fountain
+	// Fountain Spawner
 	GameObject* Fountain = m_GameObjectManager.AddGameObject();
-	Fountain->TRANSFORM->SetPosition(39, 0, 0);
+	Fountain->TRANSFORM->SetPosition(-39, 0, 0);
 	Fountain->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Droplet"), 0.02f, { 2,2,2 }, .4f));
 	Fountain->SetActive(true);
+	//
+
+	// Fish Spawner
+	GameObject* FishSpawner = m_GameObjectManager.AddGameObject();
+	FishSpawner->TRANSFORM->SetPosition(39, 0, 0);
+	FishSpawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Fish"), 0.02f, { 2,2,2 }, .4f));
+	FishSpawner->SetActive(true);
 	//
 
 	// water
@@ -108,6 +115,7 @@ void ChengAssignmentScene::Init()
 	LeafSpawner->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Leaf"), 0.7f, { 30,0,30 }, .4f));
 	LeafSpawner->SetActive(true);
 	//
+
 	// Tree
 	GameObject* Tree = m_GameObjectManager.AddGameObject();
 	Tree->AddComponent(new RenderComponent(dataContainer->GetMesh("Tree")));

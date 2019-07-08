@@ -30,11 +30,17 @@ DataContainer::DataContainer()
 	m_map_Animated["Leaf"] = MeshBuilder::GenerateAnimatedMesh("Leaf", 4, 4, 0, 15, 2.f, true);
 	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/Leaf.tga");
 
-	m_map_Meshes["Water"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.4);
+	m_map_Meshes["Water"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.4f);
 	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
 
 	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, false);
 	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/Smoke.tga");
+
+	m_map_Meshes["Fish"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.6f);
+	m_map_Meshes["Fish"]->m_uTextureArray[0] = LoadTGA("textures/Fish.tga");
+
+	m_map_Meshes["Droplet"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.6f);
+	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
 
 	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
 	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
@@ -60,9 +66,16 @@ DataContainer::DataContainer()
 	Rain->AddComponent(new ParticleScript(4.0f, { 0,-1,0 }, { 1,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
 	m_map_GO["Rain"] = Rain;
 	//
+	// Fish
+	GameObject* Fish = new GameObject;
+	Fish->AddComponent(new RenderComponent(this->GetMesh("Fish")));
+	Fish->GetComponent<RenderComponent>()->SetBillboard(true);
+	Fish->AddComponent(new ParticleScript(5.0f, { 0.2f,0.5f,0.2f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
+	m_map_GO["Fish"] = Fish;
+	//
 	// Droplet
 	GameObject* Droplet = new GameObject;
-	Droplet->AddComponent(new RenderComponent(this->GetMesh("Water")));
+	Droplet->AddComponent(new RenderComponent(this->GetMesh("Droplet")));
 	Droplet->GetComponent<RenderComponent>()->SetBillboard(true);
 	Droplet->AddComponent(new ParticleScript(5.0f, { 0.2f,0.5f,0.2f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
 	m_map_GO["Droplet"] = Droplet;
