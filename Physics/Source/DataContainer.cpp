@@ -56,25 +56,25 @@ DataContainer::DataContainer()
 	GameObject* SmokeParticle = new GameObject;
 	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
 	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
-	SmokeParticle->AddComponent(new ParticleScript(2.2f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.8f,-0.8f,0 }));
+	SmokeParticle->AddComponent(new ParticleScript(2.f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.8f,-0.8f,0 }));
 	m_map_GO["SmokeParticle"] = SmokeParticle;
 	// Rain
 	GameObject* Rain = new GameObject;
 	Rain->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
 	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
-	Rain->AddComponent(new ParticleScript(10.0f, { 0,-1,0 }, { 1,0,0 }, { 0,0,0 }, { -0.1,0,0 }));
+	Rain->AddComponent(new ParticleScript(4.0f, { 0,-1,0 }, { 1,0,0 }, { 0,0,0 }, { 0.0f,0,0 }));
 	m_map_GO["Rain"] = Rain;
 	//
 	// Droplet
 	GameObject* Droplet = new GameObject;
 	Droplet->AddComponent(new RenderComponent(this->GetMesh("TestParticle")));
 	Droplet->GetComponent<RenderComponent>()->SetBillboard(true);
-	Droplet->AddComponent(new ParticleScript(10.0f, { 0,1,0 }, { 10,0,0 }, { 0,-1,0 }, { -0.2,0,0 }));
+	Droplet->AddComponent(new ParticleScript(5.0f, { 0,1.f,0 }, { 10.f,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }));
 	m_map_GO["Droplet"] = Droplet;
 	//
 	// Spawner
 	GameObject* Spawner = new GameObject;
-	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.01f, { .5f,.5f,.5f }, .8f));
+	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.01f, { .5f,.5f,.5f }, .8f, "Smoke"));
 	//
 
 	//Bullet

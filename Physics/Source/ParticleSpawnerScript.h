@@ -10,8 +10,9 @@ private:
 	const float m_fSizeOffset;
 
 	float m_fCurrentTime;
+	std::string m_sLayer;
 public:
-	ParticleSpawnerScript(GameObject* ParticleRef, const float fSpawnRate, const Vector3 vSpawnRadius, const float fSizeOffset);
+	ParticleSpawnerScript(GameObject* ParticleRef, const float fSpawnRate, const Vector3 vSpawnRadius, const float fSizeOffset, std::string sLayer = "Default");
 	virtual ~ParticleSpawnerScript();
 	virtual ComponentBase* Clone()
 	{
