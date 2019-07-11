@@ -1,7 +1,9 @@
 #include "PlayerScript.h"
 #include "KeyboardManager.h"
 #include "SceneManager.h"
-PlayerScript::PlayerScript()
+#include "AudioManager.h"
+PlayerScript::PlayerScript(GameObject* goRef)
+	:m_GORef(goRef)
 {
 }
 
@@ -27,7 +29,7 @@ void PlayerScript::Update(double dt)
 		trans->Translate(fSpeed * *m_vCameraFront);
 		if (!triggered)
 		{
-			Instantiate("CUBE");
+			Instantiate(m_GORef);
 			triggered = true;
 		}
 	}
@@ -50,5 +52,9 @@ void PlayerScript::Update(double dt)
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
 	{
 		trans->Translate(-fSpeed * *m_vCameraUp);
+	}
+	if (KeyboardManager::GetInstance()->GetKeyDown("Susu"))
+	{
+		AudioManager::GetInstance()->Play3D("susu.wav", Vector3(0, 0, 2));
 	}
 }

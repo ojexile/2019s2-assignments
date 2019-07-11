@@ -5,6 +5,7 @@
 #include "ComponentBase.h"
 #include "RenderComponent.h"
 #include "TransformComponent.h"
+#include "Light.h"
 
 #include <vector>
 #include <string>
@@ -50,6 +51,8 @@ public:
 
 	void SetActive(bool b);
 	GameObject* Clone();
+
+	friend class GameObjectManager;
 };
 
 #endif

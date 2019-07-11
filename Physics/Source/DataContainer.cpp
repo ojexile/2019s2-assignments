@@ -3,64 +3,86 @@
 DataContainer::DataContainer()
 {
 	// Meshs--------------------------------------------------------------------------------
-	m_map_Meshes["QUAD"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 5);
+	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuad("Quad", { 1,1,1 }, 5);
 	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
-	m_map_Meshes["CUBE"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/cube.obj");
-	m_map_Meshes["CUBE"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
-	m_map_Meshes["CUBE"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
+	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/cube.obj");
+	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
+	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
 
-	m_map_Meshes["GROUND"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
+	m_map_Meshes["Ground"] = MeshBuilder::GenerateQuad("Ground", { 1.f,1.f,1.f }, 500);
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
-	m_map_Meshes["DEPTH"] = MeshBuilder::GenerateQuad("DEPTH", { 1.f,1.f,1.f }, 10);
-	m_map_Meshes["DEPTH"]->m_uTextureArray[0] = 1;
+	m_map_Meshes["Depth"] = MeshBuilder::GenerateQuad("Depth", { 1.f,1.f,1.f }, 10);
+	m_map_Meshes["Depth"]->m_uTextureArray[0] = 1;
 
 	std::vector<unsigned char> heightMap;
-	m_map_Meshes["TERRAIN"] = MeshBuilder::GenerateTerrain("terrain", "data/heightMaps/heightmap.raw", heightMap);
-	m_map_Meshes["TERRAIN"]->m_uTextureArray[0] = LoadTGA("textures/moss1.tga");
+	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("terrain", "data/heightMaps/heightmapMain.raw", heightMap);
+	m_map_Meshes["Terrain"]->m_uTextureArray[0] = LoadTGA("textures/moss1.tga");
 
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("textures/sky.tga");
+
+	m_map_Animated["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
+	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
+
+	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
+	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();
 	cube->GetComponent<TransformComponent>()->SetPosition(0, 10, 0);
 	cube->GetComponent<TransformComponent>()->SetScale(10, 1, 10);
-	cube->GetComponent<TransformComponent>()->SetRotation(90, 1, 0, 0);
-	cube->AddComponent(new RenderComponent(this->GetMesh("CUBE")));
+	cube->GetComponent<TransformComponent>()->SetRotation(45, 0, 1, 0);
+	cube->AddComponent(new RenderComponent(this->GetMesh("Cube")));
 	cube->GetComponent<RenderComponent>()->SetLightEnabled(true);
-	m_map_GO["CUBE"] = cube;
+	cube->GetComponent<RenderComponent>()->SetBillboard(true);
+	m_map_GO["Cube"] = cube;
 	//--------------------------------------------------------------------------------
 	// Shaders--------------------------------------------------------------------------------
-	m_map_Shaders["default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
-	m_map_Shaders["water"] = LoadShaders("Shader//water.vertexshader", "Shader//water.fragmentshader");
-	m_map_Shaders["gpass"] = LoadShaders("Shader//shadow/GPass.vertexshader", "Shader//shadow/GPass.fragmentshader");
+	m_map_Shaders["Default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
+	m_map_Shaders["Water"] = LoadShaders("Shader//water.vertexshader", "Shader//water.fragmentshader");
+	m_map_Shaders["GPass"] = LoadShaders("Shader//shadow/GPass.vertexshader", "Shader//shadow/GPass.fragmentshader");
 	//--------------------------------------------------------------------------------
 }
 
 DataContainer::~DataContainer()
 {
+	std::map<std::string, Mesh*>::iterator it;
+	for (it = m_map_Meshes.begin(); it != m_map_Meshes.end(); it++)
+	{
+		// it->first == key
+		// it->second == value
+		delete it->second;
+	}
 	m_map_Meshes.clear();
+	m_map_Animated.clear();
+	m_map_GO.clear();
 }
 
 Mesh* DataContainer::GetMesh(std::string name)
 {
 	Mesh* mesh = m_map_Meshes[name];
 	if (!mesh)
-		std::cout << "ERROR: Mesh not found of name: " << name << std::endl;
+		DEFAULT_LOG("ERROR: Mesh not found of name: " + name);
+	return mesh;
+}
+AnimatedMesh* DataContainer::GetAnimation(std::string name)
+{
+	AnimatedMesh* mesh = m_map_Animated[name];
+	if (!mesh)
+		DEFAULT_LOG("ERROR: Animation not found of name: " + name);
 	return mesh;
 }
 GameObject* DataContainer::GetGameObject(std::string name)
 {
 	GameObject* go = m_map_GO[name];
 	if (!go)
-		std::cout << "ERROR: Mesh not found of name: " << name << std::endl;
+		DEFAULT_LOG("ERROR: GameObject not found of name: " + name);
 	return go;
 }
 unsigned DataContainer::GetShader(std::string key)
 {
-	unsigned shader = -1;
-	shader = m_map_Shaders[key];
-	if (shader < 0)
-		std::cout << "ERROR: Shader not found of name: " << key << std::endl;
+	if (m_map_Shaders.count(key) <= 0)
+		DEFAULT_LOG("ERROR: Shader not found of name: " + key);
+	unsigned shader = m_map_Shaders[key];
 	return shader;
 }

@@ -4,7 +4,6 @@ GameObject::GameObject()
 {
 	m_bActive = true;
 	m_bStatic = false;
-	//m_Transform = new Transform;
 	AddComponent(new TransformComponent);
 }
 // Copy
@@ -17,6 +16,11 @@ GameObject::GameObject(GameObject& go)
 		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());
 		this->AddComponent(cb);
 	}
+	for (unsigned i = 0; i < go.m_vec_ChildList.size(); ++i)
+	{
+		GameObject* child = go.m_vec_ChildList[i]->Clone();
+		m_vec_ChildList.push_back(child);
+	}
 }
 
 GameObject::~GameObject()
@@ -28,10 +32,9 @@ GameObject::~GameObject()
 		m_vec_ComponentList.erase(m_vec_ComponentList.begin() + i);
 	}
 	//m_Transform = nullptr;
-	for (int i = (int)m_vec_ChildList.size() - 1; i >= 0; --i)
+	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
 		delete m_vec_ChildList[i];
-		m_vec_ChildList.erase(m_vec_ChildList.begin() + i);
 	}
 }
 ComponentBase* GameObject::AddComponent(ComponentBase* comp)

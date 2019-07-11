@@ -56,6 +56,30 @@ void KeyboardManager::SetKeyBind(std::string bind, unsigned short key)
 	map_keyBindings[bind] = key;
 }
 
+unsigned short ToKey(std::string str)
+{
+
+	if (str.substr(0, 2) == "kc")
+	{
+		return std::stoi(str.substr(2));
+	}
+	if (str.length() == 1 && isalnum(str[0]))
+	{
+		return toupper(str[0]);
+	}
+	for (int i = 0; i < str.length(); i++)
+	{
+		str[i] = tolower(str[i]);
+	}
+	if (str == "-") return VK_OEM_MINUS;
+	if (str == "+") return VK_OEM_PLUS;
+	if (str == "tab") return VK_TAB;
+	if (str == "lshift") return VK_LSHIFT;
+	if (str == "rshift") return VK_RSHIFT;
+	if (str == "lctrl") return VK_LCONTROL;
+	if (str == "rctrl") return VK_RCONTROL;
+}
+
 void KeyboardManager::LoadKeyBinds(std::string filename)
 {
 	std::ifstream stream = std::ifstream(filename);
@@ -64,9 +88,10 @@ void KeyboardManager::LoadKeyBinds(std::string filename)
 		while (!stream.eof())
 		{
 			std::string bind;
-			int key;
+			std::string keyString;
 			stream >> bind;
-			stream >> key;
+			stream >> keyString;
+			unsigned short key = ToKey(keyString);
 			SetKeyBind(bind, key);
 		}
 		stream.close();

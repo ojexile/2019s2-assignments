@@ -73,15 +73,22 @@ protected:
 		U_FOG_DENSITY,
 		U_FOG_TYPE,
 		U_FOG_ENABLED,
-		U_FOCUS,
 		U_FACTOR,
 
-		U_ET,
+		U_FRAG_ET,
+		U_VERT_ET,
 
-		// Shadoe
+		// Shadow
 		U_LIGHT_DEPTH_MVP_GPASS,
 		U_LIGHT_DEPTH_MVP,
 		U_SHADOW_MAP,
+
+		U_SHADOW_COLOR_TEXTURE,
+		U_SHADOW_COLOR_TEXTURE1,
+		U_SHADOW_COLOR_TEXTURE2,
+		U_SHADOW_COLOR_TEXTURE_ENABLED,
+		U_SHADOW_COLOR_TEXTURE_ENABLED1,
+		U_SHADOW_COLOR_TEXTURE_ENABLED2,
 
 		U_TOTAL,
 	};
@@ -94,7 +101,6 @@ public:
 	RenderingManagerBase();
 	virtual ~RenderingManagerBase();
 
-
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render(Scene* scene);
@@ -105,11 +111,12 @@ protected:
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderUI(Mesh* mesh, bool enableLight);
 	void RenderMesh(Mesh *mesh, bool enableLight);
+	void RenderAnimatedMesh(AnimatedMesh *mesh, bool enableLight);
 	void BindUniforms();
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
-	unsigned m_parameters[U_TOTAL];
+	int m_parameters[U_TOTAL];
 
 	MS modelStack;
 	MS viewStack;
@@ -125,6 +132,8 @@ protected:
 	DepthFBO m_lightDepthFBO;
 	Mtx44 m_lightDepthProj;
 	Mtx44 m_lightDepthView;
+	Mtx44 m_lightDepthMVP;
+	Mtx44 m_lightDepthMVPGPass;
 	RENDER_PASS m_renderPass;
 
 	Mesh* m_DepthQuad;
