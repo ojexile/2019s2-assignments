@@ -1,5 +1,5 @@
 #include "Engine.h"
-
+#include "KeyboardManager.h"
 // Select Debug logger user
 // Users are enums located in locator.h
 #define USER CHENG
@@ -116,7 +116,8 @@ void Engine::Exit()
 {
 	m_Renderer->Exit();
 	delete m_Renderer;
-	SceneManager SceneManager;
-	SceneManager.DeleteScene();
+	SceneManager::DeleteInstance();
 	DataContainer::DeleteInstance();
+	KeyboardManager::DeleteInstance();
+	WindowData::DeleteInstance();
 }
