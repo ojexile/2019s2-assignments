@@ -240,7 +240,6 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	Vector3 vGameObjectScale = trans->GetScale();
 
 	modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
-	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
 
 	if (renderComponent->IsBillboard())
 	{
@@ -251,7 +250,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	}
 	if (fGameObjectRotationDegrees != 0)
 		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-
+	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
 	if (!bIsUI)
 	{
 		if (CurrentMesh)
