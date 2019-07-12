@@ -182,7 +182,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 			continue;
 		// m_programID = it->second->GetShader();
 		// BindUniforms();
-		std::vector<GameObject*> GOList = *it->second->GetGOList();
+		std::vector<GameObject*>& GOList = *it->second->GetGOList();
 		for (unsigned i = 0; i < GOList.size(); ++i)
 		{
 			GameObject* go = GOList[i];
@@ -201,19 +201,19 @@ void RenderingManager::RenderWorld(Scene* scene)
 	}
 	// Render UI
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
-	std::vector<GameObject*> GOList = *(*map)["UI"]->GetGOList();
+	std::vector<GameObject*>* GOList = (*map)["UI"]->GetGOList();
 	// m_programID = (*map)["UI"]->GetShader();
 	// BindUniforms();
-	for (unsigned i = 0; i < GOList.size(); ++i)
+	for (unsigned i = 0; i < GOList->size(); ++i)
 	{
-		GameObject* go = GOList[i];
+		GameObject* go = GOList->at(i);
 		if (!go->IsActive())
 			continue;
 		Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 		RenderGameObject(go, vCamPos, true);
-		for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
+		for (unsigned i = 0; i < GOList->at(i)->GetChildList()->size(); ++i)
 		{
-			GameObject* goChild = GOList[i];
+			GameObject* goChild = GOList->at(i);
 			if (!go->IsActive())
 				continue;
 			RenderGameObject(goChild, vCamPos, true);
