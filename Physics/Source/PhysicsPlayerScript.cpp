@@ -3,9 +3,10 @@
 #include "SceneManager.h"
 #include "AudioManager.h"
 #include "ChengRigidbody.h"
-PhysicsPlayerScript::PhysicsPlayerScript(GameObject* goRef, GameObject* goRef2)
+PhysicsPlayerScript::PhysicsPlayerScript(GameObject* goRef, GameObject* goRef2, GameObject* goRef3)
 	:m_RefBall(goRef)
 	, m_RefBall2(goRef2)
+	, m_RefBall3(goRef3)
 {
 }
 
@@ -63,6 +64,11 @@ void PhysicsPlayerScript::Update(double dt)
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("spawnBall2"))
 	{
 		GameObject* ball = Instantiate(m_RefBall2, ballSpawn);
+		ball->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
+	}
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("spawnBall3"))
+	{
+		GameObject* ball = Instantiate(m_RefBall3, ballSpawn);
 		ball->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
 	}
 }

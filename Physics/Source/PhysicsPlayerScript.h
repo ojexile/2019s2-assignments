@@ -8,8 +8,9 @@ private:
 	Vector3* m_vCameraUp;
 	GameObject* m_RefBall;
 	GameObject* m_RefBall2;
+	GameObject* m_RefBall3;
 public:
-	PhysicsPlayerScript(GameObject* goRef, GameObject* goRef2);
+	PhysicsPlayerScript(GameObject* goRef, GameObject* goRef2, GameObject* goRef3);
 	virtual ~PhysicsPlayerScript();
 	virtual ComponentBase* Clone()
 	{

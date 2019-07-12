@@ -153,7 +153,7 @@ void RenderingManagerBase::Init()
 	m_lightDepthFBO.Init(2048, 2048);
 
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
-	lights[0].position.Set(40.f, 200, 0);
+	lights[0].position.Set(5.f, 30, 0);
 	lights[0].color.Set(1, 1, 1);
 	lights[0].power = 1;
 	lights[0].kC = 1.f;

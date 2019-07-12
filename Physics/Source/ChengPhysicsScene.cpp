@@ -56,7 +56,7 @@ void ChengPhysicsScene::Init()
 	floor->TRANSFORM->SetRotation(90, 0, 0, 1);
 	floor->TRANSFORM->SetScale(thickness, size * 2, size * 2);
 
-	GameObject* ceil = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
+	GameObject* ceil = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("ceil")->Clone());
 	ceil->TRANSFORM->SetPosition(0, 80, 0);
 	ceil->TRANSFORM->SetRotation(90, 0, 0, 1);
 	ceil->TRANSFORM->SetScale(thickness, size * 2, size * 2);
@@ -77,7 +77,7 @@ void ChengPhysicsScene::Init()
 	//Player
 	GameObject* player = m_GameObjectManager.AddGameObject();
 	player->TRANSFORM->SetPosition(0, 15, 50);
-	player->AddComponent(new PhysicsPlayerScript(dataContainer->GetGameObject("ball"), dataContainer->GetGameObject("ball2")));
+	player->AddComponent(new PhysicsPlayerScript(dataContainer->GetGameObject("ball"), dataContainer->GetGameObject("ball2"), dataContainer->GetGameObject("ball3")));
 	player->AddChild(m_CameraGO);
 	//AudioManager::GetInstance()->PlayBGM("despacito.wav");
 }

@@ -7,9 +7,11 @@ DataContainer::DataContainer()
 	m_map_Meshes["ground"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
 	m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 0, 0), 10, 10, 1.f);
 	m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
-	m_map_Meshes["pillar"] = MeshBuilder::GenerateCylinder("ball", Color(0, 1, 0), 10, 0.5f, 1.f);
+	m_map_Meshes["ball3"] = MeshBuilder::GenerateSphere("ball", Color(0, 1, 0), 10, 10, 1.f);
+	m_map_Meshes["pillar"] = MeshBuilder::GenerateCylinder("ball", Color(0, 1, 1), 10, 0.5f, 1.f);
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
 	m_map_Meshes["square"] = MeshBuilder::GenerateCube("wall", Color((float)0.5, (float)0.5, (float)0.5), 1.f);
+	m_map_Meshes["ceil"] = MeshBuilder::GenerateCube("wall", Color((float)0.9, (float)0.9, (float)0.9), 1.f);
 	m_map_Meshes["floor"] = MeshBuilder::GenerateCube("wall", Color((float)0.8, (float)0.8, (float)0.8), 1.f);
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
 
@@ -25,11 +27,23 @@ DataContainer::DataContainer()
 	ball2->AddComponent(new RenderComponent(this->GetMesh("ball2")));
 	ball2->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
 	// --------------------------------------------------------------------------------
+	GameObject* go = new GameObject;
+	m_map_GO["ball3"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("ball3")));
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
+	// --------------------------------------------------------------------------------
 	GameObject* wall = new GameObject;
 	m_map_GO["wall"] = wall;
 
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
+	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL));
+	// --------------------------------------------------------------------------------
+	wall = new GameObject;
+	m_map_GO["ceil"] = wall;
+
+	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
+	wall->AddComponent(new RenderComponent(this->GetMesh("ceil")));
 	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL));
 	// --------------------------------------------------------------------------------
 	GameObject* square = new GameObject;
