@@ -7,7 +7,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["ground"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
 	m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 0, 0), 10, 10, 1.f);
 	m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
-	m_map_Meshes["pillar"] = MeshBuilder::GenerateCylinder("ball", Color(0, 1, 0), 10, 1, 1.f);
+	m_map_Meshes["pillar"] = MeshBuilder::GenerateCylinder("ball", Color(0, 1, 0), 10, 0.5f, 1.f);
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
 
@@ -32,7 +32,7 @@ DataContainer::DataContainer()
 	//--------------------------------------------------------------------------------
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;
-	pillar->GetComponent<TransformComponent>()->SetScale(1, 10, 1);
+	pillar->GetComponent<TransformComponent>()->SetScale(10, 5, 10);
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
 	//wall->GetComponent<ChengRigidbody>()->SetNormal({ 0, 0, -1 });

@@ -27,7 +27,7 @@ bool ChengCollisionManager::CheckCollision(GameObject* go1, GameObject* go2, boo
 	case ChengRigidbody::PILLAR:
 	{
 		Vector3 dis = (go2->GetComponent<TransformComponent>()->GetPosition() - go1->GetComponent<TransformComponent>()->GetPosition());
-		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x + go2->GetComponent<TransformComponent>()->GetScale().x;
+		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x / 2 + go1->GetComponent<TransformComponent>()->GetScale().x;
 		Vector3 u = go1->GetComponent<ChengRigidbody>()->m_vVel;
 		if (dis.Length() < combRadius && u.Dot(dis) > 0.0f)
 		{
@@ -126,7 +126,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		Vector3 newVel1 = u1 - 2 * m2 / (m1 + m2) * (((u1 - u2).Dot(pos1 - pos2)) / (pos1 - pos2).LengthSquared()) * (pos1 - pos2);
 		//Vector3 newVel2 = u2 - 2 * m1 / (m1 + m2) * (((u2 - u1).Dot(pos2 - pos1)) / (pos2 - pos1).LengthSquared()) * (pos2 - pos1);
 		newVel1.y = 0;
-		go1->GetComponent<ChengRigidbody>()->SetVel(2 * newVel1);
+		go1->GetComponent<ChengRigidbody>()->SetVel(newVel1);
 		//go2->GetComponent<ChengRigidbody>()->SetVel(newVel2);
 	}
 	break;

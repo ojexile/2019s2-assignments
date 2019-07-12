@@ -25,32 +25,34 @@ void ChengPhysicsScene::Init()
 	//
 	float size = 50;
 	// Wall
-	//GameObject* wall = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	//wall->TRANSFORM->SetPosition(0, 0, -size);
-	//wall->TRANSFORM->SetScale(5, 20, size * 2);
-	////--------------------------------------------------------------------------------
-	//GameObject* wall2 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	//wall2->TRANSFORM->SetPosition(0, 0, size);
-	//wall2->TRANSFORM->SetScale(5, 20, size * 2);
-	////--------------------------------------------------------------------------------
-	//GameObject* wall3 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	//wall3->TRANSFORM->SetPosition(-size, 0, 0);
-	//wall3->TRANSFORM->SetRotation(0, 0, 1, 0);
-	//wall3->TRANSFORM->SetScale(5, 20, size * 2);
-	////--------------------------------------------------------------------------------
-	//GameObject* wall4 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	//wall4->TRANSFORM->SetPosition(size, 0, 0);
-	//wall4->TRANSFORM->SetRotation(0, 0, 1, 0);
-	//wall4->TRANSFORM->SetScale(5, 20, size * 2);
+	GameObject* wall = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
+	wall->TRANSFORM->SetPosition(0, 0, -size);
+	wall->TRANSFORM->SetScale(5, 20, size * 2);
+	//--------------------------------------------------------------------------------
+	GameObject* wall2 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
+	wall2->TRANSFORM->SetPosition(0, 0, size);
+	wall2->TRANSFORM->SetScale(5, 20, size * 2);
+	//--------------------------------------------------------------------------------
+	GameObject* wall3 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
+	wall3->TRANSFORM->SetPosition(-size, 0, 0);
+	wall3->TRANSFORM->SetRotation(0, 0, 1, 0);
+	wall3->TRANSFORM->SetScale(5, 20, size * 2);
+	//--------------------------------------------------------------------------------
+	GameObject* wall4 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
+	wall4->TRANSFORM->SetPosition(size, 0, 0);
+	wall4->TRANSFORM->SetRotation(0, 0, 1, 0);
+	wall4->TRANSFORM->SetScale(5, 20, size * 2);
 	//--------------------------------------------------------------------------------
 	GameObject* wall5 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	wall5->TRANSFORM->SetPosition(0, 0, 0);
 	wall5->TRANSFORM->SetRotation(0, 0, 1, 0);
-	wall5->TRANSFORM->SetScale(50, 10, size / 4);
+	wall5->TRANSFORM->SetScale(5, 10, size / 4);
 	//--------------------------------------------------------------------------------
-	//// pillar
-	//GameObject* pillar = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
-	//pillar->TRANSFORM->SetPosition(0, 0, 30);
+	// pillar
+	GameObject* pillar = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
+	pillar->TRANSFORM->SetPosition(0, 0, 30);
+	GameObject* pillar2 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
+	pillar2->TRANSFORM->SetPosition(0, 0, -30);
 	//Player
 	GameObject* player = m_GameObjectManager.AddGameObject();
 	player->TRANSFORM->SetPosition(0, 15, 50);
