@@ -41,6 +41,7 @@
     <ClCompile Include="Source\ChengPhysicsScene.cpp" />
     <ClCompile Include="Source\ChengCollisionManager.cpp" />
     <ClCompile Include="Source\ChengRigidbody.cpp" />
+    <ClCompile Include="Source\PhysicsPlayerScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -89,6 +90,7 @@
     <ClInclude Include="Source\ChengPhysicsScene.h" />
     <ClInclude Include="Source\ChengCollisionManager.h" />
     <ClInclude Include="Source\ChengRigidbody.h" />
+    <ClInclude Include="Source\PhysicsPlayerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

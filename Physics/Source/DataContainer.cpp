@@ -1,17 +1,26 @@
 #include "DataContainer.h"
+#include "ChengRigidbody.h"
 
 DataContainer::DataContainer()
 {
-	// Meshs--------------------------------------------------------------------------------
-
-	m_map_Meshes["Ground"] = MeshBuilder::GenerateQuad("Ground", { 1.f,1.f,1.f }, 500);
+	// Meshes================================================================================
+	m_map_Meshes["ground"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
+	m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 0, 0), 10, 10, 1.f);
+	m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
 
 	//--------------------------------------------------------------------------------
-	// Gameobjects--------------------------------------------------------------------------------
-
-	//--------------------------------------------------------------------------------
-	// Shaders--------------------------------------------------------------------------------
+	// Gameobjects================================================================================
+	GameObject* ball = new GameObject;
+	m_map_GO["ball"] = ball;
+	ball->AddComponent(new RenderComponent(this->GetMesh("ball")));
+	ball->AddComponent(new ChengRigidbody());
+	// --------------------------------------------------------------------------------
+	GameObject* ball2 = new GameObject;
+	m_map_GO["ball2"] = ball2;
+	ball2->AddComponent(new RenderComponent(this->GetMesh("ball2")));
+	ball2->AddComponent(new ChengRigidbody());
+	// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
 
 	m_map_Shaders["GPass"] = LoadShaders("Shader//shadow/GPass.vertexshader", "Shader//shadow/GPass.fragmentshader");

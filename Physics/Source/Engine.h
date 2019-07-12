@@ -9,6 +9,7 @@
 #include "Logger.h"
 #include "Locator.h"
 #include "WindowData.h"
+#include "ChengCollisionManager.h"
 
 #include <vector>
 
@@ -28,5 +29,6 @@ private:
 	void Update(double dt);
 	void Exit();
 	static Renderer* m_Renderer;
+	ChengCollisionManager m_CollisionManager;
 public:
 };

@@ -78,15 +78,13 @@ void Engine::Update(double dt)
 			(*GOList)[i]->Update(dt);
 		}
 	}
-
+	//--------------------------------------------------------------------------------
+	m_CollisionManager.Update(CurrentScene->GetGameObjectManager());
+	//--------------------------------------------------------------------------------
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
-	// Log
+	// Log================================================================================
 	m_fLogUpdateTimer += (float)dt;
-	//CHENG_LOG("CHENG");
-	//RYAN_LOG("RYAN");
-	//KZ_LOG("KZ");
-	//LZ_LOG("LZ");
 	if (m_fLogUpdateTimer >= LOG_UPDATE_RATE)
 	{
 		system("cls");

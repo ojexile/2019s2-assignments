@@ -10,5 +10,5 @@ public:
 	ChengCollisionManager();
 	~ChengCollisionManager();
 
-	void Update();
+	void Update(GameObjectManager* GOM);
 };
