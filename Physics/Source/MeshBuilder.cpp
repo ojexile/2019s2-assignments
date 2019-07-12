@@ -4,6 +4,7 @@
 #include "Vertex.h"
 #include "MyMath.h"
 #include "LoadOBJ.h"
+#include "MemoryLeak.h"
 /******************************************************************************/
 /*!
 \brief

@@ -30,8 +30,6 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 
 RenderComponent::~RenderComponent()
 {
-	if (m_AnimatedMesh)
-		delete m_AnimatedMesh;
 }
 
 Mesh* RenderComponent::GetMesh()
