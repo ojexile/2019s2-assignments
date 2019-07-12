@@ -8,11 +8,11 @@
 + std::string(__FUNCTION__) + std::string(" in ")\
 + TRUNC_FILE_PATH(__FILE__) + "-" + std::to_string(__LINE__))
 
-#define CHENG_LOG(...)			;
-#define DEFAULT_LOG(...)		;
-#define RYAN_LOG(...)		;
-#define KZ_LOG(...)				;
-#define LZ_LOG(...)				;
+#define CHENG_LOG(...)			Locator::ChengLogger LOG(__VA_ARGS__)
+#define DEFAULT_LOG(...)		Locator::DefaultLogger LOG(__VA_ARGS__)
+#define RYAN_LOG(...)			Locator::RyanLogger LOG(__VA_ARGS__)
+#define KZ_LOG(...)				Locator::KZLogger LOG(__VA_ARGS__)
+#define LZ_LOG(...)				Locator::LZLogger LOG(__VA_ARGS__)
 
 class Locator
 {
