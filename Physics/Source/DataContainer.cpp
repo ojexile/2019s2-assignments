@@ -32,7 +32,6 @@ DataContainer::DataContainer()
 	//--------------------------------------------------------------------------------
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;
-	pillar->GetComponent<TransformComponent>()->SetScale(10, 50, 10);
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
 	//wall->GetComponent<ChengRigidbody>()->SetNormal({ 0, 0, -1 });

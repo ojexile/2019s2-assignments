@@ -56,9 +56,10 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(m_gPassShaderID);
 	//These matrices should change when light position or direction changes
-	const float size = 500;
+	const float size = 100;
+	const float depth = 500;
 	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
-		m_lightDepthProj.SetToOrtho(-size, size, -size, size, -500, 500);
+		m_lightDepthProj.SetToOrtho(-size, size, -size, size, -depth, depth);
 	else
 		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
 

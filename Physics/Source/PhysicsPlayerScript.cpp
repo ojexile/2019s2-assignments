@@ -52,8 +52,7 @@ void PhysicsPlayerScript::Update(double dt)
 	trans->SetPosition(trans->GetPosition().x, 5, trans->GetPosition().z);
 	float fBallSpeed = 50.f;
 	Vector3 ballDir = *m_vCameraFront;
-	Vector3 ballSpawn = trans->GetPosition();
-	ballSpawn.y = 1;
+	Vector3 ballSpawn = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 	//ballDir.y = 0;
 
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("spawnBall"))

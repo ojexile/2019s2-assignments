@@ -17,6 +17,8 @@ public:
 private:
 	Vector3 m_vVel;
 	Vector3 m_vNormal;
+	Vector3 m_vForce;
+	Vector3 m_vGravity;
 	ePhysicsTypes m_eType;
 	float m_fMass;
 public:
