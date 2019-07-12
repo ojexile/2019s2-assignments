@@ -36,6 +36,9 @@
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WindowData.cpp" />
+    <ClCompile Include="Source\Debug.cpp" />
+    <ClCompile Include="Source\LightManager.cpp" />
+    <ClCompile Include="Source\ChengPhysicsScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -80,6 +83,8 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WindowData.h" />
+    <ClInclude Include="Source\LightManager.h" />
+    <ClInclude Include="Source\ChengPhysicsScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

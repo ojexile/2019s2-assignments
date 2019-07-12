@@ -157,6 +157,7 @@
     <ClCompile Include="Source\AudioManager.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
+    <ClCompile Include="Source\ChengPhysicsScene.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
     <ClCompile Include="Source\Debug.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="Source\AudioManager.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
+    <ClInclude Include="Source\ChengPhysicsScene.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\Debug.h" />
