@@ -54,7 +54,7 @@ void PhysicsPlayerScript::Update(double dt)
 	Vector3 ballDir = *m_vCameraFront;
 	Vector3 ballSpawn = trans->GetPosition();
 	ballSpawn.y = 1;
-	ballDir.y = 0;
+	//ballDir.y = 0;
 
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("spawnBall"))
 	{

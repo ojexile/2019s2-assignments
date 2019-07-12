@@ -28,11 +28,11 @@ DataContainer::DataContainer()
 
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
-	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL));
+	wall->AddComponent(new ChengRigidbody(ChengRigidbody::SQUARE));
 	//--------------------------------------------------------------------------------
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;
-	pillar->GetComponent<TransformComponent>()->SetScale(10, 5, 10);
+	pillar->GetComponent<TransformComponent>()->SetScale(10, 50, 10);
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
 	//wall->GetComponent<ChengRigidbody>()->SetNormal({ 0, 0, -1 });

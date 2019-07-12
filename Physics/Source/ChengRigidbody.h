@@ -9,6 +9,8 @@ public:
 		NONE,
 		BALL,
 		WALL,
+		SQUARE,
+		BOX,
 		PILLAR,
 		TOTAL,
 	};
