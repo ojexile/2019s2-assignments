@@ -18,26 +18,44 @@ bool ChengCollisionManager::CheckCollision(GameObject* go1, GameObject* go2)
 		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x + go2->GetComponent<TransformComponent>()->GetScale().x;
 		Vector3 u = go1->GetComponent<ChengRigidbody>()->m_vVel - go2->GetComponent<ChengRigidbody>()->m_vVel;
 		if (dis.Length() < combRadius && u.Dot(dis) > 0.0f)
+		{
+			CHENG_LOG("ball-ball");
 			return true;
+		}
 	}
 	break;
 	case ChengRigidbody::WALL:
 	{
 		//--------------------------------------------------------------------------------
-		/*Vector3 N = go2->normal;
-		Vector3 w0minusb1 = go2->pos - go->pos;
+		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
+		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
+
+		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
+		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
+		//--------------------------------------------------------------------------------
+		//Vector3 N = Vector3(,0,)
+		Mtx44 rot;
+		rot.SetToRotation(trans2->GetDegrees(), 0, 1, 0);
+		Vector3 N = rot * Vector3(1, 0, 0);
+		//--------------------------------------------------------------------------------
+		Vector3 w0minusb1 = trans2->GetPosition() - trans1->GetPosition();
 		Vector3 pDir = N;
+		//--------------------------------------------------------------------------------
 		if (w0minusb1.Dot(N) < 0)
 			N = -N;
 
-		if (go->vel.Dot(N) < 0)
+		if (rigid1->m_vVel.Dot(N) < 0)
 			return false;
 
 		Vector3 NP(N.y, -N.x);
 
-		if (w0minusb1.Dot(N) < go->scale.x + go2->scale.x * 0.5f
-			&& Math::FAbs(w0minusb1.Dot(NP)) < go->scale.x + go2->scale.y * 0.5f)
-			return true;*/
+		if (w0minusb1.Dot(N) < trans1->GetScale().x + trans2->GetScale().x * 0.5f
+			&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + trans2->GetScale().z * 0.5f)
+		{
+			CHENG_LOG("ball - wall");
+			return true;
+		}
+		//================================================================================
 	}
 	break;
 	default:
@@ -72,6 +90,14 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2)
 	break;
 	case ChengRigidbody::WALL:
 	{
+		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
+		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
+		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
+		Mtx44 rot;
+		rot.SetToRotation(trans2->GetDegrees(), 0, 1, 0);
+		Vector3 N = rot * Vector3(1, 0, 0);
+		Vector3 v = rigid1->m_vVel - (2 * rigid1->m_vVel.Dot(N)) *N;
+		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;
 	default:
@@ -127,7 +153,6 @@ void ChengCollisionManager::Update(GameObjectManager* GOM)
 				}
 				if (CheckCollision(goA, goB))
 				{
-					CHENG_LOG("oof");
 					CollisionResponse(goA, goB);
 				}
 			}

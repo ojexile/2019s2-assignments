@@ -51,13 +51,11 @@ void PhysicsPlayerScript::Update(double dt)
 	}
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("spawnBall"))
 	{
-		CHENG_LOG("spawned ball");
 		GameObject* ball = Instantiate(m_RefBall, Vector3{ 0,0,-5 });
 		ball->GetComponent<ChengRigidbody>()->SetVel({ 0,0,5 });
 	}
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("spawnBall2"))
 	{
-		CHENG_LOG("spawned ball2");
 		GameObject* ball = Instantiate(m_RefBall2, Vector3{ 0,0,5 });
 		ball->GetComponent<ChengRigidbody>()->SetVel({ 0,0,-5 });
 	}
