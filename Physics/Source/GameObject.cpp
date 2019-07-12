@@ -35,8 +35,8 @@ GameObject::~GameObject()
 	{
 		delete m_vec_ChildList[i];
 	}
-	//m_vec_ComponentList.clear();
-	//m_vec_ChildList.clear();
+	m_vec_ComponentList.clear();
+	m_vec_ChildList.clear();
 }
 ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 {

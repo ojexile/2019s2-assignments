@@ -6,7 +6,7 @@
 class SceneManager : public Singleton<SceneManager>
 {
 private:
-	static Scene* m_CurrentScene;
+	Scene* m_CurrentScene;
 public:
 	SceneManager();
 	virtual ~SceneManager();

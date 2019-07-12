@@ -75,7 +75,7 @@ void Engine::Update(double dt)
 		std::vector<GameObject*>* GOList = it->second->GetGOList();
 		for (unsigned i = 0; i < GOList->size(); ++i)
 		{
-			(*GOList)[i]->Update(dt);
+			GOList->at(i)->Update(dt);
 		}
 	}
 	//--------------------------------------------------------------------------------

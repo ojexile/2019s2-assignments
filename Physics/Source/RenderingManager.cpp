@@ -150,17 +150,20 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		Camera->m_vTarget.x, Camera->m_vTarget.y, Camera->m_vTarget.z,
 		Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z
 	);
-	//viewStack.LookAt(lights[0].position.x, lights[0].position.y, lights[0].position.z, 0, 0, 0, 0, 1, 0);
-	std::stringstream ss;
-	ss.precision(1);
-	ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
-	//CHENG_LOG("CAM TAR: ", ss.str());
-	std::stringstream ss2;
-	ss2.precision(1);
-	ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
-	//CHENG_LOG("CAM POS: ", ss2.str());
-	ss.str("");
-	ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
+	/*viewStack.LookAt(
+			lights[0].position.x, lights[0].position.y, lights[0].position.z,
+			0, 0, 0,
+			0, 1, 0);*/
+	//std::stringstream ss;
+	//ss.precision(1);
+	//ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
+	////CHENG_LOG("CAM TAR: ", ss.str());
+	//std::stringstream ss2;
+	//ss2.precision(1);
+	//ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
+	////CHENG_LOG("CAM POS: ", ss2.str());
+	//ss.str("");
+	//ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
 	//CHENG_LOG("CAM DIR: ", ss.str());
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
@@ -180,17 +183,17 @@ void RenderingManager::RenderWorld(Scene* scene)
 			continue;
 		// m_programID = it->second->GetShader();
 		// BindUniforms();
-		std::vector<GameObject*>& GOList = *it->second->GetGOList();
-		for (unsigned i = 0; i < GOList.size(); ++i)
+		std::vector<GameObject*>* GOList = it->second->GetGOList();
+		for (unsigned i = 0; i < GOList->size(); ++i)
 		{
-			GameObject* go = GOList[i];
+			GameObject* go = GOList->at(i);
 			if (!go->IsActive())
 				continue;
 			Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 			RenderGameObject(go, vCamPos, false);
-			for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
+			for (unsigned i = 0; i < GOList->at(i)->GetChildList()->size(); ++i)
 			{
-				GameObject* goChild = GOList[i];
+				GameObject* goChild = GOList->at(i);
 				if (!go->IsActive())
 					continue;
 				RenderGameObject(goChild, vCamPos, false);
@@ -199,7 +202,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 	}
 	// Render UI
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
-	std::vector<GameObject*>* GOList = (*map)["UI"]->GetGOList();
+	std::vector<GameObject*>* GOList = map->at("UI")->GetGOList();
 	// m_programID = (*map)["UI"]->GetShader();
 	// BindUniforms();
 	for (unsigned i = 0; i < GOList->size(); ++i)
