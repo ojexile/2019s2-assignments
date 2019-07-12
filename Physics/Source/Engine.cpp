@@ -25,7 +25,9 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new TestScene);
+	Scene* scene = new TestScene;
+	SceneManager->ChangeScene(scene);
+	scene = nullptr;
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
@@ -74,7 +76,7 @@ void Engine::Update(double dt)
 		std::vector<GameObject*>* GOList = it->second->GetGOList();
 		for (unsigned i = 0; i < GOList->size(); ++i)
 		{
-			(*GOList)[i]->Update(dt);
+			GOList->at(i)->Update(dt);
 		}
 	}
 

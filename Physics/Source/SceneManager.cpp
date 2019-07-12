@@ -1,8 +1,8 @@
 #include "SceneManager.h"
-Scene* SceneManager::m_CurrentScene;
 
 SceneManager::SceneManager()
 {
+	m_CurrentScene = nullptr;
 }
 
 SceneManager::~SceneManager()

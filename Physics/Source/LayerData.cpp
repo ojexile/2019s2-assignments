@@ -9,9 +9,13 @@ LayerData::LayerData(unsigned Shader)
 
 LayerData::~LayerData()
 {
-	for (auto p : *m_vec_GameObjects)
+	//for (auto p : *m_vec_GameObjects)
+	//{
+	//	delete p;
+	//}
+	for (unsigned i = 0; i < m_vec_GameObjects->size(); ++i)
 	{
-		delete p;
+		delete m_vec_GameObjects->at(i);
 	}
 	m_vec_GameObjects->clear();
 	delete m_vec_GameObjects;
