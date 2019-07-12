@@ -50,17 +50,17 @@ void PhysicsPlayerScript::Update(double dt)
 		trans->Translate(-fMoveSpeed * *m_vCameraUp);
 	}
 	trans->SetPosition(trans->GetPosition().x, 5, trans->GetPosition().z);
-	float fBallSpeed = 50.f;
+	float fBallSpeed = 200.f;
 	Vector3 ballDir = *m_vCameraFront;
 	Vector3 ballSpawn = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 	//ballDir.y = 0;
 
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("spawnBall"))
+	if (KeyboardManager::GetInstance()->GetKeyDown("spawnBall"))
 	{
 		GameObject* ball = Instantiate(m_RefBall, ballSpawn);
 		ball->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
 	}
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("spawnBall2"))
+	if (KeyboardManager::GetInstance()->GetKeyDown("spawnBall2"))
 	{
 		GameObject* ball = Instantiate(m_RefBall2, ballSpawn);
 		ball->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);

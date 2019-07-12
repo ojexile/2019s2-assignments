@@ -9,6 +9,8 @@ DataContainer::DataContainer()
 	m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
 	m_map_Meshes["pillar"] = MeshBuilder::GenerateCylinder("ball", Color(0, 1, 0), 10, 0.5f, 1.f);
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
+	m_map_Meshes["square"] = MeshBuilder::GenerateCube("wall", Color((float)0.5, (float)0.5, (float)0.5), 1.f);
+	m_map_Meshes["floor"] = MeshBuilder::GenerateCube("wall", Color((float)0.8, (float)0.8, (float)0.8), 1.f);
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
 
 	//--------------------------------------------------------------------------------
@@ -28,7 +30,20 @@ DataContainer::DataContainer()
 
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
-	wall->AddComponent(new ChengRigidbody(ChengRigidbody::SQUARE));
+	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL));
+	// --------------------------------------------------------------------------------
+	GameObject* square = new GameObject;
+	m_map_GO["square"] = square;
+
+	square->AddComponent(new RenderComponent(this->GetMesh("square")));
+	square->AddComponent(new ChengRigidbody(ChengRigidbody::SQUARE));
+	// --------------------------------------------------------------------------------
+	GameObject* floor = new GameObject;
+	m_map_GO["floor"] = floor;
+
+	floor->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
+	floor->AddComponent(new RenderComponent(this->GetMesh("floor")));
+	floor->AddComponent(new ChengRigidbody(ChengRigidbody::BOX));
 	//--------------------------------------------------------------------------------
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;
