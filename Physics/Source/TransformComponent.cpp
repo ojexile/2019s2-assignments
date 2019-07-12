@@ -41,7 +41,7 @@ void TransformComponent::SetScale(float scaleX, float scaleY, float scaleZ)
 
 void TransformComponent::SetRotation(float degrees, int xAxis, int yAxis, int zAxis)
 {
-	this->m_vRotateAxis.Set((float)xAxis, yAxis, zAxis);
+	this->m_vRotateAxis.Set((float)xAxis, (float)yAxis, (float)zAxis);
 	this->m_fdegrees = degrees;
 }
 

@@ -1,5 +1,4 @@
 #include "DataContainer.h"
-#include "MemoryLeak.h"
 
 DataContainer::DataContainer()
 {
@@ -63,6 +62,13 @@ DataContainer::~DataContainer()
 		delete it2->second;
 	}
 	m_map_Animated.clear();
+	std::map<std::string, GameObject*>::iterator it3;
+	for (it3 = m_map_GO.begin(); it3 != m_map_GO.end(); it3++)
+	{
+		// it->first == key
+		// it->second == value
+		delete it3->second;
+	}
 	m_map_GO.clear();
 }
 

@@ -6,7 +6,7 @@ class Singleton
 protected:
 	static T* m_Instance;
 	Singleton() {};
-	~Singleton() {};
+	virtual ~Singleton() {};
 public:
 
 	static T* GetInstance()

@@ -9,11 +9,9 @@ KeyboardManager::KeyboardManager()
 	LoadKeyBinds("keybinds.cfg");
 }
 
-
 KeyboardManager::~KeyboardManager()
 {
 }
-
 
 bool KeyboardManager::GetKeyTriggered(std::string bind)
 {
@@ -34,7 +32,6 @@ bool KeyboardManager::GetKeyTriggered(unsigned short key)
 	return GetKeyDown(key) && !lastState;
 }
 
-
 bool KeyboardManager::GetKeyDown(std::string bind)
 {
 	if (map_keyBindings.count(bind) == 0)
@@ -42,7 +39,7 @@ bool KeyboardManager::GetKeyDown(std::string bind)
 		KZ_LOG("Tried to poll state of nonexistent/undefined keybind " + bind);
 		return false;
 	}
-		
+
 	return GetKeyDown(map_keyBindings[bind]);
 }
 
@@ -58,7 +55,6 @@ void KeyboardManager::SetKeyBind(std::string bind, unsigned short key)
 
 unsigned short ToKey(std::string str)
 {
-
 	if (str.substr(0, 2) == "kc")
 	{
 		return std::stoi(str.substr(2));
@@ -67,7 +63,7 @@ unsigned short ToKey(std::string str)
 	{
 		return toupper(str[0]);
 	}
-	for (int i = 0; i < str.length(); i++)
+	for (unsigned i = 0; i < str.length(); i++)
 	{
 		str[i] = tolower(str[i]);
 	}
@@ -78,6 +74,7 @@ unsigned short ToKey(std::string str)
 	if (str == "rshift") return VK_RSHIFT;
 	if (str == "lctrl") return VK_LCONTROL;
 	if (str == "rctrl") return VK_RCONTROL;
+	return NULL;
 }
 
 void KeyboardManager::LoadKeyBinds(std::string filename)

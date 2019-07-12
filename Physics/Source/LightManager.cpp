@@ -1,7 +1,5 @@
 #include "LightManager.h"
 
-
-
 LightManager::LightManager()
 {
 	m_vec_SceneLights.push_back(new Light(Light::LIGHT_POINT));
@@ -14,12 +12,12 @@ LightManager::LightManager()
 }
 LightManager::~LightManager()
 {
-	for (int i = 0; i < m_vec_PlayerLights.size(); ++i)
+	for (unsigned i = 0; i < m_vec_PlayerLights.size(); ++i)
 	{
 		delete m_vec_PlayerLights[i];
 		m_vec_PlayerLights[i] = nullptr;
 	}
-	for (int i = 0; i < m_vec_SceneLights.size(); ++i)
+	for (unsigned i = 0; i < m_vec_SceneLights.size(); ++i)
 	{
 		delete m_vec_SceneLights[i];
 		m_vec_SceneLights[i] = nullptr;

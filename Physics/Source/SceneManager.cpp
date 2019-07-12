@@ -7,6 +7,7 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
+	DeleteScene();
 }
 
 void SceneManager::ChangeScene(Scene* scene)
