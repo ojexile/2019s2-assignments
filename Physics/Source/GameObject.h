@@ -39,9 +39,9 @@ public:
 			if (out)
 				return out;
 		}
-		std::string sTypeName = typeid(t).name();
 		if (!bOptional)
 		{
+			std::string sTypeName = typeid(t).name();
 			DEFAULT_LOG("Component of type " + sTypeName + " not found");
 		}
 		return nullptr;

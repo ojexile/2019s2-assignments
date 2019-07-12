@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include <vector>
+#include <string>
 class LayerData
 {
 private:
@@ -12,5 +13,5 @@ public:
 
 	std::vector<GameObject*>* GetGOList();
 	unsigned GetShader();
+	void SetShader(unsigned);
 };
-

@@ -5,10 +5,6 @@
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
-	m_DepthQuad =
-		MeshBuilder::GenerateQuad("LIGHT_DEPTH_TEXTURE", Color(1, 1, 1), 1.f);
-	m_DepthQuad->m_uTextureArray[0] =
-		m_lightDepthFBO.GetTexture();
 }
 
 RenderingManagerBase::~RenderingManagerBase()
