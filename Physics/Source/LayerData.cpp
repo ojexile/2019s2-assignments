@@ -12,6 +12,7 @@ LayerData::~LayerData()
 		delete p;
 	}
 	m_vec_GameObjects->clear();
+	delete m_vec_GameObjects;
 }
 std::vector<GameObject*>* LayerData::GetGOList()
 {

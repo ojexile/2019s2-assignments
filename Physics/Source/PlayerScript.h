@@ -9,7 +9,7 @@ private:
 	GameObject* m_GORef;
 public:
 	PlayerScript(GameObject* goRef);
-	~PlayerScript();
+	virtual ~PlayerScript();
 	virtual ComponentBase* Clone()
 	{
 		return new PlayerScript(*this);

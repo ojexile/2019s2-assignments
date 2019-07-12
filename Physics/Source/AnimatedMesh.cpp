@@ -12,6 +12,7 @@ AnimatedMesh::AnimatedMesh(std::string sMeshName, int row, int col, int start, i
 }
 AnimatedMesh::~AnimatedMesh()
 {
+	delete m_Mesh;
 }
 void AnimatedMesh::Update(double dt)
 {

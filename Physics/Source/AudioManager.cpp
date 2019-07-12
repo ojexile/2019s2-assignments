@@ -6,7 +6,6 @@ AudioManager::AudioManager()
 	engine = irrklang::createIrrKlangDevice();
 }
 
-
 AudioManager::~AudioManager()
 {
 	engine->drop();
@@ -14,7 +13,7 @@ AudioManager::~AudioManager()
 
 void AudioManager::PlayBGM(std::string filePath)
 {
-	engine->setSoundVolume(0.1);
+	engine->setSoundVolume(0.1f);
 	engine->play2D(filePath.c_str(), true, false, false, irrklang::ESM_AUTO_DETECT, true);
 }
 
