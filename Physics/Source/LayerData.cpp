@@ -24,3 +24,7 @@ unsigned LayerData::GetShader()
 {
 	return m_Shader;
 }
+void LayerData::SetShader(unsigned u)
+{
+	this->m_Shader = u;
+}
