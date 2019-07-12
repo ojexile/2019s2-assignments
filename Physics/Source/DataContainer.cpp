@@ -7,6 +7,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["ground"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
 	m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 0, 0), 10, 10, 1.f);
 	m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
+	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color(0, 1, 0), 1.f);;
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
 
 	//--------------------------------------------------------------------------------
@@ -14,12 +15,20 @@ DataContainer::DataContainer()
 	GameObject* ball = new GameObject;
 	m_map_GO["ball"] = ball;
 	ball->AddComponent(new RenderComponent(this->GetMesh("ball")));
-	ball->AddComponent(new ChengRigidbody());
+	ball->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
 	// --------------------------------------------------------------------------------
 	GameObject* ball2 = new GameObject;
 	m_map_GO["ball2"] = ball2;
 	ball2->AddComponent(new RenderComponent(this->GetMesh("ball2")));
-	ball2->AddComponent(new ChengRigidbody());
+	ball2->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
+	// --------------------------------------------------------------------------------
+	GameObject* wall = new GameObject;
+	m_map_GO["wall"] = wall;
+	wall->GetComponent<TransformComponent>()->SetScale(5, 5, 30);
+	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
+	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
+	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL));
+	//wall->GetComponent<ChengRigidbody>()->SetNormal({ 0, 0, -1 });
 	// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
 

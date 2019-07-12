@@ -23,7 +23,9 @@ void ChengPhysicsScene::Init()
 	ground->RENDER->SetLightEnabled(true);
 	ground->SetActive(true);
 	//
-
+	// Wall
+	GameObject* wall = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
+	wall->TRANSFORM->SetPosition(0, 0, -10);
 	//Player
 	GameObject* player = m_GameObjectManager.AddGameObject();
 	player->TRANSFORM->SetPosition(0, 15, 50);

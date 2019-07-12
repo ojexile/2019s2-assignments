@@ -18,7 +18,7 @@ private:
 	ePhysicsTypes m_eType;
 	float m_fMass;
 public:
-	ChengRigidbody();
+	ChengRigidbody(ePhysicsTypes e);
 	virtual ~ChengRigidbody();
 	virtual ComponentBase* Clone()
 	{
@@ -27,6 +27,7 @@ public:
 	virtual void Update(double dt) override;
 
 	void SetVel(Vector3);
+	void SetNormal(Vector3);
 
 	//--------------------------------------------------------------------------------
 	friend class ChengCollisionManager;
