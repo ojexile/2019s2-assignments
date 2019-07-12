@@ -135,8 +135,6 @@ protected:
 	Mtx44 m_lightDepthMVP;
 	Mtx44 m_lightDepthMVPGPass;
 	RENDER_PASS m_renderPass;
-
-	Mesh* m_DepthQuad;
 };
 
 #endif
