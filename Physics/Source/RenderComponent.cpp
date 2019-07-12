@@ -4,7 +4,7 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 	:m_Mesh(Mesh)
 {
 	m_AnimatedMesh = nullptr;
-	m_bLightEnabled = false;
+	m_bLightEnabled = true;
 	m_bBillboard = false;
 }
 RenderComponent::RenderComponent(AnimatedMesh* Mesh)

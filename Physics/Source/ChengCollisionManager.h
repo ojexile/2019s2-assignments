@@ -4,8 +4,8 @@
 class ChengCollisionManager
 {
 private:
-	bool CheckCollision(GameObject* go1, GameObject* go2);
-	void CollisionResponse(GameObject* go1, GameObject* go2);
+	bool CheckCollision(GameObject* go1, GameObject* go2, bool rotateWall = false);
+	void CollisionResponse(GameObject* go1, GameObject* go2, bool rotateWall = false);
 public:
 	ChengCollisionManager();
 	~ChengCollisionManager();
