@@ -55,6 +55,11 @@ void ChengPhysicsScene::Init()
 	floor->TRANSFORM->SetPosition(0, -thickness / 2, 0);
 	floor->TRANSFORM->SetRotation(90, 0, 0, 1);
 	floor->TRANSFORM->SetScale(thickness, size * 2, size * 2);
+
+	GameObject* ceil = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
+	ceil->TRANSFORM->SetPosition(0, 80, 0);
+	ceil->TRANSFORM->SetRotation(90, 0, 0, 1);
+	ceil->TRANSFORM->SetScale(thickness, size * 2, size * 2);
 	//--------------------------------------------------------------------------------
 	GameObject* wall6 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("floor")->Clone());
 	wall6->TRANSFORM->SetPosition(0, -thickness / 2, 0);
