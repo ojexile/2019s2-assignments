@@ -39,6 +39,7 @@
     <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
     <ClCompile Include="Source\ChengPhysicsScene.cpp" />
+    <ClCompile Include="Source\ChengCollisionManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -85,6 +86,7 @@
     <ClInclude Include="Source\WindowData.h" />
     <ClInclude Include="Source\LightManager.h" />
     <ClInclude Include="Source\ChengPhysicsScene.h" />
+    <ClInclude Include="Source\ChengCollisionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />
