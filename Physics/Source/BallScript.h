@@ -3,6 +3,8 @@
 class BallScript :
 	public ScriptComponent
 {
+private:
+	float m_fLastPopSoundTime;
 public:
 	BallScript();
 	virtual ~BallScript();
