@@ -11,6 +11,7 @@
 #include "WindowData.h"
 
 #include <vector>
+#include "ResourceHandler.h"
 
 #define LOG_UPDATE_RATE 1
 
@@ -22,7 +23,6 @@ public:
 private:
 	Engine();
 	~Engine();
-
 	float m_fLogUpdateTimer;
 	void Init();
 	void Update(double dt);

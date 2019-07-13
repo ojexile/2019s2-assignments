@@ -5,8 +5,9 @@
 
 KeyboardManager::KeyboardManager()
 {
+	Resources& res = *ResourceHandler::GetInstance()->GetResources();
 	SetKeyBind("ExitGame", VK_ESCAPE);
-	LoadKeyBinds("keybinds.cfg");
+	LoadKeyBinds(res.m_ContentPath + "keybinds.cfg");
 }
 
 KeyboardManager::~KeyboardManager()

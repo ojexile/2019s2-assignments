@@ -1,13 +1,14 @@
 #include "DataContainer.h"
-
+#include "Resources.h"
+#include "ResourceHandler.h"
 DataContainer::DataContainer()
 {
 	// Meshs--------------------------------------------------------------------------------
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuad("Quad", { 1,1,1 }, 5);
 	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
-	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/cube.obj");
-	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
-	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
+	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "cube.obj");
+	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("cube.tga");
+	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("moss1.tga");
 
 	m_map_Meshes["Ground"] = MeshBuilder::GenerateQuad("Ground", { 1.f,1.f,1.f }, 500);
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
@@ -15,17 +16,17 @@ DataContainer::DataContainer()
 	m_map_Meshes["Depth"]->m_uTextureArray[0] = 1;
 
 	std::vector<unsigned char> heightMap;
-	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("terrain", "data/heightMaps/heightmapMain.raw", heightMap);
-	m_map_Meshes["Terrain"]->m_uTextureArray[0] = LoadTGA("textures/moss1.tga");
+	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("terrain", "heightmapMain", heightMap);
+	m_map_Meshes["Terrain"]->m_uTextureArray[0] = LoadTGA("moss1.tga");
 
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
-	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("textures/sky.tga");
+	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky.tga");
 
 	m_map_Animated["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
-	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/cat.tga");
+	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("cat.tga");
 
-	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
-	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
+	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "water.obj");
+	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("water.tga");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();
@@ -38,9 +39,9 @@ DataContainer::DataContainer()
 	m_map_GO["Cube"] = cube;
 	//--------------------------------------------------------------------------------
 	// Shaders--------------------------------------------------------------------------------
-	m_map_Shaders["Default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
-	m_map_Shaders["Water"] = LoadShaders("Shader//water.vertexshader", "Shader//water.fragmentshader");
-	m_map_Shaders["GPass"] = LoadShaders("Shader//shadow/GPass.vertexshader", "Shader//shadow/GPass.fragmentshader");
+	m_map_Shaders["Default"] = LoadShaders("Shadow", "Shadow");
+	m_map_Shaders["Water"] = LoadShaders("water", "water");
+	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	//--------------------------------------------------------------------------------
 }
 

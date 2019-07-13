@@ -181,6 +181,8 @@
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
+    <ClCompile Include="Source\ResourceHandler.cpp" />
+    <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\ScriptComponent.cpp" />
@@ -224,6 +226,8 @@
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />
     <ClInclude Include="Source\RenderingManagerBase.h" />
+    <ClInclude Include="Source\ResourceHandler.h" />
+    <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\ScriptComponent.h" />
