@@ -2,11 +2,12 @@
 
 #include <windows.h>
 #include <fstream>
+#include "Resources.h"
 
 KeyboardManager::KeyboardManager()
 {
 	SetKeyBind("ExitGame", VK_ESCAPE);
-	LoadKeyBinds("keybinds.cfg");
+	LoadKeyBinds(Resources::Keybinds);
 }
 
 KeyboardManager::~KeyboardManager()

@@ -35,6 +35,10 @@
     <ClCompile Include="Source\TestScene.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\Debug.cpp" />
+    <ClCompile Include="Source\LightManager.cpp" />
+    <ClCompile Include="Source\Preferences.cpp" />
+    <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\WindowData.cpp" />
     <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
@@ -91,6 +95,9 @@
     <ClInclude Include="Source\ChengCollisionManager.h" />
     <ClInclude Include="Source\ChengRigidbody.h" />
     <ClInclude Include="Source\PhysicsPlayerScript.h" />
+    <ClInclude Include="Source\LightManager.h" />
+    <ClInclude Include="Source\Resources.h" />
+    <ClInclude Include="Source\Preferences.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

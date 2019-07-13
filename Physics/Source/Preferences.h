@@ -6,7 +6,6 @@
 #include <string>
 #include <sstream>
 
-#define FILE_PATH "windowData/windowData.txt"
 // read from a file of format
 // term = value
 // terms
@@ -17,7 +16,7 @@
 // fontSize
 // Value format
 // x,y
-class WindowData : public Singleton<WindowData>
+class Preferences : public Singleton<Preferences>
 {
 private:
 	Vector3 m_vWindowSize;
@@ -25,9 +24,10 @@ private:
 	Vector3 m_vWindowPosition;
 	Vector3 m_vConsolePosition;
 	Vector3 m_vFontSize;
+	float m_fAudioVolume;
 public:
-	WindowData();
-	~WindowData();
+	Preferences();
+	~Preferences();
 
 	void GetData();
 
@@ -36,4 +36,5 @@ public:
 	Vector3 GetConsolePosition();
 	Vector3 GetWindowPosition();
 	Vector3 GetFontSize();
+	float GetAudioVolume();
 };

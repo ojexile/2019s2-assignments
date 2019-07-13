@@ -4,11 +4,11 @@
 #include <vector>
 #include "Vertex.h"
 #include "Vector3.h"
-
+// .obj exten is assumed
 bool LoadOBJ(
-	const char *file_path, 
-	std::vector<Position> & out_vertices, 
-	std::vector<TexCoord> & out_uvs, 
+	const char *file_path,
+	std::vector<Position> & out_vertices,
+	std::vector<TexCoord> & out_uvs,
 	std::vector<Vector3> & out_normals
 );
 

@@ -8,7 +8,8 @@
 
 #include "Logger.h"
 #include "Locator.h"
-#include "WindowData.h"
+#include "Preferences.h"
+
 #include "ChengCollisionManager.h"
 
 #include <vector>
@@ -23,7 +24,6 @@ public:
 private:
 	Engine();
 	~Engine();
-
 	float m_fLogUpdateTimer;
 	void Init();
 	void Update(double dt);

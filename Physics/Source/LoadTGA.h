@@ -2,7 +2,8 @@
 #define LOAD_TGA_H
 
 #include "Locator.h"
-
-unsigned LoadTGA(const char *file_path);
+#include <string>
+// .tga exten is assumed
+unsigned LoadTGA(std::string s);
 
 #endif

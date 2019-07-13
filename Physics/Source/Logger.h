@@ -6,7 +6,7 @@
 #include <conio.h>
 #include <sstream>
 #include "LogData.h"
-#include "WindowData.h"
+#include "Preferences.h"
 
 class Logger
 {

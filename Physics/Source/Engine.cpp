@@ -30,13 +30,13 @@ void Engine::Init()
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
-	WindowData* windowData = WindowData::GetInstance();
+	Preferences* prefs = Preferences::GetInstance();
 	// Font
 	CONSOLE_FONT_INFOEX cfi;//CONSOLE_FONT_INFOEX is defined in some windows header
 	cfi.cbSize = sizeof(cfi);
 	cfi.nFont = 0;
-	cfi.dwFontSize.X = (SHORT)windowData->GetFontSize().x;                   // Width of each character in the font
-	cfi.dwFontSize.Y = (SHORT)windowData->GetFontSize().y;                  // Height
+	cfi.dwFontSize.X = (SHORT)prefs->GetFontSize().x;                   // Width of each character in the font
+	cfi.dwFontSize.Y = (SHORT)prefs->GetFontSize().y;                  // Height
 	cfi.FontFamily = FF_DONTCARE;
 	cfi.FontWeight = FW_NORMAL;
 	//std::wcscpy(cfi.FaceName, L"Consolas"); // Choose your font
@@ -52,8 +52,8 @@ void Engine::Init()
 	// Console
 	HWND hwnd = GetConsoleWindow();
 	if (hwnd != NULL) {
-		MoveWindow(hwnd, (int)windowData->GetConsolePosition().x, (int)windowData->GetConsolePosition().y
-			, (int)windowData->GetConsoleSize().x, (int)windowData->GetConsoleSize().y, TRUE);
+		MoveWindow(hwnd, (int)prefs->GetConsolePosition().x, (int)prefs->GetConsolePosition().y
+			, (int)prefs->GetConsoleSize().x, (int)prefs->GetConsoleSize().y, TRUE);
 	}
 }
 void Engine::SetMouseCallback(GLFWwindow* window)
@@ -118,5 +118,5 @@ void Engine::Exit()
 	SceneManager::DeleteInstance();
 	DataContainer::DeleteInstance();
 	KeyboardManager::DeleteInstance();
-	WindowData::DeleteInstance();
+	Preferences::DeleteInstance();
 }

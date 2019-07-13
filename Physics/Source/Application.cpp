@@ -86,11 +86,11 @@ void Application::Init()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
 
 	//Create a window and create its OpenGL context
-	WindowData* windowData = WindowData::GetInstance();
-	m_width = (int)windowData->GetWindowSize().x;
-	m_height = (int)windowData->GetWindowSize().y;
+	Preferences* pref = Preferences::GetInstance();
+	m_width = (int)pref->GetWindowSize().x;
+	m_height = (int)pref->GetWindowSize().y;
 	m_window = glfwCreateWindow(m_width, m_height, "SP-Framework", NULL, NULL);
-	glfwSetWindowPos(m_window, (int)windowData->GetWindowPosition().x, (int)windowData->GetWindowPosition().y);
+	glfwSetWindowPos(m_window, (int)pref->GetWindowPosition().x, (int)pref->GetWindowPosition().y);
 	//If the window couldn't be created
 	if (!m_window)
 	{

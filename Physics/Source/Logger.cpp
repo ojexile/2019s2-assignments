@@ -59,9 +59,9 @@ int Logger::PrintLogs(int iYOffset)
 			std::cout << '	';
 
 		LogData log = m_vec_LogList[i];
-		WindowData* WinData = WindowData::GetInstance();
-		const int WINDOW_LENGTH = (int)WinData->GetConsoleSize().x;
-		const int WINDOW_CHAR_LENGTH = WINDOW_LENGTH / (int)WinData->GetFontSize().x;
+		Preferences* pref = Preferences::GetInstance();
+		const int WINDOW_LENGTH = (int)pref->GetConsoleSize().x;
+		const int WINDOW_CHAR_LENGTH = WINDOW_LENGTH / (int)pref->GetFontSize().x;
 		std::stringstream ss;
 		ss << log.m_iNumCalls << "  " << log.m_sLog << log.m_sOptional;
 		iYOffset += ss.str().size() / WINDOW_CHAR_LENGTH;
