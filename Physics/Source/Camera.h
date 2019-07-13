@@ -31,9 +31,10 @@ public:
 	void UpdateYawPitchMouse(float xpos, float ypos);
 
 	// Getters
-	Vector3* GetTarget();
-	Vector3* GetUp();
-	Vector3* GetDir();
+	Vector3 GetTarget();
+	Vector3 GetUp();
+	Vector3 GetDir();
+	void SetDir(Vector3 v);
 };
 
 #endif
