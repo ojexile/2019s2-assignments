@@ -34,7 +34,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		Vector3 tempPos2 = pos2;
 		tempPos2.y = pos1.y;
 		Vector3 dis = (tempPos2 - pos1);
-		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x / 2 + go1->GetComponent<TransformComponent>()->GetScale().x;
+		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x + go1->GetComponent<TransformComponent>()->GetScale().x;
 		Vector3 u = go1->GetComponent<ChengRigidbody>()->m_vVel;
 		if (dis.Length() < combRadius && u.Dot(dis) > 0.0f)
 		{

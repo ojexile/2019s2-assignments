@@ -24,7 +24,7 @@ void ChengPhysicsScene::Init()
 	ground->SetActive(false);
 	//
 	float size = 100;
-	float height = 20;
+	float height = 200;
 	float thickness = 20;
 	// Wall
 	GameObject* wall = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
@@ -57,7 +57,7 @@ void ChengPhysicsScene::Init()
 	floor->TRANSFORM->SetScale(thickness, size * 2, size * 2);
 
 	GameObject* ceil = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("ceil")->Clone());
-	ceil->TRANSFORM->SetPosition(0, 80, 0);
+	ceil->TRANSFORM->SetPosition(0, 1000, 0);
 	ceil->TRANSFORM->SetRotation(90, 0, 0, 1);
 	ceil->TRANSFORM->SetScale(thickness, size * 2, size * 2);
 	//--------------------------------------------------------------------------------

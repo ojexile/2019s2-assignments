@@ -97,4 +97,6 @@ Vector3 Camera::GetDir()
 void Camera::SetDir(Vector3 v)
 {
 	m_vDir = v;
+	m_fYaw = 0;
+	m_fPitch = -85;
 }

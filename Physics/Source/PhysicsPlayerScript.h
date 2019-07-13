@@ -4,8 +4,8 @@
 class PhysicsPlayerScript : public ScriptComponent
 {
 private:
-	Vector3* m_vCameraFront;
-	Vector3* m_vCameraUp;
+	Vector3 m_vCameraFront;
+	Vector3 m_vCameraUp;
 	GameObject* m_RefBall;
 	GameObject* m_RefBall2;
 	GameObject* m_RefBall3;

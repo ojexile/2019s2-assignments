@@ -25,14 +25,14 @@ void PhysicsPlayerScript::Update(double dt)
 	TransformComponent* trans = GetComponent<TransformComponent>();
 
 	float fMoveSpeed = 50 * (float)dt;
-	Vector3 vRight = m_vCameraFront->Cross(*m_vCameraUp);
+	Vector3 vRight = m_vCameraFront.Cross(m_vCameraUp);
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
 	{
-		trans->Translate(fMoveSpeed * *m_vCameraFront);
+		trans->Translate(fMoveSpeed * m_vCameraFront);
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
 	{
-		trans->Translate(-fMoveSpeed * *m_vCameraFront);
+		trans->Translate(-fMoveSpeed * m_vCameraFront);
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
 	{
@@ -44,15 +44,15 @@ void PhysicsPlayerScript::Update(double dt)
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
 	{
-		trans->Translate(fMoveSpeed * *m_vCameraUp);
+		trans->Translate(fMoveSpeed * m_vCameraUp);
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
 	{
-		trans->Translate(-fMoveSpeed * *m_vCameraUp);
+		trans->Translate(-fMoveSpeed * m_vCameraUp);
 	}
 	trans->SetPosition(trans->GetPosition().x, 5, trans->GetPosition().z);
 	float fBallSpeed = 130.f;
-	Vector3 ballDir = *m_vCameraFront;
+	Vector3 ballDir = m_vCameraFront;
 	Vector3 ballSpawn = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 	//ballDir.y = 0;
 
@@ -70,11 +70,13 @@ void PhysicsPlayerScript::Update(double dt)
 	{
 		GameObject* ball = Instantiate(m_RefBall3, ballSpawn);
 		ball->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
-
-		//
-		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
+	}
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCam"))
+	{
+		//SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-		cam->GetComponent<TransformComponent>()->SetPosition(0, 0, 20);
-		//cam->GetComponent<CameraComponent>()->
+		trans->SetPosition(0, 0, 0);
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 200, 0);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir({ 0, -1, 0 });
 	}
 }
