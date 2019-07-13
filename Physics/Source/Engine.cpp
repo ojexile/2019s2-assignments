@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "KeyboardManager.h"
+#include "Time.h"
 // Select Debug logger user
 // Users are enums located in locator.h
 #define USER CHENG
@@ -65,14 +66,15 @@ void Engine::Update(double dt)
 {
 	SceneManager* SceneManager = SceneManager::GetInstance();
 	Scene* CurrentScene = SceneManager->GetScene();
+	// Update time
+	Time::GetInstance()->Update(dt);
 	// Update gameobject here
-
 	GameObjectManager* GOM = CurrentScene->GetGameObjectManager();
 	std::map<std::string, LayerData*>::iterator it;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
 		// it->first == key
-		// it->second == value
+		// it->second == value,
 		std::vector<GameObject*>* GOList = it->second->GetGOList();
 		for (unsigned i = 0; i < GOList->size(); ++i)
 		{
@@ -122,4 +124,5 @@ void Engine::Exit()
 	DataContainer::DeleteInstance();
 	KeyboardManager::DeleteInstance();
 	Preferences::DeleteInstance();
+	Time::DeleteInstance();
 }

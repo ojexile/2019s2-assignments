@@ -187,6 +187,7 @@
     <ClCompile Include="Source\ScriptComponent.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\TestScene.cpp" />
+    <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Preferences.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\TestScene.h" />
+    <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\TransformComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
