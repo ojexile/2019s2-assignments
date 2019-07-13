@@ -9,6 +9,7 @@ RenderingManagerBase::RenderingManagerBase()
 	m_DepthQuad =
 		MeshBuilder::GenerateQuad("LIGHT_DEPTH_TEXTURE", Color(1, 1, 1), 1.f);
 	m_iNumOfLightVar = 11;
+	lightManager_ref = nullptr;
 	m_DepthQuad->m_uTextureArray[0] =
 		m_lightDepthFBO.GetTexture();
 }
@@ -500,6 +501,11 @@ void RenderingManagerBase::RenderMesh(Mesh *mesh, bool enableLight)
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 	}
+}
+
+void RenderingManagerBase::setLightManager(LightManager* reference)
+{
+	this->lightManager_ref = reference;
 }
 
 void RenderingManagerBase::Render(Scene* scene)

@@ -17,7 +17,7 @@
 #include "Utility.h"
 
 #include "MeshBuilder.h"
-
+#include "LightManager.h"
 
 
 class RenderingManagerBase : public Renderer
@@ -157,6 +157,7 @@ protected:
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void BindUniforms();
 	void UpdateLightUniforms(int index);
+	void setLightManager(LightManager* reference);
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
@@ -166,7 +167,7 @@ protected:
 	MS viewStack;
 	MS projectionStack;
 	Light lights[1];
-
+	LightManager* lightManager_ref;
 	bool bLightEnabled;
 	int m_iNumOfLightVar;
 	float fps;

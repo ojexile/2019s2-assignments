@@ -13,6 +13,7 @@ private:
 	std::vector<Light*> m_vec_SceneLights;
 	Light* m_currentLight;
 	int m_iLightIndex;
+	bool m_bLightChange;
 public:
 	LightManager();
 	~LightManager();
@@ -20,10 +21,13 @@ public:
 	//Get a guranteed reference to scene lights
 	std::vector<Light*>& GetSceneLights();
 	Light* GetCurrentLight();
+
 	int GetLightIndex();
+	bool GetLightChange();
+
+	void Update(float dt);
 
 	void AdjustLightPower(float dt, bool);
-	
 	void CycleLight(bool);
 	
 	void AddLight();

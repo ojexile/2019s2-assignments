@@ -85,6 +85,10 @@ void LightManager::AddLight(void)
 		L = nullptr;
 	}
 }
+void LightManager::Update(dt)
+{
+
+}
 void LightManager::RemoveLight(void)
 {
 	//pop from the back of the list

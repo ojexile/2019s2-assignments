@@ -9,10 +9,12 @@
 #define USER_S ( TO_STR(USER) )
 
 Renderer* Engine::m_Renderer;
+LightManager* Engine::m_LightManager;
 
 Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
+	m_LightManager = new LightManager;
 	m_fLogUpdateTimer = 0;
 }
 
@@ -78,6 +80,7 @@ void Engine::Update(double dt)
 		}
 	}
 
+	m_LightManager->Update(dt);
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
 	// Log
@@ -116,6 +119,7 @@ void Engine::Exit()
 {
 	m_Renderer->Exit();
 	delete m_Renderer;
+	delete m_LightManager;
 	SceneManager SceneManager;
 	SceneManager.DeleteScene();
 	DataContainer::DeleteInstance();
