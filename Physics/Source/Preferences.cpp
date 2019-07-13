@@ -8,7 +8,7 @@ Preferences::Preferences()
 	m_vWindowPosition = { 0, 80 };
 	m_vConsolePosition = { 1280, 50 };
 	m_vFontSize = { 12,22 };
-
+	m_fAudioVolume = 0.1f;
 	GetData();
 }
 
@@ -30,13 +30,15 @@ void Preferences::GetData()
 	if (!ifFile.is_open())
 	{
 		std::stringstream error;
-		error << "Cannot open windowData file, using default sizing. Create file at " << filePath << ".";
+		error << "Cannot open preferences file, using default sizing. Create file at " << filePath << ".";
 		DEFAULT_LOG(error.str());
 		return;
 	}
 	std::string sLine;
 	while (getline(ifFile, sLine))
 	{
+		if (sLine[0] == '#' || sLine == "")
+			continue;
 		for (unsigned i = 0; i < sLine.size(); ++i)
 		{
 			if (sLine[i] == ' ')
@@ -47,31 +49,39 @@ void Preferences::GetData()
 		}
 		std::string sTerm = sLine.substr(0, sLine.find("=", 0));
 		std::string sVal = sLine.substr(sLine.find("=", 0) + 1);
-		Vector3 pos = StringToVector(sVal);
 
 		if (sTerm == "windowSize")
 		{
+			Vector3 pos = StringToVector(sVal);
 			m_vWindowSize = pos;
 		}
 		else if (sTerm == "windowPosition")
 		{
+			Vector3 pos = StringToVector(sVal);
 			m_vWindowPosition = pos;
 		}
 		else if (sTerm == "consoleSize")
 		{
+			Vector3 pos = StringToVector(sVal);
 			m_vConsoleSize = pos;
 		}
 		else if (sTerm == "consolePosition")
 		{
+			Vector3 pos = StringToVector(sVal);
 			m_vConsolePosition = pos;
 		}
 		else if (sTerm == "fontSize")
 		{
+			Vector3 pos = StringToVector(sVal);
 			m_vFontSize = pos;
+		}
+		else if (sTerm == "audioVolume")
+		{
+			m_fAudioVolume = std::stof(sVal);
 		}
 		else
 		{
-			DEFAULT_LOG("Unknown term in windowData file");
+			DEFAULT_LOG("Unknown term in windowData file" + sTerm + ":" + sVal);
 		}
 	}
 }
@@ -95,4 +105,8 @@ Vector3 Preferences::GetWindowPosition()
 Vector3 Preferences::GetFontSize()
 {
 	return m_vFontSize;
+}
+float Preferences::GetAudioVolume()
+{
+	return m_fAudioVolume;
 }

@@ -1,6 +1,7 @@
 #include "AudioManager.h"
 #include "irrKlang.h"
 #include "Resources.h"
+#include "Preferences.h"
 AudioManager::AudioManager()
 {
 	engine = irrklang::createIrrKlangDevice();
@@ -14,7 +15,7 @@ AudioManager::~AudioManager()
 void AudioManager::PlayBGM(std::string filePath)
 {
 	filePath = Resources::AudioPath + filePath;
-	engine->setSoundVolume(0.1f);
+	engine->setSoundVolume(Preferences::GetInstance()->GetAudioVolume());
 	engine->play2D(filePath.c_str(), true, false, false, irrklang::ESM_AUTO_DETECT, true);
 }
 

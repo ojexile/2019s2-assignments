@@ -24,6 +24,7 @@ private:
 	Vector3 m_vWindowPosition;
 	Vector3 m_vConsolePosition;
 	Vector3 m_vFontSize;
+	float m_fAudioVolume;
 public:
 	Preferences();
 	~Preferences();
@@ -35,4 +36,5 @@ public:
 	Vector3 GetConsolePosition();
 	Vector3 GetWindowPosition();
 	Vector3 GetFontSize();
+	float GetAudioVolume();
 };
