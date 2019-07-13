@@ -217,6 +217,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		//Vector3 newVel2 = u2 - 2 * m1 / (m1 + m2) * (((u2 - u1).Dot(pos2 - pos1)) / (pos2 - pos1).LengthSquared()) * (pos2 - pos1);
 		go1->GetComponent<ChengRigidbody>()->SetVel(newVel1);
 		//go2->GetComponent<ChengRigidbody>()->SetVel(newVel2);
+		AudioManager::GetInstance()->Play3D("pop.wav", {});
 	}
 	break;
 	case ChengRigidbody::BOX:
@@ -261,7 +262,6 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 	default:
 		break;
 	}
-	AudioManager::GetInstance()->Play3D("pop.wav", go1->GetComponent<TransformComponent>()->GetPosition());
 }
 void ChengCollisionManager::Update(GameObjectManager* GOM)
 {

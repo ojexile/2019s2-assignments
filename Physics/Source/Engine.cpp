@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "KeyboardManager.h"
 #include "ChengPhysicsScene.h"
+#include "AudioManager.h"
 // Select Debug logger user
 // Users are enums located in locator.h
 #define USER CHENG
@@ -23,6 +24,7 @@ Engine::~Engine()
 
 void Engine::Init()
 {
+	AudioManager::GetInstance();
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
