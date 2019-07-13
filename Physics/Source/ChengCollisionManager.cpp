@@ -30,14 +30,22 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 	{
 		Vector3 pos1 = go1->GetComponent<TransformComponent>()->GetPosition();
 		Vector3 pos2 = go2->GetComponent<TransformComponent>()->GetPosition();
-		pos2.y = pos1.y;
-		Vector3 dis = (pos2 - pos1);
+		Vector3 scale2 = go2->GetComponent<TransformComponent>()->GetScale();
+		Vector3 tempPos2 = pos2;
+		tempPos2.y = pos1.y;
+		Vector3 dis = (tempPos2 - pos1);
 		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x / 2 + go1->GetComponent<TransformComponent>()->GetScale().x;
 		Vector3 u = go1->GetComponent<ChengRigidbody>()->m_vVel;
 		if (dis.Length() < combRadius && u.Dot(dis) > 0.0f)
 		{
-			CHENG_LOG("ball-pillar");
-			return ChengRigidbody::PILLAR;
+			if (pos1.y < pos2.y + scale2.y)
+			{
+				if (pos1.y >= pos2.y)
+				{
+					CHENG_LOG("ball-pillar");
+					return ChengRigidbody::PILLAR;
+				}
+			}
 		}
 	}
 	break;
@@ -76,15 +84,16 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 			float width = wallScale.x;
 			float height = wallScale.y;
 			float depth = wallScale.y;
-			if (w0minusb1.Dot(N) < trans1->GetScale().x + depth * 0.5f
-				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + width * 0.5f)
+			if (w0minusb1.Dot(N) < trans1->GetScale().x + width * 0.5f
+				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + depth * 0.5f
+				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + height * 0.5f)
 			{
-				CHENG_LOG("ball - box");
-				return ChengRigidbody::BOX;
+				CHENG_LOG("ball - cube");
+				return ChengRigidbody::SQUARE;
 			}
-		}
 
-		//================================================================================
+			//================================================================================
+		}
 	}
 	// DO NOT BREAK, FALL THROUGH TO ALLOW PERPEN WALL COLL
 	case ChengRigidbody::SQUARE:
@@ -123,7 +132,8 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 			wallScale.x = wallScale.z;
 			wallScale.z = fTemp;
 			if (w0minusb1.Dot(N) < trans1->GetScale().x + wallScale.x * 0.5f
-				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + wallScale.z * 0.5f)
+				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + wallScale.z * 0.5f
+				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + wallScale.y * 0.5f)
 			{
 				CHENG_LOG("ball - square");
 				return ChengRigidbody::SQUARE;
@@ -160,7 +170,8 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 
 			Vector3 wallScale = trans2->GetScale();
 			if (w0minusb1.Dot(N) < trans1->GetScale().x + wallScale.x * 0.5f
-				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + wallScale.z * 0.5f)
+				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + wallScale.z * 0.5f
+				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + wallScale.y * 0.5f)
 			{
 				CHENG_LOG("ball - wall");
 				return ChengRigidbody::WALL;
@@ -174,7 +185,6 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 	default:
 		break;
 	}
-
 	return ChengRigidbody::NONE;
 }
 void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, ChengRigidbody::ePhysicsTypes e)

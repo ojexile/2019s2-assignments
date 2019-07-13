@@ -14,7 +14,7 @@ void ChengPhysicsScene::Init()
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
-	//m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
+	//
 
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject();
@@ -24,7 +24,7 @@ void ChengPhysicsScene::Init()
 	ground->SetActive(false);
 	//
 	float size = 100;
-	float height = 200;
+	float height = 20;
 	float thickness = 20;
 	// Wall
 	GameObject* wall = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
@@ -69,7 +69,7 @@ void ChengPhysicsScene::Init()
 	//--------------------------------------------------------------------------------
 	// pillar
 	GameObject* pillar = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
-	pillar->TRANSFORM->SetPosition(0, 0, 60);
+	pillar->TRANSFORM->SetPosition(0, 20, 60);
 	pillar->TRANSFORM->SetScale(30, height, 30);
 	GameObject* pillar2 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
 	pillar2->TRANSFORM->SetPosition(0, 0, -60);

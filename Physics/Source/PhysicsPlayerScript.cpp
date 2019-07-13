@@ -70,5 +70,11 @@ void PhysicsPlayerScript::Update(double dt)
 	{
 		GameObject* ball = Instantiate(m_RefBall3, ballSpawn);
 		ball->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
+
+		//
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
+		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+		cam->GetComponent<TransformComponent>()->SetPosition(0, 0, 20);
+		//cam->GetComponent<CameraComponent>()->
 	}
 }
