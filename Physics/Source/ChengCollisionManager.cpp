@@ -1,6 +1,7 @@
 #include "ChengCollisionManager.h"
 #include "ChengRigidbody.h"
 #include "AudioManager.h"
+#include "ScriptComponent.h"
 ChengCollisionManager::ChengCollisionManager()
 {
 }
@@ -217,7 +218,6 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		//Vector3 newVel2 = u2 - 2 * m1 / (m1 + m2) * (((u2 - u1).Dot(pos2 - pos1)) / (pos2 - pos1).LengthSquared()) * (pos2 - pos1);
 		go1->GetComponent<ChengRigidbody>()->SetVel(newVel1);
 		//go2->GetComponent<ChengRigidbody>()->SetVel(newVel2);
-		AudioManager::GetInstance()->Play3D("pop.wav", {});
 	}
 	break;
 	case ChengRigidbody::BOX:
@@ -310,7 +310,17 @@ void ChengCollisionManager::Update(GameObjectManager* GOM)
 						continue;
 					}
 				}
-				CollisionResponse(goA, goB, CheckCollision(goA, goB));
+				ChengRigidbody::ePhysicsTypes eCollideType = CheckCollision(goA, goB);
+				if (eCollideType != ChengRigidbody::NONE)
+				{
+					CollisionResponse(goA, goB, eCollideType);
+					ScriptComponent * Script1 = goA->GetComponent<ScriptComponent>();
+					if (Script1)
+						Script1->Collide(goB);
+					ScriptComponent * Script2 = goB->GetComponent<ScriptComponent>();
+					if (Script2)
+						Script2->Collide(goA);
+				}
 			}
 		}
 	}

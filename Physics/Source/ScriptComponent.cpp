@@ -121,3 +121,6 @@ GameObject* ScriptComponent::Instantiate(GameObject* goRef, std::string sLayer)
 	DEFAULT_LOG("Instantiate failed, GORef is null.");
 	return nullptr;
 }
+void ScriptComponent::Collide(GameObject*)
+{
+}
