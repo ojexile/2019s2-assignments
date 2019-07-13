@@ -1,14 +1,13 @@
 #include "DataContainer.h"
 #include "Resources.h"
-#include "ResourceHandler.h"
 DataContainer::DataContainer()
 {
 	// Meshs--------------------------------------------------------------------------------
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuad("Quad", { 1,1,1 }, 5);
 	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
-	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "cube.obj");
-	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("cube.tga");
-	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("moss1.tga");
+	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "cube");
+	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("cube");
+	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("moss1");
 
 	m_map_Meshes["Ground"] = MeshBuilder::GenerateQuad("Ground", { 1.f,1.f,1.f }, 500);
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
@@ -17,16 +16,16 @@ DataContainer::DataContainer()
 
 	std::vector<unsigned char> heightMap;
 	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("terrain", "heightmapMain", heightMap);
-	m_map_Meshes["Terrain"]->m_uTextureArray[0] = LoadTGA("moss1.tga");
+	m_map_Meshes["Terrain"]->m_uTextureArray[0] = LoadTGA("moss1");
 
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
-	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky.tga");
+	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
 	m_map_Animated["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
-	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("cat.tga");
+	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("cat");
 
-	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "water.obj");
-	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("water.tga");
+	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "water");
+	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("water");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();

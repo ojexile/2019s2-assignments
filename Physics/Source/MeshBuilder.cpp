@@ -4,8 +4,7 @@
 #include "Vertex.h"
 #include "MyMath.h"
 #include "LoadOBJ.h"
-#include "MemoryLeak.h"
-#include "ResourceHandler.h"
+#include "Resources.h"
 /******************************************************************************/
 /*!
 \brief
@@ -378,11 +377,9 @@ Mesh* MeshBuilder::GenerateCone(const std::string &meshName, Color color, unsign
 	return mesh;
 }
 
-Mesh* MeshBuilder::GenerateOBJ(const std::string &meshName, const std::string &path)
+Mesh* MeshBuilder::GenerateOBJ(const std::string &meshName, std::string file_path)
 {
-	Resources& res = *ResourceHandler::GetInstance()->GetResources();
-	std::string file_path = res.m_ObjectPath + path;
-
+	file_path = Resources::ObjectPath + file_path + ".obj";
 	std::vector<Position> vertices;
 	std::vector<TexCoord> uvs;
 	std::vector<Vector3> normals;
@@ -463,12 +460,9 @@ Mesh* MeshBuilder::GenerateText(const std::string &meshName, unsigned numRow, un
 	return mesh;
 }
 
-Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, const std::string &fp, std::vector<unsigned char> &heightMap)
+Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap)
 {
-	Resources& res = *ResourceHandler::GetInstance()->GetResources();
-	// type of .raw is assumed
-	std::string file_path = res.m_HeightMapPath + fp + ".raw";
-
+	file_path = Resources::HeightMapPath + file_path + ".raw";
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;

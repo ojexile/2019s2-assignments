@@ -13,14 +13,12 @@ using namespace std;
 
 #include "shader.hpp"
 #include "Locator.h"
-#include "ResourceHandler.h"
+#include "Resources.h"
 
 unsigned LoadShaders(const char * vfp, const char * ffp) {
-	Resources& res = *ResourceHandler::GetInstance()->GetResources();
-
 	// .vertexshader file ext is assumed
-	std::string vertex_file_path = res.m_ShaderPath + vfp + ".vertexshader";
-	std::string fragment_file_path = res.m_ShaderPath + ffp + ".fragmentshader";
+	std::string vertex_file_path = Resources::ShaderPath + vfp + ".vertexshader";
+	std::string fragment_file_path = Resources::ShaderPath + ffp + ".fragmentshader";
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);

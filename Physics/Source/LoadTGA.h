@@ -3,7 +3,7 @@
 
 #include "Locator.h"
 #include <string>
-
+// .tga exten is assumed
 unsigned LoadTGA(std::string s);
 
 #endif

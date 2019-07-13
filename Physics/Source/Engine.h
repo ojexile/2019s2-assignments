@@ -8,10 +8,9 @@
 
 #include "Logger.h"
 #include "Locator.h"
-#include "WindowData.h"
+#include "Preferences.h"
 
 #include <vector>
-#include "ResourceHandler.h"
 
 #define LOG_UPDATE_RATE 1
 

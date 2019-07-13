@@ -1,17 +1,14 @@
 #pragma once
 #include <string>
-#include <fstream>
-class Resources
+
+namespace Resources
 {
-private:
-public:
-	const std::string m_ContentPath;
-	const std::string m_ObjectPath;
-	const std::string m_TexturePath;
-	const std::string m_AudioPath;
-	const std::string m_ShaderPath;
-	const std::string m_HeightMapPath;
-	//--------------------------------------------------------------------------------
-	Resources(std::string, std::string, std::string, std::string, std::string, std::string);
-	~Resources();
-};
+	extern const std::string ContentPath;
+	extern const std::string TexturePath;
+	extern const  std::string ObjectPath;
+	extern const std::string AudioPath;
+	extern const std::string ShaderPath;
+	extern const std::string HeightMapPath;
+	extern const std::string Preferences;
+	extern const std::string Keybinds;
+}

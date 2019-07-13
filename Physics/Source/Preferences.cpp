@@ -1,6 +1,6 @@
-#include "WindowData.h"
-
-WindowData::WindowData()
+#include "Preferences.h"
+#include "Resources.h"
+Preferences::Preferences()
 {
 	// Defualt data
 	m_vWindowSize = { 1280,720 };
@@ -12,7 +12,7 @@ WindowData::WindowData()
 	GetData();
 }
 
-WindowData::~WindowData()
+Preferences::~Preferences()
 {
 }
 // converts string of format "x,y" into a vector3
@@ -23,13 +23,14 @@ Vector3 StringToVector(std::string s)
 
 	return	Vector3((float)std::stoi(sX), (float)std::stoi(sY));
 }
-void WindowData::GetData()
+void Preferences::GetData()
 {
-	std::ifstream ifFile(FILE_PATH);
+	std::string filePath = Resources::Preferences;
+	std::ifstream ifFile(filePath);
 	if (!ifFile.is_open())
 	{
 		std::stringstream error;
-		error << "Cannot open windowData file, using default sizing. Create file at " << FILE_PATH << ".";
+		error << "Cannot open windowData file, using default sizing. Create file at " << filePath << ".";
 		DEFAULT_LOG(error.str());
 		return;
 	}
@@ -40,7 +41,7 @@ void WindowData::GetData()
 		{
 			if (sLine[i] == ' ')
 			{
-				sLine.erase(i,1);
+				sLine.erase(i, 1);
 				--i;
 			}
 		}
@@ -75,23 +76,23 @@ void WindowData::GetData()
 	}
 }
 
-Vector3 WindowData::GetWindowSize()
+Vector3 Preferences::GetWindowSize()
 {
 	return m_vWindowSize;
 }
-Vector3 WindowData::GetConsoleSize()
+Vector3 Preferences::GetConsoleSize()
 {
 	return m_vConsoleSize;
 }
-Vector3 WindowData::GetConsolePosition()
+Vector3 Preferences::GetConsolePosition()
 {
 	return m_vConsolePosition;
 }
-Vector3 WindowData::GetWindowPosition()
+Vector3 Preferences::GetWindowPosition()
 {
 	return m_vWindowPosition;
 }
-Vector3 WindowData::GetFontSize()
+Vector3 Preferences::GetFontSize()
 {
 	return m_vFontSize;
 }
