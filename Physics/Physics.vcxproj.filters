@@ -46,6 +46,7 @@
     <ClCompile Include="Source\ChengRigidbody.cpp" />
     <ClCompile Include="Source\PhysicsPlayerScript.cpp" />
     <ClCompile Include="Source\BallScript.cpp" />
+    <ClCompile Include="Source\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -97,6 +98,7 @@
     <ClInclude Include="Source\LightManager.h" />
     <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\Preferences.h" />
+    <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\BallScript.h" />
   </ItemGroup>
   <ItemGroup>
