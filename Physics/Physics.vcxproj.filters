@@ -39,13 +39,13 @@
     <ClCompile Include="Source\LightManager.cpp" />
     <ClCompile Include="Source\Preferences.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
-    <ClCompile Include="Source\WindowData.cpp" />
     <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
     <ClCompile Include="Source\ChengPhysicsScene.cpp" />
     <ClCompile Include="Source\ChengCollisionManager.cpp" />
     <ClCompile Include="Source\ChengRigidbody.cpp" />
     <ClCompile Include="Source\PhysicsPlayerScript.cpp" />
+    <ClCompile Include="Source\BallScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -89,7 +89,6 @@
     <ClInclude Include="Source\TransformComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
-    <ClInclude Include="Source\WindowData.h" />
     <ClInclude Include="Source\LightManager.h" />
     <ClInclude Include="Source\ChengPhysicsScene.h" />
     <ClInclude Include="Source\ChengCollisionManager.h" />
@@ -98,6 +97,7 @@
     <ClInclude Include="Source\LightManager.h" />
     <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\Preferences.h" />
+    <ClInclude Include="Source\BallScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

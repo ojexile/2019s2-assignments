@@ -1,6 +1,6 @@
 #include "DataContainer.h"
 #include "ChengRigidbody.h"
-
+#include "BallScript.h"
 DataContainer::DataContainer()
 {
 	// Meshes================================================================================
@@ -21,8 +21,9 @@ DataContainer::DataContainer()
 	m_map_GO["ball"] = ball;
 	ball->AddComponent(new RenderComponent(this->GetMesh("ball")));
 	ball->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
+	ball->AddComponent(new BallScript());
 	// --------------------------------------------------------------------------------
-	GameObject* ball2 = new GameObject;
+	GameObject * ball2 = new GameObject;
 	m_map_GO["ball2"] = ball2;
 	ball2->AddComponent(new RenderComponent(this->GetMesh("ball2")));
 	ball2->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));

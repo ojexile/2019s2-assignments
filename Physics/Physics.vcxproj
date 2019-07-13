@@ -155,6 +155,7 @@
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
+    <ClCompile Include="Source\BallScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\ChengCollisionManager.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\AudioManager.h" />
+    <ClInclude Include="Source\BallScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\ChengCollisionManager.h" />
