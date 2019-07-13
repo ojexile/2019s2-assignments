@@ -1,5 +1,6 @@
 #include "ChengCollisionManager.h"
 #include "ChengRigidbody.h"
+#include "AudioManager.h"
 ChengCollisionManager::ChengCollisionManager()
 {
 }
@@ -260,6 +261,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 	default:
 		break;
 	}
+	AudioManager::GetInstance()->Play3D("pop.wav", go1->GetComponent<TransformComponent>()->GetPosition());
 }
 void ChengCollisionManager::Update(GameObjectManager* GOM)
 {
