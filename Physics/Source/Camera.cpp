@@ -82,15 +82,19 @@ void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 	m_fPitch += yoffset;
 }
 // Getters
-Vector3* Camera::GetTarget()
+Vector3 Camera::GetTarget()
 {
-	return &m_vTarget;
+	return m_vTarget;
 }
-Vector3* Camera::GetUp()
+Vector3 Camera::GetUp()
 {
-	return &m_vUp;
+	return m_vUp;
 }
-Vector3* Camera::GetDir()
+Vector3 Camera::GetDir()
 {
-	return &m_vDir;
+	return m_vDir;
+}
+void Camera::SetDir(Vector3 v)
+{
+	m_vDir = v;
 }
