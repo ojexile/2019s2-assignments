@@ -18,14 +18,7 @@
 
 #include "MeshBuilder.h"
 
-#include "LightManager.h"
 
-#define SCENELIGHTS m_LightManager.GetSceneLights()
-#define CURRENTLIGHT m_LightManager.GetCurrentLight()
-#define LIGHTINDEX m_LightManager.GetLightIndex()
-
-#define CYCLELIGHT_FOWARD m_LightManager.CycleLight(true)
-#define CYCLELIGHT_BACK m_LightManager.CycleLight(false)
 
 class RenderingManagerBase : public Renderer
 {
@@ -172,9 +165,8 @@ protected:
 	MS modelStack;
 	MS viewStack;
 	MS projectionStack;
+	Light lights[1];
 
-
-	LightManager m_LightManager;
 	bool bLightEnabled;
 	int m_iNumOfLightVar;
 	float fps;
