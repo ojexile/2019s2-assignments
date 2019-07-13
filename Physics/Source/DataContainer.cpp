@@ -65,9 +65,9 @@ DataContainer::DataContainer()
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
 	//wall->GetComponent<ChengRigidbody>()->SetNormal({ 0, 0, -1 });
 	// Shaders================================================================================
-	m_map_Shaders["Default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
+	m_map_Shaders["Default"] = LoadShaders("Shadow", "Shadow");
 
-	m_map_Shaders["GPass"] = LoadShaders("Shader//shadow/GPass.vertexshader", "Shader//shadow/GPass.fragmentshader");
+	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	//--------------------------------------------------------------------------------
 }
 
