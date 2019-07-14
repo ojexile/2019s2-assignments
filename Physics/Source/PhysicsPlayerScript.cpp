@@ -71,12 +71,20 @@ void PhysicsPlayerScript::Update(double dt)
 		GameObject* ball = Instantiate(m_RefBall3, ballSpawn);
 		ball->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
 	}
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCam"))
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
 	{
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 		trans->SetPosition(0, 0, 0);
-		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 100, 0);
-		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir({ 0, -1, 0 });
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 300, 0);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir({ 0.01f, -1, 0 });
+	}
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamPersp"))
+	{
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
+		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+		trans->SetPosition(0, 0, 0);
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 10, 0);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir({ 1.f, 0, 0 });
 	}
 }
