@@ -23,8 +23,7 @@ private:
 	Vector3 m_fOrthoSize;
 	bool m_bOrthoInit;
 
-	void UpdateFirstPersonView(double dt, Vector3 vPos);
-	void UpdateViewOrtho(Vector3 vPos);
+	void UpdateView(double dt, Vector3 vPos);
 public:
 
 	Camera();
