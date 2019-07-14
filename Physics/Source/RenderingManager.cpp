@@ -1,9 +1,16 @@
 #include "RenderingManager.h"
 #include "Application.h"
 #include "RenderComponent.h"
-
+#define VIEW_AS_LIGHT false
+#define SHADOW_VIEW_SIZE_X 200
+#define SHADOW_VIEW_SIZE_Y 200
+#define SHADOW_VIEW_SIZE_Z 1000
+#define SHADOW_RES 1024*3
 RenderingManager::RenderingManager()
 {
+	m_worldHeight = 100.f;
+	m_worldWidth = 100.f;
+	m_speed = 1.f;
 }
 
 RenderingManager::~RenderingManager()
@@ -13,11 +20,8 @@ RenderingManager::~RenderingManager()
 void RenderingManager::Init()
 {
 	RenderingManagerBase::Init();
-	m_worldHeight = 100.f;
-	m_worldWidth = 100.f;
-
-	m_speed = 1.f;
-
+	// Shadows
+	m_lightDepthFBO.Init(SHADOW_RES, SHADOW_RES);
 	Math::InitRNG();
 }
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -56,9 +60,8 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(m_gPassShaderID);
 	//These matrices should change when light position or direction changes
-	const float size = 250;
 	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
-		m_lightDepthProj.SetToOrtho(-size, size, -size, size, -100, 100);
+		m_lightDepthProj.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_X / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
 	else
 		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
 
@@ -149,32 +152,39 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		__debugbreak();
 		break;
 	}
-	//projection.SetToOrtho(-100, 100, -100, 100, -100, 100);
 
-	projectionStack.LoadMatrix(projection);
 	// Camera matrix
 	viewStack.LoadIdentity();
-	viewStack.LookAt(
-		vCamPosition.x, vCamPosition.y, vCamPosition.z,
-		Camera->m_vTarget.x, Camera->m_vTarget.y, Camera->m_vTarget.z,
-		Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z
-	);
-	/*viewStack.LookAt(
+
+	if (VIEW_AS_LIGHT)
+	{
+		projection.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_X / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
+		viewStack.LookAt(
 			lights[0].position.x, lights[0].position.y, lights[0].position.z,
 			0, 0, 0,
-			0, 1, 0);*/
-			//std::stringstream ss;
-			//ss.precision(1);
-			//ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
-			////CHENG_LOG("CAM TAR: ", ss.str());
-			//std::stringstream ss2;
-			//ss2.precision(1);
-			//ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
-			////CHENG_LOG("CAM POS: ", ss2.str());
-			//ss.str("");
-			//ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
-			//CHENG_LOG("CAM DIR: ", ss.str());
-			// Model matrix : an identity matrix (model will be at the origin)
+			0, 1, 0);
+	}
+	else
+	{
+		viewStack.LookAt(
+			vCamPosition.x, vCamPosition.y, vCamPosition.z,
+			Camera->m_vTarget.x, Camera->m_vTarget.y, Camera->m_vTarget.z,
+			Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z);
+	}
+	projectionStack.LoadMatrix(projection);
+
+	//std::stringstream ss;
+	//ss.precision(1);
+	//ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
+	////CHENG_LOG("CAM TAR: ", ss.str());
+	//std::stringstream ss2;
+	//ss2.precision(1);
+	//ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
+	////CHENG_LOG("CAM POS: ", ss2.str());
+	//ss.str("");
+	//ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
+	//CHENG_LOG("CAM DIR: ", ss.str());
+	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
 	RenderWorld(scene);
