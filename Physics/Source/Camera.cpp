@@ -70,6 +70,10 @@ void Camera::UpdateFirstPersonView(double dt, Vector3 vPos)
 	}*/
 	m_vTarget = vPos + m_vDir;
 }
+void Camera::UpdateViewOrtho(Vector3 vPos)
+{
+	m_vTarget = vPos += m_vDir.Normalized();
+}
 void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 {
 	if (m_bIsFirstMouseMove)
