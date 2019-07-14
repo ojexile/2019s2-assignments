@@ -77,7 +77,7 @@ void PhysicsPlayerScript::Update(double dt)
 		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 		trans->SetPosition(0, 0, 0);
 		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 300, 0);
-		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, 0);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, -90);
 	}
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamPersp"))
 	{
@@ -85,6 +85,6 @@ void PhysicsPlayerScript::Update(double dt)
 		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 		trans->SetPosition(0, 0, 0);
 		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 10, 0);
-		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir({ 1.f, 0, 0 });
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, 0);
 	}
 }
