@@ -136,7 +136,7 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		if (Camera->IsOrthoInit())
 		{
 			Vector3 vOrthoSize = Camera->GetOrthoSize();
-			projection.SetToOrtho(-vOrthoSize.x, vOrthoSize.x, -vOrthoSize.y, vOrthoSize.y, 0, vOrthoSize.z);
+			projection.SetToOrtho(-vOrthoSize.x / 2, vOrthoSize.x / 2, -vOrthoSize.y / 2, vOrthoSize.y / 2, 0, vOrthoSize.z);
 		}
 		else
 		{
