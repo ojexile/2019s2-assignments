@@ -108,11 +108,10 @@ Vector3 Camera::GetDir()
 {
 	return m_vDir;
 }
-void Camera::SetDir(Vector3 v)
+void Camera::SetDir(float yaw, float pitch)
 {
-	m_vDir = v;
-	m_fYaw = atan(v.x / (-v.y));
-	m_fPitch = atan(sqrt(v.x *v.x + v.y * v.y) / v.z) - 90;
+	m_fYaw = yaw;
+	m_fPitch = pitch;
 }
 Vector3 Camera::GetOrthoSize()
 {
