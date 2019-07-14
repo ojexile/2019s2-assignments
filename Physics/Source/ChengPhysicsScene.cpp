@@ -14,6 +14,7 @@ void ChengPhysicsScene::Init()
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
+	this->m_Camera->InitOrtho({ 100,100,1000 });
 	//
 
 	// Ground

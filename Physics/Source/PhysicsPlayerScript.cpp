@@ -73,7 +73,7 @@ void PhysicsPlayerScript::Update(double dt)
 	}
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCam"))
 	{
-		//SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 		trans->SetPosition(0, 0, 0);
 		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 200, 0);
