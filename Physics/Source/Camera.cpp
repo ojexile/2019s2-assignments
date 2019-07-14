@@ -9,6 +9,8 @@ Camera::Camera()
 	m_fPitch = 0;
 	m_fYaw = 270;
 	m_bIsFirstMouseMove = true;
+
+	m_bOrthoInit = false;
 }
 
 Camera::~Camera()
@@ -26,16 +28,24 @@ void Camera::Reset()
 	m_vTarget.Set(0, 0, 0);
 	m_vUp.Set(0, 1, 0);
 }
-
+bool Camera::IsOrthoInit()
+{
+	return m_bOrthoInit;
+}
+void Camera::InitOrtho(Vector3 v)
+{
+	m_fOrthoSize = v;
+	m_bOrthoInit = true;
+}
 void Camera::Update(double dt)
 {
 }
 void Camera::UpdateFirstPersonView(double dt, Vector3 vPos)
 {
-	if (m_fPitch > 80.0f)
-		m_fPitch = 80.0f;
-	if (m_fPitch < -80.0f)
-		m_fPitch = -80.0f;
+	if (m_fPitch > 89.0f)
+		m_fPitch = 89.0f;
+	if (m_fPitch < -89.0f)
+		m_fPitch = -89.0f;
 
 	m_vDir.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
 	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
@@ -97,4 +107,10 @@ Vector3 Camera::GetDir()
 void Camera::SetDir(Vector3 v)
 {
 	m_vDir = v;
+	m_fYaw = atan(v.x / (-v.y));
+	m_fPitch = atan(sqrt(v.x *v.x + v.y * v.y) / v.z) - 90;
+}
+Vector3 Camera::GetOrthoSize()
+{
+	return m_fOrthoSize;
 }

@@ -20,16 +20,21 @@ private:
 	float m_fPitch;
 	float m_fYaw;
 
+	Vector3 m_fOrthoSize;
+	bool m_bOrthoInit;
+
 	void UpdateFirstPersonView(double dt, Vector3 vPos);
 public:
 
 	Camera();
 	~Camera();
 	virtual void Init(const Vector3& target, const Vector3& up);
+	void InitOrtho(Vector3);
 	virtual void Reset();
 	virtual void Update(double dt);
 	void UpdateYawPitchMouse(float xpos, float ypos);
-
+	bool IsOrthoInit();
+	Vector3 GetOrthoSize();
 	// Getters
 	Vector3 GetTarget();
 	Vector3 GetUp();
