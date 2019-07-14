@@ -3,13 +3,14 @@
 
 #define DEFAULT_DIFFUSE 0.8f
 #define DEFAULT_AMBIENT 0.5f
-#define DEFAULT_SPECULAR 0.3f
-#define DEFAULT_SHININESS 5.f
+#define DEFAULT_SPECULAR 0.1f
+#define DEFAULT_SHININESS 1.f
 
 struct Component
 {
 	float r, g, b;
-	Component(float r = 0.1f, float g = 0.1f, float b = 0.1f) { Set(r, g, b); }
+	Component() {};
+	Component(float r, float g, float b) { Set(r, g, b); }
 	void Set(float r, float g, float b) { this->r = r; this->g = g; this->b = b; }
 };
 struct Material

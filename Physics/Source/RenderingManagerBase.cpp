@@ -146,7 +146,7 @@ void RenderingManagerBase::Init()
 	m_programID = DataContainer::GetInstance()->GetShader("Default");
 
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
-	lights[0].position.Set(5.f, 30, 0);
+	lights[0].position.Set(20.f, 300, 0);
 	lights[0].color.Set(1, 1, 1);
 	lights[0].power = 1;
 	lights[0].kC = 1.f;
