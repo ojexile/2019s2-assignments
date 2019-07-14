@@ -14,7 +14,7 @@ void ChengPhysicsScene::Init()
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
-	this->m_Camera->InitOrtho({ 100,100,1000 });
+	this->m_Camera->InitOrtho({ 100,100,10000 });
 	//
 
 	// Ground
@@ -61,6 +61,7 @@ void ChengPhysicsScene::Init()
 	ceil->TRANSFORM->SetPosition(0, 1000, 0);
 	ceil->TRANSFORM->SetRotation(90, 0, 0, 1);
 	ceil->TRANSFORM->SetScale(thickness, size * 2, size * 2);
+	ceil->SetActive(false);
 	//--------------------------------------------------------------------------------
 	GameObject* wall6 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("floor")->Clone());
 	wall6->TRANSFORM->SetPosition(0, -thickness / 2, 0);

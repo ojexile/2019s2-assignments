@@ -76,7 +76,7 @@ void PhysicsPlayerScript::Update(double dt)
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 		trans->SetPosition(0, 0, 0);
-		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 200, 0);
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 100, 0);
 		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir({ 0, -1, 0 });
 	}
 }
