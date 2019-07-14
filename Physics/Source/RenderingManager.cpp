@@ -56,10 +56,9 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(m_gPassShaderID);
 	//These matrices should change when light position or direction changes
-	const float size = 200;
-	const float depth = 1000;
+	const float size = 250;
 	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
-		m_lightDepthProj.SetToOrtho(-size, size, -size, size, 0, depth);
+		m_lightDepthProj.SetToOrtho(-size, size, -size, size, -100, 100);
 	else
 		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
 
@@ -137,7 +136,7 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		if (Camera->IsOrthoInit())
 		{
 			Vector3 vOrthoSize = Camera->GetOrthoSize();
-			projection.SetToOrtho(-vOrthoSize.x / 2, vOrthoSize.x / 2, -vOrthoSize.y / 2, vOrthoSize.y / 2, -vOrthoSize.z, 0);
+			projection.SetToOrtho(-vOrthoSize.x, vOrthoSize.x, -vOrthoSize.y, vOrthoSize.y, 0, vOrthoSize.z);
 		}
 		else
 		{
@@ -150,8 +149,8 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		__debugbreak();
 		break;
 	}
-	float size = 70;
-	//projection.SetToOrtho(-size, size, -size, size, 5, 1000);
+	//projection.SetToOrtho(-100, 100, -100, 100, -100, 100);
+
 	projectionStack.LoadMatrix(projection);
 	// Camera matrix
 	viewStack.LoadIdentity();
