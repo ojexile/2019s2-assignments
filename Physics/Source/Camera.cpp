@@ -40,7 +40,7 @@ void Camera::InitOrtho(Vector3 v)
 void Camera::Update(double dt)
 {
 }
-void Camera::UpdateFirstPersonView(double dt, Vector3 vPos)
+void Camera::UpdateView(double dt, Vector3 vPos)
 {
 	if (m_fPitch > 89.0f)
 		m_fPitch = 89.0f;
@@ -51,28 +51,7 @@ void Camera::UpdateFirstPersonView(double dt, Vector3 vPos)
 	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
 	m_vDir.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
 
-	/*const float speed = 1000.f * (float)dt;
-	if (Application::IsKeyPressed(VK_LEFT))
-	{
-		m_fYaw -= speed * (float)dt;
-	}
-	if (Application::IsKeyPressed(VK_RIGHT))
-	{
-		m_fYaw += speed * (float)dt;
-	}
-	if (Application::IsKeyPressed(VK_UP))
-	{
-		m_fPitch += speed * (float)dt;
-	}
-	if (Application::IsKeyPressed(VK_DOWN))
-	{
-		m_fPitch -= speed * (float)dt;
-	}*/
 	m_vTarget = vPos + m_vDir;
-}
-void Camera::UpdateViewOrtho(Vector3 vPos)
-{
-	m_vTarget = vPos += m_vDir.Normalized();
 }
 void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 {
