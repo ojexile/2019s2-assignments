@@ -40,7 +40,7 @@ public:
 	Vector3 GetTarget();
 	Vector3 GetUp();
 	Vector3 GetDir();
-	void SetDir(Vector3 v);
+	void SetDir(float yaw, float pitch);
 };
 
 #endif
