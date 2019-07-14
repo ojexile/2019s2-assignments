@@ -144,9 +144,6 @@ void RenderingManagerBase::Init()
 	// Main Shader--------------------------------------------------------------------------------
 	m_programID = DataContainer::GetInstance()->GetShader("Default");
 
-	// Shadows
-	m_lightDepthFBO.Init(2048, 2048);
-
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
 	lights[0].position.Set(0.01f, 100, 0);
 	lights[0].color.Set(1, 1, 1);
