@@ -27,6 +27,9 @@ void CameraComponent::Update(double dt)
 	case CameraComponent::CAM_FIRST:
 		m_Camera.UpdateFirstPersonView(dt, vPos);
 		break;
+	case CameraComponent::CAM_ORTHO:
+		m_Camera.UpdateViewOrtho(vPos);
+		break;
 	default:
 		break;
 	}

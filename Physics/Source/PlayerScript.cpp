@@ -60,6 +60,6 @@ void PlayerScript::Update(double dt)
 		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 		trans->SetPosition(0, 0, 0);
 		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 200, 0);
-		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir({ 0, -1, 0 });
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir({ 0.1f, -1, 0 });
 	}
 }
