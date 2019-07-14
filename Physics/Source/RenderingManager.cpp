@@ -132,8 +132,18 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		break;
 	case CameraComponent::CAM_ORTHO:
 	case CameraComponent::CAM_CUSTOM_ORTHO:
-		projection.SetToOrtho(0, Application::GetWindowWidth(), 0, Application::GetWindowHeight(), -10, 10);
-		break;
+	{
+		if (Camera->IsOrthoInit())
+		{
+			Vector3 vOrthoSize = Camera->GetOrthoSize();
+			projection.SetToOrtho(-vOrthoSize.x / 2, vOrthoSize.x / 2, -vOrthoSize.y / 2, vOrthoSize.y / 2, 0, vOrthoSize.z);
+		}
+		else
+		{
+			DEFAULT_LOG("(Cheng)Camera ortho size not initialsed.");
+		}
+	}
+	break;
 	default:
 		DEFAULT_LOG("Camera type not unknown.");
 		__debugbreak();
@@ -153,18 +163,18 @@ void RenderingManager::RenderPassMain(Scene* scene)
 			lights[0].position.x, lights[0].position.y, lights[0].position.z,
 			0, 0, 0,
 			0, 1, 0);*/
-	//std::stringstream ss;
-	//ss.precision(1);
-	//ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
-	////CHENG_LOG("CAM TAR: ", ss.str());
-	//std::stringstream ss2;
-	//ss2.precision(1);
-	//ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
-	////CHENG_LOG("CAM POS: ", ss2.str());
-	//ss.str("");
-	//ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
-	//CHENG_LOG("CAM DIR: ", ss.str());
-	// Model matrix : an identity matrix (model will be at the origin)
+			//std::stringstream ss;
+			//ss.precision(1);
+			//ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
+			////CHENG_LOG("CAM TAR: ", ss.str());
+			//std::stringstream ss2;
+			//ss2.precision(1);
+			//ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
+			////CHENG_LOG("CAM POS: ", ss2.str());
+			//ss.str("");
+			//ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
+			//CHENG_LOG("CAM DIR: ", ss.str());
+			// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
 	RenderWorld(scene);

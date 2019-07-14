@@ -9,6 +9,8 @@ Camera::Camera()
 	m_fPitch = 0;
 	m_fYaw = 270;
 	m_bIsFirstMouseMove = true;
+
+	m_bOrthoInit = false;
 }
 
 Camera::~Camera()
@@ -26,38 +28,29 @@ void Camera::Reset()
 	m_vTarget.Set(0, 0, 0);
 	m_vUp.Set(0, 1, 0);
 }
-
+bool Camera::IsOrthoInit()
+{
+	return m_bOrthoInit;
+}
+void Camera::InitOrtho(Vector3 v)
+{
+	m_fOrthoSize = v;
+	m_bOrthoInit = true;
+}
 void Camera::Update(double dt)
 {
 }
-void Camera::UpdateFirstPersonView(double dt, Vector3 vPos)
+void Camera::UpdateView(double dt, Vector3 vPos)
 {
-	if (m_fPitch > 80.0f)
-		m_fPitch = 80.0f;
-	if (m_fPitch < -80.0f)
-		m_fPitch = -80.0f;
+	if (m_fPitch > 89.0f)
+		m_fPitch = 89.0f;
+	if (m_fPitch < -89.0f)
+		m_fPitch = -89.0f;
 
 	m_vDir.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
 	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
 	m_vDir.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
 
-	/*const float speed = 1000.f * (float)dt;
-	if (Application::IsKeyPressed(VK_LEFT))
-	{
-		m_fYaw -= speed * (float)dt;
-	}
-	if (Application::IsKeyPressed(VK_RIGHT))
-	{
-		m_fYaw += speed * (float)dt;
-	}
-	if (Application::IsKeyPressed(VK_UP))
-	{
-		m_fPitch += speed * (float)dt;
-	}
-	if (Application::IsKeyPressed(VK_DOWN))
-	{
-		m_fPitch -= speed * (float)dt;
-	}*/
 	m_vTarget = vPos + m_vDir;
 }
 void Camera::UpdateYawPitchMouse(float xpos, float ypos)
@@ -94,7 +87,12 @@ Vector3 Camera::GetDir()
 {
 	return m_vDir;
 }
-void Camera::SetDir(Vector3 v)
+void Camera::SetDir(float yaw, float pitch)
 {
-	m_vDir = v;
+	m_fYaw = yaw;
+	m_fPitch = pitch;
+}
+Vector3 Camera::GetOrthoSize()
+{
+	return m_fOrthoSize;
 }
