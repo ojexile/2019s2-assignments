@@ -266,7 +266,7 @@ __pycache__/
 *.idb
 *.lastcodeanalysissucceeded
 *.exe
-*.lib
+#*.lib
 /Physics/windowData/windowData.txt
 /Common/Debug
 /Physics/Debug
