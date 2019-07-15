@@ -108,13 +108,7 @@ void RenderingManagerBase::BindUniforms()
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], true);
 
-	// Shadows
-	/*glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1,
-		GL_FALSE, &m_lightDepthMVPGPass.a[0]);
-	glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1,
-		GL_FALSE, &m_lightDepthMVP.a[0]);
-
-	glUniform1i(m_parameters[U_SHADOW_MAP], 8);*/
+	glUniform1i(m_parameters[U_SHADOW_MAP], 8);
 
 	glUniform1f(m_parameters[U_VERT_ET], m_fElapsedTime);
 	glUniform1f(m_parameters[U_FRAG_ET], m_fElapsedTime);
@@ -146,7 +140,7 @@ void RenderingManagerBase::Init()
 	m_programID = DataContainer::GetInstance()->GetShader("Default");
 
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
-	lights[0].position.Set(20.f, 300, 0);
+	lights[0].position.Set(30.f, 300, 0);
 	lights[0].color.Set(1, 1, 1);
 	lights[0].power = 0.8f;
 	lights[0].kC = 1.f;

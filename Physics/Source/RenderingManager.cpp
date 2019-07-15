@@ -5,7 +5,7 @@
 #define SHADOW_VIEW_SIZE_X 200
 #define SHADOW_VIEW_SIZE_Y 200
 #define SHADOW_VIEW_SIZE_Z 1000
-#define SHADOW_RES 1024*3
+#define SHADOW_RES 1024*4
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
@@ -175,19 +175,6 @@ void RenderingManager::RenderPassMain(Scene* scene)
 			Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z);
 	}
 	projectionStack.LoadMatrix(projection);
-
-	//std::stringstream ss;
-	//ss.precision(1);
-	//ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
-	////CHENG_LOG("CAM TAR: ", ss.str());
-	//std::stringstream ss2;
-	//ss2.precision(1);
-	//ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
-	////CHENG_LOG("CAM POS: ", ss2.str());
-	//ss.str("");
-	//ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
-	//CHENG_LOG("CAM DIR: ", ss.str());
-	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
 	RenderWorld(scene);
