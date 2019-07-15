@@ -6,10 +6,11 @@
 class ComponentBase
 {
 private:
-	std::vector<ComponentBase*>* m_vec_RefList;
+	std::vector<ComponentBase*>* m_vec_RefList = nullptr;
 public:
 	ComponentBase();
 	virtual ~ComponentBase();
+	ComponentBase(ComponentBase& com);
 
 	void Init(std::vector<ComponentBase*>* refList);
 	virtual void Update(double dt);

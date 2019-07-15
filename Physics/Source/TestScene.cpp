@@ -10,6 +10,12 @@ TestScene::~TestScene()
 }
 void TestScene::Init()
 {
+	// Create Camera
+	m_CameraGO = new GameObject;
+	m_CameraGO->AddComponent(new CameraComponent);
+	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
+	//m_GameObjectManager.AddGameObject(CameraGO);
+	//
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	// Layers
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
