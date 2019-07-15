@@ -192,7 +192,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// Switch shader
 		if (it->first == "UI")
 			continue;
-		if (SWITCH_SHADER)
+		if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 		{
 			m_programID = it->second->GetShader();
 			BindUniforms();
@@ -216,8 +216,8 @@ void RenderingManager::RenderWorld(Scene* scene)
 	}
 	// Render UI
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
-	std::vector<GameObject*>* GOList = (*map)["UI"]->GetGOList();
-	if (SWITCH_SHADER)
+	std::vector<GameObject*>* GOList = map->at("UI")->GetGOList();
+	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 	{
 		m_programID = (*map)["UI"]->GetShader();
 		BindUniforms();
