@@ -4,7 +4,6 @@
 
 #include "LoadTGA.h"
 #include "Resources.h"
-#include "MemoryLeak.h"
 
 GLuint LoadTGA(std::string path)				// load TGA file to memory
 {
