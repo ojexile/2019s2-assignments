@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "GunScript.h"
 #include "LoadHmap.h"
+#include "KeyboardManager.h"
 ChengPlayerScript::ChengPlayerScript(GameObject* gun)
 	:m_Gun(gun)
 {
@@ -86,6 +87,23 @@ void ChengPlayerScript::Update(double dt)
 	Vector3 pos = trans->GetPosition();
 	//trans->SetPosition(pos.x, 50.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
 	trans->SetPosition({ pos.x,0,pos.z });
+
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
+	{
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
+		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+		trans->SetPosition(0, 0, 0);
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 300, 0);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, -90);
+	}
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamPersp"))
+	{
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
+		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+		trans->SetPosition(0, 0, 0);
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, 0);
+	}
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
 {

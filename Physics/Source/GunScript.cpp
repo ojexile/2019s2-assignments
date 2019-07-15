@@ -22,7 +22,7 @@ void GunScript::Update(double dt)
 }
 void GunScript::Fire(Vector3 vDir)
 {
-	float fBallSpeed = 130.f;
+	float fBallSpeed = 230.f;
 	Vector3 ballDir = vDir;
 	Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
 	GameObject* bul = Instantiate(m_Bullet, pos);
