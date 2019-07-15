@@ -503,7 +503,7 @@ Mesh* MeshBuilder::GenerateText(const std::string &meshName, unsigned numRow, un
 	return mesh;
 }
 
-Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, const std::string &file_path, std::vector<unsigned char> &heightMap, Vector3 terrainScale)
+Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap, Vector3 terrainScale)
 {
 	file_path = Resources::HeightMapPath + file_path + ".raw";
 	Vertex v;

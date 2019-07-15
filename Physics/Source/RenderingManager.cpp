@@ -210,10 +210,6 @@ void RenderingManager::RenderWorld(Scene* scene)
 			m_programID = it->second->GetShader();
 			BindUniforms();
 		}
-		std::vector<GameObject*> GOList = *it->second->GetGOList();
-		for (unsigned i = 0; i < GOList.size(); ++i)
-		// m_programID = it->second->GetShader();
-		// BindUniforms();
 		std::vector<GameObject*>* GOList = it->second->GetGOList();
 		for (unsigned i = 0; i < GOList->size(); ++i)
 		{
@@ -233,17 +229,13 @@ void RenderingManager::RenderWorld(Scene* scene)
 	}
 	// Render UI
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
-	std::vector<GameObject*>* GOList = map->at("UI")->GetGOList();
-	// m_programID = (*map)["UI"]->GetShader();
-	// BindUniforms();
-	for (unsigned i = 0; i < GOList->size(); ++i)
-	std::vector<GameObject*> GOList = *(*map)["UI"]->GetGOList();
+	std::vector<GameObject*>* GOList = (*map)["UI"]->GetGOList();
 	if (SWITCH_SHADER)
 	{
 		m_programID = (*map)["UI"]->GetShader();
 		BindUniforms();
 	}
-	for (unsigned i = 0; i < GOList.size(); ++i)
+	for (unsigned i = 0; i < GOList->size(); ++i)
 	{
 		GameObject* go = GOList->at(i);
 		if (!go->IsActive())
