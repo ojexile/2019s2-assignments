@@ -11,12 +11,17 @@ ChengPhysicsScene::~ChengPhysicsScene()
 void ChengPhysicsScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
+	// Create Camera
+	m_CameraGO = new GameObject;
+	m_CameraGO->AddComponent(new CameraComponent);
+	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
+	//m_GameObjectManager.AddGameObject(CameraGO);
+	//
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
-	this->m_Camera->InitOrtho({ 100,100,10000 });
+	this->m_Camera->InitOrtho({ 300,300,10000 });
 	//
-
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject();
 	ground->TRANSFORM->SetRotation(-90, 1, 0, 0);
