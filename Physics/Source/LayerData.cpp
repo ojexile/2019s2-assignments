@@ -1,5 +1,4 @@
 #include "LayerData.h"
-#include "MemoryLeak.h"
 
 LayerData::LayerData(unsigned Shader)
 	:m_Shader(Shader)
@@ -15,10 +14,10 @@ LayerData::~LayerData()
 	//}
 	for (unsigned i = 0; i < m_vec_GameObjects->size(); ++i)
 	{
-		delete m_vec_GameObjects->at(i);
+		//delete m_vec_GameObjects->at(i);
 	}
-	m_vec_GameObjects->clear();
-	delete m_vec_GameObjects;
+	//m_vec_GameObjects->clear();
+	///delete m_vec_GameObjects;
 }
 std::vector<GameObject*>* LayerData::GetGOList()
 {

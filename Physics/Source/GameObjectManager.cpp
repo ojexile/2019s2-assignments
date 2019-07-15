@@ -8,15 +8,15 @@ GameObjectManager::GameObjectManager()
 
 GameObjectManager::~GameObjectManager()
 {
-	std::map<std::string, LayerData*>::iterator it;
+	//std::map<std::string, LayerData*>::iterator it;
 
-	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
-	{
-		// it->first == key
-		// it->second == value
-		delete it->second;
-	}
-	m_map_Layers.clear();
+	//for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
+	//{
+	//	// it->first == key
+	//	// it->second == value
+	//	delete it->second;
+	//}
+	//m_map_Layers.clear();
 }
 
 std::map<std::string, LayerData*>* GameObjectManager::GetLayerList()

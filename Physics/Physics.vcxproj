@@ -159,7 +159,6 @@
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
-    <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\DepthFBO.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
@@ -174,7 +173,6 @@
     <ClCompile Include="Source\LogData.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\MemoryLog.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
@@ -201,7 +199,6 @@
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\DataContainer.h" />
-    <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\DepthFBO.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\GameObject.h" />
@@ -217,8 +214,6 @@
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
     <ClInclude Include="Source\Material.h" />
-    <ClInclude Include="Source\MemoryLeak.h" />
-    <ClInclude Include="Source\MemoryLog.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\PlayerScript.h" />

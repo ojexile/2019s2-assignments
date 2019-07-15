@@ -21,7 +21,6 @@
     <ClCompile Include="Source\LogData.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\MemoryLog.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
@@ -35,7 +34,6 @@
     <ClCompile Include="Source\TestScene.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
-    <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
     <ClCompile Include="Source\Preferences.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
@@ -50,7 +48,6 @@
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\DataContainer.h" />
-    <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\DepthFBO.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\GameObject.h" />
@@ -65,8 +62,6 @@
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
     <ClInclude Include="Source\Material.h" />
-    <ClInclude Include="Source\MemoryLeak.h" />
-    <ClInclude Include="Source\MemoryLog.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\PlayerScript.h" />

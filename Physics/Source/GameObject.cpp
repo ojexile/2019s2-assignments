@@ -25,18 +25,18 @@ GameObject::GameObject(GameObject& go)
 
 GameObject::~GameObject()
 {
-	// Clear components
-	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
-	{
-		delete m_vec_ComponentList[i];
-	}
-	//m_Transform = nullptr;
-	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
-	{
-		delete m_vec_ChildList[i];
-	}
-	m_vec_ComponentList.clear();
-	m_vec_ChildList.clear();
+	//// Clear components
+	//for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
+	//{
+	//	delete m_vec_ComponentList[i];
+	//}
+	////m_Transform = nullptr;
+	//for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
+	//{
+	//	delete m_vec_ChildList[i];
+	//}
+	////m_vec_ComponentList.clear();
+	////m_vec_ChildList.clear();
 }
 ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 {
