@@ -10,6 +10,10 @@ ChengPhysicsScene::~ChengPhysicsScene()
 }
 void ChengPhysicsScene::Init()
 {
+	// Create Camera
+	m_CameraGO = new GameObject;
+	m_CameraGO->AddComponent(new CameraComponent);
+	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
