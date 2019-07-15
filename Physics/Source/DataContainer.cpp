@@ -20,14 +20,14 @@ DataContainer::DataContainer()
 	// Meshs--------------------------------------------------------------------------------
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuad("Quad", { 1,1,1 }, 5);
 	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
-	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/cube.obj");
-	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
-	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
+	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "cube");
+	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("cube");
+	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("moss1");
 
 	m_map_Meshes["Ground"] = MeshBuilder::GenerateQuad("Ground", { 1.f,1.f,1.f }, 500);
 	// Gun
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
-	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("textures/PLAYER_PISTOL.tga");
+	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("PLAYER_PISTOL");
 
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
 
@@ -72,32 +72,32 @@ DataContainer::DataContainer()
 	GameObject* floor = new GameObject;
 	m_map_GO["floor"] = floor;
 	m_map_Animated["Leaf"] = MeshBuilder::GenerateAnimatedMesh("Leaf", 4, 4, 0, 15, 2.f, true);
-	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/Leaf.tga");
+	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Leaf");
 
 	m_map_Meshes["Water"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.4f);
-	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
+	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("particle");
 
 	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, false);
-	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/Smoke.tga");
+	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Smoke");
 
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.1f);
-	m_map_Meshes["Fish"]->m_uTextureArray[0] = LoadTGA("textures/Fish.tga");
+	m_map_Meshes["Fish"]->m_uTextureArray[0] = LoadTGA("Fish");
 
 	m_map_Meshes["Droplet"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.2f);
-	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
+	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("particle");
 
 	m_map_Meshes["DropletMini"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.2f);
-	m_map_Meshes["DropletMini"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
+	m_map_Meshes["DropletMini"]->m_uTextureArray[0] = LoadTGA("particle");
 
-	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
-	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
+	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("cubeobj", "water");
+	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("water");
 
-	m_map_Meshes["Tree"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/tree.obj");
-	m_map_Meshes["Tree"]->m_uTextureArray[0] = LoadTGA("textures/tree.tga");
-	m_map_Meshes["Tree"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
+	m_map_Meshes["Tree"] = MeshBuilder::GenerateOBJ("tree", "tree");
+	m_map_Meshes["Tree"]->m_uTextureArray[0] = LoadTGA("tree");
+	m_map_Meshes["Tree"]->m_uTextureArray[1] = LoadTGA("moss1");
 
 	m_map_Meshes["Crosshair"] = MeshBuilder::GenerateQuad("Crosshair", { 1.f,1.f,1.f }, 2);
-	m_map_Meshes["Crosshair"]->m_uTextureArray[0] = LoadTGA("textures/Crosshair.tga");
+	m_map_Meshes["Crosshair"]->m_uTextureArray[0] = LoadTGA("Crosshair");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	// Particle
@@ -178,11 +178,11 @@ DataContainer::DataContainer()
 
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	// Shaders--------------------------------------------------------------------------------
-	m_map_Shaders["Default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
-	m_map_Shaders["Water"] = LoadShaders("Shader//water.vertexshader", "Shader//water.fragmentshader");
-	m_map_Shaders["GPass"] = LoadShaders("Shader//shadow/GPass.vertexshader", "Shader//shadow/GPass.fragmentshader");
-	m_map_Shaders["Smoke"] = LoadShaders("Shader//Smoke.vertexshader", "Shader//Smoke.fragmentshader");
-	m_map_Shaders["Underwater"] = LoadShaders("Shader//Underwater.vertexshader", "Shader//Underwater.fragmentshader");
+	m_map_Shaders["Default"] = LoadShaders("Shadow", "Shadow");
+	m_map_Shaders["Water"] = LoadShaders("Water", "Water");
+	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
+	m_map_Shaders["Smoke"] = LoadShaders("Smoke", "Smoke");
+	m_map_Shaders["Underwater"] = LoadShaders("Underwater", "Underwater");
 	//--------------------------------------------------------------------------------
 }
 
