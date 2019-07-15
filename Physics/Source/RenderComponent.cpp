@@ -6,6 +6,9 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 	m_AnimatedMesh = nullptr;
 	m_bLightEnabled = true;
 	m_bBillboard = false;
+	if (!Mesh)
+		DEFAULT_LOG("Mesh is null.");
+
 }
 RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 	: m_AnimatedMesh(Mesh)
@@ -13,6 +16,8 @@ RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 	m_Mesh = nullptr;
 	m_bLightEnabled = false;
 	m_bBillboard = false;
+	if (!Mesh)
+		DEFAULT_LOG("Mesh is null.");
 }
 RenderComponent::RenderComponent(RenderComponent& ref)
 {

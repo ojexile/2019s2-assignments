@@ -25,7 +25,7 @@ public:
 	static Mesh* GenerateOBJ(const std::string &meshName, std::string file_path);
 	static Mesh* GenerateCylinder(const std::string &meshName, Color color, unsigned numSlice, float radius, float height);
 	static Mesh* GenerateText(const std::string &meshName, unsigned row, unsigned col);
-	static Mesh* GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap);
+	static Mesh* GenerateTerrain(const std::string &meshName, const std::string &file_path, std::vector<unsigned char> &heightMap, Vector3 terrainScale);
 	static Mesh* GenerateSkyPlane(const std::string &meshName, Color color, int slices, float PlanetRadius, float AtmosphereRadius, float hTile, float vTile);
 	static AnimatedMesh* GenerateAnimatedMesh(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop);
 	static AnimatedMesh* GenerateAnimatedMeshDetailed(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop, const std::string &file_path = "Objects/plane.obj");

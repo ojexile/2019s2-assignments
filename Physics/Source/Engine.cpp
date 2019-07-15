@@ -3,6 +3,7 @@
 #include "Time.h"
 #include "ChengPhysicsScene.h"
 #include "AudioManager.h"
+#include "ChengAssignmentScene.h"
 // Select Debug logger user
 // Users are enums located in locator.h
 #define USER CHENG
@@ -16,7 +17,7 @@ Renderer* Engine::m_Renderer;
 Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
-	m_fLogUpdateTimer = 0;
+	m_fLogUpdateTimer = LOG_UPDATE_RATE;
 }
 
 Engine::~Engine()
@@ -29,7 +30,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new ChengPhysicsScene);
+	SceneManager->ChangeScene(new ChengAssignmentScene);
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position

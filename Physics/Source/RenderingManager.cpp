@@ -6,6 +6,8 @@
 #define SHADOW_VIEW_SIZE_Y 200
 #define SHADOW_VIEW_SIZE_Z 1000
 #define SHADOW_RES 1024*3
+
+#define SWITCH_SHADER true
 RenderingManager::RenderingManager()
 {
 	m_worldHeight = 100.f;
@@ -60,6 +62,7 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(m_gPassShaderID);
 	//These matrices should change when light position or direction changes
+	const float size = 100;
 	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
 		m_lightDepthProj.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_X / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
 	else
@@ -202,6 +205,13 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// Switch shader
 		if (it->first == "UI")
 			continue;
+		if (SWITCH_SHADER)
+		{
+			m_programID = it->second->GetShader();
+			BindUniforms();
+		}
+		std::vector<GameObject*> GOList = *it->second->GetGOList();
+		for (unsigned i = 0; i < GOList.size(); ++i)
 		// m_programID = it->second->GetShader();
 		// BindUniforms();
 		std::vector<GameObject*>* GOList = it->second->GetGOList();
@@ -227,6 +237,13 @@ void RenderingManager::RenderWorld(Scene* scene)
 	// m_programID = (*map)["UI"]->GetShader();
 	// BindUniforms();
 	for (unsigned i = 0; i < GOList->size(); ++i)
+	std::vector<GameObject*> GOList = *(*map)["UI"]->GetGOList();
+	if (SWITCH_SHADER)
+	{
+		m_programID = (*map)["UI"]->GetShader();
+		BindUniforms();
+	}
+	for (unsigned i = 0; i < GOList.size(); ++i)
 	{
 		GameObject* go = GOList->at(i);
 		if (!go->IsActive())

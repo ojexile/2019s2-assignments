@@ -1,5 +1,4 @@
 #include "LayerData.h"
-
 LayerData::LayerData(unsigned Shader)
 	:m_Shader(Shader)
 {

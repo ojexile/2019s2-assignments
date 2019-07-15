@@ -1,6 +1,10 @@
 #include "DataContainer.h"
 #include "ChengRigidbody.h"
 #include "BallScript.h"
+#include "BulletScript.h"
+#include "ParticleScript.h"
+#include "ParticleSpawnerScript.h"
+#include "RainScript.h"
 DataContainer::DataContainer()
 {
 	// Meshes================================================================================
@@ -13,6 +17,18 @@ DataContainer::DataContainer()
 	m_map_Meshes["square"] = MeshBuilder::GenerateCube("wall", Color((float)0.5, (float)0.5, (float)0.5), 1.f);
 	m_map_Meshes["ceil"] = MeshBuilder::GenerateCube("wall", Color((float)0.9, (float)0.9, (float)0.9), 1.f);
 	m_map_Meshes["floor"] = MeshBuilder::GenerateCube("wall", Color((float)0.8, (float)0.8, (float)0.8), 1.f);
+	// Meshs--------------------------------------------------------------------------------
+	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuad("Quad", { 1,1,1 }, 5);
+	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
+	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/cube.obj");
+	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("textures/cube.tga");
+	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
+
+	m_map_Meshes["Ground"] = MeshBuilder::GenerateQuad("Ground", { 1.f,1.f,1.f }, 500);
+	// Gun
+	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
+	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("textures/PLAYER_PISTOL.tga");
+
 	//m_map_Meshes["GROUND"]->m_uTextureArray[0] = 1;
 
 	//--------------------------------------------------------------------------------
@@ -55,7 +71,99 @@ DataContainer::DataContainer()
 	// --------------------------------------------------------------------------------
 	GameObject* floor = new GameObject;
 	m_map_GO["floor"] = floor;
+	m_map_Animated["Leaf"] = MeshBuilder::GenerateAnimatedMesh("Leaf", 4, 4, 0, 15, 2.f, true);
+	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/Leaf.tga");
 
+	m_map_Meshes["Water"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.4f);
+	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
+
+	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, false);
+	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("textures/Smoke.tga");
+
+	m_map_Meshes["Fish"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.1f);
+	m_map_Meshes["Fish"]->m_uTextureArray[0] = LoadTGA("textures/Fish.tga");
+
+	m_map_Meshes["Droplet"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.2f);
+	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
+
+	m_map_Meshes["DropletMini"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.2f);
+	m_map_Meshes["DropletMini"]->m_uTextureArray[0] = LoadTGA("textures/particle.tga");
+
+	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/water.obj");
+	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("textures/water.tga");
+
+	m_map_Meshes["Tree"] = MeshBuilder::GenerateOBJ("cubeobj", "Objects/tree.obj");
+	m_map_Meshes["Tree"]->m_uTextureArray[0] = LoadTGA("textures/tree.tga");
+	m_map_Meshes["Tree"]->m_uTextureArray[1] = LoadTGA("textures/moss1.tga");
+
+	m_map_Meshes["Crosshair"] = MeshBuilder::GenerateQuad("Crosshair", { 1.f,1.f,1.f }, 2);
+	m_map_Meshes["Crosshair"]->m_uTextureArray[0] = LoadTGA("textures/Crosshair.tga");
+	//--------------------------------------------------------------------------------
+	// Gameobjects--------------------------------------------------------------------------------
+	// Particle
+	GameObject* SmokeParticle = new GameObject;
+	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
+	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
+	SmokeParticle->AddComponent(new ParticleScript(2.f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.8f,-0.8f,0 }, {}));
+	m_map_GO["SmokeParticle"] = SmokeParticle;
+
+	//
+	// Fish
+	GameObject* Fish = new GameObject;
+	Fish->AddComponent(new RenderComponent(this->GetMesh("Fish")));
+	Fish->GetComponent<RenderComponent>()->SetBillboard(true);
+	Fish->AddComponent(new ParticleScript(5.0f, { 0.15f,0.4f,0.0f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 0,0,0 }));
+	m_map_GO["Fish"] = Fish;
+	//
+	// Droplet
+	GameObject* Droplet = new GameObject;
+	Droplet->AddComponent(new RenderComponent(this->GetMesh("Droplet")));
+	Droplet->GetComponent<RenderComponent>()->SetBillboard(true);
+	Droplet->AddComponent(new ParticleScript(5.0f, { 0.2f,0.5f,0.2f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
+	m_map_GO["Droplet"] = Droplet;
+	//
+	// DropletMini
+	GameObject* DropletMini = new GameObject;
+	DropletMini->AddComponent(new RenderComponent(this->GetMesh("DropletMini")));
+	DropletMini->GetComponent<RenderComponent>()->SetBillboard(true);
+	DropletMini->AddComponent(new ParticleScript(5.0f, { 0.3f,0.4f,0.3f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
+	m_map_GO["DropletMini"] = DropletMini;
+	//
+	// Leaf
+	GameObject* Leaf = new GameObject;
+	Leaf->AddComponent(new RenderComponent(this->GetAnimation("Leaf")));
+	Leaf->GetComponent<RenderComponent>()->SetBillboard(true);
+	Leaf->AddComponent(new ParticleScript(6.5f, { 0,-0.2f,0 }, { 2,0,0 }, { 0,0.01f,0 }, { -0.01f,-0.01f,0 }, {}));
+	m_map_GO["Leaf"] = Leaf;
+	//
+	// Spawner
+	GameObject* Spawner = new GameObject;
+	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.01f, { .5f,.5f,.5f }, .8f, "Smoke"));
+	//
+	// Fountain Spawner
+	GameObject* Fountain = new GameObject;
+	//Fountain->GetChildList<TransformComponent>()->SetPosition(-39, 0, 0);
+	Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.05f, { 0,0,0 }, .2f, "Default", 0.4f));
+	m_map_GO["Fountain"] = Fountain;
+	//
+	// Rain
+	GameObject* Rain = new GameObject;
+	Rain->AddComponent(new RenderComponent(this->GetMesh("Water")));
+	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
+	Rain->AddComponent(new ParticleScript(4.0f, { 0,-0.7f,0 }, { 0,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
+	Rain->AddComponent(new RainScript(this->GetGameObject("Fountain")));
+	m_map_GO["Rain"] = Rain;
+
+	//Bullet
+	GameObject* bullet = new GameObject();
+	bullet->AddComponent(new RenderComponent(this->GetMesh("Cube")));
+	bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
+	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
+	bullet->GetComponent<RenderComponent>()->SetBillboard(true);
+	bullet->AddComponent(new BulletScript(1.f));
+	bullet->AddChild(Spawner);
+	m_map_GO["Bullet"] = bullet;
+	//
 	floor->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	floor->AddComponent(new RenderComponent(this->GetMesh("floor")));
 	floor->AddComponent(new ChengRigidbody(ChengRigidbody::BOX));
@@ -69,6 +177,12 @@ DataContainer::DataContainer()
 	m_map_Shaders["Default"] = LoadShaders("Shadow", "Shadow");
 
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
+	// Shaders--------------------------------------------------------------------------------
+	m_map_Shaders["Default"] = LoadShaders("Shader//Shadow/Shadow.vertexshader", "Shader//Shadow/Shadow.fragmentshader");
+	m_map_Shaders["Water"] = LoadShaders("Shader//water.vertexshader", "Shader//water.fragmentshader");
+	m_map_Shaders["GPass"] = LoadShaders("Shader//shadow/GPass.vertexshader", "Shader//shadow/GPass.fragmentshader");
+	m_map_Shaders["Smoke"] = LoadShaders("Shader//Smoke.vertexshader", "Shader//Smoke.fragmentshader");
+	m_map_Shaders["Underwater"] = LoadShaders("Shader//Underwater.vertexshader", "Shader//Underwater.fragmentshader");
 	//--------------------------------------------------------------------------------
 }
 

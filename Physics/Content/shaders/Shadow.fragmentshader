@@ -218,7 +218,6 @@ void main(){
 	}
 
 	if (color.a < .3f) discard;
-	return;
 	if(fogParam.enabled)
 	{
 		float fogDistance = abs(vertexPosition_cameraspace.z);

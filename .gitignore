@@ -276,3 +276,6 @@ __pycache__/
 *.iobj
 *.ipdb
 common.lib
+/Common/Release
+/Physics/Release
+/Release
