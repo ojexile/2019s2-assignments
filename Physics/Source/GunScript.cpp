@@ -1,6 +1,6 @@
 #include "GunScript.h"
 #include "BulletScript.h"
-
+#include "ChengRigidbody.h"
 GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRate, bool bSemi)
 	:m_Player(player)
 	, m_bSemi(bSemi)
@@ -22,9 +22,13 @@ void GunScript::Update(double dt)
 }
 void GunScript::Fire(Vector3 vDir)
 {
+	float fBallSpeed = 130.f;
+	Vector3 ballDir = vDir;
 	Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
 	GameObject* bul = Instantiate(m_Bullet, pos);
-	bul->GetComponent<BulletScript>()->SetDirection(vDir);
+	if (!bul)
+		return;
+	bul->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
 	m_fTimer = 0;
 }
 void GunScript::PullTrigger(Vector3 vDir)

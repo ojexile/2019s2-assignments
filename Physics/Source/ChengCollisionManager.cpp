@@ -324,10 +324,10 @@ void ChengCollisionManager::Update(GameObjectManager* GOM)
 				if (eCollideType != ChengRigidbody::NONE)
 				{
 					CollisionResponse(goA, goB, eCollideType);
-					ScriptComponent * Script1 = goA->GetComponent<ScriptComponent>();
+					ScriptComponent * Script1 = goA->GetComponent<ScriptComponent>(true);
 					if (Script1)
 						Script1->Collide(goB);
-					ScriptComponent * Script2 = goB->GetComponent<ScriptComponent>();
+					ScriptComponent * Script2 = goB->GetComponent<ScriptComponent>(true);
 					if (Script2)
 						Script2->Collide(goA);
 				}

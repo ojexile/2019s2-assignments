@@ -150,13 +150,14 @@ DataContainer::DataContainer()
 	//
 	//Bullet
 	GameObject* bullet = new GameObject();
-	bullet->AddComponent(new RenderComponent(this->GetMesh("Cube")));
-	bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
+	bullet->AddComponent(new RenderComponent(this->GetMesh("ball")));
+	//bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
-	bullet->GetComponent<RenderComponent>()->SetBillboard(true);
-	bullet->AddComponent(new BulletScript(1.f));
+	bullet->AddComponent(new BulletScript(20.f));
+	bullet->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
+	bullet->AddComponent(new BallScript());
 	bullet->AddChild(Spawner);
-	m_map_GO["Bullet"] = bullet;
+	m_map_GO["bullet"] = bullet;
 	//
 	floor->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	floor->AddComponent(new RenderComponent(this->GetMesh("floor")));

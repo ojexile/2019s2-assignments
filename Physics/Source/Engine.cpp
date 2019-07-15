@@ -4,6 +4,7 @@
 #include "ChengPhysicsScene.h"
 #include "AudioManager.h"
 #include "ChengAssignmentScene.h"
+#include "RojakAssignmentScene.h"
 // Select Debug logger user
 // Users are enums located in locator.h
 #define USER CHENG
@@ -30,7 +31,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new ChengPhysicsScene);
+	SceneManager->ChangeScene(new RojakAssignmentScene);
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position

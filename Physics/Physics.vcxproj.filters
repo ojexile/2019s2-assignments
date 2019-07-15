@@ -41,7 +41,6 @@
     <ClCompile Include="Source\TestScene.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
-    <ClCompile Include="Source\WindowData.cpp" />
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\AnimatedMesh.cpp" />
@@ -64,7 +63,6 @@
     <ClCompile Include="Source\LogData.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\MemoryLog.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
@@ -79,7 +77,6 @@
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WindowData.cpp" />
-    <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
     <ClCompile Include="Source\RainScript.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
@@ -93,6 +90,7 @@
     <ClCompile Include="Source\PhysicsPlayerScript.cpp" />
     <ClCompile Include="Source\BallScript.cpp" />
     <ClCompile Include="Source\Time.cpp" />
+    <ClCompile Include="Source\RojakAssignmentScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -150,11 +148,11 @@
     <ClInclude Include="Source\Preferences.h" />
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\BallScript.h" />
-    <ClInclude Include="Source\WindowData.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
     <ClInclude Include="Source\LightManager.h" />
     <ClInclude Include="Source\RainScript.h" />
+    <ClInclude Include="Source\RojakAssignmentScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

@@ -3,7 +3,6 @@
 class BulletScript : public ScriptComponent
 {
 private:
-	Vector3 m_vDir;
 	const float m_fLifeTime;
 	float m_fCurrentLife;
 public:
@@ -14,6 +13,5 @@ public:
 		return new BulletScript(*this);
 	}
 
-	void SetDirection(Vector3 vDir);
 	void Update(double dt) override;
 };
