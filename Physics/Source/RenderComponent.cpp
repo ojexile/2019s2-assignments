@@ -16,7 +16,7 @@ RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 }
 RenderComponent::RenderComponent(RenderComponent& ref)
 {
-	if (m_Mesh)
+	if (ref.m_Mesh)
 		m_Mesh = ref.m_Mesh;
 	else
 		m_Mesh = nullptr;
