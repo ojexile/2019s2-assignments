@@ -21,7 +21,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		Vector3 u = go1->GetComponent<ChengRigidbody>()->m_vVel - go2->GetComponent<ChengRigidbody>()->m_vVel;
 		if (dis.Length() < combRadius && u.Dot(dis) > 0.0f)
 		{
-			CHENG_LOG("ball-ball");
+			//CHENG_LOG("ball-ball");
 			return ChengRigidbody::BALL;
 		}
 	}
@@ -42,7 +42,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 			{
 				if (pos1.y >= pos2.y)
 				{
-					CHENG_LOG("ball-pillar");
+					//CHENG_LOG("ball-pillar");
 					return ChengRigidbody::PILLAR;
 				}
 			}
@@ -88,7 +88,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + depth * 0.5f
 				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + height * 0.5f)
 			{
-				CHENG_LOG("ball - cube");
+				//CHENG_LOG("ball - cube");
 				return ChengRigidbody::SQUARE;
 			}
 
@@ -135,7 +135,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + wallScale.z * 0.5f
 				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + wallScale.y * 0.5f)
 			{
-				CHENG_LOG("ball - square");
+				//CHENG_LOG("ball - square");
 				return ChengRigidbody::SQUARE;
 			}
 		}
@@ -173,7 +173,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + wallScale.z * 0.5f
 				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + wallScale.y * 0.5f)
 			{
-				CHENG_LOG("ball - wall");
+				//CHENG_LOG("ball - wall");
 				return ChengRigidbody::WALL;
 			}
 		}

@@ -189,8 +189,10 @@ void RenderingManager::RenderPassMain(Scene* scene)
 
 	RenderWorld(scene);
 }
+int numGO = 0;
 void RenderingManager::RenderWorld(Scene* scene)
 {
+	numGO = 0;
 	GameObjectManager* GOM = scene->GetGameObjectManager();
 	std::map<std::string, LayerData*>::iterator it;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
@@ -239,6 +241,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 			RenderGameObject(goChild, vCamPos, true);
 		}
 	}
+	CHENG_LOG("Num GO: ", std::to_string(numGO));
 }
 void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI)
 {
@@ -282,6 +285,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 		RenderUI(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
 
 	modelStack.PopMatrix();
+	++numGO;
 }
 void RenderingManager::Exit()
 {
