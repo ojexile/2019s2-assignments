@@ -12,8 +12,8 @@ GameObjectManager::~GameObjectManager()
 
 	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
 	{
-		// it->first == key
-		// it->second == value
+	//	 it->first == key
+	//	 it->second == value
 		delete it->second;
 	}
 	m_map_Layers.clear();
@@ -45,6 +45,26 @@ GameObject* GameObjectManager::AddGameObject(std::string layer)
 	GameObject* go = new GameObject;
 	m_map_Layers[layer]->GetGOList()->push_back(go);
 	return go;
+}
+void GameObjectManager::RemoveObject(GameObject* go)
+{
+	std::map<std::string, LayerData*>::iterator it;
+
+	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
+	{
+		// it->first == key
+		// it->second == value
+		std::vector<GameObject*>* list = it->second->GetGOList();
+		for (unsigned i = list->size() - 1; i >= 0; --i)
+		{
+			if ((*list)[i] == go)
+			{
+				(*list).erase((*list).begin() + i);
+				return;
+			}
+		}
+	}
+	DEFAULT_LOG("Failed to remove go, does not exist.");
 }
 void GameObjectManager::Destroy(GameObject* go)
 {
