@@ -33,7 +33,14 @@ GameObject::~GameObject()
 	//m_Transform = nullptr;
 	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
-			//delete m_vec_ChildList[i];
+		try
+		{
+			delete m_vec_ChildList[i];
+		}
+		catch (const std::exception&)
+		{
+			continue;
+		}
 	}
 	//m_vec_ComponentList.clear();
 	//m_vec_ChildList.clear();
