@@ -267,11 +267,11 @@ __pycache__/
 *.lastcodeanalysissucceeded
 *.exe
 #*.lib
-/Physics/windowData/windowData.txt
 /Common/Debug
 /Physics/Debug
 *.mtl
 /Common/Release
 /Physics/Release
-/Release
 /Physics/Content/preferences.ini
+*.iobj
+*.ipdb
