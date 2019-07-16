@@ -20,10 +20,13 @@ private:
 	float m_fPitch;
 	float m_fYaw;
 
+	float m_fXOffset;
+	float m_fYOffset;
+
 	Vector3 m_fOrthoSize;
 	bool m_bOrthoInit;
 
-	void UpdateView(double dt, Vector3 vPos);
+	void UpdateView(double dt, Vector3 vPos, bool mouseEnabled);
 public:
 
 	Camera();

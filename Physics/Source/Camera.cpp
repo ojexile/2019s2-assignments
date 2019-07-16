@@ -5,7 +5,7 @@
 Camera::Camera()
 {
 	Reset();
-	m_fCamSpeed = 0.2f;
+	m_fCamSpeed = 12.0f;
 	m_fPitch = 0;
 	m_fYaw = 270;
 	m_bIsFirstMouseMove = true;
@@ -40,12 +40,22 @@ void Camera::InitOrtho(Vector3 v)
 void Camera::Update(double dt)
 {
 }
-void Camera::UpdateView(double dt, Vector3 vPos)
+void Camera::UpdateView(double dt, Vector3 vPos, bool mouseEnabled)
 {
+	if (mouseEnabled)
+	{
+		m_fXOffset *= this->m_fCamSpeed * (float)dt;
+		m_fYOffset *= this->m_fCamSpeed * (float)dt;
+
+		m_fYaw += m_fXOffset;
+		m_fPitch += m_fYOffset;
+	}
 	if (m_fPitch > 89.0f)
 		m_fPitch = 89.0f;
 	if (m_fPitch < -89.0f)
 		m_fPitch = -89.0f;
+
+
 
 	m_vDir.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
 	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
@@ -62,17 +72,11 @@ void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 		m_bIsFirstMouseMove = false;
 	}
 
-	float xoffset = xpos - m_fLastX;
-	float yoffset = m_fLastY - ypos;
+	m_fXOffset = xpos - m_fLastX;
+	m_fYOffset = m_fLastY - ypos;
+
 	m_fLastX = xpos;
 	m_fLastY = ypos;
-
-	// TODO camera movement bound to frame rate not time
-	xoffset *= this->m_fCamSpeed;
-	yoffset *= this->m_fCamSpeed;
-
-	m_fYaw += xoffset;
-	m_fPitch += yoffset;
 }
 // Getters
 Vector3 Camera::GetTarget()
