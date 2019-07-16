@@ -11,6 +11,8 @@ Camera::Camera()
 	m_bIsFirstMouseMove = true;
 
 	m_bOrthoInit = false;
+	m_fXOffset = 0;
+	m_fYOffset = 0;
 }
 
 Camera::~Camera()

@@ -10,6 +10,7 @@ private:
 	PlayerState* m_CurrentState;
 	float m_fMovementSpeed;
 	GameObject* m_Gun;
+	bool m_bState;
 public:
 	ChengPlayerScript(GameObject* Gun);
 	~ChengPlayerScript();

@@ -8,6 +8,7 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun)
 	:m_Gun(gun)
 {
 	m_CurrentState = nullptr;
+	m_bState = false;
 }
 
 ChengPlayerScript::~ChengPlayerScript()
@@ -35,34 +36,35 @@ void ChengPlayerScript::Update(double dt)
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 vPlayerFront = vCameraFront;
 	vPlayerFront.y = 0;
+	//vPlayerFront.Normalize();
 	Vector3 vRight = vCameraFront.Cross(vCameraUp);
+
 	// Movement
-	if (Application::IsKeyPressed('W'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
 	{
-		trans->Translate(m_fMovementSpeed* (float)dt * vPlayerFront);
+		trans->Translate(m_fMovementSpeed * vCameraUp);
 	}
-	if (Application::IsKeyPressed('S'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
 	{
-		trans->Translate(-m_fMovementSpeed * (float)dt * vPlayerFront);
+		trans->Translate(-m_fMovementSpeed * vCameraFront);
 	}
-	if (Application::IsKeyPressed('A'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
 	{
-		trans->Translate(-m_fMovementSpeed * (float)dt* vRight);
+		trans->Translate(-m_fMovementSpeed * vRight);
 	}
-	if (Application::IsKeyPressed('D'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveRight"))
 	{
-		trans->Translate(m_fMovementSpeed* (float)dt * vRight);
+		trans->Translate(m_fMovementSpeed * vRight);
 	}
-	if (Application::IsKeyPressed('E'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
 	{
-		trans->Translate(m_fMovementSpeed / 10 * Vector3{ 0,1,0 });
+		trans->Translate(m_fMovementSpeed * vCameraUp);
 	}
-	if (Application::IsKeyPressed('Q'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
 	{
-		trans->Translate(-m_fMovementSpeed / 10 * Vector3{ 0,1,0 });
+		trans->Translate(-m_fMovementSpeed * vCameraUp);
 	}
 	// Gun Position
-	//m_Gun->GetComponent<TransformComponent>()->SetRelativePosition({ vCameraFront.x, vCameraFront.y+1.7f, vCameraFront .z});
 	// Fire
 
 	if (Application::IsMousePressed(0))
@@ -90,19 +92,28 @@ void ChengPlayerScript::Update(double dt)
 
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
 	{
-		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
-		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-		trans->SetPosition(0, 0, 0);
-		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 300, 0);
-		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, -90);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamPersp"))
-	{
-		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
-		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-		trans->SetPosition(0, 0, 0);
-		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
-		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, 0);
+		if (m_bState)
+		{
+			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
+			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(true);
+			GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+			trans->SetPosition(0, 0, 0);
+			cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
+			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, 0);
+			m_bState = false;
+		}
+		else
+		{
+			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
+			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
+			GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+			trans->SetPosition(0, 0, 0);
+			cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 300, 0);
+			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, -90);
+
+			m_bState = true;
+		}
+
 	}
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
