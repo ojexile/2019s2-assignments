@@ -102,7 +102,7 @@ void Engine::Update(double dt)
 	//KZ_LOG("KZ");
 	//LZ_LOG("LZ");
 	float fLogUpdateRate = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
-	if (m_fLogUpdateTimer >= fLogUpdateRate)
+	if (m_fLogUpdateTimer >= fLogUpdateRate && fLogUpdateRate > 0)
 	{
 		system("cls");
 		// Print current logger user

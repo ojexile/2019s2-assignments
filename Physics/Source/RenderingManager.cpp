@@ -175,6 +175,8 @@ void RenderingManager::RenderPassMain(Scene* scene)
 			Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z);
 	}
 	projectionStack.LoadMatrix(projection);
+
+	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
 	RenderWorld(scene);
@@ -286,12 +288,12 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	if (!bIsUI)
 	{
 		if (CurrentMesh)
-			RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
+			RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 		if (AnimatedMesh)
-			RenderAnimatedMesh(AnimatedMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
+			RenderAnimatedMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 	}
 	else
-		RenderUI(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
+		RenderUI(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 
 	modelStack.PopMatrix();
 	++numGO;

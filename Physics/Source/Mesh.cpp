@@ -13,18 +13,6 @@ Mesh::Mesh(const std::string &meshName)
 		m_uTextureArray[i] = 0;
 	}
 }
-Mesh::Mesh(const std::string &meshName, Color color)
-	: name(meshName)
-	, mode(DRAW_TRIANGLES)
-{
-	glGenBuffers(1, &vertexBuffer);
-	glGenBuffers(1, &indexBuffer);
-	for (int i = 0; i < MAX_TEXTURES; ++i)
-	{
-		m_uTextureArray[i] = 0;
-	}
-	material.kAmbient.Set(color.r, color.g, color.b);
-}
 
 Mesh::~Mesh()
 {

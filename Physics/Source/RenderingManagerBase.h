@@ -17,6 +17,7 @@
 #include "Utility.h"
 #include "DepthFBO.h"
 #include "MeshBuilder.h"
+#include "RenderComponent.h"
 #define FOG_ENABLED true
 
 class RenderingManagerBase : public Renderer
@@ -112,11 +113,11 @@ public:
 	virtual void Exit();
 
 protected:
-	void RenderText(Mesh* mesh, std::string text, Color color);
-	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-	void RenderUI(Mesh* mesh, bool enableLight);
-	void RenderMesh(Mesh *mesh, bool enableLight);
-	void RenderAnimatedMesh(AnimatedMesh *mesh, bool enableLight);
+	void RenderText(RenderComponent* mesh, std::string text, Color color);
+	void RenderTextOnScreen(RenderComponent* mesh, std::string text, Color color, float size, float x, float y);
+	void RenderUI(RenderComponent* mesh, bool enableLight);
+	void RenderMesh(RenderComponent *mesh, bool enableLight);
+	void RenderAnimatedMesh(RenderComponent *mesh, bool enableLight);
 	void BindUniforms();
 
 	unsigned m_vertexArrayID;

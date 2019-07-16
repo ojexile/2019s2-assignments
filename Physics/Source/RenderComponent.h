@@ -11,6 +11,7 @@ private:
 	AnimatedMesh* m_AnimatedMesh;
 	bool m_bLightEnabled;
 	bool m_bBillboard;
+	Material m_Material;
 public:
 	RenderComponent(Mesh* mesh);
 	RenderComponent(AnimatedMesh* mesh);
@@ -28,5 +29,6 @@ public:
 	void SetBillboard(bool b);
 	bool IsBillboard();
 	void SetColor(Vector3 color);
+	Material GetMaterial();
 	void Update(double dt) override;
 };

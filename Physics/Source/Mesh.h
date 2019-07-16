@@ -16,7 +16,6 @@ public:
 		DRAW_MODE_LAST,
 	};
 	Mesh(const std::string &meshName);
-	Mesh(const std::string &meshName, Color color);
 	~Mesh();
 	virtual void Render();
 	void Render(unsigned offset, unsigned count);
@@ -27,7 +26,6 @@ public:
 	unsigned indexBuffer;
 	unsigned indexSize;
 
-	Material material;
 	//unsigned textureID;
 	unsigned m_uTextureArray[MAX_TEXTURES];
 };
