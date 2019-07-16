@@ -18,7 +18,7 @@ DataContainer::DataContainer()
 	//m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
 	//m_map_Meshes["ball3"] = MeshBuilder::GenerateSphere("ball", Color(0, 1, 0), 10, 10, 1.f);
 
-	m_map_Meshes["pillar"] = MeshBuilder::GenerateOBJ("cylinder", { 1,1,1 });
+	m_map_Meshes["pillar"] = MeshBuilder::GenerateOBJ("cylinder");
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
 	m_map_Meshes["goal"] = MeshBuilder::GenerateCube("wall", Color((float)0.8, (float)0.2, (float)0.2), 1.f);
 
