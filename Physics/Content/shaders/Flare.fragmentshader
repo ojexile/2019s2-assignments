@@ -226,6 +226,6 @@ void main(){
 		color = mix(color, vec4(fogParam.color, 1), fogFactor);
 	}
 	vec3 lightColor = vec3(1,1,1);
-		color = mix(color, vec4(lightColor, 1), flareVal);
+	color = mix(color, vec4(lightColor, 1), flareVal);
 	
 }
