@@ -150,17 +150,14 @@ DataContainer::DataContainer()
 	bullet->AddComponent(new BallScript());
 	bullet->AddChild(Spawner);
 	m_map_GO["bullet"] = bullet;
-	//--------------------------------------------------------------------------------
-	// Shaders--------------------------------------------------------------------------------
-	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
-	m_map_Shaders["Water"] = LoadShaders("water", "water");
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
+	//--------------------------------------------------------------------------------
 	// Shaders================================================================================
-	m_map_Shaders["Default"] = LoadShaders("Shadow", "Shadow");
-	m_map_Shaders["Water"] = LoadShaders("Water", "Water");
+	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
+	m_map_Shaders["Water"] = LoadShaders("water", "water");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	m_map_Shaders["Smoke"] = LoadShaders("Smoke", "Smoke");
 	m_map_Shaders["Underwater"] = LoadShaders("Underwater", "Underwater");
