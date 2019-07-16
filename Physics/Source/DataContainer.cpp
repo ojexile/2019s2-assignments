@@ -1,7 +1,9 @@
 #include "DataContainer.h"
 #include "Resources.h"
+#include <time.h>
 DataContainer::DataContainer()
 {
+	clock_t begin = clock();
 	// Meshs--------------------------------------------------------------------------------
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuad("Quad", { 1,1,1 }, 5);
 	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
@@ -42,6 +44,10 @@ DataContainer::DataContainer()
 	m_map_Shaders["Water"] = LoadShaders("water", "water");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	//--------------------------------------------------------------------------------
+
+	clock_t end = clock();
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+	DEFAULT_LOG("Time to load datacontainer: " + std::to_string(elapsed_secs));
 }
 
 DataContainer::~DataContainer()

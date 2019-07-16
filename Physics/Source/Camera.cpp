@@ -10,6 +10,8 @@ Camera::Camera()
 	m_fYaw = 270;
 	m_bIsFirstMouseMove = true;
 
+	m_fXOffset = 0;
+	m_fYOffset = 0;
 	m_bOrthoInit = false;
 }
 
@@ -54,8 +56,6 @@ void Camera::UpdateView(double dt, Vector3 vPos, bool mouseEnabled)
 		m_fPitch = 89.0f;
 	if (m_fPitch < -89.0f)
 		m_fPitch = -89.0f;
-
-
 
 	m_vDir.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
 	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));

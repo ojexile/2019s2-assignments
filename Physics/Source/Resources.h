@@ -20,5 +20,7 @@ namespace Resources
 		extern const std::string ConsolePosition;
 		extern const std::string FontSize;
 		extern const std::string AudioVolume;
+		extern const std::string LogUpdateRate;
+		extern const std::string LogUser;
 	}
 }
