@@ -189,8 +189,8 @@ void RenderingManager::RenderWorld(Scene* scene)
 	Vector3 CamToLight = LightPos - vCamPos;
 	float angleBetweenRad = acos(CamToLight.Dot(vCamDir) / (vCamDir.Length() * CamToLight.Length()));
 	float angleBetweenDeg = Math::RadianToDegree(angleBetweenRad);
-	this->m_fFlareVal = 180 - angleBetweenDeg;
-	m_fFlareVal /= 620;
+	this->m_fFlareVal = 180 - angleBetweenDeg - 120;
+	m_fFlareVal /= 360;
 	m_fFlareVal = Math::Clamp(m_fFlareVal, 0.f, .6f);
 
 	GameObjectManager* GOM = scene->GetGameObjectManager();

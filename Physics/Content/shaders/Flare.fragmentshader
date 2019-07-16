@@ -224,8 +224,8 @@ void main(){
 		float fogDistance = abs(vertexPosition_cameraspace.z);
 		float fogFactor = getFogFactor(fogParam, fogDistance);
 		color = mix(color, vec4(fogParam.color, 1), fogFactor);
-	}
-	vec3 lightColor = vec3(1,1,1);
+	vec3 lightColor = vec3(1,.9,0.8);
 	color = mix(color, vec4(lightColor, 1), flareVal);
+	}
 	
 }
