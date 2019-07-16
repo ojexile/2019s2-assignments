@@ -22,6 +22,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["floor"] = MeshBuilder::GenerateCube("wall", Color((float)0.8, (float)0.8, (float)0.8), 1.f);
 
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuad("Quad", { 1,1,1 }, 5);
+	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "cube");
 	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("cube");
 	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("moss1");
@@ -36,7 +37,7 @@ DataContainer::DataContainer()
 
 	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, false);
 	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Smoke2");
-	
+
 	m_map_Animated["Leaf"] = MeshBuilder::GenerateAnimatedMesh("Leaf", 4, 4, 0, 15, 2.f, true);
 	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Leaf");
 

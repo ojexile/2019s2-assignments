@@ -17,6 +17,7 @@
 #include "Utility.h"
 #include "DepthFBO.h"
 #include "MeshBuilder.h"
+#define FOG_ENABLED true
 
 class RenderingManagerBase : public Renderer
 {

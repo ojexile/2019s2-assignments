@@ -14,7 +14,7 @@
 
 #include <vector>
 
-#define LOG_UPDATE_RATE 1
+//#define LOG_UPDATE_RATE 1
 
 class Engine
 {

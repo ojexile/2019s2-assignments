@@ -7,13 +7,14 @@
 #include "RojakAssignmentScene.h"
 #include "Preferences.h"
 #include "Resources.h"
+#include "Utility.h"
 // Select Debug logger user
 // Users are enums located in locator.h
-#define USER CHENG
-
-#define TO_STR2(x) #x
-#define TO_STR(x) TO_STR2(x)
-#define USER_S ( TO_STR(USER) )
+//#define USER CHENG
+//
+//#define TO_STR2(x) #x
+//#define TO_STR(x) TO_STR2(x)
+//#define USER_S ( TO_STR(USER) )
 
 Renderer* Engine::m_Renderer;
 
@@ -96,13 +97,20 @@ void Engine::Update(double dt)
 	m_Renderer->Render(CurrentScene);
 	// Log================================================================================
 	m_fLogUpdateTimer += (float)dt;
-	if (m_fLogUpdateTimer >= LOG_UPDATE_RATE)
+	//CHENG_LOG("CHENG");
+	//RYAN_LOG("RYAN");
+	//KZ_LOG("KZ");
+	//LZ_LOG("LZ");
+	float fLogUpdateRate = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
+	if (m_fLogUpdateTimer >= fLogUpdateRate)
 	{
 		system("cls");
 		// Print current logger user
-		std::cout << "--------------" << "Current logger user is " << USER_S << "--------------" << std::endl;
+		std::string sLogUser = Preferences::GetPref(Resources::PreferencesTerm::LogUser);
+		Locator::eLoggerUsers eLoggerUser = StringToUser(sLogUser);
+		std::cout << "--------------" << "Current logger user is " << sLogUser << "--------------" << std::endl;
 		int iYOffset = 0;
-		switch (Locator::USER)
+		switch (eLoggerUser)
 		{
 		case Locator::ALL:
 		{
@@ -116,7 +124,7 @@ void Engine::Update(double dt)
 		break;
 		default:
 			iYOffset = Locator::GetLogger(Locator::DEFAULT).PrintLogs(iYOffset);
-			Locator::GetLogger(Locator::USER).PrintLogs(iYOffset);
+			Locator::GetLogger(eLoggerUser).PrintLogs(iYOffset);
 			break;
 		}
 		m_fLogUpdateTimer = 0;

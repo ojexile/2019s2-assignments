@@ -5,7 +5,6 @@ std::map<std::string, std::string> Preferences::m_map_Data;
 bool Preferences::m_bInitialsed = false;
 Preferences::Preferences()
 {
-	
 }
 
 Preferences::~Preferences()
@@ -15,17 +14,18 @@ void Preferences::InitDefault()
 {
 	// Defualt data
 	m_map_Data[Resources::PreferencesTerm::WindowSize] = "1280,720";
-	m_map_Data[Resources::PreferencesTerm::ConsoleSize] = "300,1000";
-	m_map_Data[Resources::PreferencesTerm::WindowPosition] = "0,80";
-	m_map_Data[Resources::PreferencesTerm::ConsolePosition] = "1280,50";
+	m_map_Data[Resources::PreferencesTerm::ConsoleSize] = "1900,360";
+	m_map_Data[Resources::PreferencesTerm::WindowPosition] = "480,30";
+	m_map_Data[Resources::PreferencesTerm::ConsolePosition] = "20,800";
 	m_map_Data[Resources::PreferencesTerm::FontSize] = "12,22";
 	m_map_Data[Resources::PreferencesTerm::AudioVolume] = "0.1";
+	m_map_Data[Resources::PreferencesTerm::LogUpdateRate] = "1";
+	m_map_Data[Resources::PreferencesTerm::LogUser] = "ALL";
 
 	GetData();
 }
 void Preferences::GetData()
 {
-	
 	std::string filePath = Resources::Preferences;
 	std::ifstream ifFile(filePath);
 	if (!ifFile.is_open())
