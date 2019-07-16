@@ -1,30 +1,31 @@
 #include "Preferences.h"
 #include "Resources.h"
+
+std::map<std::string, std::string> Preferences::m_map_Data;
+bool Preferences::m_bInitialsed = false;
 Preferences::Preferences()
 {
-	// Defualt data
-	m_vWindowSize = { 1280,720 };
-	m_vConsoleSize = { 1280, 1000 };
-	m_vWindowPosition = { 0, 80 };
-	m_vConsolePosition = { 1280, 50 };
-	m_vFontSize = { 12,22 };
-	m_fAudioVolume = 0.1f;
-	GetData();
+	
 }
 
 Preferences::~Preferences()
 {
 }
-// converts string of format "x,y" into a vector3
-Vector3 StringToVector(std::string s)
+void Preferences::InitDefault()
 {
-	std::string sX = s.substr(0, s.find(",", 0));
-	std::string sY = s.substr(s.find(",", 0) + 1);
+	// Defualt data
+	m_map_Data[Resources::PreferencesTerm::WindowSize] = "1280,720";
+	m_map_Data[Resources::PreferencesTerm::ConsoleSize] = "300,1000";
+	m_map_Data[Resources::PreferencesTerm::WindowPosition] = "0,80";
+	m_map_Data[Resources::PreferencesTerm::ConsolePosition] = "1280,50";
+	m_map_Data[Resources::PreferencesTerm::FontSize] = "12,22";
+	m_map_Data[Resources::PreferencesTerm::AudioVolume] = "0.1";
 
-	return	Vector3((float)std::stoi(sX), (float)std::stoi(sY));
+	GetData();
 }
 void Preferences::GetData()
 {
+	
 	std::string filePath = Resources::Preferences;
 	std::ifstream ifFile(filePath);
 	if (!ifFile.is_open())
@@ -50,63 +51,23 @@ void Preferences::GetData()
 		std::string sTerm = sLine.substr(0, sLine.find("=", 0));
 		std::string sVal = sLine.substr(sLine.find("=", 0) + 1);
 
-		if (sTerm == "windowSize")
-		{
-			Vector3 pos = StringToVector(sVal);
-			m_vWindowSize = pos;
-		}
-		else if (sTerm == "windowPosition")
-		{
-			Vector3 pos = StringToVector(sVal);
-			m_vWindowPosition = pos;
-		}
-		else if (sTerm == "consoleSize")
-		{
-			Vector3 pos = StringToVector(sVal);
-			m_vConsoleSize = pos;
-		}
-		else if (sTerm == "consolePosition")
-		{
-			Vector3 pos = StringToVector(sVal);
-			m_vConsolePosition = pos;
-		}
-		else if (sTerm == "fontSize")
-		{
-			Vector3 pos = StringToVector(sVal);
-			m_vFontSize = pos;
-		}
-		else if (sTerm == "audioVolume")
-		{
-			m_fAudioVolume = std::stof(sVal);
-		}
-		else
-		{
-			DEFAULT_LOG("Unknown term in windowData file" + sTerm + ":" + sVal);
-		}
+		m_map_Data[sTerm] = sVal;
 	}
 }
 
-Vector3 Preferences::GetWindowSize()
+std::string Preferences::GetPref(std::string s)
 {
-	return m_vWindowSize;
-}
-Vector3 Preferences::GetConsoleSize()
-{
-	return m_vConsoleSize;
-}
-Vector3 Preferences::GetConsolePosition()
-{
-	return m_vConsolePosition;
-}
-Vector3 Preferences::GetWindowPosition()
-{
-	return m_vWindowPosition;
-}
-Vector3 Preferences::GetFontSize()
-{
-	return m_vFontSize;
-}
-float Preferences::GetAudioVolume()
-{
-	return m_fAudioVolume;
+	if (!m_bInitialsed)
+	{
+		InitDefault();
+	}
+	if (m_map_Data.count(s) <= 0)
+	{
+		DEFAULT_LOG("Pref not found: " + s);
+		return "";
+	}
+	else
+	{
+		return m_map_Data[s];
+	}
 }

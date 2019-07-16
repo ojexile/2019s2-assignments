@@ -15,7 +15,8 @@ AudioManager::~AudioManager()
 void AudioManager::PlayBGM(std::string filePath)
 {
 	filePath = Resources::AudioPath + filePath;
-	engine->setSoundVolume(Preferences::GetInstance()->GetAudioVolume());
+	float fVolume = std::stof(Preferences::GetPref(Resources::PreferencesTerm::AudioVolume));
+	engine->setSoundVolume(fVolume);
 	engine->play2D(filePath.c_str(), true, false, false, irrklang::ESM_AUTO_DETECT, true);
 }
 

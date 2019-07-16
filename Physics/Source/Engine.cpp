@@ -5,6 +5,8 @@
 #include "AudioManager.h"
 #include "ChengAssignmentScene.h"
 #include "RojakAssignmentScene.h"
+#include "Preferences.h"
+#include "Resources.h"
 // Select Debug logger user
 // Users are enums located in locator.h
 #define USER CHENG
@@ -35,13 +37,16 @@ void Engine::Init()
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
-	Preferences* prefs = Preferences::GetInstance();
+	Vector3 ConsoleSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::ConsoleSize));
+	Vector3 FontSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::FontSize));
+	Vector3 ConsolePos = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::ConsolePosition));
 	// Font
+
 	CONSOLE_FONT_INFOEX cfi;//CONSOLE_FONT_INFOEX is defined in some windows header
 	cfi.cbSize = sizeof(cfi);
 	cfi.nFont = 0;
-	cfi.dwFontSize.X = (SHORT)prefs->GetFontSize().x;                   // Width of each character in the font
-	cfi.dwFontSize.Y = (SHORT)prefs->GetFontSize().y;                  // Height
+	cfi.dwFontSize.X = (SHORT)FontSize.x;                   // Width of each character in the font
+	cfi.dwFontSize.Y = (SHORT)FontSize.y;                  // Height
 	cfi.FontFamily = FF_DONTCARE;
 	cfi.FontWeight = FW_NORMAL;
 	//std::wcscpy(cfi.FaceName, L"Consolas"); // Choose your font
@@ -57,8 +62,8 @@ void Engine::Init()
 	// Console
 	HWND hwnd = GetConsoleWindow();
 	if (hwnd != NULL) {
-		MoveWindow(hwnd, (int)prefs->GetConsolePosition().x, (int)prefs->GetConsolePosition().y
-			, (int)prefs->GetConsoleSize().x, (int)prefs->GetConsoleSize().y, TRUE);
+		MoveWindow(hwnd, (int)ConsolePos.x, (int)ConsolePos.y
+			, (int)ConsoleSize.x, (int)ConsoleSize.y, TRUE);
 	}
 }
 void Engine::SetMouseCallback(GLFWwindow* window)
@@ -124,6 +129,5 @@ void Engine::Exit()
 	SceneManager::DeleteInstance();
 	DataContainer::DeleteInstance();
 	KeyboardManager::DeleteInstance();
-	Preferences::DeleteInstance();
 	Time::DeleteInstance();
 }

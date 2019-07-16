@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "KeyboardManager.h"
+#include "Utility.h"
+#include "Resources.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -86,11 +88,12 @@ void Application::Init()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
 
 	//Create a window and create its OpenGL context
-	Preferences* pref = Preferences::GetInstance();
-	m_width = (int)pref->GetWindowSize().x;
-	m_height = (int)pref->GetWindowSize().y;
+	Vector3 WindowSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::WindowSize));
+	Vector3 WindowPos = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::WindowPosition));
+	m_width = (int)WindowSize.x;
+	m_height = (int)WindowSize.y;
 	m_window = glfwCreateWindow(m_width, m_height, "SP-Framework", NULL, NULL);
-	glfwSetWindowPos(m_window, (int)pref->GetWindowPosition().x, (int)pref->GetWindowPosition().y);
+	glfwSetWindowPos(m_window, (int)WindowPos.x, (int)WindowPos.y);
 	//If the window couldn't be created
 	if (!m_window)
 	{

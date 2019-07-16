@@ -5,6 +5,7 @@
 #include "Locator.h"
 #include <string>
 #include <sstream>
+#include <map>
 
 // read from a file of format
 // term = value
@@ -16,25 +17,16 @@
 // fontSize
 // Value format
 // x,y
-class Preferences : public Singleton<Preferences>
+class Preferences
 {
 private:
-	Vector3 m_vWindowSize;
-	Vector3 m_vConsoleSize;
-	Vector3 m_vWindowPosition;
-	Vector3 m_vConsolePosition;
-	Vector3 m_vFontSize;
-	float m_fAudioVolume;
-public:
+	static std::map<std::string, std::string> m_map_Data;
+	static void GetData();
+	static void InitDefault();
+	static bool m_bInitialsed;
 	Preferences();
+public:
 	~Preferences();
 
-	void GetData();
-
-	Vector3 GetWindowSize();
-	Vector3 GetConsoleSize();
-	Vector3 GetConsolePosition();
-	Vector3 GetWindowPosition();
-	Vector3 GetFontSize();
-	float GetAudioVolume();
+	static std::string GetPref(std::string s);
 };
