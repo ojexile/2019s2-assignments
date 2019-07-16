@@ -8,21 +8,27 @@ public:
 	{
 		NONE,
 		BALL,
+		PILLAR,
 		WALL,
 		SQUARE,
 		BOX,
-		PILLAR,
 		TOTAL,
 	};
 private:
 	Vector3 m_vVel;
-	Vector3 m_vNormal;
 	Vector3 m_vForce;
 	Vector3 m_vGravity;
-	ePhysicsTypes m_eType;
+	// PhysicsMat m_PhysicsMat
 	float m_fMass;
+
+	bool m_bLockXAxis;
+	bool m_bLockYAxis;
+	bool m_bLockZAxis;
+
+	bool m_bGravityAffected;
+	ePhysicsTypes m_eType;
 public:
-	ChengRigidbody(ePhysicsTypes e);
+	ChengRigidbody(ePhysicsTypes e, bool Grav = true);
 	virtual ~ChengRigidbody();
 	virtual ComponentBase* Clone()
 	{
@@ -31,8 +37,7 @@ public:
 	virtual void Update(double dt) override;
 
 	void SetVel(Vector3);
-	void SetNormal(Vector3);
-
-	//--------------------------------------------------------------------------------
-	friend class ChengCollisionManager;
+	Vector3 GetVel();
+	float GetMass();
+	ePhysicsTypes GetType();
 };

@@ -87,15 +87,15 @@ void RojakAssignmentScene::Init()
 	floor->TRANSFORM->SetRotation(90, 0, 0, 1);
 	floor->TRANSFORM->SetScale(thickness, size * 2, size * 2);
 
-	GameObject* ceil = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("ceil")->Clone());
+	GameObject* ceil = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	ceil->TRANSFORM->SetPosition(0, 1000, 0);
 	ceil->TRANSFORM->SetRotation(90, 0, 0, 1);
 	ceil->TRANSFORM->SetScale(thickness, size * 2, size * 2);
 	ceil->SetActive(false);
 	//--------------------------------------------------------------------------------
-	GameObject* wall6 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("floor")->Clone());
+	GameObject* wall6 = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	wall6->TRANSFORM->SetPosition(0, -thickness / 2, 0);
-	wall6->TRANSFORM->SetRotation(0, 0, 1, 0);
+	wall6->TRANSFORM->SetRotation(90, 1, 0, 0);
 	wall6->TRANSFORM->SetScale(size * 2, thickness, size * 2);
 	wall6->SetActive(false);
 	//--------------------------------------------------------------------------------

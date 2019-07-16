@@ -5,8 +5,11 @@
 #include "ParticleScript.h"
 #include "ParticleSpawnerScript.h"
 #include "RainScript.h"
+
+#include <time.h>
 DataContainer::DataContainer()
 {
+	clock_t begin = clock();
 	// Meshes================================================================================
 	m_map_Meshes["ground"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
 	m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 0, 0), 10, 10, 1.f);
@@ -33,6 +36,9 @@ DataContainer::DataContainer()
 
 	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, false);
 	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Smoke2");
+	
+	m_map_Animated["Leaf"] = MeshBuilder::GenerateAnimatedMesh("Leaf", 4, 4, 0, 15, 2.f, true);
+	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Leaf");
 
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.1f);
 	m_map_Meshes["Fish"]->m_uTextureArray[0] = LoadTGA("Fish");
@@ -76,26 +82,12 @@ DataContainer::DataContainer()
 
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
-	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL));
-	// --------------------------------------------------------------------------------
-	wall = new GameObject;
-	m_map_GO["ceil"] = wall;
-
-	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
-	wall->AddComponent(new RenderComponent(this->GetMesh("ceil")));
-	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL));
+	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
 	// --------------------------------------------------------------------------------
 	GameObject* square = new GameObject;
 	m_map_GO["square"] = square;
-
 	square->AddComponent(new RenderComponent(this->GetMesh("square")));
 	square->AddComponent(new ChengRigidbody(ChengRigidbody::SQUARE));
-	// --------------------------------------------------------------------------------
-	GameObject* floor = new GameObject;
-	m_map_GO["floor"] = floor;
-	m_map_Animated["Leaf"] = MeshBuilder::GenerateAnimatedMesh("Leaf", 4, 4, 0, 15, 2.f, true);
-	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Leaf");
-
 	// Particle--------------------------------------------------------------------------------
 	GameObject* SmokeParticle = new GameObject;
 	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
@@ -158,15 +150,11 @@ DataContainer::DataContainer()
 	bullet->AddComponent(new BallScript());
 	bullet->AddChild(Spawner);
 	m_map_GO["bullet"] = bullet;
-	//
-	floor->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
-	floor->AddComponent(new RenderComponent(this->GetMesh("floor")));
-	floor->AddComponent(new ChengRigidbody(ChengRigidbody::BOX));
 	//--------------------------------------------------------------------------------
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
-	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
+	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
 	// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Shadow", "Shadow");
 	m_map_Shaders["Water"] = LoadShaders("Water", "Water");
@@ -174,6 +162,11 @@ DataContainer::DataContainer()
 	m_map_Shaders["Smoke"] = LoadShaders("Smoke", "Smoke");
 	m_map_Shaders["Underwater"] = LoadShaders("Underwater", "Underwater");
 	//--------------------------------------------------------------------------------
+
+	clock_t end = clock();
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+
+	CHENG_LOG("Time to load container: ", std::to_string(elapsed_secs));
 }
 
 DataContainer::~DataContainer()
