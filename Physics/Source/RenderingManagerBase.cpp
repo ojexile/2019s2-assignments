@@ -1,10 +1,13 @@
 #include "RenderingManagerBase.h"
 #include "DataContainer.h"
 #include "Locator.h"
+
+#define FOG_ENABLED true
 #include "Application.h"
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
+	m_bFogEnabled = FOG_ENABLED;
 	m_fFlareVal = 0;
 }
 
@@ -109,7 +112,7 @@ void RenderingManagerBase::BindUniforms()
 	glUniform1f(m_parameters[U_FOG_END], 1000);
 	glUniform1f(m_parameters[U_FOG_DENSITY], .0005f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
-	glUniform1i(m_parameters[U_FOG_ENABLED], true);
+	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 
 	glUniform1i(m_parameters[U_SHADOW_MAP], 8);
 

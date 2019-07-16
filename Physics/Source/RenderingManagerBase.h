@@ -100,6 +100,7 @@ protected:
 		RENDER_PASS_PRE,
 		RENDER_PASS_MAIN,
 	};
+
 public:
 	RenderingManagerBase();
 	virtual ~RenderingManagerBase();
@@ -131,6 +132,8 @@ protected:
 	float m_fElapsedTime;
 
 	float m_fFlareVal;
+
+	bool m_bFogEnabled;
 
 	// Shadow
 	unsigned m_gPassShaderID;
