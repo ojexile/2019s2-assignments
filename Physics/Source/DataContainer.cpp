@@ -38,7 +38,7 @@ DataContainer::DataContainer()
 	m_map_GO["Cube"] = cube;
 	//--------------------------------------------------------------------------------
 	// Shaders--------------------------------------------------------------------------------
-	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
+	m_map_Shaders["Default"] = LoadShaders("Fog", "Fog");
 	m_map_Shaders["Water"] = LoadShaders("water", "water");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	//--------------------------------------------------------------------------------

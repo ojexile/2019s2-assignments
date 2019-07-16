@@ -219,14 +219,13 @@ void main(){
 	}
 
 	if (color.a < .3f) discard;
-	return;
 	if(fogParam.enabled)
 	{
 		float fogDistance = abs(vertexPosition_cameraspace.z);
 		float fogFactor = getFogFactor(fogParam, fogDistance);
-		color = mix(color, vec4(fogParam.color, 1), 20.f);
-		vec3 lightColor = vec3(1,1,1);
-		//color = vec4(lightColor, 1);
+		color = mix(color, vec4(fogParam.color, 1), fogFactor);
 	}
+	vec3 lightColor = vec3(1,1,1);
+	color = vec4(lightColor, 1);
 	
 }
