@@ -37,13 +37,13 @@ void RojakAssignmentScene::Init()
 	Crosshair->RENDER->SetLightEnabled(false);
 	Crosshair->SetActive(true);
 	//
-	//// Skyplane
-	//GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
-	//SkyPlane->TRANSFORM->SetPosition(0, 100, 0);
-	//SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
-	////SkyPlane->RENDER->SetLightEnabled(true);
-	////SkyPlane->SetActive(false);
-	////
+	// Skyplane
+	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
+	SkyPlane->TRANSFORM->SetPosition(0, 100, 0);
+	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
+	//SkyPlane->RENDER->SetLightEnabled(true);
+	//SkyPlane->SetActive(false);
+	//
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject();
 	ground->TRANSFORM->SetRotation(-90, 1, 0, 0);
