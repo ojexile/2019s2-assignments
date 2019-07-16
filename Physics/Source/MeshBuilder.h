@@ -22,8 +22,8 @@ public:
 	static Mesh* GenerateSphere(const std::string &meshName, Color color, unsigned numStack, unsigned numSlice, float radius = 1.f);
 	static Mesh* GenerateCone(const std::string &meshName, Color color, unsigned numSlice, float radius, float height);
 	// .obj exten is assumed
-	static Mesh* GenerateOBJ(const std::string &meshName, std::string file_path, Color color = { 1,1,1 });
-	static Mesh* GenerateOBJ(std::string file_path, Color color = { 1,1,1 });
+	static Mesh* GenerateOBJ(std::string file_path, Color color);
+	static Mesh* GenerateOBJ(std::string file_path);
 	static Mesh* GenerateText(const std::string &meshName, unsigned row, unsigned col);
 	static Mesh* GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap);
 	static Mesh* GenerateSkyPlane(const std::string &meshName, Color color, int slices, float PlanetRadius, float AtmosphereRadius, float hTile, float vTile);

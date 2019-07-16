@@ -63,3 +63,10 @@ bool RenderComponent::IsBillboard()
 {
 	return m_bBillboard;
 }
+void RenderComponent::SetColor(Vector3 color)
+{
+	if (m_Mesh)
+	{
+		m_Mesh->material.kAmbient.Set(color.x, color.y, color.z);
+	}
+}

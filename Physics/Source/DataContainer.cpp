@@ -7,7 +7,7 @@ DataContainer::DataContainer()
 	// Meshs--------------------------------------------------------------------------------
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuad("Quad", { 1,1,1 }, 5);
 	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
-	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cubeobj", "cube");
+	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cube");
 	m_map_Meshes["Cube"]->m_uTextureArray[0] = LoadTGA("cube");
 	m_map_Meshes["Cube"]->m_uTextureArray[1] = LoadTGA("moss1");
 
@@ -26,7 +26,7 @@ DataContainer::DataContainer()
 	m_map_Animated["Cat"] = MeshBuilder::GenerateAnimatedMesh("Animated", 1, 6, 0, 5, 1.f, true);
 	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("cat");
 
-	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("cubeobj", "water");
+	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("water");
 	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("water");
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
