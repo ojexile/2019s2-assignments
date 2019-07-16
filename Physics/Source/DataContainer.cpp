@@ -6,6 +6,7 @@
 #include "ParticleSpawnerScript.h"
 #include "RainScript.h"
 #include "GoalScript.h"
+#include "BouncerScript.h"
 
 #include <time.h>
 DataContainer::DataContainer()
@@ -134,6 +135,7 @@ DataContainer::DataContainer()
 	m_map_GO["pillar"] = pillar;
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
+	pillar->AddComponent(new BouncerScript(1.f));
 	//--------------------------------------------------------------------------------
 	// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");

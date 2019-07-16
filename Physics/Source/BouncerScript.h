@@ -5,7 +5,7 @@ class BouncerScript : public ScriptComponent
 private:
 	float m_fBounceForce;
 public:
-	BouncerScript();
+	BouncerScript(float bounceForce);
 	virtual ~BouncerScript();
 	virtual ComponentBase* Clone()
 	{

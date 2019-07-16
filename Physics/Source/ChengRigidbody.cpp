@@ -4,7 +4,7 @@ ChengRigidbody::ChengRigidbody(ePhysicsTypes e, bool Grav)
 {
 	m_eType = e;
 	m_fMass = 1;
-	m_vGravity = { 0,-40.8f,0 };
+	m_vGravity = { 0,-40.8f,40.8f };
 	m_bLockXAxis = false;
 	m_bLockYAxis = false;
 	m_bLockZAxis = false;
@@ -17,6 +17,7 @@ ChengRigidbody::~ChengRigidbody()
 void ChengRigidbody::Update(double dt)
 {
 	Vector3 m_vAccel = m_vForce * (1 / m_fMass);
+	m_vForce.SetZero();
 	if (m_bGravityAffected)
 		m_vAccel += m_vGravity;
 	this->m_vVel += m_vAccel * (float)dt;
@@ -32,6 +33,10 @@ void ChengRigidbody::Update(double dt)
 void ChengRigidbody::SetVel(Vector3 v)
 {
 	this->m_vVel = v;
+}
+void ChengRigidbody::IncrementForce(Vector3 v)
+{
+	m_vForce += v;
 }
 Vector3 ChengRigidbody::GetVel()
 {

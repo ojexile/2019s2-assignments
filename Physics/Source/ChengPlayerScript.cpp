@@ -49,11 +49,11 @@ void ChengPlayerScript::Update(double dt)
 	// Movement
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
 	{
-		trans->Translate(m_fMovementSpeed * vCameraFront);
+		trans->Translate(m_fMovementSpeed * vPlayerFront);
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
 	{
-		trans->Translate(-m_fMovementSpeed * vCameraFront);
+		trans->Translate(-m_fMovementSpeed * vPlayerFront);
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
 	{
