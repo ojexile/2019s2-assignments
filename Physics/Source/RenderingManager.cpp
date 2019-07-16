@@ -195,6 +195,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 {
 	GameObjectManager* GOM = scene->GetGameObjectManager();
 	std::map<std::string, LayerData*>::iterator it;
+	m_bFogEnabled = U_FOG_ENABLED;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
 		// it->first == key
@@ -225,6 +226,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 		}
 	}
 	// Render UI
+	m_bFogEnabled = false;
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
 	std::vector<GameObject*>* GOList = map->at("UI")->GetGOList();
 	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
