@@ -217,10 +217,10 @@ void RenderingManager::RenderWorld(Scene* scene)
 				continue;
 			Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 			RenderGameObject(go, vCamPos, false);
-			for (unsigned i = 0; i < GOList->at(i)->GetChildList()->size(); ++i)
+			for (unsigned i = 0; i < go->GetChildList()->size(); ++i)
 			{
-				GameObject* goChild = GOList->at(i);
-				if (!go->IsActive())
+				GameObject* goChild = go->GetChildList()->at(i);
+				if (!goChild->IsActive())
 					continue;
 				RenderGameObject(goChild, vCamPos, false);
 			}

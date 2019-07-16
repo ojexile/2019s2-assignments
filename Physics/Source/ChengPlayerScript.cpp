@@ -4,8 +4,9 @@
 #include "GunScript.h"
 #include "LoadHmap.h"
 #include "KeyboardManager.h"
-ChengPlayerScript::ChengPlayerScript(GameObject* gun)
+ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross)
 	:m_Gun(gun)
+	, m_CrossHair(cross)
 {
 	m_CurrentState = nullptr;
 	m_bState = false;
@@ -100,10 +101,11 @@ void ChengPlayerScript::Update(double dt)
 			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
 			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(true);
 			GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-			trans->SetPosition(0, 0, 0);
+			//trans->SetPosition(0, 0, 0);
 			cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
 			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, 0);
 			m_Gun->SetActive(true);
+			m_CrossHair->SetActive(true);
 			m_bState = false;
 		}
 		else
@@ -111,10 +113,11 @@ void ChengPlayerScript::Update(double dt)
 			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
 			GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-			trans->SetPosition(0, 0, 0);
-			cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 300, 0);
-			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, -90);
+			//trans->SetPosition(0, 0, 0);
+			cam->GetComponent<TransformComponent>()->SetRelativePosition(-pos.x, 300, -pos.z);
+			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -90);
 			m_Gun->SetActive(false);
+			m_CrossHair->SetActive(false);
 			m_bState = true;
 		}
 	}

@@ -21,7 +21,7 @@ Renderer* Engine::m_Renderer;
 Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
-	m_fLogUpdateTimer = 0;
+	m_fLogUpdateTimer = 1000;
 }
 
 Engine::~Engine()

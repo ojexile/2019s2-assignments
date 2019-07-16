@@ -79,7 +79,7 @@ void ChengAssignmentScene::Init()
 	gun->RENDER->SetLightEnabled(false);
 	gun->AddComponent(new GunScript(dataContainer->GetGameObject("Bullet"), m_CameraGO, 0.1f, true));
 
-	player->AddComponent(new ChengPlayerScript(gun));
+	//player->AddComponent(new ChengPlayerScript(gun));
 	player->AddChild(m_CameraGO);
 
 	// Spawner

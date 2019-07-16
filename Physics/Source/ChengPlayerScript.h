@@ -10,9 +10,10 @@ private:
 	PlayerState* m_CurrentState;
 	float m_fMovementSpeed;
 	GameObject* m_Gun;
+	GameObject* m_CrossHair;
 	bool m_bState;
 public:
-	ChengPlayerScript(GameObject* Gun);
+	ChengPlayerScript(GameObject* Gun, GameObject* cross);
 	~ChengPlayerScript();
 	virtual ComponentBase* Clone()
 	{
