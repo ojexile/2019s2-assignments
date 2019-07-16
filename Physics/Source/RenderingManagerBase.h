@@ -90,6 +90,9 @@ protected:
 		U_SHADOW_COLOR_TEXTURE_ENABLED1,
 		U_SHADOW_COLOR_TEXTURE_ENABLED2,
 
+		// flare
+		U_FLARE_VAL,
+
 		U_TOTAL,
 	};
 	enum RENDER_PASS
@@ -126,6 +129,8 @@ protected:
 	bool bLightEnabled;
 	float fps;
 	float m_fElapsedTime;
+
+	float m_fFlareVal;
 
 	// Shadow
 	unsigned m_gPassShaderID;

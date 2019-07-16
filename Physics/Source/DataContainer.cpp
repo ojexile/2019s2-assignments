@@ -151,6 +151,9 @@ DataContainer::DataContainer()
 	bullet->AddChild(Spawner);
 	m_map_GO["bullet"] = bullet;
 	//--------------------------------------------------------------------------------
+	// Shaders--------------------------------------------------------------------------------
+	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
+	m_map_Shaders["Water"] = LoadShaders("water", "water");
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
