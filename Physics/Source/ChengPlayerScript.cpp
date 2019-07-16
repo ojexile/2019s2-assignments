@@ -14,6 +14,8 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun)
 
 ChengPlayerScript::~ChengPlayerScript()
 {
+	if (m_CurrentState)
+		delete m_CurrentState;
 }
 void ChengPlayerScript::Start()
 {

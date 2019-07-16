@@ -26,7 +26,7 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 	else
 		m_Mesh = nullptr;
 	if (ref.m_AnimatedMesh)
-		m_AnimatedMesh = new AnimatedMesh(*ref.m_AnimatedMesh);
+		m_AnimatedMesh = ref.m_AnimatedMesh;
 	else
 		m_AnimatedMesh = nullptr;
 	m_bLightEnabled = ref.m_bLightEnabled;

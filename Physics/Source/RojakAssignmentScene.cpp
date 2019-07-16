@@ -16,10 +16,7 @@ void RojakAssignmentScene::Init()
 	m_CameraGO = new GameObject;
 	m_CameraGO->AddComponent(new CameraComponent);
 	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
-	// Create Camera
-	m_CameraGO = new GameObject;
-	m_CameraGO->AddComponent(new CameraComponent);
-	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
+
 	//m_GameObjectManager.AddGameObject(CameraGO);
 	//--------------------------------------------------------------------------------
 	DataContainer* dataContainer = DataContainer::GetInstance();

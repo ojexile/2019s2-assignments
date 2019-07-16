@@ -182,6 +182,7 @@ void RenderingManager::RenderPassMain(Scene* scene)
 int numGO = 0;
 void RenderingManager::RenderWorld(Scene* scene)
 {
+	numGO = 0;
 	Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 	Vector3 vCamDir = scene->GetCameraGameObject()->GetComponent<CameraComponent>()->GetCamera()->GetDir();
 	// Calc Flare Val
