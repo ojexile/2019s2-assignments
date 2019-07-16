@@ -107,12 +107,6 @@ void RenderingManagerBase::BindUniforms()
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], true);
 
-	// Shadows
-	glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1,
-		GL_FALSE, &m_lightDepthMVPGPass.a[0]);
-	glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1,
-		GL_FALSE, &m_lightDepthMVP.a[0]);
-
 	glUniform1i(m_parameters[U_SHADOW_MAP], 8);
 
 	glUniform1f(m_parameters[U_VERT_ET], m_fElapsedTime);

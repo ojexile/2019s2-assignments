@@ -6,6 +6,8 @@
 #define SHADOW_VIEW_SIZE_Y 200
 #define SHADOW_VIEW_SIZE_Z 1000
 #define SHADOW_RES 1024*3
+
+#define SWITCH_SHADER true
 RenderingManager::RenderingManager()
 {
 	m_worldHeight = 100.f;
@@ -200,8 +202,11 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// Switch shader
 		if (it->first == "UI")
 			continue;
-		// m_programID = it->second->GetShader();
-		// BindUniforms();
+		if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
+		{
+			m_programID = it->second->GetShader();
+			BindUniforms();
+		}
 		std::vector<GameObject*>* GOList = it->second->GetGOList();
 		for (unsigned i = 0; i < GOList->size(); ++i)
 		{
@@ -222,8 +227,11 @@ void RenderingManager::RenderWorld(Scene* scene)
 	// Render UI
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
 	std::vector<GameObject*>* GOList = map->at("UI")->GetGOList();
-	// m_programID = (*map)["UI"]->GetShader();
-	// BindUniforms();
+	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
+	{
+		m_programID = (*map)["UI"]->GetShader();
+		BindUniforms();
+	}
 	for (unsigned i = 0; i < GOList->size(); ++i)
 	{
 		GameObject* go = GOList->at(i);
