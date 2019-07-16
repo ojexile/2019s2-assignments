@@ -195,7 +195,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 {
 	GameObjectManager* GOM = scene->GetGameObjectManager();
 	std::map<std::string, LayerData*>::iterator it;
-	m_bFogEnabled = U_FOG_ENABLED;
+	m_bFogEnabled = FOG_ENABLED;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
 		// it->first == key

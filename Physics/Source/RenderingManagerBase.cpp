@@ -2,7 +2,6 @@
 #include "DataContainer.h"
 #include "Locator.h"
 
-#define FOG_ENABLED true
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
