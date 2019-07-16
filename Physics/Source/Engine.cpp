@@ -21,7 +21,7 @@ Renderer* Engine::m_Renderer;
 Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
-	m_fLogUpdateTimer = 1000;
+	m_fLogUpdateTimer = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
 }
 
 Engine::~Engine()

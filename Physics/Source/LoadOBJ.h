@@ -18,7 +18,8 @@ void IndexVBO(
 	std::vector<Vector3> & in_normals,
 
 	std::vector<unsigned> & out_indices,
-	std::vector<Vertex> & out_vertices
+	std::vector<Vertex> & out_vertices,
+	Color color = { 1,1,1 }
 );
 
 #endif

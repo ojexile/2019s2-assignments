@@ -3,6 +3,7 @@
 #define MAX_TEXTURES 8
 #include <string>
 #include "Material.h"
+#include "Vertex.h"
 
 class Mesh
 {
@@ -15,6 +16,7 @@ public:
 		DRAW_MODE_LAST,
 	};
 	Mesh(const std::string &meshName);
+	Mesh(const std::string &meshName, Color color);
 	~Mesh();
 	virtual void Render();
 	void Render(unsigned offset, unsigned count);

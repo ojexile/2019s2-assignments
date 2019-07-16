@@ -27,6 +27,6 @@ public:
 	void SetLightEnabled(bool b);
 	void SetBillboard(bool b);
 	bool IsBillboard();
-
+	void SetColor(Vector3 color);
 	void Update(double dt) override;
 };
