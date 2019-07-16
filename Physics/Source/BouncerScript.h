@@ -1,9 +1,12 @@
 #pragma once
 #include "ScriptComponent.h"
+#define TRIGGER_DURATION 1.f
 class BouncerScript : public ScriptComponent
 {
 private:
 	float m_fBounceForce;
+	bool m_bTriggered;
+	float m_fTriggerTime;
 public:
 	BouncerScript(float bounceForce);
 	virtual ~BouncerScript();
