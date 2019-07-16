@@ -105,9 +105,9 @@ void RenderingManagerBase::BindUniforms()
 	Color fogColor{ 0.5f, 0.5f, 0.5f };
 
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
-	glUniform1f(m_parameters[U_FOG_START], 10);
+	glUniform1f(m_parameters[U_FOG_START], 30);
 	glUniform1f(m_parameters[U_FOG_END], 1000);
-	glUniform1f(m_parameters[U_FOG_DENSITY], .005f);
+	glUniform1f(m_parameters[U_FOG_DENSITY], .0005f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], true);
 
@@ -115,7 +115,6 @@ void RenderingManagerBase::BindUniforms()
 
 	glUniform1f(m_parameters[U_VERT_ET], m_fElapsedTime);
 	glUniform1f(m_parameters[U_FRAG_ET], m_fElapsedTime);
-
 
 	glUniform1f(m_parameters[U_FLARE_VAL], m_fFlareVal);
 }

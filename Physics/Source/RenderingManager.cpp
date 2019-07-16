@@ -187,11 +187,11 @@ void RenderingManager::RenderWorld(Scene* scene)
 	// Calc Flare Val
 	Vector3 LightPos = { lights[0].position.x,  lights[0].position.y,  lights[0].position.z };
 	Vector3 CamToLight = LightPos - vCamPos;
-	float angleBetweenRad = acos(CamToLight.Dot(vCamDir) / (vCamDir.Length() * CamToLight.Length()) );
+	float angleBetweenRad = acos(CamToLight.Dot(vCamDir) / (vCamDir.Length() * CamToLight.Length()));
 	float angleBetweenDeg = Math::RadianToDegree(angleBetweenRad);
-	this->m_fFlareVal = 360 - angleBetweenDeg * 1.f;
-	m_fFlareVal = Math::Clamp(m_fFlareVal, 0.f, 1.f);
-
+	this->m_fFlareVal = 180 - angleBetweenDeg;
+	m_fFlareVal /= 620;
+	m_fFlareVal = Math::Clamp(m_fFlareVal, 0.f, .6f);
 
 	GameObjectManager* GOM = scene->GetGameObjectManager();
 	std::map<std::string, LayerData*>::iterator it;
@@ -237,7 +237,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 		GameObject* go = GOList->at(i);
 		if (!go->IsActive())
 			continue;
-	
+
 		RenderGameObject(go, vCamPos, true);
 		for (unsigned i = 0; i < GOList->at(i)->GetChildList()->size(); ++i)
 		{

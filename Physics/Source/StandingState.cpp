@@ -4,8 +4,8 @@
 #include "ChengPlayerScript.h"
 StandingState::StandingState()
 {
-	m_fSprintMultiplier = 5.0f;
-	m_fBaseMovementSpeed = 10;
+	m_fSprintMultiplier = 2.0f;
+	m_fBaseMovementSpeed = 1;
 }
 
 StandingState::~StandingState()

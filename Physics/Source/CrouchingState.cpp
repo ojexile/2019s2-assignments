@@ -4,7 +4,7 @@
 #include "ChengPlayerScript.h"
 CrouchingState::CrouchingState()
 {
-	m_fBaseMovementSpeed = 5;
+	m_fBaseMovementSpeed = 0.2f;
 }
 
 CrouchingState::~CrouchingState()

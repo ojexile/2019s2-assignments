@@ -9,6 +9,7 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun)
 {
 	m_CurrentState = nullptr;
 	m_bState = false;
+	m_fMovementSpeed = 1;
 }
 
 ChengPlayerScript::~ChengPlayerScript()
@@ -42,7 +43,7 @@ void ChengPlayerScript::Update(double dt)
 	// Movement
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
 	{
-		trans->Translate(m_fMovementSpeed * vCameraUp);
+		trans->Translate(m_fMovementSpeed * vCameraFront);
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
 	{
@@ -113,7 +114,6 @@ void ChengPlayerScript::Update(double dt)
 
 			m_bState = true;
 		}
-
 	}
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
