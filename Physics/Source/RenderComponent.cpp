@@ -8,7 +8,6 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 	m_bBillboard = false;
 	if (!Mesh)
 		DEFAULT_LOG("Mesh is null.");
-
 }
 RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 	: m_AnimatedMesh(Mesh)
