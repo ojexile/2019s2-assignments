@@ -17,9 +17,15 @@ ChengRigidbody::~ChengRigidbody()
 void ChengRigidbody::Update(double dt)
 {
 	Vector3 m_vAccel = m_vForce * (1 / m_fMass);
-	if(m_bGravityAffected)
+	if (m_bGravityAffected)
 		m_vAccel += m_vGravity;
 	this->m_vVel += m_vAccel * (float)dt;
+	if (m_bLockXAxis)
+		m_vVel.x = 0;
+	if (m_bLockYAxis)
+		m_vVel.y = 0;
+	if (m_bLockZAxis)
+		m_vVel.z = 0;
 	TransformComponent* Trans = this->GetComponent<TransformComponent>();
 	Trans->Translate(m_vVel * (float)dt);
 }
@@ -38,4 +44,16 @@ float ChengRigidbody::GetMass()
 ChengRigidbody::ePhysicsTypes ChengRigidbody::GetType()
 {
 	return m_eType;
+}
+void ChengRigidbody::LockXAxis(bool b)
+{
+	m_bLockXAxis = b;
+}
+void ChengRigidbody::LockYAxis(bool b)
+{
+	m_bLockYAxis = b;
+}
+void ChengRigidbody::LockZAxis(bool b)
+{
+	m_bLockZAxis = b;
 }

@@ -103,6 +103,7 @@ void ChengPlayerScript::Update(double dt)
 			trans->SetPosition(0, 0, 0);
 			cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
 			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, 0);
+			m_Gun->SetActive(true);
 			m_bState = false;
 		}
 		else
@@ -113,7 +114,7 @@ void ChengPlayerScript::Update(double dt)
 			trans->SetPosition(0, 0, 0);
 			cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 300, 0);
 			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, -90);
-
+			m_Gun->SetActive(false);
 			m_bState = true;
 		}
 	}

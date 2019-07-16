@@ -40,4 +40,7 @@ public:
 	Vector3 GetVel();
 	float GetMass();
 	ePhysicsTypes GetType();
+	void LockXAxis(bool);
+	void LockYAxis(bool);
+	void LockZAxis(bool);
 };

@@ -62,25 +62,9 @@ DataContainer::DataContainer()
 
 	//--------------------------------------------------------------------------------
 	// Gameobjects================================================================================
-	GameObject* ball = new GameObject;
-	m_map_GO["ball"] = ball;
-	ball->AddComponent(new RenderComponent(this->GetMesh("ball")));
-	ball->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
-	ball->AddComponent(new BallScript());
-	// --------------------------------------------------------------------------------
-	GameObject * ball2 = new GameObject;
-	m_map_GO["ball2"] = ball2;
-	ball2->AddComponent(new RenderComponent(this->GetMesh("ball2")));
-	ball2->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
-	// --------------------------------------------------------------------------------
-	GameObject* go = new GameObject;
-	m_map_GO["ball3"] = go;
-	go->AddComponent(new RenderComponent(this->GetMesh("ball3")));
-	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
 	// --------------------------------------------------------------------------------
 	GameObject* wall = new GameObject;
 	m_map_GO["wall"] = wall;
-
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
 	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
@@ -147,10 +131,13 @@ DataContainer::DataContainer()
 	//bullet->GetComponent<TransformComponent>()->SetScale(0.1f, 0.1f, 0.1f);
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	bullet->AddComponent(new BulletScript(20.f));
-	bullet->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
+	ChengRigidbody* rigid = new ChengRigidbody(ChengRigidbody::BALL);
+	rigid->LockYAxis(true);
+	bullet->AddComponent(rigid);
 	bullet->AddComponent(new BallScript());
 	bullet->AddChild(Spawner);
 	m_map_GO["bullet"] = bullet;
+	//--------------------------------------------------------------------------------
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
