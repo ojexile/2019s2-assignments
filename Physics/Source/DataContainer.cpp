@@ -5,6 +5,7 @@
 #include "ParticleScript.h"
 #include "ParticleSpawnerScript.h"
 #include "RainScript.h"
+#include "GoalScript.h"
 
 #include <time.h>
 DataContainer::DataContainer()
@@ -18,6 +19,7 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["pillar"] = MeshBuilder::GenerateOBJ("pillar", "cylinder");
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
+	m_map_Meshes["goal"] = MeshBuilder::GenerateCube("wall", Color((float)0.8, (float)0.2, (float)0.2), 1.f);
 
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
@@ -52,7 +54,11 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["Crosshair"] = MeshBuilder::GenerateQuad("Crosshair", { 1.f,1.f,1.f }, 2);
 	m_map_Meshes["Crosshair"]->m_uTextureArray[0] = LoadTGA("Crosshair");
+
+	m_map_Meshes["Gaunt"] = MeshBuilder::GenerateQuad("Gauntlet", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["Gaunt"]->m_uTextureArray[0] = LoadTGA("Gauntlet");
 	// Gameobjects================================================================================
+	GameObject* go;
 	// Particle--------------------------------------------------------------------------------
 	//Smoke--------------------------------------------------------------------------------
 	GameObject* SmokeParticle = new GameObject;
@@ -116,6 +122,13 @@ DataContainer::DataContainer()
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
 	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
+	//Goal --------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["goal"] = go;
+	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
+	go->AddComponent(new RenderComponent(this->GetMesh("goal")));
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
+	go->AddComponent(new GoalScript);
 	//Pillar--------------------------------------------------------------------------------
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;

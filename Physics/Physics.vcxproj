@@ -155,6 +155,7 @@
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
+    <ClCompile Include="Source\BouncerScript.cpp" />
     <ClCompile Include="Source\BulletScript.cpp" />
     <ClCompile Include="Source\BallScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
+    <ClCompile Include="Source\GoalScript.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\KeyboardManager.cpp" />
     <ClCompile Include="Source\LayerData.cpp" />
@@ -210,6 +212,7 @@
     <ClInclude Include="Source\AnimatedMesh.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\BouncerScript.h" />
     <ClInclude Include="Source\BulletScript.h" />
     <ClInclude Include="Source\AudioManager.h" />
     <ClInclude Include="Source\BallScript.h" />
@@ -227,6 +230,7 @@
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
+    <ClInclude Include="Source\GoalScript.h" />
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
     <ClInclude Include="Source\LayerData.h" />

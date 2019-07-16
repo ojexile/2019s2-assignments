@@ -76,13 +76,11 @@
     <ClCompile Include="Source\TestScene.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
-    <ClCompile Include="Source\WindowData.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
     <ClCompile Include="Source\RainScript.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
     <ClCompile Include="Source\Preferences.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
-    <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
     <ClCompile Include="Source\ChengPhysicsScene.cpp" />
     <ClCompile Include="Source\ChengCollisionManager.cpp" />
@@ -91,6 +89,8 @@
     <ClCompile Include="Source\BallScript.cpp" />
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\RojakAssignmentScene.cpp" />
+    <ClCompile Include="Source\GoalScript.cpp" />
+    <ClCompile Include="Source\BouncerScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -153,6 +153,8 @@
     <ClInclude Include="Source\LightManager.h" />
     <ClInclude Include="Source\RainScript.h" />
     <ClInclude Include="Source\RojakAssignmentScene.h" />
+    <ClInclude Include="Source\GoalScript.h" />
+    <ClInclude Include="Source\BouncerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />
@@ -193,5 +195,6 @@
     <None Include="Shader\water.vertexshader" />
     <None Include="Shader\Smoke.fragmentshader" />
     <None Include="Shader\Smoke.vertexshader" />
+    <None Include="Shader\shadow\Shadow.fragmentshader" />
   </ItemGroup>
 </Project>

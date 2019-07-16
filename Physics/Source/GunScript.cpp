@@ -8,7 +8,9 @@ GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRa
 {
 	m_Bullet = bullet;
 	m_fTimer = 0;
-
+	m_iClipAmmo = 3;
+	m_iNumClips = 2;
+	m_iClipAmmoMax = 20;
 	m_bTriggerDown = false;
 }
 
@@ -22,6 +24,8 @@ void GunScript::Update(double dt)
 }
 void GunScript::Fire(Vector3 vDir)
 {
+	if (m_iClipAmmo <= 0)
+		return;
 	float fBallSpeed = 120.f;
 	Vector3 ballDir = vDir;
 	Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
@@ -29,6 +33,7 @@ void GunScript::Fire(Vector3 vDir)
 	if (!bul)
 		return;
 	bul->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
+	--m_iClipAmmo;
 	m_fTimer = 0;
 }
 void GunScript::PullTrigger(Vector3 vDir)
@@ -45,6 +50,13 @@ void GunScript::PullTrigger(Vector3 vDir)
 	}
 
 	m_bTriggerDown = true;
+}
+void GunScript::Reload()
+{
+	if (m_iNumClips <= 0)
+		return;
+	m_iClipAmmo = m_iClipAmmoMax;
+	--m_iNumClips;
 }
 void GunScript::ReleaseTrigger()
 {

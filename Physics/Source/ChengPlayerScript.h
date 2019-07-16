@@ -11,9 +11,11 @@ private:
 	float m_fMovementSpeed;
 	GameObject* m_Gun;
 	GameObject* m_CrossHair;
+	GameObject* m_Gaunt;
 	bool m_bState;
+	bool m_bGaunt;
 public:
-	ChengPlayerScript(GameObject* Gun, GameObject* cross);
+	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt);
 	~ChengPlayerScript();
 	virtual ComponentBase* Clone()
 	{

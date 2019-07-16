@@ -288,50 +288,55 @@ void ChengCollisionManager::Update(GameObjectManager* GOM)
 			GameObject* go1 = GOList->at(i);
 			if (!go1->IsActive())
 				continue;
-			if (!go1->GetComponent<ChengRigidbody>(true))
-				continue;
-			/*for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
+			if (go1->GetComponent<ChengRigidbody>(true))
+				CheckCollision(go1, GOList, i);
+			for (unsigned j = 0; j < go1->GetChildList()->size(); ++j)
 			{
-				GameObject* goChild = GOList[i];
-				if (!go->IsActive())
+				GameObject* goChild = go1->GetChildList()->at(j);
+				if (!goChild->IsActive())
 					continue;
-			}*/
-			for (unsigned j = i + 1; j < GOList->size(); ++j)
-			{
-				GameObject* go2 = GOList->at(j);
-				if (!go2->IsActive())
-					continue;
-				if (!go2->GetComponent<ChengRigidbody>(true))
-					continue;
-				GameObject* goA = go1;
-				GameObject* goB = go2;
-				// force go1 to be a ball
-				if (go1->GetComponent<ChengRigidbody>()->GetType() != ChengRigidbody::BALL)
-				{
-					// swap ball to front
-					if (go2->GetComponent<ChengRigidbody>()->GetType() == ChengRigidbody::BALL)
-					{
-						goA = go2;
-						goB = go1;
-					}
-					// ignore !ball !ball
-					else
-					{
-						continue;
-					}
-				}
-				ChengRigidbody::ePhysicsTypes eCollideType = CheckCollision(goA, goB);
-				if (eCollideType != ChengRigidbody::NONE)
-				{
-					CollisionResponse(goA, goB, eCollideType);
-					ScriptComponent * Script1 = goA->GetComponent<ScriptComponent>(true);
-					if (Script1)
-						Script1->Collide(goB);
-					ScriptComponent * Script2 = goB->GetComponent<ScriptComponent>(true);
-					if (Script2)
-						Script2->Collide(goA);
-				}
+				if (goChild->GetComponent<ChengRigidbody>(true))
+					CheckCollision(goChild, GOList, i);
 			}
+		}
+	}
+}
+void ChengCollisionManager::CheckCollision(GameObject* go1, std::vector<GameObject*>* GOList, int i)
+{
+	for (unsigned j = i + 1; j < GOList->size(); ++j)
+	{
+		GameObject* go2 = GOList->at(j);
+		if (!go2->IsActive())
+			continue;
+		if (!go2->GetComponent<ChengRigidbody>(true))
+			continue;
+		GameObject* goA = go1;
+		GameObject* goB = go2;
+		// force go1 to be a ball
+		if (go1->GetComponent<ChengRigidbody>()->GetType() != ChengRigidbody::BALL)
+		{
+			// swap ball to front
+			if (go2->GetComponent<ChengRigidbody>()->GetType() == ChengRigidbody::BALL)
+			{
+				goA = go2;
+				goB = go1;
+			}
+			// ignore !ball !ball
+			else
+			{
+				continue;
+			}
+		}
+		ChengRigidbody::ePhysicsTypes eCollideType = CheckCollision(goA, goB);
+		if (eCollideType != ChengRigidbody::NONE)
+		{
+			CollisionResponse(goA, goB, eCollideType);
+			ScriptComponent * Script1 = goA->GetComponent<ScriptComponent>(true);
+			if (Script1)
+				Script1->Collide(goB);
+			ScriptComponent * Script2 = goB->GetComponent<ScriptComponent>(true);
+			if (Script2)
+				Script2->Collide(goA);
 		}
 	}
 }

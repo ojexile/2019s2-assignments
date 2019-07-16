@@ -8,11 +8,12 @@ private:
 	float m_fLastPopSoundTime;
 public:
 	BulletScript(const float fLifeTime);
-	~BulletScript();
+	virtual ~BulletScript();
 	virtual ComponentBase* Clone()
 	{
 		return new BulletScript(*this);
 	}
 
 	void Update(double dt) override;
+	virtual void Collide(GameObject* go) override;
 };

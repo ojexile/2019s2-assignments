@@ -10,7 +10,9 @@ private:
 	const float m_fFireRate;
 	GameObject* m_Player;
 	bool m_bSemi;
-
+	int m_iNumClips;
+	int m_iClipAmmo;
+	int m_iClipAmmoMax;
 	bool m_bTriggerDown;
 public:
 	GunScript(GameObject* bullet, GameObject* player, const float fFireRate, bool bSemi);
@@ -23,5 +25,6 @@ public:
 	void Update(double dt) override;
 	void Fire(Vector3 vDir);
 	void PullTrigger(Vector3 vDir);
+	void Reload();
 	void ReleaseTrigger();
 };

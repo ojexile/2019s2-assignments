@@ -4,13 +4,15 @@
 #include "GunScript.h"
 #include "LoadHmap.h"
 #include "KeyboardManager.h"
-ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross)
+ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
 	:m_Gun(gun)
 	, m_CrossHair(cross)
+	, m_Gaunt(gaunt)
 {
 	m_CurrentState = nullptr;
 	m_bState = false;
 	m_fMovementSpeed = 1;
+	m_bGaunt = false;
 }
 
 ChengPlayerScript::~ChengPlayerScript()
@@ -38,6 +40,7 @@ void ChengPlayerScript::Update(double dt)
 	Vector3 vCameraFront = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
 	Vector3 vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
 	TransformComponent* trans = GetComponent<TransformComponent>();
+	Vector3 pos = trans->GetPosition();
 	Vector3 vPlayerFront = vCameraFront;
 	vPlayerFront.y = 0;
 	//vPlayerFront.Normalize();
@@ -68,9 +71,8 @@ void ChengPlayerScript::Update(double dt)
 	{
 		trans->Translate(-m_fMovementSpeed * vCameraUp);
 	}
-	// Gun Position
-	// Fire
-
+	// Gun================================================================================
+	// Fire--------------------------------------------------------------------------------
 	if (Application::IsMousePressed(0))
 	{
 		this->m_Gun->GetComponent<GunScript>()->PullTrigger(vCameraFront);
@@ -79,7 +81,12 @@ void ChengPlayerScript::Update(double dt)
 	{
 		this->m_Gun->GetComponent<GunScript>()->ReleaseTrigger();
 	}
-	// Underwater
+	//Reload--------------------------------------------------------------------------------
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("reload"))
+	{
+		m_Gun->GetComponent<GunScript>()->Reload();
+	}
+	// Underwater================================================================================
 	if (trans->GetPosition().y < -10)
 	{
 		// Trigger underwater
@@ -89,11 +96,7 @@ void ChengPlayerScript::Update(double dt)
 	{
 		SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
 	}
-	// TODO Constrain to terrain
-	Vector3 pos = trans->GetPosition();
-	//trans->SetPosition(pos.x, 50.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
-	trans->SetPosition({ pos.x,0,pos.z });
-
+	// Camera================================================================================
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
 	{
 		if (m_bState)
@@ -121,6 +124,24 @@ void ChengPlayerScript::Update(double dt)
 			m_bState = true;
 		}
 	}
+	// Gauntlet================================================================================
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("triggerGauntlet"))
+	{
+		if (m_bGaunt)
+		{
+			m_Gaunt->SetActive(false);
+			m_bGaunt = false;
+		}
+		else
+		{
+			m_Gaunt->SetActive(true);
+			m_bGaunt = true;
+		}
+	}
+
+	// TODO Constrain to terrain================================================================================
+	//trans->SetPosition(pos.x, 50.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
+	//trans->SetPosition({ pos.x,0,pos.z });
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
 {
