@@ -174,8 +174,9 @@ void RenderingManagerBase::Update(double dt)
 	m_fElapsedTime += (float)dt;
 }
 
-void RenderingManagerBase::RenderText(Mesh* mesh, std::string text, Color color)
+void RenderingManagerBase::RenderText(RenderComponent* rc, std::string text, Color color)
 {
+	Mesh* mesh = rc->GetMesh();
 	if (!mesh || mesh->m_uTextureArray[0] <= 0)
 		return;
 
@@ -201,8 +202,9 @@ void RenderingManagerBase::RenderText(Mesh* mesh, std::string text, Color color)
 	glEnable(GL_DEPTH_TEST);
 }
 
-void RenderingManagerBase::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
+void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string text, Color color, float size, float x, float y)
 {
+	Mesh* mesh = rc->GetMesh();
 	if (!mesh || mesh->m_uTextureArray[0] <= 0)
 		return;
 
@@ -240,8 +242,10 @@ void RenderingManagerBase::RenderTextOnScreen(Mesh* mesh, std::string text, Colo
 	projectionStack.PopMatrix();
 	glEnable(GL_DEPTH_TEST);
 }
-void RenderingManagerBase::RenderUI(Mesh* mesh, bool enableLight)
+void RenderingManagerBase::RenderUI(RenderComponent* rc, bool enableLight)
 {
+	Mesh* mesh = rc->GetMesh();
+	Material mat = rc->GetMaterial();
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, 1920, 0, 1080, -10, 10);
@@ -280,10 +284,10 @@ void RenderingManagerBase::RenderUI(Mesh* mesh, bool enableLight)
 			GL_FALSE, &lightDepthMVP.a[0]);*/
 			//--
 			//load material
-		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh->material.kAmbient.r);
-		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh->material.kDiffuse.r);
-		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mesh->material.kSpecular.r);
-		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mesh->material.kShininess);
+		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
+		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
+		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
+		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
 	}
 	else
 	{
@@ -317,8 +321,10 @@ void RenderingManagerBase::RenderUI(Mesh* mesh, bool enableLight)
 	glEnable(GL_DEPTH_TEST);
 }
 
-void RenderingManagerBase::RenderMesh(Mesh *mesh, bool enableLight)
+void RenderingManagerBase::RenderMesh(RenderComponent *rc, bool enableLight)
 {
+	Mesh* mesh = rc->GetMesh();
+	Material mat = rc->GetMaterial();
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 	glEnable(GL_DEPTH_TEST);
 	//Shadows
@@ -364,10 +370,10 @@ void RenderingManagerBase::RenderMesh(Mesh *mesh, bool enableLight)
 			GL_FALSE, &m_lightDepthMVP.a[0]);
 		//--
 		//load material
-		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh->material.kAmbient.r);
-		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh->material.kDiffuse.r);
-		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mesh->material.kSpecular.r);
-		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mesh->material.kShininess);
+		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
+		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
+		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
+		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
 	}
 	else
 	{
@@ -396,8 +402,10 @@ void RenderingManagerBase::RenderMesh(Mesh *mesh, bool enableLight)
 		}
 	}
 }
-void RenderingManagerBase::RenderAnimatedMesh(AnimatedMesh *anim, bool enableLight)
+void RenderingManagerBase::RenderAnimatedMesh(RenderComponent *rc, bool enableLight)
 {
+	AnimatedMesh* anim = rc->GetAnimatedMesh();
+	Material mat = rc->GetMaterial();
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 	glEnable(GL_DEPTH_TEST);
 	//Shadows
@@ -428,10 +436,10 @@ void RenderingManagerBase::RenderAnimatedMesh(AnimatedMesh *anim, bool enableLig
 			GL_FALSE, &m_lightDepthMVP.a[0]);
 		//--
 		//load material
-		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &anim->m_Mesh->material.kAmbient.r);
-		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &anim->m_Mesh->material.kDiffuse.r);
-		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &anim->m_Mesh->material.kSpecular.r);
-		glUniform1f(m_parameters[U_MATERIAL_SHININESS], anim->m_Mesh->material.kShininess);
+		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
+		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
+		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
+		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
 	}
 	else
 	{

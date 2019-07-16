@@ -67,6 +67,10 @@ void RenderComponent::SetColor(Vector3 color)
 {
 	if (m_Mesh)
 	{
-		m_Mesh->material.kAmbient.Set(color.x, color.y, color.z);
+		m_Material.kAmbient.Set(color.x, color.y, color.z);
 	}
+}
+Material RenderComponent::GetMaterial()
+{
+	return m_Material;
 }
