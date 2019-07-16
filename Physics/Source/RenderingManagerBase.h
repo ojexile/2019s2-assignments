@@ -130,6 +130,8 @@ protected:
 	float fps;
 	float m_fElapsedTime;
 
+	float m_fFlareVal;
+
 	// Shadow
 	unsigned m_gPassShaderID;
 	DepthFBO m_lightDepthFBO;

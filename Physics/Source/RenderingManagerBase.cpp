@@ -4,6 +4,7 @@
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
+	m_fFlareVal = 0;
 }
 
 RenderingManagerBase::~RenderingManagerBase()
@@ -121,7 +122,7 @@ void RenderingManagerBase::BindUniforms()
 	glUniform1f(m_parameters[U_FRAG_ET], m_fElapsedTime);
 
 
-	glUniform1f(m_parameters[U_FLARE_VAL], 1.f);
+	glUniform1f(m_parameters[U_FLARE_VAL], m_fFlareVal);
 }
 void RenderingManagerBase::Init()
 {
