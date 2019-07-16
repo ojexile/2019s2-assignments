@@ -1,4 +1,6 @@
 #include "Logger.h"
+#include "Utility.h"
+#include "Resources.h"
 
 Logger::Logger(std::string sUser, SHORT Color)
 	: m_sUser(sUser)
@@ -59,9 +61,9 @@ int Logger::PrintLogs(int iYOffset)
 			std::cout << '	';
 
 		LogData log = m_vec_LogList[i];
-		Preferences* pref = Preferences::GetInstance();
-		const int WINDOW_LENGTH = (int)pref->GetConsoleSize().x;
-		const int WINDOW_CHAR_LENGTH = WINDOW_LENGTH / (int)pref->GetFontSize().x;
+		Vector3 ConsoleSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::ConsoleSize));
+		const int WINDOW_LENGTH = (int)ConsoleSize.x;
+		const int WINDOW_CHAR_LENGTH = WINDOW_LENGTH / (int)ConsoleSize.x;
 		std::stringstream ss;
 		ss << log.m_iNumCalls << "  " << log.m_sLog << log.m_sOptional;
 		iYOffset += ss.str().size() / WINDOW_CHAR_LENGTH;

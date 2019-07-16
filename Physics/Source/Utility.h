@@ -5,5 +5,5 @@
 #include "Vertex.h"
 
 Position operator*(const Mtx44& lhs, const Position& rhs);
-
+Vector3 StringToVector(std::string s);
 #endif
