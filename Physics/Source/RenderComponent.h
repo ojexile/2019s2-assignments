@@ -29,6 +29,7 @@ public:
 	void SetBillboard(bool b);
 	bool IsBillboard();
 	void SetColor(Vector3 color);
+	void ResetColor(Vector3 color);
 	Material GetMaterial();
 	void Update(double dt) override;
 };
