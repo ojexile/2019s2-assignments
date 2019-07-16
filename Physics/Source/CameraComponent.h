@@ -17,6 +17,7 @@ public:
 private:
 	eCameraTypes m_eCameraType;
 	Camera m_Camera;
+	bool m_bMouseEnabled;
 public:
 	CameraComponent();
 	virtual ~CameraComponent();
@@ -29,4 +30,6 @@ public:
 	Camera* GetCamera();
 	void SetCameraType(eCameraTypes eCameratype);
 	eCameraTypes GetCameraType();
+
+	void SetMouseEnabled(bool b);
 };

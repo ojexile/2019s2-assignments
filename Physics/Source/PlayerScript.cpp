@@ -55,6 +55,7 @@ void PlayerScript::Update(double dt)
 	{
 		//AudioManager::GetInstance()->Play3D("susu.wav", Vector3(0, 0, 2));
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
 		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 		trans->SetPosition(0, 0, 0);
 		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 200, 0);
