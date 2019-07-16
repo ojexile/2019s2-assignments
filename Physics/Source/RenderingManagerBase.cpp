@@ -65,6 +65,8 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_COLOR_TEXTURE_ENABLED1] = glGetUniformLocation(m_programID,
 		"colorTextureEnabled[2]");
 	m_parameters[U_COLOR_TEXTURE1] = glGetUniformLocation(m_programID, "colorTexture[2]");
+	// Flare
+	m_parameters[U_FLARE_VAL] = glGetUniformLocation(m_programID, "flareVal");
 
 	// Shadows
 	m_parameters[U_LIGHT_DEPTH_MVP] =
@@ -103,7 +105,7 @@ void RenderingManagerBase::BindUniforms()
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
 	glUniform1f(m_parameters[U_FOG_START], 1);
 	glUniform1f(m_parameters[U_FOG_END], 1000);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 0.05f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], true);
 
@@ -117,7 +119,9 @@ void RenderingManagerBase::BindUniforms()
 
 	glUniform1f(m_parameters[U_VERT_ET], m_fElapsedTime);
 	glUniform1f(m_parameters[U_FRAG_ET], m_fElapsedTime);
-	// Use our shader
+
+
+	glUniform1f(m_parameters[U_FLARE_VAL], 1.f);
 }
 void RenderingManagerBase::Init()
 {

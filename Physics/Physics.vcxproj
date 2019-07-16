@@ -235,6 +235,8 @@
     <ClInclude Include="Source\Preferences.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\shaders\Flare.fragmentshader" />
+    <None Include="Content\shaders\Flare.vertexshader" />
     <None Include="Shader\comg.fragmentshader" />
     <None Include="Shader\comg.vertexshader" />
     <None Include="Shader\Fog.fragmentshader" />

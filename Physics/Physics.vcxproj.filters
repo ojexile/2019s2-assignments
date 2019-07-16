@@ -97,5 +97,7 @@
     <None Include="Shader\shadow\GPass.fragmentshader" />
     <None Include="Shader\shadow\GPass.vertexshader" />
     <None Include="Shader\shadow\Shadow.vertexshader" />
+    <None Include="Content\shaders\Flare.fragmentshader" />
+    <None Include="Content\shaders\Flare.vertexshader" />
   </ItemGroup>
 </Project>
