@@ -63,9 +63,10 @@ DataContainer::DataContainer()
 	// Particle--------------------------------------------------------------------------------
 	//Smoke--------------------------------------------------------------------------------
 	GameObject* SmokeParticle = new GameObject;
+	SmokeParticle->GetComponent<TransformComponent>()->SetScale(5, 5, 5);
 	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
 	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
-	SmokeParticle->AddComponent(new ParticleScript(0.3f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { -0.8f,-0.8f,0 }, {}));
+	SmokeParticle->AddComponent(new ParticleScript(0.3f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { 0,0,0 }, {}));
 	m_map_GO["SmokeParticle"] = SmokeParticle;
 	//// Fish--------------------------------------------------------------------------------
 	//GameObject* Fish = new GameObject;

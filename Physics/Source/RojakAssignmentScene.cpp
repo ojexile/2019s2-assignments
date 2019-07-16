@@ -64,16 +64,17 @@ void RojakAssignmentScene::Init()
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
 	//
 	//Board================================================================================
-	float width = 100;
+	float width = 120;
 	float length = 120;
-	float height = 180;
+	float height = 120;
 	float holeWidth = 20;
 	float thickness = 20;
+	float fOffset = -thickness;
 	// Walls--------------------------------------------------------------------------------
 	// top--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	go->TRANSFORM->SetPosition(0, 0, -length);
-	go->TRANSFORM->SetScale(thickness, height, width * 2);
+	go->TRANSFORM->SetScale(thickness, height, width * 2 + fOffset);
 	// bot left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	go->TRANSFORM->SetPosition(-(width / 2 + holeWidth / 2), 0, length);
@@ -90,12 +91,12 @@ void RojakAssignmentScene::Init()
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	go->TRANSFORM->SetPosition(-width, 0, 0);
 	go->TRANSFORM->SetRotation(0, 0, 1, 0);
-	go->TRANSFORM->SetScale(thickness, height, length * 2);
+	go->TRANSFORM->SetScale(thickness, height, length * 2 + fOffset);
 	// right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	go->TRANSFORM->SetPosition(width, 0, 0);
 	go->TRANSFORM->SetRotation(0, 0, 1, 0);
-	go->TRANSFORM->SetScale(thickness, height, length * 2);
+	go->TRANSFORM->SetScale(thickness, height, length * 2 + fOffset);
 	// floor--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	go->TRANSFORM->SetPosition(0, -thickness / 2, 0);

@@ -166,7 +166,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 
 		if (rigid1->GetVel().Dot(N) > 0)
 		{
-			Vector3 NP = { N.z,N.x, N.y };
+			Vector3 NP = { -N.z,N.y, N.x };
 
 			Vector3 wallScale = trans2->GetScale();
 			if (w0minusb1.Dot(N) < trans1->GetScale().x + wallScale.x * 0.5f

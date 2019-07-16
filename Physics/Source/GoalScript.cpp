@@ -17,7 +17,7 @@ void GoalScript::Collide(GameObject* go)
 	++m_iNumGoals;
 	Destroy(go);
 
-	AudioManager::GetInstance()->PlayBGM("pop.wav");
+	AudioManager::GetInstance()->Play3D("pop.wav", {});
 
 	CHENG_LOG("GOAL", std::to_string(m_iNumGoals));
 }
