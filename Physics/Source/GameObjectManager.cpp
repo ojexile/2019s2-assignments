@@ -109,11 +109,14 @@ void GameObjectManager::DestroySelf(ComponentBase* com)
 				for (unsigned k = 0; k < go->GetChildList()->size(); ++k)
 				{
 					GameObject* child = go->GetChildList()->at(k);
-					if (child->m_vec_ComponentList[j] == com)
+					for (unsigned l = 0; l < child->m_vec_ComponentList.size(); ++l)
 					{
-						delete go;
-						(*list).erase((*list).begin() + i);
-						return;
+						if (child->m_vec_ComponentList[l] == com)
+						{
+							delete go;
+							(*list).erase((*list).begin() + i);
+							return;
+						}
 					}
 				}
 			}
