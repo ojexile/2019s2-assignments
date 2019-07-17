@@ -17,8 +17,8 @@ using namespace std;
 
 unsigned LoadShaders(const char * vfp, const char * ffp) {
 	// .vertexshader file ext is assumed
-	std::string vertex_file_path = Resources::ShaderPath + vfp + ".vertexshader";
-	std::string fragment_file_path = Resources::ShaderPath + ffp + ".fragmentshader";
+	std::string vertex_file_path = Resources::Path::Shader + vfp + ".vertexshader";
+	std::string fragment_file_path = Resources::Path::Shader + ffp + ".fragmentshader";
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);

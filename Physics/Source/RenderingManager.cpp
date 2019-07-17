@@ -62,14 +62,14 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(m_gPassShaderID);
 	//These matrices should change when light position or direction changes
-	const float size = 100;
-	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
+	LightManager* lm = scene->GetLightManager();
+	if (lm->GetSceneLights()[0]->type == Light::LIGHT_DIRECTIONAL)
 		m_lightDepthProj.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_X / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
 	else
 		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
-
+	Light* light = lm->GetSceneLights()[0];
 	m_lightDepthView.SetToLookAt(
-		lights[0].position.x, lights[0].position.y, lights[0].position.z,
+		light->position.x, light->position.y, light->position.z,
 		0, 0, 0,
 		0, 1, 0);
 	RenderWorld(scene);
@@ -90,25 +90,31 @@ void RenderingManager::RenderPassMain(Scene* scene)
 	glUniform1i(m_parameters[U_SHADOW_MAP], 8);
 
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// TODO Switch to loop
+	LightManager* lm = scene->GetLightManager();
+	for (unsigned i = 0; i < lm->GetSceneLights().size(); ++i)
+	{
+		Light* light = lm->GetSceneLights()[i];
+		if (light->type == Light::LIGHT_DIRECTIONAL)
+		{
+			Vector3 lightDir(light->position.x, light->position.y, light->position.z);
+			Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+			glUniform3fv(m_LightParameters[U_LIGHT_POSITION + i * U_LIGHT_TOTAL], 1, &lightDirection_cameraspace.x);
+		}
+		else if (light->type == Light::LIGHT_SPOT)
+		{
+			Position lightPosition_cameraspace = viewStack.Top() * light->position;
+			glUniform3fv(m_LightParameters[U_LIGHT_POSITION + i * U_LIGHT_TOTAL], 1, &lightPosition_cameraspace.x);
+			Vector3 spotDirection_cameraspace = viewStack.Top() * light->spotDirection;
+			glUniform3fv(m_LightParameters[U_LIGHT_SPOTDIRECTION + i * U_LIGHT_TOTAL], 1, &spotDirection_cameraspace.x);
+		}
+		else
+		{
+			Position lightPosition_cameraspace = viewStack.Top() * light->position;
+			glUniform3fv(m_LightParameters[U_LIGHT_POSITION + i * U_LIGHT_TOTAL], 1, &lightPosition_cameraspace.x);
+		}
+	}
 
-	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
-	{
-		Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if (lights[0].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[0].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-	}
 	GameObject* CameraObject = scene->GetCameraGameObject();
 	Vector3 vCamPosition = CameraObject->GetComponent<TransformComponent>()->GetPosition();
 	if (!CameraObject)
@@ -161,9 +167,10 @@ void RenderingManager::RenderPassMain(Scene* scene)
 
 	if (VIEW_AS_LIGHT)
 	{
+		Light* light = scene->GetLightManager()->GetSceneLights()[0];
 		projection.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_X / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
 		viewStack.LookAt(
-			lights[0].position.x, lights[0].position.y, lights[0].position.z,
+			light->position.x, light->position.y, light->position.z,
 			0, 0, 0,
 			0, 1, 0);
 	}
@@ -210,6 +217,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 		{
 			m_programID = it->second->GetShader();
 			BindUniforms();
+			SetUniforms(scene);
 		}
 		std::vector<GameObject*>* GOList = it->second->GetGOList();
 		for (unsigned i = 0; i < GOList->size(); ++i)

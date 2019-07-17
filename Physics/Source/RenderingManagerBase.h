@@ -19,6 +19,7 @@
 #include "MeshBuilder.h"
 #include "RenderComponent.h"
 #define FOG_ENABLED true
+#define MAX_LIGHTS 8
 
 class RenderingManagerBase : public Renderer
 {
@@ -52,19 +53,7 @@ protected:
 		U_COLOR_TEXTURE5,
 		U_COLOR_TEXTURE6,
 		U_COLOR_TEXTURE7,
-
-		U_LIGHT0_TYPE,
-		U_LIGHT0_POSITION,
-		U_LIGHT0_COLOR,
-		U_LIGHT0_POWER,
-		U_LIGHT0_KC,
-		U_LIGHT0_KL,
-		U_LIGHT0_KQ,
-		U_LIGHT0_SPOTDIRECTION,
-		U_LIGHT0_COSCUTOFF,
-		U_LIGHT0_COSINNER,
-		U_LIGHT0_EXPONENT,
-
+		// Text
 		U_TEXT_ENABLED,
 		U_TEXT_COLOR,
 
@@ -85,17 +74,33 @@ protected:
 		U_LIGHT_DEPTH_MVP,
 		U_SHADOW_MAP,
 
-		U_SHADOW_COLOR_TEXTURE,
-		U_SHADOW_COLOR_TEXTURE1,
-		U_SHADOW_COLOR_TEXTURE2,
 		U_SHADOW_COLOR_TEXTURE_ENABLED,
+		U_SHADOW_COLOR_TEXTURE,
 		U_SHADOW_COLOR_TEXTURE_ENABLED1,
+		U_SHADOW_COLOR_TEXTURE1,
 		U_SHADOW_COLOR_TEXTURE_ENABLED2,
+		U_SHADOW_COLOR_TEXTURE2,
 
 		// flare
 		U_FLARE_VAL,
 
 		U_TOTAL,
+	};
+	enum UNIFORM_LIGHT
+	{
+		U_LIGHT_TYPE,
+		U_LIGHT_POSITION,
+		U_LIGHT_COLOR,
+		U_LIGHT_POWER,
+		U_LIGHT_KC,
+		U_LIGHT_KL,
+		U_LIGHT_KQ,
+		U_LIGHT_SPOTDIRECTION,
+		U_LIGHT_COSCUTOFF,
+		U_LIGHT_COSINNER,
+		U_LIGHT_EXPONENT,
+
+		U_LIGHT_TOTAL,
 	};
 	enum RENDER_PASS
 	{
@@ -119,16 +124,18 @@ protected:
 	void RenderMesh(RenderComponent *mesh, bool enableLight);
 	void RenderAnimatedMesh(RenderComponent *mesh, bool enableLight);
 	void BindUniforms();
+	void SetUniforms(Scene* scene);
+	void BindLightUniforms();
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 	int m_parameters[U_TOTAL];
+	int m_LightParameters[U_LIGHT_TOTAL * MAX_LIGHTS];
 
 	MS modelStack;
 	MS viewStack;
 	MS projectionStack;
 
-	Light lights[1];
 	bool bLightEnabled;
 	float fps;
 	float m_fElapsedTime;

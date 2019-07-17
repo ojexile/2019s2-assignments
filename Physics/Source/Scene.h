@@ -2,6 +2,7 @@
 #include "GameObjectManager.h"
 #include "Camera.h"
 #include "CameraComponent.h"
+#include "LightManager.h"
 
 #define TRANSFORM GetComponent<TransformComponent>()
 #define RENDER GetComponent<RenderComponent>()
@@ -17,9 +18,10 @@ public:
 	GameObject* GetCameraGameObject();
 	Camera* GetCamera();
 	GameObjectManager* GetGameObjectManager();
-
+	LightManager* GetLightManager();
 protected:
 	GameObjectManager m_GameObjectManager;
+	LightManager m_LightManager;
 	GameObject* m_CameraGO;
 	Camera* m_Camera;
 };

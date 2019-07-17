@@ -8,6 +8,7 @@
 #include "Preferences.h"
 #include "Resources.h"
 #include "Utility.h"
+#include "AudioManager.h"
 // Select Debug logger user
 // Users are enums located in locator.h
 //#define USER CHENG
@@ -17,11 +18,13 @@
 //#define USER_S ( TO_STR(USER) )
 
 Renderer* Engine::m_Renderer;
+LightManager* Engine::m_LightManager;
 
 Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
 	m_fLogUpdateTimer = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
+	m_fLogUpdateTimer = 0;
 }
 
 Engine::~Engine()
@@ -137,5 +140,6 @@ void Engine::Exit()
 	SceneManager::DeleteInstance();
 	DataContainer::DeleteInstance();
 	KeyboardManager::DeleteInstance();
+	AudioManager::DeleteInstance();
 	Time::DeleteInstance();
 }

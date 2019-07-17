@@ -7,7 +7,7 @@
 
 GLuint LoadTGA(std::string path)				// load TGA file to memory
 {
-	std::string file_path = Resources::TexturePath + path + ".tga";
+	std::string file_path = Resources::Path::Texture + path + ".tga";
 	std::ifstream fileStream(file_path, std::ios::binary);
 	if (!fileStream.is_open()) {
 		//std::cout << "Impossible to open " << file_path << ". Are you in the right directory ?\n";

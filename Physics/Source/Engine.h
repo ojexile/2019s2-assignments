@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderer.h"
 #include "RenderingManager.h"
+#include "LightManager.h"
 #include "SceneManager.h"
 
 #include "Scene.h"
