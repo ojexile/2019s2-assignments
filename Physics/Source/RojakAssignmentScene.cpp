@@ -45,8 +45,13 @@ void RojakAssignmentScene::Init()
 	Gaunt->AddComponent(new RenderComponent(dataContainer->GetMesh("Gaunt")));
 	Gaunt->RENDER->SetLightEnabled(false);
 	MeshController<Mesh>* meshController = new MeshController<Mesh>;
-	meshController->AddMesh("gaunt", dataContainer->GetMesh("Gaunt"));
-	meshController->AddMesh("notGaunt", dataContainer->GetMesh("Crosshair"));
+	meshController->AddMesh("Gaunt", dataContainer->GetMesh("Gaunt"));
+	meshController->AddMesh("GauntSoul", dataContainer->GetMesh("GauntSoul"));
+	meshController->AddMesh("GauntReality", dataContainer->GetMesh("GauntReality"));
+	meshController->AddMesh("GauntSpace", dataContainer->GetMesh("GauntSpace"));
+	meshController->AddMesh("GauntPower", dataContainer->GetMesh("GauntPower"));
+	meshController->AddMesh("GauntTime", dataContainer->GetMesh("GauntTime"));
+	meshController->AddMesh("GauntMind", dataContainer->GetMesh("GauntMind"));
 	Gaunt->AddComponent(meshController);
 	Gaunt->SetActive(false);
 	//Player================================================================================

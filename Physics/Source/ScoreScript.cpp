@@ -15,6 +15,6 @@ void ScoreScript::IncrementScore(int i)
 }
 void ScoreScript::Update(double dt)
 {
-	RenderComponent* rc = GetComponent<RenderComponent>(); \
-		rc->GetText();
+	RenderComponent* rc = GetComponent<RenderComponent>();
+	rc->SetText("Score: " + std::to_string(m_iScore));
 }

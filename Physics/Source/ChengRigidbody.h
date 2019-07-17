@@ -16,6 +16,7 @@ public:
 	};
 private:
 	Vector3 m_vVel;
+	Vector3 m_vAVel;
 	Vector3 m_vForce;
 	Vector3 m_vGravity;
 	// PhysicsMat m_PhysicsMat

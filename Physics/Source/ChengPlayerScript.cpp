@@ -15,6 +15,7 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObj
 	m_bState = false;
 	m_fMovementSpeed = 1;
 	m_bGaunt = false;
+	m_eStone = NONE;
 }
 
 ChengPlayerScript::~ChengPlayerScript()
@@ -150,7 +151,34 @@ void ChengPlayerScript::Update(double dt)
 		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGaunt"))
 		{
 			MeshController<Mesh>* mc = m_Gaunt->GetComponent<MeshController<Mesh>>();
-			mc->SetMesh("notGaunt");
+
+			switch (m_eStone)
+			{
+			case ChengPlayerScript::NONE:
+				mc->SetMesh("GauntSoul");
+				break;
+			case ChengPlayerScript::SOUL:
+				mc->SetMesh("GauntReality");
+				break;
+			case ChengPlayerScript::REALITY:
+				mc->SetMesh("GauntSpace");
+				break;
+			case ChengPlayerScript::SPACE:
+				mc->SetMesh("GauntPower");
+				break;
+			case ChengPlayerScript::POWER:
+				mc->SetMesh("GauntTime");
+				break;
+			case ChengPlayerScript::TIME:
+				mc->SetMesh("GauntMind");
+				break;
+			case ChengPlayerScript::MIND:
+				mc->SetMesh("Gaunta");
+				break;
+			default:
+				break;
+			}
+			m_eStone = static_cast<eSTONES>((m_eStone + 1) % TOTAL);
 		}
 	}
 

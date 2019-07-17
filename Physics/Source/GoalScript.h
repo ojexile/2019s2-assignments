@@ -1,11 +1,13 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "ScoreScript.h"
 class GoalScript : public ScriptComponent
 {
 private:
 	int m_iNumGoals;
+	ScoreScript* m_ScoreScript;
 public:
-	GoalScript();
+	GoalScript(ScoreScript* ScoreScript);
 	virtual ~GoalScript();
 	virtual ComponentBase* Clone()
 	{

@@ -5,6 +5,18 @@
 #include "StandingState.h"
 class ChengPlayerScript : public ScriptComponent
 {
+public:
+	enum eSTONES
+	{
+		NONE,
+		SOUL,
+		REALITY,
+		SPACE,
+		POWER,
+		TIME,
+		MIND,
+		TOTAL,
+	};
 	friend class PlayerState;
 private:
 	PlayerState* m_CurrentState;
@@ -14,6 +26,7 @@ private:
 	GameObject* m_Gaunt;
 	bool m_bState;
 	bool m_bGaunt;
+	eSTONES m_eStone;
 public:
 	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt);
 	~ChengPlayerScript();
