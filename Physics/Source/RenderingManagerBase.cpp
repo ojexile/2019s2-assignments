@@ -83,22 +83,9 @@ void RenderingManagerBase::BindUniforms()
 }
 void RenderingManagerBase::BindLightUniforms()
 {
-	// TODO Change to for loop
 	// Light================================================================================
 	for (int i = 0; i < MAX_LIGHTS; ++i)
 	{
-		//m_LightParameters[U_LIGHT_TYPE + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].type");
-		//m_LightParameters[U_LIGHT_POSITION + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
-		//m_LightParameters[U_LIGHT_COLOR + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].color");
-		//m_LightParameters[U_LIGHT_POWER + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].power");
-		//m_LightParameters[U_LIGHT_KC + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].kC");
-		//m_LightParameters[U_LIGHT_KL + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].kL");
-		//m_LightParameters[U_LIGHT_KQ + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].kQ");
-		//m_LightParameters[U_LIGHT_SPOTDIRECTION + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].spotDirection");
-		//m_LightParameters[U_LIGHT_COSCUTOFF + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
-		//m_LightParameters[U_LIGHT_COSINNER + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].cosInner");
-		//m_LightParameters[U_LIGHT_EXPONENT + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].exponent");
-
 		std::string prefix = "lights[" + std::to_string(i) + "].";
 		m_LightParameters[U_LIGHT_TYPE + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, std::string(prefix + "type").c_str());
 		m_LightParameters[U_LIGHT_POSITION + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, std::string(prefix + "position_cameraspace").c_str());
@@ -153,7 +140,6 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 		glUniform1f(m_LightParameters[U_LIGHT_COSINNER + (U_LIGHT_TOTAL * index)], L->cosInner);
 		glUniform1f(m_LightParameters[U_LIGHT_EXPONENT + (U_LIGHT_TOTAL * index)], L->exponent);
 	}
-
 	glUniform1f(m_parameters[U_FLARE_VAL], m_fFlareVal);
 }
 
