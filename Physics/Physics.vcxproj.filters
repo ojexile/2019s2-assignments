@@ -38,6 +38,7 @@
     <ClCompile Include="Source\Preferences.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\Time.cpp" />
+    <ClCompile Include="Source\MeshController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -82,6 +83,7 @@
     <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\Preferences.h" />
     <ClInclude Include="Source\Time.h" />
+    <ClInclude Include="Source\MeshController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

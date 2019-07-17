@@ -20,7 +20,7 @@ public:
 	virtual ComponentBase* Clone()
 	{
 		return new RenderComponent(*this);
-	}
+	};
 
 	Mesh* GetMesh();
 	AnimatedMesh* GetAnimatedMesh();
@@ -32,4 +32,6 @@ public:
 	void ResetColor(Vector3 color);
 	Material GetMaterial();
 	void Update(double dt) override;
+	void SetMesh(Mesh* mesh);
+	void SetMesh(AnimatedMesh* mesh);
 };
