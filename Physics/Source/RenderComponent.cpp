@@ -85,3 +85,11 @@ Material RenderComponent::GetMaterial()
 {
 	return m_Material;
 }
+void RenderComponent::SetMesh(Mesh* mesh)
+{
+	m_Mesh = mesh;
+}
+void RenderComponent::SetMesh(AnimatedMesh* mesh)
+{
+	m_AnimatedMesh = mesh;
+}
