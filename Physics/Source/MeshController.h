@@ -11,15 +11,29 @@ class MeshController : public ComponentBase
 private:
 	std::map<std::string, t*> m_map_List;
 public:
-	MeshController();
-	virtual ~MeshController();
+	MeshController() {};
+	virtual ~MeshController() {};
 	virtual ComponentBase* Clone()
 	{
 		return new MeshController(*this);
 	};
-	void AddMesh(std::string name, t* mesh);
-	void SetMesh(std::string s);
-};
+	void AddMesh(std::string name, t* mesh)
+	{
+		m_map_List[name] = mesh;
+	};
+	void SetMesh(std::string s) {
+		RenderComponent* rc = GetComponent<RenderComponent>();
+		if (!rc)
+		{
+			DEFAULT_LOG("No render component tied with mesh controller.");
+			return;
+		}
+		if (m_map_List.count(s) <= 0)
+		{
+			DEFAULT_LOG("Unknown mesh of name: " + s);
+			return;
+		}
+		rc->SetMesh(m_map_List[s]);
+	};
 
-MeshController<Mesh> mesh; 
-MeshController<AnimatedMesh> amesh;
+};
