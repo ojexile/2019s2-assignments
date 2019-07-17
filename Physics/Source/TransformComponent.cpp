@@ -34,11 +34,6 @@ void TransformComponent::Update(double dt)
 Setter functions
 ***************/
 
-void TransformComponent::SetScale(Vector3 arg)
-{
-	this->m_vScale = arg;
-}
-
 void TransformComponent::SetScale(float scaleX, float scaleY, float scaleZ)
 {
 	this->m_vScale.Set(scaleX, scaleY, scaleZ);
@@ -46,7 +41,7 @@ void TransformComponent::SetScale(float scaleX, float scaleY, float scaleZ)
 
 void TransformComponent::SetRotation(float degrees, int xAxis, int yAxis, int zAxis)
 {
-	this->m_vRotateAxis.Set(xAxis, yAxis, zAxis);
+	this->m_vRotateAxis.Set((float)xAxis, (float)yAxis, (float)zAxis);
 	this->m_fdegrees = degrees;
 }
 

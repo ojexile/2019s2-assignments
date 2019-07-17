@@ -159,7 +159,6 @@
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
-    <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\DepthFBO.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
@@ -174,21 +173,23 @@
     <ClCompile Include="Source\LogData.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\MemoryLog.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\MeshController.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
+    <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\ScriptComponent.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\TestScene.cpp" />
+    <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
-    <ClCompile Include="Source\WindowData.cpp" />
+    <ClCompile Include="Source\Preferences.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -199,7 +200,6 @@
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\DataContainer.h" />
-    <ClInclude Include="Source\Debug.h" />
     <ClInclude Include="Source\DepthFBO.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\GameObject.h" />
@@ -215,25 +215,26 @@
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
     <ClInclude Include="Source\Material.h" />
-    <ClInclude Include="Source\MemoryLeak.h" />
-    <ClInclude Include="Source\MemoryLog.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
+    <ClInclude Include="Source\MeshController.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\RenderComponent.h" />
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />
     <ClInclude Include="Source\RenderingManagerBase.h" />
+    <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\ScriptComponent.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\TestScene.h" />
+    <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\TransformComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
-    <ClInclude Include="Source\WindowData.h" />
+    <ClInclude Include="Source\Preferences.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

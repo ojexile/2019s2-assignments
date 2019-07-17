@@ -1,24 +1,29 @@
 #include "RenderingManager.h"
 #include "Application.h"
 #include "RenderComponent.h"
+#define VIEW_AS_LIGHT false
+#define SHADOW_VIEW_SIZE_X 200
+#define SHADOW_VIEW_SIZE_Y 200
+#define SHADOW_VIEW_SIZE_Z 1000
+#define SHADOW_RES 1024*3
 
+#define SWITCH_SHADER true
 RenderingManager::RenderingManager()
 {
+	m_worldHeight = 100.f;
+	m_worldWidth = 100.f;
+	m_speed = 1.f;
 }
 
 RenderingManager::~RenderingManager()
 {
 }
 
-//Look here, prob causing light errors here
 void RenderingManager::Init()
 {
 	RenderingManagerBase::Init();
-	m_worldHeight = 100.f;
-	m_worldWidth = 100.f;
-
-	m_speed = 1.f;
-
+	// Shadows
+	m_lightDepthFBO.Init(SHADOW_RES, SHADOW_RES);
 	Math::InitRNG();
 }
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -57,9 +62,8 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(m_gPassShaderID);
 	//These matrices should change when light position or direction changes
-	const float size = 250;
 	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
-		m_lightDepthProj.SetToOrtho(-size, size, -size, size, -100, 100);
+		m_lightDepthProj.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_X / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
 	else
 		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
 
@@ -86,26 +90,24 @@ void RenderingManager::RenderPassMain(Scene* scene)
 
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// TODO Create loop
 	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
 	{
 		Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
 		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_LightParameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
 	}
 	else if (lights[0].type == Light::LIGHT_SPOT)
 	{
 		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
-		glUniform3fv(m_LightParameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[0].spotDirection;
-		glUniform3fv(m_LightParameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
 	}
 	else
 	{
 		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
-		glUniform3fv(m_LightParameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
-
 	GameObject* CameraObject = scene->GetCameraGameObject();
 	Vector3 vCamPosition = CameraObject->GetComponent<TransformComponent>()->GetPosition();
 	if (!CameraObject)
@@ -135,38 +137,44 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		break;
 	case CameraComponent::CAM_ORTHO:
 	case CameraComponent::CAM_CUSTOM_ORTHO:
-		projection.SetToOrtho(0, Application::GetWindowWidth(), 0, Application::GetWindowHeight(), -10, 10);
-		break;
+	{
+		if (Camera->IsOrthoInit())
+		{
+			Vector3 vOrthoSize = Camera->GetOrthoSize();
+			projection.SetToOrtho(-vOrthoSize.x / 2, vOrthoSize.x / 2, -vOrthoSize.y / 2, vOrthoSize.y / 2, 0, vOrthoSize.z);
+		}
+		else
+		{
+			DEFAULT_LOG("(Cheng)Camera ortho size not initialsed.");
+		}
+	}
+	break;
 	default:
 		DEFAULT_LOG("Camera type not unknown.");
 		__debugbreak();
 		break;
 	}
-	//projection.SetToOrtho(-100, 100, -100, 100, -100, 100);
 
-	projectionStack.LoadMatrix(projection);
 	// Camera matrix
 	viewStack.LoadIdentity();
-	viewStack.LookAt(
-		vCamPosition.x, vCamPosition.y, vCamPosition.z,
-		Camera->m_vTarget.x, Camera->m_vTarget.y, Camera->m_vTarget.z,
-		Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z
-	);
-	/*viewStack.LookAt(
+
+	if (VIEW_AS_LIGHT)
+	{
+		projection.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_X / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
+		viewStack.LookAt(
 			lights[0].position.x, lights[0].position.y, lights[0].position.z,
 			0, 0, 0,
-			0, 1, 0);*/
-	std::stringstream ss;
-	ss.precision(1);
-	ss << Camera->m_vTarget.x << ", " << Camera->m_vTarget.y << ", " << Camera->m_vTarget.z;
-	//CHENG_LOG("CAM TAR: ", ss.str());
-	std::stringstream ss2;
-	ss2.precision(1);
-	ss2 << vCamPosition.x << ", " << vCamPosition.y << ", " << vCamPosition.z;
-	//CHENG_LOG("CAM POS: ", ss2.str());
-	ss.str("");
-	ss << Camera->m_vDir.x << ", " << Camera->m_vDir.y << ", " << Camera->m_vDir.z;
-	//CHENG_LOG("CAM DIR: ", ss.str());
+			0, 1, 0);
+	}
+	else
+	{
+		viewStack.LookAt(
+			vCamPosition.x, vCamPosition.y, vCamPosition.z,
+			Camera->m_vTarget.x, Camera->m_vTarget.y, Camera->m_vTarget.z,
+			Camera->m_vUp.x, Camera->m_vUp.y, Camera->m_vUp.z);
+	}
+	projectionStack.LoadMatrix(projection);
+
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
 
@@ -176,6 +184,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 {
 	GameObjectManager* GOM = scene->GetGameObjectManager();
 	std::map<std::string, LayerData*>::iterator it;
+	m_bFogEnabled = FOG_ENABLED;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
 		// it->first == key
@@ -183,19 +192,22 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// Switch shader
 		if (it->first == "UI")
 			continue;
-		// m_programID = it->second->GetShader();
-		// BindUniforms();
-		std::vector<GameObject*> GOList = *it->second->GetGOList();
-		for (unsigned i = 0; i < GOList.size(); ++i)
+		if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 		{
-			GameObject* go = GOList[i];
+			m_programID = it->second->GetShader();
+			BindUniforms();
+		}
+		std::vector<GameObject*>* GOList = it->second->GetGOList();
+		for (unsigned i = 0; i < GOList->size(); ++i)
+		{
+			GameObject* go = GOList->at(i);
 			if (!go->IsActive())
 				continue;
 			Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 			RenderGameObject(go, vCamPos, false);
-			for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
+			for (unsigned i = 0; i < GOList->at(i)->GetChildList()->size(); ++i)
 			{
-				GameObject* goChild = GOList[i];
+				GameObject* goChild = GOList->at(i);
 				if (!go->IsActive())
 					continue;
 				RenderGameObject(goChild, vCamPos, false);
@@ -203,20 +215,24 @@ void RenderingManager::RenderWorld(Scene* scene)
 		}
 	}
 	// Render UI
+	m_bFogEnabled = false;
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
-	std::vector<GameObject*> GOList = *(*map)["UI"]->GetGOList();
-	// m_programID = (*map)["UI"]->GetShader();
-	// BindUniforms();
-	for (unsigned i = 0; i < GOList.size(); ++i)
+	std::vector<GameObject*>* GOList = map->at("UI")->GetGOList();
+	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 	{
-		GameObject* go = GOList[i];
+		m_programID = (*map)["UI"]->GetShader();
+		BindUniforms();
+	}
+	for (unsigned i = 0; i < GOList->size(); ++i)
+	{
+		GameObject* go = GOList->at(i);
 		if (!go->IsActive())
 			continue;
 		Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 		RenderGameObject(go, vCamPos, true);
-		for (unsigned i = 0; i < GOList[i]->GetChildList()->size(); ++i)
+		for (unsigned i = 0; i < GOList->at(i)->GetChildList()->size(); ++i)
 		{
-			GameObject* goChild = GOList[i];
+			GameObject* goChild = GOList->at(i);
 			if (!go->IsActive())
 				continue;
 			RenderGameObject(goChild, vCamPos, true);
@@ -229,7 +245,8 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	if (renderComponent == nullptr)
 		return;
 	Mesh* CurrentMesh = renderComponent->GetMesh();
-	if (!CurrentMesh)
+	AnimatedMesh* AnimatedMesh = renderComponent->GetAnimatedMesh();
+	if (!CurrentMesh && !AnimatedMesh)
 	{
 		DEFAULT_LOG("Mesh not initialised");
 		return;
@@ -242,7 +259,6 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	Vector3 vGameObjectScale = trans->GetScale();
 
 	modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
-	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
 
 	if (renderComponent->IsBillboard())
 	{
@@ -253,10 +269,16 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	}
 	if (fGameObjectRotationDegrees != 0)
 		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
+	modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
 	if (!bIsUI)
-		RenderMesh(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
+	{
+		if (CurrentMesh)
+			RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+		if (AnimatedMesh)
+			RenderAnimatedMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+	}
 	else
-		RenderUI(CurrentMesh, go->GetComponent<RenderComponent>()->GetLightEnabled());
+		RenderUI(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 
 	modelStack.PopMatrix();
 }

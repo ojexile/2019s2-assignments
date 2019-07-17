@@ -20,20 +20,29 @@ private:
 	float m_fPitch;
 	float m_fYaw;
 
-	void UpdateFirstPersonView(double dt, Vector3 vPos);
+	float m_fXOffset;
+	float m_fYOffset;
+
+	Vector3 m_fOrthoSize;
+	bool m_bOrthoInit;
+
+	void UpdateView(double dt, Vector3 vPos, bool mouseEnabled);
 public:
 
 	Camera();
 	~Camera();
 	virtual void Init(const Vector3& target, const Vector3& up);
+	void InitOrtho(Vector3);
 	virtual void Reset();
 	virtual void Update(double dt);
 	void UpdateYawPitchMouse(float xpos, float ypos);
-
+	bool IsOrthoInit();
+	Vector3 GetOrthoSize();
 	// Getters
-	Vector3* GetTarget();
-	Vector3* GetUp();
-	Vector3* GetDir();
+	Vector3 GetTarget();
+	Vector3 GetUp();
+	Vector3 GetDir();
+	void SetDir(float yaw, float pitch);
 };
 
 #endif

@@ -9,11 +9,11 @@
 
 #include "Logger.h"
 #include "Locator.h"
-#include "WindowData.h"
+#include "Preferences.h"
 
 #include <vector>
 
-#define LOG_UPDATE_RATE 1
+//#define LOG_UPDATE_RATE 1
 
 class Engine
 {
@@ -23,7 +23,6 @@ public:
 private:
 	Engine();
 	~Engine();
-
 	float m_fLogUpdateTimer;
 	void Init();
 	void Update(double dt);

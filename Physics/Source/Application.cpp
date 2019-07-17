@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "KeyboardManager.h"
+#include "Utility.h"
+#include "Resources.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -86,11 +88,12 @@ void Application::Init()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL
 
 	//Create a window and create its OpenGL context
-	WindowData* windowData = WindowData::GetInstance();
-	m_width = (int)windowData->GetWindowSize().x;
-	m_height = (int)windowData->GetWindowSize().y;
+	Vector3 WindowSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::WindowSize));
+	Vector3 WindowPos = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::WindowPosition));
+	m_width = (int)WindowSize.x;
+	m_height = (int)WindowSize.y;
 	m_window = glfwCreateWindow(m_width, m_height, "SP-Framework", NULL, NULL);
-	glfwSetWindowPos(m_window, (int)windowData->GetWindowPosition().x, (int)windowData->GetWindowPosition().y);
+	glfwSetWindowPos(m_window, (int)WindowPos.x, (int)WindowPos.y);
 	//If the window couldn't be created
 	if (!m_window)
 	{
@@ -130,7 +133,7 @@ void Application::Run()
 	//Main Loop
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
-	while (!glfwWindowShouldClose(m_window) || KeyboardManager::GetInstance()->GetKeyDown("ExitGame"))
+	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
 		// Get delta time
 		double dt = m_timer.getElapsedTime();

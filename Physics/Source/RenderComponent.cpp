@@ -3,8 +3,29 @@
 RenderComponent::RenderComponent(Mesh* Mesh)
 	:m_Mesh(Mesh)
 {
+	m_AnimatedMesh = nullptr;
 	m_bLightEnabled = false;
 	m_bBillboard = false;
+}
+RenderComponent::RenderComponent(AnimatedMesh* Mesh)
+	: m_AnimatedMesh(Mesh)
+{
+	m_Mesh = nullptr;
+	m_bLightEnabled = false;
+	m_bBillboard = false;
+}
+RenderComponent::RenderComponent(RenderComponent& ref)
+{
+	if (ref.m_Mesh)
+		m_Mesh = ref.m_Mesh;
+	else
+		m_Mesh = nullptr;
+	if (ref.m_AnimatedMesh)
+		m_AnimatedMesh = ref.m_AnimatedMesh;
+	else
+		m_AnimatedMesh = nullptr;
+	m_bLightEnabled = ref.m_bLightEnabled;
+	m_bBillboard = ref.m_bBillboard;
 }
 
 RenderComponent::~RenderComponent()
@@ -14,6 +35,11 @@ RenderComponent::~RenderComponent()
 Mesh* RenderComponent::GetMesh()
 {
 	return m_Mesh;
+}
+
+AnimatedMesh* RenderComponent::GetAnimatedMesh()
+{
+	return m_AnimatedMesh;
 }
 
 bool RenderComponent::GetLightEnabled()
@@ -26,8 +52,8 @@ void RenderComponent::SetLightEnabled(bool b)
 }
 void RenderComponent::Update(double dt)
 {
-	if (m_Mesh)
-		this->m_Mesh->Update(dt);
+	if (m_AnimatedMesh)
+		this->m_AnimatedMesh->Update(dt);
 }
 void RenderComponent::SetBillboard(bool b)
 {
@@ -36,4 +62,30 @@ void RenderComponent::SetBillboard(bool b)
 bool RenderComponent::IsBillboard()
 {
 	return m_bBillboard;
+}
+void RenderComponent::SetColor(Vector3 color)
+{
+	if (m_Mesh)
+	{
+		m_Material.kAmbient.Set(color.x, color.y, color.z);
+	}
+}
+void RenderComponent::ResetColor(Vector3 color)
+{
+	if (m_Mesh)
+	{
+		m_Material.Reset();
+	}
+}
+Material RenderComponent::GetMaterial()
+{
+	return m_Material;
+}
+void RenderComponent::SetMesh(Mesh* mesh)
+{
+	m_Mesh = mesh;
+}
+void RenderComponent::SetMesh(AnimatedMesh* mesh)
+{
+	m_AnimatedMesh = mesh;
 }

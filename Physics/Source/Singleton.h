@@ -3,10 +3,11 @@ template<class T>
 
 class Singleton
 {
+protected:
 	static T* m_Instance;
-public:
 	Singleton() {};
-	~Singleton() {};
+	virtual ~Singleton() {};
+public:
 
 	static T* GetInstance()
 	{
@@ -19,6 +20,7 @@ public:
 	{
 		if (m_Instance)
 			delete m_Instance;
+		m_Instance = nullptr;
 	}
 };
 template <class T>

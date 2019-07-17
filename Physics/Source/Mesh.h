@@ -3,6 +3,7 @@
 #define MAX_TEXTURES 8
 #include <string>
 #include "Material.h"
+#include "Vertex.h"
 
 class Mesh
 {
@@ -16,7 +17,6 @@ public:
 	};
 	Mesh(const std::string &meshName);
 	~Mesh();
-	virtual void Update(double dt);
 	virtual void Render();
 	void Render(unsigned offset, unsigned count);
 
@@ -26,7 +26,6 @@ public:
 	unsigned indexBuffer;
 	unsigned indexSize;
 
-	Material material;
 	//unsigned textureID;
 	unsigned m_uTextureArray[MAX_TEXTURES];
 };

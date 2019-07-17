@@ -22,11 +22,11 @@ void PlayerScript::Update(double dt)
 	TransformComponent* trans = GetComponent<TransformComponent>();
 
 	float fSpeed = 50 * (float)dt;
-	Vector3 vRight = m_vCameraFront->Cross(*m_vCameraUp);
+	Vector3 vRight = m_vCameraFront.Cross(m_vCameraUp);
 	static bool triggered = false;
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
 	{
-		trans->Translate(fSpeed * *m_vCameraFront);
+		trans->Translate(fSpeed * m_vCameraFront);
 		if (!triggered)
 		{
 			Instantiate(m_GORef);
@@ -35,7 +35,7 @@ void PlayerScript::Update(double dt)
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
 	{
-		trans->Translate(-fSpeed * *m_vCameraFront);
+		trans->Translate(-fSpeed * m_vCameraFront);
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
 	{
@@ -47,14 +47,20 @@ void PlayerScript::Update(double dt)
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
 	{
-		trans->Translate(fSpeed * *m_vCameraUp);
+		trans->Translate(fSpeed * m_vCameraUp);
 	}
 	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
 	{
-		trans->Translate(-fSpeed * *m_vCameraUp);
+		trans->Translate(-fSpeed * m_vCameraUp);
 	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("Susu"))
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("Susu"))
 	{
-		AudioManager::GetInstance()->Play3D("susu.wav", Vector3(0, 0, 2));
+		//AudioManager::GetInstance()->Play3D("susu.wav", Vector3(0, 0, 2));
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
+		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+		trans->SetPosition(0, 0, 0);
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 200, 0);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, -90);
 	}
 }

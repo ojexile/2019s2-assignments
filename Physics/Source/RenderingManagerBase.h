@@ -12,12 +12,13 @@
 #include <vector>
 #include "Mesh.h"
 #include "Scene.h"
-#include "DepthFBO.h"
+
 #include "shader.hpp"
 #include "Utility.h"
-
+#include "DepthFBO.h"
 #include "MeshBuilder.h"
-#include "LightManager.h"
+#include "RenderComponent.h"
+#define FOG_ENABLED true
 
 class RenderingManagerBase : public Renderer
 {
@@ -143,6 +144,7 @@ protected:
 		RENDER_PASS_PRE,
 		RENDER_PASS_MAIN,
 	};
+
 public:
 	RenderingManagerBase();
 	virtual ~RenderingManagerBase();
@@ -153,10 +155,11 @@ public:
 	virtual void Exit();
 
 protected:
-	void RenderText(Mesh* mesh, std::string text, Color color);
-	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-	void RenderUI(Mesh* mesh, bool enableLight);
-	void RenderMesh(Mesh *mesh, bool enableLight);
+	void RenderText(RenderComponent* mesh, std::string text, Color color);
+	void RenderTextOnScreen(RenderComponent* mesh, std::string text, Color color, float size, float x, float y);
+	void RenderUI(RenderComponent* mesh, bool enableLight);
+	void RenderMesh(RenderComponent *mesh, bool enableLight);
+	void RenderAnimatedMesh(RenderComponent *mesh, bool enableLight);
 	void BindUniforms();
 	void SetUniforms();
 	void BindLightUniforms();
@@ -173,9 +176,10 @@ protected:
 	Light lights[1];
 	LightManager* lightManager_ref;
 	bool bLightEnabled;
-	int m_iNumOfLightVar;
 	float fps;
 	float m_fElapsedTime;
+
+	bool m_bFogEnabled;
 
 	// Shadow
 	unsigned m_gPassShaderID;
@@ -185,7 +189,6 @@ protected:
 	Mtx44 m_lightDepthMVP;
 	Mtx44 m_lightDepthMVPGPass;
 	RENDER_PASS m_renderPass;
-	Mesh* m_DepthQuad;
 };
 
 #endif

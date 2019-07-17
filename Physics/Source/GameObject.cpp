@@ -4,7 +4,6 @@ GameObject::GameObject()
 {
 	m_bActive = true;
 	m_bStatic = false;
-	m_HeldLight = nullptr;
 	AddComponent(new TransformComponent);
 }
 // Copy
@@ -28,17 +27,17 @@ GameObject::GameObject(GameObject& go)
 GameObject::~GameObject()
 {
 	// Clear components
-	for (int i = (int)m_vec_ComponentList.size() - 1; i >= 0; --i)
+	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
-		delete m_vec_ComponentList[i];
-		m_vec_ComponentList.erase(m_vec_ComponentList.begin() + i);
+		delete m_vec_ComponentList.at(i);
 	}
 	//m_Transform = nullptr;
-	for (int i = (int)m_vec_ChildList.size() - 1; i >= 0; --i)
+	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
-		delete m_vec_ChildList[i];
-		m_vec_ChildList.erase(m_vec_ChildList.begin() + i);
+			delete m_vec_ChildList[i];
 	}
+	//m_vec_ComponentList.clear();
+	//m_vec_ChildList.clear();
 }
 ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 {
@@ -72,30 +71,10 @@ void GameObject::Update(double dt)
 			m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
 		}
 	}
-
-	if (m_HeldLight)
-	{
-		Vector3 tmp = this->GetComponent<TransformComponent>()->GetPosition();
-		m_HeldLight->position.Set(tmp.x, tmp.y, tmp.z);
-	}
 }
 void GameObject::AddChild(GameObject* go)
 {
 	m_vec_ChildList.push_back(go);
-}
-void GameObject::AttachLight(Light* light)
-{
-	if (!m_HeldLight)
-	{
-		m_HeldLight = light;
-
-		Vector3 tmp = this->GetComponent<TransformComponent>()->GetPosition();
-		m_HeldLight->position.Set(tmp.x, tmp.y, tmp.z);
-	}
-}
-void GameObject::DetachLight()
-{
-	m_HeldLight = nullptr;
 }
 std::vector<GameObject*>* GameObject::GetChildList()
 {

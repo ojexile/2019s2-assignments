@@ -10,12 +10,19 @@ TestScene::~TestScene()
 }
 void TestScene::Init()
 {
+	// Create Camera
+	m_CameraGO = new GameObject;
+	m_CameraGO->AddComponent(new CameraComponent);
+	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
+	//m_GameObjectManager.AddGameObject(CameraGO);
+	//
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	// Layers
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
 	// Set up camera
 	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
+	this->m_Camera->InitOrtho({ 100,100,1000 });
 	//m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 
 	// Cube
@@ -87,7 +94,7 @@ void TestScene::Init()
 	GameObject* cat = m_GameObjectManager.AddGameObject();
 	cat->TRANSFORM->SetPosition(0, 21, 0);
 	cat->TRANSFORM->SetScale(20.f, 20.f, 20.f);
-	cat->AddComponent(new RenderComponent(dataContainer->GetMesh("Cat")));
+	cat->AddComponent(new RenderComponent(dataContainer->GetAnimation("Cat")));
 	cat->RENDER->SetLightEnabled(false);
 	cat->RENDER->SetBillboard(true);
 }

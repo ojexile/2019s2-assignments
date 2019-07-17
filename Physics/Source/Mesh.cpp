@@ -23,10 +23,6 @@ Mesh::~Mesh()
 		glDeleteTextures(1, &m_uTextureArray[i]);
 	}
 }
-void Mesh::Update(double dt)
-{
-}
-
 void Mesh::Render()
 {
 	glEnableVertexAttribArray(0);
