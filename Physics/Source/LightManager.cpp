@@ -26,7 +26,7 @@ Light* LightManager::GetCurrentLight()
 }
 int LightManager::GetLightIndex()
 {
-	return m_iLightIndex:
+	return m_iLightIndex;
 }
 //void LightManager::CycleLight(bool b)
 //{
