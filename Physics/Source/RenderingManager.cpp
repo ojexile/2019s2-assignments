@@ -46,6 +46,11 @@ void RenderingManager::Update(double dt)
 
 void RenderingManager::Render(Scene* scene)
 {
+	if (!scene->GetCameraGameObject()->GetComponent<TransformComponent>())
+	{
+		DEFAULT_LOG("ERROR: NO CAMERA GAMEOBJECT");
+		return;
+	}
 	//******************************* PRE RENDER PASS
 	//*************************************
 	RenderPassGPass(scene);

@@ -57,6 +57,8 @@ void GameObject::Update(double dt)
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
 		m_vec_ComponentList[i]->Update(dt);
+		if (m_vec_ComponentList.size() <= 0)
+			return;
 	}
 	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
@@ -69,6 +71,8 @@ void GameObject::Update(double dt)
 		{
 			if (m_vec_ChildList[i]->IsActive())
 				m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
+			if (m_vec_ChildList.size() <= 0)
+				return;
 		}
 	}
 }
