@@ -28,6 +28,5 @@ private:
 	void Update(double dt);
 	void Exit();
 	static Renderer* m_Renderer;
-	static LightManager* m_LightManager;
 public:
 };
