@@ -19,6 +19,7 @@
 #include "MeshBuilder.h"
 #include "RenderComponent.h"
 #define FOG_ENABLED true
+#define MAX_LIGHTS 8
 
 class RenderingManagerBase : public Renderer
 {
@@ -68,74 +69,33 @@ protected:
 		U_FRAG_ET,
 		U_VERT_ET,
 
-		// Shadoe
+		// Shadow
 		U_LIGHT_DEPTH_MVP_GPASS,
 		U_LIGHT_DEPTH_MVP,
 		U_SHADOW_MAP,
+
+		U_SHADOW_COLOR_TEXTURE_ENABLED,
+		U_SHADOW_COLOR_TEXTURE,
+		U_SHADOW_COLOR_TEXTURE_ENABLED1,
+		U_SHADOW_COLOR_TEXTURE1,
+		U_SHADOW_COLOR_TEXTURE_ENABLED2,
+		U_SHADOW_COLOR_TEXTURE2,
 
 		U_TOTAL,
 	};
 	enum UNIFORM_LIGHT
 	{
-		U_LIGHT0_TYPE,
-		U_LIGHT0_POSITION,
-		U_LIGHT0_COLOR,
-		U_LIGHT0_POWER,
-		U_LIGHT0_KC,
-		U_LIGHT0_KL,
-		U_LIGHT0_KQ,
-		U_LIGHT0_SPOTDIRECTION,
-		U_LIGHT0_COSCUTOFF,
-		U_LIGHT0_COSINNER,
-		U_LIGHT0_EXPONENT,
-
-		U_LIGHT1_TYPE,
-		U_LIGHT1_POSITION,
-		U_LIGHT1_COLOR,
-		U_LIGHT1_POWER,
-		U_LIGHT1_KC,
-		U_LIGHT1_KL,
-		U_LIGHT1_KQ,
-		U_LIGHT1_SPOTDIRECTION,
-		U_LIGHT1_COSCUTOFF,
-		U_LIGHT1_COSINNER,
-		U_LIGHT1_EXPONENT,
-
-		U_LIGHT2_TYPE,
-		U_LIGHT2_POSITION,
-		U_LIGHT2_COLOR,
-		U_LIGHT2_POWER,
-		U_LIGHT2_KC,
-		U_LIGHT2_KL,
-		U_LIGHT2_KQ,
-		U_LIGHT2_SPOTDIRECTION,
-		U_LIGHT2_COSCUTOFF,
-		U_LIGHT2_COSINNER,
-		U_LIGHT2_EXPONENT,
-
-		U_LIGHT3_TYPE,
-		U_LIGHT3_POSITION,
-		U_LIGHT3_COLOR,
-		U_LIGHT3_POWER,
-		U_LIGHT3_KC,
-		U_LIGHT3_KL,
-		U_LIGHT3_KQ,
-		U_LIGHT3_SPOTDIRECTION,
-		U_LIGHT3_COSCUTOFF,
-		U_LIGHT3_COSINNER,
-		U_LIGHT3_EXPONENT,
-
-		U_LIGHT4_TYPE,
-		U_LIGHT4_POSITION,
-		U_LIGHT4_COLOR,
-		U_LIGHT4_POWER,
-		U_LIGHT4_KC,
-		U_LIGHT4_KL,
-		U_LIGHT4_KQ,
-		U_LIGHT4_SPOTDIRECTION,
-		U_LIGHT4_COSCUTOFF,
-		U_LIGHT4_COSINNER,
-		U_LIGHT4_EXPONENT,
+		U_LIGHT_TYPE,
+		U_LIGHT_POSITION,
+		U_LIGHT_COLOR,
+		U_LIGHT_POWER,
+		U_LIGHT_KC,
+		U_LIGHT_KL,
+		U_LIGHT_KQ,
+		U_LIGHT_SPOTDIRECTION,
+		U_LIGHT_COSCUTOFF,
+		U_LIGHT_COSINNER,
+		U_LIGHT_EXPONENT,
 
 		U_LIGHT_TOTAL,
 	};
@@ -160,21 +120,19 @@ protected:
 	void RenderUI(RenderComponent* mesh, bool enableLight);
 	void RenderMesh(RenderComponent *mesh, bool enableLight);
 	void RenderAnimatedMesh(RenderComponent *mesh, bool enableLight);
-	void BindUniforms();
+	void BindUniforms(Scene* scene);
 	void SetUniforms();
 	void BindLightUniforms();
-	void setLightManager(LightManager* reference);
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 	int m_parameters[U_TOTAL];
-	int m_LightParameters[U_LIGHT_TOTAL];
+	int m_LightParameters[U_LIGHT_TOTAL * MAX_LIGHTS];
 
 	MS modelStack;
 	MS viewStack;
 	MS projectionStack;
-	Light lights[1];
-	LightManager* lightManager_ref;
+
 	bool bLightEnabled;
 	float fps;
 	float m_fElapsedTime;

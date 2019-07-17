@@ -89,25 +89,29 @@ void RenderingManager::RenderPassMain(Scene* scene)
 	glUniform1i(m_parameters[U_SHADOW_MAP], 8);
 
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// TODO Switch to loop
+	for (int i = 0; i < 2; ++i)
+	{
+		if (lights[i].type == Light::LIGHT_DIRECTIONAL)
+		{
+			Vector3 lightDir(lights[i].position.x, lights[i].position.y, lights[i].position.z);
+			Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+			glUniform3fv(m_LightParameters[U_LIGHT_POSITION + i * U_LIGHT_TOTAL], 1, &lightDirection_cameraspace.x);
+		}
+		else if (lights[i].type == Light::LIGHT_SPOT)
+		{
+			Position lightPosition_cameraspace = viewStack.Top() * lights[i].position;
+			glUniform3fv(m_LightParameters[U_LIGHT_POSITION + i * U_LIGHT_TOTAL], 1, &lightPosition_cameraspace.x);
+			Vector3 spotDirection_cameraspace = viewStack.Top() * lights[i].spotDirection;
+			glUniform3fv(m_LightParameters[U_LIGHT_SPOTDIRECTION + i * U_LIGHT_TOTAL], 1, &spotDirection_cameraspace.x);
+		}
+		else
+		{
+			Position lightPosition_cameraspace = viewStack.Top() * lights[i].position;
+			glUniform3fv(m_LightParameters[U_LIGHT_POSITION + i * U_LIGHT_TOTAL], 1, &lightPosition_cameraspace.x);
+		}
+	}
 
-	if (lights[0].type == Light::LIGHT_DIRECTIONAL)
-	{
-		Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if (lights[0].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[0].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-	}
 	GameObject* CameraObject = scene->GetCameraGameObject();
 	Vector3 vCamPosition = CameraObject->GetComponent<TransformComponent>()->GetPosition();
 	if (!CameraObject)

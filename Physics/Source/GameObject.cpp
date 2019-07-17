@@ -11,7 +11,6 @@ GameObject::GameObject(GameObject& go)
 {
 	this->m_bActive = go.m_bActive;
 	this->m_bStatic = go.m_bStatic;
-	m_HeldLight = nullptr;
 	for (unsigned i = 0; i < go.m_vec_ComponentList.size(); ++i)
 	{
 		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());
@@ -34,7 +33,7 @@ GameObject::~GameObject()
 	//m_Transform = nullptr;
 	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
-			delete m_vec_ChildList[i];
+		delete m_vec_ChildList[i];
 	}
 	//m_vec_ComponentList.clear();
 	//m_vec_ChildList.clear();
