@@ -3,6 +3,7 @@
 #include "AudioManager.h"
 #include "GunScript.h"
 #include "ChengPlayerScript.h"
+#include "MeshController.h"
 RojakAssignmentScene::RojakAssignmentScene()
 {
 }
@@ -40,6 +41,10 @@ void RojakAssignmentScene::Init()
 	Gaunt->TRANSFORM->SetScale(800.f, 800.f, 1.f);
 	Gaunt->AddComponent(new RenderComponent(dataContainer->GetMesh("Gaunt")));
 	Gaunt->RENDER->SetLightEnabled(false);
+	MeshController<Mesh>* meshController = new MeshController<Mesh>;
+	meshController->AddMesh("gaunt", dataContainer->GetMesh("Gaunt"));
+	meshController->AddMesh("notGaunt", dataContainer->GetMesh("Crosshair"));
+	Gaunt->AddComponent(meshController);
 	Gaunt->SetActive(false);
 	//Player================================================================================
 	// Gun--------------------------------------------------------------------------------

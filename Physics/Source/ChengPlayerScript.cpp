@@ -4,6 +4,8 @@
 #include "GunScript.h"
 #include "LoadHmap.h"
 #include "KeyboardManager.h"
+#include "MeshController.h"
+#include "Mesh.h"
 ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
 	:m_Gun(gun)
 	, m_CrossHair(cross)
@@ -141,6 +143,13 @@ void ChengPlayerScript::Update(double dt)
 		{
 			m_Gaunt->SetActive(true);
 			m_bGaunt = true;
+		}
+	}
+	if (m_bGaunt)
+	{
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGaunt"))
+		{
+			m_Gaunt->GetComponent<MeshController<Mesh>>()->SetMesh("notGaunt");
 		}
 	}
 
