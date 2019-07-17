@@ -46,7 +46,7 @@ void ChengPlayerScript::Update(double dt)
 
 		Vector3 vCameraFront = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
 		Vector3 vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
-		
+
 		Vector3 vPlayerFront = vCameraFront;
 		vPlayerFront.y = 0;
 		//vPlayerFront.Normalize();
@@ -81,11 +81,11 @@ void ChengPlayerScript::Update(double dt)
 		// Fire--------------------------------------------------------------------------------
 		if (Application::IsMousePressed(0))
 		{
-			this->m_Gun->GetComponent<GunScript>()->PullTrigger(vCameraFront);
+			this->m_Gun->GetComponent<GunScript>()->PullTrigger(vCameraFront, dt);
 		}
 		else
 		{
-			this->m_Gun->GetComponent<GunScript>()->ReleaseTrigger();
+			this->m_Gun->GetComponent<GunScript>()->ReleaseTrigger(vCameraFront);
 		}
 		//Reload--------------------------------------------------------------------------------
 		if (KeyboardManager::GetInstance()->GetKeyTriggered("reload"))

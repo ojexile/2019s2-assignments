@@ -1,5 +1,4 @@
 #include "RojakAssignmentScene.h"
-#include "PhysicsPlayerScript.h"
 #include "AudioManager.h"
 #include "GunScript.h"
 #include "ChengPlayerScript.h"
@@ -54,7 +53,7 @@ void RojakAssignmentScene::Init()
 	gun->AddComponent(new RenderComponent(dataContainer->GetMesh("Gun")));
 	gun->RENDER->SetBillboard(false);
 	gun->RENDER->SetLightEnabled(false);
-	gun->AddComponent(new GunScript(dataContainer->GetGameObject("bullet"), m_CameraGO, 0.1f, true));
+	gun->AddComponent(new GunScript(dataContainer->GetGameObject("bullet"), m_CameraGO, 0.1f, GunScript::CHARGE));
 	// Player--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
 	go->TRANSFORM->SetPosition(0, 0, 50);

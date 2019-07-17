@@ -298,7 +298,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	{
 		if (CurrentMesh)
 			RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
-		if (AnimatedMesh)
+		else if (AnimatedMesh)
 			RenderAnimatedMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 	}
 	else

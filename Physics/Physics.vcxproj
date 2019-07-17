@@ -161,10 +161,8 @@
     <ClCompile Include="Source\BallScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
-    <ClCompile Include="Source\ChengAssignmentScene.cpp" />
     <ClCompile Include="Source\ChengPlayerScript.cpp" />
     <ClCompile Include="Source\ChengCollisionManager.cpp" />
-    <ClCompile Include="Source\ChengPhysicsScene.cpp" />
     <ClCompile Include="Source\ChengRigidbody.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\CrouchingState.cpp" />
@@ -187,11 +185,9 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
-    <ClCompile Include="Source\PhysicsPlayerScript.cpp" />
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
-    <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
     <ClCompile Include="Source\RainScript.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
@@ -204,7 +200,6 @@
     <ClCompile Include="Source\ScriptComponent.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\StandingState.cpp" />
-    <ClCompile Include="Source\TestScene.cpp" />
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
@@ -221,10 +216,8 @@
     <ClInclude Include="Source\BallScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
-    <ClInclude Include="Source\ChengAssignmentScene.h" />
     <ClInclude Include="Source\ChengPlayerScript.h" />
     <ClInclude Include="Source\ChengCollisionManager.h" />
-    <ClInclude Include="Source\ChengPhysicsScene.h" />
     <ClInclude Include="Source\ChengRigidbody.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\CrouchingState.h" />
@@ -249,10 +242,8 @@
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MeshController.h" />
-    <ClInclude Include="Source\PhysicsPlayerScript.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
-    <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\RainScript.h" />
     <ClInclude Include="Source\RenderComponent.h" />
@@ -267,7 +258,6 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\StandingState.h" />
-    <ClInclude Include="Source\TestScene.h" />
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\TransformComponent.h" />
     <ClInclude Include="Source\Utility.h" />

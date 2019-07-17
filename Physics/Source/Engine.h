@@ -5,7 +5,6 @@
 #include "SceneManager.h"
 
 #include "Scene.h"
-#include "TestScene.h"
 
 #include "Logger.h"
 #include "Locator.h"
