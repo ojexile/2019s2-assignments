@@ -69,14 +69,14 @@ void ChengPlayerScript::Update(double dt)
 		{
 			trans->Translate(m_fMovementSpeed * vRight);
 		}
-		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
-		{
-			trans->Translate(m_fMovementSpeed * vCameraUp);
-		}
-		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
-		{
-			trans->Translate(-m_fMovementSpeed * vCameraUp);
-		}
+		//if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
+		//{
+		//	trans->Translate(m_fMovementSpeed * vCameraUp);
+		//}
+		//if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
+		//{
+		//	trans->Translate(-m_fMovementSpeed * vCameraUp);
+		//}
 		// Gun================================================================================
 		// Fire--------------------------------------------------------------------------------
 		if (Application::IsMousePressed(0))
@@ -149,7 +149,8 @@ void ChengPlayerScript::Update(double dt)
 	{
 		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGaunt"))
 		{
-			m_Gaunt->GetComponent<MeshController<Mesh>>()->SetMesh("notGaunt");
+			MeshController<Mesh>* mc = m_Gaunt->GetComponent<MeshController<Mesh>>();
+			mc->SetMesh("notGaunt");
 		}
 	}
 
