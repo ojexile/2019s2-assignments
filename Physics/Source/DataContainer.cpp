@@ -23,6 +23,7 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["pillar"] = MeshBuilder::GenerateOBJ("cylinder");
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
+	m_map_Meshes["square"] = MeshBuilder::GenerateCube("wall", Color((float)0.5, (float)0.5, (float)0.2), 1.f);
 	m_map_Meshes["goal"] = MeshBuilder::GenerateCube("wall", Color((float)0.8, (float)0.2, (float)0.2), 1.f);
 
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
@@ -148,6 +149,12 @@ DataContainer::DataContainer()
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
 	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
+	// --------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["square"] = go;
+	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
+	go->AddComponent(new RenderComponent(this->GetMesh("square")));
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::SQUARE, false));
 	// Score--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["scoreboard"] = go;

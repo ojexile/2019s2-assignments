@@ -89,6 +89,11 @@ void RojakAssignmentScene::Init()
 	float thickness = 20;
 	float fOffset = -thickness;
 	// Walls--------------------------------------------------------------------------------
+	// mid--------------------------------------------------------------------------------
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("square")->Clone());
+	go->TRANSFORM->SetPosition(0, 0, -length / 2);
+	go->TRANSFORM->SetRotation(45, 0, 1, 0);
+	go->TRANSFORM->SetScale(thickness, height, thickness);
 	// top--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	go->TRANSFORM->SetPosition(0, 0, -length);
