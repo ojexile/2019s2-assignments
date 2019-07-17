@@ -25,76 +25,81 @@ void ChengPlayerScript::Start()
 }
 void ChengPlayerScript::Update(double dt)
 {
-	if (!m_CurrentState)
-	{
-		m_CurrentState = new StandingState;
-		m_CurrentState->OnEnter(this);
-	}
-	PlayerState* state = m_CurrentState->HandleInput(this, dt);
-	if (m_CurrentState != state && state != nullptr)
-	{
-		state->OnEnter(this);
-		delete m_CurrentState;
-		m_CurrentState = state;
-	}
-	Vector3 vCameraFront = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
-	Vector3 vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 pos = trans->GetPosition();
-	Vector3 vPlayerFront = vCameraFront;
-	vPlayerFront.y = 0;
-	//vPlayerFront.Normalize();
-	Vector3 vRight = vCameraFront.Cross(vCameraUp);
+	if (!m_bState)
+	{
+		if (!m_CurrentState)
+		{
+			m_CurrentState = new StandingState;
+			m_CurrentState->OnEnter(this);
+		}
+		PlayerState* state = m_CurrentState->HandleInput(this, dt);
+		if (m_CurrentState != state && state != nullptr)
+		{
+			state->OnEnter(this);
+			delete m_CurrentState;
+			m_CurrentState = state;
+		}
 
-	// Movement
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
-	{
-		trans->Translate(m_fMovementSpeed * vPlayerFront);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
-	{
-		trans->Translate(-m_fMovementSpeed * vPlayerFront);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
-	{
-		trans->Translate(-m_fMovementSpeed * vRight);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveRight"))
-	{
-		trans->Translate(m_fMovementSpeed * vRight);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
-	{
-		trans->Translate(m_fMovementSpeed * vCameraUp);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
-	{
-		trans->Translate(-m_fMovementSpeed * vCameraUp);
-	}
-	// Gun================================================================================
-	// Fire--------------------------------------------------------------------------------
-	if (Application::IsMousePressed(0))
-	{
-		this->m_Gun->GetComponent<GunScript>()->PullTrigger(vCameraFront);
-	}
-	else
-	{
-		this->m_Gun->GetComponent<GunScript>()->ReleaseTrigger();
-	}
-	//Reload--------------------------------------------------------------------------------
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("reload"))
-	{
-		m_Gun->GetComponent<GunScript>()->Reload();
-	}
-	// Underwater================================================================================
-	if (trans->GetPosition().y < -10)
-	{
-		// Trigger underwater
-		SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Underwater"));
-	}
-	else
-	{
-		SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
+		Vector3 vCameraFront = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
+		Vector3 vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
+		
+		Vector3 vPlayerFront = vCameraFront;
+		vPlayerFront.y = 0;
+		//vPlayerFront.Normalize();
+		Vector3 vRight = vCameraFront.Cross(vCameraUp);
+
+		// Movement
+		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
+		{
+			trans->Translate(m_fMovementSpeed * vPlayerFront);
+		}
+		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
+		{
+			trans->Translate(-m_fMovementSpeed * vPlayerFront);
+		}
+		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
+		{
+			trans->Translate(-m_fMovementSpeed * vRight);
+		}
+		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveRight"))
+		{
+			trans->Translate(m_fMovementSpeed * vRight);
+		}
+		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
+		{
+			trans->Translate(m_fMovementSpeed * vCameraUp);
+		}
+		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
+		{
+			trans->Translate(-m_fMovementSpeed * vCameraUp);
+		}
+		// Gun================================================================================
+		// Fire--------------------------------------------------------------------------------
+		if (Application::IsMousePressed(0))
+		{
+			this->m_Gun->GetComponent<GunScript>()->PullTrigger(vCameraFront);
+		}
+		else
+		{
+			this->m_Gun->GetComponent<GunScript>()->ReleaseTrigger();
+		}
+		//Reload--------------------------------------------------------------------------------
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("reload"))
+		{
+			m_Gun->GetComponent<GunScript>()->Reload();
+		}
+		// Underwater================================================================================
+		if (trans->GetPosition().y < -10)
+		{
+			// Trigger underwater
+			SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Underwater"));
+		}
+		else
+		{
+			SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
+		}
 	}
 	// Camera================================================================================
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
