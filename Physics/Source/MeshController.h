@@ -3,7 +3,8 @@
 #include <map>
 #include <string>
 #include "RenderComponent.h"
-
+#include "Mesh.h"
+#include "AnimatedMesh.h"
 template<class t>
 class MeshController : public ComponentBase
 {
@@ -20,3 +21,5 @@ public:
 	void SetMesh(std::string s);
 };
 
+MeshController<Mesh> mesh; 
+MeshController<AnimatedMesh> amesh;
