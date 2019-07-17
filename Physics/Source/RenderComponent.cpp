@@ -110,3 +110,7 @@ std::string RenderComponent::GetText()
 {
 	return m_sText;
 }
+void RenderComponent::SetText(std::string s)
+{
+	m_sText = s;
+}

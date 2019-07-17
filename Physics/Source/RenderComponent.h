@@ -40,4 +40,5 @@ public:
 	void SetMesh(AnimatedMesh* mesh);
 	bool IsText();
 	std::string GetText();
+	void SetText(std::string);
 };
