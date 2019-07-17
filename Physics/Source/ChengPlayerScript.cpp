@@ -6,16 +6,19 @@
 #include "KeyboardManager.h"
 #include "MeshController.h"
 #include "Mesh.h"
-ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
+#include "Time.h"
+ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt, GameObject* repel)
 	:m_Gun(gun)
 	, m_CrossHair(cross)
 	, m_Gaunt(gaunt)
+	, m_Repel(repel)
 {
 	m_CurrentState = nullptr;
 	m_bState = false;
 	m_fMovementSpeed = 1;
 	m_bGaunt = false;
 	m_eStone = NONE;
+	m_fRepelDuration = 1;
 }
 
 ChengPlayerScript::~ChengPlayerScript()
@@ -173,15 +176,53 @@ void ChengPlayerScript::Update(double dt)
 				mc->SetMesh("GauntMind");
 				break;
 			case ChengPlayerScript::MIND:
-				mc->SetMesh("Gaunta");
+				mc->SetMesh("Gaunt");
 				break;
 			default:
 				break;
 			}
 			m_eStone = static_cast<eSTONES>((m_eStone + 1) % TOTAL);
 		}
-	}
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("useGauntlet"))
+		{
+			switch (m_eStone)
+			{
+			case ChengPlayerScript::NONE:
+				break;
+			case ChengPlayerScript::SOUL:
 
+				break;
+			case ChengPlayerScript::REALITY:
+
+				break;
+			case ChengPlayerScript::SPACE:
+
+				break;
+			case ChengPlayerScript::POWER:
+			{
+				m_Repel->SetActive(true);
+				m_fStartRepel = Time::GetInstance()->GetElapsedTimeF();
+			}
+			break;
+			case ChengPlayerScript::TIME:
+				break;
+			case ChengPlayerScript::MIND:
+
+				break;
+			default:
+				break;
+			}
+			m_Gaunt->SetActive(false);
+			m_bGaunt = false;
+		}
+	}
+	if (m_Repel->IsActive())
+	{
+		if (Time::GetInstance()->GetElapsedTimeF() >= m_fStartRepel + m_fRepelDuration)
+		{
+			m_Repel->SetActive(false);
+		}
+	}
 	// TODO Constrain to terrain================================================================================
 	//trans->SetPosition(pos.x, 50.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
 	//trans->SetPosition({ pos.x,0,pos.z });

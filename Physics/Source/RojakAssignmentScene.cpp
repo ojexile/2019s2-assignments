@@ -62,10 +62,15 @@ void RojakAssignmentScene::Init()
 	gun->RENDER->SetBillboard(false);
 	gun->RENDER->SetLightEnabled(false);
 	gun->AddComponent(new GunScript(dataContainer->GetGameObject("bullet"), m_CameraGO, 0.1f, GunScript::CHARGE));
+	//Repel--------------------------------------------------------------------------------
+	GameObject* repel = new GameObject;
+	repel->AddComponent(new Blackhole(-20000, 700));
+	repel->SetActive(false);
 	// Player--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
 	go->TRANSFORM->SetPosition(0, 0, 50);
-	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
+	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt, repel));
+	go->AddChild(repel);
 	GameObject* child = dataContainer->GetGameObject("pillar")->Clone();
 	go->AddChild(child);
 	child->TRANSFORM->SetScale(5, 30, 5);
@@ -100,7 +105,7 @@ void RojakAssignmentScene::Init()
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("goal")->Clone());
 	go->TRANSFORM->SetPosition(0, 0, length + 20);
 	go->TRANSFORM->SetScale(thickness, height, holeWidth + 40);
-	go->AddComponent(new Blackhole(5000, 200));
+	go->AddComponent(new Blackhole(2500, 200));
 	// left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	go->TRANSFORM->SetPosition(-width, 0, 0);

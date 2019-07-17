@@ -3,7 +3,7 @@
 #include <vector>
 #include "GameObject.h"
 #include "ChengRigidbody.h"
-#define G_CONSTANT 100.f
+#define G_CONSTANT 200.f
 Blackhole::Blackhole(float fMass, float fMinDist)
 	: m_fMass(fMass)
 	, m_fMinDist(fMinDist)

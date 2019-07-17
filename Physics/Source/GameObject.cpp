@@ -67,7 +67,8 @@ void GameObject::Update(double dt)
 				+ m_vec_ChildList[i]->GetComponent<TransformComponent>()->GetRelativePosition());
 		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
 		{
-			m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
+			if (m_vec_ChildList[i]->IsActive())
+				m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
 		}
 	}
 }
