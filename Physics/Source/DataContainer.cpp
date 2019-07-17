@@ -139,6 +139,8 @@ DataContainer::DataContainer()
 	m_map_GO["scoreboard"] = go;
 	ScoreScript* scoreScript = new ScoreScript;
 	go->AddComponent(scoreScript);
+	go->GetComponent<TransformComponent>()->SetPosition(50, 50, 2000);
+	go->AddComponent(new RenderComponent(GetMesh("Text"), "oof"));
 	//Pillar--------------------------------------------------------------------------------
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;

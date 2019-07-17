@@ -14,4 +14,5 @@ public:
 	}
 
 	void IncrementScore(int i);
+	virtual void Update(double dt) override;
 };

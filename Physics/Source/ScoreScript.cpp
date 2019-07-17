@@ -12,3 +12,6 @@ void ScoreScript::IncrementScore(int i)
 {
 	m_iScore += i;
 }
+void ScoreScript::Update(double dt)
+{
+}
