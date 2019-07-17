@@ -3,14 +3,17 @@
 
 namespace Resources
 {
-	extern const std::string ContentPath;
-	extern const std::string TexturePath;
-	extern const  std::string ObjectPath;
-	extern const std::string AudioPath;
-	extern const std::string ShaderPath;
-	extern const std::string HeightMapPath;
-	extern const std::string Preferences;
-	extern const std::string Keybinds;
+	namespace Path
+	{
+		extern const std::string Content;
+		extern const std::string Texture;
+		extern const std::string Object;
+		extern const std::string Audio;
+		extern const std::string Shader;
+		extern const std::string HeightMap;
+		extern const std::string Preferences;
+		extern const std::string Keybinds;
+	}
 
 	namespace PreferencesTerm
 	{

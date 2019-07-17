@@ -8,6 +8,7 @@
 #include "Preferences.h"
 #include "Resources.h"
 #include "Utility.h"
+#include "AudioManager.h"
 // Select Debug logger user
 // Users are enums located in locator.h
 //#define USER CHENG
@@ -137,5 +138,6 @@ void Engine::Exit()
 	SceneManager::DeleteInstance();
 	DataContainer::DeleteInstance();
 	KeyboardManager::DeleteInstance();
+	AudioManager::DeleteInstance();
 	Time::DeleteInstance();
 }
