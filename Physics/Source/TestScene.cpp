@@ -25,7 +25,7 @@ void TestScene::Init()
 	this->m_Camera->InitOrtho({ 100,100,1000 });
 	//m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 
-	// Cube
+	// ui
 	GameObject* ui = m_GameObjectManager.AddGameObject("UI");
 	ui->TRANSFORM->SetPosition(0, 1000, 5);
 	ui->TRANSFORM->SetScale(100.f, 100.f, 1.f);
@@ -33,6 +33,14 @@ void TestScene::Init()
 	ui->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	ui->RENDER->SetLightEnabled(true);
 	ui->SetActive(true);
+	//
+
+	// text
+	GameObject* text = m_GameObjectManager.AddGameObject("UI");
+	text->TRANSFORM->SetPosition(50, 50, 200);
+	text->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof"));
+	text->RENDER->SetLightEnabled(false);
+	text->SetActive(true);
 	//
 
 	GameObject* cube = m_GameObjectManager.AddGameObject();

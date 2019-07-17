@@ -231,6 +231,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 	{
 		m_programID = (*map)["UI"]->GetShader();
 		BindUniforms();
+		SetUniforms(scene);
 	}
 	for (unsigned i = 0; i < GOList->size(); ++i)
 	{
@@ -287,12 +288,17 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 			RenderAnimatedMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 	}
 	else
-		RenderUI(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+	{
+		if (!renderComponent->IsText())
+			RenderUI(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+		else
+			RenderTextOnScreen(renderComponent, renderComponent->GetText(), { renderComponent->GetMaterial().kAmbient.r,renderComponent->GetMaterial().kAmbient.g,renderComponent->GetMaterial().kAmbient.b },
+				vGameObjectPosition.z, vGameObjectPosition.x, vGameObjectPosition.y);
+	}
 
 	modelStack.PopMatrix();
 }
 void RenderingManager::Exit()
 {
 	RenderingManagerBase::Exit();
-	//Cleanup GameObjects
 }

@@ -117,7 +117,7 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 	glUniform1f(m_parameters[U_FOG_END], 1000);
 	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
-	glUniform1i(m_parameters[U_FOG_ENABLED], true);
+	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 
 	// Shadows================================================================================
 	glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1,
@@ -237,7 +237,7 @@ void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string t
 
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10);
+	ortho.SetToOrtho(0, 1920, 0, 1080, -100, 100);
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();

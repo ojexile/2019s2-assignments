@@ -5,6 +5,10 @@ DataContainer::DataContainer()
 {
 	clock_t begin = clock();
 	// Meshs--------------------------------------------------------------------------------
+	m_map_Meshes["Text"] = MeshBuilder::GenerateText("text", 16, 16);
+	m_map_Meshes["Text"]->m_uTextureArray[0] = LoadTGA("calibri");
+	//m_map_Meshes["Text"]->material.kAmbient.Set(1, 0, 0);
+
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuad("Quad", { 1,1,1 }, 5);
 	//m_map_Meshes["CUBE"] = MeshBuilder::GenerateCube("CUBE", { 0,1,1 }, 10);
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("cube");
