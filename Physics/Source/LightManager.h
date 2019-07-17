@@ -3,7 +3,7 @@
 #include <vector>
 
 #define SIZE m_vec_SceneLights.size()
-#define MAX_NUMLIGHTS 5
+#define MAX_NUMLIGHTS 8
 #define MIN_NUMLIGHTS 1
 
 class LightManager
@@ -23,15 +23,13 @@ public:
 	Light* GetCurrentLight();
 
 	int GetLightIndex();
-	bool GetLightChange();
+	//bool GetLightChange();
 
-	void Update(float dt);
+	//void Update(float dt);
 
-	void AdjustLightPower(float dt, bool);
-	void CycleLight(bool);
-	
-	void AddLight();
-	void RemoveLight();
+	//void AdjustLightPower(float dt, bool);
+	//void CycleLight(bool);
 
+	Light* AddLight(Light::LIGHT_TYPE type);
+	void RemoveLight(Light* light);
 };
-

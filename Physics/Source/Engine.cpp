@@ -20,7 +20,6 @@ Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
 	m_fLogUpdateTimer = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
-	m_LightManager = new LightManager;
 	m_fLogUpdateTimer = 0;
 }
 

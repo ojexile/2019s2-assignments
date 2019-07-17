@@ -120,8 +120,8 @@ protected:
 	void RenderUI(RenderComponent* mesh, bool enableLight);
 	void RenderMesh(RenderComponent *mesh, bool enableLight);
 	void RenderAnimatedMesh(RenderComponent *mesh, bool enableLight);
-	void BindUniforms(Scene* scene);
-	void SetUniforms();
+	void BindUniforms();
+	void SetUniforms(Scene* scene);
 	void BindLightUniforms();
 
 	unsigned m_vertexArrayID;
