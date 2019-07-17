@@ -4,6 +4,7 @@
 #include "GunScript.h"
 #include "ChengPlayerScript.h"
 #include "MeshController.h"
+#include "Blackhole.h"
 RojakAssignmentScene::RojakAssignmentScene()
 {
 }
@@ -72,7 +73,7 @@ void RojakAssignmentScene::Init()
 	float width = 120;
 	float length = 120;
 	float height = 120;
-	float holeWidth = 20;
+	float holeWidth = 40;
 	float thickness = 20;
 	float fOffset = -thickness;
 	// Walls--------------------------------------------------------------------------------
@@ -92,6 +93,7 @@ void RojakAssignmentScene::Init()
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("goal")->Clone());
 	go->TRANSFORM->SetPosition(0, 0, length + 20);
 	go->TRANSFORM->SetScale(thickness, height, holeWidth + 40);
+	go->AddComponent(new Blackhole(5000, 200));
 	// left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	go->TRANSFORM->SetPosition(-width, 0, 0);

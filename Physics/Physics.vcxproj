@@ -155,6 +155,7 @@
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
+    <ClCompile Include="Source\Blackhole.cpp" />
     <ClCompile Include="Source\BouncerScript.cpp" />
     <ClCompile Include="Source\BulletScript.cpp" />
     <ClCompile Include="Source\BallScript.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="Source\AnimatedMesh.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\Blackhole.h" />
     <ClInclude Include="Source\BouncerScript.h" />
     <ClInclude Include="Source\BulletScript.h" />
     <ClInclude Include="Source\AudioManager.h" />
