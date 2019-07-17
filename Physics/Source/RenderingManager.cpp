@@ -145,7 +145,7 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		break;
 	case CameraComponent::CAM_FIRST:
 	case CameraComponent::CAM_CUSTOM_PERSPECT:
-		projection.SetToPerspective(45, (float)Application::GetWindowWidth() / (float)Application::GetWindowHeight(), 0.1f, 1000);
+		projection.SetToPerspective(45, (float)Application::GetWindowWidth() / (float)Application::GetWindowHeight(), 0.1f, 10000);
 		break;
 	case CameraComponent::CAM_ORTHO:
 	case CameraComponent::CAM_CUSTOM_ORTHO:

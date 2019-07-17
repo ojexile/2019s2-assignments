@@ -46,7 +46,7 @@ void GunScript::Fire(Vector3 vDir)
 		if (m_fChargeTime < m_fMinChargeTime)
 			return;
 		fScale = (m_fChargeTime / m_fMaxChargeTime) * m_fMaxScale;
-		fScale = Math::Clamp(fScale, 0.8f, m_fMaxScale);
+		fScale = Math::Clamp(fScale, 1.f, m_fMaxScale);
 	}
 	break;
 	case GunScript::SEMI_AUTO:

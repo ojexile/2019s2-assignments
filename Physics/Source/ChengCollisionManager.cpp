@@ -314,6 +314,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 
 		Vector3 N = rot * Vector3(1, 0, 0);
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) *N;
+		v += rigid1->GetAVel() * (trans1->GetPosition() - trans2->GetPosition()).Length();
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;

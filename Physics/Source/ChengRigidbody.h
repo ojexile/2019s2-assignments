@@ -39,7 +39,9 @@ public:
 	virtual void Update(double dt) override;
 
 	void SetVel(Vector3);
+	void SetAVel(Vector3);
 	Vector3 GetVel();
+	Vector3 GetAVel();
 	void IncrementForce(Vector3);
 	float GetMass();
 	void SetMass(float f);

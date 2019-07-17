@@ -62,7 +62,6 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
-    <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
@@ -70,7 +69,6 @@
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\ScriptComponent.cpp" />
     <ClCompile Include="Source\shader.cpp" />
-    <ClCompile Include="Source\TestScene.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
@@ -89,6 +87,7 @@
     <ClCompile Include="Source\BouncerScript.cpp" />
     <ClCompile Include="Source\Blackhole.cpp" />
     <ClCompile Include="Source\ScoreScript.cpp" />
+    <ClCompile Include="Source\PaddleScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -151,6 +150,7 @@
     <ClInclude Include="Source\BouncerScript.h" />
     <ClInclude Include="Source\Blackhole.h" />
     <ClInclude Include="Source\ScoreScript.h" />
+    <ClInclude Include="Source\PaddleScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

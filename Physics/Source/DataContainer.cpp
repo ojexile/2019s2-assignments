@@ -7,7 +7,7 @@
 #include "RainScript.h"
 #include "GoalScript.h"
 #include "BouncerScript.h"
-
+#include "PaddleScript.h"
 #include <time.h>
 DataContainer::DataContainer()
 {
@@ -158,6 +158,14 @@ DataContainer::DataContainer()
 	go->AddComponent(new RenderComponent(this->GetMesh("paddle")));
 	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
+	go->AddComponent(new PaddleScript(true));
+	// PaddleRight--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["paddleRight"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("paddle")));
+	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
+	go->AddComponent(new PaddleScript(false));
 	// --------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["square"] = go;
