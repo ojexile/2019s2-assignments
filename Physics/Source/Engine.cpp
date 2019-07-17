@@ -80,7 +80,6 @@ void Engine::Update(double dt)
 		}
 	}
 
-	m_LightManager->Update(dt);
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
 	// Log

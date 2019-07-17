@@ -1,7 +1,5 @@
 #include "LightManager.h"
 
-
-
 LightManager::LightManager()
 {
 	m_vec_SceneLights.push_back(new Light(Light::LIGHT_POINT));
@@ -12,7 +10,7 @@ LightManager::LightManager()
 }
 LightManager::~LightManager()
 {
-	for (int i = 0; i < m_vec_SceneLights.size(); ++i)
+	for (unsigned i = 0; i < m_vec_SceneLights.size(); ++i)
 	{
 		delete m_vec_SceneLights[i];
 		m_vec_SceneLights[i] = nullptr;
@@ -40,7 +38,7 @@ void LightManager::CycleLight(bool b)
 		{
 			m_currentLight = m_vec_SceneLights[0];
 			m_iLightIndex = 0;
-		} 
+		}
 		else
 			++m_iLightIndex;
 	}
@@ -56,8 +54,7 @@ void LightManager::CycleLight(bool b)
 	}
 	if (m_iLightIndex < 0)
 		m_iLightIndex = 0;
- 	m_currentLight = m_vec_SceneLights[m_iLightIndex];
-
+	m_currentLight = m_vec_SceneLights[m_iLightIndex];
 }
 void LightManager::AdjustLightPower(float dt, bool b)
 {
@@ -84,10 +81,6 @@ void LightManager::AddLight(void)
 		m_vec_SceneLights.push_back(L);
 		L = nullptr;
 	}
-}
-void LightManager::Update(dt)
-{
-
 }
 void LightManager::RemoveLight(void)
 {

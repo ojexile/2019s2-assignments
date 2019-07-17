@@ -19,7 +19,6 @@
 #include "MeshBuilder.h"
 #include "LightManager.h"
 
-
 class RenderingManagerBase : public Renderer
 {
 protected:
@@ -52,7 +51,31 @@ protected:
 		U_COLOR_TEXTURE5,
 		U_COLOR_TEXTURE6,
 		U_COLOR_TEXTURE7,
+		// Text
+		U_TEXT_ENABLED,
+		U_TEXT_COLOR,
 
+		// Fog
+		U_FOG_COLOR,
+		U_FOG_START,
+		U_FOG_END,
+		U_FOG_DENSITY,
+		U_FOG_TYPE,
+		U_FOG_ENABLED,
+		U_FACTOR,
+
+		U_FRAG_ET,
+		U_VERT_ET,
+
+		// Shadoe
+		U_LIGHT_DEPTH_MVP_GPASS,
+		U_LIGHT_DEPTH_MVP,
+		U_SHADOW_MAP,
+
+		U_TOTAL,
+	};
+	enum UNIFORM_LIGHT
+	{
 		U_LIGHT0_TYPE,
 		U_LIGHT0_POSITION,
 		U_LIGHT0_COLOR,
@@ -76,7 +99,6 @@ protected:
 		U_LIGHT1_COSCUTOFF,
 		U_LIGHT1_COSINNER,
 		U_LIGHT1_EXPONENT,
-
 
 		U_LIGHT2_TYPE,
 		U_LIGHT2_POSITION,
@@ -114,27 +136,7 @@ protected:
 		U_LIGHT4_COSINNER,
 		U_LIGHT4_EXPONENT,
 
-		U_TEXT_ENABLED,
-		U_TEXT_COLOR,
-
-		// Fog
-		U_FOG_COLOR,
-		U_FOG_START,
-		U_FOG_END,
-		U_FOG_DENSITY,
-		U_FOG_TYPE,
-		U_FOG_ENABLED,
-		U_FACTOR,
-
-		U_FRAG_ET,
-		U_VERT_ET,
-
-		// Shadoe
-		U_LIGHT_DEPTH_MVP_GPASS,
-		U_LIGHT_DEPTH_MVP,
-		U_SHADOW_MAP,
-
-		U_TOTAL,
+		U_LIGHT_TOTAL,
 	};
 	enum RENDER_PASS
 	{
@@ -156,12 +158,14 @@ protected:
 	void RenderUI(Mesh* mesh, bool enableLight);
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void BindUniforms();
-	void UpdateLightUniforms(int index);
+	void SetUniforms();
+	void BindLightUniforms();
 	void setLightManager(LightManager* reference);
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 	int m_parameters[U_TOTAL];
+	int m_LightParameters[U_LIGHT_TOTAL];
 
 	MS modelStack;
 	MS viewStack;
