@@ -12,8 +12,8 @@ GameObjectManager::~GameObjectManager()
 
 	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
 	{
-	//	 it->first == key
-	//	 it->second == value
+		//	 it->first == key
+		//	 it->second == value
 		delete it->second;
 	}
 	m_map_Layers.clear();
@@ -105,6 +105,16 @@ void GameObjectManager::DestroySelf(ComponentBase* com)
 					delete go;
 					(*list).erase((*list).begin() + i);
 					return;
+				}
+				for (unsigned k = 0; k < go->GetChildList()->size(); ++k)
+				{
+					GameObject* child = go->GetChildList()->at(k);
+					if (child->m_vec_ComponentList[j] == com)
+					{
+						delete go;
+						(*list).erase((*list).begin() + i);
+						return;
+					}
 				}
 			}
 		}
