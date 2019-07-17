@@ -168,6 +168,12 @@ DataContainer::DataContainer()
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
 	pillar->AddComponent(new BouncerScript(1.f, scoreScript));
+	//Player Pillar--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["playerPillar"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("pillar")));
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
+	go->AddComponent(new BouncerScript(1.f, scoreScript, true));
 	//--------------------------------------------------------------------------------
 	// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");

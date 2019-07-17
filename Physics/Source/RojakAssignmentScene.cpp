@@ -71,7 +71,7 @@ void RojakAssignmentScene::Init()
 	go->TRANSFORM->SetPosition(0, 0, 50);
 	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt, repel));
 	go->AddChild(repel);
-	GameObject* child = dataContainer->GetGameObject("pillar")->Clone();
+	GameObject* child = dataContainer->GetGameObject("playerPillar")->Clone();
 	go->AddChild(child);
 	child->TRANSFORM->SetScale(5, 30, 5);
 	go->AddChild(m_CameraGO);

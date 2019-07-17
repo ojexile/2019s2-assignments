@@ -10,8 +10,9 @@ private:
 	float m_fTriggerTime;
 	float m_fHealth;
 	ScoreScript* m_ScoreScript;
+	bool m_bIsPlayer;
 public:
-	BouncerScript(float bounceForce, ScoreScript* scoreScript);
+	BouncerScript(float bounceForce, ScoreScript* scoreScript, bool isPlayer = false);
 	virtual ~BouncerScript();
 	virtual ComponentBase* Clone()
 	{

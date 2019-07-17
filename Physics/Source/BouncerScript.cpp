@@ -3,8 +3,9 @@
 #include "ChengRigidbody.h"
 #include "RenderComponent.h"
 #define MAX_HEALTH 100.f
-BouncerScript::BouncerScript(float bounceForce, ScoreScript* scoreScript)
+BouncerScript::BouncerScript(float bounceForce, ScoreScript* scoreScript, bool isPlayer)
 	: m_ScoreScript(scoreScript)
+	, m_bIsPlayer(isPlayer)
 {
 	m_fBounceForce = bounceForce;
 	m_bTriggered = false;
@@ -29,8 +30,11 @@ void BouncerScript::Update(double dt)
 	if (m_fHealth <= 0)
 	{
 		// TODO Play death audio
-		m_ScoreScript->IncrementScore(20);
-		DestroySelf();
+		if (!m_bIsPlayer)
+		{
+			m_ScoreScript->IncrementScore(20);
+			DestroySelf();
+		}
 	}
 }
 void BouncerScript::Collide(GameObject* go)
