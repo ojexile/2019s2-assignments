@@ -46,6 +46,10 @@ float ChengRigidbody::GetMass()
 {
 	return m_fMass;
 }
+void ChengRigidbody::SetMass(float f)
+{
+	m_fMass = f;
+}
 ChengRigidbody::ePhysicsTypes ChengRigidbody::GetType()
 {
 	return m_eType;

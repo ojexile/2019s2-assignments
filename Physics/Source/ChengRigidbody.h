@@ -40,6 +40,7 @@ public:
 	Vector3 GetVel();
 	void IncrementForce(Vector3);
 	float GetMass();
+	void SetMass(float f);
 	ePhysicsTypes GetType();
 
 	void LockXAxis(bool);

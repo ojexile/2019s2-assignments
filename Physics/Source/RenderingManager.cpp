@@ -245,6 +245,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 	{
 		m_programID = (*map)["UI"]->GetShader();
 		BindUniforms();
+		SetUniforms(scene);
 	}
 	for (unsigned i = 0; i < GOList->size(); ++i)
 	{
