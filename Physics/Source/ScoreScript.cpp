@@ -1,8 +1,9 @@
 #include "ScoreScript.h"
+#include "RenderComponent.h"
+int ScoreScript::m_iScore = 0;
 
 ScoreScript::ScoreScript()
 {
-	m_iScore = 0;
 }
 
 ScoreScript::~ScoreScript()
@@ -14,4 +15,6 @@ void ScoreScript::IncrementScore(int i)
 }
 void ScoreScript::Update(double dt)
 {
+	RenderComponent* rc = GetComponent<RenderComponent>(); \
+		rc->GetText();
 }

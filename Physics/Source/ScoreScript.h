@@ -3,7 +3,7 @@
 class ScoreScript : public ScriptComponent
 {
 private:
-	int m_iScore;
+	static int m_iScore;
 public:
 	ScoreScript();
 	virtual ~ScoreScript();

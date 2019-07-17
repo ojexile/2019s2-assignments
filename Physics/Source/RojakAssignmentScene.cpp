@@ -35,7 +35,10 @@ void RojakAssignmentScene::Init()
 	Crosshair->AddComponent(new RenderComponent(dataContainer->GetMesh("Crosshair")));
 	Crosshair->RENDER->SetLightEnabled(false);
 	Crosshair->SetActive(true);
-	// Gauntlet
+	//ScoreText--------------------------------------------------------------------------------
+	go = dataContainer->GetGameObject("scoreboard");
+	m_GameObjectManager.AddGameObject(go->Clone(), "UI");
+	// Gauntlet--------------------------------------------------------------------------------
 	GameObject* Gaunt = m_GameObjectManager.AddGameObject("UI");
 	Gaunt->TRANSFORM->SetPosition(250, 1080 - 800, 5);
 	Gaunt->TRANSFORM->SetScale(800.f, 800.f, 1.f);
