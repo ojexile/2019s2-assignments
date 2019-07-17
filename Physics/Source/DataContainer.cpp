@@ -22,6 +22,9 @@ DataContainer::DataContainer()
 	//m_map_Meshes["ball3"] = MeshBuilder::GenerateSphere("ball", Color(0, 1, 0), 10, 10, 1.f);
 
 	m_map_Meshes["pillar"] = MeshBuilder::GenerateOBJ("cylinder");
+
+	m_map_Meshes["paddle"] = MeshBuilder::GenerateOBJ("paddle");
+
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
 	m_map_Meshes["square"] = MeshBuilder::GenerateCube("wall", Color((float)0.5, (float)0.5, (float)0.2), 1.f);
 	m_map_Meshes["goal"] = MeshBuilder::GenerateCube("wall", Color((float)0.8, (float)0.2, (float)0.2), 1.f);
@@ -149,6 +152,12 @@ DataContainer::DataContainer()
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
 	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
+	// Paddle--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["paddle"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("paddle")));
+	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
 	// --------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["square"] = go;

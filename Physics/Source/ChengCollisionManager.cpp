@@ -177,10 +177,45 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				return ChengRigidbody::WALL;
 			}
 		}
-
-		//================================================================================
 	}
+	break;
+	case ChengRigidbody::PADDLE:
+	{
+		//--------------------------------------------------------------------------------
+		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
+		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
 
+		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
+		Vector3 pos1 = trans1->GetPosition();
+		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
+		Vector3 pos2 = trans2->GetPosition();
+		//--------------------------------------------------------------------------------
+		//Vector3 N = Vector3(,0,)
+		Mtx44 rot;
+
+		rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
+		Vector3 N = rot * Vector3(1, 0, 0);
+		Vector3 NP = { -N.z,N.y, N.x };
+		pos2 -= NP * (trans2->GetScale().z / 2);
+		//--------------------------------------------------------------------------------
+		Vector3 w0minusb1 = pos2 - trans1->GetPosition();
+		Vector3 pDir = N;
+		//--------------------------------------------------------------------------------
+		if (w0minusb1.Dot(N) < 0)
+			N = -N;
+
+		if (rigid1->GetVel().Dot(N) > 0)
+		{
+			Vector3 wallScale = trans2->GetScale();
+			if (w0minusb1.Dot(N) < trans1->GetScale().x + wallScale.x * 0.5f
+				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + wallScale.z * 0.5f
+				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + wallScale.y * 0.5f)
+			{
+				CHENG_LOG("ball - paddle");
+				return ChengRigidbody::PADDLE;
+			}
+		}
+	}
 	break;
 	default:
 		break;
@@ -257,6 +292,19 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 	}
 	break;
 	case ChengRigidbody::WALL:
+	{
+		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
+		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
+		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
+		Mtx44 rot;
+		rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
+
+		Vector3 N = rot * Vector3(1, 0, 0);
+		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) *N;
+		go1->GetComponent<ChengRigidbody>()->SetVel(v);
+	}
+	break;
+	case ChengRigidbody::PADDLE:
 	{
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();

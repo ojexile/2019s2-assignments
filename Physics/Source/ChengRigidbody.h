@@ -12,6 +12,7 @@ public:
 		WALL,
 		SQUARE,
 		BOX,
+		PADDLE,
 		TOTAL,
 	};
 private:

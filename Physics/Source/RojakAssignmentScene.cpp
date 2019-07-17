@@ -134,4 +134,10 @@ void RojakAssignmentScene::Init()
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
 	go->TRANSFORM->SetPosition(80, 0, 0);
 	go->TRANSFORM->SetScale(25, height, 25);
+	//Paddle
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("paddle")->Clone());
+	go->RENDER->SetColor({ 0,0,1 });
+	go->TRANSFORM->SetPosition(holeWidth / 2, 0, length / 2);
+	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
+	go->TRANSFORM->SetScale(thickness / 2, height, holeWidth);
 }
