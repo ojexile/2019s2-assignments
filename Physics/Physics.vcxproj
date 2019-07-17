@@ -197,6 +197,7 @@
     <ClCompile Include="Source\RojakAssignmentScene.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
+    <ClCompile Include="Source\ScoreScript.cpp" />
     <ClCompile Include="Source\ScriptComponent.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\StandingState.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="Source\RojakAssignmentScene.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
+    <ClInclude Include="Source\ScoreScript.h" />
     <ClInclude Include="Source\ScriptComponent.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Singleton.h" />

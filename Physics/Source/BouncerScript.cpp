@@ -2,12 +2,14 @@
 #include "AudioManager.h"
 #include "ChengRigidbody.h"
 #include "RenderComponent.h"
-
-BouncerScript::BouncerScript(float bounceForce)
+#define MAX_HEALTH 100.f
+BouncerScript::BouncerScript(float bounceForce, ScoreScript* scoreScript)
+	: m_ScoreScript(scoreScript)
 {
 	m_fBounceForce = bounceForce;
 	m_bTriggered = false;
 	m_fTriggerTime = 0;
+	m_fHealth = MAX_HEALTH;
 }
 
 BouncerScript::~BouncerScript()
@@ -21,17 +23,28 @@ void BouncerScript::Update(double dt)
 		if (Time::GetInstance()->GetElapsedTimeF() > m_fTriggerTime + TRIGGER_DURATION)
 		{
 			m_bTriggered = false;
-			GetComponent<RenderComponent>()->SetColor({ 1,1,1 });
+			GetComponent<RenderComponent>()->SetColor({ m_fHealth / MAX_HEALTH,m_fHealth / 2 / MAX_HEALTH, m_fHealth / 2 / MAX_HEALTH });
 		}
+	}
+	if (m_fHealth <= 0)
+	{
+		// TODO Play death audio
+		m_ScoreScript->IncrementScore(20);
+		DestroySelf();
 	}
 }
 void BouncerScript::Collide(GameObject* go)
 {
 	AudioManager::GetInstance()->Play3D("pop.wav", {});
-	ChengRigidbody* rigid = go->GetComponent<ChengRigidbody>();
+	float fDamage = 0.5f * go->GetComponent<ChengRigidbody>()->GetMass() * go->GetComponent<ChengRigidbody>()->GetVel().LengthSquared();
+	fDamage *= 0.001f;
+	m_fHealth -= fDamage;
+	ChengRigidbody * rigid = go->GetComponent<ChengRigidbody>();
 	rigid->IncrementForce(rigid->GetVel() * m_fBounceForce);
 	GetComponent<RenderComponent>()->SetColor({ 0,1,1 });
 	m_bTriggered = true;
 	m_fTriggerTime = Time::GetInstance()->GetElapsedTimeF();
-	CHENG_LOG("Bounce");
+
+	m_ScoreScript->IncrementScore(5);
+	//CHENG_LOG("Bounce");
 }

@@ -88,6 +88,7 @@
     <ClCompile Include="Source\GoalScript.cpp" />
     <ClCompile Include="Source\BouncerScript.cpp" />
     <ClCompile Include="Source\Blackhole.cpp" />
+    <ClCompile Include="Source\ScoreScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Source\GoalScript.h" />
     <ClInclude Include="Source\BouncerScript.h" />
     <ClInclude Include="Source\Blackhole.h" />
+    <ClInclude Include="Source\ScoreScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />
