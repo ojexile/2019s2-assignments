@@ -18,7 +18,6 @@
 //#define USER_S ( TO_STR(USER) )
 
 Renderer* Engine::m_Renderer;
-LightManager* Engine::m_LightManager;
 
 Engine::Engine()
 {

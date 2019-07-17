@@ -195,7 +195,8 @@ void RenderingManager::RenderWorld(Scene* scene)
 	Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 	Vector3 vCamDir = scene->GetCameraGameObject()->GetComponent<CameraComponent>()->GetCamera()->GetDir();
 	// Calc Flare Val
-	Vector3 LightPos = { lights[0].position.x,  lights[0].position.y,  lights[0].position.z };
+	Light* light = scene->GetLightManager()->GetSceneLights()[0];
+	Vector3 LightPos = { light->position.x,  light->position.y,  light->position.z };
 	Vector3 CamToLight = LightPos - vCamPos;
 	float angleBetweenRad = acos(CamToLight.Dot(vCamDir) / (vCamDir.Length() * CamToLight.Length()));
 	float angleBetweenDeg = Math::RadianToDegree(angleBetweenRad);
