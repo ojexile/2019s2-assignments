@@ -18,7 +18,7 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObj
 	m_fMovementSpeed = 1;
 	m_bGaunt = false;
 	m_eStone = NONE;
-	m_fRepelDuration = 1;
+	m_fRepelDuration = 0.3f;
 }
 
 ChengPlayerScript::~ChengPlayerScript()

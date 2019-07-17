@@ -1,6 +1,6 @@
 #include "PaddleScript.h"
 #include "KeyboardManager.h"
-#define SPEED 400.f
+#define SPEED 200.f
 PaddleScript::PaddleScript(bool b)
 {
 	m_bIsLeft = b;
