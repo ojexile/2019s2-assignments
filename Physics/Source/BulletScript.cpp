@@ -17,9 +17,9 @@ void BulletScript::Update(double dt)
 {
 	//GetComponent<TransformComponent>()->Translate(100 * (float)dt * m_vDir);
 	//--------------------------------------------------------------------------------
-	m_fCurrentLife += (float)dt;
-	if (m_fCurrentLife >= m_fLifeTime)
-		DestroySelf();
+	//m_fCurrentLife += (float)dt;
+	//if (m_fCurrentLife >= m_fLifeTime)
+	//	DestroySelf();
 }
 void BulletScript::Collide(GameObject* go)
 {
