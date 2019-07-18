@@ -1,10 +1,10 @@
 #pragma once
 #include "Renderer.h"
 #include "RenderingManager.h"
+#include "LightManager.h"
 #include "SceneManager.h"
 
 #include "Scene.h"
-#include "TestScene.h"
 
 #include "Logger.h"
 #include "Locator.h"

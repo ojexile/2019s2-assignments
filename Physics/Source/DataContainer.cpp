@@ -7,19 +7,26 @@
 #include "RainScript.h"
 #include "GoalScript.h"
 #include "BouncerScript.h"
-
+#include "PaddleScript.h"
 #include <time.h>
 DataContainer::DataContainer()
 {
 	clock_t begin = clock();
 	// Meshes================================================================================
+	m_map_Meshes["Text"] = MeshBuilder::GenerateText("text", 16, 16);
+	m_map_Meshes["Text"]->m_uTextureArray[0] = LoadTGA("calibri");
+
 	m_map_Meshes["ground"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
 	m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 0, 0), 10, 10, 1.f);
 	//m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
 	//m_map_Meshes["ball3"] = MeshBuilder::GenerateSphere("ball", Color(0, 1, 0), 10, 10, 1.f);
 
 	m_map_Meshes["pillar"] = MeshBuilder::GenerateOBJ("cylinder");
+
+	m_map_Meshes["paddle"] = MeshBuilder::GenerateOBJ("paddle");
+
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
+	m_map_Meshes["square"] = MeshBuilder::GenerateCube("wall", Color((float)0.5, (float)0.5, (float)0.2), 1.f);
 	m_map_Meshes["goal"] = MeshBuilder::GenerateCube("wall", Color((float)0.8, (float)0.2, (float)0.2), 1.f);
 
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
@@ -56,8 +63,29 @@ DataContainer::DataContainer()
 	m_map_Meshes["Crosshair"] = MeshBuilder::GenerateQuad("Crosshair", { 1.f,1.f,1.f }, 2);
 	m_map_Meshes["Crosshair"]->m_uTextureArray[0] = LoadTGA("Crosshair");
 
-	m_map_Meshes["Gaunt"] = MeshBuilder::GenerateQuad("Gauntlet", { 1.f,1.f,1.f }, 1);
-	m_map_Meshes["Gaunt"]->m_uTextureArray[0] = LoadTGA("Gauntlet");
+	m_map_Meshes["Gaunt"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["Gaunt"]->m_uTextureArray[0] = LoadTGA("Gaunt");
+
+	m_map_Meshes["GauntSoul"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["GauntSoul"]->m_uTextureArray[0] = LoadTGA("GauntSoul");
+
+	m_map_Meshes["GauntReality"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["GauntReality"]->m_uTextureArray[0] = LoadTGA("GauntReality");
+
+	m_map_Meshes["GauntSpace"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["GauntSpace"]->m_uTextureArray[0] = LoadTGA("GauntSpace");
+
+	m_map_Meshes["GauntPower"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["GauntPower"]->m_uTextureArray[0] = LoadTGA("GauntPower");
+
+	m_map_Meshes["GauntPower"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["GauntPower"]->m_uTextureArray[0] = LoadTGA("GauntPower");
+
+	m_map_Meshes["GauntTime"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["GauntTime"]->m_uTextureArray[0] = LoadTGA("gauntTime");
+
+	m_map_Meshes["GauntMind"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["GauntMind"]->m_uTextureArray[0] = LoadTGA("GauntMind");
 	// Gameobjects================================================================================
 	GameObject* go;
 	// Particle--------------------------------------------------------------------------------
@@ -124,19 +152,52 @@ DataContainer::DataContainer()
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
 	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
+	// Paddle--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["paddle"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("paddle")));
+	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
+	go->AddComponent(new PaddleScript(true));
+	// PaddleRight--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["paddleRight"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("paddle")));
+	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
+	go->AddComponent(new PaddleScript(false));
+	// --------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["square"] = go;
+	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
+	go->AddComponent(new RenderComponent(this->GetMesh("square")));
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::SQUARE, false));
+	// Score--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["scoreboard"] = go;
+	ScoreScript* scoreScript = new ScoreScript;
+	go->AddComponent(scoreScript);
+	go->GetComponent<TransformComponent>()->SetPosition(50, 50, 100);
+	go->AddComponent(new RenderComponent(GetMesh("Text"), "oof"));
 	//Goal --------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["goal"] = go;
 	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	go->AddComponent(new RenderComponent(this->GetMesh("goal")));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
-	go->AddComponent(new GoalScript);
+	go->AddComponent(new GoalScript(scoreScript));
 	//Pillar--------------------------------------------------------------------------------
 	GameObject* pillar = new GameObject;
 	m_map_GO["pillar"] = pillar;
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
-	pillar->AddComponent(new BouncerScript(1.f));
+	pillar->AddComponent(new BouncerScript(1.f, scoreScript));
+	//Player Pillar--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["playerPillar"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("pillar")));
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
+	go->AddComponent(new BouncerScript(1.f, scoreScript, true));
 	//--------------------------------------------------------------------------------
 	// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");

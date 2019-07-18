@@ -1,9 +1,7 @@
 #include "Engine.h"
 #include "KeyboardManager.h"
 #include "Time.h"
-#include "ChengPhysicsScene.h"
 #include "AudioManager.h"
-#include "ChengAssignmentScene.h"
 #include "RojakAssignmentScene.h"
 #include "Preferences.h"
 #include "Resources.h"
@@ -23,6 +21,7 @@ Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
 	m_fLogUpdateTimer = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
+	m_fLogUpdateTimer = 0;
 }
 
 Engine::~Engine()
@@ -31,7 +30,8 @@ Engine::~Engine()
 
 void Engine::Init()
 {
-	AudioManager::GetInstance();
+	AudioManager* audio = AudioManager::GetInstance();
+	audio->Play3D("pop.wav", {});
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();

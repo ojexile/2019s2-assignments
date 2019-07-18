@@ -6,17 +6,24 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 	m_AnimatedMesh = nullptr;
 	m_bLightEnabled = true;
 	m_bBillboard = false;
-	if (!Mesh)
-		DEFAULT_LOG("Mesh is null.");
+	m_bIsText = false;
+}
+RenderComponent::RenderComponent(Mesh* Mesh, std::string sText)
+	:m_Mesh(Mesh)
+{
+	m_sText = sText;
+	m_AnimatedMesh = nullptr;
+	m_bLightEnabled = false;
+	m_bBillboard = false;
+	m_bIsText = true;
 }
 RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 	: m_AnimatedMesh(Mesh)
 {
 	m_Mesh = nullptr;
-	m_bLightEnabled = false;
+	m_bLightEnabled = true;
 	m_bBillboard = false;
-	if (!Mesh)
-		DEFAULT_LOG("Mesh is null.");
+	m_bIsText = false;
 }
 RenderComponent::RenderComponent(RenderComponent& ref)
 {
@@ -30,6 +37,8 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 		m_AnimatedMesh = nullptr;
 	m_bLightEnabled = ref.m_bLightEnabled;
 	m_bBillboard = ref.m_bBillboard;
+	m_bIsText = ref.m_bIsText;
+	m_sText = ref.m_sText;
 }
 
 RenderComponent::~RenderComponent()
@@ -92,4 +101,16 @@ void RenderComponent::SetMesh(Mesh* mesh)
 void RenderComponent::SetMesh(AnimatedMesh* mesh)
 {
 	m_AnimatedMesh = mesh;
+}
+bool RenderComponent::IsText()
+{
+	return m_bIsText;
+}
+std::string RenderComponent::GetText()
+{
+	return m_sText;
+}
+void RenderComponent::SetText(std::string s)
+{
+	m_sText = s;
 }
