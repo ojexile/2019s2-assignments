@@ -30,7 +30,7 @@ void ChengRigidbody::Update(double dt)
 	TransformComponent* Trans = this->GetComponent<TransformComponent>();
 	Trans->Translate(m_vVel * (float)dt);
 	float deg = Trans->GetDegrees();
-	deg += m_vAVel.y * dt;
+	deg += m_vAVel.y * (float)dt;
 	if (m_vAVel.y != 0)
 		Trans->SetRotation(deg, 0, 1, 0);
 	m_vAVel.SetZero();
