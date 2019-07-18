@@ -29,10 +29,19 @@ void ChengRigidbody::Update(double dt)
 		m_vVel.z = 0;
 	TransformComponent* Trans = this->GetComponent<TransformComponent>();
 	Trans->Translate(m_vVel * (float)dt);
+	float deg = Trans->GetDegrees();
+	deg += m_vAVel.y * (float)dt;
+	if (m_vAVel.y != 0)
+		Trans->SetRotation(deg, 0, 1, 0);
+	m_vAVel.SetZero();
 }
 void ChengRigidbody::SetVel(Vector3 v)
 {
 	this->m_vVel = v;
+}
+void ChengRigidbody::SetAVel(Vector3 v)
+{
+	this->m_vAVel = v;
 }
 void ChengRigidbody::IncrementForce(Vector3 v)
 {
@@ -42,9 +51,17 @@ Vector3 ChengRigidbody::GetVel()
 {
 	return m_vVel;
 }
+Vector3 ChengRigidbody::GetAVel()
+{
+	return m_vAVel;
+}
 float ChengRigidbody::GetMass()
 {
 	return m_fMass;
+}
+void ChengRigidbody::SetMass(float f)
+{
+	m_fMass = f;
 }
 ChengRigidbody::ePhysicsTypes ChengRigidbody::GetType()
 {

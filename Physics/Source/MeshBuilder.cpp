@@ -378,7 +378,7 @@ Mesh* MeshBuilder::GenerateCone(const std::string &meshName, Color color, unsign
 }
 Mesh* MeshBuilder::GenerateOBJ(std::string name)
 {
-	std::string file_path = Resources::ObjectPath + name + ".obj";
+	std::string file_path = Resources::Path::Object + name + ".obj";
 	std::vector<Position> vertices;
 	std::vector<TexCoord> uvs;
 	std::vector<Vector3> normals;
@@ -461,7 +461,7 @@ Mesh* MeshBuilder::GenerateText(const std::string &meshName, unsigned numRow, un
 
 Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap)
 {
-	file_path = Resources::HeightMapPath + file_path + ".raw";
+	file_path = Resources::Path::HeightMap + file_path + ".raw";
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;

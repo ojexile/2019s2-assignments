@@ -7,7 +7,7 @@
 KeyboardManager::KeyboardManager()
 {
 	SetKeyBind("ExitGame", VK_ESCAPE);
-	LoadKeyBinds(Resources::Keybinds);
+	LoadKeyBinds(Resources::Path::Keybinds);
 }
 
 KeyboardManager::~KeyboardManager()

@@ -33,7 +33,7 @@ GameObject::~GameObject()
 	//m_Transform = nullptr;
 	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
-			delete m_vec_ChildList[i];
+		delete m_vec_ChildList[i];
 	}
 	//m_vec_ComponentList.clear();
 	//m_vec_ChildList.clear();
@@ -57,6 +57,8 @@ void GameObject::Update(double dt)
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
 		m_vec_ComponentList[i]->Update(dt);
+		if (m_vec_ComponentList.size() <= 0)
+			return;
 	}
 	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
@@ -67,7 +69,10 @@ void GameObject::Update(double dt)
 				+ m_vec_ChildList[i]->GetComponent<TransformComponent>()->GetRelativePosition());
 		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
 		{
-			m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
+			if (m_vec_ChildList[i]->IsActive())
+				m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
+			if (m_vec_ChildList.size() <= 0)
+				return;
 		}
 	}
 }
