@@ -189,6 +189,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		Vector3 pos1 = trans1->GetPosition();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
 		Vector3 pos2 = trans2->GetPosition();
+		float fDist = (pos1 - pos2).Length();
 		//--------------------------------------------------------------------------------
 		//Vector3 N = Vector3(,0,)
 		Mtx44 rot;
@@ -200,11 +201,16 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		//--------------------------------------------------------------------------------
 		Vector3 w0minusb1 = pos2 - trans1->GetPosition();
 		Vector3 pDir = N;
+
+		float fCircum = 2 * 3.1425f * (fDist);
+		float fSpeed = rigid2->GetVel().y / 360 * fCircum;
+		Vector3 relVel = rigid1->GetVel() + rigid1->GetVel()*fSpeed;
+		
 		//--------------------------------------------------------------------------------
 		if (w0minusb1.Dot(N) < 0)
 			N = -N;
 
-		if (rigid1->GetVel().Dot(N) > 0)
+		if (relVel.Dot(N) > 0)
 		{
 			Vector3 wallScale = trans2->GetScale();
 			if (w0minusb1.Dot(N) < trans1->GetScale().x + wallScale.x * 0.5f
@@ -251,6 +257,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		//float p1 = go1->GetComponent<ChengRigidbody>()->GetMass() * go1->GetComponent<ChengRigidbody>()->GetVel().x;
 		//float p2 = go2->GetComponent<ChengRigidbody>()->GetMass() * go2->GetComponent<ChengRigidbody>()->GetVel().x;
 		// Response--------------------------------------------------------------------------------
+		// change to wall coll base on pos diff as normal
 		float m1 = go1->GetComponent<ChengRigidbody>()->GetMass();
 		float m2 = go1->GetComponent<ChengRigidbody>()->GetMass();
 		Vector3 u1 = go1->GetComponent<ChengRigidbody>()->GetVel();
@@ -308,13 +315,19 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 	{
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
+		float fDist = (trans1->GetPosition() - trans2->GetPosition()).Length();
 		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
+		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
 		Mtx44 rot;
 		rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
 
+		float fCircum = 2 * 3.1425f * (fDist);
+		float fSpeed = rigid2->GetVel().y / 360 * fCircum;
+		Vector3 relVel = rigid1->GetVel() + rigid1->GetVel()*fSpeed;
+
 		Vector3 N = rot * Vector3(1, 0, 0);
-		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) *N;
-		v += rigid1->GetAVel() * (trans1->GetPosition() - trans2->GetPosition()).Length();
+		Vector3 v = relVel - (2 * relVel.Dot(N)) *N;
+		//v += rigid1->GetAVel() * (trans1->GetPosition() - trans2->GetPosition()).Length();
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;
