@@ -191,9 +191,11 @@ DataContainer::DataContainer()
 	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
 	go->AddComponent(new PaddleScript(true));
-	GameObject* pil = this->GetGameObject("playerPillar")->Clone();
-	pil->GetComponent<TransformComponent>()->SetRelativePosition(20, 0, 20);
-	go->AddChild(pil);
+	go->GetComponent<TransformComponent>()->SetScale(5, 100, 35);
+	//GameObject* pil = GetGameObject("playerPillar")->Clone();
+	//pil->GetComponent<TransformComponent>()->SetRelativePosition(0, 0, -35);
+	//pil->GetComponent<TransformComponent>()->SetScale(3, 100, 3);
+	//go->AddChild(pil);
 	// PaddleRight--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["paddleRight"] = go;
@@ -201,9 +203,11 @@ DataContainer::DataContainer()
 	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
 	go->AddComponent(new PaddleScript(false));
-	pil = this->GetGameObject("playerPillar")->Clone();
-	pil->GetComponent<TransformComponent>()->SetRelativePosition(0, 0, 0);
-	go->AddChild(pil);
+	go->GetComponent<TransformComponent>()->SetScale(5, 100, 35);
+	//pil = GetGameObject("playerPillar")->Clone();
+	//pil->GetComponent<TransformComponent>()->SetRelativePosition(0, 0, -35);
+	//pil->GetComponent<TransformComponent>()->SetScale(3, 100, 3);
+	//go->AddChild(pil);
 	// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["Water"] = LoadShaders("water", "water");

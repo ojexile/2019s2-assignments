@@ -1,6 +1,6 @@
 #include "PaddleScript.h"
 #include "KeyboardManager.h"
-#define SPEED 600.f
+#define SPEED 30000.f
 PaddleScript::PaddleScript(bool b)
 {
 	m_bIsLeft = b;
@@ -19,7 +19,6 @@ void PaddleScript::Update(double dt)
 		if (KeyboardManager::GetInstance()->GetKeyDown("paddleLeft"))
 		{
 			if (deg <= -90 + maxdeg)
-
 				GetComponent<ChengRigidbody>()->SetTorque({ 0,SPEED,0 });
 			else
 				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
@@ -31,6 +30,8 @@ void PaddleScript::Update(double dt)
 			else
 				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
 		}
+		deg = Math::Clamp(deg, -90.f, -90 + maxdeg);
+		GetComponent<TransformComponent>()->SetRotation(deg, 0, 1, 0);
 	}
 	else
 	{
@@ -51,5 +52,7 @@ void PaddleScript::Update(double dt)
 			else
 				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
 		}
+		deg = Math::Clamp(deg, -90.f - maxdeg, 90.f);
+		GetComponent<TransformComponent>()->SetRotation(deg, 0, 1, 0);
 	}
 }

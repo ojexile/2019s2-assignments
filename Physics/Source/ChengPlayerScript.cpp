@@ -14,7 +14,7 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObj
 	, m_Repel(repel)
 {
 	m_CurrentState = nullptr;
-	m_bState = true;
+	m_bState = false;
 	m_fMovementSpeed = 1;
 	m_bGaunt = false;
 	m_eStone = NONE;
@@ -107,14 +107,6 @@ void ChengPlayerScript::Update(double dt)
 			SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
 		}
 	}
-	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
-	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
-	GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-	//trans->SetPosition(0, 0, 0);
-	cam->GetComponent<TransformComponent>()->SetRelativePosition(-pos.x, 300, -pos.z);
-	cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -90);
-	m_Gun->SetActive(false);
-	m_CrossHair->SetActive(false);
 	// Camera================================================================================
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
 	{
