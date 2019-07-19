@@ -52,6 +52,7 @@ void RojakAssignmentScene::Init()
 	meshController->AddMesh("GauntPower", dataContainer->GetMesh("GauntPower"));
 	meshController->AddMesh("GauntTime", dataContainer->GetMesh("GauntTime"));
 	meshController->AddMesh("GauntMind", dataContainer->GetMesh("GauntMind"));
+	meshController->AddMesh("GauntFist", dataContainer->GetMesh("GauntFist"));
 	Gaunt->AddComponent(meshController);
 	Gaunt->SetActive(false);
 	//Player================================================================================

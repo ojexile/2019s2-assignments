@@ -73,14 +73,6 @@ void ChengPlayerScript::Update(double dt)
 		{
 			trans->Translate(m_fMovementSpeed * vRight);
 		}
-		//if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
-		//{
-		//	trans->Translate(m_fMovementSpeed * vCameraUp);
-		//}
-		//if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
-		//{
-		//	trans->Translate(-m_fMovementSpeed * vCameraUp);
-		//}
 		// Gun================================================================================
 		// Fire--------------------------------------------------------------------------------
 		if (Application::IsMousePressed(0))
@@ -151,10 +143,9 @@ void ChengPlayerScript::Update(double dt)
 	}
 	if (m_bGaunt)
 	{
+		MeshController<Mesh>* mc = m_Gaunt->GetComponent<MeshController<Mesh>>();
 		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGaunt"))
 		{
-			MeshController<Mesh>* mc = m_Gaunt->GetComponent<MeshController<Mesh>>();
-
 			switch (m_eStone)
 			{
 			case ChengPlayerScript::NONE:
@@ -212,8 +203,9 @@ void ChengPlayerScript::Update(double dt)
 			default:
 				break;
 			}
-			m_Gaunt->SetActive(false);
-			m_bGaunt = false;
+			mc->SetMesh("GauntFist");
+			//m_Gaunt->SetActive(false);
+			//m_bGaunt = false;
 		}
 	}
 	if (m_Repel->IsActive())
