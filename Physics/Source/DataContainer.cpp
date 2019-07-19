@@ -191,7 +191,7 @@ DataContainer::DataContainer()
 	m_map_GO["pillar"] = pillar;
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
-	pillar->AddComponent(new BouncerScript(15.f, scoreScript));
+	pillar->AddComponent(new BouncerScript(10.f, scoreScript));
 	//Player Pillar--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["playerPillar"] = go;

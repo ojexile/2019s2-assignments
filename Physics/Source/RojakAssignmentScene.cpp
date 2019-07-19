@@ -100,20 +100,20 @@ void RojakAssignmentScene::Init()
 	go->TRANSFORM->SetScale(thickness, height, width * 2 + fOffset);
 	// bot left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	go->TRANSFORM->SetPosition(-(width / 2 + holeWidth / 2), 0, length-20);
+	go->TRANSFORM->SetPosition(-(width / 2 + holeWidth / 2), 0, length - 20);
 	go->TRANSFORM->SetRotation(60, 0, 1, 0);
 	go->TRANSFORM->SetRotation(60, 0, 1, 0);
 	go->TRANSFORM->SetScale(thickness, height, width - holeWidth / 2);
 	// bot right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	go->TRANSFORM->SetPosition((width / 2 + holeWidth / 2), 0, length-20);
-	go->TRANSFORM->SetRotation(-60, 0,1,0);
+	go->TRANSFORM->SetPosition((width / 2 + holeWidth / 2), 0, length - 20);
+	go->TRANSFORM->SetRotation(-60, 0, 1, 0);
 	go->TRANSFORM->SetScale(thickness, height, width - holeWidth / 2);
 	// goal--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("goal")->Clone());
 	go->TRANSFORM->SetPosition(0, 0, length + 20);
 	go->TRANSFORM->SetScale(thickness, height, holeWidth + 40);
-	go->AddComponent(new Blackhole(1000, 200));
+	//go->AddComponent(new Blackhole(1000, 200));
 	// left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	go->TRANSFORM->SetPosition(-width, 0, 0);

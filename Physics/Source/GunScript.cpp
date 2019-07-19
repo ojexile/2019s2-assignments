@@ -37,7 +37,7 @@ void GunScript::Update(double dt)
 		GetComponent<TransformComponent>()->SetRotation(0, 0, 0, 1);
 	}
 
-	if (Application::IsMousePressed(0) && !trigger)
+	if (Application::IsMousePressed(1) && !trigger)
 	{
 		trigger = true;
 		float fScale = 2;
@@ -45,8 +45,8 @@ void GunScript::Update(double dt)
 		//Vector3 ballDir = {};
 		double x, y;
 		Application::GetCursorPos(&x, &y);
-		float posx = (float)x / Application::GetWindowWidth() * 300 - 180;
-		float posz = (float)y / Application::GetWindowHeight() * 300 - 180;
+		float posx = (float)x / Application::GetWindowWidth() * 300 - 150;
+		float posz = (float)y / Application::GetWindowHeight() * 300 - 150;
 
 		Vector3 pos = { posx, 10, posz };
 		GameObject* bul = Instantiate(m_Bullet, pos);
@@ -58,7 +58,7 @@ void GunScript::Update(double dt)
 		--m_iClipAmmo;
 		m_fTimer = 0;
 	}
-	if(!Application::IsMousePressed(0))
+	if (!Application::IsMousePressed(1))
 	{
 		trigger = false;
 	}

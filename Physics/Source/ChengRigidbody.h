@@ -46,7 +46,8 @@ public:
 	float GetMass();
 	void SetMass(float f);
 	ePhysicsTypes GetType();
-
+	// Grav
+	void SetGravityX(float x);
 	void LockXAxis(bool);
 	void LockYAxis(bool);
 	void LockZAxis(bool);

@@ -116,21 +116,15 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		//--------------------------------------------------------------------------------
 		if (w0minusb1.Dot(N) < 0)
 			N = -N;
+		Vector3 NP = N.Cross({ 0,1,0 });
 
 		if (rigid1->GetVel().Dot(N) > 0)
 		{
-			Vector3 NP = N.Cross({ 0,-1,0 });
-
 			Vector3 wallScale = trans2->GetScale();
-			// Shrink wall size to give priority to lower colls
-			const float fOffset = .6f;
-			wallScale.x -= fOffset;
-			wallScale.z -= fOffset;
-			wallScale.y -= fOffset;
 			// x and z flipped for perpen coll
 			float fTemp = wallScale.x;
-			wallScale.x = wallScale.z;
-			wallScale.z = fTemp;
+			wallScale.x = wallScale.z * 1.1f;
+			wallScale.z = fTemp * 0.9f;
 			if (w0minusb1.Dot(N) < trans1->GetScale().x + wallScale.x * 0.5f
 				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + wallScale.z * 0.5f
 				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + wallScale.y * 0.5f)
@@ -163,17 +157,18 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		//--------------------------------------------------------------------------------
 		if (w0minusb1.Dot(N) < 0)
 			N = -N;
+		Vector3 NP = { N.z,N.y, -N.x };
 
 		if (rigid1->GetVel().Dot(N) > 0)
 		{
-			Vector3 NP = { -N.z,N.y, N.x };
-
 			Vector3 wallScale = trans2->GetScale();
+
 			if (w0minusb1.Dot(N) < trans1->GetScale().x + wallScale.x * 0.5f
 				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + wallScale.z * 0.5f
 				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + wallScale.y * 0.5f)
 			{
 				//CHENG_LOG("ball - wall");
+				// Resolve
 				return ChengRigidbody::WALL;
 			}
 		}
@@ -205,7 +200,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		float fCircum = 2 * 3.1425f * (fDist);
 		float fSpeed = rigid2->GetVel().y / 360 * fCircum;
 		Vector3 relVel = rigid1->GetVel() + rigid1->GetVel()*fSpeed;
-		
+
 		//--------------------------------------------------------------------------------
 		if (w0minusb1.Dot(N) < 0)
 			N = -N;
@@ -213,6 +208,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		if (relVel.Dot(N) > 0)
 		{
 			Vector3 wallScale = trans2->GetScale();
+
 			if (w0minusb1.Dot(N) < trans1->GetScale().x + wallScale.x * 0.5f
 				&& Math::FAbs(w0minusb1.Dot(NP)) < trans1->GetScale().x + wallScale.z * 0.5f
 				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + wallScale.y * 0.5f)
@@ -308,6 +304,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 
 		Vector3 N = rot * Vector3(1, 0, 0);
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) *N;
+		v *= 0.7f;
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;
@@ -315,19 +312,21 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 	{
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
+		//trans1->SetPosition()
 		float fDist = (trans1->GetPosition() - trans2->GetPosition()).Length();
 		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
 		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
 		Mtx44 rot;
 		rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
 
-		float fCircum = 2 * 3.1425f * (fDist);
-		float fSpeed = rigid2->GetVel().y / 360 * fCircum;
-		Vector3 relVel = rigid1->GetVel() + rigid1->GetVel()*fSpeed;
+		float fCircum = 3.1425f * (fDist);
+		float fSpeed = rigid2->GetAVel().y / 360 * fCircum;
+		fSpeed = fabs(fSpeed);
+		Vector3 vel = rigid1->GetVel();
+		Vector3 relVel = rigid1->GetVel() + rigid1->GetVel().Normalized()*fSpeed;
 
 		Vector3 N = rot * Vector3(1, 0, 0);
 		Vector3 v = relVel - (2 * relVel.Dot(N)) *N;
-		//v += rigid1->GetAVel() * (trans1->GetPosition() - trans2->GetPosition()).Length();
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;

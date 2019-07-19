@@ -30,7 +30,7 @@ void ChengRigidbody::Update(double dt)
 	TransformComponent* Trans = this->GetComponent<TransformComponent>();
 	Trans->Translate(m_vVel * (float)dt);
 	float deg = Trans->GetDegrees();
-	deg += m_vAVel.y * (float)dt;
+	deg += m_vAVel.y;
 	if (m_vAVel.y != 0)
 		Trans->SetRotation(deg, 0, 1, 0);
 	m_vAVel.SetZero();
@@ -66,6 +66,11 @@ void ChengRigidbody::SetMass(float f)
 ChengRigidbody::ePhysicsTypes ChengRigidbody::GetType()
 {
 	return m_eType;
+}
+// Grav
+void ChengRigidbody::SetGravityX(float x)
+{
+	this->m_vGravity.x = x;
 }
 void ChengRigidbody::LockXAxis(bool b)
 {
