@@ -16,11 +16,11 @@ ChengRigidbody::~ChengRigidbody()
 }
 void ChengRigidbody::Update(double dt)
 {
-	Vector3 m_vAccel = m_vForce * (1 / m_fMass);
+	Vector3 vAccel = m_vForce * (1 / m_fMass);
 	m_vForce.SetZero();
 	if (m_bGravityAffected)
-		m_vAccel += m_vGravity;
-	this->m_vVel += m_vAccel * (float)dt;
+		vAccel += m_vGravity;
+	this->m_vVel += vAccel * (float)dt;
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
 	if (m_bLockYAxis)
@@ -29,11 +29,20 @@ void ChengRigidbody::Update(double dt)
 		m_vVel.z = 0;
 	TransformComponent* Trans = this->GetComponent<TransformComponent>();
 	Trans->Translate(m_vVel * (float)dt);
+
+	float I = this->m_fMass * (Trans->GetScale().x * Trans->GetScale().x);
+	Vector3 vAAccel = this->m_vTorque * (1.f / I);
+	m_vAVel += vAAccel * (float)dt;
 	float deg = Trans->GetDegrees();
-	deg += m_vAVel.y;
+	deg += m_vAVel.y * dt;
 	if (m_vAVel.y != 0)
 		Trans->SetRotation(deg, 0, 1, 0);
-	m_vAVel.SetZero();
+	//m_vAVel.SetZero();
+	m_vTorque.SetZero();
+}
+void ChengRigidbody::SetTorque(Vector3 v)
+{
+	this->m_vTorque = v;
 }
 void ChengRigidbody::SetVel(Vector3 v)
 {

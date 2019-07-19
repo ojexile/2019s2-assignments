@@ -16,9 +16,12 @@ public:
 		TOTAL,
 	};
 private:
-	Vector3 m_vVel;
 	Vector3 m_vAVel;
+	Vector3 m_vTorque;
+
+	Vector3 m_vVel;
 	Vector3 m_vForce;
+
 	Vector3 m_vGravity;
 	// PhysicsMat m_PhysicsMat
 	float m_fMass;
@@ -38,6 +41,7 @@ public:
 	}
 	virtual void Update(double dt) override;
 
+	void SetTorque(Vector3);
 	void SetVel(Vector3);
 	void SetAVel(Vector3);
 	Vector3 GetVel();

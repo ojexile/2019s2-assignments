@@ -142,11 +142,16 @@ void RojakAssignmentScene::Init()
 	go->RENDER->SetColor({ 0,0,1 });
 	go->TRANSFORM->SetPosition(-holeWidth, 0, length);
 	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
-	go->TRANSFORM->SetScale(thickness / 2, height, holeWidth / 8 * 7);
+	go->TRANSFORM->SetScale(thickness / 20, height, holeWidth / 8 * 7);
 	//Paddle
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("paddleRight")->Clone());
 	go->RENDER->SetColor({ 0,0,1 });
 	go->TRANSFORM->SetPosition(holeWidth, 0, length);
 	go->GetComponent<TransformComponent>()->SetRotation(90, 0, 1, 0);
-	go->TRANSFORM->SetScale(thickness / 2, height, holeWidth / 8 * 7);
+	go->TRANSFORM->SetScale(thickness / 20, height, holeWidth / 8 * 7);
+
+	//go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
+	//go->TRANSFORM->SetPosition(0, 0, 0);
+	//go->TRANSFORM->SetRotation(90, 0, 1, 0);
+	//go->TRANSFORM->SetScale(thickness, height, width - holeWidth / 2);
 }

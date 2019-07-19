@@ -152,20 +152,6 @@ DataContainer::DataContainer()
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
 	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
-	// Paddle--------------------------------------------------------------------------------
-	go = new GameObject;
-	m_map_GO["paddle"] = go;
-	go->AddComponent(new RenderComponent(this->GetMesh("paddle")));
-	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
-	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
-	go->AddComponent(new PaddleScript(true));
-	// PaddleRight--------------------------------------------------------------------------------
-	go = new GameObject;
-	m_map_GO["paddleRight"] = go;
-	go->AddComponent(new RenderComponent(this->GetMesh("paddle")));
-	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
-	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
-	go->AddComponent(new PaddleScript(false));
 	// --------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["square"] = go;
@@ -198,7 +184,26 @@ DataContainer::DataContainer()
 	go->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
 	go->AddComponent(new BouncerScript(1.f, scoreScript, true));
-	//--------------------------------------------------------------------------------
+	// Paddle--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["paddle"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("paddle")));
+	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
+	go->AddComponent(new PaddleScript(true));
+	GameObject* pil = this->GetGameObject("playerPillar")->Clone();
+	pil->GetComponent<TransformComponent>()->SetRelativePosition(20, 0, 20);
+	go->AddChild(pil);
+	// PaddleRight--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["paddleRight"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("paddle")));
+	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
+	go->AddComponent(new PaddleScript(false));
+	pil = this->GetGameObject("playerPillar")->Clone();
+	pil->GetComponent<TransformComponent>()->SetRelativePosition(0, 0, 0);
+	go->AddChild(pil);
 	// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["Water"] = LoadShaders("water", "water");
