@@ -17,6 +17,5 @@ public:
 	virtual ~ScriptComponent();
 
 	virtual void Update(double dt);
-	virtual void Start();
 	virtual ComponentBase* Clone() = 0;
 };
