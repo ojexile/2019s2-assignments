@@ -1,5 +1,5 @@
 #include "Scene.h"
-
+#include "Application.h"
 Scene::Scene()
 {
 }
@@ -22,4 +22,8 @@ GameObjectManager* Scene::GetGameObjectManager()
 LightManager* Scene::GetLightManager()
 {
 	return &m_LightManager;
+}
+void Scene::SetMouseEnabled(bool b)
+{
+	Application::SetMouseEnabled(b);
 }

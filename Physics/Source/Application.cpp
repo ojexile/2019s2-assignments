@@ -60,7 +60,14 @@ int Application::GetWindowHeight()
 {
 	return m_height;
 }
-
+void Application::SetMouseEnabled(bool b)
+{
+	// Camera
+	if (b)
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	else
+		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
 Application::Application()
 {
 }
@@ -124,8 +131,6 @@ void Application::Init()
 	m_Engine = new Engine;
 	m_Engine->Init();
 	m_Engine->SetMouseCallback(m_window);
-	// Camera
-	//glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void Application::Run()
