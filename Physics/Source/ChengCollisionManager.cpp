@@ -218,8 +218,11 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		Vector3 pDir = N;
 
 		float fCircum = 2 * 3.1425f * (fDist);
-		float fSpeed = rigid2->GetVel().y / 360 * fCircum;
-		Vector3 relVel = rigid1->GetVel() + rigid1->GetVel()*fSpeed;
+		Vector3 avel = rigid2->GetAVel();
+		float fSpeed = avel.y / 360 * fCircum;
+		//fSpeed = fabs(fSpeed);
+		Vector3 vel = rigid1->GetVel();
+		Vector3 relVel = rigid1->GetVel() + N * fSpeed;
 
 		//--------------------------------------------------------------------------------
 		if (w0minusb1.Dot(N) < 0)
@@ -355,7 +358,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		float fCircum = 2 * 3.1425f * (fDist);
 		Vector3 avel = rigid2->GetAVel();
 		float fSpeed = avel.y / 360 * fCircum;
-		fSpeed = fabs(fSpeed) * 2;
+		fSpeed = fabs(fSpeed);
 		Vector3 vel = rigid1->GetVel();
 		Vector3 relVel = rigid1->GetVel() + N * fSpeed;
 		Vector3 v = relVel - (2 * relVel.Dot(N)) * N;
