@@ -32,6 +32,10 @@ private:
 	Light* m_Light;
 	float m_fStartRepel;
 	float m_fRepelDuration;
+
+	// Functions
+	// Switch view
+	void SwitchView();
 public:
 	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt, GameObject* repel);
 	~ChengPlayerScript();

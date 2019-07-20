@@ -18,7 +18,6 @@ public:
 	virtual ~ScriptComponent();
 
 	virtual void Update(double dt);
-	virtual void Start();
 	virtual void Collide(GameObject*);
 	virtual ComponentBase* Clone() = 0;
 };

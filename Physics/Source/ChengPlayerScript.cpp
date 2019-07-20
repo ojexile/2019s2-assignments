@@ -32,6 +32,7 @@ ChengPlayerScript::~ChengPlayerScript()
 }
 void ChengPlayerScript::Start()
 {
+	SwitchView();
 }
 void ChengPlayerScript::Update(double dt)
 {
@@ -108,30 +109,7 @@ void ChengPlayerScript::Update(double dt)
 	// Camera================================================================================
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
 	{
-		if (m_bState)
-		{
-			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
-			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(true);
-			GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-			//trans->SetPosition(0, 0, 0);
-			cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
-			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, 0);
-			m_Gun->SetActive(true);
-			m_CrossHair->SetActive(true);
-			m_bState = false;
-		}
-		else
-		{
-			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
-			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
-			GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-			//trans->SetPosition(0, 0, 0);
-			cam->GetComponent<TransformComponent>()->SetRelativePosition(-pos.x, 300, -pos.z);
-			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -90);
-			m_Gun->SetActive(false);
-			m_CrossHair->SetActive(false);
-			m_bState = true;
-		}
+		SwitchView();
 	}
 	// Gauntlet================================================================================
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("triggerGauntlet"))
@@ -228,4 +206,35 @@ void ChengPlayerScript::Update(double dt)
 void ChengPlayerScript::SetMovementSpeed(float f)
 {
 	m_fMovementSpeed = f;
+}
+void ChengPlayerScript::SwitchView()
+{
+	TransformComponent* trans = GetComponent<TransformComponent>();
+	Vector3 pos = trans->GetPosition();
+	if (m_bState)
+	{
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(true);
+		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+		//trans->SetPosition(0, 0, 0);
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, 0);
+		m_Gun->SetActive(true);
+		m_CrossHair->SetActive(true);
+		m_bState = false;
+		SceneManager::GetInstance()->GetScene()->SetMouseEnabled(false);
+	}
+	else
+	{
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
+		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+		//trans->SetPosition(0, 0, 0);
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(-pos.x, 300, -pos.z);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -90);
+		m_Gun->SetActive(false);
+		m_CrossHair->SetActive(false);
+		m_bState = true;
+		SceneManager::GetInstance()->GetScene()->SetMouseEnabled(true);
+	}
 }
