@@ -155,6 +155,7 @@
     <ClInclude Include="Source\PaddleScript.h" />
     <ClInclude Include="Source\GauntletScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
+    <ClInclude Include="Source\ComponentMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

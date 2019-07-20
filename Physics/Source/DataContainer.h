@@ -8,6 +8,7 @@
 #include "LoadTGA.h"
 #include "MeshBuilder.h"
 #include "GameObject.h"
+#include "ComponentMacros.h"
 
 #include "shader.hpp"
 

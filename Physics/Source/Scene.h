@@ -3,10 +3,7 @@
 #include "Camera.h"
 #include "CameraComponent.h"
 #include "LightManager.h"
-
-#define TRANSFORM GetComponent<TransformComponent>()
-#define RENDER GetComponent<RenderComponent>()
-#define CAMERA GetComponent<CameraComponent>()
+#include "ComponentMacros.h"
 
 class Scene
 {
