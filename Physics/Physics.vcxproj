@@ -207,6 +207,7 @@
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Preferences.cpp" />
+    <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -269,6 +270,7 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Preferences.h" />
+    <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\shaders\comg.fragmentshader" />

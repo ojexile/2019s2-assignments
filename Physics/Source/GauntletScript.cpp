@@ -1,10 +1,14 @@
 #include "GauntletScript.h"
 #include "MeshController.h"
+#include "WorldValues.h"
+#include "Time.h"
 GauntletScript::GauntletScript()
 {
 	m_eStone = NONE;
 	m_MC = nullptr;
 	m_bInUse = false;
+	m_fStartTime = 0;
+	m_fDuration = 0;
 }
 
 GauntletScript::~GauntletScript()
@@ -13,6 +17,18 @@ GauntletScript::~GauntletScript()
 void GauntletScript::Start()
 {
 	m_MC = GetComponent<MeshController<Mesh>>();
+}
+void GauntletScript::Update(double dt)
+{
+	if (m_bInUse)
+	{
+		if (Time::GetInstance()->GetElapsedTimeF() > m_fStartTime + m_fDuration)
+		{
+			StopUse();
+			m_fStartTime = 0;
+			m_fDuration = 0;
+		}
+	}
 }
 void GauntletScript::RotateForward()
 {
@@ -83,5 +99,58 @@ void GauntletScript::RotateBackward()
 void GauntletScript::Use()
 {
 	m_MC->SetMesh("GauntFist");
+	if (m_bInUse)
+		return;
+	switch (m_eStone)
+	{
+	case NONE:
+		break;
+	case SOUL:
+		break;
+	case REALITY:
+		WorldValues::GravityExponent = 0.f;
+		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
+		m_fDuration = 5.f;
+		break;
+	case SPACE:
+		break;
+	case POWER:
+		break;
+	case TIME:
+		break;
+	case MIND:
+		break;
+	default:
+		break;
+	}
+
 	m_bInUse = true;
+}
+void GauntletScript::StopUse()
+{
+	m_MC->SetMesh("Gaunt");
+	if (!m_bInUse)
+		return;
+	switch (m_eStone)
+	{
+	case NONE:
+		break;
+	case SOUL:
+		break;
+	case REALITY:
+		WorldValues::GravityExponent = 1.f;
+		break;
+	case SPACE:
+		break;
+	case POWER:
+		break;
+	case TIME:
+		break;
+	case MIND:
+		break;
+	default:
+		break;
+	}
+
+	m_bInUse = false;
 }

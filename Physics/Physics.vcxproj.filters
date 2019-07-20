@@ -89,6 +89,7 @@
     <ClCompile Include="Source\ScoreScript.cpp" />
     <ClCompile Include="Source\PaddleScript.cpp" />
     <ClCompile Include="Source\GauntletScript.cpp" />
+    <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Source\ScoreScript.h" />
     <ClInclude Include="Source\PaddleScript.h" />
     <ClInclude Include="Source\GauntletScript.h" />
+    <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

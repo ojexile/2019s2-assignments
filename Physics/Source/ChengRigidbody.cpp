@@ -1,10 +1,11 @@
 #include "ChengRigidbody.h"
 #include "TransformComponent.h"
+#include "WorldValues.h"
 ChengRigidbody::ChengRigidbody(ePhysicsTypes e, bool Grav)
 {
 	m_eType = e;
 	m_fMass = 1;
-	m_vGravity = { 0,-40.8f,40.8f };
+	m_vGravity = { 0,0,100.f };
 	m_bLockXAxis = false;
 	m_bLockYAxis = false;
 	m_bLockZAxis = false;
@@ -19,7 +20,7 @@ void ChengRigidbody::Update(double dt)
 	Vector3 vAccel = m_vForce * (1 / m_fMass);
 	m_vForce.SetZero();
 	if (m_bGravityAffected)
-		vAccel += m_vGravity;
+		vAccel += m_vGravity * WorldValues::GravityExponent;
 	this->m_vVel += vAccel * (float)dt;
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
