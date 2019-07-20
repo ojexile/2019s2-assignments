@@ -20,11 +20,16 @@ public:
 private:
 	eSTONES m_eStone;
 	MeshController<Mesh>* m_MC;
+	bool m_bInUse;
 public:
 	GauntletScript();
 	virtual ~GauntletScript();
+	virtual ComponentBase* Clone()
+	{
+		return new GauntletScript(*this);
+	}
 	virtual void Start() override;
-	void RotateFoward();
+	void RotateForward();
 	void RotateBackward();
 
 	void Use();

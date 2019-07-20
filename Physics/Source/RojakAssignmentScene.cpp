@@ -4,6 +4,7 @@
 #include "ChengPlayerScript.h"
 #include "MeshController.h"
 #include "Blackhole.h"
+#include "GauntletScript.h"
 RojakAssignmentScene::RojakAssignmentScene()
 {
 }
@@ -54,6 +55,7 @@ void RojakAssignmentScene::Init()
 	meshController->AddMesh("GauntMind", dataContainer->GetMesh("GauntMind"));
 	meshController->AddMesh("GauntFist", dataContainer->GetMesh("GauntFist"));
 	Gaunt->AddComponent(meshController);
+	Gaunt->AddComponent(new GauntletScript());
 	Gaunt->SetActive(false);
 	//Player================================================================================
 	// Gun--------------------------------------------------------------------------------
@@ -63,15 +65,14 @@ void RojakAssignmentScene::Init()
 	gun->RENDER->SetBillboard(false);
 	gun->RENDER->SetLightEnabled(false);
 	gun->AddComponent(new GunScript(dataContainer->GetGameObject("bullet"), m_CameraGO, 0.1f, GunScript::CHARGE));
-	//Repel--------------------------------------------------------------------------------
-	GameObject* repel = new GameObject;
-	repel->AddComponent(new Blackhole(-20000, 700));
-	repel->SetActive(false);
+	////Repel--------------------------------------------------------------------------------
+	//GameObject* repel = new GameObject;
+	//repel->AddComponent(new Blackhole(-20000, 700));
+	//repel->SetActive(false);
 	// Player--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
 	go->TRANSFORM->SetPosition(0, 0, 50);
-	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt, repel));
-	go->AddChild(repel);
+	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
 	GameObject* child = dataContainer->GetGameObject("playerPillar")->Clone();
 	go->AddChild(child);
 	child->TRANSFORM->SetScale(5, 30, 5);

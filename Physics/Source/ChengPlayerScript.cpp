@@ -8,16 +8,14 @@
 #include "Mesh.h"
 #include "Time.h"
 #include "GauntletScript.h"
-ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt, GameObject* repel)
+ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
 	:m_Gun(gun)
 	, m_CrossHair(cross)
 	, m_Gaunt(gaunt)
-	, m_Repel(repel)
 {
 	m_CurrentState = nullptr;
 	m_bState = false;
 	m_fMovementSpeed = 1;
-	m_fRepelDuration = 0.3f;
 	m_Light = SceneManager::GetInstance()->GetScene()->GetLightManager()->AddLight(Light::LIGHT_POINT);
 	m_Light->power = 3;
 	m_Light->color.r = 0;
@@ -54,16 +52,17 @@ void ChengPlayerScript::Update(double dt)
 	}
 	if (m_Gaunt->IsActive())
 	{
-		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGaunt"))
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGauntForward"))
 		{
-			m_Gaunt->GetComponent<GauntletScript>()->RotateFoward();
+			m_Gaunt->GetComponent<GauntletScript>()->RotateForward();
 		}
-		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGaunt"))
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGauntBackward"))
 		{
 			m_Gaunt->GetComponent<GauntletScript>()->RotateBackward();
 		}
 		if (KeyboardManager::GetInstance()->GetKeyTriggered("useGauntlet"))
 		{
+			m_Gaunt->GetComponent<GauntletScript>()->Use();
 		}
 	}
 	// TODO Constrain to terrain================================================================================

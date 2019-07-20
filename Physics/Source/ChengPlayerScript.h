@@ -13,19 +13,16 @@ private:
 	GameObject* m_Gun;
 	GameObject* m_CrossHair;
 	GameObject* m_Gaunt;
-	GameObject* m_Repel;
 	bool m_bState;
 
 	Light* m_Light;
-	float m_fStartRepel;
-	float m_fRepelDuration;
 
 	// Functions
 	// Switch view
 	void SwitchView();
 	void UpdateMovement(double dt);
 public:
-	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt, GameObject* repel);
+	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt);
 	~ChengPlayerScript();
 	virtual ComponentBase* Clone()
 	{
