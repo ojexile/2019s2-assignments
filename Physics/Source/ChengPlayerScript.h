@@ -3,6 +3,7 @@
 #include "CameraComponent.h"
 #include "PlayerState.h"
 #include "StandingState.h"
+#include "Light.h"
 class ChengPlayerScript : public ScriptComponent
 {
 public:
@@ -28,7 +29,7 @@ private:
 	bool m_bState;
 	bool m_bGaunt;
 	eSTONES m_eStone;
-
+	Light* m_Light;
 	float m_fStartRepel;
 	float m_fRepelDuration;
 public:

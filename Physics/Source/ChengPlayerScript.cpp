@@ -19,6 +19,10 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObj
 	m_bGaunt = false;
 	m_eStone = NONE;
 	m_fRepelDuration = 0.3f;
+	m_Light = SceneManager::GetInstance()->GetScene()->GetLightManager()->AddLight(Light::LIGHT_POINT);
+	m_Light->power = 3;
+	m_Light->color.r = 0;
+	m_Light->color.g = 1;
 }
 
 ChengPlayerScript::~ChengPlayerScript()
@@ -33,6 +37,8 @@ void ChengPlayerScript::Update(double dt)
 {
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 pos = trans->GetPosition();
+	m_Light->position = { trans->GetPosition().x, trans->GetPosition().y, trans->GetPosition().z };
+	m_Light->position.z += 30;
 	if (!m_bState)
 	{
 		if (!m_CurrentState)
