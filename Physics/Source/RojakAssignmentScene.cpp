@@ -159,4 +159,9 @@ void RojakAssignmentScene::Init()
 	//go->TRANSFORM->SetPosition(0, 0, 0);
 	//go->TRANSFORM->SetRotation(90, 0, 1, 0);
 	//go->TRANSFORM->SetScale(thickness, height, width - holeWidth / 2);
+
+	go = m_GameObjectManager.AddGameObject();
+	go->TRANSFORM->SetPosition(0, 21, 21);
+	go->TRANSFORM->SetScale(21, 21, 21);
+	go->AddComponent(new RenderComponent(dataContainer->GetAnimation("Cat")));
 }

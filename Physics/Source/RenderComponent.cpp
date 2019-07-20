@@ -25,21 +25,6 @@ RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 	m_bBillboard = false;
 	m_bIsText = false;
 }
-RenderComponent::RenderComponent(RenderComponent& ref)
-{
-	if (ref.m_Mesh)
-		m_Mesh = ref.m_Mesh;
-	else
-		m_Mesh = nullptr;
-	if (ref.m_AnimatedMesh)
-		m_AnimatedMesh = ref.m_AnimatedMesh;
-	else
-		m_AnimatedMesh = nullptr;
-	m_bLightEnabled = ref.m_bLightEnabled;
-	m_bBillboard = ref.m_bBillboard;
-	m_bIsText = ref.m_bIsText;
-	m_sText = ref.m_sText;
-}
 
 RenderComponent::~RenderComponent()
 {
