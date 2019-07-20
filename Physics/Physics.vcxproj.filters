@@ -84,6 +84,7 @@
     <ClInclude Include="Source\Preferences.h" />
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\MeshController.h" />
+    <ClInclude Include="Source\ComponentMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

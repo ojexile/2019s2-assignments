@@ -199,6 +199,7 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\ComponentBase.h" />
+    <ClInclude Include="Source\ComponentMacros.h" />
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\DepthFBO.h" />
     <ClInclude Include="Source\Engine.h" />
