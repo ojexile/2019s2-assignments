@@ -60,7 +60,7 @@ int Application::GetWindowHeight()
 {
 	return m_height;
 }
-void Application::SetMouseEnabled(bool b)
+void Application::SetCursorEnabled(bool b)
 {
 	// Camera
 	if (b)

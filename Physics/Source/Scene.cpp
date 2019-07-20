@@ -23,7 +23,7 @@ LightManager* Scene::GetLightManager()
 {
 	return &m_LightManager;
 }
-void Scene::SetMouseEnabled(bool b)
+void Scene::SetCursorEnabled(bool b)
 {
-	Application::SetMouseEnabled(b);
+	Application::SetCursorEnabled(b);
 }

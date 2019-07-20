@@ -15,6 +15,7 @@ void TestScene::Init()
 	m_CameraGO->AddComponent(new CameraComponent);
 	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	//m_GameObjectManager.AddGameObject(CameraGO);
+	SetCursorEnabled(false);
 	//
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	// Layers
@@ -32,6 +33,7 @@ void TestScene::Init()
 	ui->TRANSFORM->SetRotation(90, 0, 1, 0);
 	ui->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	ui->RENDER->SetLightEnabled(true);
+	ui->RENDER->SetActive(true);
 	ui->SetActive(true);
 	//
 
@@ -105,4 +107,5 @@ void TestScene::Init()
 	cat->AddComponent(new RenderComponent(dataContainer->GetAnimation("Cat")));
 	cat->RENDER->SetLightEnabled(false);
 	cat->RENDER->SetBillboard(true);
+	cat->RENDER->SetActive(false);
 }
