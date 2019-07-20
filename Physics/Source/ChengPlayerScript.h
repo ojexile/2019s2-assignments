@@ -6,18 +6,6 @@
 #include "Light.h"
 class ChengPlayerScript : public ScriptComponent
 {
-public:
-	enum eSTONES
-	{
-		NONE,
-		SOUL,
-		REALITY,
-		SPACE,
-		POWER,
-		TIME,
-		MIND,
-		TOTAL,
-	};
 	friend class PlayerState;
 private:
 	PlayerState* m_CurrentState;
@@ -27,8 +15,7 @@ private:
 	GameObject* m_Gaunt;
 	GameObject* m_Repel;
 	bool m_bState;
-	bool m_bGaunt;
-	eSTONES m_eStone;
+
 	Light* m_Light;
 	float m_fStartRepel;
 	float m_fRepelDuration;
@@ -36,6 +23,7 @@ private:
 	// Functions
 	// Switch view
 	void SwitchView();
+	void UpdateMovement(double dt);
 public:
 	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt, GameObject* repel);
 	~ChengPlayerScript();

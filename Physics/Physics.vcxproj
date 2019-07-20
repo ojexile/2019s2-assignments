@@ -171,6 +171,7 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
+    <ClCompile Include="Source\GauntletScript.cpp" />
     <ClCompile Include="Source\GoalScript.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\KeyboardManager.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
+    <ClInclude Include="Source\GauntletScript.h" />
     <ClInclude Include="Source\GoalScript.h" />
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
