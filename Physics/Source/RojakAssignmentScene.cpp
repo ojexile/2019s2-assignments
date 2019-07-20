@@ -94,7 +94,7 @@ void RojakAssignmentScene::Init()
 	// mid--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("square")->Clone());
 	go->TRANSFORM->SetPosition(0, 0, -length / 2);
-	go->TRANSFORM->SetRotation(0, 0, 1, 0);
+	go->TRANSFORM->SetRotation(45, 0, 1, 0);
 	go->TRANSFORM->SetScale(thickness, height, thickness);
 	// top--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
@@ -149,7 +149,12 @@ void RojakAssignmentScene::Init()
 	go->RENDER->SetColor({ 0,0,1 });
 	go->TRANSFORM->SetPosition(holeWidth, 0, length);
 	go->GetComponent<TransformComponent>()->SetRotation(90, 0, 1, 0);
-
+	// Obstacles--------------------------------------------------------------------------------
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("fanBlade")->Clone());
+	go->TRANSFORM->SetPosition(0, 0, -length / 8);
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("fanBlade")->Clone());
+	go->TRANSFORM->SetPosition(0, 0, -length / 8);
+	go->TRANSFORM->SetRotation(180, 0, 1, 0);
 	//go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	//go->TRANSFORM->SetPosition(0, 0, 0);
 	//go->TRANSFORM->SetRotation(90, 0, 1, 0);

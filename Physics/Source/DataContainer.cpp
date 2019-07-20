@@ -207,6 +207,15 @@ DataContainer::DataContainer()
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
 	go->AddComponent(new PaddleScript(false));
 	go->GetComponent<TransformComponent>()->SetScale(5, 100, 35);
+	// Fan--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["fanBlade"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("paddle")));
+	go->GetComponent<RenderComponent>()->SetColor({ 1,0,1 });
+	ChengRigidbody* rb = new ChengRigidbody(ChengRigidbody::PADDLE, false);
+	rb->SetAVel({ 0, 120, 0 });
+	go->AddComponent(rb);
+	go->GetComponent<TransformComponent>()->SetScale(5, 100, 20);
 	//pil = GetGameObject("playerPillar")->Clone();
 	//pil->GetComponent<TransformComponent>()->SetRelativePosition(0, 0, -35);
 	//pil->GetComponent<TransformComponent>()->SetScale(3, 100, 3);
