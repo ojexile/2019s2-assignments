@@ -56,6 +56,9 @@ void GameObject::Update(double dt)
 {
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
+		if (!m_vec_ComponentList[i]->IsActive())
+			continue;
+		m_vec_ComponentList[i]->CheckStarted();
 		m_vec_ComponentList[i]->Update(dt);
 		if (m_vec_ComponentList.size() <= 0)
 			return;
@@ -77,8 +80,13 @@ void GameObject::Update(double dt)
 		m_vec_ChildList[i]->GetComponent<TransformComponent>()->SetPosition(newPos);
 		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
 		{
-			if (m_vec_ChildList[i]->IsActive())
-				m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
+			if (!m_vec_ChildList[i]->IsActive())
+				continue;
+			if (!m_vec_ComponentList[i]->IsActive())
+				continue;
+			m_vec_ChildList[i]->m_vec_ComponentList[j]->CheckStarted();
+			m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
+			// Break if child destroys gameobject
 			if (m_vec_ChildList.size() <= 0)
 				return;
 		}

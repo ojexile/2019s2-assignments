@@ -35,3 +35,12 @@ void ComponentBase::Start()
 {
 	return;
 }
+
+bool ComponentBase::IsActive()
+{
+	return m_bActive;
+}
+void ComponentBase::SetActive(bool b)
+{
+	m_bActive = b;
+}

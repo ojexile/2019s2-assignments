@@ -19,7 +19,7 @@ public:
 	Camera* GetCamera();
 	GameObjectManager* GetGameObjectManager();
 	LightManager* GetLightManager();
-	void SetMouseEnabled(bool);
+	void SetCursorEnabled(bool);
 protected:
 	GameObjectManager m_GameObjectManager;
 	LightManager m_LightManager;

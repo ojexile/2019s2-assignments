@@ -8,6 +8,7 @@ class ComponentBase
 private:
 	bool m_bStarted;
 	std::vector<ComponentBase*>* m_vec_RefList = nullptr;
+	bool m_bActive;
 public:
 	ComponentBase();
 	virtual ~ComponentBase();
@@ -34,4 +35,7 @@ public:
 
 	virtual void CheckStarted();
 	virtual void Start();
+
+	bool IsActive();
+	void SetActive(bool b);
 };
