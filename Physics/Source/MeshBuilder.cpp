@@ -5,6 +5,8 @@
 #include "MyMath.h"
 #include "LoadOBJ.h"
 #include "Resources.h"
+
+Mesh* MeshBuilder::m_AnimatedQuad = nullptr;
 /******************************************************************************/
 /*!
 \brief
@@ -602,90 +604,8 @@ Mesh* MeshBuilder::GenerateSkyPlane(const std::string &meshName, Color color, in
 }
 AnimatedMesh* MeshBuilder::GenerateAnimatedMesh(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop)
 {
-	Vertex v;
-	std::vector<Vertex> vertex_buffer_data;
-	std::vector<GLuint> index_buffer_data;
-
-	float width = 1.f / numCol;
-	float height = 1.f / numRow;
-	int offset = 0;
-
-	for (int i = 0; i < numRow; ++i)
-	{
-		for (int j = 0; j < numCol; ++j)
-		{
-			float u1 = j * width;
-			float v1 = 1.f - height - i * height;
-
-			v.pos = { -0.5f, -0.5f, 0.0f }; //top left
-			v.texCoord.Set(u1, v1);
-			vertex_buffer_data.push_back(v);
-
-			v.pos = { 0.5f, -0.5f, 0.0f }; //top right
-			v.texCoord.Set(u1 + width, v1);
-			vertex_buffer_data.push_back(v);
-
-			v.pos = { 0.5f, 0.5f, 0.0f }; //bottom left
-			v.texCoord.Set(u1 + width, v1 + height);
-			vertex_buffer_data.push_back(v);
-
-			v.pos = { -0.5f, 0.5f, 0.0f }; //bottom right
-			v.texCoord.Set(u1, v1 + height);
-			vertex_buffer_data.push_back(v);
-
-			index_buffer_data.push_back(offset + 0);
-			index_buffer_data.push_back(offset + 1);
-			index_buffer_data.push_back(offset + 2);
-			index_buffer_data.push_back(offset + 0);
-			index_buffer_data.push_back(offset + 2);
-			index_buffer_data.push_back(offset + 3);
-			offset += 4;
-		}
-	}
-
-	Mesh *mesh = new Mesh(sMeshName);
-
-	mesh->mode = Mesh::DRAW_TRIANGLES;
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
-
-	mesh->indexSize = index_buffer_data.size();
-
-	AnimatedMesh *anim = new AnimatedMesh(sMeshName, numRow, numCol, start, end, time, loop, mesh);
-
-	return anim;
-}
-AnimatedMesh* MeshBuilder::GenerateAnimatedMeshDetailed(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop, const std::string &file_path)
-{
-	std::vector<Position> vertices;
-	std::vector<TexCoord> uvs;
-	std::vector<Vector3> normals;
-	bool success = LoadOBJ(file_path.c_str(), vertices, uvs, normals);
-	if (!success)
-		return NULL;
-
-	std::vector<Vertex> vertex_buffer_data;
-	std::vector<GLuint> index_buffer_data;
-
-	IndexVBO(vertices, uvs, normals, index_buffer_data, vertex_buffer_data);
-
-	Mesh *mesh = new Mesh(sMeshName);
-
-	mesh->mode = Mesh::DRAW_TRIANGLES;
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
-
-	mesh->indexSize = index_buffer_data.size();
-
-	AnimatedMesh *anim = new AnimatedMesh(sMeshName, numRow, numCol, start, end, time, loop, mesh);
-
+	if (!m_AnimatedQuad)
+		m_AnimatedQuad = MeshBuilder::GenerateQuad("", { 1,1,1 }, 1);
+	AnimatedMesh *anim = new AnimatedMesh(sMeshName, numRow, numCol, start, end, time, loop, m_AnimatedQuad);
 	return anim;
 }

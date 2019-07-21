@@ -21,7 +21,7 @@ RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 	: m_AnimatedMesh(Mesh)
 {
 	m_Mesh = nullptr;
-	m_bLightEnabled = true;
+	m_bLightEnabled = false;	// Transparency doesn't work with light enabled
 	m_bBillboard = false;
 	m_bIsText = false;
 }
@@ -32,7 +32,7 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 	else
 		m_Mesh = nullptr;
 	if (ref.m_AnimatedMesh)
-		m_AnimatedMesh = ref.m_AnimatedMesh;
+		m_AnimatedMesh = new AnimatedMesh(*ref.m_AnimatedMesh);
 	else
 		m_AnimatedMesh = nullptr;
 	m_bLightEnabled = ref.m_bLightEnabled;

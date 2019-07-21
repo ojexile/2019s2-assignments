@@ -105,7 +105,6 @@ void TestScene::Init()
 	cat->TRANSFORM->SetPosition(0, 21, 0);
 	cat->TRANSFORM->SetScale(20.f, 20.f, 20.f);
 	cat->AddComponent(new RenderComponent(dataContainer->GetAnimation("Cat")));
-	cat->RENDER->SetLightEnabled(false);
 	cat->RENDER->SetBillboard(true);
-	cat->RENDER->SetActive(false);
+	cat->RENDER->SetActive(true);
 }
