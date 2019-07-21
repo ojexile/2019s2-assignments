@@ -148,7 +148,7 @@ float TransformComponent::GetDegrees()
 {
 	return m_fDegrees;
 }
-float TransformComponent::GetDegrees()
+float TransformComponent::GetRelativeDegrees()
 {
 	return m_fRelativeDegrees;
 }
