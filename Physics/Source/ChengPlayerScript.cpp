@@ -19,7 +19,7 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObj
 	m_CurrentState = nullptr;
 	m_bState = false;
 	m_fMovementSpeed = 1;
-	m_Light = SceneManager::GetInstance()->GetScene()->GetLightManager()->AddLight(Light::LIGHT_POINT);
+	m_Light = SceneManager::GetInstance()->GetScene()->GetLightManager()->AddLight(Light::LIGHT_DIRECTIONAL);
 	m_Light->power = 3;
 	m_Light->color.r = 0;
 	m_Light->color.g = 1;
@@ -36,23 +36,18 @@ void ChengPlayerScript::Start()
 }
 void ChengPlayerScript::Update(double dt)
 {
+	TransformComponent* trans = GetComponent<TransformComponent>();
 	// Movement================================================================================
 	UpdateMovement(dt);
 	// Camera================================================================================
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
 		SwitchView();
 	// Gauntlet================================================================================
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("triggerGauntlet"))
-	{
-		if (m_Gaunt->IsActive())
-		{
-			m_Gaunt->SetActive(false);
-		}
-		else
-		{
-			m_Gaunt->SetActive(true);
-		}
-	}
+	//if (KeyboardManager::GetInstance()->GetKeyTriggered("triggerGauntlet"))
+	if (Application::IsMousePressed(1))
+		m_Gaunt->SetActive(true);
+	else
+		m_Gaunt->SetActive(false);
 	if (m_Gaunt->IsActive())
 	{
 		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGauntForward"))
@@ -77,7 +72,7 @@ void ChengPlayerScript::Update(double dt)
 			GDir.Normalize();
 			GDir *= 100;
 			WorldValues::DefaultGravity = GDir;
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-110, -80);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-110, -85);
 		}
 		else if (Application::IsKeyPressed(VK_RIGHT))
 		{
@@ -85,7 +80,7 @@ void ChengPlayerScript::Update(double dt)
 			GDir.Normalize();
 			GDir *= 100;
 			WorldValues::DefaultGravity = GDir;
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-70, -80);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-70, -85);
 		}
 		else if (Application::IsKeyPressed(VK_UP))
 		{
@@ -94,8 +89,18 @@ void ChengPlayerScript::Update(double dt)
 			GDir *= 100;
 			WorldValues::DefaultGravity = GDir;
 			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANSFORM;
-			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, 10);
+			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z + 90);
 			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -60);
+		}
+		else if (Application::IsKeyPressed(VK_DOWN))
+		{
+			Vector3 GDir = { 0,0,1 };
+			GDir.Normalize();
+			GDir *= 150;
+			WorldValues::DefaultGravity = GDir;
+			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANSFORM;
+			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z - 0);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -90);
 		}
 		else
 		{
@@ -104,7 +109,7 @@ void ChengPlayerScript::Update(double dt)
 			GDir *= 100;
 			WorldValues::DefaultGravity = GDir;
 			SetDefaultCamPos();
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -80);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -85);
 		}
 	}
 
@@ -149,11 +154,11 @@ void ChengPlayerScript::SetDefaultCamPos()
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 	//trans->SetPosition(0, 0, 0);
-	cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -60);
+	cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -85);
 	Vector3 CamDir = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
 	Vector3 newRelPos = trans->GetPosition();
 	newRelPos = -newRelPos;
-	newRelPos.z += CamDir.z * -200 - 75;
+	newRelPos.z += CamDir.z * -200;
 	newRelPos.y = CamDir.y * -200;
 	cam->GetComponent<TransformComponent>()->SetRelativePosition(newRelPos);
 }
@@ -162,7 +167,7 @@ void ChengPlayerScript::UpdateMovement(double dt)
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 pos = trans->GetPosition();
 	m_Light->position = { trans->GetPosition().x, trans->GetPosition().y, trans->GetPosition().z };
-	m_Light->position.z += 30;
+	m_Light->position.y += 100;
 	if (!m_bState)
 	{
 		if (!m_CurrentState)

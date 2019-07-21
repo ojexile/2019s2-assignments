@@ -2,7 +2,10 @@
 #include "MeshController.h"
 #include "WorldValues.h"
 #include "Time.h"
-GauntletScript::GauntletScript()
+#include "ChengRigidbody.h"
+#include "Application.h"
+GauntletScript::GauntletScript(GameObject* ball)
+	:m_Ball(ball)
 {
 	m_eStone = NONE;
 	m_MC = nullptr;
@@ -22,11 +25,14 @@ void GauntletScript::Update(double dt)
 {
 	if (m_bInUse)
 	{
-		if (Time::GetInstance()->GetElapsedTimeF() > m_fStartTime + m_fDuration)
+		if (m_fDuration != -1)
 		{
-			StopUse();
-			m_fStartTime = 0;
-			m_fDuration = 0;
+			if (Time::GetInstance()->GetElapsedTimeF() > m_fStartTime + m_fDuration)
+			{
+				StopUse();
+				m_fStartTime = 0;
+				m_fDuration = 0;
+			}
 		}
 	}
 }
@@ -113,7 +119,27 @@ void GauntletScript::Use()
 		m_fDuration = 5.f;
 		break;
 	case SPACE:
-		break;
+	{
+		// Spawn ball
+		float fScale = 2;
+		float fBallSpeed = 120.f;
+		//Vector3 ballDir = {};
+		double x, y;
+		Application::GetCursorPos(&x, &y);
+		float posx = (float)x / Application::GetWindowWidth() * 300 - 150;
+		float posz = (float)y / Application::GetWindowHeight() * 300 - 150;
+
+		Vector3 pos = { posx, 10, posz };
+		GameObject* bul = Instantiate(m_Ball, pos);
+		if (!bul)
+			return;
+		bul->GetComponent<TransformComponent>()->SetScale(fScale, fScale, fScale);
+		//bul->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
+		bul->GetComponent<ChengRigidbody>()->SetMass(fScale);
+		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
+		m_fDuration = .5f;
+	}
+	break;
 	case POWER:
 		break;
 	case TIME:
@@ -128,7 +154,6 @@ void GauntletScript::Use()
 }
 void GauntletScript::StopUse()
 {
-	m_MC->SetMesh("Gaunt");
 	if (!m_bInUse)
 		return;
 	switch (m_eStone)
@@ -139,8 +164,10 @@ void GauntletScript::StopUse()
 		break;
 	case REALITY:
 		WorldValues::GravityExponent = WorldValues::DefaultGravityExponent;
+		m_MC->SetMesh("GauntReality");
 		break;
 	case SPACE:
+		m_MC->SetMesh("GauntSpace");
 		break;
 	case POWER:
 		break;

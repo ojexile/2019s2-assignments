@@ -187,7 +187,7 @@ DataContainer::DataContainer()
 	//Player Pillar--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["playerPillar"] = go;
-	go->TRANSFORM->SetScale(30, 300, 30);
+	go->TRANSFORM->SetRelativeScale({ 5, 50, 5 });
 	go->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
 	go->AddComponent(new BouncerScript(1.f, scoreScript, true));
@@ -198,7 +198,7 @@ DataContainer::DataContainer()
 	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
 	go->AddComponent(new PaddleScript(true));
-	go->GetComponent<TransformComponent>()->SetScale(5, 100, 35);
+	go->GetComponent<TransformComponent>()->SetScale(5, 25, 35);
 	//GameObject* pil = GetGameObject("playerPillar")->Clone();
 	//pil->GetComponent<TransformComponent>()->SetRelativePosition(0, 0, -35);
 	//pil->GetComponent<TransformComponent>()->SetScale(3, 100, 3);
@@ -210,7 +210,7 @@ DataContainer::DataContainer()
 	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
 	go->AddComponent(new PaddleScript(false));
-	go->GetComponent<TransformComponent>()->SetScale(5, 100, 35);
+	go->GetComponent<TransformComponent>()->SetScale(5, 25, 35);
 	// Fan--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["fanBlade"] = go;

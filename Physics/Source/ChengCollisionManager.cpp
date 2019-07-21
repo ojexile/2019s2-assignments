@@ -326,7 +326,8 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 
 		Vector3 N = rot * Vector3(1, 0, 0);
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) *N;
-		v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+		if (v.Length() > 20)
+			v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;
@@ -342,7 +343,10 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		Vector3 N = rot * Vector3(1, 0, 0);
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) * N;
 
-		v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+		// set min vel due to spam collision while rolling
+		if (v.Length() > 20)
+			v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;

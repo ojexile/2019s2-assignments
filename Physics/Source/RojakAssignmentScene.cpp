@@ -55,7 +55,7 @@ void RojakAssignmentScene::Init()
 	meshController->AddMesh("GauntMind", dataContainer->GetMesh("GauntMind"));
 	meshController->AddMesh("GauntFist", dataContainer->GetMesh("GauntFist"));
 	Gaunt->AddComponent(meshController);
-	Gaunt->AddComponent(new GauntletScript());
+	Gaunt->AddComponent(new GauntletScript(dataContainer->GetGameObject("bullet")));
 	Gaunt->SetActive(false);
 	//Player================================================================================
 	// Gun--------------------------------------------------------------------------------
@@ -75,7 +75,6 @@ void RojakAssignmentScene::Init()
 	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
 	GameObject* child = dataContainer->GetGameObject("playerPillar")->Clone();
 	go->AddChild(child);
-	child->TRANSFORM->SetRelativeScale(20, 100, 20);
 	go->AddChild(m_CameraGO);
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
@@ -134,20 +133,20 @@ void RojakAssignmentScene::Init()
 	// pillar left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
 	go->TRANSFORM->SetPosition(-width / 2, 0, 0);
-	go->TRANSFORM->SetScale(25, height, 25);
+	go->TRANSFORM->SetScale(15, height, 15);
 	// Pillar right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
 	go->TRANSFORM->SetPosition(width / 2, 0, 0);
-	go->TRANSFORM->SetScale(25, height, 25);
+	go->TRANSFORM->SetScale(15, height, 15);
 	//Paddle
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("paddle")->Clone());
 	go->RENDER->SetColor({ 0,0,1 });
-	go->TRANSFORM->SetPosition(-holeWidth, 0, length - 12);
+	go->TRANSFORM->SetPosition(-holeWidth, 0, length - 17.5f);
 	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	//Paddle
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("paddleRight")->Clone());
 	go->RENDER->SetColor({ 0,0,1 });
-	go->TRANSFORM->SetPosition(holeWidth, 0, length - 12);
+	go->TRANSFORM->SetPosition(holeWidth, 0, length - 17.5f);
 	go->GetComponent<TransformComponent>()->SetRotation(90, 0, 1, 0);
 	// Obstacles--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("fanBlade")->Clone());

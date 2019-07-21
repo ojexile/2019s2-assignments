@@ -23,10 +23,11 @@ private:
 	bool m_bInUse;
 	float m_fStartTime;
 	float m_fDuration;
+	GameObject* m_Ball;
 
 	void StopUse();
 public:
-	GauntletScript();
+	GauntletScript(GameObject* ball);
 	virtual ~GauntletScript();
 	virtual ComponentBase* Clone() { return new GauntletScript(*this); }
 	virtual void Start() override;
