@@ -83,7 +83,7 @@ void GameObject::Update(double dt)
 		// TODO update rot
 		// Update scale
 		Vector3 scale = trans->GetScale();
-		Vector3 childScale = childTrans->GetScale();
+		Vector3 childScale = childTrans->GetRelativeScale();
 		childTrans->SetScale({ scale.x * childScale.x, scale.y * childScale.y, scale.z * childScale.z });
 		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
 		{
