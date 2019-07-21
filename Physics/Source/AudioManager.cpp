@@ -9,6 +9,8 @@ AudioManager::AudioManager()
 
 AudioManager::~AudioManager()
 {
+	if (!engine)
+		return;
 	engine->drop();
 }
 
