@@ -8,8 +8,11 @@ private:
 	Vector3 m_vPosition;
 	Vector3 m_vRelativePosition;
 	Vector3 m_vScale;
+	Vector3 m_vRelativeScale;
 	Vector3 m_vRotateAxis;
-	float m_fdegrees;
+	Vector3 m_vRelativeRotateAxis;
+	float m_fDegrees;
+	float m_fRelativeDegrees;
 
 public:
 	TransformComponent();
@@ -23,7 +26,12 @@ public:
 	virtual void Update(double dt) override;
 
 	void SetScale(float, float, float);
+	void SetScale(Vector3);
+	void SetScale(float);
+	void ScaleBy(Vector3);
 	void SetRotation(float, int, int, int);
+	void SetRotation(float, Vector3);
+	void RotateBy(float, Vector3);
 	void SetPosition(float translateX = 0, float translateY = 0, float translateZ = 0);
 	void SetPosition(Vector3);
 	void SetRelativePosition(float translateX = 0, float translateY = 0, float translateZ = 0);
@@ -37,6 +45,9 @@ public:
 	Vector3 GetPosition();
 	Vector3 GetRelativePosition();
 	Vector3 GetRotation();
+	Vector3 GetRelativeRotation();
 	Vector3 GetScale();
+	Vector3 GetRelativeScale();
 	float GetDegrees();
+	float GetRelativeDegrees();
 };
