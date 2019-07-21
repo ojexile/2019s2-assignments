@@ -27,7 +27,9 @@ public:
 
 	void SetScale(float, float, float);
 	void SetScale(Vector3);
+	void SetRelativeScale(Vector3);
 	void SetScale(float);
+	void SetRelativeScale(float);
 	void ScaleBy(Vector3);
 	void SetRotation(float, int, int, int);
 	void SetRotation(float, Vector3);
