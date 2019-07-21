@@ -48,9 +48,17 @@ void TransformComponent::SetScale(Vector3 v)
 {
 	this->m_vScale.Set(v.x, v.y, v.z);
 }
+void TransformComponent::SetRelativeScale(Vector3 v)
+{
+	this->m_vRelativeScale.Set(v.x, v.y, v.z);
+}
 void TransformComponent::SetScale(float f)
 {
 	this->m_vScale.Set(f, f, f);
+}
+void TransformComponent::SetRelativeScale(float f)
+{
+	this->m_vRelativeScale.Set(f, f, f);
 }
 
 void TransformComponent::ScaleBy(Vector3 v)
