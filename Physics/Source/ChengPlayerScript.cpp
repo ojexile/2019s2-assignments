@@ -20,7 +20,7 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObj
 	m_bState = false;
 	m_fMovementSpeed = 1;
 	m_Light = SceneManager::GetInstance()->GetScene()->GetLightManager()->AddLight(Light::LIGHT_POINT);
-	m_Light->power = 3;
+	m_Light->power = 0;
 	m_Light->color.r = 0;
 	m_Light->color.g = 1;
 }
