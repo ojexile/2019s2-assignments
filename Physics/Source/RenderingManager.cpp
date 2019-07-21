@@ -243,6 +243,8 @@ void RenderingManager::RenderWorld(Scene* scene)
 		}
 	}
 	// Render UI
+	if (m_renderPass == RENDER_PASS_PRE)
+		return;
 	m_bFogEnabled = false;
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
 	std::vector<GameObject*>* GOList = map->at("UI")->GetGOList();
