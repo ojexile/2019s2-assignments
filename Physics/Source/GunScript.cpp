@@ -1,6 +1,7 @@
 #include "GunScript.h"
 #include "BulletScript.h"
 #include "ChengRigidbody.h"
+#include "Application.h"
 GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType)
 	: m_Player(player)
 	, m_eFireType(eFireType)
@@ -22,7 +23,7 @@ GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRa
 GunScript::~GunScript()
 {
 }
-
+//bool trigger = false;
 void GunScript::Update(double dt)
 {
 	m_fTimer += (float)dt;
@@ -35,6 +36,32 @@ void GunScript::Update(double dt)
 	{
 		GetComponent<TransformComponent>()->SetRotation(0, 0, 0, 1);
 	}
+
+	//if (Application::IsMousePressed(1) && !trigger)
+	//{
+	//	trigger = true;
+	//	float fScale = 2;
+	//	float fBallSpeed = 120.f;
+	//	//Vector3 ballDir = {};
+	//	double x, y;
+	//	Application::GetCursorPos(&x, &y);
+	//	float posx = (float)x / Application::GetWindowWidth() * 300 - 150;
+	//	float posz = (float)y / Application::GetWindowHeight() * 300 - 150;
+
+	//	Vector3 pos = { posx, 10, posz };
+	//	GameObject* bul = Instantiate(m_Bullet, pos);
+	//	if (!bul)
+	//		return;
+	//	bul->GetComponent<TransformComponent>()->SetScale(fScale, fScale, fScale);
+	//	//bul->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
+	//	bul->GetComponent<ChengRigidbody>()->SetMass(fScale);
+	//	--m_iClipAmmo;
+	//	m_fTimer = 0;
+	//}
+	//if (!Application::IsMousePressed(1))
+	//{
+	//	trigger = false;
+	//}
 }
 void GunScript::Fire(Vector3 vDir)
 {

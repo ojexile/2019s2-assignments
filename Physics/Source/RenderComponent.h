@@ -19,7 +19,8 @@ public:
 	RenderComponent(Mesh* mesh);
 	RenderComponent(Mesh* mesh, std::string sText);
 	RenderComponent(AnimatedMesh* mesh);
-	RenderComponent(RenderComponent&);
+	RenderComponent(RenderComponent& mesh);
+
 	virtual ~RenderComponent();
 	virtual ComponentBase* Clone()
 	{

@@ -171,6 +171,7 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
+    <ClCompile Include="Source\GauntletScript.cpp" />
     <ClCompile Include="Source\GoalScript.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\KeyboardManager.cpp" />
@@ -189,6 +190,7 @@
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
+    <ClCompile Include="Source\PhysicsMaterial.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
     <ClCompile Include="Source\RainScript.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
@@ -206,6 +208,7 @@
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Preferences.cpp" />
+    <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -223,11 +226,13 @@
     <ClInclude Include="Source\ChengRigidbody.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\CrouchingState.h" />
+    <ClInclude Include="Source\ComponentMacros.h" />
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\DepthFBO.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
+    <ClInclude Include="Source\GauntletScript.h" />
     <ClInclude Include="Source\GoalScript.h" />
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
@@ -247,6 +252,7 @@
     <ClInclude Include="Source\PaddleScript.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
+    <ClInclude Include="Source\PhysicsMaterial.h" />
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\RainScript.h" />
     <ClInclude Include="Source\RenderComponent.h" />
@@ -267,6 +273,7 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Preferences.h" />
+    <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\shaders\comg.fragmentshader" />

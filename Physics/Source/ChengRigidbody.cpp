@@ -1,10 +1,11 @@
 #include "ChengRigidbody.h"
 #include "TransformComponent.h"
+#include "WorldValues.h"
 ChengRigidbody::ChengRigidbody(ePhysicsTypes e, bool Grav)
 {
 	m_eType = e;
 	m_fMass = 1;
-	m_vGravity = { 0,-40.8f,40.8f };
+	m_vGravity = { 0,0,0 };
 	m_bLockXAxis = false;
 	m_bLockYAxis = false;
 	m_bLockZAxis = false;
@@ -16,11 +17,18 @@ ChengRigidbody::~ChengRigidbody()
 }
 void ChengRigidbody::Update(double dt)
 {
-	Vector3 m_vAccel = m_vForce * (1 / m_fMass);
+	Vector3 vAccel = m_vForce * (1 / m_fMass);
 	m_vForce.SetZero();
+	Vector3 CurrentGrav = m_vGravity + WorldValues::DefaultGravity;
+	CurrentGrav.x *= WorldValues::GravityExponent.x;
+	CurrentGrav.y *= WorldValues::GravityExponent.y;
+	CurrentGrav.z *= WorldValues::GravityExponent.z;
 	if (m_bGravityAffected)
-		m_vAccel += m_vGravity;
-	this->m_vVel += m_vAccel * (float)dt;
+		vAccel += CurrentGrav;
+	// Friction
+	float coeff = m_PhyMat.GetFriction();
+
+	this->m_vVel += vAccel * (float)dt;
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
 	if (m_bLockYAxis)
@@ -29,11 +37,20 @@ void ChengRigidbody::Update(double dt)
 		m_vVel.z = 0;
 	TransformComponent* Trans = this->GetComponent<TransformComponent>();
 	Trans->Translate(m_vVel * (float)dt);
+
+	float I = this->m_fMass * (Trans->GetScale().x * Trans->GetScale().x);
+	Vector3 vAAccel = this->m_vTorque * (1.f / I);
+	m_vAVel += vAAccel * (float)dt;
 	float deg = Trans->GetDegrees();
 	deg += m_vAVel.y * (float)dt;
 	if (m_vAVel.y != 0)
 		Trans->SetRotation(deg, 0, 1, 0);
-	m_vAVel.SetZero();
+	//m_vAVel.SetZero();
+	m_vTorque.SetZero();
+}
+void ChengRigidbody::SetTorque(Vector3 v)
+{
+	this->m_vTorque = v;
 }
 void ChengRigidbody::SetVel(Vector3 v)
 {
@@ -67,6 +84,11 @@ ChengRigidbody::ePhysicsTypes ChengRigidbody::GetType()
 {
 	return m_eType;
 }
+// Grav
+void ChengRigidbody::SetGravityX(float x)
+{
+	this->m_vGravity.x = x;
+}
 void ChengRigidbody::LockXAxis(bool b)
 {
 	m_bLockXAxis = b;
@@ -78,4 +100,12 @@ void ChengRigidbody::LockYAxis(bool b)
 void ChengRigidbody::LockZAxis(bool b)
 {
 	m_bLockZAxis = b;
+}
+void ChengRigidbody::SetMat(float f, float b)
+{
+	m_PhyMat.SetMat(f, b);
+}
+PhysicsMaterial* ChengRigidbody::GetMat()
+{
+	return &m_PhyMat;
 }

@@ -2,18 +2,19 @@
 #include "Singleton.h"
 class Time : public Singleton<Time>
 {
+	friend class Singleton<Time>;
 private:
 	double m_dDeltatime;
 	double m_dElapsedtime;
-public:
 	Time();
 	~Time();
+public:
 
 	void Update(double dt);
 
-	double GetDeltaTimeD();
+	//double GetDeltaTimeD();
 	float GetDeltaTimeF();
 
-	double GetElapsedTimeD();
+	//double GetElapsedTimeD();
 	float GetElapsedTimeF();
 };

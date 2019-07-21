@@ -7,18 +7,22 @@
 #include "MeshController.h"
 #include "Mesh.h"
 #include "Time.h"
-ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt, GameObject* repel)
+#include "GauntletScript.h"
+#include "Application.h"
+#include "WorldValues.h"
+#define CAMERA_ANGLE_OFFSET 5
+ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
 	:m_Gun(gun)
 	, m_CrossHair(cross)
 	, m_Gaunt(gaunt)
-	, m_Repel(repel)
 {
 	m_CurrentState = nullptr;
 	m_bState = false;
 	m_fMovementSpeed = 1;
-	m_bGaunt = false;
-	m_eStone = NONE;
-	m_fRepelDuration = 0.3f;
+	m_Light = SceneManager::GetInstance()->GetScene()->GetLightManager()->AddLight(Light::LIGHT_DIRECTIONAL);
+	m_Light->power = 3;
+	m_Light->color.r = 0;
+	m_Light->color.g = 1;
 }
 
 ChengPlayerScript::~ChengPlayerScript()
@@ -28,11 +32,142 @@ ChengPlayerScript::~ChengPlayerScript()
 }
 void ChengPlayerScript::Start()
 {
+	SwitchView();
 }
 void ChengPlayerScript::Update(double dt)
 {
 	TransformComponent* trans = GetComponent<TransformComponent>();
+	// Movement================================================================================
+	UpdateMovement(dt);
+	// Camera================================================================================
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
+		SwitchView();
+	// Gauntlet================================================================================
+	//if (KeyboardManager::GetInstance()->GetKeyTriggered("triggerGauntlet"))
+	if (Application::IsMousePressed(1))
+		m_Gaunt->SetActive(true);
+	else
+		m_Gaunt->SetActive(false);
+	if (m_Gaunt->IsActive())
+	{
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGauntForward"))
+		{
+			m_Gaunt->GetComponent<GauntletScript>()->RotateForward();
+		}
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGauntBackward"))
+		{
+			m_Gaunt->GetComponent<GauntletScript>()->RotateBackward();
+		}
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("useGauntlet"))
+		{
+			m_Gaunt->GetComponent<GauntletScript>()->Use();
+		}
+	}
+	if (m_bState)
+	{
+		// Tilt
+		if (Application::IsKeyPressed(VK_LEFT))
+		{
+			Vector3 GDir = { 1,0,1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-110, -85);
+		}
+		else if (Application::IsKeyPressed(VK_RIGHT))
+		{
+			Vector3 GDir = { -1,0,1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-70, -85);
+		}
+		else if (Application::IsKeyPressed(VK_UP))
+		{
+			Vector3 GDir = { 0,0,-1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANSFORM;
+			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z + 90);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -60);
+		}
+		else if (Application::IsKeyPressed(VK_DOWN))
+		{
+			Vector3 GDir = { 0,0,1 };
+			GDir.Normalize();
+			GDir *= 150;
+			WorldValues::DefaultGravity = GDir;
+			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANSFORM;
+			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z - 0);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -90);
+		}
+		else
+		{
+			Vector3 GDir = { 0,0,1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			SetDefaultCamPos();
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -85);
+		}
+	}
+
+	// TODO Constrain to terrain================================================================================
+	//trans->SetPosition(pos.x, 50.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
+	//trans->SetPosition({ pos.x,0,pos.z });
+}
+void ChengPlayerScript::SetMovementSpeed(float f)
+{
+	m_fMovementSpeed = f;
+}
+void ChengPlayerScript::SwitchView()
+{
+	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 pos = trans->GetPosition();
+	if (m_bState)
+	{
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(true);
+		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+		//trans->SetPosition(0, 0, 0);
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, 0);
+		m_Gun->SetActive(true);
+		m_CrossHair->SetActive(true);
+		m_bState = false;
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
+	}
+	else
+	{
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
+		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
+		SetDefaultCamPos();
+		m_Gun->SetActive(false);
+		m_CrossHair->SetActive(false);
+		m_bState = true;
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
+	}
+}
+void ChengPlayerScript::SetDefaultCamPos()
+{
+	TransformComponent* trans = GetComponent<TransformComponent>();
+	GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+	//trans->SetPosition(0, 0, 0);
+	cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -85);
+	Vector3 CamDir = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
+	Vector3 newRelPos = trans->GetPosition();
+	newRelPos = -newRelPos;
+	newRelPos.z += CamDir.z * -200;
+	newRelPos.y = CamDir.y * -200;
+	cam->GetComponent<TransformComponent>()->SetRelativePosition(newRelPos);
+}
+void ChengPlayerScript::UpdateMovement(double dt)
+{
+	TransformComponent* trans = GetComponent<TransformComponent>();
+	Vector3 pos = trans->GetPosition();
+	m_Light->position = { trans->GetPosition().x, trans->GetPosition().y, trans->GetPosition().z };
+	m_Light->position.y += 100;
 	if (!m_bState)
 	{
 		if (!m_CurrentState)
@@ -73,14 +208,6 @@ void ChengPlayerScript::Update(double dt)
 		{
 			trans->Translate(m_fMovementSpeed * vRight);
 		}
-		//if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
-		//{
-		//	trans->Translate(m_fMovementSpeed * vCameraUp);
-		//}
-		//if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
-		//{
-		//	trans->Translate(-m_fMovementSpeed * vCameraUp);
-		//}
 		// Gun================================================================================
 		// Fire--------------------------------------------------------------------------------
 		if (Application::IsMousePressed(0))
@@ -107,127 +234,4 @@ void ChengPlayerScript::Update(double dt)
 			SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
 		}
 	}
-	// Camera================================================================================
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
-	{
-		if (m_bState)
-		{
-			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
-			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(true);
-			GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-			//trans->SetPosition(0, 0, 0);
-			cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
-			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, 0);
-			m_Gun->SetActive(true);
-			m_CrossHair->SetActive(true);
-			m_bState = false;
-		}
-		else
-		{
-			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
-			SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
-			GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-			//trans->SetPosition(0, 0, 0);
-			cam->GetComponent<TransformComponent>()->SetRelativePosition(-pos.x, 300, -pos.z);
-			cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -90);
-			m_Gun->SetActive(false);
-			m_CrossHair->SetActive(false);
-			m_bState = true;
-		}
-	}
-	// Gauntlet================================================================================
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("triggerGauntlet"))
-	{
-		if (m_bGaunt)
-		{
-			m_Gaunt->SetActive(false);
-			m_bGaunt = false;
-		}
-		else
-		{
-			m_Gaunt->SetActive(true);
-			m_bGaunt = true;
-		}
-	}
-	if (m_bGaunt)
-	{
-		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGaunt"))
-		{
-			MeshController<Mesh>* mc = m_Gaunt->GetComponent<MeshController<Mesh>>();
-
-			switch (m_eStone)
-			{
-			case ChengPlayerScript::NONE:
-				mc->SetMesh("GauntSoul");
-				break;
-			case ChengPlayerScript::SOUL:
-				mc->SetMesh("GauntReality");
-				break;
-			case ChengPlayerScript::REALITY:
-				mc->SetMesh("GauntSpace");
-				break;
-			case ChengPlayerScript::SPACE:
-				mc->SetMesh("GauntPower");
-				break;
-			case ChengPlayerScript::POWER:
-				mc->SetMesh("GauntTime");
-				break;
-			case ChengPlayerScript::TIME:
-				mc->SetMesh("GauntMind");
-				break;
-			case ChengPlayerScript::MIND:
-				mc->SetMesh("Gaunt");
-				break;
-			default:
-				break;
-			}
-			m_eStone = static_cast<eSTONES>((m_eStone + 1) % TOTAL);
-		}
-		if (KeyboardManager::GetInstance()->GetKeyTriggered("useGauntlet"))
-		{
-			switch (m_eStone)
-			{
-			case ChengPlayerScript::NONE:
-				break;
-			case ChengPlayerScript::SOUL:
-
-				break;
-			case ChengPlayerScript::REALITY:
-
-				break;
-			case ChengPlayerScript::SPACE:
-
-				break;
-			case ChengPlayerScript::POWER:
-			{
-				m_Repel->SetActive(true);
-				m_fStartRepel = Time::GetInstance()->GetElapsedTimeF();
-			}
-			break;
-			case ChengPlayerScript::TIME:
-				break;
-			case ChengPlayerScript::MIND:
-
-				break;
-			default:
-				break;
-			}
-			m_Gaunt->SetActive(false);
-			m_bGaunt = false;
-		}
-	}
-	if (m_Repel->IsActive())
-	{
-		if (Time::GetInstance()->GetElapsedTimeF() >= m_fStartRepel + m_fRepelDuration)
-		{
-			m_Repel->SetActive(false);
-		}
-	}
-	// TODO Constrain to terrain================================================================================
-	//trans->SetPosition(pos.x, 50.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
-	//trans->SetPosition({ pos.x,0,pos.z });
-}
-void ChengPlayerScript::SetMovementSpeed(float f)
-{
-	m_fMovementSpeed = f;
 }

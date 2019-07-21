@@ -3,20 +3,9 @@
 #include "CameraComponent.h"
 #include "PlayerState.h"
 #include "StandingState.h"
+#include "Light.h"
 class ChengPlayerScript : public ScriptComponent
 {
-public:
-	enum eSTONES
-	{
-		NONE,
-		SOUL,
-		REALITY,
-		SPACE,
-		POWER,
-		TIME,
-		MIND,
-		TOTAL,
-	};
 	friend class PlayerState;
 private:
 	PlayerState* m_CurrentState;
@@ -24,15 +13,16 @@ private:
 	GameObject* m_Gun;
 	GameObject* m_CrossHair;
 	GameObject* m_Gaunt;
-	GameObject* m_Repel;
 	bool m_bState;
-	bool m_bGaunt;
-	eSTONES m_eStone;
 
-	float m_fStartRepel;
-	float m_fRepelDuration;
+	Light* m_Light;
+
+	// Functions
+	// Switch view
+	void SwitchView();
+	void UpdateMovement(double dt);
 public:
-	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt, GameObject* repel);
+	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt);
 	~ChengPlayerScript();
 	virtual ComponentBase* Clone()
 	{
@@ -42,5 +32,6 @@ public:
 	void Update(double dt) override;
 	virtual void Start() override;
 
+	void SetDefaultCamPos();
 	void SetMovementSpeed(float f);
 };

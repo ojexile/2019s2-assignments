@@ -4,6 +4,7 @@
 ComponentBase::ComponentBase()
 {
 	m_vec_RefList = nullptr;
+	m_bStarted = false;
 }
 ComponentBase::ComponentBase(ComponentBase& com)
 {
@@ -21,4 +22,25 @@ void ComponentBase::Init(std::vector<ComponentBase*>* refList)
 void ComponentBase::Update(double dt)
 {
 	DEFAULT_LOG("Default update called.");
+}
+void ComponentBase::CheckStarted()
+{
+	if (!m_bStarted)
+	{
+		Start();
+		m_bStarted = true;
+	}
+}
+void ComponentBase::Start()
+{
+	return;
+}
+
+bool ComponentBase::IsActive()
+{
+	return m_bActive;
+}
+void ComponentBase::SetActive(bool b)
+{
+	m_bActive = b;
 }

@@ -1,6 +1,8 @@
 #include "PaddleScript.h"
 #include "KeyboardManager.h"
-#define SPEED 300.f
+#define SPEED 60000.f
+#define maxdeg 70.f
+#define defdeg 120.f
 PaddleScript::PaddleScript(bool b)
 {
 	m_bIsLeft = b;
@@ -13,34 +15,44 @@ void PaddleScript::Update(double dt)
 {
 	if (m_bIsLeft)
 	{
+		// Constrain
+		float deg = GetComponent<TransformComponent>()->GetDegrees();
 		if (KeyboardManager::GetInstance()->GetKeyDown("paddleLeft"))
 		{
-			GetComponent<ChengRigidbody>()->SetAVel({ 0,SPEED,0 });
+			if (deg <= -defdeg + maxdeg)
+				GetComponent<ChengRigidbody>()->SetTorque({ 0,SPEED,0 });
+			else
+				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
 		}
 		else
 		{
-			GetComponent<ChengRigidbody>()->SetAVel({ 0,-SPEED,0 });
+			if (deg >= -defdeg)
+				GetComponent<ChengRigidbody>()->SetTorque({ 0,-SPEED,0 });
+			else
+				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
 		}
-		// Constrain
-		const float maxdeg = 70;
-		float deg = GetComponent<TransformComponent>()->GetDegrees();
-		deg = Math::Clamp(deg, -90.f, -90 + maxdeg);
+		deg = Math::Clamp(deg, -defdeg, -defdeg + maxdeg);
 		GetComponent<TransformComponent>()->SetRotation(deg, 0, 1, 0);
 	}
 	else
 	{
+		// Constrain
+		float deg = GetComponent<TransformComponent>()->GetDegrees();
 		if (KeyboardManager::GetInstance()->GetKeyDown("paddleRight"))
 		{
-			GetComponent<ChengRigidbody>()->SetAVel({ 0, -SPEED,0 });
+			if (deg >= defdeg - maxdeg)
+				GetComponent<ChengRigidbody>()->SetTorque({ 0, -SPEED,0 });
+			else
+				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
 		}
 		else
 		{
-			GetComponent<ChengRigidbody>()->SetAVel({ 0,SPEED,0 });
+			if (deg <= defdeg)
+				GetComponent<ChengRigidbody>()->SetTorque({ 0,SPEED,0 });
+			else
+				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
 		}
-		// Constrain
-		const float maxdeg = 70;
-		float deg = GetComponent<TransformComponent>()->GetDegrees();
-		deg = Math::Clamp(deg, 90.f - maxdeg, 90.f);
+		deg = Math::Clamp(deg, -defdeg - maxdeg, defdeg);
 		GetComponent<TransformComponent>()->SetRotation(deg, 0, 1, 0);
 	}
 }

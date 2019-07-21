@@ -2,10 +2,8 @@
 #include "GameObjectManager.h"
 #include "Camera.h"
 #include "CameraComponent.h"
-
-#define TRANSFORM GetComponent<TransformComponent>()
-#define RENDER GetComponent<RenderComponent>()
-#define CAMERA GetComponent<CameraComponent>()
+#include "LightManager.h"
+#include "ComponentMacros.h"
 
 class Scene
 {
@@ -17,9 +15,11 @@ public:
 	GameObject* GetCameraGameObject();
 	Camera* GetCamera();
 	GameObjectManager* GetGameObjectManager();
-
+	LightManager* GetLightManager();
+	void SetCursorEnabled(bool);
 protected:
 	GameObjectManager m_GameObjectManager;
+	LightManager m_LightManager;
 	GameObject* m_CameraGO;
 	Camera* m_Camera;
 };
