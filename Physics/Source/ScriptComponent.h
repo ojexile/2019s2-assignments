@@ -12,6 +12,12 @@ protected:
 	GameObject* Instantiate(GameObject* goRef, std::string sLayer = "Default");
 	void Destroy(GameObject* go);
 	void DestroySelf();
+	// QoL
+	TransformComponent* GetTransform();
+	Vector3 GetPosition();
+	Camera* GetCamera();
+	GameObject* GetCameraGO();
+	LightManager* GetLightManager();
 public:
 	ScriptComponent();
 	virtual ~ScriptComponent();

@@ -39,6 +39,7 @@
     <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
+    <ClCompile Include="Source\Constrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -85,6 +86,7 @@
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\MeshController.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
+    <ClInclude Include="Source\Constrain.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

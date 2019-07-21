@@ -460,36 +460,33 @@ Mesh* MeshBuilder::GenerateText(const std::string &meshName, unsigned numRow, un
 	return mesh;
 }
 
-Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap)
+Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap, Vector3 terrainScale)
 {
 	file_path = Resources::Path::HeightMap + file_path + ".raw";
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;
 
-	const float SCALE_FACTOR = 256.0f;
-
+	const float SCALE_FACTOR = 256.f;
 	if (!LoadHeightMap(file_path.c_str(), heightMap))
-	{
-		__debugbreak();
 		return NULL;
-	}
 
 	unsigned terrainSize = (unsigned)sqrt((double)heightMap.size());
 
+	Mtx44 scale;
+	scale.SetToScale(terrainScale.x, terrainScale.y, terrainScale.z);
 	for (unsigned z = 0; z < terrainSize; ++z)
 	{
 		for (unsigned x = 0; x < terrainSize; ++x)
 		{
 			float scaledHeight = (float)heightMap[z * terrainSize + x] / SCALE_FACTOR;
-
 			v.pos.Set(static_cast<float>(x) / terrainSize - 0.5f, scaledHeight, static_cast<float>(z) / terrainSize - 0.5f);
-			v.pos.y -= 0.4f;
-			v.color.Set(scaledHeight, scaledHeight, scaledHeight); //for rendering height map without texture
-			v.texCoord.Set((float)x / terrainSize * 8, 1.f - (float)z / terrainSize * 8);
-
+			Vector3 vPos = { v.pos.x, v.pos.y,v.pos.z };
+			vPos = scale * vPos;
+			v.pos.Set(vPos.x, vPos.y, vPos.z);
+			v.color.Set(scaledHeight, scaledHeight, scaledHeight);
 			v.normal.Set(0, 1, 0);
-
+			v.texCoord.Set((float)x / terrainSize * 8, 1.f - (float)z / terrainSize * 8);
 			vertex_buffer_data.push_back(v);
 		}
 	}
@@ -498,26 +495,271 @@ Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file
 	{
 		for (unsigned x = 0; x < terrainSize - 1; ++x)
 		{
-			index_buffer_data.push_back(terrainSize * z + x + 0);			//Tri 1
+			index_buffer_data.push_back(terrainSize * z + x + 0);
 			index_buffer_data.push_back(terrainSize * (z + 1) + x + 0);
 			index_buffer_data.push_back(terrainSize * z + x + 1);
 
-			index_buffer_data.push_back(terrainSize * (z + 1) + x + 1);		//Tri 2
+			index_buffer_data.push_back(terrainSize * (z + 1) + x + 1);
 			index_buffer_data.push_back(terrainSize * z + x + 1);
 			index_buffer_data.push_back(terrainSize * (z + 1) + x + 0);
 		}
 	}
+	terrainScale.y = terrainScale.y / (terrainScale.x / terrainScale.y);
+	for (unsigned int x = 0; x < vertex_buffer_data.size(); ++x)
+	{
+		if (x == 0) //for very first vert only
+		{
+			Vector3 AdjVert1 = Vector3(vertex_buffer_data[x + 1].pos.x * terrainScale.x, vertex_buffer_data[x + 1].pos.y * terrainScale.y, vertex_buffer_data[x + 1].pos.z * terrainScale.z);
+			Vector3 currVert = Vector3(vertex_buffer_data[x].pos.x * terrainScale.x, vertex_buffer_data[x].pos.y * terrainScale.y, vertex_buffer_data[x].pos.z * terrainScale.z);
+			Vector3 Vec1 = AdjVert1 - currVert;
+
+			Vector3 AdjVert2 = Vector3(vertex_buffer_data[x + terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x + terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x + terrainSize].pos.z * terrainScale.z);
+			Vector3 Vec2 = AdjVert2 - currVert;
+
+			Vector3 temp = Vec1.Cross(Vec2);
+			if (temp.y < 0)
+				temp *= -1;
+			vertex_buffer_data[x].normal.Set(temp.x, temp.y, temp.z);
+		}
+		else if (x == (terrainSize - 1)) //top rightt corner vert special case
+		{
+			Vector3 AdjVert1 = Vector3(vertex_buffer_data[x - 1].pos.x * terrainScale.x, vertex_buffer_data[x - 1].pos.y * terrainScale.y, vertex_buffer_data[x - 1].pos.z * terrainScale.z);
+			Vector3 currVert = Vector3(vertex_buffer_data[x].pos.x * terrainScale.x, vertex_buffer_data[x].pos.y * terrainScale.y, vertex_buffer_data[x].pos.z * terrainScale.z);
+			Vector3 Vec1 = AdjVert1 - currVert;
+
+			Vector3 AdjVert2 = Vector3(vertex_buffer_data[x + terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x + terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x + terrainSize].pos.z * terrainScale.z);
+			Vector3 Vec2 = AdjVert2 - currVert;
+
+			Vector3 temp = Vec1.Cross(Vec2);
+			if (temp.y < 0)
+				temp *= -1;
+
+			vertex_buffer_data[x].normal.Set(temp.x, temp.y, temp.z);
+		}
+		else if (x == (vertex_buffer_data.size() - terrainSize)) //bottom left corner vert special case
+		{
+			Vector3 AdjVert1 = Vector3(vertex_buffer_data[x + 1].pos.x * terrainScale.x, vertex_buffer_data[x + 1].pos.y * terrainScale.y, vertex_buffer_data[x + 1].pos.z * terrainScale.z);
+			Vector3 currVert = Vector3(vertex_buffer_data[x].pos.x * terrainScale.x, vertex_buffer_data[x].pos.y * terrainScale.y, vertex_buffer_data[x].pos.z * terrainScale.z);
+			Vector3 Vec1 = AdjVert1 - currVert;
+
+			Vector3 AdjVert2 = Vector3(vertex_buffer_data[x - terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x - terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x - terrainSize].pos.z * terrainScale.z);
+			Vector3 Vec2 = AdjVert2 - currVert;
+
+			Vector3 temp = Vec1.Cross(Vec2);
+			if (temp.y < 0)
+				temp *= -1;
+
+			vertex_buffer_data[x].normal.Set(temp.x, temp.y, temp.z);
+		}
+		else if (x == vertex_buffer_data.size() - 1) //For bottom right last vert special case
+		{
+			Vector3 AdjVert1 = Vector3(vertex_buffer_data[x - 1].pos.x * terrainScale.x, vertex_buffer_data[x - 1].pos.y * terrainScale.y, vertex_buffer_data[x - 1].pos.z * terrainScale.z);
+			Vector3 currVert = Vector3(vertex_buffer_data[x].pos.x * terrainScale.x, vertex_buffer_data[x].pos.y * terrainScale.y, vertex_buffer_data[x].pos.z * terrainScale.z);
+			Vector3 Vec1 = AdjVert1 - currVert;
+
+			Vector3 AdjVert2 = Vector3(vertex_buffer_data[x - terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x - terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x - terrainSize].pos.z * terrainScale.z);
+			Vector3 Vec2 = AdjVert2 - currVert;
+
+			Vector3 temp = Vec1.Cross(Vec2);
+			if (temp.y < 0)
+				temp *= -1;
+			vertex_buffer_data[x].normal.Set(temp.x, temp.y, temp.z);
+		}
+		else if ((x % terrainSize) == 0 && x != 0 && x != (vertex_buffer_data.size() - terrainSize)) //special case for first vertices of all rows excluding first vert and bottom left vert
+		{
+			Vector3 currVert = Vector3(vertex_buffer_data[x].pos.x * terrainScale.x, vertex_buffer_data[x].pos.y * terrainScale.y, vertex_buffer_data[x].pos.z * terrainScale.z);
+			Vector3 AdjVert1 = Vector3(vertex_buffer_data[x - terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x - terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x - terrainSize].pos.z * terrainScale.z);
+			Vector3 AdjVert2 = Vector3(vertex_buffer_data[x + terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x + terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x + terrainSize].pos.z * terrainScale.z);
+			Vector3 AdjVert3 = Vector3(vertex_buffer_data[x + 1].pos.x * terrainScale.x, vertex_buffer_data[x + 1].pos.y * terrainScale.y, vertex_buffer_data[x + 1].pos.z * terrainScale.z); //right vert
+
+			Vector3 Vec1 = AdjVert1 - currVert;
+			Vector3 Vec2 = AdjVert2 - currVert;
+			Vector3 Vec3 = AdjVert3 - currVert; //right vect
+
+			Vector3 temp = Vector3(0, 0, 0);
+			Vector3 temp1 = Vec1.Cross(Vec3);
+			Vector3 temp2 = Vec2.Cross(Vec3);
+
+			if (temp1.y < 0)
+			{
+				temp1 *= -1;
+				temp += temp1;
+			}
+			else
+				temp += temp1;
+
+			if (temp2.y < 0)
+			{
+				temp2 *= -1;
+				temp += temp2;
+			}
+			else
+				temp += temp2;
+
+			vertex_buffer_data[x].normal.Set(temp.x / 2, temp.y / 2, temp.z / 2);
+		}
+		else if (((x + 1) % terrainSize == 0) && x != vertex_buffer_data.size() - 1 && x != terrainSize - 1) //special case for last vertices of all rows excluding last vert and top right vert
+		{
+			Vector3 currVert = Vector3(vertex_buffer_data[x].pos.x * terrainScale.x, vertex_buffer_data[x].pos.y * terrainScale.y, vertex_buffer_data[x].pos.z * terrainScale.z);
+			Vector3 AdjVert1 = Vector3(vertex_buffer_data[x - terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x - terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x - terrainSize].pos.z * terrainScale.z);
+			Vector3 AdjVert2 = Vector3(vertex_buffer_data[x + terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x + terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x + terrainSize].pos.z * terrainScale.z);
+			Vector3 AdjVert3 = Vector3(vertex_buffer_data[x - 1].pos.x * terrainScale.x, vertex_buffer_data[x - 1].pos.y * terrainScale.y, vertex_buffer_data[x - 1].pos.z * terrainScale.z); //left vert
+
+			Vector3 Vec1 = AdjVert1 - currVert;
+			Vector3 Vec2 = AdjVert2 - currVert;
+			Vector3 Vec3 = AdjVert3 - currVert; //left vect
+
+			Vector3 temp = Vector3(0, 0, 0);
+			Vector3 temp1 = Vec1.Cross(Vec3);
+			Vector3 temp2 = Vec2.Cross(Vec3);
+
+			if (temp1.y < 0)
+			{
+				temp1 *= -1;
+				temp += temp1;
+			}
+			else
+				temp += temp1;
+
+			if (temp2.y < 0)
+			{
+				temp2 *= -1;
+				temp += temp2;
+			}
+			else
+				temp += temp2;
+
+			vertex_buffer_data[x].normal.Set(temp.x / 2, temp.y / 2, temp.z / 2);
+		}
+		else if (x < terrainSize && x != 0 && x != terrainSize - 1) //special case for all verts in first row excluding first vert and top right vert
+		{
+			Vector3 currVert = Vector3(vertex_buffer_data[x].pos.x * terrainScale.x, vertex_buffer_data[x].pos.y * terrainScale.y, vertex_buffer_data[x].pos.z * terrainScale.z);
+			Vector3 AdjVert1 = Vector3(vertex_buffer_data[x + 1].pos.x * terrainScale.x, vertex_buffer_data[x + 1].pos.y * terrainScale.y, vertex_buffer_data[x + 1].pos.z * terrainScale.z);
+			Vector3 AdjVert2 = Vector3(vertex_buffer_data[x - 1].pos.x * terrainScale.x, vertex_buffer_data[x - 1].pos.y * terrainScale.y, vertex_buffer_data[x - 1].pos.z * terrainScale.z);
+			Vector3 AdjVert3 = Vector3(vertex_buffer_data[x + terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x + terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x + terrainSize].pos.z * terrainScale.z);
+
+			Vector3 Vec1 = AdjVert1 - currVert;
+			Vector3 Vec2 = AdjVert2 - currVert;
+			Vector3 Vec3 = AdjVert3 - currVert; //left vect
+
+			Vector3 temp = Vector3(0, 0, 0);
+			Vector3 temp1 = Vec1.Cross(Vec3);
+			Vector3 temp2 = Vec2.Cross(Vec3);
+
+			if (temp1.y < 0)
+			{
+				temp1 *= -1;
+				temp += temp1;
+			}
+			else
+				temp += temp1;
+
+			if (temp2.y < 0)
+			{
+				temp2 *= -1;
+				temp += temp2;
+			}
+			else
+				temp += temp2;
+
+			vertex_buffer_data[x].normal.Set(temp.x / 2, temp.y / 2, temp.z / 2);
+		}
+		else if (x > vertex_buffer_data.size() - (terrainSize + 1) && x != vertex_buffer_data.size() - 1 && x != (vertex_buffer_data.size() - terrainSize)) // special case for all verts in last row excluding last vert and bottom left vert
+		{
+			Vector3 currVert = Vector3(vertex_buffer_data[x].pos.x * terrainScale.x, vertex_buffer_data[x].pos.y * terrainScale.y, vertex_buffer_data[x].pos.z * terrainScale.z);
+			Vector3 AdjVert1 = Vector3(vertex_buffer_data[x + 1].pos.x * terrainScale.x, vertex_buffer_data[x + 1].pos.y * terrainScale.y, vertex_buffer_data[x + 1].pos.z * terrainScale.z);
+			Vector3 AdjVert2 = Vector3(vertex_buffer_data[x - 1].pos.x * terrainScale.x, vertex_buffer_data[x - 1].pos.y * terrainScale.y, vertex_buffer_data[x - 1].pos.z * terrainScale.z);
+			Vector3 AdjVert3 = Vector3(vertex_buffer_data[x - terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x - terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x - terrainSize].pos.z * terrainScale.z);
+
+			Vector3 Vec1 = AdjVert1 - currVert;
+			Vector3 Vec2 = AdjVert2 - currVert;
+			Vector3 Vec3 = AdjVert3 - currVert; //left vect
+
+			Vector3 temp = Vector3(0, 0, 0);
+			Vector3 temp1 = Vec1.Cross(Vec3);
+			Vector3 temp2 = Vec2.Cross(Vec3);
+
+			if (temp1.y < 0)
+			{
+				temp1 *= -1;
+				temp += temp1;
+			}
+			else
+				temp += temp1;
+
+			if (temp2.y < 0)
+			{
+				temp2 *= -1;
+				temp += temp2;
+			}
+			else
+				temp += temp2;
+
+			vertex_buffer_data[x].normal.Set(temp.x / 2, temp.y / 2, temp.z / 2);
+		}
+		else //for all vertices in between
+		{
+			Vector3 currVert = Vector3(vertex_buffer_data[x].pos.x * terrainScale.x, vertex_buffer_data[x].pos.y * terrainScale.y, vertex_buffer_data[x].pos.z * terrainScale.z);
+			Vector3 AdjVert1 = Vector3(vertex_buffer_data[x + 1].pos.x * terrainScale.x, vertex_buffer_data[x + 1].pos.y * terrainScale.y, vertex_buffer_data[x + 1].pos.z * terrainScale.z); //right
+			Vector3 AdjVert2 = Vector3(vertex_buffer_data[x - 1].pos.x * terrainScale.x, vertex_buffer_data[x - 1].pos.y * terrainScale.y, vertex_buffer_data[x - 1].pos.z * terrainScale.z); //left
+			Vector3 AdjVert3 = Vector3(vertex_buffer_data[x - terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x - terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x - terrainSize].pos.z * terrainScale.z); //up
+			Vector3 AdjVert4 = Vector3(vertex_buffer_data[x + terrainSize].pos.x * terrainScale.x, vertex_buffer_data[x + terrainSize].pos.y * terrainScale.y, vertex_buffer_data[x + terrainSize].pos.z * terrainScale.z); //down
+
+			Vector3 Vec1 = AdjVert1 - currVert;
+			Vector3 Vec2 = AdjVert2 - currVert;
+			Vector3 Vec3 = AdjVert3 - currVert;
+			Vector3 Vec4 = AdjVert4 - currVert;
+
+			Vector3 temp = Vector3(0, 0, 0);
+			Vector3 temp1 = Vec1.Cross(Vec3); //cross up and right
+			Vector3 temp2 = Vec1.Cross(Vec4); //cross down and right
+			Vector3 temp3 = Vec2.Cross(Vec3); //cross up and left
+			Vector3 temp4 = Vec2.Cross(Vec4); //cross down and left
+
+			if (temp1.y < 0)
+			{
+				temp1 *= -1;
+				temp += temp1;
+			}
+			else
+				temp += temp1;
+
+			if (temp2.y < 0)
+			{
+				temp2 *= -1;
+				temp += temp2;
+			}
+			else
+				temp += temp2;
+
+			if (temp3.y < 0)
+			{
+				temp3 *= -1;
+				temp += temp3;
+			}
+			else
+				temp += temp3;
+
+			if (temp4.y < 0)
+			{
+				temp4 *= -1;
+				temp += temp4;
+			}
+			else
+				temp += temp4;
+
+			vertex_buffer_data[x].normal.Set(temp.x / 4, temp.y / 4, temp.z / 4);
+		}
+	}
 
 	Mesh *mesh = new Mesh(meshName);
-
-	mesh->mode = Mesh::DRAW_TRIANGLES;
-
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
 
 	mesh->indexSize = index_buffer_data.size();
+	mesh->mode = Mesh::DRAW_TRIANGLES;
 
 	return mesh;
 }

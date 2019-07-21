@@ -63,4 +63,7 @@ void PlayerScript::Update(double dt)
 		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 200, 0);
 		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, -90);
 	}
+	// TODO Constrain to terrain================================================================================
+	//Vector3 pos = trans->GetPosition();
+	//trans->SetPosition(pos.x, 30.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500), pos.z);
 }

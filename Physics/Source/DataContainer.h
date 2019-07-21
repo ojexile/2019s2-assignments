@@ -20,6 +20,8 @@ private:
 	std::map<std::string, GameObject*> m_map_GO;
 	std::map<std::string, unsigned> m_map_Shaders;
 public:
+
+	heightmap heightMap;
 	DataContainer();
 	~DataContainer();
 
