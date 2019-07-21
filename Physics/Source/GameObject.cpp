@@ -82,7 +82,9 @@ void GameObject::Update(double dt)
 		m_vec_ChildList[i]->GetComponent<TransformComponent>()->SetPosition(newPos);
 		// TODO update rot
 		// Update scale
-		childTrans->SetScale(trans->GetScale() + childTrans->GetRelativeScale());
+		Vector3 scale = trans->GetScale();
+		Vector3 childScale = childTrans->GetScale();
+		childTrans->SetScale({ scale.x * childScale.x, scale.y * childScale.y, scale.z * childScale.z });
 		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
 		{
 			if (!m_vec_ChildList[i]->IsActive())
