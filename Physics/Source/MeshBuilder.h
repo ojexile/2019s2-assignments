@@ -24,7 +24,7 @@ public:
 	// .obj exten is assumed
 	static Mesh* GenerateOBJ(std::string file_path);
 	static Mesh* GenerateText(const std::string &meshName, unsigned row, unsigned col);
-	static Mesh* GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap, Vector3 terrainScale);
+	static Mesh* GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap, Vector3 scale);
 	static Mesh* GenerateSkyPlane(const std::string &meshName, Color color, int slices, float PlanetRadius, float AtmosphereRadius, float hTile, float vTile);
 	static AnimatedMesh* GenerateAnimatedMesh(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop);
 	//static AnimatedMesh* GenerateAnimatedMeshDetailed(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop, const std::string &file_path = "Objects/plane.obj");

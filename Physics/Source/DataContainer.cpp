@@ -268,6 +268,18 @@ DataContainer::~DataContainer()
 		delete it3->second;
 	}
 	m_map_GO.clear();
+	for (it3 = m_map_GO.begin(); it3 != m_map_GO.end(); it3++)
+	{
+		// it->first == key
+		// it->second == value
+		delete it3->second;
+	}
+	m_map_GO.clear();
+	for (auto const& x : m_map_HeightMaps)
+	{
+		delete x.second;
+	}
+	m_map_HeightMaps.clear();
 }
 
 Mesh* DataContainer::GetMesh(std::string name)
@@ -297,4 +309,16 @@ unsigned DataContainer::GetShader(std::string key)
 		DEFAULT_LOG("ERROR: Shader not found of name: " + key);
 	unsigned shader = m_map_Shaders[key];
 	return shader;
+}
+HeightMapData* DataContainer::GetHeightMap(std::string key)
+{
+	if (m_map_HeightMaps.count(key) <= 0)
+		DEFAULT_LOG("ERROR: Heightmap not found of name: " + key);
+	return m_map_HeightMaps[key];
+}
+void DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 vScale)
+{
+	_heightmap* heightMap = new _heightmap;
+	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale);
+	m_map_HeightMaps[key] = new HeightMapData(mesh, heightMap, vScale);
 }

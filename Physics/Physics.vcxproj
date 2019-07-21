@@ -165,12 +165,14 @@
     <ClCompile Include="Source\ChengCollisionManager.cpp" />
     <ClCompile Include="Source\ChengRigidbody.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
+    <ClCompile Include="Source\Constrain.cpp" />
     <ClCompile Include="Source\CrouchingState.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
     <ClCompile Include="Source\DepthFBO.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
+    <ClCompile Include="Source\HeightMapData.cpp" />
     <ClCompile Include="Source\GauntletScript.cpp" />
     <ClCompile Include="Source\GoalScript.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
@@ -229,6 +231,7 @@
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\CrouchingState.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
+    <ClInclude Include="Source\Constrain.h" />
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\DepthFBO.h" />
     <ClInclude Include="Source\Engine.h" />
@@ -237,6 +240,7 @@
     <ClInclude Include="Source\GauntletScript.h" />
     <ClInclude Include="Source\GoalScript.h" />
     <ClInclude Include="Source\GunScript.h" />
+    <ClInclude Include="Source\HeightMapData.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
     <ClInclude Include="Source\LayerData.h" />
     <ClInclude Include="Source\Light.h" />

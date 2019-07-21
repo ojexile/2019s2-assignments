@@ -82,6 +82,8 @@
     <ClCompile Include="Source\BallScript.cpp" />
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
+    <ClCompile Include="Source\Constrain.cpp" />
+    <ClCompile Include="Source\HeightMapData.cpp" />
     <ClCompile Include="Source\RojakAssignmentScene.cpp" />
     <ClCompile Include="Source\GoalScript.cpp" />
     <ClCompile Include="Source\BouncerScript.cpp" />
@@ -159,6 +161,8 @@
     <ClInclude Include="Source\GauntletScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
+    <ClInclude Include="Source\Constrain.h" />
+    <ClInclude Include="Source\HeightMapData.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
     <ClInclude Include="Source\SunBrightnessScript.h" />
     <ClInclude Include="Source\RojakScene2.h" />
