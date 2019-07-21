@@ -164,4 +164,7 @@ void RojakAssignmentScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("ball")));
 	go->RENDER->SetColor({ 1, 1, 0 });
 	go->TRANSFORM->SetScale(10);
+
+	go = m_GameObjectManager.AddGameObject();
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Terrain")));
 }

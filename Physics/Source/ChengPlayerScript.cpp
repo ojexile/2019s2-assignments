@@ -113,9 +113,9 @@ void ChengPlayerScript::Update(double dt)
 			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -85);
 		}
 	}
-
+	Vector3 pos = trans->GetPosition();
 	// TODO Constrain to terrain================================================================================
-	//trans->SetPosition(pos.x, 50.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
+	trans->SetPosition(pos.x, 30.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500), pos.z);
 	//trans->SetPosition({ pos.x,0,pos.z });
 }
 void ChengPlayerScript::SetMovementSpeed(float f)

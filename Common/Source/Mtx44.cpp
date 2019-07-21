@@ -437,8 +437,12 @@ void Mtx44::SetToLookAt(double eyeX, double eyeY, double eyeZ,
 	f.Normalize();
 	Vector3 up((float)upX, (float)upY, (float)upZ);
 	up.Normalize();
-	if (f == up)
+	while (f == up)
+	{
 		f.x += 0.1f;
+		f.z += 0.1f;
+		f.Normalize();
+	}
 	Vector3 s = f.Cross(up).Normalized();
 	Vector3 u = s.Cross(f).Normalized();
 

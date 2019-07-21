@@ -32,6 +32,10 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
+	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("Terrain", "heightmapMain", heightMap, { 500,30,500 });
+	m_map_Meshes["Terrain"]->m_uTextureArray[0] = LoadTGA("sky");
+	m_map_Meshes["Terrain"]->m_uTextureArray[1] = LoadTGA("moss1");
+
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
 	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("PLAYER_PISTOL");
 
