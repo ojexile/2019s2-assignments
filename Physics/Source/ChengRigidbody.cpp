@@ -5,7 +5,7 @@ ChengRigidbody::ChengRigidbody(ePhysicsTypes e, bool Grav)
 {
 	m_eType = e;
 	m_fMass = 1;
-	m_vGravity = { 0,0,100.f };
+	m_vGravity = { 0,0,0 };
 	m_bLockXAxis = false;
 	m_bLockYAxis = false;
 	m_bLockZAxis = false;
@@ -19,8 +19,12 @@ void ChengRigidbody::Update(double dt)
 {
 	Vector3 vAccel = m_vForce * (1 / m_fMass);
 	m_vForce.SetZero();
+	Vector3 CurrentGrav = m_vGravity + WorldValues::DefaultGravity;
+	CurrentGrav.x *= WorldValues::GravityExponent.x;
+	CurrentGrav.y *= WorldValues::GravityExponent.y;
+	CurrentGrav.z *= WorldValues::GravityExponent.z;
 	if (m_bGravityAffected)
-		vAccel += m_vGravity * WorldValues::GravityExponent;
+		vAccel += CurrentGrav;
 	// Friction
 	float coeff = m_PhyMat.GetFriction();
 

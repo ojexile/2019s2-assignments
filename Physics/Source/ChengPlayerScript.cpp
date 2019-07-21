@@ -8,6 +8,9 @@
 #include "Mesh.h"
 #include "Time.h"
 #include "GauntletScript.h"
+#include "Application.h"
+#include "WorldValues.h"
+#define CAMERA_ANGLE_OFFSET 5
 ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
 	:m_Gun(gun)
 	, m_CrossHair(cross)
@@ -65,6 +68,46 @@ void ChengPlayerScript::Update(double dt)
 			m_Gaunt->GetComponent<GauntletScript>()->Use();
 		}
 	}
+	if (m_bState)
+	{
+		// Tilt
+		if (Application::IsKeyPressed(VK_LEFT))
+		{
+			Vector3 GDir = { 1,0,1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-110, -80);
+		}
+		else if (Application::IsKeyPressed(VK_RIGHT))
+		{
+			Vector3 GDir = { -1,0,1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-70, -80);
+		}
+		else if (Application::IsKeyPressed(VK_UP))
+		{
+			Vector3 GDir = { 0,0,-1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANSFORM;
+			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, 10);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -60);
+		}
+		else
+		{
+			Vector3 GDir = { 0,0,1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			SetDefaultCamPos();
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -80);
+		}
+	}
+
 	// TODO Constrain to terrain================================================================================
 	//trans->SetPosition(pos.x, 50.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500) - 20, pos.z);
 	//trans->SetPosition({ pos.x,0,pos.z });
@@ -84,7 +127,7 @@ void ChengPlayerScript::SwitchView()
 		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 		//trans->SetPosition(0, 0, 0);
 		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
-		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, 0);
+		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, 0);
 		m_Gun->SetActive(true);
 		m_CrossHair->SetActive(true);
 		m_bState = false;
@@ -94,15 +137,25 @@ void ChengPlayerScript::SwitchView()
 	{
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
-		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-		//trans->SetPosition(0, 0, 0);
-		cam->GetComponent<TransformComponent>()->SetRelativePosition(-pos.x, 300, -pos.z);
-		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -90);
+		SetDefaultCamPos();
 		m_Gun->SetActive(false);
 		m_CrossHair->SetActive(false);
 		m_bState = true;
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
 	}
+}
+void ChengPlayerScript::SetDefaultCamPos()
+{
+	TransformComponent* trans = GetComponent<TransformComponent>();
+	GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+	//trans->SetPosition(0, 0, 0);
+	cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -60);
+	Vector3 CamDir = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
+	Vector3 newRelPos = trans->GetPosition();
+	newRelPos = -newRelPos;
+	newRelPos.z += CamDir.z * -200 - 75;
+	newRelPos.y = CamDir.y * -200;
+	cam->GetComponent<TransformComponent>()->SetRelativePosition(newRelPos);
 }
 void ChengPlayerScript::UpdateMovement(double dt)
 {

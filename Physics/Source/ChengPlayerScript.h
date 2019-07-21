@@ -32,5 +32,6 @@ public:
 	void Update(double dt) override;
 	virtual void Start() override;
 
+	void SetDefaultCamPos();
 	void SetMovementSpeed(float f);
 };

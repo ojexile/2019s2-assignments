@@ -75,7 +75,7 @@ void RojakAssignmentScene::Init()
 	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
 	GameObject* child = dataContainer->GetGameObject("playerPillar")->Clone();
 	go->AddChild(child);
-	child->TRANSFORM->SetScale(5, 30, 5);
+	child->TRANSFORM->SetRelativeScale(20, 100, 20);
 	go->AddChild(m_CameraGO);
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------

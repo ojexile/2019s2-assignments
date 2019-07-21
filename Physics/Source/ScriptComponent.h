@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include <string>
 #include "Time.h"
+#include "ComponentMacros.h"
 class ScriptComponent :
 	public ComponentBase
 {

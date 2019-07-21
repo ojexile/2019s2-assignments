@@ -108,7 +108,7 @@ void GauntletScript::Use()
 	case SOUL:
 		break;
 	case REALITY:
-		WorldValues::GravityExponent = 0.f;
+		WorldValues::GravityExponent = { 0,0,0 };
 		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
 		m_fDuration = 5.f;
 		break;
@@ -138,7 +138,7 @@ void GauntletScript::StopUse()
 	case SOUL:
 		break;
 	case REALITY:
-		WorldValues::GravityExponent = 1.f;
+		WorldValues::GravityExponent = WorldValues::DefaultGravityExponent;
 		break;
 	case SPACE:
 		break;
