@@ -14,7 +14,6 @@ SceneManager::~SceneManager()
 void SceneManager::ChangeScene(Scene* scene)
 {
 	m_TempScene = scene;
-	scene->Init();
 	m_bSceneChanged = true;
 }
 
@@ -37,6 +36,7 @@ void SceneManager::SwapScene()
 	if (m_CurrentScene)
 		delete m_CurrentScene;
 	m_CurrentScene = m_TempScene;
+	m_CurrentScene->Init();
 	m_TempScene = nullptr;
 	m_bSceneChanged = false;
 }
