@@ -609,3 +609,8 @@ AnimatedMesh* MeshBuilder::GenerateAnimatedMesh(std::string sMeshName, int numRo
 	AnimatedMesh *anim = new AnimatedMesh(sMeshName, numRow, numCol, start, end, time, loop, m_AnimatedQuad);
 	return anim;
 }
+
+void MeshBuilder::Release()
+{
+	delete m_AnimatedQuad;
+}

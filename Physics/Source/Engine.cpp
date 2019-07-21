@@ -129,6 +129,7 @@ void Engine::Update(double dt)
 }
 void Engine::Exit()
 {
+	MeshBuilder::Release();
 	m_Renderer->Exit();
 	delete m_Renderer;
 	SceneManager::DeleteInstance();
