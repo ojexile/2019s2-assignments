@@ -161,4 +161,7 @@ void RojakAssignmentScene::Init()
 	//go->TRANSFORM->SetScale(thickness, height, width - holeWidth / 2);
 	go = m_GameObjectManager.AddGameObject();
 	go->AddComponent(new SunBrightnessScript);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("ball")));
+	go->RENDER->SetColor({ 1, 1, 0 });
+	go->TRANSFORM->SetScale(10);
 }
