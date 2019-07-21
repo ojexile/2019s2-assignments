@@ -5,8 +5,11 @@ TransformComponent::TransformComponent()
 	m_vPosition.SetZero();
 	m_vRelativePosition.SetZero();
 	m_vRotateAxis.SetZero();
+	m_vRelativeRotateAxis.SetZero();
 	m_vScale.Set(1, 1, 1);
-	m_fdegrees = 0.f;
+	m_vRelativeScale.Set(1, 1, 1);
+	m_fDegrees = 0.f;
+	m_fRelativeDegrees = 0.f;
 }
 
 TransformComponent::TransformComponent(Vector3 pos)
@@ -14,8 +17,11 @@ TransformComponent::TransformComponent(Vector3 pos)
 	m_vPosition.Set(pos.x, pos.y, pos.z);
 	m_vRelativePosition.SetZero();
 	m_vRotateAxis.SetZero();
+	m_vRelativeRotateAxis.SetZero();
 	m_vScale.Set(1, 1, 1);
-	m_fdegrees = 0.f;
+	m_vRelativeScale.Set(1, 1, 1);
+	m_fDegrees = 0.f;
+	m_fRelativeDegrees = 0.f;
 }
 
 TransformComponent::~TransformComponent()
@@ -38,11 +44,34 @@ void TransformComponent::SetScale(float scaleX, float scaleY, float scaleZ)
 {
 	this->m_vScale.Set(scaleX, scaleY, scaleZ);
 }
+void TransformComponent::SetScale(Vector3 v)
+{
+	this->m_vScale.Set(v.x, v.y, v.z);
+}
+void TransformComponent::SetScale(float f)
+{
+	this->m_vScale.Set(f, f, f);
+}
+
+void TransformComponent::ScaleBy(Vector3 v)
+{
+	this->m_vScale += v;
+}
 
 void TransformComponent::SetRotation(float degrees, int xAxis, int yAxis, int zAxis)
 {
 	this->m_vRotateAxis.Set((float)xAxis, (float)yAxis, (float)zAxis);
-	this->m_fdegrees = degrees;
+	this->m_fDegrees = degrees;
+}
+void TransformComponent::SetRotation(float degrees, Vector3 v)
+{
+	this->m_vRotateAxis.Set(v.x, v.y, v.z);
+	this->m_fDegrees = degrees;
+}
+void TransformComponent::RotateBy(float degrees, Vector3 v)
+{
+	this->m_vRotateAxis = (v.x, v.y, v.z);
+	this->m_fDegrees += degrees;
 }
 
 void TransformComponent::SetPosition(float translateX, float translateY, float translateZ)
@@ -103,12 +132,23 @@ Vector3 TransformComponent::GetRotation()
 {
 	return m_vRotateAxis;
 }
+Vector3 TransformComponent::GetRelativeRotation()
+{
+	return m_vRelativeRotateAxis;
+}
 Vector3 TransformComponent::GetScale()
 {
 	return m_vScale;
 }
-
+Vector3 TransformComponent::GetRelativeScale()
+{
+	return m_vRelativeScale;
+}
 float TransformComponent::GetDegrees()
 {
-	return m_fdegrees;
+	return m_fDegrees;
+}
+float TransformComponent::GetDegrees()
+{
+	return m_fRelativeDegrees;
 }
