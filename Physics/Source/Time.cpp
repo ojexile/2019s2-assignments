@@ -15,19 +15,19 @@ void Time::Update(double dt)
 	m_dElapsedtime += dt;
 }
 
-double Time::GetDeltaTimeD()
-{
-	return m_dDeltatime;
-}
+//double Time::GetDeltaTimeD()
+//{
+//	return m_dDeltatime;
+//}
 float Time::GetDeltaTimeF()
 {
 	return (float)m_dDeltatime;
 }
 
-double Time::GetElapsedTimeD()
-{
-	return m_dElapsedtime;
-}
+//double Time::GetElapsedTimeD()
+//{
+//	return m_dElapsedtime;
+//}
 float Time::GetElapsedTimeF()
 {
 	return (float)m_dElapsedtime;
