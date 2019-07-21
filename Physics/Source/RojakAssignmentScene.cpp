@@ -5,6 +5,7 @@
 #include "MeshController.h"
 #include "Blackhole.h"
 #include "GauntletScript.h"
+#include "SunBrightnessScript.h"
 RojakAssignmentScene::RojakAssignmentScene()
 {
 }
@@ -158,4 +159,6 @@ void RojakAssignmentScene::Init()
 	//go->TRANSFORM->SetPosition(0, 0, 0);
 	//go->TRANSFORM->SetRotation(90, 0, 1, 0);
 	//go->TRANSFORM->SetScale(thickness, height, width - holeWidth / 2);
+	go = m_GameObjectManager.AddGameObject();
+	go->AddComponent(new SunBrightnessScript);
 }
