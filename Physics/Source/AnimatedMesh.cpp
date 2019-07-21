@@ -5,14 +5,28 @@ AnimatedMesh::AnimatedMesh(std::string sMeshName, int row, int col, int start, i
 	, m_row(row)
 	, m_currentTime(0)
 	, m_currentFrame(0)
-	, m_playCount(0)
 {
 	m_Mesh = mesh;
 	m_anim.Set(start, end, loop, time, true);
+	m_bOriginal = true;
+}
+AnimatedMesh::AnimatedMesh(AnimatedMesh& ref)
+{
+	m_bOriginal = false;
+	m_Mesh = ref.m_Mesh;
+	m_row = ref.m_row;
+	m_col = ref.m_col;
+	m_currentFrame = 0;
+	m_currentTime = 0;
+	m_anim = ref.m_anim;
 }
 AnimatedMesh::~AnimatedMesh()
 {
-	//delete m_Mesh;
+	if (m_bOriginal)
+	{
+		if (m_Mesh)
+			delete m_Mesh;
+	}
 }
 void AnimatedMesh::Update(double dt)
 {

@@ -16,15 +16,17 @@ class AnimatedMesh
 public:
 public:
 	AnimatedMesh(std::string sMeshName, int row, int col, int start, int end, float time, bool loop, Mesh* mesh);
+	AnimatedMesh(AnimatedMesh& ref);
 	~AnimatedMesh();
 	virtual void Update(double dt);
 	virtual void Render(); // Polymorphism
 
+	bool m_bOriginal;
 	Mesh* m_Mesh;
 	int m_row;
 	int m_col;
 	float m_currentTime;
 	int m_currentFrame;
-	int m_playCount;
+	//int m_playCount;
 	Animation m_anim;
 };
