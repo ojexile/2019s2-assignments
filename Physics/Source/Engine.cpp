@@ -31,9 +31,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	Scene* scene = new TestScene;
-	SceneManager->ChangeScene(scene);
-	scene = nullptr;
+	SceneManager->ChangeScene(new TestScene);
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
@@ -73,6 +71,8 @@ void Engine::SetMouseCallback(GLFWwindow* window)
 void Engine::Update(double dt)
 {
 	SceneManager* SceneManager = SceneManager::GetInstance();
+	if (SceneManager->IsSceneChanged())
+		SceneManager->SwapScene();
 	Scene* CurrentScene = SceneManager->GetScene();
 	// Update time
 	Time::GetInstance()->Update(dt);

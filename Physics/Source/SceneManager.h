@@ -7,6 +7,8 @@ class SceneManager : public Singleton<SceneManager>
 {
 private:
 	Scene* m_CurrentScene;
+	Scene* m_TempScene;
+	bool m_bSceneChanged;
 public:
 	SceneManager();
 	virtual ~SceneManager();
@@ -14,4 +16,6 @@ public:
 	void ChangeScene(Scene* scene);
 	Scene* GetScene();
 	void DeleteScene();
+	bool IsSceneChanged();
+	void SwapScene();
 };
