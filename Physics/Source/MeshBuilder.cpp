@@ -482,6 +482,7 @@ Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file
 			float scaledHeight = (float)heightMap[z * terrainSize + x] / SCALE_FACTOR;
 			v.pos.Set(static_cast<float>(x) / terrainSize - 0.5f, scaledHeight, static_cast<float>(z) / terrainSize - 0.5f);
 			Vector3 vPos = { v.pos.x, v.pos.y,v.pos.z };
+			vPos.y -= 0.4f; // offset so that mid gray is at 0
 			vPos = scale * vPos;
 			v.pos.Set(vPos.x, vPos.y, vPos.z);
 			v.color.Set(scaledHeight, scaledHeight, scaledHeight);

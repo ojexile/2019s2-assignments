@@ -40,6 +40,7 @@
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
     <ClCompile Include="Source\Constrain.cpp" />
+    <ClCompile Include="Source\HeightMapData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Source\MeshController.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
     <ClInclude Include="Source\Constrain.h" />
+    <ClInclude Include="Source\HeightMapData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

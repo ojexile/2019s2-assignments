@@ -65,7 +65,7 @@ void TestScene::Init()
 	// Terrain
 	GameObject* terrain = m_GameObjectManager.AddGameObject();
 	//terrain->TRANSFORM->SetScale(500, 20, 500);
-	terrain->AddComponent(new RenderComponent(dataContainer->GetMesh("Terrain")));
+	terrain->AddComponent(new RenderComponent(dataContainer->GetHeightMap("Terrain")->GetMesh()));
 	terrain->RENDER->SetLightEnabled(true);
 	terrain->SetActive(true);
 	//

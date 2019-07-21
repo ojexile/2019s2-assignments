@@ -20,11 +20,6 @@ DataContainer::DataContainer()
 	m_map_Meshes["Depth"] = MeshBuilder::GenerateQuad("Depth", { 1.f,1.f,1.f }, 10);
 	m_map_Meshes["Depth"]->m_uTextureArray[0] = 1;
 
-	_heightmap* heightMap = new _heightmap;
-	m_map_HeightMaps["Terrain"] = heightMap;
-	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("terrain", "heightmapMain", *heightMap, { 500,30,500 });
-	m_map_Meshes["Terrain"]->m_uTextureArray[0] = LoadTGA("moss1");
-
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
@@ -33,6 +28,8 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["Water"] = MeshBuilder::GenerateOBJ("water");
 	m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("water");
+
+	GenerateTerrain("Terrain", "heightmapMain", { 500,50,500 });
 	//--------------------------------------------------------------------------------
 	// Gameobjects--------------------------------------------------------------------------------
 	GameObject* cube = new GameObject();
@@ -123,9 +120,15 @@ unsigned DataContainer::GetShader(std::string key)
 	unsigned shader = m_map_Shaders[key];
 	return shader;
 }
-_heightmap* DataContainer::GetHeightMap(std::string key)
+HeightMapData* DataContainer::GetHeightMap(std::string key)
 {
 	if (m_map_HeightMaps.count(key) <= 0)
 		DEFAULT_LOG("ERROR: Heightmap not found of name: " + key);
 	return m_map_HeightMaps[key];
+}
+void DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 vScale)
+{
+	_heightmap* heightMap = new _heightmap;
+	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale);
+	m_map_HeightMaps[key] = new HeightMapData(mesh, heightMap, vScale);
 }

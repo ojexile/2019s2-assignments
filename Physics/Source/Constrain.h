@@ -1,6 +1,7 @@
 #pragma once
 #include "ComponentBase.h"
 #include "ComponentMacros.h"
+#include "HeightMapData.h"
 class Constrain :
 	public ComponentBase
 {
@@ -11,10 +12,10 @@ public:
 		LIMIT,		// set lowest y val to height map
 	};
 private:
-	_heightmap* m_Map;
+	HeightMapData* m_Data;
 	eConstrainTypes m_ConstrainType;
 public:
-	Constrain(_heightmap* map, eConstrainTypes type);
+	Constrain(HeightMapData*, eConstrainTypes type);
 	virtual ~Constrain();
 	virtual ComponentBase* Clone() { return new Constrain(*this); };
 	virtual void Update(double dt) override;
