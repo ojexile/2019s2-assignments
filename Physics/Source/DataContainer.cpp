@@ -32,9 +32,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
-	m_map_Meshes["Terrain"] = MeshBuilder::GenerateTerrain("Terrain", "heightmapMain", heightMap, { 500,30,500 });
-	m_map_Meshes["Terrain"]->m_uTextureArray[0] = LoadTGA("sky");
-	m_map_Meshes["Terrain"]->m_uTextureArray[1] = LoadTGA("moss1");
+	GenerateTerrain("Terrain", "heightmapMain", { 500,30,500 });
 
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
 	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("PLAYER_PISTOL");
@@ -191,7 +189,7 @@ DataContainer::DataContainer()
 	//Player Pillar--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["playerPillar"] = go;
-	go->TRANSFORM->SetRelativeScale({ 5, 50, 5 });
+	go->TRANS->SetRelativeScale({ 5, 50, 5 });
 	go->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
 	go->AddComponent(new BouncerScript(1.f, scoreScript, true));

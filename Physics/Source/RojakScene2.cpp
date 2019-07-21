@@ -26,14 +26,14 @@ void RojakScene2::Init()
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Smoke"), "Smoke");
 	// Set up camera
-	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
+	m_CameraGO->TRANS->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
 	this->m_Camera->InitOrtho({ 300,300,10000 });
 	// UI================================================================================
 	// Crosshair
 	GameObject* Crosshair = m_GameObjectManager.AddGameObject("UI");
-	Crosshair->TRANSFORM->SetPosition(1920 / 2, 1080 / 2, 5);
-	Crosshair->TRANSFORM->SetScale(100.f, 100.f, 1.f);
+	Crosshair->TRANS->SetPosition(1920 / 2, 1080 / 2, 5);
+	Crosshair->TRANS->SetScale(100.f, 100.f, 1.f);
 	Crosshair->AddComponent(new RenderComponent(dataContainer->GetMesh("Crosshair")));
 	Crosshair->RENDER->SetLightEnabled(false);
 	Crosshair->SetActive(true);
@@ -42,8 +42,8 @@ void RojakScene2::Init()
 	m_GameObjectManager.AddGameObject(go->Clone(), "UI");
 	// Gauntlet--------------------------------------------------------------------------------
 	GameObject* Gaunt = m_GameObjectManager.AddGameObject("UI");
-	Gaunt->TRANSFORM->SetPosition(250, 1080 - 800, 5);
-	Gaunt->TRANSFORM->SetScale(800.f, 800.f, 1.f);
+	Gaunt->TRANS->SetPosition(250, 1080 - 800, 5);
+	Gaunt->TRANS->SetScale(800.f, 800.f, 1.f);
 	Gaunt->AddComponent(new RenderComponent(dataContainer->GetMesh("Gaunt")));
 	Gaunt->RENDER->SetLightEnabled(false);
 	MeshController<Mesh>* meshController = new MeshController<Mesh>;
@@ -61,7 +61,7 @@ void RojakScene2::Init()
 	//Player================================================================================
 	// Gun--------------------------------------------------------------------------------
 	GameObject* gun = m_GameObjectManager.AddGameObject("UI");
-	gun->TRANSFORM->SetPosition(1900, 80, 0);
+	gun->TRANS->SetPosition(1900, 80, 0);
 	gun->AddComponent(new RenderComponent(dataContainer->GetMesh("Gun")));
 	gun->RENDER->SetBillboard(false);
 	gun->RENDER->SetLightEnabled(false);
@@ -72,7 +72,7 @@ void RojakScene2::Init()
 	//repel->SetActive(false);
 	// Player--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
-	go->TRANSFORM->SetPosition(0, 0, 50);
+	go->TRANS->SetPosition(0, 0, 50);
 	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
 	GameObject* child = dataContainer->GetGameObject("playerPillar")->Clone();
 	go->AddChild(child);
@@ -80,7 +80,7 @@ void RojakScene2::Init()
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
-	SkyPlane->TRANSFORM->SetPosition(0, 1000, 0);
+	SkyPlane->TRANS->SetPosition(0, 1000, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
 	//
 	//Board================================================================================
@@ -96,5 +96,5 @@ void RojakScene2::Init()
 	go->AddComponent(new SunBrightnessScript);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("ball")));
 	go->RENDER->SetColor({ 1, 1, 0 });
-	go->TRANSFORM->SetScale(10);
+	go->TRANS->SetScale(10);
 }

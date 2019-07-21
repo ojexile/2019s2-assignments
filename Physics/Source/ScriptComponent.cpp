@@ -120,7 +120,6 @@ GameObject* ScriptComponent::Instantiate(GameObject* goRef, std::string sLayer)
 void ScriptComponent::Collide(GameObject*)
 {
 }
-}
 Camera*  ScriptComponent::GetCamera()
 {
 	return SceneManager::GetInstance()->GetScene()->GetCamera();

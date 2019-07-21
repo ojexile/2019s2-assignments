@@ -6,6 +6,7 @@
 #include "Blackhole.h"
 #include "GauntletScript.h"
 #include "SunBrightnessScript.h"
+#include "Constrain.h"
 RojakAssignmentScene::RojakAssignmentScene()
 {
 }
@@ -26,14 +27,14 @@ void RojakAssignmentScene::Init()
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Smoke"), "Smoke");
 	// Set up camera
-	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
+	m_CameraGO->TRANS->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
 	this->m_Camera->InitOrtho({ 300,300,10000 });
 	// UI================================================================================
 	// Crosshair
 	GameObject* Crosshair = m_GameObjectManager.AddGameObject("UI");
-	Crosshair->TRANSFORM->SetPosition(1920 / 2, 1080 / 2, 5);
-	Crosshair->TRANSFORM->SetScale(100.f, 100.f, 1.f);
+	Crosshair->TRANS->SetPosition(1920 / 2, 1080 / 2, 5);
+	Crosshair->TRANS->SetScale(100.f, 100.f, 1.f);
 	Crosshair->AddComponent(new RenderComponent(dataContainer->GetMesh("Crosshair")));
 	Crosshair->RENDER->SetLightEnabled(false);
 	Crosshair->SetActive(true);
@@ -42,8 +43,8 @@ void RojakAssignmentScene::Init()
 	m_GameObjectManager.AddGameObject(go->Clone(), "UI");
 	// Gauntlet--------------------------------------------------------------------------------
 	GameObject* Gaunt = m_GameObjectManager.AddGameObject("UI");
-	Gaunt->TRANSFORM->SetPosition(250, 1080 - 800, 5);
-	Gaunt->TRANSFORM->SetScale(800.f, 800.f, 1.f);
+	Gaunt->TRANS->SetPosition(250, 1080 - 800, 5);
+	Gaunt->TRANS->SetScale(800.f, 800.f, 1.f);
 	Gaunt->AddComponent(new RenderComponent(dataContainer->GetMesh("Gaunt")));
 	Gaunt->RENDER->SetLightEnabled(false);
 	MeshController<Mesh>* meshController = new MeshController<Mesh>;
@@ -61,7 +62,7 @@ void RojakAssignmentScene::Init()
 	//Player================================================================================
 	// Gun--------------------------------------------------------------------------------
 	GameObject* gun = m_GameObjectManager.AddGameObject("UI");
-	gun->TRANSFORM->SetPosition(1900, 80, 0);
+	gun->TRANS->SetPosition(1900, 80, 0);
 	gun->AddComponent(new RenderComponent(dataContainer->GetMesh("Gun")));
 	gun->RENDER->SetBillboard(false);
 	gun->RENDER->SetLightEnabled(false);
@@ -72,15 +73,16 @@ void RojakAssignmentScene::Init()
 	//repel->SetActive(false);
 	// Player--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
-	go->TRANSFORM->SetPosition(0, 0, 50);
+	go->TRANS->SetPosition(0, 0, 50);
 	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
 	GameObject* child = dataContainer->GetGameObject("playerPillar")->Clone();
 	go->AddChild(child);
 	go->AddChild(m_CameraGO);
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("Terrain"), Constrain::eConstrainTypes::LIMIT));
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
-	SkyPlane->TRANSFORM->SetPosition(0, 1000, 0);
+	SkyPlane->TRANS->SetPosition(0, 1000, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
 	//
 	//Board================================================================================
@@ -93,78 +95,78 @@ void RojakAssignmentScene::Init()
 	// Walls--------------------------------------------------------------------------------
 	// mid--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("square")->Clone());
-	go->TRANSFORM->SetPosition(0, 0, -length / 2);
-	go->TRANSFORM->SetRotation(45, 0, 1, 0);
-	go->TRANSFORM->SetScale(thickness, height, thickness);
+	go->TRANS->SetPosition(0, 0, -length / 2);
+	go->TRANS->SetRotation(45, 0, 1, 0);
+	go->TRANS->SetScale(thickness, height, thickness);
 	// top--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	go->TRANSFORM->SetPosition(0, 0, -length);
-	go->TRANSFORM->SetScale(thickness, height, width * 2 + fOffset);
+	go->TRANS->SetPosition(0, 0, -length);
+	go->TRANS->SetScale(thickness, height, width * 2 + fOffset);
 	// bot left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	go->TRANSFORM->SetPosition(-(width / 2 + holeWidth / 2), 0, length - 20);
-	go->TRANSFORM->SetRotation(60, 0, 1, 0);
-	go->TRANSFORM->SetRotation(60, 0, 1, 0);
-	go->TRANSFORM->SetScale(thickness, height, width - holeWidth / 2);
+	go->TRANS->SetPosition(-(width / 2 + holeWidth / 2), 0, length - 20);
+	go->TRANS->SetRotation(60, 0, 1, 0);
+	go->TRANS->SetRotation(60, 0, 1, 0);
+	go->TRANS->SetScale(thickness, height, width - holeWidth / 2);
 	// bot right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	go->TRANSFORM->SetPosition((width / 2 + holeWidth / 2), 0, length - 20);
-	go->TRANSFORM->SetRotation(-60, 0, 1, 0);
-	go->TRANSFORM->SetScale(thickness, height, width - holeWidth / 2);
+	go->TRANS->SetPosition((width / 2 + holeWidth / 2), 0, length - 20);
+	go->TRANS->SetRotation(-60, 0, 1, 0);
+	go->TRANS->SetScale(thickness, height, width - holeWidth / 2);
 	// goal--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("goal")->Clone());
-	go->TRANSFORM->SetPosition(0, 0, length + 20);
-	go->TRANSFORM->SetScale(thickness, height, holeWidth + 40);
+	go->TRANS->SetPosition(0, 0, length + 20);
+	go->TRANS->SetScale(thickness, height, holeWidth + 40);
 	//go->AddComponent(new Blackhole(1000, 200));
 	// left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	go->TRANSFORM->SetPosition(-width, 0, 0);
-	go->TRANSFORM->SetRotation(0, 0, 1, 0);
-	go->TRANSFORM->SetScale(thickness, height, length * 2 + fOffset);
+	go->TRANS->SetPosition(-width, 0, 0);
+	go->TRANS->SetRotation(0, 0, 1, 0);
+	go->TRANS->SetScale(thickness, height, length * 2 + fOffset);
 	// right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	go->TRANSFORM->SetPosition(width, 0, 0);
-	go->TRANSFORM->SetRotation(0, 0, 1, 0);
-	go->TRANSFORM->SetScale(thickness, height, length * 2 + fOffset);
+	go->TRANS->SetPosition(width, 0, 0);
+	go->TRANS->SetRotation(0, 0, 1, 0);
+	go->TRANS->SetScale(thickness, height, length * 2 + fOffset);
 	// floor--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	go->TRANSFORM->SetPosition(0, -thickness / 2, 0);
-	go->TRANSFORM->SetRotation(90, 0, 0, 1);
-	go->TRANSFORM->SetScale(thickness, width * 2, length * 2);
+	go->TRANS->SetPosition(0, -thickness / 2, 0);
+	go->TRANS->SetRotation(90, 0, 0, 1);
+	go->TRANS->SetScale(thickness, width * 2, length * 2);
 	// pillar left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
-	go->TRANSFORM->SetPosition(-width / 2, 0, 0);
-	go->TRANSFORM->SetScale(15, height, 15);
+	go->TRANS->SetPosition(-width / 2, 0, 0);
+	go->TRANS->SetScale(15, height, 15);
 	// Pillar right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
-	go->TRANSFORM->SetPosition(width / 2, 0, 0);
-	go->TRANSFORM->SetScale(15, height, 15);
+	go->TRANS->SetPosition(width / 2, 0, 0);
+	go->TRANS->SetScale(15, height, 15);
 	//Paddle
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("paddle")->Clone());
 	go->RENDER->SetColor({ 0,0,1 });
-	go->TRANSFORM->SetPosition(-holeWidth, 0, length - 17.5f);
-	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
+	go->TRANS->SetPosition(-holeWidth, 0, length - 17.5f);
+	go->TRANS->SetRotation(-90, 0, 1, 0);
 	//Paddle
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("paddleRight")->Clone());
 	go->RENDER->SetColor({ 0,0,1 });
-	go->TRANSFORM->SetPosition(holeWidth, 0, length - 17.5f);
-	go->GetComponent<TransformComponent>()->SetRotation(90, 0, 1, 0);
+	go->TRANS->SetPosition(holeWidth, 0, length - 17.5f);
+	go->TRANS->SetRotation(90, 0, 1, 0);
 	// Obstacles--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("fanBlade")->Clone());
-	go->TRANSFORM->SetPosition(0, 0, -length / 8);
+	go->TRANS->SetPosition(0, 0, -length / 8);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("fanBlade")->Clone());
-	go->TRANSFORM->SetPosition(0, 0, -length / 8);
-	go->TRANSFORM->SetRotation(180, 0, 1, 0);
+	go->TRANS->SetPosition(0, 0, -length / 8);
+	go->TRANS->SetRotation(180, 0, 1, 0);
 	//go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	//go->TRANSFORM->SetPosition(0, 0, 0);
-	//go->TRANSFORM->SetRotation(90, 0, 1, 0);
-	//go->TRANSFORM->SetScale(thickness, height, width - holeWidth / 2);
+	//go->TRANS->SetPosition(0, 0, 0);
+	//go->TRANS->SetRotation(90, 0, 1, 0);
+	//go->TRANS->SetScale(thickness, height, width - holeWidth / 2);
 	go = m_GameObjectManager.AddGameObject();
 	go->AddComponent(new SunBrightnessScript);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("ball")));
 	go->RENDER->SetColor({ 1, 1, 0 });
-	go->TRANSFORM->SetScale(10);
-
+	go->TRANS->SetScale(10);
+	// Terrain--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Terrain")));
+	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("Terrain")->GetMesh()));
 }

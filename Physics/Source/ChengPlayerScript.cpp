@@ -89,7 +89,7 @@ void ChengPlayerScript::Update(double dt)
 			GDir.Normalize();
 			GDir *= 100;
 			WorldValues::DefaultGravity = GDir;
-			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANSFORM;
+			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS;
 			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z + 90);
 			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -60);
 		}
@@ -99,7 +99,7 @@ void ChengPlayerScript::Update(double dt)
 			GDir.Normalize();
 			GDir *= 150;
 			WorldValues::DefaultGravity = GDir;
-			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANSFORM;
+			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS;
 			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z - 0);
 			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -90);
 		}

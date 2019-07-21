@@ -4,8 +4,7 @@
 #include <string>
 #include "Time.h"
 #include "ComponentMacros.h"
-class ScriptComponent :
-	public ComponentBase
+
 #include "LightManager.h"
 #include "Camera.h"
 class ScriptComponent : public ComponentBase
