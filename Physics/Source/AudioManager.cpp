@@ -23,5 +23,12 @@ void AudioManager::PlayBGM(std::string filePath)
 void AudioManager::Play3D(std::string filePath, Vector3 position)
 {
 	filePath = Resources::Path::Audio + filePath;
-	engine->play3D(filePath.c_str(), irrklang::vec3df(position.x, position.y, position.z), false, false, false, irrklang::ESM_AUTO_DETECT, true);
+	try
+	{
+		engine->play3D(filePath.c_str(), irrklang::vec3df(position.x, position.y, position.z), false, false, false, irrklang::ESM_AUTO_DETECT, true);
+	}
+	catch (const std::exception&)
+	{
+		return;
+	}
 }
