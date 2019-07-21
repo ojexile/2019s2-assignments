@@ -1,6 +1,6 @@
 #include "PaddleScript.h"
 #include "KeyboardManager.h"
-#define SPEED 30000.f
+#define SPEED 60000.f
 #define maxdeg 70.f
 #define defdeg 120.f
 PaddleScript::PaddleScript(bool b)

@@ -190,6 +190,7 @@
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
+    <ClCompile Include="Source\PhysicsMaterial.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
     <ClCompile Include="Source\RainScript.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="Source\PaddleScript.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
+    <ClInclude Include="Source\PhysicsMaterial.h" />
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\RainScript.h" />
     <ClInclude Include="Source\RenderComponent.h" />

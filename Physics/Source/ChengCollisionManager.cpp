@@ -302,6 +302,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 	break;
 	case ChengRigidbody::BOX:
 	{
+		// DEPRECIATED 3D COLLDIER
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
 		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
@@ -310,6 +311,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 
 		Vector3 N = { 0,1,0 };
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) *N;
+		v *= rigid1->GetMat()->GetBounce();
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;
@@ -318,12 +320,13 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
 		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
+		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
 		Mtx44 rot;
 		rot.SetToRotation(trans2->GetDegrees() + 90, 0, 1, 0);
 
 		Vector3 N = rot * Vector3(1, 0, 0);
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) *N;
-		v *= 0.7f;
+		v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;
@@ -332,12 +335,14 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
 		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
+		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
 		Mtx44 rot;
 		rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
 
 		Vector3 N = rot * Vector3(1, 0, 0);
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) * N;
-		v *= 0.7f;
+
+		v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;

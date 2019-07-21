@@ -146,10 +146,11 @@ DataContainer::DataContainer()
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	bullet->AddComponent(new BulletScript(20.f));
 	ChengRigidbody* rigid = new ChengRigidbody(ChengRigidbody::BALL);
+	rigid->SetMat(1, 0.5f);
 	rigid->LockYAxis(true);
 	bullet->AddComponent(rigid);
 	bullet->AddComponent(new BallScript());
-	bullet->AddChild(Spawner);
+	//bullet->AddChild(Spawner);
 	m_map_GO["bullet"] = bullet;
 	// --------------------------------------------------------------------------------
 	GameObject* wall = new GameObject;
@@ -182,7 +183,7 @@ DataContainer::DataContainer()
 	m_map_GO["pillar"] = pillar;
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
-	pillar->AddComponent(new BouncerScript(10.f, scoreScript));
+	pillar->AddComponent(new BouncerScript(5.f, scoreScript));
 	//Player Pillar--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["playerPillar"] = go;
@@ -217,7 +218,7 @@ DataContainer::DataContainer()
 	ChengRigidbody* rb = new ChengRigidbody(ChengRigidbody::PADDLE, false);
 	rb->SetAVel({ 0, 120, 0 });
 	go->AddComponent(rb);
-	go->GetComponent<TransformComponent>()->SetScale(5, 100, 20);
+	go->GetComponent<TransformComponent>()->SetScale(2, 100, 20);
 	//pil = GetGameObject("playerPillar")->Clone();
 	//pil->GetComponent<TransformComponent>()->SetRelativePosition(0, 0, -35);
 	//pil->GetComponent<TransformComponent>()->SetScale(3, 100, 3);

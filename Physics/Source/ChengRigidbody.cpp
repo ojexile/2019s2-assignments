@@ -21,6 +21,9 @@ void ChengRigidbody::Update(double dt)
 	m_vForce.SetZero();
 	if (m_bGravityAffected)
 		vAccel += m_vGravity * WorldValues::GravityExponent;
+	// Friction
+	float coeff = m_PhyMat.GetFriction();
+
 	this->m_vVel += vAccel * (float)dt;
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
@@ -93,4 +96,12 @@ void ChengRigidbody::LockYAxis(bool b)
 void ChengRigidbody::LockZAxis(bool b)
 {
 	m_bLockZAxis = b;
+}
+void ChengRigidbody::SetMat(float f, float b)
+{
+	m_PhyMat.SetMat(f, b);
+}
+PhysicsMaterial* ChengRigidbody::GetMat()
+{
+	return &m_PhyMat;
 }

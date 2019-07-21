@@ -1,5 +1,6 @@
 #pragma once
 #include "ComponentBase.h"
+#include "PhysicsMaterial.h"
 class ChengRigidbody :
 	public ComponentBase
 {
@@ -32,6 +33,7 @@ private:
 
 	bool m_bGravityAffected;
 	ePhysicsTypes m_eType;
+	PhysicsMaterial m_PhyMat;
 public:
 	ChengRigidbody(ePhysicsTypes e, bool Grav = true);
 	virtual ~ChengRigidbody();
@@ -41,18 +43,22 @@ public:
 	}
 	virtual void Update(double dt) override;
 
-	void SetTorque(Vector3);
-	void SetVel(Vector3);
-	void SetAVel(Vector3);
+	// Get
 	Vector3 GetVel();
 	Vector3 GetAVel();
-	void IncrementForce(Vector3);
 	float GetMass();
-	void SetMass(float f);
 	ePhysicsTypes GetType();
+	PhysicsMaterial* GetMat();
 	// Grav
 	void SetGravityX(float x);
 	void LockXAxis(bool);
 	void LockYAxis(bool);
 	void LockZAxis(bool);
+	// Set
+	void SetMass(float f);
+	void SetVel(Vector3);
+	void SetAVel(Vector3);
+	void SetTorque(Vector3);
+	void IncrementForce(Vector3);
+	void SetMat(float, float);
 };
