@@ -86,7 +86,7 @@ void RojakAssignmentScene::Init()
 	//Board================================================================================
 	float width = 80;
 	float length = 120;
-	float height = 120;
+	float height = 100;
 	float holeWidth = 40;
 	float thickness = 20;
 	float fOffset = -thickness;
