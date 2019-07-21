@@ -1,10 +1,10 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
-
-#define DEFAULT_DIFFUSE 0.8f
-#define DEFAULT_AMBIENT 0.2f
-#define DEFAULT_SPECULAR 0.3f
-#define DEFAULT_SHININESS 5.f
+#include "Resources.h"
+#define DEFAULT_DIFFUSE Resources::Defaults::fDiffuse
+#define DEFAULT_AMBIENT  Resources::Defaults::fAmbient
+#define DEFAULT_SPECULAR  Resources::Defaults::fSpecular
+#define DEFAULT_SHININESS Resources::Defaults::fShininess
 
 struct Component
 {
