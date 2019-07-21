@@ -39,7 +39,7 @@ DataContainer::DataContainer()
 	//m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("particle");
 
 	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, true);
-	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Smoke2");
+	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Smoke");
 
 	m_map_Animated["Cat"] = MeshBuilder::GenerateAnimatedMesh("Cat", 5, 8, 0, 39, 2.f, true);
 	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Cat");
@@ -97,10 +97,9 @@ DataContainer::DataContainer()
 	// Particle--------------------------------------------------------------------------------
 	//Smoke--------------------------------------------------------------------------------
 	GameObject* SmokeParticle = new GameObject;
-	SmokeParticle->GetComponent<TransformComponent>()->SetScale(5, 5, 5);
 	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
 	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
-	SmokeParticle->AddComponent(new ParticleScript(0.3f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { 0,0,0 }, {}));
+	SmokeParticle->AddComponent(new ParticleScript(3.0f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { 0,0,0 }, {}));
 	m_map_GO["SmokeParticle"] = SmokeParticle;
 	//// Fish--------------------------------------------------------------------------------
 	//GameObject* Fish = new GameObject;
@@ -128,7 +127,7 @@ DataContainer::DataContainer()
 	//m_map_GO["Leaf"] = Leaf;
 	// Smoke Spawner--------------------------------------------------------------------------------
 	GameObject* Spawner = new GameObject;
-	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.002f, { .1f,.1f,.1f }, .8f, "Smoke"));
+	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.2f, { .1f,.1f,.1f }, .8f, "Smoke"));
 	//// Fountain Spawner--------------------------------------------------------------------------------
 	//GameObject* Fountain = new GameObject;
 	//Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.05f, { 0,0,0 }, .2f, "Default", 0.4f));
