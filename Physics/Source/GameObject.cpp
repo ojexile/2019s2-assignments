@@ -65,11 +65,24 @@ void GameObject::Update(double dt)
 	}
 	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
+		// Update world transform from relative trans
 		// Update pos
-		m_vec_ChildList[i]->GetComponent<TransformComponent>()
-			->SetPosition(
-				this->GetComponent<TransformComponent>()->GetPosition()
-				+ m_vec_ChildList[i]->GetComponent<TransformComponent>()->GetRelativePosition());
+		TransformComponent* trans = this->GetComponent<TransformComponent>();
+		TransformComponent* childTrans = m_vec_ChildList[i]->GetComponent<TransformComponent>();
+
+		Vector3 newPos = trans->GetPosition()
+			+ childTrans->GetRelativePosition();
+		// update rot pos
+		if (trans->GetDegrees() != 0)
+		{
+			Mtx44 rot;
+			rot.SetToRotation(trans->GetDegrees(), trans->GetRotation().x, trans->GetRotation().y, trans->GetRotation().z);
+			newPos = trans->GetPosition() + rot * childTrans->GetRelativePosition();
+		}
+		m_vec_ChildList[i]->GetComponent<TransformComponent>()->SetPosition(newPos);
+		// TODO update rot
+		// Update scale
+		childTrans->SetScale(trans->GetScale() + childTrans->GetRelativeScale());
 		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
 		{
 			if (!m_vec_ChildList[i]->IsActive())
