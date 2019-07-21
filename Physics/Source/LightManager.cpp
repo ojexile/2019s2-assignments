@@ -4,6 +4,7 @@ LightManager::LightManager()
 {
 	Light* directional = AddLight(Light::LIGHT_DIRECTIONAL);
 	directional->position.Set(40, 300, 0);
+	directional->power = 1;
 	/*m_currentLight = m_vec_SceneLights[0]:
 	m_iLightIndex = 0;*/
 }

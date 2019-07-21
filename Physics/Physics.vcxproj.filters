@@ -91,6 +91,7 @@
     <ClCompile Include="Source\GauntletScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
+    <ClCompile Include="Source\SunBrightnessScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Source\WorldValues.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
+    <ClInclude Include="Source\SunBrightnessScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

@@ -3,6 +3,7 @@
 SceneManager::SceneManager()
 {
 	m_CurrentScene = nullptr;
+	m_bSceneChanged = false;
 }
 
 SceneManager::~SceneManager()
@@ -12,9 +13,8 @@ SceneManager::~SceneManager()
 
 void SceneManager::ChangeScene(Scene* scene)
 {
-	this->DeleteScene();
-	m_CurrentScene = scene;
-	scene->Init();
+	m_TempScene = scene;
+	m_bSceneChanged = true;
 }
 
 Scene* SceneManager::GetScene()
@@ -26,4 +26,17 @@ void SceneManager::DeleteScene()
 {
 	if (m_CurrentScene)
 		delete m_CurrentScene;
+}
+bool SceneManager::IsSceneChanged()
+{
+	return m_bSceneChanged;
+}
+void SceneManager::SwapScene()
+{
+	if (m_CurrentScene)
+		delete m_CurrentScene;
+	m_CurrentScene = m_TempScene;
+	m_CurrentScene->Init();
+	m_TempScene = nullptr;
+	m_bSceneChanged = false;
 }

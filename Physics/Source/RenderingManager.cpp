@@ -205,9 +205,9 @@ void RenderingManager::RenderWorld(Scene* scene)
 	Vector3 CamToLight = LightPos - vCamPos;
 	float angleBetweenRad = acos(CamToLight.Dot(vCamDir) / (vCamDir.Length() * CamToLight.Length()));
 	float angleBetweenDeg = Math::RadianToDegree(angleBetweenRad);
-	this->m_fFlareVal = 180 - angleBetweenDeg - 120;
-	m_fFlareVal /= 360;
-	m_fFlareVal = Math::Clamp(m_fFlareVal, 0.f, .6f);
+	this->m_fFlareVal = 20 - angleBetweenDeg;
+	m_fFlareVal /= 70;
+	m_fFlareVal = Math::Clamp(m_fFlareVal, 0.f, .85f);
 
 	GameObjectManager* GOM = scene->GetGameObjectManager();
 	std::map<std::string, LayerData*>::iterator it;
@@ -243,6 +243,8 @@ void RenderingManager::RenderWorld(Scene* scene)
 		}
 	}
 	// Render UI
+	if (m_renderPass == RENDER_PASS_PRE)
+		return;
 	m_bFogEnabled = false;
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
 	std::vector<GameObject*>* GOList = map->at("UI")->GetGOList();

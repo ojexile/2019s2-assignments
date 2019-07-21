@@ -5,6 +5,7 @@
 #include "MeshController.h"
 #include "Blackhole.h"
 #include "GauntletScript.h"
+#include "SunBrightnessScript.h"
 RojakAssignmentScene::RojakAssignmentScene()
 {
 }
@@ -85,7 +86,7 @@ void RojakAssignmentScene::Init()
 	//Board================================================================================
 	float width = 80;
 	float length = 120;
-	float height = 120;
+	float height = 100;
 	float holeWidth = 40;
 	float thickness = 20;
 	float fOffset = -thickness;
@@ -158,4 +159,9 @@ void RojakAssignmentScene::Init()
 	//go->TRANSFORM->SetPosition(0, 0, 0);
 	//go->TRANSFORM->SetRotation(90, 0, 1, 0);
 	//go->TRANSFORM->SetScale(thickness, height, width - holeWidth / 2);
+	go = m_GameObjectManager.AddGameObject();
+	go->AddComponent(new SunBrightnessScript);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("ball")));
+	go->RENDER->SetColor({ 1, 1, 0 });
+	go->TRANSFORM->SetScale(10);
 }
