@@ -26,4 +26,11 @@ namespace Resources
 		extern const std::string LogUpdateRate;
 		extern const std::string LogUser;
 	}
+	namespace Defaults
+	{
+		extern const float fAmbient;
+		extern const float fDiffuse;
+		extern const float fSpecular;
+		extern const float fShininess;
+	}
 }
