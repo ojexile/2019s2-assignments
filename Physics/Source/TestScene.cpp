@@ -1,6 +1,7 @@
 #include "TestScene.h"
 #include "PlayerScript.h"
 #include "AudioManager.h"
+#include "Constrain.h"
 TestScene::TestScene()
 {
 }
@@ -21,16 +22,16 @@ void TestScene::Init()
 	// Layers
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
 	// Set up camera
-	m_CameraGO->TRANSFORM->SetPosition(0, 0, 0);
+	m_CameraGO->TRANS->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
 	this->m_Camera->InitOrtho({ 100,100,1000 });
 	//m_CameraGO->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 
 	// ui
 	GameObject* ui = m_GameObjectManager.AddGameObject("UI");
-	ui->TRANSFORM->SetPosition(0, 1000, 5);
-	ui->TRANSFORM->SetScale(100.f, 100.f, 1.f);
-	ui->TRANSFORM->SetRotation(90, 0, 1, 0);
+	ui->TRANS->SetPosition(0, 1000, 5);
+	ui->TRANS->SetScale(100.f, 100.f, 1.f);
+	ui->TRANS->SetRotation(90, 0, 1, 0);
 	ui->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	ui->RENDER->SetLightEnabled(true);
 	ui->RENDER->SetActive(true);
@@ -39,7 +40,7 @@ void TestScene::Init()
 
 	// text
 	GameObject* text = m_GameObjectManager.AddGameObject("UI");
-	text->TRANSFORM->SetPosition(50, 50, 200);
+	text->TRANS->SetPosition(50, 50, 200);
 	text->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof"));
 	text->RENDER->SetLightEnabled(false);
 	text->SetActive(true);
@@ -55,7 +56,7 @@ void TestScene::Init()
 
 	// Skyplane
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
-	SkyPlane->TRANSFORM->SetPosition(0, 100, 0);
+	SkyPlane->TRANS->SetPosition(0, 100, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
 	SkyPlane->RENDER->SetLightEnabled(false);
 	SkyPlane->SetActive(true);
@@ -77,7 +78,7 @@ void TestScene::Init()
 
 	// Ground
 	GameObject* ground = m_GameObjectManager.AddGameObject();
-	ground->TRANSFORM->SetRotation(-90, 1, 0, 0);
+	ground->TRANS->SetRotation(-90, 1, 0, 0);
 	ground->AddComponent(new RenderComponent(dataContainer->GetMesh("Ground")));
 	ground->RENDER->SetLightEnabled(true);
 	ground->SetActive(false);
@@ -85,8 +86,8 @@ void TestScene::Init()
 
 	// depth
 	GameObject* depth = m_GameObjectManager.AddGameObject();
-	depth->TRANSFORM->SetScale(1, 1, 1);
-	depth->TRANSFORM->SetPosition(20, 10, 1);
+	depth->TRANS->SetScale(1, 1, 1);
+	depth->TRANS->SetPosition(20, 10, 1);
 	//depth->TRANSFORM->SetRotation(-90, 1, 0, 0);
 	depth->AddComponent(new RenderComponent(dataContainer->GetMesh("Depth")));
 	depth->RENDER->SetLightEnabled(true);
@@ -95,15 +96,16 @@ void TestScene::Init()
 
 	//Player
 	GameObject* player = m_GameObjectManager.AddGameObject();
-	player->TRANSFORM->SetPosition(0, 15, 50);
+	player->TRANS->SetPosition(0, 15, 50);
 	player->AddComponent(new PlayerScript(dataContainer->GetGameObject("Cube")));
 	player->AddChild(m_CameraGO);
+	player->AddComponent(new Constrain(dataContainer->GetHeightMap("Terrain"), Constrain::LIMIT));
 	//AudioManager::GetInstance()->PlayBGM("despacito.wav");
 
 	// Cat
 	GameObject* cat = m_GameObjectManager.AddGameObject();
-	cat->TRANSFORM->SetPosition(0, 21, 0);
-	cat->TRANSFORM->SetScale(20.f, 20.f, 20.f);
+	cat->TRANS->SetPosition(0, 21, 0);
+	cat->TRANS->SetScale(20.f, 20.f, 20.f);
 	cat->AddComponent(new RenderComponent(dataContainer->GetAnimation("Cat")));
 	cat->RENDER->SetBillboard(true);
 	cat->RENDER->SetActive(true);

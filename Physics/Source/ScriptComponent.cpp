@@ -117,23 +117,23 @@ GameObject* ScriptComponent::Instantiate(GameObject* goRef, std::string sLayer)
 	DEFAULT_LOG("Instantiate failed, GORef is null.");
 	return nullptr;
 }
+Camera*  ScriptComponent::GetCamera()
+{
+	return SceneManager::GetInstance()->GetScene()->GetCamera();
+}
+GameObject*  ScriptComponent::GetCameraGO()
+{
+	return SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+}
+LightManager* ScriptComponent::GetLightManager()
+{
+	return SceneManager::GetInstance()->GetScene()->GetLightManager();
+}
 TransformComponent*  ScriptComponent::GetTransform()
 {
 	return GetComponent<TransformComponent>();
 }
 Vector3 ScriptComponent::GetPosition()
 {
-	GetTransform()->GetPosition();
-}
-Camera*  ScriptComponent::GetCamera()
-{
-	SceneManager::GetInstance()->GetScene()->GetCamera();
-}
-GameObject*  ScriptComponent::GetCameraGO()
-{
-	SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-}
-LightManager* ScriptComponent::GetLightManager()
-{
-	SceneManager::GetInstance()->GetScene()->GetLightManager();
+	return GetTransform()->GetPosition();
 }

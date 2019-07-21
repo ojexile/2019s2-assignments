@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#define TRANSFORM GetComponent<TransformComponent>()
+#define TRANS GetComponent<TransformComponent>()
 #define RENDER GetComponent<RenderComponent>()
 #define CAMERA GetComponent<CameraComponent>()
 
-typedef std::vector<unsigned char> heightmap;
+typedef std::vector<unsigned char> _heightmap;
