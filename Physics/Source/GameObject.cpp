@@ -71,13 +71,17 @@ void GameObject::Update(double dt)
 
 		Vector3 newPos = trans->GetPosition()
 			+ childTrans->GetRelativePosition();
+		// update rot
 		if (trans->GetDegrees() != 0)
 		{
 			Mtx44 rot;
 			rot.SetToRotation(trans->GetDegrees(), trans->GetRotation().x, trans->GetRotation().y, trans->GetRotation().z);
 			newPos = trans->GetPosition() + rot * childTrans->GetRelativePosition();
 		}
-		m_vec_ChildList[i]->GetComponent<TransformComponent>()->SetPosition(newPos);
+		// Update scale
+		Vector3 childScale = childTrans->GetScale();
+		childTrans->SetScale()
+			m_vec_ChildList[i]->GetComponent<TransformComponent>()->SetPosition(newPos);
 		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
 		{
 			if (!m_vec_ChildList[i]->IsActive())

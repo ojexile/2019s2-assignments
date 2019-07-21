@@ -38,11 +38,34 @@ void TransformComponent::SetScale(float scaleX, float scaleY, float scaleZ)
 {
 	this->m_vScale.Set(scaleX, scaleY, scaleZ);
 }
+void TransformComponent::SetScale(Vector3 v)
+{
+	this->m_vScale.Set(v.x, v.y, v.z);
+}
+void TransformComponent::SetScale(float f)
+{
+	this->m_vScale.Set(f, f, f);
+}
+
+void TransformComponent::ScaleBy(Vector3 v)
+{
+	this->m_vScale += v;
+}
 
 void TransformComponent::SetRotation(float degrees, int xAxis, int yAxis, int zAxis)
 {
 	this->m_vRotateAxis.Set((float)xAxis, (float)yAxis, (float)zAxis);
 	this->m_fdegrees = degrees;
+}
+void TransformComponent::SetRotation(float degrees, Vector3 v)
+{
+	this->m_vRotateAxis.Set(v.x, v.y, v.z);
+	this->m_fdegrees = degrees;
+}
+void TransformComponent::RotateBy(float degrees, Vector3 v)
+{
+	this->m_vRotateAxis = (v.x, v.y, v.z);
+	this->m_fdegrees += degrees;
 }
 
 void TransformComponent::SetPosition(float translateX, float translateY, float translateZ)
