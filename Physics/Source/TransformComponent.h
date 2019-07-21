@@ -8,8 +8,11 @@ private:
 	Vector3 m_vPosition;
 	Vector3 m_vRelativePosition;
 	Vector3 m_vScale;
+	Vector3 m_vRelativeScale;
 	Vector3 m_vRotateAxis;
-	float m_fdegrees;
+	Vector3 m_vRelativeRotateAxis;
+	float m_fDegrees;
+	float m_fRelativeDegrees;
 
 public:
 	TransformComponent();
@@ -42,6 +45,9 @@ public:
 	Vector3 GetPosition();
 	Vector3 GetRelativePosition();
 	Vector3 GetRotation();
+	Vector3 GetRelativeRotation();
 	Vector3 GetScale();
+	Vector3 GetRelativeScale();
 	float GetDegrees();
+	float GetRelativeDegrees();
 };
