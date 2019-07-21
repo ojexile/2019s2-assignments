@@ -84,7 +84,7 @@ void RojakAssignmentScene::Init()
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
 	//
 	//Board================================================================================
-	float width = 120;
+	float width = 80;
 	float length = 120;
 	float height = 120;
 	float holeWidth = 40;
@@ -133,21 +133,21 @@ void RojakAssignmentScene::Init()
 	go->TRANSFORM->SetScale(thickness, width * 2, length * 2);
 	// pillar left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
-	go->TRANSFORM->SetPosition(-80, 0, 0);
+	go->TRANSFORM->SetPosition(-width / 2, 0, 0);
 	go->TRANSFORM->SetScale(25, height, 25);
 	// Pillar right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
-	go->TRANSFORM->SetPosition(80, 0, 0);
+	go->TRANSFORM->SetPosition(width / 2, 0, 0);
 	go->TRANSFORM->SetScale(25, height, 25);
 	//Paddle
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("paddle")->Clone());
 	go->RENDER->SetColor({ 0,0,1 });
-	go->TRANSFORM->SetPosition(-holeWidth, 0, length);
+	go->TRANSFORM->SetPosition(-holeWidth, 0, length - 12);
 	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	//Paddle
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("paddleRight")->Clone());
 	go->RENDER->SetColor({ 0,0,1 });
-	go->TRANSFORM->SetPosition(holeWidth, 0, length);
+	go->TRANSFORM->SetPosition(holeWidth, 0, length - 12);
 	go->GetComponent<TransformComponent>()->SetRotation(90, 0, 1, 0);
 	// Obstacles--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("fanBlade")->Clone());

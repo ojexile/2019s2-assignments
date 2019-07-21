@@ -3,7 +3,7 @@
 #include "Time.h"
 #include "AudioManager.h"
 #include "ChengRigidbody.h"
-#define XGRAV 0
+#define XGRAV 10
 BulletScript::BulletScript(const float fLifeTime)
 	:m_fLifeTime(fLifeTime)
 {
