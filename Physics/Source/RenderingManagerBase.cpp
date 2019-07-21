@@ -8,7 +8,6 @@ RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
 	m_bFogEnabled = FOG_ENABLED;
-	m_fFlareVal = 0;
 }
 
 RenderingManagerBase::~RenderingManagerBase()
@@ -59,8 +58,6 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_COLOR_TEXTURE_ENABLED1] = glGetUniformLocation(m_programID,
 		"colorTextureEnabled[2]");
 	m_parameters[U_COLOR_TEXTURE1] = glGetUniformLocation(m_programID, "colorTexture[2]");
-	// Flare
-	m_parameters[U_FLARE_VAL] = glGetUniformLocation(m_programID, "flareVal");
 
 	// Shadows
 	m_parameters[U_LIGHT_DEPTH_MVP] =
@@ -140,7 +137,6 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 		glUniform1f(m_LightParameters[U_LIGHT_COSINNER + (U_LIGHT_TOTAL * index)], L->cosInner);
 		glUniform1f(m_LightParameters[U_LIGHT_EXPONENT + (U_LIGHT_TOTAL * index)], L->exponent);
 	}
-	glUniform1f(m_parameters[U_FLARE_VAL], m_fFlareVal);
 }
 
 void RenderingManagerBase::Init()
