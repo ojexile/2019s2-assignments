@@ -92,6 +92,7 @@
     <ClCompile Include="Source\WorldValues.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
     <ClCompile Include="Source\SunBrightnessScript.cpp" />
+    <ClCompile Include="Source\RojakScene2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Source\ComponentMacros.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
     <ClInclude Include="Source\SunBrightnessScript.h" />
+    <ClInclude Include="Source\RojakScene2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

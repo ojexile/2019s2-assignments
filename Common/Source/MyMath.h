@@ -24,7 +24,7 @@ Math namespace
 namespace Math
 {
 
-	const float	EPSILON    =	0.00001f;  ///Used for error checking
+	const float	EPSILON    =	0.001f;  ///Used for error checking
 	const float	PI         = 3.1415926535897932384626433832795f;
 	const float TWO_PI     = PI * 2.0f;
 	const float HALF_PI    = PI / 2.0f;

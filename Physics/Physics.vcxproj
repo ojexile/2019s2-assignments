@@ -198,6 +198,7 @@
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\RojakAssignmentScene.cpp" />
+    <ClCompile Include="Source\RojakScene2.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\ScoreScript.cpp" />
@@ -262,6 +263,7 @@
     <ClInclude Include="Source\RenderingManagerBase.h" />
     <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\RojakAssignmentScene.h" />
+    <ClInclude Include="Source\RojakScene2.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\ScoreScript.h" />

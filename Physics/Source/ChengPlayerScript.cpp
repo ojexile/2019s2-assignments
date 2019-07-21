@@ -10,6 +10,7 @@
 #include "GauntletScript.h"
 #include "Application.h"
 #include "WorldValues.h"
+#include "RojakScene2.h"
 #define CAMERA_ANGLE_OFFSET 5
 ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
 	:m_Gun(gun)
