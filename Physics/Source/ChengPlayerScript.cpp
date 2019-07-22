@@ -33,7 +33,7 @@ ChengPlayerScript::~ChengPlayerScript()
 }
 void ChengPlayerScript::Start()
 {
-	SwitchView();
+	//SwitchView();
 }
 void ChengPlayerScript::Update(double dt)
 {
@@ -110,12 +110,12 @@ void ChengPlayerScript::Update(double dt)
 			GDir *= 100;
 			WorldValues::DefaultGravity = GDir;
 			SetDefaultCamPos();
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -85);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);
 		}
 	}
 	Vector3 pos = trans->GetPosition();
 	// TODO Constrain to terrain================================================================================
-	trans->SetPosition(pos.x, 30.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500), pos.z);
+	//trans->SetPosition(pos.x, 30.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500), pos.z);
 	//trans->SetPosition({ pos.x,0,pos.z });
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
@@ -132,7 +132,7 @@ void ChengPlayerScript::SwitchView()
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(true);
 		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 		//trans->SetPosition(0, 0, 0);
-		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 20, 0);
+		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 10, 0);
 		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, 0);
 		m_Gun->SetActive(true);
 		m_CrossHair->SetActive(true);
@@ -155,7 +155,7 @@ void ChengPlayerScript::SetDefaultCamPos()
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
 	//trans->SetPosition(0, 0, 0);
-	cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -85);
+	cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -90);
 	Vector3 CamDir = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
 	Vector3 newRelPos = trans->GetPosition();
 	newRelPos = -newRelPos;

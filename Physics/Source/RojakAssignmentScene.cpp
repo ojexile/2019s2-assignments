@@ -78,7 +78,7 @@ void RojakAssignmentScene::Init()
 	GameObject* child = dataContainer->GetGameObject("playerPillar")->Clone();
 	go->AddChild(child);
 	go->AddChild(m_CameraGO);
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("Terrain"), Constrain::eConstrainTypes::LIMIT));
+	//go->AddComponent(new Constrain(dataContainer->GetHeightMap("Terrain"), Constrain::eConstrainTypes::LIMIT));
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
@@ -88,7 +88,7 @@ void RojakAssignmentScene::Init()
 	//Board================================================================================
 	float width = 80;
 	float length = 120;
-	float height = 100;
+	float height = 70;
 	float holeWidth = 40;
 	float thickness = 20;
 	float fOffset = -thickness;
@@ -129,10 +129,10 @@ void RojakAssignmentScene::Init()
 	go->TRANS->SetRotation(0, 0, 1, 0);
 	go->TRANS->SetScale(thickness, height, length * 2 + fOffset);
 	// floor--------------------------------------------------------------------------------
-	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
-	go->TRANS->SetPosition(0, -thickness / 2, 0);
-	go->TRANS->SetRotation(90, 0, 0, 1);
-	go->TRANS->SetScale(thickness, width * 2, length * 2);
+	//go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
+	//go->TRANS->SetPosition(0, -thickness / 2, 0);
+	//go->TRANS->SetRotation(90, 0, 0, 1);
+	//go->TRANS->SetScale(thickness, 1000, 1000);
 	// pillar left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
 	go->TRANS->SetPosition(-width / 2, 0, 0);
@@ -141,6 +141,14 @@ void RojakAssignmentScene::Init()
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
 	go->TRANS->SetPosition(width / 2, 0, 0);
 	go->TRANS->SetScale(15, height, 15);
+	// Pillar Bot Right--------------------------------------------------------------------------------
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
+	go->TRANS->SetPosition(width / 2 + 25, 0, 80);
+	go->TRANS->SetScale(5, height, 5);
+	// Pillar Bot Left--------------------------------------------------------------------------------
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar")->Clone());
+	go->TRANS->SetPosition(-width / 2 - 25, 0, 80);
+	go->TRANS->SetScale(5, height, 5);
 	//Paddle
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("paddle")->Clone());
 	go->RENDER->SetColor({ 0,0,1 });

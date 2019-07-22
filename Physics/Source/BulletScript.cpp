@@ -27,6 +27,7 @@ void BulletScript::Update(double dt)
 		rb->SetGravityX(-XGRAV);
 	else
 		rb->SetGravityX(XGRAV);
+	//GetTransform()->SetPosition(GetPosition().x, 10, GetPosition().z);
 }
 void BulletScript::Collide(GameObject* go)
 {

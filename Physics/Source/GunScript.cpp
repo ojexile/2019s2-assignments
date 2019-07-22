@@ -88,6 +88,7 @@ void GunScript::Fire(Vector3 vDir)
 	float fBallSpeed = 120.f;
 	Vector3 ballDir = vDir;
 	Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
+	//pos.y = 10;
 	GameObject* bul = Instantiate(m_Bullet, pos);
 	if (!bul)
 		return;

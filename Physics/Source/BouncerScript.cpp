@@ -41,7 +41,7 @@ void BouncerScript::Collide(GameObject* go)
 {
 	AudioManager::GetInstance()->Play3D("pop.wav", {});
 	float fDamage = 0.5f * go->GetComponent<ChengRigidbody>()->GetMass() * go->GetComponent<ChengRigidbody>()->GetVel().LengthSquared();
-	fDamage *= 0.001f;
+	fDamage *= 0.0001f;
 	m_fHealth -= fDamage;
 	ChengRigidbody * rigid = go->GetComponent<ChengRigidbody>();
 	rigid->IncrementForce(rigid->GetVel() * m_fBounceForce);
