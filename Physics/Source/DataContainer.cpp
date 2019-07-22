@@ -126,7 +126,7 @@ HeightMapData* DataContainer::GetHeightMap(std::string key)
 		DEFAULT_LOG("ERROR: Heightmap not found of name: " + key);
 	return m_map_HeightMaps[key];
 }
-void DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 vScale)
+Mesh* DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 vScale)
 {
 	_heightmap* heightMap = new _heightmap;
 	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale);
