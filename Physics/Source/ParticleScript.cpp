@@ -1,13 +1,15 @@
 #include "ParticleScript.h"
-
+#include "Time.h"
 ParticleScript::ParticleScript(const float fLifeTime, const Vector3 vSpeed,
-	const Vector3 vGravity, const Vector3 vAccel, const Vector3 vSizeChange, const Vector3 vRandAxis)
+	const Vector3 vGravity, const Vector3 vAccel, const Vector3 vSizeChange, const Vector3 vRandAxis, Vector3 sin, Vector3 sinfreq)
 	: m_fLifeTime(fLifeTime)
 	, m_vSpeed(vSpeed)
 	, m_vGravity(vGravity)
 	, m_vAccel(vAccel)
 	, m_vSizeChange(vSizeChange)
 	, m_vRandAxis(vRandAxis)
+	, m_vSin(sin)
+	, m_vSinFreq(sinfreq)
 {
 	m_CurrentDuration = 0;
 	if (m_vRandAxis.x > 0)
@@ -90,8 +92,14 @@ void ParticleScript::Update(double dt)
 		DestroySelf();
 		return;
 	}
-	// Should destroy
 	Trans->SetScale(vNewScale.y, vNewScale.y, vNewScale.z);
+	// Sin
+	if (m_vSin.x > 0)
+	{
+		Vector3 vOffset;
+		vOffset.x = m_vSin.x * sin(Time::GetInstance()->GetElapsedTimeF() * m_vSinFreq.x);
+		Trans->Translate(vOffset);
+	}
 	//--------------------------------------------------------------------------------
 	m_CurrentDuration += (float)dt;
 	// LifeTime

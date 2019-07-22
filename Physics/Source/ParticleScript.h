@@ -13,11 +13,13 @@ private:
 	const Vector3 m_vRandAxis;
 	float m_CurrentDuration;
 	bool Started = false;
+	const Vector3 m_vSin;
+	const Vector3 m_vSinFreq;
 public:
-	ParticleScript(const float fLifeTime, const Vector3 vSpeed, 
-		const Vector3 vGravity, const Vector3 vAccel, 
+	ParticleScript(const float fLifeTime, const Vector3 vSpeed,
+		const Vector3 vGravity, const Vector3 vAccel,
 		const Vector3 vSizeChange
-	, const Vector3 vRandAxis);
+		, const Vector3 vRandAxis, const Vector3 sinamp = { 0,0,0 }, const Vector3 sinfreq = { 0,0,0 });
 	virtual ~ParticleScript();
 	virtual ComponentBase* Clone()
 	{
