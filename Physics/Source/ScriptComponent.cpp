@@ -120,3 +120,23 @@ GameObject* ScriptComponent::Instantiate(GameObject* goRef, std::string sLayer)
 void ScriptComponent::Collide(GameObject*)
 {
 }
+Camera*  ScriptComponent::GetCamera()
+{
+	return SceneManager::GetInstance()->GetScene()->GetCamera();
+}
+GameObject*  ScriptComponent::GetCameraGO()
+{
+	return SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+}
+LightManager* ScriptComponent::GetLightManager()
+{
+	return SceneManager::GetInstance()->GetScene()->GetLightManager();
+}
+TransformComponent*  ScriptComponent::GetTransform()
+{
+	return GetComponent<TransformComponent>();
+}
+Vector3 ScriptComponent::GetPosition()
+{
+	return GetTransform()->GetPosition();
+}

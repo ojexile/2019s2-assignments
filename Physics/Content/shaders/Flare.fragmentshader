@@ -96,7 +96,7 @@ uniform bool textEnabled;
 uniform vec3 textColor;
 uniform FogParam fogParam;
 uniform sampler2D shadowMap;
-uniform float flareVal;
+
 
 float random(vec3 seed, int i)
 {
@@ -104,7 +104,20 @@ float random(vec3 seed, int i)
 	float dot_product = dot(seed4,vec4(12.9898,78.233,45.164,94.673));
 	return fract(sin(dot_product) * 43758.5453);
 }
-
+float calcFlareVal()
+{
+	// Calc Flare Val
+	vec3 LightPos = lights[0].position_cameraspace;
+	//vec3 compareWith = vertexPosition_cameraspace;
+	vec3 compareWith = vec3(0,0,-1);
+	float dot = dot(LightPos, compareWith);
+	float angleBetweenRad = acos( dot  /  length(LightPos) * length(compareWith) );
+	float angleBetweenDeg = degrees(angleBetweenRad);
+	float flareVal = 20 - angleBetweenDeg;
+	flareVal /= 50;
+	flareVal = clamp(flareVal, 0.f, .85f);
+	return flareVal;
+}
 float getShadowEffect(){ 
 	float visibility = 1.0;
 	float bias = 0.005;
@@ -224,8 +237,8 @@ void main(){
 		float fogDistance = abs(vertexPosition_cameraspace.z);
 		float fogFactor = getFogFactor(fogParam, fogDistance);
 		color = mix(color, vec4(fogParam.color, 1), fogFactor);
-	vec3 lightColor = vec3(1,.9,0.8);
-	color = mix(color, vec4(lightColor, 1), flareVal);
+		vec3 lightColor = vec3(1,.9,0.8);
+		float flareVal = calcFlareVal();
+		color = mix(color, vec4(lightColor, 1), flareVal);
 	}
-	
 }

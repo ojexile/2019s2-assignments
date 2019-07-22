@@ -9,6 +9,7 @@
 #include "MeshBuilder.h"
 #include "GameObject.h"
 #include "ComponentMacros.h"
+#include "HeightMapData.h"
 
 #include "shader.hpp"
 
@@ -19,6 +20,9 @@ private:
 	std::map<std::string, AnimatedMesh*> m_map_Animated;
 	std::map<std::string, GameObject*> m_map_GO;
 	std::map<std::string, unsigned> m_map_Shaders;
+	std::map<std::string, HeightMapData*> m_map_HeightMaps;
+
+	Mesh* GenerateTerrain(std::string key, std::string path, Vector3 vScale);
 public:
 	DataContainer();
 	~DataContainer();
@@ -29,4 +33,5 @@ public:
 	AnimatedMesh* GetAnimation(std::string name);
 	GameObject* GetGameObject(std::string name);
 	unsigned GetShader(std::string key);
+	HeightMapData* GetHeightMap(std::string key);
 };

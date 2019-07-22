@@ -81,9 +81,6 @@ protected:
 		U_SHADOW_COLOR_TEXTURE_ENABLED2,
 		U_SHADOW_COLOR_TEXTURE2,
 
-		// flare
-		U_FLARE_VAL,
-
 		U_TOTAL,
 	};
 	enum UNIFORM_LIGHT
@@ -139,8 +136,6 @@ protected:
 	bool bLightEnabled;
 	float fps;
 	float m_fElapsedTime;
-
-	float m_fFlareVal;
 
 	bool m_bFogEnabled;
 

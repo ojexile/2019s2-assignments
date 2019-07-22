@@ -129,7 +129,7 @@ void GauntletScript::Use()
 		float posx = (float)x / Application::GetWindowWidth() * 300 - 150;
 		float posz = (float)y / Application::GetWindowHeight() * 300 - 150;
 
-		Vector3 pos = { posx, 10, posz };
+		Vector3 pos = { posx, 15, posz };
 		GameObject* bul = Instantiate(m_Ball, pos);
 		if (!bul)
 			return;

@@ -32,6 +32,15 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
+
+	Mesh* mesh = GenerateTerrain("Terrain", "heightmapMain", { 500,30,500 });
+	mesh->m_uTextureArray[0] = LoadTGA("moss1");
+	mesh->m_uTextureArray[1] = LoadTGA("sky");
+
+	mesh = GenerateTerrain("Terrain", "heightmapFlat", { 500,30,500 });
+	mesh->m_uTextureArray[0] = LoadTGA("moss1");
+	mesh->m_uTextureArray[1] = LoadTGA("sky");
+
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
 	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("PLAYER_PISTOL");
 
@@ -187,7 +196,7 @@ DataContainer::DataContainer()
 	//Player Pillar--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["playerPillar"] = go;
-	go->TRANSFORM->SetRelativeScale({ 5, 50, 5 });
+	go->TRANS->SetRelativeScale({ 5, 50, 5 });
 	go->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
 	go->AddComponent(new BouncerScript(1.f, scoreScript, true));
@@ -198,11 +207,7 @@ DataContainer::DataContainer()
 	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
 	go->AddComponent(new PaddleScript(true));
-	go->GetComponent<TransformComponent>()->SetScale(5, 25, 35);
-	//GameObject* pil = GetGameObject("playerPillar")->Clone();
-	//pil->GetComponent<TransformComponent>()->SetRelativePosition(0, 0, -35);
-	//pil->GetComponent<TransformComponent>()->SetScale(3, 100, 3);
-	//go->AddChild(pil);
+	go->GetComponent<TransformComponent>()->SetScale(5, 100, 35);
 	// PaddleRight--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["paddleRight"] = go;
@@ -210,7 +215,7 @@ DataContainer::DataContainer()
 	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
 	go->AddComponent(new PaddleScript(false));
-	go->GetComponent<TransformComponent>()->SetScale(5, 25, 35);
+	go->GetComponent<TransformComponent>()->SetScale(5, 100, 35);
 	// Fan--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["fanBlade"] = go;
@@ -264,6 +269,18 @@ DataContainer::~DataContainer()
 		delete it3->second;
 	}
 	m_map_GO.clear();
+	for (it3 = m_map_GO.begin(); it3 != m_map_GO.end(); it3++)
+	{
+		// it->first == key
+		// it->second == value
+		delete it3->second;
+	}
+	m_map_GO.clear();
+	for (auto const& x : m_map_HeightMaps)
+	{
+		delete x.second;
+	}
+	m_map_HeightMaps.clear();
 }
 
 Mesh* DataContainer::GetMesh(std::string name)
@@ -293,4 +310,17 @@ unsigned DataContainer::GetShader(std::string key)
 		DEFAULT_LOG("ERROR: Shader not found of name: " + key);
 	unsigned shader = m_map_Shaders[key];
 	return shader;
+}
+HeightMapData* DataContainer::GetHeightMap(std::string key)
+{
+	if (m_map_HeightMaps.count(key) <= 0)
+		DEFAULT_LOG("ERROR: Heightmap not found of name: " + key);
+	return m_map_HeightMaps[key];
+}
+Mesh* DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 vScale)
+{
+	_heightmap* heightMap = new _heightmap;
+	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale);
+	m_map_HeightMaps[key] = new HeightMapData(mesh, heightMap, vScale);
+	return mesh;
 }
