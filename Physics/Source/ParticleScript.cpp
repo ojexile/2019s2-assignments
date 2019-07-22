@@ -94,12 +94,30 @@ void ParticleScript::Update(double dt)
 	}
 	Trans->SetScale(vNewScale.y, vNewScale.y, vNewScale.z);
 	// Sin
+	Vector3 vSinOffset;
 	if (m_vSin.x > 0)
-	{
-		Vector3 vOffset;
-		vOffset.x = m_vSin.x * sin(Time::GetInstance()->GetElapsedTimeF() * m_vSinFreq.x);
-		Trans->Translate(vOffset);
-	}
+		vSinOffset.x = m_vSin.x * sin(Time::GetInstance()->GetElapsedTimeF() * m_vSinFreq.x);
+	if (m_vSin.y > 0)
+		vSinOffset.y = m_vSin.y * sin(Time::GetInstance()->GetElapsedTimeF() * m_vSinFreq.y);
+	if (m_vSin.z > 0)
+		vSinOffset.z = m_vSin.z * sin(Time::GetInstance()->GetElapsedTimeF() * m_vSinFreq.z);
+	Trans->Translate(vSinOffset);
+	// Cos
+	Vector3 vCosOffset;
+	if (m_vCos.x > 0)
+		vCosOffset.x = m_vCos.x * cos(Time::GetInstance()->GetElapsedTimeF() * m_vCosFreq.x);
+	if (m_vCos.y > 0)
+		vCosOffset.y = m_vCos.y * cos(Time::GetInstance()->GetElapsedTimeF() * m_vCosFreq.y);
+	if (m_vCos.z > 0)
+		vCosOffset.z = m_vCos.z * cos(Time::GetInstance()->GetElapsedTimeF() * m_vCosFreq.z);
+	Trans->Translate(vCosOffset);
+	// rot
+	if (m_vRotateRate.x > 0)
+		Trans->RotateBy(m_vRotateRate.x * (float)dt, { 1, 0, 0 });
+	if (m_vRotateRate.y > 0)
+		Trans->RotateBy(m_vRotateRate.y * (float)dt, Vector3{ 0, 1, 0 });
+	if (m_vRotateRate.z > 0)
+		Trans->RotateBy(m_vRotateRate.z * (float)dt, { 0, 0, 1 });
 	//--------------------------------------------------------------------------------
 	m_CurrentDuration += (float)dt;
 	// LifeTime
@@ -108,4 +126,13 @@ void ParticleScript::Update(double dt)
 		// Destroy object
 		DestroySelf();
 	}
+}
+void ParticleScript::SetCos(Vector3 a, Vector3 f)
+{
+	m_vCos = a;
+	m_vCosFreq = f;
+}
+void ParticleScript::SetRot(Vector3 v)
+{
+	m_vRotateRate = v;
 }

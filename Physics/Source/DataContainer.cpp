@@ -34,11 +34,11 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
-	Mesh* mesh = GenerateTerrain("Terrain", "heightmapMain", { 500,30,500 });
+	Mesh* mesh = GenerateTerrain("TerrainMain", "heightmapMain", { 500,30,500 });
 	mesh->m_uTextureArray[0] = LoadTGA("moss1");
 	mesh->m_uTextureArray[1] = LoadTGA("sky");
 
-	mesh = GenerateTerrain("Terrain", "heightmapFlat", { 500,30,500 });
+	mesh = GenerateTerrain("Terrain", "heightmapFlat", { 1000,40,1000 });
 	mesh->m_uTextureArray[0] = LoadTGA("moss1");
 	mesh->m_uTextureArray[1] = LoadTGA("sky");
 
@@ -65,9 +65,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["DropletMini"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.2f);
 	m_map_Meshes["DropletMini"]->m_uTextureArray[0] = LoadTGA("particle");
-
-	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("cubeobj", "water");
-	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("water");*/
+	*/
+	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("water");
+	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("water");
 
 	m_map_Meshes["Tree"] = MeshBuilder::GenerateOBJ("treeShrunk");
 	m_map_Meshes["Tree"]->m_uTextureArray[0] = LoadTGA("tree");
@@ -134,14 +134,19 @@ DataContainer::DataContainer()
 	m_map_GO["Leaf"] = Leaf;
 	Leaf->AddComponent(new RenderComponent(this->GetAnimation("Leaf")));
 	Leaf->GetComponent<RenderComponent>()->SetBillboard(true);
-	Leaf->AddComponent(new ParticleScript(6.5f, { 0,-0.1f,0 }, { 0,0,0 }, { 0,-0.02f,0 }, { -0.1f,-0.1f,0 }, {}, { 0.1,0.1,0.1 }, { 1,1,1 }));
+	float ampl = 0.1f;
+	float freq = 0.8f;
+	ParticleScript* ps = new ParticleScript(6.5f, { 0,-0.03f,0 }, { 0,0,0 }, { 0,-0.02f,0 }, { -0.2f,-0.2f,0 }, {}, { ampl,0,0 }, { freq,0,0 });
+	//ps->SetCos({ 0,0,ampl }, { 0,0,freq });
+	ps->SetRot({ 20,0,0 });
+	Leaf->AddComponent(ps);
 	// Leaf Spawner--------------------------------------------------------------------------------
 	GameObject* LeafSpawner = new GameObject;
-	LeafSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Leaf"), 0.8f, { 10,2,10 }, .2f, "Default", -1.f));
+	LeafSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Leaf"), 0.8f, { 10,5,10 }, 1.f, "Default", -1.f));
 	m_map_GO["LeafSpawner"] = LeafSpawner;
 	// Smoke Spawner--------------------------------------------------------------------------------
 	GameObject* Spawner = new GameObject;
-	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.2f, { .1f,.1f,.1f }, .8f, "Smoke"));
+	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.8f, { .1f,.1f,.1f }, .8f, "Smoke"));
 	//// Fountain Spawner--------------------------------------------------------------------------------
 	//GameObject* Fountain = new GameObject;
 	//Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.05f, { 0,0,0 }, .2f, "Default", 0.4f));

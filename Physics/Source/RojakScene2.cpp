@@ -6,6 +6,7 @@
 #include "Blackhole.h"
 #include "GauntletScript.h"
 #include "SunBrightnessScript.h"
+#include "Constrain.h"
 RojakScene2::RojakScene2()
 {
 }
@@ -24,7 +25,7 @@ void RojakScene2::Init()
 	//m_GameObjectManager.AddGameObject(CameraGO);
 	// Layers================================================================================
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
-	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Smoke"), "Smoke");
+	//m_GameObjectManager.CreateLayer(dataContainer->GetShader("Smoke"), "Smoke");
 	// Set up camera
 	m_CameraGO->TRANS->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
@@ -66,10 +67,6 @@ void RojakScene2::Init()
 	gun->RENDER->SetBillboard(false);
 	gun->RENDER->SetLightEnabled(false);
 	gun->AddComponent(new GunScript(dataContainer->GetGameObject("bullet"), m_CameraGO, 0.1f, GunScript::CHARGE));
-	////Repel--------------------------------------------------------------------------------
-	//GameObject* repel = new GameObject;
-	//repel->AddComponent(new Blackhole(-20000, 700));
-	//repel->SetActive(false);
 	// Player--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
 	go->TRANS->SetPosition(0, 0, 50);
@@ -77,11 +74,11 @@ void RojakScene2::Init()
 	GameObject* child = dataContainer->GetGameObject("playerPillar");
 	go->AddChild(child);
 	go->AddChild(m_CameraGO);
-	//go->AddComponent(new Constrain(dataContainer->GetHeightMap("Terrain"), Constrain::eConstrainTypes::LIMIT));
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainMain"), Constrain::eConstrainTypes::FIXED));
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
-	SkyPlane->TRANS->SetPosition(0, 2000, 0);
+	SkyPlane->TRANS->SetPosition(0, 1000, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
 	// Sun--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
@@ -176,5 +173,8 @@ void RojakScene2::Init()
 
 	// Terrain--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
-	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("Terrain")->GetMesh()));
+	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainMain")->GetMesh()));
+	// Water--------------------------------------------------------------------------------
+	go = m_GameObjectManager.AddGameObject("Water");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("WaterPlane")));
 }
