@@ -33,7 +33,7 @@ ChengPlayerScript::~ChengPlayerScript()
 }
 void ChengPlayerScript::Start()
 {
-	//SwitchView();
+	SwitchView();
 }
 void ChengPlayerScript::Update(double dt)
 {
