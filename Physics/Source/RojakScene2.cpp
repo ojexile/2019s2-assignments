@@ -87,7 +87,7 @@ void RojakScene2::Init()
 	go->RENDER->SetColor({ 1, 1, 0 });
 	go->TRANS->SetScale(10);
 	//Board================================================================================
-	float width = 80;
+	float width = 250;
 	float length = 120;
 	float height = 70;
 	float holeWidth = 40;
