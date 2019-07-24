@@ -16,7 +16,7 @@ GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRa
 	m_bTriggerDown = false;
 	m_fChargeTime = 0;
 	m_fMaxChargeTime = 3;
-	m_fMaxScale = 10;
+	m_fMaxScale = 7;
 	m_fMinChargeTime = 0.01f;
 }
 
@@ -73,7 +73,7 @@ void GunScript::Fire(Vector3 vDir)
 		if (m_fChargeTime < m_fMinChargeTime)
 			return;
 		fScale = (m_fChargeTime / m_fMaxChargeTime) * m_fMaxScale;
-		fScale = Math::Clamp(fScale, 1.f, m_fMaxScale);
+		fScale = Math::Clamp(fScale, 2.f, m_fMaxScale);
 	}
 	break;
 	case GunScript::SEMI_AUTO:

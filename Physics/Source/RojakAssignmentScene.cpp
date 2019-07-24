@@ -56,6 +56,7 @@ void RojakAssignmentScene::Init()
 	meshController->AddMesh("GauntTime", dataContainer->GetMesh("GauntTime"));
 	meshController->AddMesh("GauntMind", dataContainer->GetMesh("GauntMind"));
 	meshController->AddMesh("GauntFist", dataContainer->GetMesh("GauntFist"));
+	meshController->AddMesh("GauntSnap", dataContainer->GetMesh("GauntSnap"));
 	Gaunt->AddComponent(meshController);
 	Gaunt->AddComponent(new GauntletScript(dataContainer->GetGameObject("bullet")));
 	Gaunt->SetActive(false);

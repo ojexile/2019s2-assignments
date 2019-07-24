@@ -102,6 +102,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["GauntFist"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["GauntFist"]->m_uTextureArray[0] = LoadTGA("GauntFist");
+
+	m_map_Meshes["GauntSnap"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["GauntSnap"]->m_uTextureArray[0] = LoadTGA("GauntSnap");
 	// Gameobjects================================================================================
 	GameObject* go;
 	// Particle--------------------------------------------------------------------------------

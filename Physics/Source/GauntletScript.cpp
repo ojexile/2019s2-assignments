@@ -4,6 +4,9 @@
 #include "Time.h"
 #include "ChengRigidbody.h"
 #include "Application.h"
+#include "GameObjectManager.h"
+#include <vector>
+#include "BulletScript.h"
 GauntletScript::GauntletScript(GameObject* ball)
 	:m_Ball(ball)
 {
@@ -112,7 +115,28 @@ void GauntletScript::Use()
 	case NONE:
 		break;
 	case SOUL:
-		break;
+	{
+		m_MC->SetMesh("GauntSnap");
+		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
+		m_fDuration = 3.f;
+		//
+		GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
+		std::vector<GameObject*>* list = GOM->GetLayerList()->at("Default")->GetGOList();
+		int iter = 0;
+		for (unsigned i = 0; i < list->size(); ++i)
+		{
+			if (list->at(i)->GetComponent<BulletScript>())
+			{
+				++iter;
+				if (iter == 2)
+				{
+					GOM->Destroy(list->at(i));
+					iter = 0;
+				}
+			}
+		}
+	}
+	break;
 	case REALITY:
 		WorldValues::GravityExponent = { 0,0,0 };
 		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
@@ -137,7 +161,7 @@ void GauntletScript::Use()
 		//bul->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
 		bul->GetComponent<ChengRigidbody>()->SetMass(fScale);
 		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
-		m_fDuration = .2f;
+		m_fDuration = .1f;
 	}
 	break;
 	case POWER:
@@ -167,6 +191,7 @@ void GauntletScript::StopUse()
 	case NONE:
 		break;
 	case SOUL:
+		m_MC->SetMesh("GauntSoul");
 		break;
 	case REALITY:
 		WorldValues::GravityExponent = WorldValues::DefaultGravityExponent;
