@@ -3,10 +3,13 @@
 #include "Time.h"
 #include "AudioManager.h"
 #include "RojakAssignmentScene.h"
+#include "RojakScene2.h"
 #include "Preferences.h"
 #include "Resources.h"
 #include "Utility.h"
 #include "AudioManager.h"
+#include "RojakScene2.h"
+#include "MainMenu.h"
 // Select Debug logger user
 // Users are enums located in locator.h
 //#define USER CHENG
@@ -35,7 +38,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new RojakAssignmentScene);
+	SceneManager->ChangeScene(new MainMenu);
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position

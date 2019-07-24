@@ -34,6 +34,14 @@ ChengPlayerScript::~ChengPlayerScript()
 void ChengPlayerScript::Start()
 {
 	SwitchView();
+	TransformComponent* trans = GetComponent<TransformComponent>();
+	Vector3 GDir = { 0,0,1 };
+	GDir.Normalize();
+	GDir *= 150;
+	WorldValues::DefaultGravity = GDir;
+	TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS;
+	CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z - 0);
+	SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -90);
 }
 void ChengPlayerScript::Update(double dt)
 {
@@ -105,15 +113,15 @@ void ChengPlayerScript::Update(double dt)
 		}
 		else
 		{
-			Vector3 GDir = { 0,0,1 };
+			/*Vector3 GDir = { 0,0,1 };
 			GDir.Normalize();
 			GDir *= 100;
 			WorldValues::DefaultGravity = GDir;
 			SetDefaultCamPos();
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);*/
 		}
 	}
-	Vector3 pos = trans->GetPosition();
+	//Vector3 pos = trans->GetPosition();
 	// TODO Constrain to terrain================================================================================
 	//trans->SetPosition(pos.x, 30.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500), pos.z);
 	//trans->SetPosition({ pos.x,0,pos.z });

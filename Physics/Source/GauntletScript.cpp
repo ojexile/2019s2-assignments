@@ -4,6 +4,10 @@
 #include "Time.h"
 #include "ChengRigidbody.h"
 #include "Application.h"
+#include "GameObjectManager.h"
+#include <vector>
+#include "BulletScript.h"
+#include "AudioManager.h"
 GauntletScript::GauntletScript(GameObject* ball)
 	:m_Ball(ball)
 {
@@ -30,8 +34,6 @@ void GauntletScript::Update(double dt)
 			if (Time::GetInstance()->GetElapsedTimeF() > m_fStartTime + m_fDuration)
 			{
 				StopUse();
-				m_fStartTime = 0;
-				m_fDuration = 0;
 			}
 		}
 	}
@@ -104,22 +106,50 @@ void GauntletScript::RotateBackward()
 }
 void GauntletScript::Use()
 {
-	m_MC->SetMesh("GauntFist");
 	if (m_bInUse)
+	{
+		StopUse();
 		return;
+	}
 	switch (m_eStone)
 	{
 	case NONE:
 		break;
 	case SOUL:
-		break;
+	{
+		AudioManager::GetInstance()->Play3D("snap.wav", { -1,0,0 });
+		m_MC->SetMesh("GauntSnap");
+		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
+		m_fDuration = 3.f;
+		//
+		GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
+		std::vector<GameObject*>* list = GOM->GetLayerList()->at("Default")->GetGOList();
+		int iter = 0;
+		for (unsigned i = 0; i < list->size(); ++i)
+		{
+			if (list->at(i)->GetComponent<BulletScript>())
+			{
+				++iter;
+				if (iter == 2)
+				{
+					GOM->Destroy(list->at(i));
+					iter = 0;
+				}
+			}
+		}
+	}
+	break;
 	case REALITY:
+		m_MC->SetMesh("GauntFist");
+		AudioManager::GetInstance()->Play3D("thump.wav", { -1,0,0 });
 		WorldValues::GravityExponent = { 0,0,0 };
 		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
-		m_fDuration = 5.f;
+		m_fDuration = 3.f;
 		break;
 	case SPACE:
 	{
+		m_MC->SetMesh("GauntFist");
+		AudioManager::GetInstance()->Play3D("thump.wav", { -1,0,0 });
 		// Spawn ball
 		float fScale = 2;
 		float fBallSpeed = 120.f;
@@ -137,14 +167,26 @@ void GauntletScript::Use()
 		//bul->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
 		bul->GetComponent<ChengRigidbody>()->SetMass(fScale);
 		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
-		m_fDuration = .5f;
+		m_fDuration = .1f;
 	}
 	break;
 	case POWER:
+		m_MC->SetMesh("GauntFist");
+		AudioManager::GetInstance()->Play3D("thump.wav", { -1,0,0 });
+		WorldValues::PaddleForce = 500000.f;
+		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
+		m_fDuration = 10.f;
 		break;
 	case TIME:
+		m_MC->SetMesh("GauntFist");
+		AudioManager::GetInstance()->Play3D("thump.wav", { -1,0,0 });
+		WorldValues::TimeScale = -1.f;
+		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
+		m_fDuration = 1.f;
 		break;
 	case MIND:
+		m_MC->SetMesh("GauntFist");
+		AudioManager::GetInstance()->Play3D("thump.wav", { -1,0,0 });
 		break;
 	default:
 		break;
@@ -161,6 +203,7 @@ void GauntletScript::StopUse()
 	case NONE:
 		break;
 	case SOUL:
+		m_MC->SetMesh("GauntSoul");
 		break;
 	case REALITY:
 		WorldValues::GravityExponent = WorldValues::DefaultGravityExponent;
@@ -170,14 +213,19 @@ void GauntletScript::StopUse()
 		m_MC->SetMesh("GauntSpace");
 		break;
 	case POWER:
+		WorldValues::PaddleForce = 60000.f;
+		m_MC->SetMesh("GauntTime");
 		break;
 	case TIME:
+		WorldValues::TimeScale = 1.f;
+		m_MC->SetMesh("GauntTime");
 		break;
 	case MIND:
 		break;
 	default:
 		break;
 	}
-
+	m_fStartTime = 0;
+	m_fDuration = 0;
 	m_bInUse = false;
 }

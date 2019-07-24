@@ -95,6 +95,9 @@
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
     <ClCompile Include="Source\SunBrightnessScript.cpp" />
     <ClCompile Include="Source\RojakScene2.cpp" />
+    <ClCompile Include="Source\HoleScript.cpp" />
+    <ClCompile Include="Source\MainMenu.cpp" />
+    <ClCompile Include="Source\MenuScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -166,6 +169,9 @@
     <ClInclude Include="Source\PhysicsMaterial.h" />
     <ClInclude Include="Source\SunBrightnessScript.h" />
     <ClInclude Include="Source\RojakScene2.h" />
+    <ClInclude Include="Source\HoleScript.h" />
+    <ClInclude Include="Source\MainMenu.h" />
+    <ClInclude Include="Source\MenuScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />
