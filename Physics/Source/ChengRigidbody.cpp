@@ -52,7 +52,7 @@ void ChengRigidbody::Update(double dt)
 void ChengRigidbody::SetTorque(Vector3 v)
 {
 	if (WorldValues::TimeScale > 0)
-	this->m_vTorque = v;
+		this->m_vTorque = v;
 	else
 		this->m_vTorque = -v;
 }
@@ -107,9 +107,9 @@ ChengRigidbody::ePhysicsTypes ChengRigidbody::GetType()
 void ChengRigidbody::SetGravityX(float x)
 {
 	if (WorldValues::TimeScale > 0)
-	this->m_vGravity.x = x;
+		this->m_vGravity.x = x;
 	else
-	this->m_vGravity.x = -x;
+		this->m_vGravity.x = -x;
 }
 void ChengRigidbody::LockXAxis(bool b)
 {
