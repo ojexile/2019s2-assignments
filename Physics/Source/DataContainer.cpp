@@ -8,6 +8,8 @@
 #include "GoalScript.h"
 #include "BouncerScript.h"
 #include "PaddleScript.h"
+#include "HoleScript.h"
+
 #include <time.h>
 DataContainer::DataContainer()
 {
@@ -180,12 +182,20 @@ DataContainer::DataContainer()
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
 	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
-	// --------------------------------------------------------------------------------
+	// Square--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["square"] = go;
 	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	go->AddComponent(new RenderComponent(this->GetMesh("square")));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::SQUARE, false));
+	//Square Hole--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["squareHole"] = go;
+	go->TRANS->SetScale(7, 100, 7);
+	go->AddComponent(new RenderComponent(this->GetMesh("square")));
+	go->RENDER->SetColor({ 0,0,0 });
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::SQUARE, false));
+	go->AddComponent(new HoleScript);
 	// Score--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["scoreboard"] = go;
@@ -206,6 +216,15 @@ DataContainer::DataContainer()
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
 	pillar->AddComponent(new BouncerScript(5.f, scoreScript));
+	//Pillar Hole--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["pillarHole"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("pillar")));
+	go->RENDER->SetColor({ 0,0,0 });
+	go->TRANS->SetScale(7, 100, 7);
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
+	go->AddComponent(new HoleScript);
+	//pillar->AddComponent(new BouncerScript(5.f, scoreScript));
 	//Player Pillar--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["playerPillar"] = go;

@@ -159,10 +159,13 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
 		//--------------------------------------------------------------------------------
 		//Vector3 N = Vector3(,0,)
-		Mtx44 rot;
-
-		rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
-		Vector3 N = rot * Vector3(1, 0, 0);
+		Vector3 N = { 1,0,0 };
+		if (trans2->GetDegrees() != 0)
+		{
+			Mtx44 rot;
+			rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
+			N = rot * Vector3(1, 0, 0);
+		}
 		//--------------------------------------------------------------------------------
 		Vector3 w0minusb1 = trans2->GetPosition() - trans1->GetPosition();
 		Vector3 pDir = N;
@@ -335,8 +338,8 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 			if (WorldValues::TimeScale > 0)
 				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 			else
-				v *= 1 /(rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
-				//v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+				v *= 1 / (rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
+			//v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 		}
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
@@ -347,20 +350,24 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
 		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
 		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
-		Mtx44 rot;
-		rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
+		Vector3 N = { 1,0,0 };
+		if (trans2->GetDegrees() != 0)
+		{
+			Mtx44 rot;
+			rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
+			N = rot * Vector3(1, 0, 0);
+		}
 
-		Vector3 N = rot * Vector3(1, 0, 0);
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) * N;
 
 		// set min vel due to spam collision while rolling
 		if (v.Length() > 20)
 		{
-			if(WorldValues::TimeScale > 0)
+			if (WorldValues::TimeScale > 0)
 				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 			else
-				v *= 1 /(rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
-				// v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+				v *= 1 / (rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
+			// v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 		}
 
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);

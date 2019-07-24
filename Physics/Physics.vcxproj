@@ -176,6 +176,7 @@
     <ClCompile Include="Source\GauntletScript.cpp" />
     <ClCompile Include="Source\GoalScript.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
+    <ClCompile Include="Source\HoleScript.cpp" />
     <ClCompile Include="Source\KeyboardManager.cpp" />
     <ClCompile Include="Source\LayerData.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="Source\GoalScript.h" />
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\HeightMapData.h" />
+    <ClInclude Include="Source\HoleScript.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
     <ClInclude Include="Source\LayerData.h" />
     <ClInclude Include="Source\Light.h" />
