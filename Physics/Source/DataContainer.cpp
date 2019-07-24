@@ -147,7 +147,7 @@ DataContainer::DataContainer()
 	// Leaf Spawner--------------------------------------------------------------------------------
 	GameObject* LeafSpawner = new GameObject;
 	m_map_GO["LeafSpawner"] = LeafSpawner;
-	LeafSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Leaf"), 0.8f, { 10,5,10 }, 1.f, "Default", -1.f));
+	LeafSpawner->AddComponent(new ParticleSpawnerScript(GetGameObject("Leaf"), 0.8f, { 10,5,10 }, 1.f, "Default", -1.f));
 	// Smoke Spawner--------------------------------------------------------------------------------
 	/*m_map_GO["SmokeSpawner"] = LeafSpawner;
 	GameObject* Spawner = new GameObject;
