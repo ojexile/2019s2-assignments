@@ -37,10 +37,11 @@ void ChengPlayerScript::Start()
 
 	Vector3 GDir = { 0,0,1 };
 	GDir.Normalize();
-	GDir *= 100;
+	GDir *= 150;
 	WorldValues::DefaultGravity = GDir;
-	SetDefaultCamPos();
-	SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);
+	TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS;
+	CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z - 0);
+	SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -90);
 }
 void ChengPlayerScript::Update(double dt)
 {
