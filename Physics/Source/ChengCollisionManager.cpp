@@ -149,7 +149,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		//================================================================================
 	}
 	// DO NOT BREAK, FALL THROUGH TO ALLOW PERPEN WALL COLL
-	case ChengRigidbody::WALL:
+	case ChengRigidbody::WALL: // check coll
 	{
 		//--------------------------------------------------------------------------------
 		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
@@ -332,7 +332,8 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 			if (WorldValues::TimeScale > 0)
 				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 			else
-				v *= 1 / (rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
+				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+				//v *= 1 /(rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
 		}
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
@@ -355,7 +356,8 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 			if(WorldValues::TimeScale > 0)
 				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 			else
-				v *= 1 / (rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
+				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+				//v *= 1 /(rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
 		}
 
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);

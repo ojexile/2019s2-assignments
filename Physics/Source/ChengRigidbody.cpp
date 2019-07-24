@@ -17,7 +17,7 @@ ChengRigidbody::~ChengRigidbody()
 }
 void ChengRigidbody::Update(double dt)
 {
-	dt *= WorldValues::TimeScale;
+	//dt *= WorldValues::TimeScale;
 	Vector3 vAccel = m_vForce * (1 / m_fMass);
 	m_vForce.SetZero();
 	Vector3 CurrentGrav = m_vGravity + WorldValues::DefaultGravity;
@@ -37,13 +37,13 @@ void ChengRigidbody::Update(double dt)
 	if (m_bLockZAxis)
 		m_vVel.z = 0;
 	TransformComponent* Trans = this->GetComponent<TransformComponent>();
-	Trans->Translate(m_vVel * (float)dt);
+	Trans->Translate(m_vVel * (float)dt * WorldValues::TimeScale);
 
 	float I = this->m_fMass * (Trans->GetScale().x * Trans->GetScale().x);
 	Vector3 vAAccel = this->m_vTorque * (1.f / I);
 	m_vAVel += vAAccel * (float)dt;
 	float deg = Trans->GetDegrees();
-	deg += m_vAVel.y * (float)dt;
+	deg += m_vAVel.y * (float)dt * WorldValues::TimeScale;
 	if (m_vAVel.y != 0)
 		Trans->SetRotation(deg, 0, 1, 0);
 	//m_vAVel.SetZero();
@@ -51,11 +51,13 @@ void ChengRigidbody::Update(double dt)
 }
 void ChengRigidbody::SetTorque(Vector3 v)
 {
+	if (WorldValues::TimeScale > 0)
 	this->m_vTorque = v;
+	else
+		this->m_vTorque = -v;
 }
 void ChengRigidbody::SetVel(Vector3 v)
 {
-
 	if (WorldValues::TimeScale > 0)
 		this->m_vVel = v;
 	else
@@ -63,7 +65,10 @@ void ChengRigidbody::SetVel(Vector3 v)
 }
 void ChengRigidbody::SetAVel(Vector3 v)
 {
-	this->m_vAVel = v;
+	if (WorldValues::TimeScale > 0)
+		this->m_vAVel = v;
+	else
+		this->m_vAVel = -v;
 }
 void ChengRigidbody::IncrementForce(Vector3 v)
 {
@@ -81,7 +86,10 @@ Vector3 ChengRigidbody::GetVel()
 }
 Vector3 ChengRigidbody::GetAVel()
 {
-	return m_vAVel;
+	if (WorldValues::TimeScale > 0)
+		return m_vAVel;
+	else
+		return -m_vAVel;
 }
 float ChengRigidbody::GetMass()
 {
