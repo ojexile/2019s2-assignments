@@ -29,7 +29,7 @@ void ChengRigidbody::Update(double dt)
 	// Friction
 	float coeff = m_PhyMat.GetFriction();
 
-	this->m_vVel += vAccel * (float)dt;
+	this->m_vVel += vAccel * (float)dt * WorldValues::TimeScale;
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
 	if (m_bLockYAxis)
@@ -106,7 +106,10 @@ ChengRigidbody::ePhysicsTypes ChengRigidbody::GetType()
 // Grav
 void ChengRigidbody::SetGravityX(float x)
 {
+	if (WorldValues::TimeScale > 0)
 	this->m_vGravity.x = x;
+	else
+	this->m_vGravity.x = -x;
 }
 void ChengRigidbody::LockXAxis(bool b)
 {

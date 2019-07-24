@@ -111,7 +111,7 @@ void RojakAssignmentScene::Init()
 	// bot right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall")->Clone());
 	go->TRANS->SetPosition((width / 2 + holeWidth / 2), 0, length - 20);
-	go->TRANS->SetRotation(-90, 0, 1, 0);
+	go->TRANS->SetRotation(-60, 0, 1, 0);
 	go->TRANS->SetScale(thickness, height, width - holeWidth / 2);
 	// goal--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("goal")->Clone());

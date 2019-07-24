@@ -116,7 +116,7 @@ void GauntletScript::Use()
 	case REALITY:
 		WorldValues::GravityExponent = { 0,0,0 };
 		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
-		m_fDuration = 5.f;
+		m_fDuration = 3.f;
 		break;
 	case SPACE:
 	{
@@ -137,7 +137,7 @@ void GauntletScript::Use()
 		//bul->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
 		bul->GetComponent<ChengRigidbody>()->SetMass(fScale);
 		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
-		m_fDuration = .5f;
+		m_fDuration = .2f;
 	}
 	break;
 	case POWER:
@@ -145,7 +145,7 @@ void GauntletScript::Use()
 	case TIME:
 		WorldValues::TimeScale = -1.f;
 		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
-		m_fDuration = 5.f;
+		m_fDuration = 1.f;
 		break;
 	case MIND:
 		break;
@@ -175,7 +175,7 @@ void GauntletScript::StopUse()
 	case POWER:
 		break;
 	case TIME:
-		WorldValues::TimeScale =1.f;
+		WorldValues::TimeScale = 1.f;
 		m_MC->SetMesh("GauntTime");
 		break;
 	case MIND:

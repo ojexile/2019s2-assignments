@@ -141,7 +141,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				float projDepth = walltoball.Dot(-N) / walltoball.Length()*walltoball.Length();
 				float depth = (wallScale.x / 2 + radius) - projDepth;
 				trans1->Translate(depth * -N);
-				//trans1->Translate({ 0,0,-0.2 });
+				//trans1->Translate({ 0,0,-0.2f });
 				return ChengRigidbody::SQUARE;
 			}
 		}
@@ -332,8 +332,8 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 			if (WorldValues::TimeScale > 0)
 				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 			else
-				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
-				//v *= 1 /(rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
+				v *= 1 /(rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
+				//v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 		}
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
@@ -356,8 +356,8 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 			if(WorldValues::TimeScale > 0)
 				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 			else
-				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
-				//v *= 1 /(rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
+				v *= 1 /(rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
+				// v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
 		}
 
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
