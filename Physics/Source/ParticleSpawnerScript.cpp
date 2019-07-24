@@ -15,6 +15,7 @@ ParticleSpawnerScript::ParticleSpawnerScript(GameObject* ParticleRef, const floa
 
 ParticleSpawnerScript::~ParticleSpawnerScript()
 {
+	delete m_ParticleRef;
 }
 
 void ParticleSpawnerScript::Update(double dt)
