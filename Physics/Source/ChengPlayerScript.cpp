@@ -34,7 +34,7 @@ ChengPlayerScript::~ChengPlayerScript()
 void ChengPlayerScript::Start()
 {
 	SwitchView();
-
+	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 GDir = { 0,0,1 };
 	GDir.Normalize();
 	GDir *= 150;
