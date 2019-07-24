@@ -138,7 +138,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				walltoball.y = 0;
 				Vector3 radiusOffset = walltoball.Normalized() * radius;
 				//walltoball += radiusOffset;
-				float projDepth = walltoball.Dot(-N) / walltoball.LengthSquared()*walltoball.Length();
+				float projDepth = walltoball.Dot(-N) / walltoball.Length()*walltoball.Length();
 				float depth = (wallScale.x / 2 + radius) - projDepth;
 				trans1->Translate(depth * -N);
 				//trans1->Translate({ 0,0,-0.2f });
