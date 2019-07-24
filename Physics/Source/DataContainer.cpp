@@ -19,7 +19,9 @@ DataContainer::DataContainer()
 	m_map_Meshes["Text"]->m_uTextureArray[0] = LoadTGA("calibri");
 
 	m_map_Meshes["ground"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
-	m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
+	// m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
+	m_map_Meshes["ball"] = MeshBuilder::GenerateOBJ("ball");
+	m_map_Meshes["ball"]->m_uTextureArray[0] = LoadTGA("ball");
 	//m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
 	//m_map_Meshes["ball3"] = MeshBuilder::GenerateSphere("ball", Color(0, 1, 0), 10, 10, 1.f);
 
