@@ -170,7 +170,10 @@ void RojakAssignmentScene::Init()
 	go->TRANS->SetPosition(0, 0, -length / 8);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("fanBlade"));
 	go->TRANS->SetPosition(0, 0, -length / 8);
-	go->TRANS->SetRotation(180, 0, 1, 0);
+	go->TRANS->SetRotation(120, 0, 1, 0);
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("fanBlade"));
+	go->TRANS->SetPosition(0, 0, -length / 8);
+	go->TRANS->SetRotation(240, 0, 1, 0);
 	// Hole
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillarHole"));
 	go->TRANS->SetPosition(width / 2, 0, -length / 2);

@@ -36,6 +36,7 @@ void BouncerScript::Update(double dt)
 		if (!m_bIsPlayer)
 		{
 			m_ScoreScript->IncrementScore(20);
+			m_ScoreScript->ObjectDestroyed();
 			DestroySelf();
 		}
 	}
