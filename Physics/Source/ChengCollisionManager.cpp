@@ -2,6 +2,7 @@
 #include "ChengRigidbody.h"
 #include "AudioManager.h"
 #include "ScriptComponent.h"
+#include "WorldValues.h"
 ChengCollisionManager::ChengCollisionManager()
 {
 }
@@ -327,7 +328,12 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		Vector3 N = rot * Vector3(1, 0, 0);
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) *N;
 		if (v.Length() > 20)
-			v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+		{
+			if (WorldValues::TimeScale > 0)
+				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+			else
+				v *= 1 / (rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
+		}
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;
@@ -345,7 +351,12 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 
 		// set min vel due to spam collision while rolling
 		if (v.Length() > 20)
-			v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+		{
+			if(WorldValues::TimeScale > 0)
+				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+			else
+				v *= 1 / (rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
+		}
 
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}

@@ -17,6 +17,7 @@ ChengRigidbody::~ChengRigidbody()
 }
 void ChengRigidbody::Update(double dt)
 {
+	dt *= WorldValues::TimeScale;
 	Vector3 vAccel = m_vForce * (1 / m_fMass);
 	m_vForce.SetZero();
 	Vector3 CurrentGrav = m_vGravity + WorldValues::DefaultGravity;
@@ -54,7 +55,11 @@ void ChengRigidbody::SetTorque(Vector3 v)
 }
 void ChengRigidbody::SetVel(Vector3 v)
 {
-	this->m_vVel = v;
+
+	if (WorldValues::TimeScale > 0)
+		this->m_vVel = v;
+	else
+		this->m_vVel = -v;
 }
 void ChengRigidbody::SetAVel(Vector3 v)
 {
@@ -62,11 +67,17 @@ void ChengRigidbody::SetAVel(Vector3 v)
 }
 void ChengRigidbody::IncrementForce(Vector3 v)
 {
-	m_vForce += v;
+	if (WorldValues::TimeScale > 0)
+		m_vForce += v;
+	else
+		m_vForce += -v;
 }
 Vector3 ChengRigidbody::GetVel()
 {
-	return m_vVel;
+	if (WorldValues::TimeScale > 0)
+		return m_vVel;
+	else
+		return -m_vVel;
 }
 Vector3 ChengRigidbody::GetAVel()
 {

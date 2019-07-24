@@ -437,7 +437,7 @@ void Mtx44::SetToLookAt(double eyeX, double eyeY, double eyeZ,
 	f.Normalize();
 	Vector3 up((float)upX, (float)upY, (float)upZ);
 	up.Normalize();
-	while (f == up)
+	while (f == up || f == -up)
 	{
 		f.x += 0.1f;
 		f.z += 0.1f;

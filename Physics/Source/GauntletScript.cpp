@@ -143,6 +143,9 @@ void GauntletScript::Use()
 	case POWER:
 		break;
 	case TIME:
+		WorldValues::TimeScale = -1.f;
+		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
+		m_fDuration = 5.f;
 		break;
 	case MIND:
 		break;
@@ -172,6 +175,8 @@ void GauntletScript::StopUse()
 	case POWER:
 		break;
 	case TIME:
+		WorldValues::TimeScale =1.f;
+		m_MC->SetMesh("GauntTime");
 		break;
 	case MIND:
 		break;

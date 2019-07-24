@@ -177,4 +177,5 @@ void RojakAssignmentScene::Init()
 	// Terrain--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("Terrain")->GetMesh()));
+	go->SetActive(false);
 }

@@ -2,6 +2,9 @@
 #include "AudioManager.h"
 #include "ChengRigidbody.h"
 #include "RenderComponent.h"
+#include "AnimatedMesh.h"
+#include "WorldValues.h"
+
 #define MAX_HEALTH 100.f
 BouncerScript::BouncerScript(float bounceForce, ScoreScript* scoreScript, bool isPlayer)
 	: m_ScoreScript(scoreScript)
@@ -41,10 +44,14 @@ void BouncerScript::Collide(GameObject* go)
 {
 	AudioManager::GetInstance()->Play3D("pop.wav", {});
 	float fDamage = 0.5f * go->GetComponent<ChengRigidbody>()->GetMass() * go->GetComponent<ChengRigidbody>()->GetVel().LengthSquared();
-	fDamage *= 0.0001f;
+	if (WorldValues::TimeScale > 0)
+		fDamage *= 0.0001f;
+	else
+		fDamage *= -0.0001f;
+
 	m_fHealth -= fDamage;
 	ChengRigidbody * rigid = go->GetComponent<ChengRigidbody>();
-	rigid->IncrementForce(rigid->GetVel() * m_fBounceForce);
+		rigid->IncrementForce(rigid->GetVel() * m_fBounceForce);
 	GetComponent<RenderComponent>()->SetColor({ 0,1,1 });
 	m_bTriggered = true;
 	m_fTriggerTime = Time::GetInstance()->GetElapsedTimeF();
