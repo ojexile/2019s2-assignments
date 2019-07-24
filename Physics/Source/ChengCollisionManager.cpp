@@ -209,9 +209,12 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		//--------------------------------------------------------------------------------
 		//Vector3 N = Vector3(,0,)
 		Mtx44 rot;
-
-		rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
-		Vector3 N = rot * Vector3(1, 0, 0);
+		Vector3 N = { 1,0,0 };
+		if (trans2->GetDegrees() != 0)
+		{
+			rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
+			N = rot * Vector3(1, 0, 0);
+		}
 		Vector3 NP = { -N.z,N.y, N.x };
 		pos2 -= NP * (trans2->GetScale().z / 2);
 		//--------------------------------------------------------------------------------

@@ -3,6 +3,7 @@
 #include "Time.h"
 #include "AudioManager.h"
 #include "RojakAssignmentScene.h"
+#include "RojakScene2.h"
 #include "Preferences.h"
 #include "Resources.h"
 #include "Utility.h"
