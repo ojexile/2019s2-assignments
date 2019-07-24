@@ -34,6 +34,13 @@ ChengPlayerScript::~ChengPlayerScript()
 void ChengPlayerScript::Start()
 {
 	SwitchView();
+
+	Vector3 GDir = { 0,0,1 };
+	GDir.Normalize();
+	GDir *= 100;
+	WorldValues::DefaultGravity = GDir;
+	SetDefaultCamPos();
+	SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);
 }
 void ChengPlayerScript::Update(double dt)
 {
@@ -105,12 +112,12 @@ void ChengPlayerScript::Update(double dt)
 		}
 		else
 		{
-			Vector3 GDir = { 0,0,1 };
+			/*Vector3 GDir = { 0,0,1 };
 			GDir.Normalize();
 			GDir *= 100;
 			WorldValues::DefaultGravity = GDir;
 			SetDefaultCamPos();
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);*/
 		}
 	}
 	Vector3 pos = trans->GetPosition();
