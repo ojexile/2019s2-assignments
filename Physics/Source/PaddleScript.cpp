@@ -1,6 +1,7 @@
 #include "PaddleScript.h"
 #include "KeyboardManager.h"
-#define SPEED 60000.f
+#include "WorldValues.h"
+
 #define maxdeg 70.f
 #define defdeg 120.f
 PaddleScript::PaddleScript(bool b)
@@ -20,14 +21,14 @@ void PaddleScript::Update(double dt)
 		if (KeyboardManager::GetInstance()->GetKeyDown("paddleLeft"))
 		{
 			if (deg <= -defdeg + maxdeg)
-				GetComponent<ChengRigidbody>()->SetTorque({ 0,SPEED,0 });
+				GetComponent<ChengRigidbody>()->SetTorque({ 0,WorldValues::PaddleForce,0 });
 			else
 				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
 		}
 		else
 		{
 			if (deg >= -defdeg)
-				GetComponent<ChengRigidbody>()->SetTorque({ 0,-SPEED,0 });
+				GetComponent<ChengRigidbody>()->SetTorque({ 0,-WorldValues::PaddleForce,0 });
 			else
 				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
 		}
@@ -41,14 +42,14 @@ void PaddleScript::Update(double dt)
 		if (KeyboardManager::GetInstance()->GetKeyDown("paddleRight"))
 		{
 			if (deg >= defdeg - maxdeg)
-				GetComponent<ChengRigidbody>()->SetTorque({ 0, -SPEED,0 });
+				GetComponent<ChengRigidbody>()->SetTorque({ 0, -WorldValues::PaddleForce,0 });
 			else
 				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
 		}
 		else
 		{
 			if (deg <= defdeg)
-				GetComponent<ChengRigidbody>()->SetTorque({ 0,SPEED,0 });
+				GetComponent<ChengRigidbody>()->SetTorque({ 0,WorldValues::PaddleForce,0 });
 			else
 				GetComponent<ChengRigidbody>()->SetAVel({ 0,0,0 });
 		}

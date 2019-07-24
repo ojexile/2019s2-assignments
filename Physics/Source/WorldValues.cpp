@@ -5,4 +5,5 @@ namespace WorldValues
 	extern Vector3 DefaultGravity = { 0,0,100 };
 	extern Vector3 GravityExponent = { 1,1,1 };
 	extern float TimeScale = 1;
+	extern float PaddleForce = 60000.f;
 }

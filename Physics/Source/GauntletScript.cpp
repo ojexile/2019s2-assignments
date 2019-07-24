@@ -141,6 +141,9 @@ void GauntletScript::Use()
 	}
 	break;
 	case POWER:
+		WorldValues::PaddleForce = 500000.f;
+		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
+		m_fDuration = 10.f;
 		break;
 	case TIME:
 		WorldValues::TimeScale = -1.f;
@@ -173,6 +176,8 @@ void GauntletScript::StopUse()
 		m_MC->SetMesh("GauntSpace");
 		break;
 	case POWER:
+		WorldValues::PaddleForce = 60000.f;
+		m_MC->SetMesh("GauntTime");
 		break;
 	case TIME:
 		WorldValues::TimeScale = 1.f;
