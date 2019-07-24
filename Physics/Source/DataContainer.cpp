@@ -95,9 +95,6 @@ DataContainer::DataContainer()
 	m_map_Meshes["GauntPower"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["GauntPower"]->m_uTextureArray[0] = LoadTGA("GauntPower");
 
-	m_map_Meshes["GauntPower"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
-	m_map_Meshes["GauntPower"]->m_uTextureArray[0] = LoadTGA("GauntPower");
-
 	m_map_Meshes["GauntTime"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["GauntTime"]->m_uTextureArray[0] = LoadTGA("gauntTime");
 
@@ -149,11 +146,12 @@ DataContainer::DataContainer()
 	Leaf->AddComponent(ps);
 	// Leaf Spawner--------------------------------------------------------------------------------
 	GameObject* LeafSpawner = new GameObject;
-	LeafSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Leaf"), 0.8f, { 10,5,10 }, 1.f, "Default", -1.f));
 	m_map_GO["LeafSpawner"] = LeafSpawner;
+	LeafSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Leaf"), 0.8f, { 10,5,10 }, 1.f, "Default", -1.f));
 	// Smoke Spawner--------------------------------------------------------------------------------
+	/*m_map_GO["SmokeSpawner"] = LeafSpawner;
 	GameObject* Spawner = new GameObject;
-	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.8f, { .1f,.1f,.1f }, .8f, "Smoke"));
+	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.8f, { .1f,.1f,.1f }, .8f, "Smoke"));*/
 	//// Fountain Spawner--------------------------------------------------------------------------------
 	//GameObject* Fountain = new GameObject;
 	//Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.05f, { 0,0,0 }, .2f, "Default", 0.4f));

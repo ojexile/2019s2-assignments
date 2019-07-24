@@ -6,6 +6,8 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+	if (m_CameraGO)
+		delete m_CameraGO;
 }
 GameObject* Scene::GetCameraGameObject()
 {
