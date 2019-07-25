@@ -173,7 +173,7 @@ void GauntletScript::Use()
 	case POWER:
 		m_MC->SetMesh("GauntFist");
 		AudioManager::GetInstance()->Play3D("thump.wav", { -1,0,0 });
-		WorldValues::PaddleForce = 500000.f;
+		WorldValues::PaddleForce = 400000.f;
 		m_fStartTime = Time::GetInstance()->GetElapsedTimeF();
 		m_fDuration = 10.f;
 		break;
@@ -213,7 +213,7 @@ void GauntletScript::StopUse()
 		m_MC->SetMesh("GauntSpace");
 		break;
 	case POWER:
-		WorldValues::PaddleForce = 60000.f;
+		WorldValues::PaddleForce = 30000.f;
 		m_MC->SetMesh("GauntTime");
 		break;
 	case TIME:
