@@ -176,6 +176,7 @@
     <ClCompile Include="Source\GauntletScript.cpp" />
     <ClCompile Include="Source\GoalScript.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
+    <ClCompile Include="Source\HoleScript.cpp" />
     <ClCompile Include="Source\KeyboardManager.cpp" />
     <ClCompile Include="Source\LayerData.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
@@ -186,6 +187,8 @@
     <ClCompile Include="Source\LogData.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MainMenu.cpp" />
+    <ClCompile Include="Source\MenuScript.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\PaddleScript.cpp" />
@@ -241,6 +244,7 @@
     <ClInclude Include="Source\GoalScript.h" />
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\HeightMapData.h" />
+    <ClInclude Include="Source\HoleScript.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
     <ClInclude Include="Source\LayerData.h" />
     <ClInclude Include="Source\Light.h" />
@@ -251,7 +255,9 @@
     <ClInclude Include="Source\Locator.h" />
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
+    <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\Material.h" />
+    <ClInclude Include="Source\MenuScript.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MeshController.h" />

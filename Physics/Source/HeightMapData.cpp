@@ -10,6 +10,7 @@ HeightMapData::HeightMapData(Mesh* Mesh, _heightmap* Map, Vector3 vScale)
 HeightMapData::~HeightMapData()
 {
 	delete m_Map;
+	delete m_Mesh;
 }
 Mesh* HeightMapData::GetMesh()
 {

@@ -19,7 +19,9 @@ public:
 	virtual ~ParticleSpawnerScript();
 	virtual ComponentBase* Clone()
 	{
-		return new ParticleSpawnerScript(*this);
+		ParticleSpawnerScript* pss = new ParticleSpawnerScript(*this);
+		pss->m_ParticleRef = m_ParticleRef->Clone();
+		return pss;
 	}
 
 	virtual void Update(double dt) override;

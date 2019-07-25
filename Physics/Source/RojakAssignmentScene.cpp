@@ -56,6 +56,7 @@ void RojakAssignmentScene::Init()
 	meshController->AddMesh("GauntTime", dataContainer->GetMesh("GauntTime"));
 	meshController->AddMesh("GauntMind", dataContainer->GetMesh("GauntMind"));
 	meshController->AddMesh("GauntFist", dataContainer->GetMesh("GauntFist"));
+	meshController->AddMesh("GauntSnap", dataContainer->GetMesh("GauntSnap"));
 	Gaunt->AddComponent(meshController);
 	Gaunt->AddComponent(new GauntletScript(dataContainer->GetGameObject("bullet")));
 	Gaunt->SetActive(false);
@@ -169,10 +170,20 @@ void RojakAssignmentScene::Init()
 	go->TRANS->SetPosition(0, 0, -length / 8);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("fanBlade"));
 	go->TRANS->SetPosition(0, 0, -length / 8);
-	go->TRANS->SetRotation(180, 0, 1, 0);
-
+	go->TRANS->SetRotation(120, 0, 1, 0);
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("fanBlade"));
+	go->TRANS->SetPosition(0, 0, -length / 8);
+	go->TRANS->SetRotation(240, 0, 1, 0);
+	// Hole
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillarHole"));
+	go->TRANS->SetPosition(width / 2, 0, -length / 2);
+	go->RENDER->SetColor({ 0,0,0 });
+	// Hole
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("squareHole"));
+	go->TRANS->SetPosition(-width / 2, 0, -length / 2);
+	go->RENDER->SetColor({ 0,0,0 });
 	// Terrain--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("Terrain")->GetMesh()));
-	go->SetActive(false);
+	go->SetActive(true);
 }

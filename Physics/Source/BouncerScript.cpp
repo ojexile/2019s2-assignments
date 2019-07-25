@@ -36,13 +36,14 @@ void BouncerScript::Update(double dt)
 		if (!m_bIsPlayer)
 		{
 			m_ScoreScript->IncrementScore(20);
+			m_ScoreScript->ObjectDestroyed();
 			DestroySelf();
 		}
 	}
 }
 void BouncerScript::Collide(GameObject* go)
 {
-	AudioManager::GetInstance()->Play3D("pop.wav", {});
+	AudioManager::GetInstance()->Play3D("boing.wav", {});
 	float fDamage = 0.5f * go->GetComponent<ChengRigidbody>()->GetMass() * go->GetComponent<ChengRigidbody>()->GetVel().LengthSquared();
 	if (WorldValues::TimeScale > 0)
 		fDamage *= 0.001f;
@@ -51,7 +52,7 @@ void BouncerScript::Collide(GameObject* go)
 
 	m_fHealth -= fDamage;
 	ChengRigidbody * rigid = go->GetComponent<ChengRigidbody>();
-		rigid->IncrementForce(rigid->GetVel() * m_fBounceForce);
+	rigid->IncrementForce(rigid->GetVel() * m_fBounceForce);
 	GetComponent<RenderComponent>()->SetColor({ 0,1,1 });
 	m_bTriggered = true;
 	m_fTriggerTime = Time::GetInstance()->GetElapsedTimeF();

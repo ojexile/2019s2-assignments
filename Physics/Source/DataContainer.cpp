@@ -8,6 +8,8 @@
 #include "GoalScript.h"
 #include "BouncerScript.h"
 #include "PaddleScript.h"
+#include "HoleScript.h"
+
 #include <time.h>
 DataContainer::DataContainer()
 {
@@ -17,7 +19,9 @@ DataContainer::DataContainer()
 	m_map_Meshes["Text"]->m_uTextureArray[0] = LoadTGA("calibri");
 
 	m_map_Meshes["ground"] = MeshBuilder::GenerateQuad("ground", { 1.f,1.f,1.f }, 500);
-	m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
+	// m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
+	m_map_Meshes["ball"] = MeshBuilder::GenerateOBJ("ball");
+	m_map_Meshes["ball"]->m_uTextureArray[0] = LoadTGA("ball");
 	//m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
 	//m_map_Meshes["ball3"] = MeshBuilder::GenerateSphere("ball", Color(0, 1, 0), 10, 10, 1.f);
 
@@ -91,9 +95,6 @@ DataContainer::DataContainer()
 	m_map_Meshes["GauntPower"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["GauntPower"]->m_uTextureArray[0] = LoadTGA("GauntPower");
 
-	m_map_Meshes["GauntPower"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
-	m_map_Meshes["GauntPower"]->m_uTextureArray[0] = LoadTGA("GauntPower");
-
 	m_map_Meshes["GauntTime"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["GauntTime"]->m_uTextureArray[0] = LoadTGA("gauntTime");
 
@@ -102,6 +103,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["GauntFist"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["GauntFist"]->m_uTextureArray[0] = LoadTGA("GauntFist");
+
+	m_map_Meshes["GauntSnap"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["GauntSnap"]->m_uTextureArray[0] = LoadTGA("GauntSnap");
 	// Gameobjects================================================================================
 	GameObject* go;
 	// Particle--------------------------------------------------------------------------------
@@ -142,11 +146,12 @@ DataContainer::DataContainer()
 	Leaf->AddComponent(ps);
 	// Leaf Spawner--------------------------------------------------------------------------------
 	GameObject* LeafSpawner = new GameObject;
-	LeafSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Leaf"), 0.8f, { 10,5,10 }, 1.f, "Default", -1.f));
 	m_map_GO["LeafSpawner"] = LeafSpawner;
+	LeafSpawner->AddComponent(new ParticleSpawnerScript(GetGameObject("Leaf"), 0.8f, { 10,5,10 }, 1.f, "Default", -1.f));
 	// Smoke Spawner--------------------------------------------------------------------------------
+	/*m_map_GO["SmokeSpawner"] = LeafSpawner;
 	GameObject* Spawner = new GameObject;
-	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.8f, { .1f,.1f,.1f }, .8f, "Smoke"));
+	Spawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("SmokeParticle"), 0.8f, { .1f,.1f,.1f }, .8f, "Smoke"));*/
 	//// Fountain Spawner--------------------------------------------------------------------------------
 	//GameObject* Fountain = new GameObject;
 	//Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.05f, { 0,0,0 }, .2f, "Default", 0.4f));
@@ -177,12 +182,20 @@ DataContainer::DataContainer()
 	wall->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	wall->AddComponent(new RenderComponent(this->GetMesh("wall")));
 	wall->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
-	// --------------------------------------------------------------------------------
+	// Square--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["square"] = go;
 	go->GetComponent<TransformComponent>()->SetRotation(-90, 0, 1, 0);
 	go->AddComponent(new RenderComponent(this->GetMesh("square")));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::SQUARE, false));
+	//Square Hole--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["squareHole"] = go;
+	go->TRANS->SetScale(7, 100, 7);
+	go->AddComponent(new RenderComponent(this->GetMesh("square")));
+	go->RENDER->SetColor({ 0,0,0 });
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::SQUARE, false));
+	go->AddComponent(new HoleScript);
 	// Score--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["scoreboard"] = go;
@@ -203,6 +216,15 @@ DataContainer::DataContainer()
 	pillar->AddComponent(new RenderComponent(this->GetMesh("pillar")));
 	pillar->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
 	pillar->AddComponent(new BouncerScript(5.f, scoreScript));
+	//Pillar Hole--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["pillarHole"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("pillar")));
+	go->RENDER->SetColor({ 0,0,0 });
+	go->TRANS->SetScale(7, 100, 7);
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
+	go->AddComponent(new HoleScript);
+	//pillar->AddComponent(new BouncerScript(5.f, scoreScript));
 	//Player Pillar--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["playerPillar"] = go;
