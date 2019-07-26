@@ -8,6 +8,8 @@
 #include <vector>
 #include "BulletScript.h"
 #include "AudioManager.h"
+#include "Preferences.h"
+#include "Resources.h"
 GauntletScript::GauntletScript(GameObject* ball)
 	:m_Ball(ball)
 {
@@ -154,10 +156,13 @@ void GauntletScript::Use()
 		float fScale = 2;
 		float fBallSpeed = 120.f;
 		//Vector3 ballDir = {};
+		Vector3 WindowSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::WindowSize));
+		float aspect = WindowSize.x / WindowSize.y;
+		float size = 600;
 		double x, y;
 		Application::GetCursorPos(&x, &y);
-		float posx = (float)x / Application::GetWindowWidth() * 300 - 150;
-		float posz = (float)y / Application::GetWindowHeight() * 300 - 150;
+		float posx = (float)x / Application::GetWindowWidth() * size - size / 2;
+		float posz = (float)y / Application::GetWindowHeight() * size / aspect - (size / aspect) / 2;
 
 		Vector3 pos = { posx, 15, posz };
 		GameObject* bul = Instantiate(m_Ball, pos);
