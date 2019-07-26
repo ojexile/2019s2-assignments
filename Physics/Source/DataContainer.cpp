@@ -203,6 +203,7 @@ DataContainer::DataContainer()
 	go->AddComponent(scoreScript);
 	go->GetComponent<TransformComponent>()->SetPosition(50, 50, 100);
 	go->AddComponent(new RenderComponent(GetMesh("Text"), "oof"));
+	go->RENDER->SetColor({ 1,1,1 });
 	//Goal --------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["goal"] = go;

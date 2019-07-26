@@ -43,7 +43,8 @@ void BouncerScript::Update(double dt)
 }
 void BouncerScript::Collide(GameObject* go)
 {
-	AudioManager::GetInstance()->Play3D("boing.wav", {});
+	ChengRigidbody * rigid = go->GetComponent<ChengRigidbody>();
+	AudioManager::GetInstance()->Play3D("boing.wav", {}, rigid->GetVel().LengthSquared() * 0.0001f);
 	float fDamage = 0.5f * go->GetComponent<ChengRigidbody>()->GetMass() * go->GetComponent<ChengRigidbody>()->GetVel().LengthSquared();
 	if (WorldValues::TimeScale > 0)
 		fDamage *= 0.001f;
@@ -51,7 +52,7 @@ void BouncerScript::Collide(GameObject* go)
 		fDamage *= -0.001f;
 
 	m_fHealth -= fDamage;
-	ChengRigidbody * rigid = go->GetComponent<ChengRigidbody>();
+
 	rigid->IncrementForce(rigid->GetVel() * m_fBounceForce);
 	GetComponent<RenderComponent>()->SetColor({ 0,1,1 });
 	m_bTriggered = true;

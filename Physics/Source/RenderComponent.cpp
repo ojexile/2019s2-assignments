@@ -39,6 +39,7 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 	m_bBillboard = ref.m_bBillboard;
 	m_bIsText = ref.m_bIsText;
 	m_sText = ref.m_sText;
+	this->m_Material = ref.m_Material;
 }
 
 RenderComponent::~RenderComponent()
