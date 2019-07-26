@@ -31,10 +31,11 @@ void BulletScript::Update(double dt)
 }
 void BulletScript::Collide(GameObject* go)
 {
+	ChengRigidbody* rb = GetComponent<ChengRigidbody>();
 	const float fBufferTime = 0.5f;
 	if (Time::GetInstance()->GetElapsedTimeF() - m_fLastPopSoundTime > fBufferTime)
 	{
 		m_fLastPopSoundTime = Time::GetInstance()->GetElapsedTimeF();
-		AudioManager::GetInstance()->Play3D("pop.wav", {});
+		AudioManager::GetInstance()->Play3D("pop.wav", {}, rb->GetVel().LengthSquared() * 0.0001f);
 	}
 }

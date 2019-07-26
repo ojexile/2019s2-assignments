@@ -432,7 +432,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		Vector3 proj = (v.Dot(NP)) / (v.LengthSquared()) * NP;
 		// Angular
 		Vector3 torque = (proj * 1).Cross(N * trans1->GetScale().x);
-		rigid1->SetTorque(torque * 10000000);
+		rigid1->SetTorque(torque * 100000);
 	}
 	break;
 	default:
