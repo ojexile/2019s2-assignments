@@ -7,6 +7,7 @@
 #include "GauntletScript.h"
 #include "SunBrightnessScript.h"
 #include "Constrain.h"
+#include "Utility.h"
 RojakScene2::RojakScene2()
 {
 }
@@ -29,7 +30,10 @@ void RojakScene2::Init()
 	// Set up camera
 	m_CameraGO->TRANS->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
-	this->m_Camera->InitOrtho({ 300,300,10000 });
+	Vector3 WindowSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::WindowSize));
+	float aspect = WindowSize.x / WindowSize.y;
+	float size = 600;
+	this->m_Camera->InitOrtho({ size,size / aspect,10000 });
 	// UI================================================================================
 	// Crosshair
 	GameObject* Crosshair = m_GameObjectManager.AddGameObject("UI");

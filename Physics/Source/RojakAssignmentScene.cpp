@@ -117,6 +117,9 @@ void RojakAssignmentScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("ball")));
 	go->RENDER->SetColor({ 1, 1, 0 });
 	go->TRANS->SetScale(10);
+	// Rain--------------------------------------------------------------------------------
+	go = dataContainer->GetGameObject("RainSpawner");
+	m_GameObjectManager.AddGameObject(go);
 	//Board================================================================================
 	float width = 80;
 	float length = 120;

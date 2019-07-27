@@ -173,13 +173,18 @@ DataContainer::DataContainer()
 	//GameObject* Fountain = new GameObject;
 	//Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.05f, { 0,0,0 }, .2f, "Default", 0.4f));
 	//m_map_GO["Fountain"] = Fountain;
-	//// Rain Spawner--------------------------------------------------------------------------------
-	//GameObject* Rain = new GameObject;
-	//Rain->AddComponent(new RenderComponent(this->GetMesh("Water")));
-	//Rain->GetComponent<RenderComponent>()->SetBillboard(true);
-	//Rain->AddComponent(new ParticleScript(4.0f, { 0,-0.7f,0 }, { 0,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
-	//Rain->AddComponent(new RainScript(this->GetGameObject("Fountain")));
-	//m_map_GO["Rain"] = Rain;
+	// Rain--------------------------------------------------------------------------------
+	GameObject* Rain = new GameObject;
+	Rain->AddComponent(new RenderComponent(this->GetMesh("Droplet")));
+	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
+	Rain->AddComponent(new ParticleScript(4.0f, { 0,-0.7f,0 }, { 0,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
+	Rain->AddComponent(new RainScript(this->GetGameObject("Fountain")));
+	m_map_GO["Rain"] = Rain;
+	// Rain Spawner--------------------------------------------------------------------------------
+	GameObject* RainSpawner = new GameObject;
+	RainSpawner->TRANS->SetPosition(0, 100, 0);
+	RainSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Rain"), 0.01f, { 100,0,100 }, .2f, "Default", 10.f));
+	m_map_GO["RainSpawner"] = RainSpawner;
 	// Misc--------------------------------------------------------------------------------
 	//Bullet--------------------------------------------------------------------------------
 	GameObject* bullet = new GameObject();
