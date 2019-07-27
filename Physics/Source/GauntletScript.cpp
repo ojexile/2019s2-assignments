@@ -35,9 +35,39 @@ void GauntletScript::Update(double dt)
 	{
 		m_Text->RENDER->SetText("Right click to bring up gauntlet.");
 	}
-	else if (m_eStone == NONE)
+	else
 	{
-		m_Text->RENDER->SetText("Q & E to scroll.");
+		switch (m_eStone)
+		{
+		case NONE:
+			m_Text->RENDER->SetText("Q & E to scroll.");
+			break;
+		case SOUL:
+			m_Text->RENDER->SetText("Destroy half of all balls on screen.");
+			break;
+		case REALITY:
+			m_Text->RENDER->SetText("Disable gravity");
+
+			break;
+		case SPACE:
+			m_Text->RENDER->SetText("Spawn ball at mouse position from top down.");
+
+			break;
+		case POWER:
+			m_Text->RENDER->SetText("Increase paddle force.");
+
+			break;
+		case TIME:
+			m_Text->RENDER->SetText("Reverse time momentarily.");
+
+			break;
+		case MIND:
+			m_Text->RENDER->SetText("NOT IMPLEMENTED.");
+
+			break;
+		default:
+			break;
+		}
 	}
 	if (m_bInUse)
 	{
@@ -61,31 +91,31 @@ void GauntletScript::RotateForward()
 	{
 	case NONE:
 		m_MC->SetMesh("GauntSoul");
-		m_Text->RENDER->SetText("Destroy half of all balls on screen.");
+
 		break;
 	case SOUL:
 		m_MC->SetMesh("GauntReality");
-		m_Text->RENDER->SetText("Disable gravity");
+
 		break;
 	case REALITY:
 		m_MC->SetMesh("GauntSpace");
-		m_Text->RENDER->SetText("Spawn ball at mouse position from top down.");
+
 		break;
 	case SPACE:
 		m_MC->SetMesh("GauntPower");
-		m_Text->RENDER->SetText("Increase paddle force.");
+
 		break;
 	case POWER:
 		m_MC->SetMesh("GauntTime");
-		m_Text->RENDER->SetText("Reverse time momentarily.");
+
 		break;
 	case TIME:
 		m_MC->SetMesh("GauntMind");
-		m_Text->RENDER->SetText("NOT IMPLEMENTED.");
+
 		break;
 	case MIND:
 		m_MC->SetMesh("Gaunt");
-		m_Text->RENDER->SetText("Q & E to scroll.");
+
 		break;
 	default:
 		break;

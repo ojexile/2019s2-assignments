@@ -48,7 +48,7 @@ public:
 	Vector3 GetAVel();
 	float GetMass();
 	ePhysicsTypes GetType();
-	PhysicsMaterial* GetMat();
+	PhysicsMaterial GetMat();
 	// Grav
 	void SetGravityX(float x);
 	void LockXAxis(bool);

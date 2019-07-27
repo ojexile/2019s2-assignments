@@ -318,7 +318,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 
 		Vector3 N = { 0,1,0 };
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) *N;
-		v *= rigid1->GetMat()->GetBounce();
+		v *= rigid1->GetMat().GetBounce();
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 	}
 	break;
@@ -336,10 +336,10 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		if (v.Length() > 20)
 		{
 			if (WorldValues::TimeScale > 0)
-				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+				v *= rigid1->GetMat().GetBounce() * rigid2->GetMat().GetBounce();
 			else
-				v *= 1 / (rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
-			//v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+				v *= 1 / (rigid1->GetMat().GetBounce() * rigid2->GetMat().GetBounce());
+			//v *= rigid1->GetMat().GetBounce() * rigid2->GetMat().GetBounce();
 		}
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);
 
@@ -376,10 +376,10 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		if (v.Length() > 20)
 		{
 			if (WorldValues::TimeScale > 0)
-				v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+				v *= rigid1->GetMat().GetBounce() * rigid2->GetMat().GetBounce();
 			else
-				v *= 1 / (rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce());
-			// v *= rigid1->GetMat()->GetBounce() * rigid2->GetMat()->GetBounce();
+				v *= 1 / (rigid1->GetMat().GetBounce() * rigid2->GetMat().GetBounce());
+			// v *= rigid1->GetMat().GetBounce() * rigid2->GetMat().GetBounce();
 		}
 
 		go1->GetComponent<ChengRigidbody>()->SetVel(v);

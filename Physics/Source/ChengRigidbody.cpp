@@ -127,7 +127,7 @@ void ChengRigidbody::SetMat(float f, float b)
 {
 	m_PhyMat.SetMat(f, b);
 }
-PhysicsMaterial* ChengRigidbody::GetMat()
+PhysicsMaterial ChengRigidbody::GetMat()
 {
-	return &m_PhyMat;
+	return m_PhyMat;
 }
