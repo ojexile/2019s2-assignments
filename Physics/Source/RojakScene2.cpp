@@ -133,23 +133,23 @@ void RojakScene2::Init()
 	//go->TRANS->SetScale(thickness, 1000, 1000);
 	// pillar left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
-	go->TRANS->SetPosition(-width / 2, 0, -60);
+	go->TRANS->SetPosition(-width / 2, 0, -100);
 	go->TRANS->SetScale(15, height, 15);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
 	go->TRANS->SetPosition(-width / 2, height, 0);
 	// Pillar right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
-	go->TRANS->SetPosition(width / 2, 0, -60);
+	go->TRANS->SetPosition(width / 2, 0, -100);
 	go->TRANS->SetScale(15, height, 15);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
 	go->TRANS->SetPosition(width / 2, height, 0);
 	// Pillar Bot Right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar"));
-	go->TRANS->SetPosition(width / 2 + 25, 0, 80);
+	go->TRANS->SetPosition(width / 2 + 25, 0, -80);
 	go->TRANS->SetScale(5, height, 5);
 	// Pillar Bot Left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar"));
-	go->TRANS->SetPosition(-width / 2 - 25, 0, 80);
+	go->TRANS->SetPosition(-width / 2 - 25, 0, -80);
 	go->TRANS->SetScale(5, height, 5);
 	//Paddle
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("paddle"));
