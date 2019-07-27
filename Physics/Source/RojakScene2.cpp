@@ -50,45 +50,12 @@ void RojakScene2::Init()
 	go = dataContainer->GetGameObject("scoreboard");
 	m_GameObjectManager.AddGameObject(go, "UI");
 	// Gauntlet--------------------------------------------------------------------------------
-	GameObject* Gaunt = m_GameObjectManager.AddGameObject("UI");
-	Gaunt->TRANS->SetPosition(250, 1080 - 800, 5);
-	Gaunt->TRANS->SetScale(800.f, 800.f, 1.f);
-	Gaunt->AddComponent(new RenderComponent(dataContainer->GetMesh("Gaunt")));
-	Gaunt->RENDER->SetLightEnabled(false);
-	MeshController<Mesh>* meshController = new MeshController<Mesh>;
-	meshController->AddMesh("Gaunt", dataContainer->GetMesh("Gaunt"));
-	meshController->AddMesh("GauntSoul", dataContainer->GetMesh("GauntSoul"));
-	meshController->AddMesh("GauntReality", dataContainer->GetMesh("GauntReality"));
-	meshController->AddMesh("GauntSpace", dataContainer->GetMesh("GauntSpace"));
-	meshController->AddMesh("GauntPower", dataContainer->GetMesh("GauntPower"));
-	meshController->AddMesh("GauntTime", dataContainer->GetMesh("GauntTime"));
-	meshController->AddMesh("GauntMind", dataContainer->GetMesh("GauntMind"));
-	meshController->AddMesh("GauntFist", dataContainer->GetMesh("GauntFist"));
-	meshController->AddMesh("GauntSnap", dataContainer->GetMesh("GauntSnap"));
-	Gaunt->AddComponent(meshController);
-	go2 = m_GameObjectManager.AddGameObject();
-	go2->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), ""));
-	go2->TRANS->SetPosition(1800, 900, 30);
+	GameObject* Gaunt = dataContainer->GetGameObject("Gauntlet");
+	m_GameObjectManager.AddGameObject(Gaunt, "UI");
+	go2 = dataContainer->GetGameObject("Text");
+	m_GameObjectManager.AddGameObject(go2, "UI");
 	GauntletScript* gs = new GauntletScript(dataContainer->GetGameObject("bullet"), go2);
 	Gaunt->AddComponent(gs);
-	Gaunt->SetActive(true);
-	// ChargeBar--------------------------------------------------------------------------------
-	// Text
-	go = m_GameObjectManager.AddGameObject("UI");
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Gauntlet Charge: "));
-	go->TRANS->SetPosition(50, 980, 30);
-	go->RENDER->SetColor({ 0, 1, 1 });
-	// Part--------------------------------------------------------------------------------
-	go2 = m_GameObjectManager.AddGameObject("UI");
-	go2->TRANS->SetPosition(50 + 400, 960, 0);
-	go2->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Particle"), 0.05f, 0, 0, "UI", -1.f));
-	go2->SetActive(false);
-	// Main--------------------------------------------------------------------------------
-	go = m_GameObjectManager.AddGameObject("UI");
-	go->TRANS->SetPosition(50, 960, 0);
-	//go->TRANS->SetScale(100, 100, 1);
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
-	go->AddComponent(new ChargeBarScript(gs, go2));
 	//Player================================================================================
 	// Gun--------------------------------------------------------------------------------
 	GameObject* gun = m_GameObjectManager.AddGameObject("UI");
@@ -135,13 +102,13 @@ void RojakScene2::Init()
 	go->TRANS->SetScale(thickness, height, width * 2 + fOffset);
 	// bot left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall"));
-	go->TRANS->SetPosition(-(width / 2 + holeWidth / 2), 0, length - 20);
+	go->TRANS->SetPosition(-(width / 2 + holeWidth / 2), 0, length - 60);
 	go->TRANS->SetRotation(60, 0, 1, 0);
 	go->TRANS->SetRotation(60, 0, 1, 0);
 	go->TRANS->SetScale(thickness, height, width - holeWidth / 2);
 	// bot right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("wall"));
-	go->TRANS->SetPosition((width / 2 + holeWidth / 2), 0, length - 20);
+	go->TRANS->SetPosition((width / 2 + holeWidth / 2), 0, length - 60);
 	go->TRANS->SetRotation(-60, 0, 1, 0);
 	go->TRANS->SetScale(thickness, height, width - holeWidth / 2);
 	// goal--------------------------------------------------------------------------------
@@ -166,13 +133,13 @@ void RojakScene2::Init()
 	//go->TRANS->SetScale(thickness, 1000, 1000);
 	// pillar left--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
-	go->TRANS->SetPosition(-width / 2, 0, 0);
+	go->TRANS->SetPosition(-width / 2, 0, -60);
 	go->TRANS->SetScale(15, height, 15);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
 	go->TRANS->SetPosition(-width / 2, height, 0);
 	// Pillar right--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
-	go->TRANS->SetPosition(width / 2, 0, 0);
+	go->TRANS->SetPosition(width / 2, 0, -60);
 	go->TRANS->SetScale(15, height, 15);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
 	go->TRANS->SetPosition(width / 2, height, 0);

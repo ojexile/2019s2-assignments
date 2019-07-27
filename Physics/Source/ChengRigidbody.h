@@ -27,9 +27,9 @@ private:
 	// PhysicsMat m_PhysicsMat
 	float m_fMass;
 
-	bool m_bLockXAxis = false;
-	bool m_bLockYAxis = false;
-	bool m_bLockZAxis = false;
+	bool m_bLockXAxis;
+	bool m_bLockYAxis;
+	bool m_bLockZAxis;
 
 	bool m_bGravityAffected;
 	ePhysicsTypes m_eType;

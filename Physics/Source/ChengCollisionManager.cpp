@@ -405,9 +405,13 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		float fDist = (trans1->GetPosition() - trans2->GetPosition()).Length();
 		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
 		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
-		Mtx44 rot;
-		rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
-		Vector3 N = rot * Vector3(1, 0, 0);
+		Vector3 N = { 1,0,0 };
+		if (trans2->GetDegrees() != 0)
+		{
+			Mtx44 rot;
+			rot.SetToRotation(trans2->GetDegrees(), trans2->GetRotation().x, trans2->GetRotation().y, trans2->GetRotation().z);
+			N = rot * Vector3(1, 0, 0);
+		}
 		float fCircum = 2 * 3.1425f * (fDist);
 		Vector3 avel = rigid2->GetAVel();
 		float fSpeed = avel.y / 360 * fCircum;

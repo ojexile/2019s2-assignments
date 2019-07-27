@@ -5,12 +5,13 @@ ChengRigidbody::ChengRigidbody(ePhysicsTypes e, bool Grav)
 	: m_bLockXAxis{ false }
 	, m_bLockYAxis{ false }
 	, m_bLockZAxis{ false }
+	, m_eType{ e }
 {
-	m_eType = e;
 	m_fMass = 1;
 	m_vGravity = { 0,0,0 };
 
 	m_bGravityAffected = Grav;
+	this->SetActive(true);
 }
 
 ChengRigidbody::~ChengRigidbody()

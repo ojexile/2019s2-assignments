@@ -27,7 +27,7 @@ DataContainer::DataContainer()
 	//m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
 	//m_map_Meshes["ball3"] = MeshBuilder::GenerateSphere("ball", Color(0, 1, 0), 10, 10, 1.f);
 
-	m_map_Meshes["pillar"] = MeshBuilder::GenerateOBJ("cylinder");
+	m_map_Meshes["pillar"] = MeshBuilder::GenerateOBJ("H_cylinder");
 
 	m_map_Meshes["paddle"] = MeshBuilder::GenerateOBJ("paddle");
 
@@ -264,7 +264,7 @@ DataContainer::DataContainer()
 	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
 	go->AddComponent(new PaddleScript(true));
-	go->GetComponent<TransformComponent>()->SetScale(5, 100, 35);
+	go->GetComponent<TransformComponent>()->SetScale(5, 60, 35);
 	// PaddleRight--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["paddleRight"] = go;
@@ -272,7 +272,7 @@ DataContainer::DataContainer()
 	go->GetComponent<RenderComponent>()->SetColor({ 0,0,1 });
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PADDLE, false));
 	go->AddComponent(new PaddleScript(false));
-	go->GetComponent<TransformComponent>()->SetScale(5, 100, 35);
+	go->GetComponent<TransformComponent>()->SetScale(5, 60, 35);
 	// Fan--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["fanBlade"] = go;
