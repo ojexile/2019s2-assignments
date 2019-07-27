@@ -18,6 +18,7 @@ GauntletScript::GauntletScript(GameObject* ball)
 	m_bInUse = false;
 	m_fStartTime = 0;
 	m_fDuration = 0;
+	m_fCharge = 0;
 }
 
 GauntletScript::~GauntletScript()
@@ -39,11 +40,15 @@ void GauntletScript::Update(double dt)
 			}
 		}
 	}
+	m_fCharge += (float)dt * 10;
+	if (m_fCharge > 100.f)
+		m_fCharge = 100.f;
 }
 void GauntletScript::RotateForward()
 {
 	if (m_bInUse)
 		return;
+
 	switch (m_eStone)
 	{
 	case NONE:
@@ -113,6 +118,9 @@ void GauntletScript::Use()
 		StopUse();
 		return;
 	}
+	if (m_fCharge < 100.f)
+		return;
+	m_fCharge = 0.f;
 	switch (m_eStone)
 	{
 	case NONE:

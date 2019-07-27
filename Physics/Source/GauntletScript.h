@@ -24,6 +24,7 @@ private:
 	float m_fStartTime;
 	float m_fDuration;
 	GameObject* m_Ball;
+	float m_fCharge;
 
 	void StopUse();
 public:
@@ -37,4 +38,6 @@ public:
 	void RotateBackward();
 
 	void Use();
+
+	friend class ChargeBarScript;
 };

@@ -54,6 +54,8 @@ bool GameObject::IsActive()
 
 void GameObject::Update(double dt)
 {
+	if (!this->IsActive())
+		return;
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
 		if (!m_vec_ComponentList[i]->IsActive())

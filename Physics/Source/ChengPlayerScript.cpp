@@ -54,9 +54,9 @@ void ChengPlayerScript::Update(double dt)
 	// Gauntlet================================================================================
 	//if (KeyboardManager::GetInstance()->GetKeyTriggered("triggerGauntlet"))
 	if (Application::IsMousePressed(1))
-		m_Gaunt->SetActive(true);
+		m_Gaunt->GetComponent<RenderComponent>()->SetActive(true);
 	else
-		m_Gaunt->SetActive(false);
+		m_Gaunt->GetComponent<RenderComponent>()->SetActive(false);
 	if (m_Gaunt->IsActive())
 	{
 		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGauntForward"))

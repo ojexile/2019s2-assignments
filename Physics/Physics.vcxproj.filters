@@ -98,6 +98,7 @@
     <ClCompile Include="Source\HoleScript.cpp" />
     <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MenuScript.cpp" />
+    <ClCompile Include="Source\ChargeBarScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Source\HoleScript.h" />
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MenuScript.h" />
+    <ClInclude Include="Source\ChargeBarScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

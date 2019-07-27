@@ -30,9 +30,10 @@ void ParticleSpawnerScript::Update(double dt)
 	Vector3 vCurrentScale = Trans->GetScale();
 	//vCurrentScale = { 20,20,20 };
 	Vector3 vScale;
-	vScale.x = Math::RandFloatMinMax((1 - m_fSizeOffset), (1 + m_fSizeOffset));
-	vScale.y = Math::RandFloatMinMax((1 - m_fSizeOffset), (1 + m_fSizeOffset));
-	vScale.z = Math::RandFloatMinMax((1 - m_fSizeOffset), (1 + m_fSizeOffset));
+	Vector3 vBaseScale = m_ParticleRef->TRANS->GetScale();
+	vScale.x = Math::RandFloatMinMax((vBaseScale.x - m_fSizeOffset), (vBaseScale.x + m_fSizeOffset));
+	vScale.y = Math::RandFloatMinMax((vBaseScale.y - m_fSizeOffset), (vBaseScale.y + m_fSizeOffset));
+	vScale.z = Math::RandFloatMinMax((vBaseScale.z - m_fSizeOffset), (vBaseScale.z + m_fSizeOffset));
 	vScale.x *= vCurrentScale.x;
 	vScale.y *= vCurrentScale.y;
 	vScale.z *= vCurrentScale.z;

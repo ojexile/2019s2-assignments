@@ -261,7 +261,12 @@ void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string t
 }
 void RenderingManagerBase::RenderUI(RenderComponent* rc, bool enableLight)
 {
-	Mesh* mesh = rc->GetMesh();
+	Mesh* mesh;
+	if (rc->GetMesh())
+		mesh = rc->GetMesh();
+	else if (rc->GetAnimatedMesh())
+		mesh = rc->GetAnimatedMesh()->m_Mesh;
+
 	Material mat = rc->GetMaterial();
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;

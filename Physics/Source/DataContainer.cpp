@@ -35,6 +35,8 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["goal"] = MeshBuilder::GenerateCube("wall", Color((float)0.8, (float)0.2, (float)0.2), 1.f);
 
+	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered(Color(1.f, 1.f, 1.f), 1.f);
+
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
@@ -48,6 +50,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
 	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("PLAYER_PISTOL");
+
+	m_map_Meshes["Particle"] = MeshBuilder::GenerateQuad("Particle", { 1.f,1.f,1.f }, 1);
+	m_map_Meshes["Particle"]->m_uTextureArray[0] = LoadTGA("Particle");
 
 	//m_map_Meshes["Water"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.4f);
 	//m_map_Meshes["Water"]->m_uTextureArray[0] = LoadTGA("particle");
@@ -133,6 +138,18 @@ DataContainer::DataContainer()
 	//DropletMini->GetComponent<RenderComponent>()->SetBillboard(true);
 	//DropletMini->AddComponent(new ParticleScript(5.0f, { 0.3f,0.4f,0.3f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
 	//m_map_GO["DropletMini"] = DropletMini;
+	// Particle--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Particle"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("Particle")));
+	go->RENDER->SetColor({ 0,1,1 });
+	go->TRANS->SetScale(10, 10, 1);
+	//Leaf->GetComponent<RenderComponent>()->SetBillboard(true);
+	ParticleScript* ps1 = new ParticleScript(1.f, { 1.f,1.f,0 }, { 0,0,0 }, { 0,0,0 }, { -8.f,-8.f,0 }, { 1,1,0 }, { 0,0,0 }, { 0,0,0 });
+	//ps->SetCos({ 0,0,ampl }, { 0,0,freq });
+	//ps->SetRot({ 20,0,0 });
+	go->AddComponent(ps1);
+
 	// Leaf--------------------------------------------------------------------------------
 	GameObject* Leaf = new GameObject;
 	m_map_GO["Leaf"] = Leaf;

@@ -161,6 +161,7 @@
     <ClCompile Include="Source\BallScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
+    <ClCompile Include="Source\ChargeBarScript.cpp" />
     <ClCompile Include="Source\ChengPlayerScript.cpp" />
     <ClCompile Include="Source\ChengCollisionManager.cpp" />
     <ClCompile Include="Source\ChengRigidbody.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Source\BallScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
+    <ClInclude Include="Source\ChargeBarScript.h" />
     <ClInclude Include="Source\ChengPlayerScript.h" />
     <ClInclude Include="Source\ChengCollisionManager.h" />
     <ClInclude Include="Source\ChengRigidbody.h" />
