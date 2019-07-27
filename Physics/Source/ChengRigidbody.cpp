@@ -2,13 +2,14 @@
 #include "TransformComponent.h"
 #include "WorldValues.h"
 ChengRigidbody::ChengRigidbody(ePhysicsTypes e, bool Grav)
+	: m_bLockXAxis{ false }
+	, m_bLockYAxis{ false }
+	, m_bLockZAxis{ false }
 {
 	m_eType = e;
 	m_fMass = 1;
 	m_vGravity = { 0,0,0 };
-	m_bLockXAxis = false;
-	m_bLockYAxis = false;
-	m_bLockZAxis = false;
+
 	m_bGravityAffected = Grav;
 }
 

@@ -1,9 +1,9 @@
 #include "GameObject.h"
 
 GameObject::GameObject()
+	: m_bActive{ true }
+	, m_bStatic{ false }
 {
-	m_bActive = true;
-	m_bStatic = false;
 	AddComponent(new TransformComponent);
 }
 // Copy
