@@ -10,8 +10,9 @@
 #include "AudioManager.h"
 #include "Preferences.h"
 #include "Resources.h"
-GauntletScript::GauntletScript(GameObject* ball)
-	:m_Ball(ball)
+GauntletScript::GauntletScript(GameObject* ball, GameObject* text)
+	: m_Ball(ball)
+	, m_Text(text)
 {
 	m_eStone = NONE;
 	m_MC = nullptr;
@@ -30,6 +31,14 @@ void GauntletScript::Start()
 }
 void GauntletScript::Update(double dt)
 {
+	if (!RENDER->IsActive())
+	{
+		m_Text->RENDER->SetText("Right click to bring up gauntlet.");
+	}
+	else if (m_eStone == NONE)
+	{
+		m_Text->RENDER->SetText("Q & E to scroll.");
+	}
 	if (m_bInUse)
 	{
 		if (m_fDuration != -1)
@@ -48,29 +57,35 @@ void GauntletScript::RotateForward()
 {
 	if (m_bInUse)
 		return;
-
 	switch (m_eStone)
 	{
 	case NONE:
 		m_MC->SetMesh("GauntSoul");
+		m_Text->RENDER->SetText("Destroy half of all balls on screen.");
 		break;
 	case SOUL:
 		m_MC->SetMesh("GauntReality");
+		m_Text->RENDER->SetText("Disable gravity");
 		break;
 	case REALITY:
 		m_MC->SetMesh("GauntSpace");
+		m_Text->RENDER->SetText("Spawn ball at mouse position from top down.");
 		break;
 	case SPACE:
 		m_MC->SetMesh("GauntPower");
+		m_Text->RENDER->SetText("Increase paddle force.");
 		break;
 	case POWER:
 		m_MC->SetMesh("GauntTime");
+		m_Text->RENDER->SetText("Reverse time momentarily.");
 		break;
 	case TIME:
 		m_MC->SetMesh("GauntMind");
+		m_Text->RENDER->SetText("NOT IMPLEMENTED.");
 		break;
 	case MIND:
 		m_MC->SetMesh("Gaunt");
+		m_Text->RENDER->SetText("Q & E to scroll.");
 		break;
 	default:
 		break;
@@ -85,18 +100,22 @@ void GauntletScript::RotateBackward()
 	{
 	case NONE:
 		m_MC->SetMesh("GauntMind");
+		m_Text->RENDER->SetText("NOT IMPLEMENTED.");
 		break;
 	case SOUL:
 		m_MC->SetMesh("Gaunt");
+		m_Text->RENDER->SetText("Q & E to scroll.");
 		break;
 	case REALITY:
 		m_MC->SetMesh("GauntSoul");
+		m_Text->RENDER->SetText("Destroy half of all balls on screen.");
 		break;
 	case SPACE:
 		m_MC->SetMesh("GauntReality");
 		break;
 	case POWER:
 		m_MC->SetMesh("GauntSpace");
+		m_Text->RENDER->SetText("Spawn ball at mouse position from top down.");
 		break;
 	case TIME:
 		m_MC->SetMesh("GauntPower");
@@ -113,6 +132,8 @@ void GauntletScript::RotateBackward()
 }
 void GauntletScript::Use()
 {
+	if (!RENDER->IsActive())
+		return;
 	if (m_bInUse)
 	{
 		StopUse();

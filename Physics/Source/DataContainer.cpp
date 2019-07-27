@@ -9,6 +9,8 @@
 #include "BouncerScript.h"
 #include "PaddleScript.h"
 #include "HoleScript.h"
+#include "MeshController.h"
+#include "GauntletScript.h"
 
 #include <time.h>
 DataContainer::DataContainer()
@@ -294,7 +296,31 @@ DataContainer::DataContainer()
 	m_map_Shaders["Smoke"] = LoadShaders("Smoke", "Smoke");
 	m_map_Shaders["Underwater"] = LoadShaders("Underwater", "Underwater");
 	//--------------------------------------------------------------------------------
+	GameObject* Gaunt = new GameObject;
+	m_map_GO["Gauntlet"] = Gaunt;
+	Gaunt->TRANS->SetPosition(250, 1080 - 800, 5);
+	Gaunt->TRANS->SetScale(800.f, 800.f, 1.f);
+	Gaunt->AddComponent(new RenderComponent(GetMesh("Gaunt")));
+	Gaunt->RENDER->SetLightEnabled(false);
+	MeshController<Mesh>* meshController = new MeshController<Mesh>;
+	meshController->AddMesh("Gaunt", GetMesh("Gaunt"));
+	meshController->AddMesh("GauntSoul", GetMesh("GauntSoul"));
+	meshController->AddMesh("GauntReality", GetMesh("GauntReality"));
+	meshController->AddMesh("GauntSpace", GetMesh("GauntSpace"));
+	meshController->AddMesh("GauntPower", GetMesh("GauntPower"));
+	meshController->AddMesh("GauntTime", GetMesh("GauntTime"));
+	meshController->AddMesh("GauntMind", GetMesh("GauntMind"));
+	meshController->AddMesh("GauntFist", GetMesh("GauntFist"));
+	meshController->AddMesh("GauntSnap", GetMesh("GauntSnap"));
+	Gaunt->AddComponent(meshController);
+	GameObject* go2 = new GameObject;
+	m_map_GO["Text"] = go2;
+	go2->AddComponent(new RenderComponent(GetMesh("Text"), ""));
+	go2->TRANS->SetPosition(1200, 960, 25);
+	go2->RENDER->SetColor({ 1,1,1 });
 
+	Gaunt->SetActive(true);
+	//
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 

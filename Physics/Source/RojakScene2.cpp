@@ -8,6 +8,9 @@
 #include "SunBrightnessScript.h"
 #include "Constrain.h"
 #include "Utility.h"
+#include "ParticleScript.h"
+#include "ParticleSpawnerScript.h"
+#include "ChargeBarScript.h"
 RojakScene2::RojakScene2()
 {
 }
@@ -19,6 +22,7 @@ void RojakScene2::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObject* go;
+	GameObject* go2;
 	// Create Camera================================================================================
 	m_CameraGO = new GameObject;
 	m_CameraGO->AddComponent(new CameraComponent);
@@ -60,9 +64,31 @@ void RojakScene2::Init()
 	meshController->AddMesh("GauntTime", dataContainer->GetMesh("GauntTime"));
 	meshController->AddMesh("GauntMind", dataContainer->GetMesh("GauntMind"));
 	meshController->AddMesh("GauntFist", dataContainer->GetMesh("GauntFist"));
+	meshController->AddMesh("GauntSnap", dataContainer->GetMesh("GauntSnap"));
 	Gaunt->AddComponent(meshController);
-	Gaunt->AddComponent(new GauntletScript(dataContainer->GetGameObject("bullet")));
-	Gaunt->SetActive(false);
+	go2 = m_GameObjectManager.AddGameObject();
+	go2->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), ""));
+	go2->TRANS->SetPosition(1800, 900, 30);
+	GauntletScript* gs = new GauntletScript(dataContainer->GetGameObject("bullet"), go2);
+	Gaunt->AddComponent(gs);
+	Gaunt->SetActive(true);
+	// ChargeBar--------------------------------------------------------------------------------
+	// Text
+	go = m_GameObjectManager.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Gauntlet Charge: "));
+	go->TRANS->SetPosition(50, 980, 30);
+	go->RENDER->SetColor({ 0, 1, 1 });
+	// Part--------------------------------------------------------------------------------
+	go2 = m_GameObjectManager.AddGameObject("UI");
+	go2->TRANS->SetPosition(50 + 400, 960, 0);
+	go2->AddComponent(new ParticleSpawnerScript(dataContainer->GetGameObject("Particle"), 0.05f, 0, 0, "UI", -1.f));
+	go2->SetActive(false);
+	// Main--------------------------------------------------------------------------------
+	go = m_GameObjectManager.AddGameObject("UI");
+	go->TRANS->SetPosition(50, 960, 0);
+	//go->TRANS->SetScale(100, 100, 1);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	go->AddComponent(new ChargeBarScript(gs, go2));
 	//Player================================================================================
 	// Gun--------------------------------------------------------------------------------
 	GameObject* gun = m_GameObjectManager.AddGameObject("UI");

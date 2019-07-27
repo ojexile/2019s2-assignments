@@ -50,25 +50,12 @@ void RojakAssignmentScene::Init()
 	go = dataContainer->GetGameObject("scoreboard");
 	m_GameObjectManager.AddGameObject(go, "UI");
 	// Gauntlet--------------------------------------------------------------------------------
-	GameObject* Gaunt = m_GameObjectManager.AddGameObject("UI");
-	Gaunt->TRANS->SetPosition(250, 1080 - 800, 5);
-	Gaunt->TRANS->SetScale(800.f, 800.f, 1.f);
-	Gaunt->AddComponent(new RenderComponent(dataContainer->GetMesh("Gaunt")));
-	Gaunt->RENDER->SetLightEnabled(false);
-	MeshController<Mesh>* meshController = new MeshController<Mesh>;
-	meshController->AddMesh("Gaunt", dataContainer->GetMesh("Gaunt"));
-	meshController->AddMesh("GauntSoul", dataContainer->GetMesh("GauntSoul"));
-	meshController->AddMesh("GauntReality", dataContainer->GetMesh("GauntReality"));
-	meshController->AddMesh("GauntSpace", dataContainer->GetMesh("GauntSpace"));
-	meshController->AddMesh("GauntPower", dataContainer->GetMesh("GauntPower"));
-	meshController->AddMesh("GauntTime", dataContainer->GetMesh("GauntTime"));
-	meshController->AddMesh("GauntMind", dataContainer->GetMesh("GauntMind"));
-	meshController->AddMesh("GauntFist", dataContainer->GetMesh("GauntFist"));
-	meshController->AddMesh("GauntSnap", dataContainer->GetMesh("GauntSnap"));
-	Gaunt->AddComponent(meshController);
-	GauntletScript* gs = new GauntletScript(dataContainer->GetGameObject("bullet"));
+	GameObject* Gaunt = dataContainer->GetGameObject("Gauntlet");
+	m_GameObjectManager.AddGameObject(Gaunt, "UI");
+	go2 = dataContainer->GetGameObject("Text");
+	m_GameObjectManager.AddGameObject(go2, "UI");
+	GauntletScript* gs = new GauntletScript(dataContainer->GetGameObject("bullet"), go2);
 	Gaunt->AddComponent(gs);
-	Gaunt->SetActive(true);
 	// ChargeBar--------------------------------------------------------------------------------
 	// Text
 	go = m_GameObjectManager.AddGameObject("UI");

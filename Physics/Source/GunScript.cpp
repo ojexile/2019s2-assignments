@@ -9,10 +9,10 @@ GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRa
 {
 	m_Bullet = bullet;
 	m_fTimer = 0;
-	m_iClipAmmo = 5;
+	m_iClipAmmoMax = 3;
+	m_iClipAmmo = m_iClipAmmoMax;
 	//m_iNumClips = 3;
-	m_iNumClips = 20000;
-	m_iClipAmmoMax = 5;
+	m_iNumClips = 2;
 	m_bTriggerDown = false;
 	m_fChargeTime = 0;
 	m_fMaxChargeTime = 3;
