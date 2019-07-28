@@ -2,10 +2,11 @@
 #include "BulletScript.h"
 #include "ChengRigidbody.h"
 #include "Application.h"
-GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType)
+GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke)
 	: m_Player(player)
 	, m_eFireType(eFireType)
 	, m_fFireRate(fFireRate)
+	, m_Smoke(smoke)
 {
 	m_Bullet = bullet;
 	m_fTimer = 0;
@@ -88,6 +89,7 @@ void GunScript::Fire(Vector3 vDir)
 	float fBallSpeed = 120.f;
 	Vector3 ballDir = vDir;
 	Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
+	Instantiate(m_Smoke, pos + vDir * 2);
 	//pos.y = 10;
 	GameObject* bul = Instantiate(m_Bullet, pos);
 	if (!bul)

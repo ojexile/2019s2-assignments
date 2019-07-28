@@ -82,7 +82,7 @@ void RojakScene2::Init()
 	gun->AddComponent(new RenderComponent(dataContainer->GetMesh("Gun")));
 	gun->RENDER->SetBillboard(false);
 	gun->RENDER->SetLightEnabled(false);
-	gun->AddComponent(new GunScript(dataContainer->GetGameObject("bullet"), m_CameraGO, 0.1f, GunScript::CHARGE));
+	gun->AddComponent(new GunScript(dataContainer->GetGameObject("bullet"), m_CameraGO, 0.1f, GunScript::CHARGE, dataContainer->GetGameObject("SmokeParticle")));
 	// Player--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
 	go->TRANS->SetPosition({});

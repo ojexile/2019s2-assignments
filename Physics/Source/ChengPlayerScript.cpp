@@ -174,6 +174,10 @@ void ChengPlayerScript::UpdateMovement(double dt)
 	{
 		SceneManager::GetInstance()->ChangeScene(new RojakAssignmentScene());
 	}
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("SwitchMap1"))
+	{
+		SceneManager::GetInstance()->ChangeScene(new RojakScene2());
+	}
 }
 void ChengPlayerScript::UpdateGauntlet()
 {
@@ -245,6 +249,8 @@ void ChengPlayerScript::UpdateTilt()
 void ChengPlayerScript::UpdateConstrain()
 {
 	Constrain* con = GetComponent<Constrain>();
+	if (!con)
+		return;
 	// Plains
 	if (GetPosition().x > 0 && GetPosition().z > 0)
 	{

@@ -35,5 +35,7 @@ public:
 		}
 		rc->SetMesh(m_map_List[s]);
 	};
-
+	virtual void Update(double dt) override
+	{
+	};
 };

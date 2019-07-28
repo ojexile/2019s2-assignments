@@ -48,7 +48,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["Particle"] = MeshBuilder::GenerateQuad("Particle", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["Particle"]->m_uTextureArray[0] = LoadTGA("Particle");
 
-	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, true);
+	m_map_Animated["Smoke"] = MeshBuilder::GenerateAnimatedMesh("Smoke", 5, 8, 0, 39, 2.f, false);
 	m_map_Animated["Smoke"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Smoke");
 
 	/*m_map_Animated["Cat"] = MeshBuilder::GenerateAnimatedMesh("Cat", 5, 8, 0, 39, 2.f, true);
@@ -127,10 +127,10 @@ DataContainer::DataContainer()
 	/// Particles--------------------------------------------------------------------------------
 	//Smoke--------------------------------------------------------------------------------
 	GameObject* SmokeParticle = new GameObject;
+	m_map_GO["SmokeParticle"] = SmokeParticle;
 	SmokeParticle->AddComponent(new RenderComponent(this->GetAnimation("Smoke")));
 	SmokeParticle->GetComponent<RenderComponent>()->SetBillboard(true);
 	SmokeParticle->AddComponent(new ParticleScript(3.0f, { 0,0.01f,0 }, { 0,0,0 }, { 0,0,0 }, { 0,0,0 }, {}));
-	m_map_GO["SmokeParticle"] = SmokeParticle;
 	// Gaunt Charge Particle--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Particle"] = go;

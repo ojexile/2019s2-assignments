@@ -16,6 +16,7 @@ private:
 	float m_fTimer;
 	const float m_fFireRate;
 	GameObject* m_Player;
+	GameObject* m_Smoke;
 	//bool m_bSemi;
 	eFIRE_TYPES m_eFireType;
 	int m_iNumClips;
@@ -29,7 +30,7 @@ private:
 
 	float m_fMaxScale;
 public:
-	GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType);
+	GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke);
 	~GunScript();
 	virtual ComponentBase* Clone()
 	{
