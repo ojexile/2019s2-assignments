@@ -4,45 +4,6 @@
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
-    <ClCompile Include="Source\BulletScript.cpp" />
-    <ClCompile Include="Source\Camera.cpp" />
-    <ClCompile Include="Source\CameraComponent.cpp" />
-    <ClCompile Include="Source\ChengPlayerScript.cpp" />
-    <ClCompile Include="Source\ComponentBase.cpp" />
-    <ClCompile Include="Source\CrouchingState.cpp" />
-    <ClCompile Include="Source\DataContainer.cpp" />
-    <ClCompile Include="Source\DepthFBO.cpp" />
-    <ClCompile Include="Source\Engine.cpp" />
-    <ClCompile Include="Source\GameObject.cpp" />
-    <ClCompile Include="Source\GameObjectManager.cpp" />
-    <ClCompile Include="Source\GunScript.cpp" />
-    <ClCompile Include="Source\KeyboardManager.cpp" />
-    <ClCompile Include="Source\LayerData.cpp" />
-    <ClCompile Include="Source\LoadHmap.cpp" />
-    <ClCompile Include="Source\LoadOBJ.cpp" />
-    <ClCompile Include="Source\LoadTGA.cpp" />
-    <ClCompile Include="Source\Locator.cpp" />
-    <ClCompile Include="Source\LogData.cpp" />
-    <ClCompile Include="Source\Logger.cpp" />
-    <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\Mesh.cpp" />
-    <ClCompile Include="Source\MeshBuilder.cpp" />
-    <ClCompile Include="Source\PlayerState.cpp" />
-    <ClCompile Include="Source\RenderComponent.cpp" />
-    <ClCompile Include="Source\RenderingManager.cpp" />
-    <ClCompile Include="Source\RenderingManagerBase.cpp" />
-    <ClCompile Include="Source\Scene.cpp" />
-    <ClCompile Include="Source\SceneManager.cpp" />
-    <ClCompile Include="Source\ScriptComponent.cpp" />
-    <ClCompile Include="Source\shader.cpp" />
-    <ClCompile Include="Source\StandingState.cpp" />
-    <ClCompile Include="Source\TransformComponent.cpp" />
-    <ClCompile Include="Source\Utility.cpp" />
-    <ClCompile Include="Source\ParticleScript.cpp" />
-    <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
-    <ClCompile Include="Source\AnimatedMesh.cpp" />
-    <ClCompile Include="Source\Application.cpp" />
-    <ClCompile Include="Source\AudioManager.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
@@ -72,108 +33,419 @@
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
-    <ClCompile Include="Source\RainScript.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
-    <ClCompile Include="Source\Preferences.cpp" />
-    <ClCompile Include="Source\Resources.cpp" />
-    <ClCompile Include="Source\LightManager.cpp" />
-    <ClCompile Include="Source\ChengCollisionManager.cpp" />
-    <ClCompile Include="Source\ChengRigidbody.cpp" />
-    <ClCompile Include="Source\BallScript.cpp" />
-    <ClCompile Include="Source\Time.cpp" />
-    <ClCompile Include="Source\MeshController.cpp" />
-    <ClCompile Include="Source\Constrain.cpp" />
-    <ClCompile Include="Source\HeightMapData.cpp" />
-    <ClCompile Include="Source\RojakAssignmentScene.cpp" />
-    <ClCompile Include="Source\GoalScript.cpp" />
-    <ClCompile Include="Source\BouncerScript.cpp" />
-    <ClCompile Include="Source\Blackhole.cpp" />
-    <ClCompile Include="Source\ScoreScript.cpp" />
-    <ClCompile Include="Source\PaddleScript.cpp" />
-    <ClCompile Include="Source\GauntletScript.cpp" />
-    <ClCompile Include="Source\WorldValues.cpp" />
-    <ClCompile Include="Source\PhysicsMaterial.cpp" />
-    <ClCompile Include="Source\SunBrightnessScript.cpp" />
-    <ClCompile Include="Source\RojakScene2.cpp" />
-    <ClCompile Include="Source\HoleScript.cpp" />
-    <ClCompile Include="Source\MainMenu.cpp" />
-    <ClCompile Include="Source\MenuScript.cpp" />
-    <ClCompile Include="Source\ChargeBarScript.cpp" />
+    <ClCompile Include="Source\AnimatedMesh.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AudioManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BallScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Blackhole.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BouncerScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BulletScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CameraComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ChargeBarScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ChengCollisionManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ChengPlayerScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ChengRigidbody.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ComponentBase.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Constrain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CrouchingState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DataContainer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DepthFBO.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameObject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameObjectManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GauntletScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GoalScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GunScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HeightMapData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\HoleScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\KeyboardManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LayerData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LightManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadHmap.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadOBJ.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadTGA.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Locator.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LogData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Logger.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MainMenu.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MenuScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MeshBuilder.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MeshController.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PaddleScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ParticleScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ParticleSpawnerScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PhysicsMaterial.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayerState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Preferences.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RainScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderingManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderingManagerBase.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Resources.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RojakAssignmentScene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RojakScene2.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ScoreScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ScriptComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\shader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StandingState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SunBrightnessScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Time.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TransformComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WorldValues.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\AnimatedMesh.h" />
-    <ClInclude Include="Source\Animation.h" />
-    <ClInclude Include="Source\Application.h" />
-    <ClInclude Include="Source\BulletScript.h" />
-    <ClInclude Include="Source\AudioManager.h" />
-    <ClInclude Include="Source\Camera.h" />
-    <ClInclude Include="Source\CameraComponent.h" />
-    <ClInclude Include="Source\ChengPlayerScript.h" />
-    <ClInclude Include="Source\ComponentBase.h" />
-    <ClInclude Include="Source\CrouchingState.h" />
-    <ClInclude Include="Source\DataContainer.h" />
-    <ClInclude Include="Source\DepthFBO.h" />
-    <ClInclude Include="Source\Engine.h" />
-    <ClInclude Include="Source\GameObject.h" />
-    <ClInclude Include="Source\GameObjectManager.h" />
-    <ClInclude Include="Source\GunScript.h" />
-    <ClInclude Include="Source\KeyboardManager.h" />
-    <ClInclude Include="Source\LayerData.h" />
-    <ClInclude Include="Source\Light.h" />
-    <ClInclude Include="Source\LoadHmap.h" />
-    <ClInclude Include="Source\LoadOBJ.h" />
-    <ClInclude Include="Source\LoadTGA.h" />
-    <ClInclude Include="Source\Locator.h" />
-    <ClInclude Include="Source\LogData.h" />
-    <ClInclude Include="Source\Logger.h" />
-    <ClInclude Include="Source\Material.h" />
-    <ClInclude Include="Source\Mesh.h" />
-    <ClInclude Include="Source\MeshBuilder.h" />
-    <ClInclude Include="Source\PlayerState.h" />
-    <ClInclude Include="Source\RenderComponent.h" />
-    <ClInclude Include="Source\Renderer.h" />
-    <ClInclude Include="Source\RenderingManager.h" />
-    <ClInclude Include="Source\RenderingManagerBase.h" />
-    <ClInclude Include="Source\Scene.h" />
-    <ClInclude Include="Source\SceneManager.h" />
-    <ClInclude Include="Source\ScriptComponent.h" />
-    <ClInclude Include="Source\shader.hpp" />
-    <ClInclude Include="Source\Singleton.h" />
-    <ClInclude Include="Source\StandingState.h" />
-    <ClInclude Include="Source\TransformComponent.h" />
-    <ClInclude Include="Source\Utility.h" />
-    <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\LightManager.h" />
-    <ClInclude Include="Source\ChengCollisionManager.h" />
-    <ClInclude Include="Source\ChengRigidbody.h" />
     <ClInclude Include="Source\LightManager.h" />
-    <ClInclude Include="Source\Resources.h" />
-    <ClInclude Include="Source\Preferences.h" />
-    <ClInclude Include="Source\Time.h" />
-    <ClInclude Include="Source\MeshController.h" />
-    <ClInclude Include="Source\BallScript.h" />
-    <ClInclude Include="Source\ParticleScript.h" />
-    <ClInclude Include="Source\ParticleSpawnerScript.h" />
-    <ClInclude Include="Source\LightManager.h" />
-    <ClInclude Include="Source\RainScript.h" />
-    <ClInclude Include="Source\RojakAssignmentScene.h" />
-    <ClInclude Include="Source\GoalScript.h" />
-    <ClInclude Include="Source\BouncerScript.h" />
-    <ClInclude Include="Source\Blackhole.h" />
-    <ClInclude Include="Source\ScoreScript.h" />
-    <ClInclude Include="Source\PaddleScript.h" />
-    <ClInclude Include="Source\GauntletScript.h" />
-    <ClInclude Include="Source\WorldValues.h" />
-    <ClInclude Include="Source\ComponentMacros.h" />
-    <ClInclude Include="Source\Constrain.h" />
-    <ClInclude Include="Source\HeightMapData.h" />
-    <ClInclude Include="Source\PhysicsMaterial.h" />
-    <ClInclude Include="Source\SunBrightnessScript.h" />
-    <ClInclude Include="Source\RojakScene2.h" />
-    <ClInclude Include="Source\HoleScript.h" />
-    <ClInclude Include="Source\MainMenu.h" />
-    <ClInclude Include="Source\MenuScript.h" />
-    <ClInclude Include="Source\ChargeBarScript.h" />
+    <ClInclude Include="Source\AnimatedMesh.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animation.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Application.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\AudioManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BallScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Blackhole.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BouncerScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BulletScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CameraComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ChargeBarScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ChengCollisionManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ChengPlayerScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ChengRigidbody.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ComponentBase.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ComponentMacros.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Constrain.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CrouchingState.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DataContainer.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DepthFBO.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameObject.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameObjectManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GauntletScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GoalScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GunScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HeightMapData.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HoleScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\KeyboardManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LayerData.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Light.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LightManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadHmap.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadOBJ.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadTGA.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Locator.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LogData.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Logger.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MainMenu.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Material.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MenuScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MeshBuilder.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MeshController.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PaddleScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParticleScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParticleSpawnerScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PhysicsMaterial.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerState.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Preferences.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RainScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Renderer.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderingManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RenderingManagerBase.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Resources.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RojakAssignmentScene.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RojakScene2.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScoreScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ScriptComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\shader.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Singleton.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StandingState.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SunBrightnessScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Time.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TransformComponent.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utility.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Vertex.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WorldValues.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />
@@ -185,35 +457,103 @@
     <None Include="Shader\MultiTexture.fragmentshader" />
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
-    <None Include="Shader\shadow\GPass.fragmentshader" />
-    <None Include="Shader\shadow\GPass.vertexshader" />
-    <None Include="Content\shaders\Flare.fragmentshader" />
-    <None Include="Content\shaders\Flare.vertexshader" />
-    <None Include="Content\shaders\comg.fragmentshader" />
-    <None Include="Content\shaders\comg.vertexshader" />
-    <None Include="Content\shaders\Fog.fragmentshader" />
-    <None Include="Content\shaders\Fog.vertexshader" />
-    <None Include="Content\shaders\GPass.fragmentshader" />
-    <None Include="Content\shaders\GPass.vertexshader" />
-    <None Include="Content\shaders\HeatWave.fragmentshader" />
-    <None Include="Content\shaders\HeatWave.vertexshader" />
-    <None Include="Content\shaders\MultiTexture.fragmentshader" />
-    <None Include="Content\shaders\Shadow.fragmentshader" />
-    <None Include="Content\shaders\Shadow.vertexshader" />
-    <None Include="Content\shaders\water.fragmentshader" />
-    <None Include="Content\shaders\water.vertexshader" />
-    <None Include="Shader\shadow\Shadow.vertexshader" />
-    <None Include="Shader\comg.fragmentshader" />
-    <None Include="Shader\comg.vertexshader" />
-    <None Include="Shader\Fog.fragmentshader" />
-    <None Include="Shader\Fog.vertexshader" />
-    <None Include="Shader\HeatWave.fragmentshader" />
-    <None Include="Shader\HeatWave.vertexshader" />
-    <None Include="Shader\MultiTexture.fragmentshader" />
-    <None Include="Shader\water.fragmentshader" />
-    <None Include="Shader\water.vertexshader" />
-    <None Include="Shader\Smoke.fragmentshader" />
-    <None Include="Shader\Smoke.vertexshader" />
-    <None Include="Shader\shadow\Shadow.fragmentshader" />
+    <None Include="Shader\comg.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\comg.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\comg.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\comg.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\Flare.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\Flare.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Fog.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\Fog.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\Fog.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Fog.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\GPass.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\shadow\GPass.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\GPass.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\shadow\GPass.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\HeatWave.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\HeatWave.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\HeatWave.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\HeatWave.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\MultiTexture.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\MultiTexture.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\shadow\Shadow.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\Shadow.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\Shadow.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\shadow\Shadow.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Smoke.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Smoke.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\water.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\water.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\water.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\water.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{e2f74da9-b46e-4698-9653-9d0431633358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{3a2cf813-02f8-4049-8f79-eadc2918aa57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
