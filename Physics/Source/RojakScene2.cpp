@@ -147,4 +147,10 @@ void RojakScene2::Init()
 	go = m_GameObjectManager.AddGameObject("HeatWave");
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainDesert")->GetPos());
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainDesert")->GetMesh()));
+	// Pillar--------------------------------------------------------------------------------
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("pillar"));
+	go->TRANS->SetPosition(-150, 0, -100);
+	go->TRANS->SetScale(5, 100, 5);
+	go->RENDER->SetColor({ 0.01f, 0.01f, 0.01f });
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainDesert"), Constrain::eConstrainTypes::FIXED));
 }
