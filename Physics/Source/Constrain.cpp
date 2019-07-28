@@ -35,3 +35,7 @@ void Constrain::Update(double dt)
 		break;
 	}
 }
+void Constrain::SetHeightMapData(HeightMapData* data)
+{
+	m_Data = data;
+}

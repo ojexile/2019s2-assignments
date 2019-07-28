@@ -108,9 +108,8 @@ DataContainer::DataContainer()
 	mesh->m_uTextureArray[2] = LoadTGA("grassdirt");
 	// Terrace---------------------------------------------------------------------------------
 	mesh = GenerateTerrainTerrace("TerrainTerrace", "heightmapMain", { 200,28,200 }, { -100,0,-100 });
-	mesh->m_uTextureArray[0] = LoadTGA("grass");
-	mesh->m_uTextureArray[1] = LoadTGA("grassdirt");
-	mesh->m_uTextureArray[2] = LoadTGA("grassdirt");
+	mesh->m_uTextureArray[0] = LoadTGA("moss1");
+	mesh->m_uTextureArray[1] = LoadTGA("grass");
 	//Flat--------------------------------------------------------------------------------
 	mesh = GenerateTerrain("TerrainFlat", "heightmapFlat", { 1000,40,1000 }, { 0,0,0 });
 	mesh->m_uTextureArray[0] = LoadTGA("moss1");
@@ -140,14 +139,14 @@ DataContainer::DataContainer()
 	Leaf->GetComponent<RenderComponent>()->SetBillboard(true);
 	float ampl = 0.1f;
 	float freq = 0.8f;
-	ParticleScript* ps = new ParticleScript(10.5f, { 0,-0.03f,0 }, { 0,0,0 }, { 0,-0.02f,0 }, { -0.01f,-0.01f,0 }, {}, { ampl,0,0 }, { freq,0,0 });
+	ParticleScript* ps = new ParticleScript(12.5f, { 0,-0.03f,0 }, { 0,0,0 }, { 0,-0.02f,0 }, { -0.01f,-0.01f,0 }, {}, { ampl,0,0 }, { freq,0,0 });
 	//ps->SetCos({ 0,0,ampl }, { 0,0,freq });
 	ps->SetRot({ 0,0,50 });
 	Leaf->AddComponent(ps);
 	// Leaf Spawner--------------------------------------------------------------------------------
 	GameObject* LeafSpawner = new GameObject;
 	m_map_GO["LeafSpawner"] = LeafSpawner;
-	LeafSpawner->AddComponent(new ParticleSpawnerScript(GetGameObject("Leaf"), 0.1f, { 10,5,10 }, 1.f, "Default", -1.f));
+	LeafSpawner->AddComponent(new ParticleSpawnerScript(GetGameObject("Leaf"), 0.2f, { 10,5,10 }, 1.f, "Default", -1.f));
 	// Smoke Spawner--------------------------------------------------------------------------------
 	/*m_map_GO["SmokeSpawner"] = LeafSpawner;
 	GameObject* Spawner = new GameObject;

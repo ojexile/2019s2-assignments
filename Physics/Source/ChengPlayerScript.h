@@ -21,6 +21,9 @@ private:
 	// Switch view
 	void SwitchView();
 	void UpdateMovement(double dt);
+	void UpdateGauntlet();
+	void UpdateTilt();
+	void UpdateConstrain();
 public:
 	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt);
 	~ChengPlayerScript();

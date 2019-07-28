@@ -14,6 +14,8 @@
 #include "SceneManager.h"
 #include "RojakScene2.h"
 #include "RojakAssignmentScene.h"
+#include "DataContainer.h"
+#include "Constrain.h"
 
 #define CAMERA_ANGLE_OFFSET 5
 ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
@@ -52,83 +54,9 @@ void ChengPlayerScript::Update(double dt)
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	// Movement================================================================================
 	UpdateMovement(dt);
-	// Camera================================================================================
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
-		SwitchView();
-	// Gauntlet================================================================================
-	//if (KeyboardManager::GetInstance()->GetKeyTriggered("triggerGauntlet"))
-	if (Application::IsMousePressed(1))
-		m_Gaunt->GetComponent<RenderComponent>()->SetActive(true);
-	else
-		m_Gaunt->GetComponent<RenderComponent>()->SetActive(false);
-	if (m_Gaunt->IsActive())
-	{
-		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGauntForward"))
-		{
-			m_Gaunt->GetComponent<GauntletScript>()->RotateForward();
-		}
-		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGauntBackward"))
-		{
-			m_Gaunt->GetComponent<GauntletScript>()->RotateBackward();
-		}
-		if (KeyboardManager::GetInstance()->GetKeyTriggered("useGauntlet"))
-		{
-			m_Gaunt->GetComponent<GauntletScript>()->Use();
-		}
-	}
-	if (m_bState)
-	{
-		// Tilt
-		if (Application::IsKeyPressed(VK_LEFT))
-		{
-			Vector3 GDir = { 1,0,1 };
-			GDir.Normalize();
-			GDir *= 100;
-			WorldValues::DefaultGravity = GDir;
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-110, -85);
-		}
-		else if (Application::IsKeyPressed(VK_RIGHT))
-		{
-			Vector3 GDir = { -1,0,1 };
-			GDir.Normalize();
-			GDir *= 100;
-			WorldValues::DefaultGravity = GDir;
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-70, -85);
-		}
-		else if (Application::IsKeyPressed(VK_UP))
-		{
-			Vector3 GDir = { 0,0,-1 };
-			GDir.Normalize();
-			GDir *= 100;
-			WorldValues::DefaultGravity = GDir;
-			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS;
-			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z + 90);
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -60);
-		}
-		else if (Application::IsKeyPressed(VK_DOWN))
-		{
-			Vector3 GDir = { 0,0,1 };
-			GDir.Normalize();
-			GDir *= 150;
-			WorldValues::DefaultGravity = GDir;
-			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS;
-			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z - 0);
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -90);
-		}
-		else
-		{
-			/*Vector3 GDir = { 0,0,1 };
-			GDir.Normalize();
-			GDir *= 100;
-			WorldValues::DefaultGravity = GDir;
-			SetDefaultCamPos();
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);*/
-		}
-	}
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("SwitchMap"))
-	{
-		SceneManager::GetInstance()->ChangeScene(new RojakAssignmentScene());
-	}
+	UpdateGauntlet();
+	UpdateTilt();
+	UpdateConstrain();
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
 {
@@ -247,4 +175,98 @@ void ChengPlayerScript::UpdateMovement(double dt)
 			SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
 		}
 	}
+
+	// Camera================================================================================
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
+		SwitchView();
+
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("SwitchMap"))
+	{
+		SceneManager::GetInstance()->ChangeScene(new RojakAssignmentScene());
+	}
+}
+void ChengPlayerScript::UpdateGauntlet()
+{
+	// Gauntlet================================================================================
+	//if (KeyboardManager::GetInstance()->GetKeyTriggered("triggerGauntlet"))
+	if (Application::IsMousePressed(1))
+		m_Gaunt->GetComponent<RenderComponent>()->SetActive(true);
+	else
+		m_Gaunt->GetComponent<RenderComponent>()->SetActive(false);
+	if (m_Gaunt->IsActive())
+	{
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGauntForward"))
+		{
+			m_Gaunt->GetComponent<GauntletScript>()->RotateForward();
+		}
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("rotateGauntBackward"))
+		{
+			m_Gaunt->GetComponent<GauntletScript>()->RotateBackward();
+		}
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("useGauntlet"))
+		{
+			m_Gaunt->GetComponent<GauntletScript>()->Use();
+		}
+	}
+}
+void ChengPlayerScript::UpdateTilt()
+{
+	if (m_bState)
+	{
+		// Tilt
+		if (Application::IsKeyPressed(VK_LEFT))
+		{
+			Vector3 GDir = { 1,0,1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-110, -85);
+		}
+		else if (Application::IsKeyPressed(VK_RIGHT))
+		{
+			Vector3 GDir = { -1,0,1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-70, -85);
+		}
+		else if (Application::IsKeyPressed(VK_UP))
+		{
+			Vector3 GDir = { 0,0,-1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS;
+			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -TRANS->GetPosition().z + 90);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -60);
+		}
+		else if (Application::IsKeyPressed(VK_DOWN))
+		{
+			Vector3 GDir = { 0,0,1 };
+			GDir.Normalize();
+			GDir *= 150;
+			WorldValues::DefaultGravity = GDir;
+			TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS;
+			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -TRANS->GetPosition().z - 0);
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -90);
+		}
+		else
+		{
+			/*Vector3 GDir = { 0,0,1 };
+			GDir.Normalize();
+			GDir *= 100;
+			WorldValues::DefaultGravity = GDir;
+			SetDefaultCamPos();
+			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);*/
+		}
+	}
+}
+void ChengPlayerScript::UpdateConstrain()
+{
+	Constrain* con = GetComponent<Constrain>();
+	// Plains
+	if (GetPosition().x > 0 && GetPosition().z > 0)
+		con->SetHeightMapData(DataContainer::GetInstance()->GetHeightMap("TerrainPlains"));
+	if (GetPosition().x < 0 && GetPosition().z < 0)
+		con->SetHeightMapData(DataContainer::GetInstance()->GetHeightMap("TerrainTerrace"));
 }

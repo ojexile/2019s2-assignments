@@ -113,12 +113,13 @@ void RojakScene2::Init()
 	// Tree 1--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
 	go->TRANS->SetPosition(100, 0, 100);
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
 	go->TRANS->SetPosition(100, 100, 100);
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
 	// Tree 2--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
 	go->TRANS->SetPosition(150, 0, 100);
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
 	go->TRANS->SetPosition(150, 100, 100);
 	// Water--------------------------------------------------------------------------------
