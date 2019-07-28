@@ -32,6 +32,7 @@ void RojakScene2::Init()
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Smoke"), "Smoke");
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("HeatWave"), "HeatWave");
+	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Snow"), "Snow");
 	// Set up camera
 	m_CameraGO->TRANS->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
@@ -135,7 +136,7 @@ void RojakScene2::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainTerrace")->GetMesh()));
 	/// Snow--------------------------------------------------------------------------------
 	// Terrain================================================================================
-	go = m_GameObjectManager.AddGameObject();
+	go = m_GameObjectManager.AddGameObject("Snow");
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainSnow")->GetPos());
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainSnow")->GetMesh()));
 	/// Desert--------------------------------------------------------------------------------

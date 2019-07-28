@@ -10,6 +10,7 @@ layout(location = 3) in vec2 vertexTexCoord;
 out vec3 vertexPosition_cameraspace;
 out vec3 fragmentColor;
 out vec3 vertexNormal_cameraspace;
+out vec3 vertexPosition_modelspace_O;
 out vec2 texCoord;
 out vec4 shadowCoord;
 
@@ -21,6 +22,7 @@ uniform bool lightEnabled;
 uniform mat4 lightDepthMVP;
 
 void main(){
+vertexPosition_modelspace_O = vertexPosition_modelspace;
 	// Output position of the vertex, in clip space : MVP * position
 	gl_Position =  MVP * vec4(vertexPosition_modelspace, 1);
 	

@@ -113,7 +113,7 @@ DataContainer::DataContainer()
 	// Snow--------------------------------------------------------------------------------
 	mesh = GenerateTerrain("TerrainSnow", "heightmapSnow", { 200,190,200 }, { 99,0,-99 });
 	mesh->m_uTextureArray[0] = LoadTGA("snow");
-	mesh->m_uTextureArray[1] = LoadTGA("sky");
+	mesh->m_uTextureArray[1] = LoadTGA("stone");
 	// Desert--------------------------------------------------------------------------------
 	mesh = GenerateTerrain("TerrainDesert", "heightmapDesert", { 200,100,200 }, { -99,0,99 });
 	mesh->m_uTextureArray[0] = LoadTGA("sand");
@@ -318,6 +318,7 @@ DataContainer::DataContainer()
 	m_map_Shaders["Smoke"] = LoadShaders("Smoke", "Smoke");
 	m_map_Shaders["HeatWave"] = LoadShaders("HeatWave", "HeatWave");
 	m_map_Shaders["Underwater"] = LoadShaders("Underwater", "Underwater");
+	m_map_Shaders["Snow"] = LoadShaders("Flare", "Snow");
 	//================================================================================
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
