@@ -83,7 +83,7 @@ void RojakScene2::Init()
 	gun->AddComponent(new GunScript(dataContainer->GetGameObject("bullet"), m_CameraGO, 0.1f, GunScript::CHARGE));
 	// Player--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
-	go->TRANS->SetPosition(0, 0, 50);
+	go->TRANS->SetPosition({});
 	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
 	GameObject* child = dataContainer->GetGameObject("playerPillar");
 	go->AddChild(child);
@@ -120,6 +120,7 @@ void RojakScene2::Init()
 	// Terrain================================================================================
 	// Grass--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
+	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainMain")->GetPos());
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainMain")->GetMesh()));
 	// Water--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject("Water");

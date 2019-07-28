@@ -13,6 +13,7 @@
 #include "RojakScene2.h"
 #include "SceneManager.h"
 #include "RojakScene2.h"
+#include "RojakAssignmentScene.h"
 
 #define CAMERA_ANGLE_OFFSET 5
 ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
@@ -124,10 +125,10 @@ void ChengPlayerScript::Update(double dt)
 			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);*/
 		}
 	}
-	//Vector3 pos = trans->GetPosition();
-	// TODO Constrain to terrain================================================================================
-	//trans->SetPosition(pos.x, 30.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500), pos.z);
-	//trans->SetPosition({ pos.x,0,pos.z });
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("SwitchMap"))
+	{
+		SceneManager::GetInstance()->ChangeScene(new RojakAssignmentScene());
+	}
 }
 void ChengPlayerScript::SetMovementSpeed(float f)
 {
@@ -159,10 +160,6 @@ void ChengPlayerScript::SwitchView()
 		m_CrossHair->SetActive(false);
 		m_bState = true;
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("SwitchMap"))
-	{
-		SceneManager::GetInstance()->ChangeScene(new RojakScene2);
 	}
 }
 void ChengPlayerScript::SetDefaultCamPos()

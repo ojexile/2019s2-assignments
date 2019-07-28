@@ -42,7 +42,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
-	Mesh* mesh = GenerateTerrain("TerrainMain", "heightmapMain", { 500,30,500 }, { 0,0,0 });
+	Mesh* mesh = GenerateTerrain("TerrainMain", "heightmapMain", { 500,30,500 }, { 100,10,100 });
 	mesh->m_uTextureArray[0] = LoadTGA("moss1");
 	mesh->m_uTextureArray[1] = LoadTGA("sky");
 
@@ -132,7 +132,7 @@ DataContainer::DataContainer()
 	Leaf->GetComponent<RenderComponent>()->SetBillboard(true);
 	float ampl = 0.1f;
 	float freq = 0.8f;
-	ParticleScript* ps = new ParticleScript(20.5f, { 0,-0.03f,0 }, { 0,0,0 }, { 0,-0.02f,0 }, { -0.01f,-0.01f,0 }, {}, { ampl,0,0 }, { freq,0,0 });
+	ParticleScript* ps = new ParticleScript(10.5f, { 0,-0.03f,0 }, { 0,0,0 }, { 0,-0.02f,0 }, { -0.01f,-0.01f,0 }, {}, { ampl,0,0 }, { freq,0,0 });
 	//ps->SetCos({ 0,0,ampl }, { 0,0,freq });
 	ps->SetRot({ 0,0,50 });
 	Leaf->AddComponent(ps);
