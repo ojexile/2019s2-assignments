@@ -63,13 +63,13 @@ DataContainer::DataContainer()
 	m_map_Animated["Cat"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Cat");*/
 
 	m_map_Animated["Leaf"] = MeshBuilder::GenerateAnimatedMesh("Leaf", 4, 4, 0, 15, 2.f, true);
-	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Leaf");
+	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Leaf2");
 
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.1f);
 	m_map_Meshes["Fish"]->m_uTextureArray[0] = LoadTGA("Fish");
 
-	m_map_Meshes["Droplet"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.2f);
-	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("particle");
+	m_map_Meshes["Droplet"] = MeshBuilder::GenerateQuad("Droplet", { 1.f,1.f,1.f }, 1.2f);
+	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("Droplet");
 
 	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("water");
 	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("water");
@@ -120,9 +120,10 @@ DataContainer::DataContainer()
 	go = new GameObject;
 	m_map_GO["Particle"] = go;
 	go->AddComponent(new RenderComponent(this->GetMesh("Particle")));
-	go->RENDER->SetColor({ 0,1,1 });
 	go->TRANS->SetScale(10, 10, 1);
-	ParticleScript* ps1 = new ParticleScript(1.f, { 1.f,1.f,0 }, { 0,0,0 }, { 0,0,0 }, { -8.f,-8.f,0 }, { 1,1,0 }, { 0,0,0 }, { 0,0,0 });
+	go->RENDER->SetLightEnabled(false);
+	go->RENDER->SetColor({ 0,1,1 });
+	ParticleScript* ps1 = new ParticleScript(1.5f, { 1.f,1.f,0 }, { 0,0,0 }, { 0,0,0 }, { -6.f,-6.f,0 }, { 1,1,0 }, { 0,0,0 }, { 0,0,0 });
 	go->AddComponent(ps1);
 	// Leaf--------------------------------------------------------------------------------
 	GameObject* Leaf = new GameObject;
@@ -133,7 +134,7 @@ DataContainer::DataContainer()
 	float freq = 0.8f;
 	ParticleScript* ps = new ParticleScript(20.5f, { 0,-0.03f,0 }, { 0,0,0 }, { 0,-0.02f,0 }, { -0.01f,-0.01f,0 }, {}, { ampl,0,0 }, { freq,0,0 });
 	//ps->SetCos({ 0,0,ampl }, { 0,0,freq });
-	ps->SetRot({ 20,0,0 });
+	ps->SetRot({ 0,0,50 });
 	Leaf->AddComponent(ps);
 	// Leaf Spawner--------------------------------------------------------------------------------
 	GameObject* LeafSpawner = new GameObject;
@@ -148,19 +149,21 @@ DataContainer::DataContainer()
 	GameObject* DropletMini = new GameObject;
 	DropletMini->AddComponent(new RenderComponent(this->GetMesh("Droplet")));
 	DropletMini->TRANS->SetScale(0.4f);
+	DropletMini->RENDER->SetLightEnabled(false);
 	DropletMini->GetComponent<RenderComponent>()->SetBillboard(true);
-	DropletMini->AddComponent(new ParticleScript(5.0f, { 0.3f,0.4f,0.3f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
+	DropletMini->AddComponent(new ParticleScript(1.0f, { 0.3f,0.4f,0.3f }, { 0,0,0 }, { 0,-1.f,0 }, { -0.5,-0.5f,0 }, { 1,0,1 }));
 	m_map_GO["DropletMini"] = DropletMini;
 	// Fountain Spawner--------------------------------------------------------------------------------
 	GameObject* Fountain = new GameObject;
-	Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.05f, { 0,0,0 }, .2f, "Default", 0.4f));
+	Fountain->AddComponent(new ParticleSpawnerScript(this->GetGameObject("DropletMini"), 0.1f, { 0,0,0 }, .2f, "Default", 0.4f));
 	m_map_GO["Fountain"] = Fountain;
 	// Rain--------------------------------------------------------------------------------
 	GameObject* Rain = new GameObject;
 	Rain->AddComponent(new RenderComponent(this->GetMesh("Droplet")));
 	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
-	Rain->AddComponent(new ParticleScript(10.0f, { 0,-0.7f,0 }, { 0,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
+	Rain->AddComponent(new ParticleScript(5.0f, { 0,-1.7f,0 }, { 0,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
 	Rain->AddComponent(new RainScript(this->GetGameObject("Fountain")));
+	Rain->RENDER->SetLightEnabled(false);
 	m_map_GO["Rain"] = Rain;
 	// Rain Spawner--------------------------------------------------------------------------------
 	GameObject* RainSpawner = new GameObject;
