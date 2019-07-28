@@ -107,15 +107,15 @@ DataContainer::DataContainer()
 	mesh->m_uTextureArray[1] = LoadTGA("grassdirt");
 	mesh->m_uTextureArray[2] = LoadTGA("grassdirt");
 	// Terrace---------------------------------------------------------------------------------
-	mesh = GenerateTerrainTerrace("TerrainTerrace", "heightmapMain", { 200,28,200 }, { -99,0,-99 });
+	mesh = GenerateTerrainTerrace("TerrainTerrace", "heightmapMain", { 200,70,200 }, { -99,0,-99 });
 	mesh->m_uTextureArray[0] = LoadTGA("moss1");
 	mesh->m_uTextureArray[1] = LoadTGA("grass");
 	// Snow--------------------------------------------------------------------------------
-	mesh = GenerateTerrain("TerrainSnow", "heightmapMain", { 200,35,200 }, { 99,0,-99 });
+	mesh = GenerateTerrain("TerrainSnow", "heightmapSnow", { 200,190,200 }, { 99,0,-99 });
 	mesh->m_uTextureArray[0] = LoadTGA("snow");
 	mesh->m_uTextureArray[1] = LoadTGA("sky");
 	// Desert--------------------------------------------------------------------------------
-	mesh = GenerateTerrain("TerrainDesert", "heightmapMain", { 200,35,200 }, { -99,0,99 });
+	mesh = GenerateTerrain("TerrainDesert", "heightmapDesert", { 200,100,200 }, { -99,0,99 });
 	mesh->m_uTextureArray[0] = LoadTGA("sand");
 	mesh->m_uTextureArray[1] = LoadTGA("sandhill");
 	// Flat--------------------------------------------------------------------------------
@@ -316,6 +316,7 @@ DataContainer::DataContainer()
 	m_map_Shaders["Water"] = LoadShaders("water", "water");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	m_map_Shaders["Smoke"] = LoadShaders("Smoke", "Smoke");
+	m_map_Shaders["HeatWave"] = LoadShaders("HeatWave", "HeatWave");
 	m_map_Shaders["Underwater"] = LoadShaders("Underwater", "Underwater");
 	//================================================================================
 	clock_t end = clock();

@@ -261,12 +261,18 @@ void ChengPlayerScript::UpdateConstrain()
 		}
 	}
 	if (GetPosition().x < 0 && GetPosition().z < 0)
+	{
 		con->SetHeightMapData(DataContainer::GetInstance()->GetHeightMap("TerrainTerrace"));
+		//SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
+	}
 	if (GetPosition().x > 0 && GetPosition().z < 0)
+	{
 		con->SetHeightMapData(DataContainer::GetInstance()->GetHeightMap("TerrainSnow"));
+		//SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
+	}
 	if (GetPosition().x < 0 && GetPosition().z > 0)
 	{
-		SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Underwater"));
 		con->SetHeightMapData(DataContainer::GetInstance()->GetHeightMap("TerrainDesert"));
+		//SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("HeatWave"));
 	}
 }

@@ -238,7 +238,7 @@ void main(){
 		float fogFactor = getFogFactor(fogParam, fogDistance);
 		color = mix(color, vec4(fogParam.color, 1), fogFactor);
 	}
-		vec3 lightColor = vec3(1,.9,0.8);
+		vec3 lightColor = vec3(1,.9f,0.8f);
 		float flareVal = calcFlareVal();
 		color = mix(color, vec4(lightColor, 1), flareVal);
 }

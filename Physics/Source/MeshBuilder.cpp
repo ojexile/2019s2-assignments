@@ -530,6 +530,7 @@ Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file
 			Vector3 vPos = { v.pos.x, v.pos.y,v.pos.z };
 			vPos.y -= .4f; // offset so that mid gray is at 0
 			vPos = scale * vPos;
+			//vPos.y = roundf(vPos.y);
 			v.pos.Set(vPos.x, vPos.y, vPos.z);
 			v.color.Set(scaledHeight, scaledHeight, scaledHeight);
 			v.normal.Set(0, 1, 0);
