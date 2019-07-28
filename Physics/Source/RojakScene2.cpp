@@ -37,7 +37,7 @@ void RojakScene2::Init()
 	Vector3 WindowSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::WindowSize));
 	float aspect = WindowSize.x / WindowSize.y;
 	float size = 600;
-	this->m_Camera->InitOrtho({ size,size / aspect,10000 });
+	this->m_Camera->InitOrtho({ size, 0,10000 });
 	// UI================================================================================
 	// Crosshair
 	GameObject* Crosshair = m_GameObjectManager.AddGameObject("UI");
@@ -92,31 +92,31 @@ void RojakScene2::Init()
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
-	SkyPlane->TRANS->SetPosition(0, 1000, 0);
+	SkyPlane->TRANS->SetPosition(0, 800, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
+	SkyPlane->RENDER->SetLightEnabled(false);
 	// Sun--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
 	go->AddComponent(new SunBrightnessScript);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("sun")));
 	go->RENDER->SetColor({ 1, 1, 0 });
 	go->TRANS->SetScale(10);
+	// Rain--------------------------------------------------------------------------------
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("RainSpawner"));
 	// Objects================================================================================
 	// Trees--------------------------------------------------------------------------------
 	const float width = 300;
-	const float height = 100;
 	// Tree 1--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
 	go->TRANS->SetPosition(-width / 2, 0, -100);
-	go->TRANS->SetScale(15, height, 15);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
-	go->TRANS->SetPosition(-width / 2, height, 0);
+	go->TRANS->SetPosition(-width / 2, 100, -100);
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainMain"), Constrain::eConstrainTypes::FIXED));
 	// Tree 2--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
 	go->TRANS->SetPosition(width / 2, 0, -100);
-	go->TRANS->SetScale(15, height, 15);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
-	go->TRANS->SetPosition(width / 2, height, 0);
+	go->TRANS->SetPosition(width / 2, 100, -100);
 	// Terrain================================================================================
 	// Grass--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
