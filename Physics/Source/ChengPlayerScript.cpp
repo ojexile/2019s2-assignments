@@ -237,7 +237,7 @@ void ChengPlayerScript::UpdateMovement(double dt)
 			m_Gun->GetComponent<GunScript>()->Reload();
 		}
 		// Underwater================================================================================
-		if (trans->GetPosition().y < -10)
+		if (trans->GetPosition().y < -15)
 		{
 			// Trigger underwater
 			SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Underwater"));

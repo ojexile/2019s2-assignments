@@ -19,4 +19,6 @@ public:
 	virtual ~Constrain();
 	virtual ComponentBase* Clone() { return new Constrain(*this); };
 	virtual void Update(double dt) override;
+
+	void SetHeightMapData(HeightMapData* data);
 };

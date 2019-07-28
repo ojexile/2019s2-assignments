@@ -37,6 +37,7 @@ float ReadHeightMap(std::vector<unsigned char> &heightMap, float x, float z)
 
 	unsigned zCoord = (unsigned)((z + 0.5f) * terrainSize);
 	unsigned xCoord = (unsigned)((x + 0.5f) * terrainSize);
-
+	if (zCoord * terrainSize + xCoord >= heightMap.size())
+		return 0;
 	return (float)heightMap[zCoord * terrainSize + xCoord] / 256.f;
 }

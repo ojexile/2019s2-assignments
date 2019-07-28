@@ -88,7 +88,7 @@ void RojakScene2::Init()
 	GameObject* child = dataContainer->GetGameObject("playerPillar");
 	go->AddChild(child);
 	go->AddChild(m_CameraGO);
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainMain"), Constrain::eConstrainTypes::FIXED));
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
@@ -103,26 +103,32 @@ void RojakScene2::Init()
 	go->TRANS->SetScale(10);
 	// Rain--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("RainSpawner"));
-	// Objects================================================================================
+	go->TRANS->SetPosition(100, 100, 100);
+	/// Plains================================================================================
+	// Terrain================================================================================
+	go = m_GameObjectManager.AddGameObject();
+	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
+	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
 	// Trees--------------------------------------------------------------------------------
-	const float width = 300;
 	// Tree 1--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
-	go->TRANS->SetPosition(-width / 2, 0, -100);
+	go->TRANS->SetPosition(100, 0, 100);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
-	go->TRANS->SetPosition(-width / 2, 100, -100);
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainMain"), Constrain::eConstrainTypes::FIXED));
+	go->TRANS->SetPosition(100, 100, 100);
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
 	// Tree 2--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
-	go->TRANS->SetPosition(width / 2, 0, -100);
+	go->TRANS->SetPosition(150, 0, 100);
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
-	go->TRANS->SetPosition(width / 2, 100, -100);
-	// Terrain================================================================================
-	// Grass--------------------------------------------------------------------------------
-	go = m_GameObjectManager.AddGameObject();
-	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainMain")->GetPos());
-	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainMain")->GetMesh()));
+	go->TRANS->SetPosition(150, 100, 100);
 	// Water--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject("Water");
+	go->TRANS->SetPosition(100, -5, 100);
+	go->TRANS->SetScale(200, 1, 200);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("WaterPlane")));
+	/// Terrace--------------------------------------------------------------------------------
+	// Terrain================================================================================
+	go = m_GameObjectManager.AddGameObject();
+	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainTerrace")->GetPos());
+	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainTerrace")->GetMesh()));
 }

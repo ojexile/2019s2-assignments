@@ -23,6 +23,7 @@ private:
 	std::map<std::string, HeightMapData*> m_map_HeightMaps;
 
 	Mesh* GenerateTerrain(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
+	Mesh* GenerateTerrainTerrace(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
 public:
 	DataContainer();
 	~DataContainer();

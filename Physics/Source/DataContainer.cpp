@@ -42,14 +42,6 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
-	Mesh* mesh = GenerateTerrain("TerrainMain", "heightmapMain", { 500,30,500 }, { 100,10,100 });
-	mesh->m_uTextureArray[0] = LoadTGA("moss1");
-	mesh->m_uTextureArray[1] = LoadTGA("sky");
-
-	mesh = GenerateTerrain("Terrain", "heightmapFlat", { 1000,40,1000 }, { 0,0,0 });
-	mesh->m_uTextureArray[0] = LoadTGA("moss1");
-	mesh->m_uTextureArray[1] = LoadTGA("sky");
-
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
 	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("PLAYER_PISTOL");
 
@@ -107,6 +99,22 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["GauntSnap"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["GauntSnap"]->m_uTextureArray[0] = LoadTGA("GauntSnap");
+
+	/// Terrain================================================================================
+	// Plains--------------------------------------------------------------------------------
+	Mesh* mesh = GenerateTerrain("TerrainPlains", "heightmapMain", { 200,28,200 }, { 100,0,100 });
+	mesh->m_uTextureArray[0] = LoadTGA("dirt");
+	mesh->m_uTextureArray[1] = LoadTGA("grassdirt");
+	mesh->m_uTextureArray[2] = LoadTGA("grassdirt");
+	// Terrace---------------------------------------------------------------------------------
+	mesh = GenerateTerrainTerrace("TerrainTerrace", "heightmapMain", { 200,28,200 }, { -100,0,-100 });
+	mesh->m_uTextureArray[0] = LoadTGA("grass");
+	mesh->m_uTextureArray[1] = LoadTGA("grassdirt");
+	mesh->m_uTextureArray[2] = LoadTGA("grassdirt");
+	//Flat--------------------------------------------------------------------------------
+	mesh = GenerateTerrain("TerrainFlat", "heightmapFlat", { 1000,40,1000 }, { 0,0,0 });
+	mesh->m_uTextureArray[0] = LoadTGA("moss1");
+	mesh->m_uTextureArray[1] = LoadTGA("sky");
 	/// Gameobjects================================================================================
 	GameObject* go;
 	/// Particles--------------------------------------------------------------------------------
@@ -296,15 +304,13 @@ DataContainer::DataContainer()
 	go->AddComponent(new RenderComponent(this->GetMesh("goal")));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
 	go->AddComponent(new GoalScript(scoreScript));
-	// Shaders================================================================================
+	/// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["Water"] = LoadShaders("water", "water");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	m_map_Shaders["Smoke"] = LoadShaders("Smoke", "Smoke");
 	m_map_Shaders["Underwater"] = LoadShaders("Underwater", "Underwater");
-
-	Gaunt->SetActive(true);
-	//
+	//================================================================================
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
@@ -392,6 +398,13 @@ Mesh* DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 
 {
 	_heightmap* heightMap = new _heightmap;
 	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale);
+	m_map_HeightMaps[key] = new HeightMapData(mesh, heightMap, vScale, vPos);
+	return mesh;
+}
+Mesh* DataContainer::GenerateTerrainTerrace(std::string key, std::string path, Vector3 vScale, Vector3 vPos)
+{
+	_heightmap* heightMap = new _heightmap;
+	Mesh* mesh = MeshBuilder::GenerateTerrainTerrace(key, path, *heightMap, vScale);
 	m_map_HeightMaps[key] = new HeightMapData(mesh, heightMap, vScale, vPos);
 	return mesh;
 }

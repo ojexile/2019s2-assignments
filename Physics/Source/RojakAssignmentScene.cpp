@@ -200,6 +200,6 @@ void RojakAssignmentScene::Init()
 	go->RENDER->SetColor({ 0,0,0 });
 	// Terrain--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
-	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("Terrain")->GetMesh()));
+	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainFlat")->GetMesh()));
 	go->SetActive(true);
 }
