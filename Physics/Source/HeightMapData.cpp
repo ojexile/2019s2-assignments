@@ -1,9 +1,10 @@
 #include "HeightMapData.h"
 
-HeightMapData::HeightMapData(Mesh* Mesh, _heightmap* Map, Vector3 vScale)
+HeightMapData::HeightMapData(Mesh* Mesh, _heightmap* Map, Vector3 vScale, Vector3 vPosOffset)
 	:m_Mesh(Mesh)
 	, m_Map(Map)
 	, m_vScale(vScale)
+	, m_vPosOffset(vPosOffset)
 {
 }
 
@@ -23,4 +24,8 @@ _heightmap* HeightMapData::GetHeightMap()
 Vector3 HeightMapData::GetScale()
 {
 	return m_vScale;
+}
+Vector3 HeightMapData::GetPos()
+{
+	return m_vPosOffset;
 }

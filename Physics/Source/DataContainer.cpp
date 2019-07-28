@@ -42,11 +42,11 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
-	Mesh* mesh = GenerateTerrain("TerrainMain", "heightmapMain", { 500,30,500 });
+	Mesh* mesh = GenerateTerrain("TerrainMain", "heightmapMain", { 500,30,500 }, { 0,0,0 });
 	mesh->m_uTextureArray[0] = LoadTGA("moss1");
 	mesh->m_uTextureArray[1] = LoadTGA("sky");
 
-	mesh = GenerateTerrain("Terrain", "heightmapFlat", { 1000,40,1000 });
+	mesh = GenerateTerrain("Terrain", "heightmapFlat", { 1000,40,1000 }, { 0,0,0 });
 	mesh->m_uTextureArray[0] = LoadTGA("moss1");
 	mesh->m_uTextureArray[1] = LoadTGA("sky");
 
@@ -388,10 +388,10 @@ HeightMapData* DataContainer::GetHeightMap(std::string key)
 		DEFAULT_LOG("ERROR: Heightmap not found of name: " + key);
 	return m_map_HeightMaps[key];
 }
-Mesh* DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 vScale)
+Mesh* DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 vScale, Vector3 vPos)
 {
 	_heightmap* heightMap = new _heightmap;
 	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale);
-	m_map_HeightMaps[key] = new HeightMapData(mesh, heightMap, vScale);
+	m_map_HeightMaps[key] = new HeightMapData(mesh, heightMap, vScale, vPos);
 	return mesh;
 }

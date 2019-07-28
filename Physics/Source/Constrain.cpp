@@ -19,6 +19,7 @@ void Constrain::Update(double dt)
 	Vector3 pos = trans->GetPosition();
 	Vector3 terrainPos = { pos.x, Scale.y * ReadHeightMap(*heightMap, pos.x / Scale.x, pos.z / Scale.z), pos.z };
 	terrainPos.y -= 0.6f * Scale.y;
+	terrainPos += m_Data->GetPos();
 	switch (m_ConstrainType)
 	{
 	case Constrain::FIXED:
