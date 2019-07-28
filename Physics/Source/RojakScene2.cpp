@@ -132,4 +132,14 @@ void RojakScene2::Init()
 	go = m_GameObjectManager.AddGameObject();
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainTerrace")->GetPos());
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainTerrace")->GetMesh()));
+	/// Snow--------------------------------------------------------------------------------
+	// Terrain================================================================================
+	go = m_GameObjectManager.AddGameObject();
+	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainSnow")->GetPos());
+	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainSnow")->GetMesh()));
+	/// Desert--------------------------------------------------------------------------------
+	// Terrain================================================================================
+	go = m_GameObjectManager.AddGameObject();
+	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainDesert")->GetPos());
+	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainDesert")->GetMesh()));
 }

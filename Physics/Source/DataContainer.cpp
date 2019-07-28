@@ -102,15 +102,23 @@ DataContainer::DataContainer()
 
 	/// Terrain================================================================================
 	// Plains--------------------------------------------------------------------------------
-	Mesh* mesh = GenerateTerrain("TerrainPlains", "heightmapMain", { 200,28,200 }, { 100,0,100 });
+	Mesh* mesh = GenerateTerrain("TerrainPlains", "heightmapMain", { 200,28,200 }, { 99,0,99 });
 	mesh->m_uTextureArray[0] = LoadTGA("dirt");
 	mesh->m_uTextureArray[1] = LoadTGA("grassdirt");
 	mesh->m_uTextureArray[2] = LoadTGA("grassdirt");
 	// Terrace---------------------------------------------------------------------------------
-	mesh = GenerateTerrainTerrace("TerrainTerrace", "heightmapMain", { 200,28,200 }, { -100,0,-100 });
+	mesh = GenerateTerrainTerrace("TerrainTerrace", "heightmapMain", { 200,28,200 }, { -99,0,-99 });
 	mesh->m_uTextureArray[0] = LoadTGA("moss1");
 	mesh->m_uTextureArray[1] = LoadTGA("grass");
-	//Flat--------------------------------------------------------------------------------
+	// Snow--------------------------------------------------------------------------------
+	mesh = GenerateTerrain("TerrainSnow", "heightmapMain", { 200,35,200 }, { 99,0,-99 });
+	mesh->m_uTextureArray[0] = LoadTGA("snow");
+	mesh->m_uTextureArray[1] = LoadTGA("sky");
+	// Desert--------------------------------------------------------------------------------
+	mesh = GenerateTerrain("TerrainDesert", "heightmapMain", { 200,35,200 }, { -99,0,99 });
+	mesh->m_uTextureArray[0] = LoadTGA("sand");
+	mesh->m_uTextureArray[1] = LoadTGA("sandhill");
+	// Flat--------------------------------------------------------------------------------
 	mesh = GenerateTerrain("TerrainFlat", "heightmapFlat", { 1000,40,1000 }, { 0,0,0 });
 	mesh->m_uTextureArray[0] = LoadTGA("moss1");
 	mesh->m_uTextureArray[1] = LoadTGA("sky");

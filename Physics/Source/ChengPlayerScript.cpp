@@ -164,16 +164,6 @@ void ChengPlayerScript::UpdateMovement(double dt)
 		{
 			m_Gun->GetComponent<GunScript>()->Reload();
 		}
-		// Underwater================================================================================
-		if (trans->GetPosition().y < -15)
-		{
-			// Trigger underwater
-			SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Underwater"));
-		}
-		else
-		{
-			SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
-		}
 	}
 
 	// Camera================================================================================
@@ -250,15 +240,6 @@ void ChengPlayerScript::UpdateTilt()
 			CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -TRANS->GetPosition().z - 0);
 			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -90);
 		}
-		else
-		{
-			/*Vector3 GDir = { 0,0,1 };
-			GDir.Normalize();
-			GDir *= 100;
-			WorldValues::DefaultGravity = GDir;
-			SetDefaultCamPos();
-			SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -87);*/
-		}
 	}
 }
 void ChengPlayerScript::UpdateConstrain()
@@ -266,7 +247,26 @@ void ChengPlayerScript::UpdateConstrain()
 	Constrain* con = GetComponent<Constrain>();
 	// Plains
 	if (GetPosition().x > 0 && GetPosition().z > 0)
+	{
 		con->SetHeightMapData(DataContainer::GetInstance()->GetHeightMap("TerrainPlains"));
+		// Underwater================================================================================
+		if (TRANS->GetPosition().y < -15)
+		{
+			// Trigger underwater
+			SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Underwater"));
+		}
+		else
+		{
+			SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Default"));
+		}
+	}
 	if (GetPosition().x < 0 && GetPosition().z < 0)
 		con->SetHeightMapData(DataContainer::GetInstance()->GetHeightMap("TerrainTerrace"));
+	if (GetPosition().x > 0 && GetPosition().z < 0)
+		con->SetHeightMapData(DataContainer::GetInstance()->GetHeightMap("TerrainSnow"));
+	if (GetPosition().x < 0 && GetPosition().z > 0)
+	{
+		SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("Underwater"));
+		con->SetHeightMapData(DataContainer::GetInstance()->GetHeightMap("TerrainDesert"));
+	}
 }
