@@ -94,9 +94,9 @@ void RojakScene2::Init()
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
-	SkyPlane->TRANS->SetPosition(0, 800, 0);
+	SkyPlane->TRANS->SetPosition(0, 280, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
-	SkyPlane->RENDER->SetLightEnabled(false);
+	SkyPlane->RENDER->SetLightEnabled(true);
 	// Sun--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject();
 	go->AddComponent(new SunBrightnessScript);
@@ -106,6 +106,9 @@ void RojakScene2::Init()
 	// Rain--------------------------------------------------------------------------------
 	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("RainSpawner"));
 	go->TRANS->SetPosition(100, 100, 100);
+	// Snow--------------------------------------------------------------------------------
+	go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("SnowSpawner"));
+	go->TRANS->SetPosition(100, 100, -100);
 	/// Plains================================================================================
 	// Terrain================================================================================
 	go = m_GameObjectManager.AddGameObject();

@@ -39,7 +39,7 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered(Color(1.f, 1.f, 1.f), 1.f);
 
-	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 52, 1000, 6, 6);
+	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
@@ -61,7 +61,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["Fish"]->m_uTextureArray[0] = LoadTGA("Fish");
 
 	m_map_Meshes["Droplet"] = MeshBuilder::GenerateQuad("Droplet", { 1.f,1.f,1.f }, 1.2f);
-	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("Droplet");
+	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("Droplet2");
 
 	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("water");
 	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("water");
@@ -107,12 +107,12 @@ DataContainer::DataContainer()
 	mesh->m_uTextureArray[1] = LoadTGA("grassdirt");
 	mesh->m_uTextureArray[2] = LoadTGA("grassdirt");
 	// Terrace---------------------------------------------------------------------------------
-	mesh = GenerateTerrainTerrace("TerrainTerrace", "heightmapMain", { 200,70,200 }, { -99,0,-99 });
+	mesh = GenerateTerrainTerrace("TerrainTerrace", "heightmapMain", { 200,40,200 }, { -99,0,-99 });
 	mesh->m_uTextureArray[0] = LoadTGA("moss1");
 	mesh->m_uTextureArray[1] = LoadTGA("grass");
 	// Snow--------------------------------------------------------------------------------
 	mesh = GenerateTerrain("TerrainSnow", "heightmapSnow", { 200,190,200 }, { 99,0,-99 });
-	mesh->m_uTextureArray[0] = LoadTGA("snow");
+	mesh->m_uTextureArray[0] = LoadTGA("stone");
 	mesh->m_uTextureArray[1] = LoadTGA("stone");
 	// Desert--------------------------------------------------------------------------------
 	mesh = GenerateTerrain("TerrainDesert", "heightmapDesert", { 200,100,200 }, { -99,0,99 });
@@ -174,6 +174,7 @@ DataContainer::DataContainer()
 	m_map_GO["Fountain"] = Fountain;
 	// Rain--------------------------------------------------------------------------------
 	GameObject* Rain = new GameObject;
+	Rain->TRANS->SetScale(0.2f, 1, 0.2f);
 	Rain->AddComponent(new RenderComponent(this->GetMesh("Droplet")));
 	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
 	Rain->AddComponent(new ParticleScript(5.0f, { 0,-1.7f,0 }, { 0,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
@@ -185,6 +186,21 @@ DataContainer::DataContainer()
 	RainSpawner->TRANS->SetPosition(0, 100, 0);
 	RainSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Rain"), 0.01f, { 100,0,100 }, .2f, "Default", -1.f));
 	m_map_GO["RainSpawner"] = RainSpawner;
+	// ================================================================================
+	/// Snow================================================================================
+	// Rain--------------------------------------------------------------------------------
+	GameObject* Snow = new GameObject;
+	m_map_GO["Snow"] = Snow;
+	Snow->AddComponent(new RenderComponent(this->GetMesh("Particle")));
+	Snow->GetComponent<RenderComponent>()->SetBillboard(true);
+	ParticleScript* snowps = new ParticleScript(25.0f, { 0,-.2f,0 }, { 0,0,0 }, { 0,0.001f,0 }, { -0.04f,-0.04f,0 }, {}, { 0.1f,0,0 }, { 1.1f,0,0 });
+	snowps->SetCos({ 0,0, 0.1f }, { 0, 0,1.1f });
+	Snow->AddComponent(snowps);
+	Snow->RENDER->SetLightEnabled(false);
+	// Rain Spawner--------------------------------------------------------------------------------
+	GameObject* SnowSpawner = new GameObject;
+	m_map_GO["SnowSpawner"] = SnowSpawner;
+	SnowSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Snow"), 0.1f, { 100,0,100 }, 0.8f, "Default", -1.f));
 	// ================================================================================
 	///--------------------------------------------------------------------------------
 	//Bullet--------------------------------------------------------------------------------

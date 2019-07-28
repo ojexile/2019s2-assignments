@@ -142,7 +142,7 @@ void main(){
 			{
 				if(vertexPosition_modelspace_O.y < 50 + noise(vertexPosition_modelspace_O.x) * 9)
 					break;
-				materialColor += texture2D( colorTexture[i], texCoord ) * vertexPosition_modelspace_O.y * 0.1f;
+				materialColor += texture2D( colorTexture[i], texCoord ) * vertexPosition_modelspace_O.y * 0.2f;
 				++texCount;
 				
 			}		

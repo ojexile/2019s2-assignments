@@ -837,7 +837,7 @@ Mesh* MeshBuilder::GenerateTerrainTerrace(const std::string &meshName, std::stri
 			vPos.y -= 0.4f; // offset so that mid gray is at 0
 			vPos = scale * vPos;
 			// round value
-			int multiple = 3;
+			int multiple = 5;
 			vPos.y = roundf(vPos.y);
 			vPos.y = vPos.y - ((int)vPos.y % multiple);
 			v.pos.Set(vPos.x, vPos.y, vPos.z);
