@@ -24,6 +24,8 @@ DataContainer::DataContainer()
 	// m_map_Meshes["ball"] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
 	m_map_Meshes["ball"] = MeshBuilder::GenerateOBJ("ball");
 	m_map_Meshes["ball"]->m_uTextureArray[0] = LoadTGA("ball");
+
+	m_map_Meshes["sun"] = MeshBuilder::GenerateSphere("ball", Color(1, 1, 1), 10, 10, 1.f);
 	//m_map_Meshes["ball2"] = MeshBuilder::GenerateSphere("ball", Color(0, 0, 1), 10, 10, 1.f);
 	//m_map_Meshes["ball3"] = MeshBuilder::GenerateSphere("ball", Color(0, 1, 0), 10, 10, 1.f);
 
@@ -77,6 +79,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["DropletMini"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 0.2f);
 	m_map_Meshes["DropletMini"]->m_uTextureArray[0] = LoadTGA("particle");
 	*/
+
 	m_map_Meshes["WaterPlane"] = MeshBuilder::GenerateOBJ("water");
 	m_map_Meshes["WaterPlane"]->m_uTextureArray[0] = LoadTGA("water");
 

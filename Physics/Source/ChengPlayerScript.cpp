@@ -11,6 +11,9 @@
 #include "Application.h"
 #include "WorldValues.h"
 #include "RojakScene2.h"
+#include "SceneManager.h"
+#include "RojakScene2.h"
+
 #define CAMERA_ANGLE_OFFSET 5
 ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
 	:m_Gun(gun)
@@ -156,6 +159,10 @@ void ChengPlayerScript::SwitchView()
 		m_CrossHair->SetActive(false);
 		m_bState = true;
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
+	}
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("SwitchMap"))
+	{
+		SceneManager::GetInstance()->ChangeScene(new RojakScene2);
 	}
 }
 void ChengPlayerScript::SetDefaultCamPos()
