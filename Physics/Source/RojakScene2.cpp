@@ -94,7 +94,7 @@ void RojakScene2::Init()
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
-	SkyPlane->TRANS->SetPosition(0, 280, 0);
+	SkyPlane->TRANS->SetPosition(0, 340, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
 	SkyPlane->RENDER->SetLightEnabled(true);
 	// Sun--------------------------------------------------------------------------------
