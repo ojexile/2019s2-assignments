@@ -140,9 +140,13 @@ void main(){
 		{
 			if(colorTextureEnabled[i] == true)
 			{
-				if(vertexPosition_modelspace_O.y < 50 + noise(vertexPosition_modelspace_O.x) * 9)
+				if(vertexPosition_modelspace_O.y < 50 + noise(vertexPosition_modelspace_O.x) * 12)
 					break;
-				materialColor += texture2D( colorTexture[i], texCoord ) * vertexPosition_modelspace_O.y * 0.2f;
+				// materialColor +=  * vertexPosition_modelspace_O.y * 0.2f;
+				float val = vertexPosition_modelspace_O.y * 0.01f;
+				val *= val * val * val;
+				val = clamp(val, 0, 1);
+				materialColor = mix(materialColor, texture2D( colorTexture[i], texCoord ), val);
 				++texCount;
 				
 			}		
@@ -153,6 +157,7 @@ void main(){
 		}
 		else
 			materialColor = vec4( fragmentColor, 1 );
+		materialColor.a = 1;
 	
 		// Vectors
 		vec3 eyeDirection_cameraspace = - vertexPosition_cameraspace;

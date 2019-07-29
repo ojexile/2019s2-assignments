@@ -112,7 +112,7 @@ DataContainer::DataContainer()
 	mesh->m_uTextureArray[1] = LoadTGA("grass");
 	// Snow--------------------------------------------------------------------------------
 	mesh = GenerateTerrain("TerrainSnow", "heightmapSnow", { 200,190,200 }, { 99,0,-99 });
-	mesh->m_uTextureArray[0] = LoadTGA("stone");
+	mesh->m_uTextureArray[0] = LoadTGA("snow");
 	mesh->m_uTextureArray[1] = LoadTGA("stone");
 	// Desert--------------------------------------------------------------------------------
 	mesh = GenerateTerrain("TerrainDesert", "heightmapDesert", { 200,100,200 }, { -99,0,99 });
