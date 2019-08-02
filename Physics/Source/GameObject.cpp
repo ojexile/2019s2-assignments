@@ -61,7 +61,7 @@ void GameObject::Update(double dt)
 	{
 		if (!m_vec_ComponentList[i]->IsActive())
 		{
-			//continue;
+			continue;
 		}
 		m_vec_ComponentList[i]->CheckStarted();
 		m_vec_ComponentList[i]->Update(dt);

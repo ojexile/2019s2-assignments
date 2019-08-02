@@ -58,9 +58,6 @@ DataContainer::DataContainer()
 	m_map_Animated["Leaf"] = MeshBuilder::GenerateAnimatedMesh("Leaf", 4, 4, 0, 15, 2.f, true);
 	m_map_Animated["Leaf"]->m_Mesh->m_uTextureArray[0] = LoadTGA("Leaf2");
 
-	m_map_Meshes["Fish"] = MeshBuilder::GenerateQuad("TestParticle", { 1.f,1.f,1.f }, 1.1f);
-	m_map_Meshes["Fish"]->m_uTextureArray[0] = LoadTGA("Fish");
-
 	m_map_Meshes["Droplet"] = MeshBuilder::GenerateQuad("Droplet", { 1.f,1.f,1.f }, 1.2f);
 	m_map_Meshes["Droplet"]->m_uTextureArray[0] = LoadTGA("Droplet2");
 
@@ -155,7 +152,7 @@ DataContainer::DataContainer()
 	// Leaf Spawner--------------------------------------------------------------------------------
 	GameObject* LeafSpawner = new GameObject;
 	m_map_GO["LeafSpawner"] = LeafSpawner;
-	LeafSpawner->AddComponent(new ParticleSpawnerScript(GetGameObject("Leaf"), 0.2f, { 10,5,10 }, 1.f, "Default", -1.f));
+	LeafSpawner->AddComponent(new ParticleSpawnerScript(GetGameObject("Leaf"), 1.5f, { 10,5,10 }, 1.f, "Default", -1.f));
 	// Smoke Spawner--------------------------------------------------------------------------------
 	/*m_map_GO["SmokeSpawner"] = LeafSpawner;
 	GameObject* Spawner = new GameObject;
@@ -185,7 +182,7 @@ DataContainer::DataContainer()
 	// Rain Spawner--------------------------------------------------------------------------------
 	GameObject* RainSpawner = new GameObject;
 	RainSpawner->TRANS->SetPosition(0, 100, 0);
-	RainSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Rain"), 0.01f, { 100,0,100 }, .2f, "Default", -1.f));
+	RainSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Rain"), 0.3f, { 100,0,100 }, .2f, "Default", -1.f));
 	m_map_GO["RainSpawner"] = RainSpawner;
 	// ================================================================================
 	/// Snow================================================================================
@@ -201,7 +198,7 @@ DataContainer::DataContainer()
 	// Rain Spawner--------------------------------------------------------------------------------
 	GameObject* SnowSpawner = new GameObject;
 	m_map_GO["SnowSpawner"] = SnowSpawner;
-	SnowSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Snow"), 0.1f, { 100,0,100 }, 0.8f, "Default", -1.f));
+	SnowSpawner->AddComponent(new ParticleSpawnerScript(this->GetGameObject("Snow"), 0.2f, { 100,0,100 }, 0.8f, "Default", -1.f));
 	// ================================================================================
 	///--------------------------------------------------------------------------------
 	//Bullet--------------------------------------------------------------------------------

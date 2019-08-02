@@ -11,6 +11,7 @@
 #include "Preferences.h"
 #include "ChargeBarScript.h"
 #include "ParticleSpawnerScript.h"
+#include "WorldValues.h"
 RojakAssignmentScene::RojakAssignmentScene()
 {
 }
@@ -20,9 +21,11 @@ RojakAssignmentScene::~RojakAssignmentScene()
 }
 void RojakAssignmentScene::Init()
 {
+	WorldValues::DefaultGravityExponent.z = 1;
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObject* go;
 	GameObject* go2;
+	m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	// Create Camera================================================================================
 	m_CameraGO = new GameObject;
 	m_CameraGO->AddComponent(new CameraComponent);
