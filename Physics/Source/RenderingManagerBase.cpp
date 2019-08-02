@@ -186,8 +186,8 @@ void RenderingManagerBase::Update(double dt)
 	if (Application::IsKeyPressed('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	fps = (float)(1.f / dt);
-	CHENG_LOG("FPS: ", std::to_string(fps));
+	// fps = (float)(1.f / dt);
+	// CHENG_LOG("FPS: ", std::to_string(fps));
 	m_fElapsedTime += (float)dt;
 }
 

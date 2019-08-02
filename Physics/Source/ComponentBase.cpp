@@ -6,6 +6,7 @@ ComponentBase::ComponentBase()
 	, m_bStarted{ false }
 	, m_bActive{ true }
 {
+	m_bStarted = false;
 }
 ComponentBase::ComponentBase(ComponentBase& com)
 {

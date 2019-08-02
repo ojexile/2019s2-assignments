@@ -14,6 +14,8 @@ GameObject::GameObject(GameObject& go)
 	for (unsigned i = 0; i < go.m_vec_ComponentList.size(); ++i)
 	{
 		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());
+		cb->SetActive(go.m_vec_ComponentList[i]->IsActive());
+		//cb->SetStarted(go.m_vec_ComponentList[i]->IsS());
 		this->AddComponent(cb);
 	}
 	for (unsigned i = 0; i < go.m_vec_ChildList.size(); ++i)

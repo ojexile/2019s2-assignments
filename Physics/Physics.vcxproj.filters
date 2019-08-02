@@ -229,6 +229,7 @@
     <ClCompile Include="Source\WorldValues.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FPSScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\LightManager.h" />
@@ -446,6 +447,7 @@
     <ClInclude Include="Source\WorldValues.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FPSScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

@@ -11,6 +11,7 @@
 #include "ParticleScript.h"
 #include "ParticleSpawnerScript.h"
 #include "ChargeBarScript.h"
+#include "WorldValues.h"
 RojakScene2::RojakScene2()
 {
 }
@@ -23,12 +24,13 @@ void RojakScene2::Init()
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObject* go;
 	GameObject* go2;
-	// Create Camera================================================================================
+	WorldValues::GravityExponent.z = 0;
+	/// Create Camera================================================================================
 	m_CameraGO = new GameObject;
 	m_CameraGO->AddComponent(new CameraComponent);
 	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	//m_GameObjectManager.AddGameObject(CameraGO);
-	// Layers================================================================================
+	/// Layers================================================================================
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Water"), "Water");
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("Smoke"), "Smoke");
 	m_GameObjectManager.CreateLayer(dataContainer->GetShader("HeatWave"), "HeatWave");
@@ -40,8 +42,10 @@ void RojakScene2::Init()
 	float aspect = WindowSize.x / WindowSize.y;
 	float size = 600;
 	this->m_Camera->InitOrtho({ size, 0,10000 });
-	// UI================================================================================
-	// Crosshair
+	/// UI================================================================================
+	// FPS--------------------------------------------------------------------------------
+	m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
+	// Crosshair--------------------------------------------------------------------------------
 	GameObject* Crosshair = m_GameObjectManager.AddGameObject("UI");
 	Crosshair->TRANS->SetPosition(1920 / 2, 1080 / 2, 5);
 	Crosshair->TRANS->SetScale(100.f, 100.f, 1.f);
@@ -91,7 +95,7 @@ void RojakScene2::Init()
 	go->AddChild(child);
 	go->AddChild(m_CameraGO);
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
-	// WORLD================================================================================
+	/// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
 	SkyPlane->TRANS->SetPosition(0, 340, 0);

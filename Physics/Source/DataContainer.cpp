@@ -11,6 +11,7 @@
 #include "HoleScript.h"
 #include "MeshController.h"
 #include "GauntletScript.h"
+#include "FPSScript.h"
 
 #include <time.h>
 DataContainer::DataContainer()
@@ -207,10 +208,10 @@ DataContainer::DataContainer()
 	GameObject* bullet = new GameObject();
 	bullet->AddComponent(new RenderComponent(this->GetMesh("ball")));
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
-	bullet->AddComponent(new BulletScript(20.f));
+	bullet->AddComponent(new BulletScript(30.f));
 	ChengRigidbody* rigid = new ChengRigidbody(ChengRigidbody::BALL);
 	rigid->SetMat(1, 0.5f);
-	rigid->LockYAxis(true);
+	//rigid->LockYAxis(true);
 	bullet->AddComponent(rigid);
 	bullet->AddComponent(new BallScript());
 	m_map_GO["bullet"] = bullet;
@@ -271,7 +272,7 @@ DataContainer::DataContainer()
 	m_map_GO["scoreboard"] = go;
 	ScoreScript* scoreScript = new ScoreScript;
 	go->AddComponent(scoreScript);
-	go->GetComponent<TransformComponent>()->SetPosition(50, 50, 100);
+	go->TRANS->SetPosition(50, 50, 100);
 	go->AddComponent(new RenderComponent(GetMesh("Text"), "oof"));
 	go->RENDER->SetColor({ 1,1,1 });
 	//Pillar--------------------------------------------------------------------------------
@@ -327,6 +328,13 @@ DataContainer::DataContainer()
 	go->AddComponent(new RenderComponent(this->GetMesh("goal")));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::WALL, false));
 	go->AddComponent(new GoalScript(scoreScript));
+	/// misc================================================================================
+	go = new GameObject;
+	m_map_GO["FPS"] = go;
+	go->AddComponent(new FPSScript);
+	go->TRANS->SetPosition(50, 10, 25);
+	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
+	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	/// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["Water"] = LoadShaders("water", "water");
