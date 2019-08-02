@@ -12,7 +12,7 @@ public:
 		CHARGE,
 	};
 private:
-	GameObject* m_Bullet;;
+	const GameObject* m_Bullet;;
 	float m_fTimer;
 	const float m_fFireRate;
 	GameObject* m_Player;
@@ -21,7 +21,8 @@ private:
 	eFIRE_TYPES m_eFireType;
 	int m_iNumClips;
 	int m_iClipAmmo;
-	int m_iClipAmmoMax;
+	const int m_iClipAmmoMax;
+	const int m_iMaxClip;
 	bool m_bTriggerDown;
 
 	float m_fChargeTime;
@@ -30,7 +31,7 @@ private:
 	float m_fBulletSpeed;
 	float m_fMaxScale;
 public:
-	GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed);
+	GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips);
 	~GunScript();
 	virtual ComponentBase* Clone()
 	{
@@ -42,4 +43,5 @@ public:
 	void PullTrigger(Vector3 vDir, double dt);
 	void Reload();
 	void ReleaseTrigger(Vector3 vDir);
+	void RefillAmmo();
 };

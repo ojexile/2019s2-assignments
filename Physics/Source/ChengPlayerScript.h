@@ -10,6 +10,7 @@ class ChengPlayerScript : public ScriptComponent
 private:
 	PlayerState* m_CurrentState;
 	float m_fMovementSpeed;
+	float m_fAccel;
 	std::vector<GameObject*> m_Guns;
 	GameObject* m_CurrentGun;
 	GameObject* m_CrossHair;
@@ -25,6 +26,7 @@ private:
 	void UpdateGauntlet();
 	void UpdateTilt();
 	void UpdateConstrain();
+
 public:
 	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt);
 	~ChengPlayerScript();
@@ -37,5 +39,6 @@ public:
 	virtual void Start() override;
 
 	void SetDefaultCamPos();
-	void SetMovementSpeed(float f);
+	void SetMovementSpeed(float f, float accel);
+	void RefillAmmo();
 };

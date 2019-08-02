@@ -1,6 +1,6 @@
 #pragma once
 #include "PlayerState.h"
-#define CROUCHING_HEIGHT 0.5f
+#define CROUCHING_HEIGHT 0.9f
 class CrouchingState :
 	public PlayerState
 {

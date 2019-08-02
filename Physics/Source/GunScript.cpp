@@ -2,19 +2,20 @@
 #include "BulletScript.h"
 #include "ChengRigidbody.h"
 #include "Application.h"
-GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float bulletSpeed)
+GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips)
 	: m_Player(player)
 	, m_eFireType(eFireType)
 	, m_fFireRate(fFireRate)
 	, m_Smoke(smoke)
-	, m_fBulletSpeed(bulletSpeed)
+	, m_fBulletSpeed(speed)
+	, m_iClipAmmoMax(ClipAmmo)
+	, m_iMaxClip(maxclips)
+	, m_Bullet(bullet)
 {
-	m_Bullet = bullet;
-	m_fTimer = 0;
-	m_iClipAmmoMax = 3;
 	m_iClipAmmo = m_iClipAmmoMax;
-	//m_iNumClips = 3;
-	m_iNumClips = 2;
+	m_iNumClips = maxclips;
+
+	m_fTimer = 0;
 	m_bTriggerDown = false;
 	m_fChargeTime = 0;
 	m_fMaxChargeTime = 3;
@@ -115,4 +116,8 @@ void GunScript::ReleaseTrigger(Vector3 vDir)
 		m_fChargeTime = 0;
 	}
 	m_bTriggerDown = false;
+}
+void GunScript::RefillAmmo()
+{
+	m_iNumClips = m_iMaxClip;
 }

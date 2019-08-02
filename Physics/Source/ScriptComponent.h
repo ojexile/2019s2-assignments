@@ -10,10 +10,10 @@
 class ScriptComponent : public ComponentBase
 {
 protected:
-	GameObject* Instantiate(GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer = "Default");
-	GameObject* Instantiate(GameObject* goRef, Vector3 pos, Vector3 vScal, std::string sLayer = "Default");
-	GameObject* Instantiate(GameObject* goRef, Vector3 pos, std::string sLayer = "Default");
-	GameObject* Instantiate(GameObject* goRef, std::string sLayer = "Default");
+	GameObject* Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer = "Default") const;
+	GameObject* Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, std::string sLayer = "Default") const;
+	GameObject* Instantiate(const GameObject* goRef, Vector3 pos, std::string sLayer = "Default") const;
+	GameObject* Instantiate(const GameObject* goRef, std::string sLayer = "Default") const;
 	void Destroy(GameObject* go);
 	void DestroySelf();
 	// QoL

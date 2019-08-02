@@ -59,9 +59,10 @@ void ChengPlayerScript::Update(double dt)
 	UpdateTilt();
 	UpdateConstrain();
 }
-void ChengPlayerScript::SetMovementSpeed(float f)
+void ChengPlayerScript::SetMovementSpeed(float f, float accel)
 {
 	m_fMovementSpeed = f;
+	m_fAccel = accel;
 }
 void ChengPlayerScript::SwitchView()
 {
@@ -130,25 +131,34 @@ void ChengPlayerScript::UpdateMovement(double dt)
 
 		Vector3 vPlayerFront = vCameraFront;
 		vPlayerFront.y = 0;
+		vPlayerFront.Normalize();
 		//vPlayerFront.Normalize();
 		Vector3 vRight = vCameraFront.Cross(vCameraUp);
-
+		ChengRigidbody* rb = GetComponent<ChengRigidbody>();
 		// Movement
 		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
 		{
-			trans->Translate(m_fMovementSpeed * vPlayerFront);
+			// trans->Translate(m_fMovementSpeed * vPlayerFront);
+			rb->IncrementForce(vPlayerFront  *m_fAccel);
 		}
 		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
 		{
-			trans->Translate(-m_fMovementSpeed * vPlayerFront);
+			rb->IncrementForce(vPlayerFront  * -m_fAccel);
 		}
 		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
 		{
-			trans->Translate(-m_fMovementSpeed * vRight);
+			// trans->Translate(-m_fMovementSpeed * vRight);
+			rb->IncrementForce(vRight  * -m_fAccel);
 		}
 		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveRight"))
 		{
-			trans->Translate(m_fMovementSpeed * vRight);
+			// trans->Translate(m_fMovementSpeed * vRight);
+			rb->IncrementForce(vRight  * m_fAccel);
+		}
+		// Cap speed
+		if (rb->GetVel().Length() > m_fMovementSpeed)
+		{
+			rb->SetVel(rb->GetVel().Normalize() * m_fMovementSpeed);
 		}
 		// Gun================================================================================
 		// Fire--------------------------------------------------------------------------------
@@ -281,5 +291,12 @@ void ChengPlayerScript::UpdateConstrain()
 	{
 		con->SetHeightMapData(DataContainer::GetInstance()->GetHeightMap("TerrainDesert"));
 		//SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->GetLayerList()->at("Default")->SetShader(DataContainer::GetInstance()->GetShader("HeatWave"));
+	}
+}
+void ChengPlayerScript::RefillAmmo()
+{
+	for (unsigned i = 0; i < m_Guns.size(); ++i)
+	{
+		m_Guns.at(i)->GetComponent<GunScript>()->RefillAmmo();
 	}
 }

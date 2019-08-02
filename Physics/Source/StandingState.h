@@ -6,6 +6,7 @@ class StandingState :
 {
 private:
 	float m_fBaseMovementSpeed;
+	float m_fBaseAccel;
 	float m_fSprintMultiplier;
 	float m_fCurrentBobOffset;
 public:

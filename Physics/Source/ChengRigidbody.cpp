@@ -40,7 +40,7 @@ void ChengRigidbody::Update(double dt)
 		m_vVel.z = 0;
 	TransformComponent* Trans = this->GetComponent<TransformComponent>();
 	Trans->Translate(m_vVel * (float)dt * WorldValues::TimeScale);
-
+	m_vVel = m_vVel * this->m_PhyMat.GetFriction();
 	float I = this->m_fMass * (Trans->GetScale().x * Trans->GetScale().x);
 	Vector3 vAAccel = this->m_vTorque * (1.f / I);
 	m_vAVel += vAAccel * (float)dt;

@@ -7,7 +7,7 @@ GameObject::GameObject()
 	AddComponent(new TransformComponent);
 }
 // Copy
-GameObject::GameObject(GameObject& go)
+GameObject::GameObject(const GameObject& go)
 {
 	this->m_bActive = go.m_bActive;
 	this->m_bStatic = go.m_bStatic;
@@ -120,7 +120,7 @@ void GameObject::SetActive(bool b)
 {
 	m_bActive = b;
 }
-GameObject* GameObject::Clone()
+GameObject* GameObject::Clone() const
 {
 	GameObject* go = new GameObject(*this);
 	return go;

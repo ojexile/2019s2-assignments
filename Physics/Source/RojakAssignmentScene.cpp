@@ -83,7 +83,7 @@ void RojakAssignmentScene::Init()
 	gun->AddComponent(new RenderComponent(dataContainer->GetMesh("Gun")));
 	gun->RENDER->SetBillboard(false);
 	gun->RENDER->SetLightEnabled(false);
-	gun->AddComponent(new GunScript(dataContainer->GetGameObject("bullet"), m_CameraGO, 0.1f, GunScript::CHARGE, dataContainer->GetGameObject("SmokeParticle"), 75));
+	gun->AddComponent(new GunScript(dataContainer->GetGameObject("bullet"), m_CameraGO, 0.1f, GunScript::CHARGE, dataContainer->GetGameObject("SmokeParticle"), 75, 3, 3));
 	////Repel--------------------------------------------------------------------------------
 	//GameObject* repel = new GameObject;
 	//repel->AddComponent(new Blackhole(-20000, 700));

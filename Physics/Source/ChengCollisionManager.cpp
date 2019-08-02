@@ -458,7 +458,7 @@ void ChengCollisionManager::Update(GameObjectManager* GOM)
 			GameObject* go1 = GOList->at(i);
 			if (!go1->IsActive())
 				continue;
-			if (go1->GetComponent<ChengRigidbody>(true))
+			if (go1->GetComponent<ChengRigidbody>(true) && go1->GetComponent<ChengRigidbody>(true)->IsActive())
 				CheckCollision(go1, GOList, i);
 			for (unsigned j = 0; j < go1->GetChildList()->size(); ++j)
 			{
@@ -479,6 +479,8 @@ void ChengCollisionManager::CheckCollision(GameObject* go1, std::vector<GameObje
 		if (!go2->IsActive())
 			continue;
 		if (!go2->GetComponent<ChengRigidbody>(true))
+			continue;
+		if (!go2->GetComponent<ChengRigidbody>(true)->IsActive())
 			continue;
 		GameObject* goA = go1;
 		GameObject* goB = go2;

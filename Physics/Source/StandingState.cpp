@@ -4,8 +4,9 @@
 #include "ChengPlayerScript.h"
 StandingState::StandingState()
 {
+	m_fBaseAccel = 700;
 	m_fSprintMultiplier = 2.0f;
-	m_fBaseMovementSpeed = 1;
+	m_fBaseMovementSpeed = 20;
 }
 
 StandingState::~StandingState()
@@ -17,11 +18,11 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 	// Sprint
 	if (Application::IsKeyPressed(VK_SHIFT))
 	{
-		com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier);
+		com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
 	}
 	else
 	{
-		com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed);
+		com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 	}
 	// Crouch
 	if (Application::IsKeyPressed(VK_LCONTROL))
@@ -34,5 +35,5 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 void StandingState::OnEnter(ComponentBase* com)
 {
 	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, STANDING_HEIGHT, 0);
-	com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed);
+	com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 }

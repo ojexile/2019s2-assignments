@@ -29,5 +29,5 @@ PlayerState* CrouchingState::HandleInput(ComponentBase* com, double dt)
 void CrouchingState::OnEnter(ComponentBase* com)
 {
 	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, CROUCHING_HEIGHT, 0);
-	com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed);
+	com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, 200);
 }
