@@ -14,6 +14,7 @@ GameObject::GameObject(GameObject& go)
 	for (unsigned i = 0; i < go.m_vec_ComponentList.size(); ++i)
 	{
 		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());
+		cb->SetActive(go.m_vec_ComponentList[i]->IsActive());
 		this->AddComponent(cb);
 	}
 	for (unsigned i = 0; i < go.m_vec_ChildList.size(); ++i)
@@ -35,8 +36,8 @@ GameObject::~GameObject()
 	{
 		delete m_vec_ChildList[i];
 	}
-	//m_vec_ComponentList.clear();
-	//m_vec_ChildList.clear();
+	m_vec_ComponentList.clear();
+	m_vec_ChildList.clear();
 }
 ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 {
@@ -54,6 +55,7 @@ bool GameObject::IsActive()
 
 void GameObject::Update(double dt)
 {
+	// Update components
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
 		if (!m_vec_ComponentList[i]->IsActive())
@@ -91,8 +93,12 @@ void GameObject::Update(double dt)
 				continue;
 			if (!m_vec_ChildList[i]->m_vec_ComponentList[j]->IsActive())
 				continue;
-			m_vec_ChildList[i]->m_vec_ComponentList[j]->CheckStarted();
-			m_vec_ChildList[i]->m_vec_ComponentList[j]->Update(dt);
+			ComponentBase* childcomp = m_vec_ChildList[i]->m_vec_ComponentList[j];
+			if (childcomp->IsActive())
+			{
+				childcomp->CheckStarted();
+				childcomp->Update(dt);
+			}
 			// Break if child destroys gameobject
 			if (m_vec_ChildList.size() <= 0)
 				return;

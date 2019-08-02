@@ -135,5 +135,6 @@ void Engine::Exit()
 	DataContainer::DeleteInstance();
 	KeyboardManager::DeleteInstance();
 	AudioManager::DeleteInstance();
+	Preferences::Clear();
 	Time::DeleteInstance();
 }

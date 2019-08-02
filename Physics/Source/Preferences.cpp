@@ -10,6 +10,10 @@ Preferences::Preferences()
 Preferences::~Preferences()
 {
 }
+void Preferences::Clear()
+{
+	m_map_Data.clear();
+}
 void Preferences::InitDefault()
 {
 	// Defualt data
