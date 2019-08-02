@@ -257,7 +257,8 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent == nullptr)
 		return;
-	if (!renderComponent->IsActive())
+	bool isActive = renderComponent->IsActive();
+	if (!isActive)
 		return;
 	Mesh* CurrentMesh = renderComponent->GetMesh();
 	AnimatedMesh* AnimatedMesh = renderComponent->GetAnimatedMesh();

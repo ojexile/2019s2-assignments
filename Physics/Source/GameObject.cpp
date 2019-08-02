@@ -15,6 +15,7 @@ GameObject::GameObject(GameObject& go)
 	{
 		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());
 		cb->SetActive(go.m_vec_ComponentList[i]->IsActive());
+		cb->SetStarted(go.m_vec_ComponentList[i]->IsStarted());
 		this->AddComponent(cb);
 	}
 	for (unsigned i = 0; i < go.m_vec_ChildList.size(); ++i)
@@ -67,6 +68,8 @@ void GameObject::Update(double dt)
 	}
 	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
+		if (!m_vec_ChildList[i]->IsActive())
+			continue;
 		// Update world transform from relative trans
 		// Update pos
 		TransformComponent* trans = this->GetComponent<TransformComponent>();
@@ -89,8 +92,6 @@ void GameObject::Update(double dt)
 		childTrans->SetScale({ scale.x * childScale.x, scale.y * childScale.y, scale.z * childScale.z });
 		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
 		{
-			if (!m_vec_ChildList[i]->IsActive())
-				continue;
 			if (!m_vec_ChildList[i]->m_vec_ComponentList[j]->IsActive())
 				continue;
 			ComponentBase* childcomp = m_vec_ChildList[i]->m_vec_ComponentList[j];

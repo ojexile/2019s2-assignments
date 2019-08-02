@@ -44,3 +44,11 @@ void ComponentBase::SetActive(bool b)
 {
 	m_bActive = b;
 }
+bool ComponentBase::IsStarted()
+{
+	return m_bStarted;
+}
+void ComponentBase::SetStarted(bool b)
+{
+	m_bStarted = b;
+}

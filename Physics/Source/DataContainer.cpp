@@ -104,14 +104,14 @@ AnimatedMesh* DataContainer::GetAnimation(std::string name)
 	AnimatedMesh* mesh = m_map_Animated[name];
 	if (!mesh)
 		DEFAULT_LOG("ERROR: Animation not found of name: " + name);
-	return mesh;
+	return new AnimatedMesh(*mesh);
 }
 GameObject* DataContainer::GetGameObject(std::string name)
 {
 	GameObject* go = m_map_GO[name];
 	if (!go)
 		DEFAULT_LOG("ERROR: GameObject not found of name: " + name);
-	return go;
+	return go->Clone();
 }
 unsigned DataContainer::GetShader(std::string key)
 {
