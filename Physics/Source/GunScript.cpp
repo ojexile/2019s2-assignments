@@ -2,11 +2,12 @@
 #include "BulletScript.h"
 #include "ChengRigidbody.h"
 #include "Application.h"
-GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke)
+GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float bulletSpeed)
 	: m_Player(player)
 	, m_eFireType(eFireType)
 	, m_fFireRate(fFireRate)
 	, m_Smoke(smoke)
+	, m_fBulletSpeed(bulletSpeed)
 {
 	m_Bullet = bullet;
 	m_fTimer = 0;
@@ -60,7 +61,6 @@ void GunScript::Fire(Vector3 vDir)
 	}
 	if (m_iClipAmmo <= 0)
 		return;
-	float fBallSpeed = 120.f;
 	Vector3 ballDir = vDir;
 	Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
 	Instantiate(m_Smoke, pos + vDir * 2);
@@ -69,7 +69,7 @@ void GunScript::Fire(Vector3 vDir)
 	if (!bul)
 		return;
 	bul->GetComponent<TransformComponent>()->SetScale(fScale, fScale, fScale);
-	bul->GetComponent<ChengRigidbody>()->SetVel(fBallSpeed * ballDir);
+	bul->GetComponent<ChengRigidbody>()->SetVel(m_fBulletSpeed * ballDir);
 	bul->GetComponent<ChengRigidbody>()->SetMass(fScale);
 	--m_iClipAmmo;
 	m_fTimer = 0;

@@ -10,7 +10,8 @@ class ChengPlayerScript : public ScriptComponent
 private:
 	PlayerState* m_CurrentState;
 	float m_fMovementSpeed;
-	GameObject* m_Gun;
+	std::vector<GameObject*> m_Guns;
+	GameObject* m_CurrentGun;
 	GameObject* m_CrossHair;
 	GameObject* m_Gaunt;
 	bool m_bState;

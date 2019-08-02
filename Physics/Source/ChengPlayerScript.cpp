@@ -19,10 +19,11 @@
 
 #define CAMERA_ANGLE_OFFSET 5
 ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
-	:m_Gun(gun)
-	, m_CrossHair(cross)
+	: m_CrossHair(cross)
 	, m_Gaunt(gaunt)
 {
+	m_Guns.push_back(gun);
+	m_CurrentGun = gun;
 	m_CurrentState = nullptr;
 	m_bState = false;
 	m_fMovementSpeed = 1;
@@ -74,7 +75,7 @@ void ChengPlayerScript::SwitchView()
 		//trans->SetPosition(0, 0, 0);
 		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 10, 0);
 		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, 0);
-		m_Gun->SetActive(true);
+		m_CurrentGun->SetActive(true);
 		m_CrossHair->SetActive(true);
 		m_bState = false;
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
@@ -84,7 +85,7 @@ void ChengPlayerScript::SwitchView()
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
 		SetDefaultCamPos();
-		m_Gun->SetActive(false);
+		m_CurrentGun->SetActive(false);
 		m_CrossHair->SetActive(false);
 		m_bState = true;
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
@@ -153,16 +154,16 @@ void ChengPlayerScript::UpdateMovement(double dt)
 		// Fire--------------------------------------------------------------------------------
 		if (Application::IsMousePressed(0))
 		{
-			this->m_Gun->GetComponent<GunScript>()->PullTrigger(vCameraFront, dt);
+			this->m_CurrentGun->GetComponent<GunScript>()->PullTrigger(vCameraFront, dt);
 		}
 		else
 		{
-			this->m_Gun->GetComponent<GunScript>()->ReleaseTrigger(vCameraFront);
+			this->m_CurrentGun->GetComponent<GunScript>()->ReleaseTrigger(vCameraFront);
 		}
 		//Reload--------------------------------------------------------------------------------
 		if (KeyboardManager::GetInstance()->GetKeyTriggered("reload"))
 		{
-			m_Gun->GetComponent<GunScript>()->Reload();
+			m_CurrentGun->GetComponent<GunScript>()->Reload();
 		}
 	}
 

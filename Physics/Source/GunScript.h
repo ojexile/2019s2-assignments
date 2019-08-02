@@ -27,10 +27,10 @@ private:
 	float m_fChargeTime;
 	float m_fMaxChargeTime;
 	float m_fMinChargeTime;
-
+	float m_fBulletSpeed;
 	float m_fMaxScale;
 public:
-	GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke);
+	GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed);
 	~GunScript();
 	virtual ComponentBase* Clone()
 	{
