@@ -131,10 +131,6 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		vCamPosition.z += 1;
 	}
 
-	//Calculating aspect ratio
-	// m_worldHeight = 100.f;
-	// m_worldWidth = m_worldHeight * (float)Application::GetWindowWidth() / Application::GetWindowHeight();
-
 	// Projection matrix
 	Mtx44 projection;
 	switch (CameraObject->GetComponent<CameraComponent>()->GetCameraType())
@@ -290,7 +286,8 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent == nullptr)
 		return;
-	if (!renderComponent->IsActive())
+	bool isActive = renderComponent->IsActive();
+	if (!isActive)
 		return;
 	Mesh* CurrentMesh = renderComponent->GetMesh();
 	AnimatedMesh* AnimatedMesh = renderComponent->GetAnimatedMesh();
@@ -317,8 +314,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	}
 	if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero())
 		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-	const float ep = 0.01f;
-	if (vGameObjectScale.x > ep && vGameObjectScale.y > ep && vGameObjectScale.z > ep)
+	if (!vGameObjectScale.IsZero())
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
 	if (!bIsUI)
 	{

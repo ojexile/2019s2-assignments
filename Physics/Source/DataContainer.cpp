@@ -402,7 +402,7 @@ AnimatedMesh* DataContainer::GetAnimation(std::string name)
 	AnimatedMesh* mesh = m_map_Animated[name];
 	if (!mesh)
 		DEFAULT_LOG("ERROR: Animation not found of name: " + name);
-	return mesh;
+	return new AnimatedMesh(*mesh);
 }
 GameObject* DataContainer::GetGameObject(std::string name)
 {

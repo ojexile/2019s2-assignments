@@ -38,4 +38,6 @@ public:
 
 	bool IsActive();
 	void SetActive(bool b);
+	bool IsStarted();
+	void SetStarted(bool);
 };

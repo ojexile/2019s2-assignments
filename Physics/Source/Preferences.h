@@ -25,8 +25,9 @@ private:
 	static void InitDefault();
 	static bool m_bInitialsed;
 	Preferences();
-public:
 	~Preferences();
+public:
 
 	static std::string GetPref(std::string s);
+	static void Clear();
 };
