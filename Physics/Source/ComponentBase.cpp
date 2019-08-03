@@ -2,8 +2,10 @@
 #include "SceneManager.h"
 #include "DataContainer.h"
 ComponentBase::ComponentBase()
+	: m_vec_RefList{ nullptr }
+	, m_bStarted{ false }
+	, m_bActive{ true }
 {
-	m_vec_RefList = nullptr;
 	m_bStarted = false;
 }
 ComponentBase::ComponentBase(ComponentBase& com)
