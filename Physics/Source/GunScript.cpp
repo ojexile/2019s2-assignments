@@ -25,6 +25,8 @@ GunScript::GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFir
 
 GunScript::~GunScript()
 {
+	//delete m_Smoke;
+	//delete m_Bullet;
 }
 void GunScript::Start()
 {
@@ -46,7 +48,6 @@ void GunScript::Update(double dt)
 }
 void GunScript::Fire(Vector3 vDir)
 {
-
 	if (m_iClipAmmo <= 0)
 		return;
 	Vector3 ballDir = vDir;

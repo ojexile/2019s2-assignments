@@ -180,7 +180,7 @@ DataContainer::DataContainer()
 	Rain->AddComponent(new RenderComponent(this->GetMesh("Droplet")));
 	Rain->GetComponent<RenderComponent>()->SetBillboard(true);
 	Rain->AddComponent(new ParticleScript(5.0f, { 0,-1.7f,0 }, { 0,0,0 }, { 0,0,0 }, { 0.0f,0,0 }, {}));
-	Rain->AddComponent(new RainScript(this->GetGameObject("Fountain")));
+	Rain->AddComponent(new RainScript(Fountain));
 	Rain->RENDER->SetLightEnabled(false);
 	m_map_GO["Rain"] = Rain;
 	// Rain Spawner--------------------------------------------------------------------------------
@@ -224,7 +224,7 @@ DataContainer::DataContainer()
 	go->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	rigid = new ChengRigidbody(ChengRigidbody::BALL);
 	rigid->SetMat(1, 0.5f);
-	bullet->AddComponent(new BulletScript(10.f));
+	go->AddComponent(new BulletScript(3.f));
 	go->AddComponent(rigid);
 	// --------------------------------------------------------------------------------
 	GameObject* wall = new GameObject;
@@ -352,7 +352,7 @@ DataContainer::DataContainer()
 	go->TRANS->SetPosition(1900, 80, 0);
 	go->AddComponent(new RenderComponent(this->GetMesh("Gun")));
 	go->RENDER->SetLightEnabled(false);
-	go->AddComponent(new GunScript(this->GetGameObject("bullet"), 0.1f, GunScript::CHARGE, this->GetGameObject("SmokeParticle"), 75, 3, 3));
+	go->AddComponent(new GunScript(m_map_GO["bullet"], 0.1f, GunScript::CHARGE, m_map_GO["SmokeParticle"], 75, 3, 3));
 	go->GetComponent<GunScript>()->SetRecoil(3);
 	/// Assualt--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -360,7 +360,7 @@ DataContainer::DataContainer()
 	go->TRANS->SetPosition(1500, 80, 0);
 	go->AddComponent(new RenderComponent(this->GetMesh("Assualt")));
 	go->RENDER->SetLightEnabled(false);
-	go->AddComponent(new GunScript(this->GetGameObject("AssualtBullet"), 0.1f, GunScript::FULL_AUTO, this->GetGameObject("SmokeParticle"), 150, 25, 3));
+	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.1f, GunScript::FULL_AUTO, m_map_GO["SmokeParticle"], 150, 25, 3));
 	go->GetComponent<GunScript>()->SetRecoil(1);
 	/// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");

@@ -24,6 +24,8 @@ GauntletScript::GauntletScript(GameObject* ball, GameObject* text)
 
 GauntletScript::~GauntletScript()
 {
+	delete m_Ball;
+	//delete m_Text;
 }
 void GauntletScript::Start()
 {

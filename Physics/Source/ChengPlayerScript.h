@@ -22,7 +22,7 @@ private:
 	// Functions
 	// Switch view
 	void SwitchView();
-	void UpdateMovement(double dt);
+	bool UpdateMovement(double dt);
 	void UpdateGauntlet();
 	void UpdateTilt();
 	void UpdateConstrain();

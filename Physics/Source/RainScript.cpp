@@ -7,6 +7,7 @@ RainScript::RainScript(GameObject* BounceParticle)
 
 RainScript::~RainScript()
 {
+
 }
 void RainScript::Update(double dt)
 {

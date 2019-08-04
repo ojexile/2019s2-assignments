@@ -14,6 +14,6 @@ public:
 		return new BulletScript(*this);
 	}
 
-	void Update(double dt) override;
+	virtual void Update(double dt) override;
 	virtual void Collide(GameObject* go) override;
 };

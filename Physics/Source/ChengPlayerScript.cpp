@@ -54,10 +54,25 @@ void ChengPlayerScript::Update(double dt)
 {
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	// Movement================================================================================
-	UpdateMovement(dt);
+	float bMoved = UpdateMovement(dt);
 	UpdateGauntlet();
 	UpdateTilt();
 	UpdateConstrain();
+	// bob
+	if (bMoved)
+	{
+		const float maxBob = 0.3f;
+		static float speed = 0.1f * m_fMovementSpeed;
+		static float offset = 0;
+		if (offset > maxBob)
+			speed = -fabs(speed);
+		if (offset < -maxBob)
+			speed = fabs(speed);
+		float off = speed * (float)dt;
+		GetCameraGO()->GetComponent<TransformComponent>()->TranslateRelative(0, off, 0);
+		offset += off;
+		m_CurrentGun->TRANS->Translate(0, off * 30, 0);
+	}
 }
 void ChengPlayerScript::SetMovementSpeed(float f, float accel)
 {
@@ -105,8 +120,9 @@ void ChengPlayerScript::SetDefaultCamPos()
 	newRelPos.y = CamDir.y * -200;
 	cam->GetComponent<TransformComponent>()->SetRelativePosition(newRelPos);
 }
-void ChengPlayerScript::UpdateMovement(double dt)
+bool ChengPlayerScript::UpdateMovement(double dt)
 {
+	bool bMoved = false;
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 pos = trans->GetPosition();
 	m_Light->position = { trans->GetPosition().x, trans->GetPosition().y, trans->GetPosition().z };
@@ -140,20 +156,24 @@ void ChengPlayerScript::UpdateMovement(double dt)
 		{
 			// trans->Translate(m_fMovementSpeed * vPlayerFront);
 			rb->IncrementForce(vPlayerFront  *m_fAccel);
+			bMoved = true;
 		}
 		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
 		{
 			rb->IncrementForce(vPlayerFront  * -m_fAccel);
+			bMoved = true;
 		}
 		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
 		{
 			// trans->Translate(-m_fMovementSpeed * vRight);
 			rb->IncrementForce(vRight  * -m_fAccel);
+			bMoved = true;
 		}
 		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveRight"))
 		{
 			// trans->Translate(m_fMovementSpeed * vRight);
 			rb->IncrementForce(vRight  * m_fAccel);
+			bMoved = true;
 		}
 		// Cap speed
 		if (rb->GetVel().Length() > m_fMovementSpeed)
@@ -189,6 +209,7 @@ void ChengPlayerScript::UpdateMovement(double dt)
 	{
 		SceneManager::GetInstance()->ChangeScene(new RojakScene2());
 	}
+	return bMoved;
 }
 void ChengPlayerScript::UpdateGauntlet()
 {
