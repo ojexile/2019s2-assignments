@@ -5,8 +5,9 @@
 #include "Singleton.h"
 #include <map>
 #include <GLFW\glfw3.h>
+#include "InputDeviceManager.h"
 
-class KeyboardManager : public Singleton<KeyboardManager>
+class KeyboardManager : public InputDeviceManager, public Singleton<KeyboardManager>
 {
 	friend Singleton<KeyboardManager>;
 public:
@@ -14,9 +15,7 @@ public:
 	bool GetKeyTriggered(unsigned short key);
 	bool GetKeyDown(std::string bind);
 	bool GetKeyDown(unsigned short key);
-	void SetKeyBind(std::string bind, unsigned short key);
-	void LoadKeyBinds(std::string filename);
-	void ExportKeyBinds(std::string filename);
+	virtual float GetStrength(std::string bind);
 
 private:
 	std::map<std::string, unsigned int> map_keyBindings;

@@ -42,7 +42,7 @@ GameObject* GameObjectManager::AddGameObject(std::string layer)
 		DEFAULT_LOG("Layer doesn't exists.");
 		return nullptr;
 	}
-	GameObject* go = new GameObject;
+	GameObject* go = new GameObject();
 	m_map_Layers[layer]->GetGOList()->push_back(go);
 	return go;
 }
@@ -75,7 +75,7 @@ void GameObjectManager::Destroy(GameObject* go)
 		// it->first == key
 		// it->second == value
 		std::vector<GameObject*>* list = it->second->GetGOList();
-		for (unsigned i = list->size() - 1; i >= 0; --i)
+		for (unsigned i = list->size() - 1; i > 0; --i)
 		{
 			if ((*list)[i] == go)
 			{

@@ -13,6 +13,7 @@ void ScriptComponent::Update(double dt)
 {
 	return;
 }
+
 void ScriptComponent::Destroy(GameObject* go)
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();

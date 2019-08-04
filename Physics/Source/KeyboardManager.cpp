@@ -6,53 +6,12 @@
 
 KeyboardManager::KeyboardManager()
 {
-	SetKeyBind("ExitGame", VK_ESCAPE);
-	LoadKeyBinds(Resources::Path::Keybinds);
 }
 
 KeyboardManager::~KeyboardManager()
 {
 }
 
-bool KeyboardManager::GetKeyTriggered(std::string bind)
-{
-	if (map_keyBindings.count(bind) == 0)
-	{
-		KZ_LOG("Tried to poll state of nonexistent/undefined keybind " + bind);
-		return false;
-	}
-	bool lastState = map_lastKeyPollState[map_keyBindings[bind]];
-	map_lastKeyPollState[map_keyBindings[bind]] = GetKeyDown(bind);
-	return GetKeyDown(map_keyBindings[bind]) && !lastState;
-}
-
-bool KeyboardManager::GetKeyTriggered(unsigned short key)
-{
-	bool lastState = map_lastKeyPollState[key];
-	map_lastKeyPollState[key] = GetKeyDown(key);
-	return GetKeyDown(key) && !lastState;
-}
-
-bool KeyboardManager::GetKeyDown(std::string bind)
-{
-	if (map_keyBindings.count(bind) == 0)
-	{
-		KZ_LOG("Tried to poll state of nonexistent/undefined keybind " + bind);
-		return false;
-	}
-
-	return GetKeyDown(map_keyBindings[bind]);
-}
-
-bool KeyboardManager::GetKeyDown(unsigned short key)
-{
-	return ((GetAsyncKeyState(key) & 0x8001) != 0);
-}
-
-void KeyboardManager::SetKeyBind(std::string bind, unsigned short key)
-{
-	map_keyBindings[bind] = key;
-}
 
 unsigned short ToKey(std::string str)
 {
@@ -78,36 +37,33 @@ unsigned short ToKey(std::string str)
 	return NULL;
 }
 
-void KeyboardManager::LoadKeyBinds(std::string filename)
+
+bool KeyboardManager::GetKeyTriggered(unsigned short key)
 {
-	std::ifstream stream = std::ifstream(filename);
-	if (stream.is_open())
-	{
-		while (!stream.eof())
-		{
-			std::string bind;
-			std::string keyString;
-			stream >> bind;
-			stream >> keyString;
-			unsigned short key = ToKey(keyString);
-			SetKeyBind(bind, key);
-		}
-		stream.close();
-	}
-	else
-	{
-		KZ_LOG("Tried to load keybinds from nonexistent file (\"" + filename + "\"");
-	}
+	bool lastState = map_lastKeyPollState[key];
+	map_lastKeyPollState[key] = GetKeyDown(key);
+	return GetKeyDown(key) && !lastState;
 }
-void KeyboardManager::ExportKeyBinds(std::string filename)
+
+bool KeyboardManager::GetKeyDown(unsigned short key)
 {
-	std::ofstream stream = std::ofstream(filename);
-	if (stream.is_open())
-	{
-		for (auto it = map_keyBindings.begin(); it != map_keyBindings.end(); it++)
-		{
-			stream << it->first << " " << it->second << "\n";
-		}
-		stream.close();
-	}
+	return ((GetAsyncKeyState(key) & 0x8001) != 0);
+}
+
+bool KeyboardManager::GetKeyTriggered(std::string bind)
+{
+	if (ToKey(bind) == NULL) return false;
+	return GetKeyTriggered(ToKey(bind));
+}
+
+bool KeyboardManager::GetKeyDown(std::string bind)
+{
+	if (ToKey(bind) == NULL) return false;
+	return GetKeyDown(ToKey(bind));
+}
+
+float KeyboardManager::GetStrength(std::string bind)
+{
+	if (GetKeyDown(bind)) return 1;
+	else return 0;
 }

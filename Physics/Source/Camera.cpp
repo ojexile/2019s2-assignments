@@ -72,8 +72,8 @@ void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 		m_bIsFirstMouseMove = false;
 	}
 
-	m_fXOffset = xpos - m_fLastX;
-	m_fYOffset = m_fLastY - ypos;
+	m_fXOffset = xpos;
+	m_fYOffset = - ypos;
 
 	m_fLastX = xpos;
 	m_fLastY = ypos;

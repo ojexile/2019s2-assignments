@@ -1,5 +1,5 @@
 #include "PlayerScript.h"
-#include "KeyboardManager.h"
+#include "InputManager.h"
 #include "SceneManager.h"
 #include "AudioManager.h"
 PlayerScript::PlayerScript(GameObject* goRef)
@@ -23,47 +23,16 @@ void PlayerScript::Update(double dt)
 
 	float fSpeed = 50 * (float)dt;
 	Vector3 vRight = m_vCameraFront.Cross(m_vCameraUp);
-	static bool triggered = false;
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
-	{
-		trans->Translate(fSpeed * m_vCameraFront);
-		if (!triggered)
-		{
-			Instantiate(m_GORef);
-			triggered = true;
-		}
-	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
-	{
-		trans->Translate(-fSpeed * m_vCameraFront);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
-	{
-		trans->Translate(-fSpeed * vRight);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveRight"))
-	{
-		trans->Translate(fSpeed * vRight);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveUp"))
-	{
-		trans->Translate(fSpeed * m_vCameraUp);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveDown"))
-	{
-		trans->Translate(-fSpeed * m_vCameraUp);
-	}
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("Susu"))
-	{
-		//AudioManager::GetInstance()->Play3D("susu.wav", Vector3(0, 0, 2));
-		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
-		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
-		GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
-		trans->SetPosition(0, 0, 0);
-		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 200, 0);
-		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(0, -90);
-	}
-	// TODO Constrain to terrain================================================================================
+	trans->Translate(Math::Clamp(InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack"),-10.f, 10.f) * m_vCameraFront);
+	trans->Translate(Math::Clamp(InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft"), -10.f, 10.f) * vRight);
+	SceneManager* SceneManager = SceneManager::GetInstance();
+	Scene* CurrentScene = SceneManager->GetScene();
+	Camera* Cam = CurrentScene->GetCamera();
+
+	Cam->UpdateYawPitchMouse(InputManager::GetInstance()->GetInputStrength("PlayerLookLeftRight"), InputManager::GetInstance()->GetInputStrength("PlayerLookUpDown"));
+	Cam->Update(dt);
+	// TODO Constrain to terrain===============
+	//=================================================================
 	//Vector3 pos = trans->GetPosition();
 	//trans->SetPosition(pos.x, 30.f * ReadHeightMap(DataContainer::GetInstance()->heightMap, pos.x / 500, pos.z / 500), pos.z);
 }
