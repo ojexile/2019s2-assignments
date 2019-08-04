@@ -84,6 +84,8 @@ void RojakScene2::Init()
 	//Player================================================================================
 	// Gun
 	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("Assualt"), "UI");
+	GameObject* gun1 = m_GOM.AddGameObject(dataContainer->GetGameObject("BallGun"));
+
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
 	go->AddChild(m_CameraGO);
@@ -118,19 +120,19 @@ void RojakScene2::Init()
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
-	// Trees--------------------------------------------------------------------------------
-	// Tree 1--------------------------------------------------------------------------------
-	//go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
+	/// Trees--------------------------------------------------------------------------------
+	// tree 1--------------------------------------------------------------------------------
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Tree"));
 	//go->TRANS->SetPosition(100, 0, 100);
 	//go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
-	//go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
 	//go->TRANS->SetPosition(100, 100, 100);
 	//go->SetActive(false);
-	//// Tree 2--------------------------------------------------------------------------------
-	//go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("Tree"));
+	//// tree 2--------------------------------------------------------------------------------
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Tree"));
 	//go->TRANS->SetPosition(150, 0, 100);
 	//go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
-	//go = m_GameObjectManager.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
 	//go->TRANS->SetPosition(150, 100, 100);
 	//go->SetActive(false);
 	// Water--------------------------------------------------------------------------------
@@ -153,7 +155,7 @@ void RojakScene2::Init()
 	go->TRANS->SetPosition(20, 0, -20);
 	go->TRANS->SetScale(10, 10, 10);
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
-	//go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainSnow"), Constrain::FIXED));
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainSnow"), Constrain::FIXED));
 	go->AddComponent(new AmmoDumpScript());
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("pillar")));
 	/// Desert--------------------------------------------------------------------------------

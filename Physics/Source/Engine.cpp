@@ -93,6 +93,8 @@ void Engine::Update(double dt)
 		std::vector<GameObject*>* GOList = it->second->GetGOList();
 		for (unsigned i = 0; i < GOList->size(); ++i)
 		{
+			if (!GOList->at(i))
+				__debugbreak();
 			if (!GOList->at(i)->IsActive())
 				continue;
 			GOList->at(i)->Update(dt);
