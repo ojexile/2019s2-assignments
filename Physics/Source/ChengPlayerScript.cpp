@@ -23,6 +23,7 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObj
 	, m_Gaunt(gaunt)
 {
 	m_Guns.push_back(gun);
+
 	m_CurrentGun = gun;
 	m_CurrentState = nullptr;
 	m_bState = false;
@@ -40,6 +41,7 @@ ChengPlayerScript::~ChengPlayerScript()
 }
 void ChengPlayerScript::Start()
 {
+	//m_Guns.at(0)->TRANS->SetPosition(SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->GetPosition());
 	SwitchView();
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 GDir = { 0,0,1 };
@@ -58,21 +60,6 @@ void ChengPlayerScript::Update(double dt)
 	UpdateGauntlet();
 	UpdateTilt();
 	UpdateConstrain();
-	// bob
-	if (bMoved)
-	{
-		const float maxBob = 0.3f;
-		static float speed = 0.1f * m_fMovementSpeed;
-		static float offset = 0;
-		if (offset > maxBob)
-			speed = -fabs(speed);
-		if (offset < -maxBob)
-			speed = fabs(speed);
-		float off = speed * (float)dt;
-		GetCameraGO()->GetComponent<TransformComponent>()->TranslateRelative(0, off, 0);
-		offset += off;
-		m_CurrentGun->TRANS->Translate(0, off * 30, 0);
-	}
 }
 void ChengPlayerScript::SetMovementSpeed(float f, float accel)
 {
@@ -194,6 +181,47 @@ bool ChengPlayerScript::UpdateMovement(double dt)
 		if (KeyboardManager::GetInstance()->GetKeyTriggered("reload"))
 		{
 			m_CurrentGun->GetComponent<GunScript>()->Reload();
+		}
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("Gun1"))
+		{
+			if (m_Guns.size() > 1)
+			{
+				m_CurrentGun->SetActive(false);
+				m_CurrentGun = m_Guns.at(1);
+				m_CurrentGun->SetActive(true);
+			}
+		}
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("Gun0"))
+		{
+			if (m_Guns.size() > 0)
+			{
+				m_CurrentGun->SetActive(false);
+				m_CurrentGun = m_Guns.at(0);
+				m_CurrentGun->SetActive(true);
+			}
+		}
+		Vector3 vCamPos = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->GetPosition();
+		Vector3 vGunPos = m_CurrentGun->TRANS->GetPosition();
+		m_CurrentGun->TRANS->SetPosition(vCamPos);
+		m_CurrentGun->TRANS->Translate(vCameraFront * 10);
+		m_CurrentGun->TRANS->Translate(vRight * 5);
+		m_CurrentGun->TRANS->Translate(-vCameraUp * 2);
+		m_CurrentGun->TRANS->SetRotation(10, 0, 1, 0);
+		// bob
+		if (bMoved)
+		{
+			const float maxBob = 0.3f;
+			static float speed = 0.1f * m_fMovementSpeed;
+			static float offset = 0;
+			if (offset > maxBob)
+				speed = -fabs(speed);
+			if (offset < -maxBob)
+				speed = fabs(speed);
+			float off = speed * (float)dt;
+			GetCameraGO()->GetComponent<TransformComponent>()->TranslateRelative(0, off, 0);
+			offset += off;
+
+			// m_CurrentGun->TRANS->Translate(0, off, 0);
 		}
 	}
 
@@ -320,4 +348,17 @@ void ChengPlayerScript::RefillAmmo()
 	{
 		m_Guns.at(i)->GetComponent<GunScript>()->RefillAmmo();
 	}
+}
+void ChengPlayerScript::Collide(GameObject* go)
+{
+	GunScript* gs = go->GetComponent<GunScript>();
+	if (!gs)
+		return;
+	if (gs->GetHolding())
+		return;
+	m_Guns.push_back(go);
+	go->SetActive(false);
+	m_CurrentGun->SetActive(false);
+	m_CurrentGun = go;
+	m_CurrentGun->SetActive(true);
 }

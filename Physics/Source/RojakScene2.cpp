@@ -78,13 +78,16 @@ void RojakScene2::Init()
 	// Main--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 960, 0);
-	//go->TRANS->SetScale(100, 100, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->AddComponent(new ChargeBarScript(gs, go2));
 	//Player================================================================================
 	// Gun
-	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("Assualt"), "UI");
-	GameObject* gun1 = m_GOM.AddGameObject(dataContainer->GetGameObject("BallGun"));
+	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("Assualt"));
+	gun->GetComponent<GunScript>()->SetHolding(true);
+	GameObject* gun1 = m_GOM.AddGameObject(dataContainer->GetGameObject("Colt"));
+	gun1->TRANS->SetRotation(45, { 0, 0, 1 });
+	gun1->TRANS->SetScale(5);
+	gun1->TRANS->SetPosition(0, 5, 0);
 
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
@@ -122,19 +125,19 @@ void RojakScene2::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
 	/// Trees--------------------------------------------------------------------------------
 	// tree 1--------------------------------------------------------------------------------
-	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Tree"));
-	//go->TRANS->SetPosition(100, 0, 100);
-	//go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
-	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
-	//go->TRANS->SetPosition(100, 100, 100);
-	//go->SetActive(false);
-	//// tree 2--------------------------------------------------------------------------------
-	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Tree"));
-	//go->TRANS->SetPosition(150, 0, 100);
-	//go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
-	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
-	//go->TRANS->SetPosition(150, 100, 100);
-	//go->SetActive(false);
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Tree"));
+	go->TRANS->SetPosition(100, 0, 100);
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
+	go->TRANS->SetPosition(100, 100, 100);
+	go->SetActive(false);
+	// tree 2--------------------------------------------------------------------------------
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Tree"));
+	go->TRANS->SetPosition(150, 0, 100);
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
+	go->TRANS->SetPosition(150, 100, 100);
+	go->SetActive(false);
 	// Water--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("Water");
 	go->TRANS->SetPosition(100, -5, 100);

@@ -26,7 +26,7 @@ private:
 	void UpdateGauntlet();
 	void UpdateTilt();
 	void UpdateConstrain();
-
+	// void AddGun(GameObject* go);
 public:
 	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt);
 	~ChengPlayerScript();
@@ -37,7 +37,7 @@ public:
 
 	void Update(double dt) override;
 	virtual void Start() override;
-
+	virtual void Collide(GameObject* go) override;
 	void SetDefaultCamPos();
 	void SetMovementSpeed(float f, float accel);
 	void RefillAmmo();

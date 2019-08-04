@@ -33,6 +33,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["paddle"] = MeshBuilder::GenerateOBJ("paddle");
 
+	m_map_Meshes["Colt"] = MeshBuilder::GenerateOBJ("colt");
+	m_map_Meshes["Colt"]->m_uTextureArray[0] = LoadTGA("Colt");
+
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
 
 	m_map_Meshes["square"] = MeshBuilder::GenerateCube("wall", Color((float)0.5, (float)0.5, (float)0.2), 1.f);
@@ -47,7 +50,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
 	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("PLAYER_PISTOL");
 
-	m_map_Meshes["Assualt"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
+	m_map_Meshes["Assualt"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1.f);
 	m_map_Meshes["Assualt"]->m_uTextureArray[0] = LoadTGA("PLAYER_ASSAULT");
 
 	m_map_Meshes["Particle"] = MeshBuilder::GenerateQuad("Particle", { 1.f,1.f,1.f }, 1);
@@ -357,11 +360,23 @@ DataContainer::DataContainer()
 	/// Assualt--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Assualt"] = go;
-	go->TRANS->SetPosition(1500, 80, 0);
+	// go->TRANS->SetPosition(1500, 80, 0);
+	go->TRANS->SetScale(4);
 	go->AddComponent(new RenderComponent(this->GetMesh("Assualt")));
 	go->RENDER->SetLightEnabled(false);
+	go->RENDER->SetBillboard(true);
 	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.1f, GunScript::FULL_AUTO, m_map_GO["SmokeParticle"], 150, 25, 3));
 	go->GetComponent<GunScript>()->SetRecoil(1);
+	/// Colt--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Colt"] = go;
+	go->TRANS->SetPosition(1500, 80, 0);
+	go->AddComponent(new RenderComponent(this->GetMesh("Colt")));
+	go->RENDER->SetLightEnabled(false);
+	go->RENDER->SetBillboard(true);
+	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.1f, GunScript::FULL_AUTO, m_map_GO["SmokeParticle"], 150, 25, 3));
+	go->GetComponent<GunScript>()->SetRecoil(1);
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL, false));
 	/// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["Water"] = LoadShaders("water", "water");

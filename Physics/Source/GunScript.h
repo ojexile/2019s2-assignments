@@ -31,6 +31,7 @@ private:
 	float m_fBulletSpeed;
 	float m_fMaxScale;
 	float m_fRecoil;
+	bool m_bIsHolding;
 public:
 	GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips);
 	~GunScript();
@@ -46,4 +47,6 @@ public:
 	void ReleaseTrigger(Vector3 vDir);
 	void RefillAmmo();
 	void SetRecoil(float f);
+	void SetHolding(bool b);
+	bool GetHolding();
 };

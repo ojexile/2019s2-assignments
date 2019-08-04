@@ -3,6 +3,7 @@
 #include "ChengRigidbody.h"
 #include "Application.h"
 #include "SceneManager.h"
+#include "ChengPlayerScript.h"
 GunScript::GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips)
 	: m_eFireType(eFireType)
 	, m_fFireRate(fFireRate)
@@ -21,6 +22,7 @@ GunScript::GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFir
 	m_fMaxChargeTime = 3;
 	m_fMaxScale = 7;
 	m_fMinChargeTime = 0.01f;
+	m_bIsHolding = false;
 }
 
 GunScript::~GunScript()
@@ -133,4 +135,12 @@ void GunScript::RefillAmmo()
 void GunScript::SetRecoil(float f)
 {
 	m_fRecoil = f;
+}
+void GunScript::SetHolding(bool b)
+{
+	m_bIsHolding = b;
+}
+bool GunScript::GetHolding()
+{
+	return m_bIsHolding;
 }
