@@ -101,6 +101,14 @@ void Camera::SetDir(float yaw, float pitch)
 	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
 	m_vDir.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
 }
+void Camera::OffsetDir(float yaw, float pitch)
+{
+	m_fYaw += yaw;
+	m_fPitch += pitch;
+	m_vDir.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
+	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
+	m_vDir.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
+}
 Vector3 Camera::GetOrthoSize()
 {
 	return m_fOrthoSize;

@@ -2,9 +2,9 @@
 #include "BulletScript.h"
 #include "ChengRigidbody.h"
 #include "Application.h"
-GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips)
-	: m_Player(player)
-	, m_eFireType(eFireType)
+#include "SceneManager.h"
+GunScript::GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips)
+	: m_eFireType(eFireType)
 	, m_fFireRate(fFireRate)
 	, m_Smoke(smoke)
 	, m_fBulletSpeed(speed)
@@ -26,6 +26,10 @@ GunScript::GunScript(GameObject* bullet, GameObject* player, const float fFireRa
 GunScript::~GunScript()
 {
 }
+void GunScript::Start()
+{
+	this->m_Player = GetCameraGO();
+}
 //bool trigger = false;
 void GunScript::Update(double dt)
 {
@@ -42,15 +46,26 @@ void GunScript::Update(double dt)
 }
 void GunScript::Fire(Vector3 vDir)
 {
-	float fScale = 1;
+
+	if (m_iClipAmmo <= 0)
+		return;
+	Vector3 ballDir = vDir;
+	Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
+	Instantiate(m_Smoke, pos + vDir * 2);
+	GameObject* bul = Instantiate(m_Bullet, pos);
+	if (!bul)
+		return;
 	switch (m_eFireType)
 	{
 	case GunScript::CHARGE:
 	{
 		if (m_fChargeTime < m_fMinChargeTime)
 			return;
+		float fScale = 1;
 		fScale = (m_fChargeTime / m_fMaxChargeTime) * m_fMaxScale;
 		fScale = Math::Clamp(fScale, 2.f, m_fMaxScale);
+		bul->GetComponent<TransformComponent>()->SetScale(fScale, fScale, fScale);
+		bul->GetComponent<ChengRigidbody>()->SetMass(fScale);
 	}
 	break;
 	case GunScript::SEMI_AUTO:
@@ -60,20 +75,13 @@ void GunScript::Fire(Vector3 vDir)
 	default:
 		break;
 	}
-	if (m_iClipAmmo <= 0)
-		return;
-	Vector3 ballDir = vDir;
-	Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
-	Instantiate(m_Smoke, pos + vDir * 2);
-	//pos.y = 10;
-	GameObject* bul = Instantiate(m_Bullet, pos);
-	if (!bul)
-		return;
-	bul->GetComponent<TransformComponent>()->SetScale(fScale, fScale, fScale);
 	bul->GetComponent<ChengRigidbody>()->SetVel(m_fBulletSpeed * ballDir);
-	bul->GetComponent<ChengRigidbody>()->SetMass(fScale);
 	--m_iClipAmmo;
 	m_fTimer = 0;
+	// Recoil
+	float yaw = Math::RandFloatMinMax(-m_fRecoil, m_fRecoil);
+	float pitch = Math::RandFloatMinMax(-m_fRecoil, m_fRecoil);
+	GetCamera()->OffsetDir(yaw, pitch);
 }
 void GunScript::PullTrigger(Vector3 vDir, double dt)
 {
@@ -120,4 +128,8 @@ void GunScript::ReleaseTrigger(Vector3 vDir)
 void GunScript::RefillAmmo()
 {
 	m_iNumClips = m_iMaxClip;
+}
+void GunScript::SetRecoil(float f)
+{
+	m_fRecoil = f;
 }

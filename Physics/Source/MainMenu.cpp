@@ -30,23 +30,23 @@ void MainMenu::Init()
 	this->m_Camera->InitOrtho({ 300,300,10000 });
 	m_Camera->SetDir(0, -90);
 	// UI================================================================================
-	go = m_GameObjectManager.AddGameObject("UI");
+	go = m_GOM.AddGameObject("UI");
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Start"));
 	go->AddComponent(new MenuScript);
 	go->TRANS->SetPosition(1920 / 2, 1080 / 2 - 300, 100);
 	// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
-	GameObject* SkyPlane = m_GameObjectManager.AddGameObject();
+	GameObject* SkyPlane = m_GOM.AddGameObject();
 	SkyPlane->TRANS->SetPosition(0, 2000, 0);
 	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
 	// Sun--------------------------------------------------------------------------------
-	go = m_GameObjectManager.AddGameObject();
+	go = m_GOM.AddGameObject();
 	go->AddComponent(new SunBrightnessScript);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("ball")));
 	go->RENDER->SetColor({ 1, 1, 0 });
 	go->TRANS->SetScale(10);
 	// Terrain--------------------------------------------------------------------------------
-	go = m_GameObjectManager.AddGameObject();
+	go = m_GOM.AddGameObject();
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("Terrain")->GetMesh()));
 	go->SetActive(true);
 }

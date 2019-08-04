@@ -18,7 +18,7 @@ public:
 	LightManager* GetLightManager();
 	void SetCursorEnabled(bool);
 protected:
-	GameObjectManager m_GameObjectManager;
+	GameObjectManager m_GOM;
 	LightManager m_LightManager;
 	GameObject* m_CameraGO;
 	Camera* m_Camera;

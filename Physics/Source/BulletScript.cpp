@@ -19,9 +19,9 @@ void BulletScript::Update(double dt)
 {
 	//GetComponent<TransformComponent>()->Translate(100 * (float)dt * m_vDir);
 	//--------------------------------------------------------------------------------
-	//m_fCurrentLife += (float)dt;
-	//if (m_fCurrentLife >= m_fLifeTime)
-	//	DestroySelf();
+	m_fCurrentLife += (float)dt;
+	if (m_fCurrentLife >= m_fLifeTime)
+		DestroySelf();
 	ChengRigidbody* rb = GetComponent<ChengRigidbody>();
 	if (GetComponent<TransformComponent>()->GetPosition().x > 0)
 		rb->SetGravityX(-XGRAV);

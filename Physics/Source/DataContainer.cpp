@@ -12,6 +12,7 @@
 #include "MeshController.h"
 #include "GauntletScript.h"
 #include "FPSScript.h"
+#include "GunScript.h"
 
 #include <time.h>
 DataContainer::DataContainer()
@@ -45,6 +46,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
 	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("PLAYER_PISTOL");
+
+	m_map_Meshes["Assualt"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
+	m_map_Meshes["Assualt"]->m_uTextureArray[0] = LoadTGA("PLAYER_ASSAULT");
 
 	m_map_Meshes["Particle"] = MeshBuilder::GenerateQuad("Particle", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["Particle"]->m_uTextureArray[0] = LoadTGA("Particle");
@@ -203,6 +207,7 @@ DataContainer::DataContainer()
 	///--------------------------------------------------------------------------------
 	//Bullet--------------------------------------------------------------------------------
 	GameObject* bullet = new GameObject();
+	m_map_GO["bullet"] = bullet;
 	bullet->AddComponent(new RenderComponent(this->GetMesh("ball")));
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	bullet->AddComponent(new BulletScript(30.f));
@@ -211,7 +216,16 @@ DataContainer::DataContainer()
 	//rigid->LockYAxis(true);
 	bullet->AddComponent(rigid);
 	bullet->AddComponent(new BallScript());
-	m_map_GO["bullet"] = bullet;
+	// Assualt Bullet--------------------------------------------------------------------------------
+	go = new GameObject();
+	m_map_GO["AssualtBullet"] = go;
+	go->TRANS->SetScale(0.1f);
+	go->AddComponent(new RenderComponent(this->GetMesh("ball")));
+	go->GetComponent<RenderComponent>()->SetLightEnabled(true);
+	rigid = new ChengRigidbody(ChengRigidbody::BALL);
+	rigid->SetMat(1, 0.5f);
+	bullet->AddComponent(new BulletScript(10.f));
+	go->AddComponent(rigid);
 	// --------------------------------------------------------------------------------
 	GameObject* wall = new GameObject;
 	m_map_GO["wall"] = wall;
@@ -332,6 +346,22 @@ DataContainer::DataContainer()
 	go->TRANS->SetPosition(50, 10, 25);
 	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
+	/// Gun--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["BallGun"] = go;
+	go->TRANS->SetPosition(1900, 80, 0);
+	go->AddComponent(new RenderComponent(this->GetMesh("Gun")));
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new GunScript(this->GetGameObject("bullet"), 0.1f, GunScript::CHARGE, this->GetGameObject("SmokeParticle"), 75, 3, 3));
+	go->GetComponent<GunScript>()->SetRecoil(3);
+	/// Assualt--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Assualt"] = go;
+	go->TRANS->SetPosition(1500, 80, 0);
+	go->AddComponent(new RenderComponent(this->GetMesh("Assualt")));
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new GunScript(this->GetGameObject("AssualtBullet"), 0.1f, GunScript::FULL_AUTO, this->GetGameObject("SmokeParticle"), 150, 25, 3));
+	go->GetComponent<GunScript>()->SetRecoil(1);
 	/// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["Water"] = LoadShaders("water", "water");

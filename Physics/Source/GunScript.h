@@ -30,18 +30,20 @@ private:
 	float m_fMinChargeTime;
 	float m_fBulletSpeed;
 	float m_fMaxScale;
+	float m_fRecoil;
 public:
-	GunScript(GameObject* bullet, GameObject* player, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips);
+	GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips);
 	~GunScript();
 	virtual ComponentBase* Clone()
 	{
 		return new GunScript(*this);
 	}
-
-	void Update(double dt) override;
+	virtual void Start() override;
+	virtual void Update(double dt) override;
 	void Fire(Vector3 vDir);
 	void PullTrigger(Vector3 vDir, double dt);
 	void Reload();
 	void ReleaseTrigger(Vector3 vDir);
 	void RefillAmmo();
+	void SetRecoil(float f);
 };

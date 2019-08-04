@@ -43,6 +43,7 @@ public:
 	Vector3 GetUp();
 	Vector3 GetDir();
 	void SetDir(float yaw, float pitch);
+	void OffsetDir(float yaw, float pitch);
 };
 
 #endif

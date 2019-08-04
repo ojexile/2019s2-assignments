@@ -19,7 +19,7 @@ Camera* Scene::GetCamera()
 }
 GameObjectManager* Scene::GetGameObjectManager()
 {
-	return &m_GameObjectManager;
+	return &m_GOM;
 }
 LightManager* Scene::GetLightManager()
 {
