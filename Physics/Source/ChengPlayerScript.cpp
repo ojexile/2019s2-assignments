@@ -23,8 +23,9 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObj
 	, m_Gaunt(gaunt)
 {
 	m_Guns.push_back(gun);
-
 	m_CurrentGun = gun;
+	m_CurrentGun->RENDER->SetBillboard(true);
+	m_CurrentGun->GetComponent<GunScript>()->SetHolding(true);
 	m_CurrentState = nullptr;
 	m_bState = false;
 	m_fMovementSpeed = 1;
@@ -211,7 +212,7 @@ bool ChengPlayerScript::UpdateMovement(double dt)
 		if (bMoved)
 		{
 			const float maxBob = 0.3f;
-			static float speed = 0.1f * m_fMovementSpeed;
+			static float speed = 0.07f * m_fMovementSpeed;
 			static float offset = 0;
 			if (offset > maxBob)
 				speed = -fabs(speed);
@@ -221,7 +222,7 @@ bool ChengPlayerScript::UpdateMovement(double dt)
 			GetCameraGO()->GetComponent<TransformComponent>()->TranslateRelative(0, off, 0);
 			offset += off;
 
-			// m_CurrentGun->TRANS->Translate(0, off, 0);
+			m_CurrentGun->TRANS->Translate(0, offset, 0);
 		}
 	}
 
@@ -361,4 +362,5 @@ void ChengPlayerScript::Collide(GameObject* go)
 	m_CurrentGun->SetActive(false);
 	m_CurrentGun = go;
 	m_CurrentGun->SetActive(true);
+	m_CurrentGun->RENDER->SetBillboard(true);
 }

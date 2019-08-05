@@ -23,10 +23,10 @@ RojakScene2::~RojakScene2()
 }
 void RojakScene2::Init()
 {
+	WorldValues::GravityExponent.z = 0;
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObject* go;
 	GameObject* go2;
-	WorldValues::GravityExponent.z = 0;
 	/// Create Camera================================================================================
 	m_CameraGO = new GameObject;
 	m_CameraGO->AddComponent(new CameraComponent);
@@ -83,10 +83,9 @@ void RojakScene2::Init()
 	//Player================================================================================
 	// Gun
 	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("Assualt"));
-	gun->GetComponent<GunScript>()->SetHolding(true);
+
 	GameObject* gun1 = m_GOM.AddGameObject(dataContainer->GetGameObject("Colt"));
 	gun1->TRANS->SetRotation(45, { 0, 0, 1 });
-	gun1->TRANS->SetScale(5);
 	gun1->TRANS->SetPosition(0, 5, 0);
 
 	// Player--------------------------------------------------------------------------------
@@ -160,7 +159,7 @@ void RojakScene2::Init()
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainSnow"), Constrain::FIXED));
 	go->AddComponent(new AmmoDumpScript());
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("pillar")));
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("AmmoBox")));
 	/// Desert--------------------------------------------------------------------------------
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject("HeatWave");

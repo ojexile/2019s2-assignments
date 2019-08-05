@@ -12,6 +12,7 @@
 #include "ChargeBarScript.h"
 #include "ParticleSpawnerScript.h"
 #include "WorldValues.h"
+#include "ChengRigidbody.h"
 RojakAssignmentScene::RojakAssignmentScene()
 {
 }
@@ -21,7 +22,7 @@ RojakAssignmentScene::~RojakAssignmentScene()
 }
 void RojakAssignmentScene::Init()
 {
-	WorldValues::DefaultGravityExponent.z = 1;
+	WorldValues::GravityExponent.z = 1;
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObject* go;
 	GameObject* go2;
@@ -78,13 +79,15 @@ void RojakAssignmentScene::Init()
 	go->AddComponent(new ChargeBarScript(gs, go2));
 	//Player================================================================================
 	// Gun
-	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("BallGun"), "UI");
+	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("BallGun"));
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(0, 0, 50);
 	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
-	GameObject* child = dataContainer->GetGameObject("playerPillar");
-	go->AddChild(child);
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL, false));
+	go->GetComponent<ChengRigidbody>()->SetMat(0.9f, 0);
+	/*GameObject* child = dataContainer->GetGameObject("playerPillar");
+	go->AddChild(child);*/
 	go->AddChild(m_CameraGO);
 	//go->AddComponent(new Constrain(dataContainer->GetHeightMap("Terrain"), Constrain::eConstrainTypes::LIMIT));
 	// WORLD================================================================================

@@ -36,6 +36,9 @@ DataContainer::DataContainer()
 	m_map_Meshes["Colt"] = MeshBuilder::GenerateOBJ("colt");
 	m_map_Meshes["Colt"]->m_uTextureArray[0] = LoadTGA("Colt");
 
+	m_map_Meshes["AmmoBox"] = MeshBuilder::GenerateOBJ("AmmoBox");
+	m_map_Meshes["AmmoBox"]->m_uTextureArray[0] = LoadTGA("AmmoBox");
+
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
 
 	m_map_Meshes["square"] = MeshBuilder::GenerateCube("wall", Color((float)0.5, (float)0.5, (float)0.2), 1.f);
@@ -47,7 +50,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6);
 	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
 
-	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1000.f);
+	m_map_Meshes["Gun"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1.f);
 	m_map_Meshes["Gun"]->m_uTextureArray[0] = LoadTGA("PLAYER_PISTOL");
 
 	m_map_Meshes["Assualt"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1.f);
@@ -352,15 +355,15 @@ DataContainer::DataContainer()
 	/// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BallGun"] = go;
-	go->TRANS->SetPosition(1900, 80, 0);
 	go->AddComponent(new RenderComponent(this->GetMesh("Gun")));
 	go->RENDER->SetLightEnabled(false);
-	go->AddComponent(new GunScript(m_map_GO["bullet"], 0.1f, GunScript::CHARGE, m_map_GO["SmokeParticle"], 75, 3, 3));
+	go->RENDER->SetBillboard(true);
+	go->AddComponent(new GunScript(m_map_GO["bullet"], 0.1f, GunScript::CHARGE, m_map_GO["SmokeParticle"], 150, 3, 3));
 	go->GetComponent<GunScript>()->SetRecoil(3);
+	go->TRANS->SetScale(5);
 	/// Assualt--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Assualt"] = go;
-	// go->TRANS->SetPosition(1500, 80, 0);
 	go->TRANS->SetScale(4);
 	go->AddComponent(new RenderComponent(this->GetMesh("Assualt")));
 	go->RENDER->SetLightEnabled(false);
@@ -373,9 +376,10 @@ DataContainer::DataContainer()
 	go->TRANS->SetPosition(1500, 80, 0);
 	go->AddComponent(new RenderComponent(this->GetMesh("Colt")));
 	go->RENDER->SetLightEnabled(false);
-	go->RENDER->SetBillboard(true);
-	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.1f, GunScript::FULL_AUTO, m_map_GO["SmokeParticle"], 150, 25, 3));
-	go->GetComponent<GunScript>()->SetRecoil(1);
+	//	go->RENDER->SetBillboard(true);
+	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.4f, GunScript::SEMI_AUTO, m_map_GO["SmokeParticle"], 200, 8, 4));
+	go->GetComponent<GunScript>()->SetRecoil(3);
+	go->TRANS->SetScale(5);
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL, false));
 	/// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");

@@ -8,7 +8,7 @@ ChengRigidbody::ChengRigidbody(ePhysicsTypes e, bool Grav)
 	, m_eType{ e }
 {
 	m_fMass = 1;
-	m_vGravity = { 0,-1,0 };
+	m_vGravity = { 0,-1,1 };
 
 	m_bGravityAffected = Grav;
 	this->SetActive(true);

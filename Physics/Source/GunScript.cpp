@@ -41,7 +41,7 @@ void GunScript::Update(double dt)
 	// no ammo
 	if (m_iClipAmmo <= 0)
 	{
-		GetComponent<TransformComponent>()->SetRotation(45, 0, 0, 1);
+		GetComponent<TransformComponent>()->SetRotation(45, 1, 1, 1);
 	}
 	else
 	{
@@ -50,6 +50,11 @@ void GunScript::Update(double dt)
 }
 void GunScript::Fire(Vector3 vDir)
 {
+	if (m_eFireType == CHARGE)
+	{
+		if (m_fChargeTime < m_fMinChargeTime)
+			return;
+	}
 	if (m_iClipAmmo <= 0)
 		return;
 	Vector3 ballDir = vDir;
