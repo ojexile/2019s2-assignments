@@ -113,3 +113,11 @@ Vector3 Camera::GetOrthoSize()
 {
 	return m_fOrthoSize;
 }
+float Camera::GetYaw()
+{
+	return m_fYaw;
+}
+float Camera::GetPitch()
+{
+	return m_fPitch;
+}

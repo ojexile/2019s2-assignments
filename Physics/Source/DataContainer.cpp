@@ -378,7 +378,7 @@ DataContainer::DataContainer()
 	go->RENDER->SetLightEnabled(false);
 	//	go->RENDER->SetBillboard(true);
 	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.4f, GunScript::SEMI_AUTO, m_map_GO["SmokeParticle"], 200, 8, 4));
-	go->GetComponent<GunScript>()->SetRecoil(3);
+	go->GetComponent<GunScript>()->SetRecoil(5);
 	go->TRANS->SetScale(5);
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL, false));
 	/// Shaders================================================================================

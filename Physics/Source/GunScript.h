@@ -32,6 +32,8 @@ private:
 	float m_fMaxScale;
 	float m_fRecoil;
 	bool m_bIsHolding;
+	float myaw;
+	float mpitch;
 public:
 	GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips);
 	~GunScript();

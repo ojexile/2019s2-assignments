@@ -23,6 +23,8 @@ GunScript::GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFir
 	m_fMaxScale = 7;
 	m_fMinChargeTime = 0.01f;
 	m_bIsHolding = false;
+	myaw = 0;
+	mpitch = 0;
 }
 
 GunScript::~GunScript()
@@ -34,7 +36,26 @@ void GunScript::Start()
 {
 	this->m_Player = GetCameraGO();
 }
-//bool trigger = false;
+float Lerp(float Start, float Target, float Rate)
+{
+	if (Start > Target)
+	{
+		float out = Start + -Rate;
+		if (out < Target)
+			return Target;
+		else
+			return out;
+	}
+	if (Start < Target)
+	{
+		float out = Start + Rate;
+		if (out > Target)
+			return Target;
+		else
+			return out;
+	}
+	return 0;
+}
 void GunScript::Update(double dt)
 {
 	m_fTimer += (float)dt;
@@ -47,7 +68,18 @@ void GunScript::Update(double dt)
 	{
 		GetComponent<TransformComponent>()->SetRotation(0, 0, 0, 1);
 	}
+	if (myaw != 0 || mpitch != 0)
+	{
+		float yaw = Lerp(GetCamera()->GetYaw(), myaw, m_fRecoil / 15);
+		float pitch = Lerp(GetCamera()->GetPitch(), mpitch, m_fRecoil / 15);
+		GetCamera()->SetDir(yaw, pitch);
+		if (yaw == myaw)
+			myaw = 0;
+		if (pitch == mpitch)
+			mpitch = 0;
+	}
 }
+
 void GunScript::Fire(Vector3 vDir)
 {
 	if (m_eFireType == CHARGE)
@@ -87,9 +119,10 @@ void GunScript::Fire(Vector3 vDir)
 	--m_iClipAmmo;
 	m_fTimer = 0;
 	// Recoil
-	float yaw = Math::RandFloatMinMax(-m_fRecoil, m_fRecoil);
-	float pitch = Math::RandFloatMinMax(-m_fRecoil, m_fRecoil);
-	GetCamera()->OffsetDir(yaw, pitch);
+	myaw = Math::RandFloatMinMax(-m_fRecoil / 5, m_fRecoil / 5) + GetCamera()->GetYaw();
+	mpitch = Math::RandFloatMinMax(-m_fRecoil, m_fRecoil) + GetCamera()->GetPitch();
+
+	// GetCamera()->Get(yaw, pitch);
 }
 void GunScript::PullTrigger(Vector3 vDir, double dt)
 {
