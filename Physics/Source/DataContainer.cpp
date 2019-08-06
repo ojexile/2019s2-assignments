@@ -34,6 +34,9 @@ DataContainer::DataContainer()
 
 	m_map_Meshes["paddle"] = MeshBuilder::GenerateOBJ("paddle");
 
+	m_map_Meshes["Bow"] = MeshBuilder::GenerateOBJ("Bow");
+	m_map_Meshes["Arrow"] = MeshBuilder::GenerateOBJ("Arrow");
+
 	m_map_Meshes["Colt"] = MeshBuilder::GenerateOBJ("colt");
 	m_map_Meshes["Colt"]->m_uTextureArray[0] = LoadTGA("Colt");
 
@@ -233,18 +236,29 @@ DataContainer::DataContainer()
 	go->AddComponent(new RenderComponent(this->GetMesh("ball")));
 	go->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	rigid = new ChengRigidbody(ChengRigidbody::BALL);
+	rigid->SetMat(1, 0.3f);
+	rigid->SetGravity({ 0,0.5f,0 });
+	go->AddComponent(new BulletScript(3.f, 10));
+	go->AddComponent(rigid);
+	// Arrow Bullet--------------------------------------------------------------------------------
+	go = new GameObject();
+	m_map_GO["Arrow"] = go;
+	go->TRANS->SetScale(0.1f);
+	go->AddComponent(new RenderComponent(this->GetMesh("Arrow")));
+	go->GetComponent<RenderComponent>()->SetLightEnabled(true);
+	rigid = new ChengRigidbody(ChengRigidbody::BALL);
 	rigid->SetMat(1, 0.5f);
 	rigid->SetGravity({ 0,0.5f,0 });
 	go->AddComponent(new BulletScript(3.f, 10));
 	go->AddComponent(rigid);
-	// Assualt Bullet--------------------------------------------------------------------------------
+	// Colt Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["ColtBullet"] = go;
 	go->TRANS->SetScale(0.4f);
 	go->AddComponent(new RenderComponent(this->GetMesh("ball")));
 	go->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	rigid = new ChengRigidbody(ChengRigidbody::BALL);
-	rigid->SetMat(1, 0.5f);
+	rigid->SetMat(1, 0.3f);
 	rigid->SetGravity({ 0,0.5f,0 });
 	go->AddComponent(new BulletScript(3.f, 70));
 	go->AddComponent(rigid);
@@ -402,6 +416,16 @@ DataContainer::DataContainer()
 	go->RENDER->SetLightEnabled(false);
 	//	go->RENDER->SetBillboard(true);
 	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.4f, GunScript::SEMI_AUTO, m_map_GO["SmokeParticle"], 200, 8, 4, "bang0.wav"));
+	go->GetComponent<GunScript>()->SetRecoil(5);
+	go->TRANS->SetScale(5);
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL, false));
+	/// Bow--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Bow"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("Bow")));
+	go->RENDER->SetLightEnabled(false);
+	//	go->RENDER->SetBillboard(true);
+	go->AddComponent(new GunScript(m_map_GO["Arrow"], 0.4f, GunScript::CHARGE, nullptr, 100, 8, 4, "thump.wav"));
 	go->GetComponent<GunScript>()->SetRecoil(5);
 	go->TRANS->SetScale(5);
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL, false));
