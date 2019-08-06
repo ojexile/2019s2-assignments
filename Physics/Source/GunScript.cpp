@@ -81,8 +81,7 @@ void GunScript::Fire(Vector3 vDir)
 		if (m_fChargeTime < m_fMinChargeTime)
 			return;
 	}
-	Vector3 ballDir = vDir;
-	Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
+	Vector3 pos = GetPosition();
 	Instantiate(m_Smoke, pos + vDir * 2);
 	GameObject* bul = Instantiate(m_Bullet, pos);
 	if (!bul)
@@ -107,12 +106,15 @@ void GunScript::Fire(Vector3 vDir)
 	default:
 		break;
 	}
-	bul->GetComponent<ChengRigidbody>()->SetVel(m_fBulletSpeed * ballDir);
+	bul->GetComponent<ChengRigidbody>()->SetVel(m_fBulletSpeed * vDir);
 	--m_iClipAmmo;
 	m_fTimer = 0;
 	// Recoil
-	myaw = Math::RandFloatMinMax(-m_fRecoil / 5, m_fRecoil / 5) + GetCamera()->GetYaw();
-	mpitch = Math::RandFloatMinMax(-m_fRecoil, m_fRecoil) + GetCamera()->GetPitch();
+	if (m_fRecoil > 0)
+	{
+		myaw = Math::RandFloatMinMax(-m_fRecoil / 5, m_fRecoil / 5) + GetCamera()->GetYaw();
+		mpitch = Math::RandFloatMinMax(-m_fRecoil, m_fRecoil) + GetCamera()->GetPitch();
+	}
 	AudioManager::GetInstance()->Play3D(m_sAudio, GetPosition());
 	// GetCamera()->Get(yaw, pitch);
 }

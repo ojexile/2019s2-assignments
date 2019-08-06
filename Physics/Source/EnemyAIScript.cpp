@@ -1,7 +1,9 @@
 #include "EnemyAIScript.h"
 #include "ChengRigidbody.h"
+#include "GunScript.h"
 #define MAX_HEALTH 100
-EnemyAIScript::EnemyAIScript(GameObject* player)
+EnemyAIScript::EnemyAIScript(GameObject* player, GameObject* gun)
+	:m_Gun(gun)
 {
 	m_fHealth = MAX_HEALTH;
 	m_Player = player;
@@ -12,7 +14,7 @@ EnemyAIScript::~EnemyAIScript()
 }
 void EnemyAIScript::Update(double dt)
 {
-	Movement();
+	Movement(dt);
 	if (m_fHealth <= 0)
 	{
 		DestroySelf();
@@ -24,12 +26,15 @@ void EnemyAIScript::Damage(float i)
 {
 	m_fHealth -= i;
 }
-void EnemyAIScript::Movement()
+void EnemyAIScript::Movement(double dt)
 {
 	const float speed = 25;
 	// Dir
 	Vector3 dir = m_Player->GetComponent<TransformComponent>()->GetPosition() - GetPosition();
 	dir.y = 0;
+	m_Gun->TRANS->SetPosition(GetPosition());
+	m_Gun->TRANS->Translate({ 0,4,0 });
+	m_Gun->TRANS->Translate(dir.Normalized() * 3);
 	ChengRigidbody* rb = GetComponent<ChengRigidbody>();
 	if (!rb)
 		return;
@@ -37,9 +42,14 @@ void EnemyAIScript::Movement()
 	if (pos.x < 0 && pos.z > 0 || dir.x < 0 && dir.z > 0)
 	{
 		if (dir.Length() > 50)
-			rb->SetVel(speed * dir.Normalize());
+			rb->SetVel(speed * dir.Normalized());
 		else
+		{
 			rb->SetVel({});
+			m_Gun->GetComponent<GunScript>()->PullTrigger(dir.Normalized(), dt);
+			if (m_Gun->GetComponent<GunScript>()->IsEmpty())
+				m_Gun->GetComponent<GunScript>()->Reload();
+		}
 	}
 	else
 		rb->SetVel({});

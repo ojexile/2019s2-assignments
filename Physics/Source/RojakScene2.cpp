@@ -180,5 +180,6 @@ void RojakScene2::Init()
 	// enemy
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Enemy"));
 	go->TRANS->SetPosition(-100, 0, 100);
-	go->AddComponent(new EnemyAIScript(player));
+	go2 = m_GOM.AddGameObject(dataContainer->GetGameObject("EnemyAssualt"));
+	go->AddComponent(new EnemyAIScript(player, go2));
 }

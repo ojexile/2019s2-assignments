@@ -6,9 +6,10 @@ class EnemyAIScript :
 private:
 	float m_fHealth;
 	GameObject* m_Player;
-	void Movement();
+	GameObject* m_Gun;
+	void Movement(double dt);
 public:
-	EnemyAIScript(GameObject* player);
+	EnemyAIScript(GameObject* player, GameObject* gun);
 	virtual ~EnemyAIScript();
 	virtual ComponentBase* Clone() { return new EnemyAIScript(*this); };
 	virtual void Update(double dt);

@@ -214,7 +214,7 @@ bool ChengPlayerScript::UpdateMovement(double dt)
 		m_CurrentGun->TRANS->SetPosition(vCamPos);
 		m_CurrentGun->TRANS->Translate(vCameraFront * 10);
 		m_CurrentGun->TRANS->Translate(vRight * 5);
-		m_CurrentGun->TRANS->Translate(-vCameraUp * 2);
+		m_CurrentGun->TRANS->Translate(-vCameraUp * 3);
 		m_CurrentGun->TRANS->SetRotation(10, 0, 1, 0);
 		if (m_CurrentGun->GetComponent<GunScript>()->IsEmpty())
 		{

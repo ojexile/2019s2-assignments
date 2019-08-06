@@ -384,6 +384,15 @@ DataContainer::DataContainer()
 	go->RENDER->SetBillboard(true);
 	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.1f, GunScript::FULL_AUTO, m_map_GO["SmokeParticle"], 150, 25, 3, "bang1.wav"));
 	go->GetComponent<GunScript>()->SetRecoil(1);
+	/// Assualt--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["EnemyAssualt"] = go;
+	go->TRANS->SetScale(4);
+	go->AddComponent(new RenderComponent(this->GetMesh("Assualt")));
+	go->RENDER->SetLightEnabled(false);
+	go->RENDER->SetBillboard(true);
+	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.1f, GunScript::FULL_AUTO, m_map_GO["SmokeParticle"], 150, 25, 3, "bang1.wav"));
+	go->GetComponent<GunScript>()->SetRecoil(0);
 	/// Colt--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Colt"] = go;
