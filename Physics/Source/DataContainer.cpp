@@ -220,7 +220,8 @@ DataContainer::DataContainer()
 	bullet->AddComponent(new BulletScript(30.f, 1));
 	ChengRigidbody* rigid = new ChengRigidbody(ChengRigidbody::BALL);
 	rigid->SetMat(1, 0.5f);
-	rigid->SetGravity({ 0,0.5f,0 });
+	rigid->SetGravity({ 0,0,1 });
+	rigid->LockYAxis(true);
 	bullet->AddComponent(rigid);
 	bullet->AddComponent(new BallScript());
 	// Assualt Bullet--------------------------------------------------------------------------------
