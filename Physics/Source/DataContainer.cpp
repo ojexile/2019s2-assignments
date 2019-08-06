@@ -80,7 +80,7 @@ DataContainer::DataContainer()
 	m_map_Meshes["Tree"]->m_uTextureArray[0] = LoadTGA("moss1");
 
 	m_map_Meshes["Crosshair"] = MeshBuilder::GenerateQuad("Crosshair", { 1.f,1.f,1.f }, 2);
-	m_map_Meshes["Crosshair"]->m_uTextureArray[0] = LoadTGA("Crosshair");
+	m_map_Meshes["Crosshair"]->m_uTextureArray[0] = LoadTGA("Crosshair1");
 
 	m_map_Meshes["Gaunt"] = MeshBuilder::GenerateQuad("Gaunt", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["Gaunt"]->m_uTextureArray[0] = LoadTGA("Gaunt");

@@ -54,7 +54,7 @@ void RojakScene2::Init()
 	// Crosshair--------------------------------------------------------------------------------
 	GameObject* Crosshair = m_GOM.AddGameObject("UI");
 	Crosshair->TRANS->SetPosition(1920 / 2, 1080 / 2, 5);
-	Crosshair->TRANS->SetScale(100.f, 100.f, 1.f);
+	Crosshair->TRANS->SetScale(40.f, 40.f, 1.f);
 	Crosshair->AddComponent(new RenderComponent(dataContainer->GetMesh("Crosshair")));
 	Crosshair->RENDER->SetLightEnabled(false);
 	Crosshair->SetActive(true);

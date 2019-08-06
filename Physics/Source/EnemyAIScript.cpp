@@ -17,6 +17,7 @@ void EnemyAIScript::Update(double dt)
 	Movement(dt);
 	if (m_fHealth <= 0)
 	{
+		Destroy(m_Gun);
 		DestroySelf();
 		return;
 	}
