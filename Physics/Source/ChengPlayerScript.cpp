@@ -428,7 +428,7 @@ void ChengPlayerScript::RefillAmmo()
 }
 void ChengPlayerScript::Collide(GameObject* go)
 {
-	GunScript* gs = go->GetComponent<GunScript>();
+	GunScript* gs = go->GetComponent<GunScript>(true);
 	if (gs)
 	{
 		if (gs->GetHolding())

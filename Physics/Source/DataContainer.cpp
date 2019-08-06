@@ -38,7 +38,6 @@ DataContainer::DataContainer()
 	m_map_Meshes["Colt"]->m_uTextureArray[0] = LoadTGA("Colt");
 
 	m_map_Meshes["AmmoBox"] = MeshBuilder::GenerateOBJ("AmmoBox");
-	m_map_Meshes["AmmoBox"]->m_uTextureArray[0] = LoadTGA("AmmoBox");
 
 	m_map_Meshes["wall"] = MeshBuilder::GenerateCube("wall", Color((float)0.2, (float)0.2, (float)0.2), 1.f);
 

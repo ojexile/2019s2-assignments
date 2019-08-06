@@ -46,14 +46,14 @@ void BulletScript::Collide(GameObject* go)
 		Vector3 pos = GetPosition();
 		AudioManager::GetInstance()->Play3D("thump.wav", pos, rb->GetVel().LengthSquared() * .001f);
 	}
-	EnemyAIScript* es = go->GetComponent<EnemyAIScript>();
+	EnemyAIScript* es = go->GetComponent<EnemyAIScript>(true);
 	if (es)
 	{
 		es->Damage(m_fDamage);
 		DestroySelf();
 		return;
 	}
-	ChengPlayerScript* ps = go->GetComponent<ChengPlayerScript>();
+	ChengPlayerScript* ps = go->GetComponent<ChengPlayerScript>(true);
 	if (ps)
 	{
 		ps->Damage(m_fDamage);
