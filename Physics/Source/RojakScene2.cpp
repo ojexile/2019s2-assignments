@@ -94,9 +94,9 @@ void RojakScene2::Init()
 	go->TRANS->SetPosition({});
 	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
-	go->GetComponent<ChengRigidbody>()->SetMat(0.9f, 0);
+	go->GetComponent<ChengRigidbody>()->SetMat(1.f, 0);
 	go->TRANS->SetScale(10, 10, 10);
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	//GameObject* child = dataContainer->GetGameObject("playerPillar");
 	//go->AddChild(child);
 	/// WORLD================================================================================

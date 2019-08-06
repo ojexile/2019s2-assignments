@@ -11,6 +11,7 @@ private:
 	PlayerState* m_CurrentState;
 	float m_fMovementSpeed;
 	float m_fAccel;
+	float m_fJumpForce;
 	std::vector<GameObject*> m_Guns;
 	GameObject* m_CurrentGun;
 	GameObject* m_CrossHair;

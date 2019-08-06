@@ -33,6 +33,7 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObj
 	m_Light->power = 0;
 	m_Light->color.r = 0;
 	m_Light->color.g = 1;
+	m_fJumpForce = 10000.f;
 }
 
 ChengPlayerScript::~ChengPlayerScript()
@@ -45,10 +46,10 @@ void ChengPlayerScript::Start()
 	//m_Guns.at(0)->TRANS->SetPosition(SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->GetPosition());
 	SwitchView();
 	TransformComponent* trans = GetComponent<TransformComponent>();
-	Vector3 GDir = { 0,0,1 };
-	GDir.Normalize();
-	GDir *= 150;
-	WorldValues::DefaultGravity = GDir;
+	//Vector3 GDir = { 0,0,1 };
+	//GDir.Normalize();
+	//GDir *= 150;
+	//WorldValues::DefaultGravity = GDir;
 	TransformComponent* CamTrans = SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS;
 	CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z - 0);
 	SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir(-90, -90);
@@ -163,6 +164,11 @@ bool ChengPlayerScript::UpdateMovement(double dt)
 			rb->IncrementForce(vRight  * m_fAccel);
 			bMoved = true;
 		}
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("Jump"))
+		{
+			// trans->Translate(m_fMovementSpeed * vRight);
+			rb->IncrementForce(vCameraUp  * m_fJumpForce);
+		}
 		// Cap speed
 		if (rb->GetVel().Length() > m_fMovementSpeed)
 		{
@@ -271,6 +277,7 @@ void ChengPlayerScript::UpdateGauntlet()
 }
 void ChengPlayerScript::UpdateTilt()
 {
+	return;
 	if (m_bState)
 	{
 		// Tilt
