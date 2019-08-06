@@ -253,6 +253,15 @@ bool ChengPlayerScript::UpdateMovement(double dt)
 		{
 			m_CurrentGun->GetComponent<GunScript>()->Reload();
 		}
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("Gun0"))
+		{
+			if (m_Guns.size() > 0)
+			{
+				m_CurrentGun->SetActive(false);
+				m_CurrentGun = m_Guns.at(0);
+				m_CurrentGun->SetActive(true);
+			}
+		}
 		if (KeyboardManager::GetInstance()->GetKeyTriggered("Gun1"))
 		{
 			if (m_Guns.size() > 1)
@@ -262,12 +271,12 @@ bool ChengPlayerScript::UpdateMovement(double dt)
 				m_CurrentGun->SetActive(true);
 			}
 		}
-		if (KeyboardManager::GetInstance()->GetKeyTriggered("Gun0"))
+		if (KeyboardManager::GetInstance()->GetKeyTriggered("Gun2"))
 		{
-			if (m_Guns.size() > 0)
+			if (m_Guns.size() > 2)
 			{
 				m_CurrentGun->SetActive(false);
-				m_CurrentGun = m_Guns.at(0);
+				m_CurrentGun = m_Guns.at(2);
 				m_CurrentGun->SetActive(true);
 			}
 		}

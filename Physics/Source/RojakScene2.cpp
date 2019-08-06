@@ -89,17 +89,18 @@ void RojakScene2::Init()
 	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("Assualt"));
 
 	GameObject* gun1 = m_GOM.AddGameObject(dataContainer->GetGameObject("Colt"));
-	GameObject* gun2 = m_GOM.AddGameObject(dataContainer->GetGameObject("Bow"));
-
 	gun1->TRANS->SetRotation(90, { 0, 0, 1 });
-	gun1->TRANS->SetPosition(0, 5, 0);
+	gun1->TRANS->SetPosition(-10, 5, 0);
+	GameObject* gun2 = m_GOM.AddGameObject(dataContainer->GetGameObject("Bow"));
+	gun2->TRANS->SetRotation(90, { 0, 0, 1 });
+	gun2->TRANS->SetPosition(10, 5, 0);
 
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
 	GameObject* player = go;
 	go->AddChild(m_CameraGO);
 	go->TRANS->SetPosition({});
-	go->AddComponent(new ChengPlayerScript(gun2, Crosshair, Gaunt, dataContainer->GetGameObject("Blood")));
+	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt, dataContainer->GetGameObject("Blood")));
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
 	go->GetComponent<ChengRigidbody>()->SetMat(1.f, 0);
 	go->TRANS->SetScale(5, 25, 5);

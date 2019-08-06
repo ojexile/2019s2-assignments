@@ -56,7 +56,8 @@ void BulletScript::Collide(GameObject* go)
 	ChengPlayerScript* ps = go->GetComponent<ChengPlayerScript>(true);
 	if (ps)
 	{
-		ps->Damage(m_fDamage);
+		float vel = rb->GetVel().Length();
+		ps->Damage(m_fDamage + (int)(vel / 50));
 		DestroySelf();
 		return;
 	}

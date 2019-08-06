@@ -22,7 +22,7 @@ GunScript::GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFir
 	m_bTriggerDown = false;
 	m_fChargeTime = 0;
 	m_fMaxChargeTime = 3;
-	m_fMaxScale = 7;
+	m_fMaxScale = 4;
 	m_fMinChargeTime = 0.01f;
 	m_bIsHolding = false;
 	myaw = 0;
@@ -85,6 +85,11 @@ void GunScript::Fire(Vector3 vDir)
 	pos.y += 1.5f;
 	Instantiate(m_Smoke, pos + vDir * 2);
 	GameObject* bul = Instantiate(m_Bullet, pos);
+	float d = Vector3{ 0,0,-1 }.Dot(vDir);
+	float n = vDir.Length();
+	float rAngle = acos(d / n);
+	float dAngle = Math::RadianToDegree(rAngle);
+	float fScale = 1;
 	if (!bul)
 		return;
 	switch (m_eFireType)
@@ -93,11 +98,10 @@ void GunScript::Fire(Vector3 vDir)
 	{
 		if (m_fChargeTime < m_fMinChargeTime)
 			return;
-		float fScale = 1;
 		fScale = (m_fChargeTime / m_fMaxChargeTime) * m_fMaxScale;
 		fScale = Math::Clamp(fScale, 2.f, m_fMaxScale);
-		bul->GetComponent<TransformComponent>()->SetScale(fScale, fScale, fScale);
-		bul->GetComponent<ChengRigidbody>()->SetMass(fScale);
+		//bul->GetComponent<TransformComponent>()->SetScale(fScale, fScale, fScale);
+		//bul->GetComponent<ChengRigidbody>()->SetMass(fScale);
 	}
 	break;
 	case GunScript::SEMI_AUTO:
@@ -107,7 +111,8 @@ void GunScript::Fire(Vector3 vDir)
 	default:
 		break;
 	}
-	bul->GetComponent<ChengRigidbody>()->SetVel(m_fBulletSpeed * vDir);
+	bul->GetComponent<ChengRigidbody>()->SetVel(m_fBulletSpeed * vDir * fScale);
+	bul->TRANS->SetRotation(dAngle, 0, 1, 0);
 	--m_iClipAmmo;
 	m_fTimer = 0;
 	// Recoil

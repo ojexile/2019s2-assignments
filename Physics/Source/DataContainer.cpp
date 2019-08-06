@@ -243,9 +243,10 @@ DataContainer::DataContainer()
 	// Arrow Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Arrow"] = go;
-	go->TRANS->SetScale(0.1f);
+	go->TRANS->SetScale(1.f);
 	go->AddComponent(new RenderComponent(this->GetMesh("Arrow")));
 	go->GetComponent<RenderComponent>()->SetLightEnabled(true);
+	go->RENDER->SetColor({ 0.2, 0.1f, 0.1f });
 	rigid = new ChengRigidbody(ChengRigidbody::BALL);
 	rigid->SetMat(1, 0.5f);
 	rigid->SetGravity({ 0,0.5f,0 });
@@ -425,7 +426,7 @@ DataContainer::DataContainer()
 	go->AddComponent(new RenderComponent(this->GetMesh("Bow")));
 	go->RENDER->SetLightEnabled(false);
 	//	go->RENDER->SetBillboard(true);
-	go->AddComponent(new GunScript(m_map_GO["Arrow"], 0.4f, GunScript::CHARGE, nullptr, 100, 8, 4, "thump.wav"));
+	go->AddComponent(new GunScript(m_map_GO["Arrow"], 0.4f, GunScript::CHARGE, nullptr, 80, 1, 8, "thump.wav"));
 	go->GetComponent<GunScript>()->SetRecoil(5);
 	go->TRANS->SetScale(5);
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL, false));
