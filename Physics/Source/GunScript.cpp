@@ -4,7 +4,8 @@
 #include "Application.h"
 #include "SceneManager.h"
 #include "ChengPlayerScript.h"
-GunScript::GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips)
+#include "AudioManager.h"
+GunScript::GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips, std::string audio)
 	: m_eFireType(eFireType)
 	, m_fFireRate(fFireRate)
 	, m_Smoke(smoke)
@@ -12,6 +13,7 @@ GunScript::GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFir
 	, m_iClipAmmoMax(ClipAmmo)
 	, m_iMaxClip(maxclips)
 	, m_Bullet(bullet)
+	, m_sAudio(audio)
 {
 	m_iClipAmmo = m_iClipAmmoMax;
 	m_iNumClips = maxclips;
@@ -79,8 +81,6 @@ void GunScript::Fire(Vector3 vDir)
 		if (m_fChargeTime < m_fMinChargeTime)
 			return;
 	}
-	if (m_iClipAmmo <= 0)
-		return;
 	Vector3 ballDir = vDir;
 	Vector3 pos = m_Player->GetComponent<TransformComponent>()->GetPosition();
 	Instantiate(m_Smoke, pos + vDir * 2);
@@ -113,7 +113,7 @@ void GunScript::Fire(Vector3 vDir)
 	// Recoil
 	myaw = Math::RandFloatMinMax(-m_fRecoil / 5, m_fRecoil / 5) + GetCamera()->GetYaw();
 	mpitch = Math::RandFloatMinMax(-m_fRecoil, m_fRecoil) + GetCamera()->GetPitch();
-
+	AudioManager::GetInstance()->Play3D(m_sAudio, GetPosition());
 	// GetCamera()->Get(yaw, pitch);
 }
 void GunScript::PullTrigger(Vector3 vDir, double dt)
@@ -126,10 +126,26 @@ void GunScript::PullTrigger(Vector3 vDir, double dt)
 		case GunScript::SEMI_AUTO:
 		{
 			if (!m_bTriggerDown)
-				Fire(vDir);
+			{
+				if (m_iClipAmmo <= 0)
+				{
+					AudioManager::GetInstance()->Play3D("snap.wav", GetPosition());
+					break;
+				}
+				else
+					Fire(vDir);
+			}
 		}
 		break;
 		case GunScript::FULL_AUTO:
+			if (m_iClipAmmo <= 0)
+			{
+				if (!m_bTriggerDown)
+				{
+					AudioManager::GetInstance()->Play3D("snap.wav", GetPosition());
+				}
+				break;
+			}
 			Fire(vDir);
 			break;
 		case GunScript::CHARGE:

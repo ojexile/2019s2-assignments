@@ -372,7 +372,7 @@ DataContainer::DataContainer()
 	go->AddComponent(new RenderComponent(this->GetMesh("Gun")));
 	go->RENDER->SetLightEnabled(false);
 	go->RENDER->SetBillboard(true);
-	go->AddComponent(new GunScript(m_map_GO["bullet"], 0.1f, GunScript::CHARGE, m_map_GO["SmokeParticle"], 150, 3, 3));
+	go->AddComponent(new GunScript(m_map_GO["bullet"], 0.1f, GunScript::CHARGE, m_map_GO["SmokeParticle"], 150, 3, 3, "bang1.wav"));
 	go->GetComponent<GunScript>()->SetRecoil(3);
 	go->TRANS->SetScale(5);
 	/// Assualt--------------------------------------------------------------------------------
@@ -382,7 +382,7 @@ DataContainer::DataContainer()
 	go->AddComponent(new RenderComponent(this->GetMesh("Assualt")));
 	go->RENDER->SetLightEnabled(false);
 	go->RENDER->SetBillboard(true);
-	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.1f, GunScript::FULL_AUTO, m_map_GO["SmokeParticle"], 150, 25, 3));
+	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.1f, GunScript::FULL_AUTO, m_map_GO["SmokeParticle"], 150, 25, 3, "bang1.wav"));
 	go->GetComponent<GunScript>()->SetRecoil(1);
 	/// Colt--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -390,7 +390,7 @@ DataContainer::DataContainer()
 	go->AddComponent(new RenderComponent(this->GetMesh("Colt")));
 	go->RENDER->SetLightEnabled(false);
 	//	go->RENDER->SetBillboard(true);
-	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.4f, GunScript::SEMI_AUTO, m_map_GO["SmokeParticle"], 200, 8, 4));
+	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.4f, GunScript::SEMI_AUTO, m_map_GO["SmokeParticle"], 200, 8, 4, "bang0.wav"));
 	go->GetComponent<GunScript>()->SetRecoil(5);
 	go->TRANS->SetScale(5);
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL, false));
@@ -398,7 +398,7 @@ DataContainer::DataContainer()
 	go = new GameObject;
 	m_map_GO["Enemy"] = go;
 	go->AddComponent(new RenderComponent(this->GetMesh("pillar")));
-	go->TRANS->SetScale(10, 25, 10);
+	go->TRANS->SetScale(3, 10, 3);
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
 	go->AddComponent(new Constrain(GetHeightMap("TerrainDesert"), Constrain::FIXED));
 	/// Shaders================================================================================

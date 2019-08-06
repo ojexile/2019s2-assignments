@@ -34,9 +34,9 @@ void EnemyAIScript::Movement()
 	if (!rb)
 		return;
 	Vector3 pos = GetPosition();
-	if (pos.x < 0 && pos.z > 0)
+	if (pos.x < 0 && pos.z > 0 || dir.x < 0 && dir.z > 0)
 	{
-		if (dir.Length() > 25)
+		if (dir.Length() > 50)
 			rb->SetVel(speed * dir.Normalize());
 		else
 			rb->SetVel({});

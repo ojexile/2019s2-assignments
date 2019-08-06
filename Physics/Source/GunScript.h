@@ -34,8 +34,9 @@ private:
 	bool m_bIsHolding;
 	float myaw;
 	float mpitch;
+	std::string m_sAudio;
 public:
-	GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips);
+	GunScript(GameObject* bullet, const float fFireRate, eFIRE_TYPES eFireType, GameObject* smoke, float speed, int ClipAmmo, int maxclips, std::string audio);
 	~GunScript();
 	virtual ComponentBase* Clone()
 	{
