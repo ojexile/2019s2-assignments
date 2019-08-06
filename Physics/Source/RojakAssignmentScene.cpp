@@ -23,7 +23,9 @@ RojakAssignmentScene::~RojakAssignmentScene()
 void RojakAssignmentScene::Init()
 {
 	WorldValues::GravityExponent.z = 1;
+	WorldValues::DefaultGravityExponent.z = 1;
 	WorldValues::GravityExponent.y = 0;
+	WorldValues::DefaultGravityExponent.y = 0;
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObject* go;
 	GameObject* go2;

@@ -1,15 +1,14 @@
 #pragma once
 #include "PlayerState.h"
 
-class CrouchingState :
+class ProneState :
 	public PlayerState
 {
 private:
 	float m_fBaseMovementSpeed;
-	float m_fTimer;
 public:
-	CrouchingState();
-	virtual ~CrouchingState();
+	ProneState();
+	virtual ~ProneState();
 
 	virtual PlayerState* HandleInput(ComponentBase* com, double dt) override;
 	virtual void OnEnter(ComponentBase* com) override;

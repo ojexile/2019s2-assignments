@@ -232,6 +232,7 @@
     <ClCompile Include="Source\FPSScript.cpp" />
     <ClCompile Include="Source\AmmoDumpScript.cpp" />
     <ClCompile Include="Source\EnemyAIScript.cpp" />
+    <ClCompile Include="Source\ProneState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\LightManager.h" />
@@ -452,6 +453,7 @@
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\AmmoDumpScript.h" />
     <ClInclude Include="Source\EnemyAIScript.h" />
+    <ClInclude Include="Source\ProneState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader" />

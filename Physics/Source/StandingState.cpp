@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "CrouchingState.h"
 #include "ChengPlayerScript.h"
+#include "KeyboardManager.h"
 StandingState::StandingState()
 {
 	m_fBaseAccel = 300;
@@ -16,7 +17,7 @@ StandingState::~StandingState()
 PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 {
 	// Sprint
-	if (Application::IsKeyPressed(VK_SHIFT))
+	if (KeyboardManager::GetInstance()->GetKeyDown("Sprint"))
 	{
 		com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
 	}
@@ -25,7 +26,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 	}
 	// Crouch
-	if (Application::IsKeyPressed(VK_LCONTROL))
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("Crouch"))
 	{
 		return new CrouchingState;
 	}

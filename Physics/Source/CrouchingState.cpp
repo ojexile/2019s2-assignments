@@ -2,9 +2,13 @@
 #include "Application.h"
 #include "StandingState.h"
 #include "ChengPlayerScript.h"
+#include "KeyboardManager.h"
+#include "ProneState.h"
+#define CROUCHING_HEIGHT 7.3f
 CrouchingState::CrouchingState()
 {
-	m_fBaseMovementSpeed = 0.2f;
+	m_fBaseMovementSpeed = 3.9f;
+	m_fTimer = 0;
 }
 
 CrouchingState::~CrouchingState()
@@ -12,17 +16,18 @@ CrouchingState::~CrouchingState()
 }
 PlayerState* CrouchingState::HandleInput(ComponentBase* com, double dt)
 {
-	Vector3 vCameraFront = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
-	Vector3 vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
-	TransformComponent* trans = com->GetComponent<TransformComponent>();
-	Vector3 vPlayerFront = vCameraFront;
-	vPlayerFront.y = 0;
-	Vector3 vRight = vCameraFront.Cross(vCameraUp);
-
 	// Crouch
-	if (!Application::IsKeyPressed(VK_LCONTROL))
+	if (KeyboardManager::GetInstance()->GetKeyTriggered("Crouch"))
 	{
 		return new StandingState;
+	}
+	if (KeyboardManager::GetInstance()->GetKeyDown("Crouch"))
+	{
+		m_fTimer += (float)dt;
+	}
+	if (m_fTimer > 0.4f)
+	{
+		return new ProneState;
 	}
 	return nullptr;
 }
