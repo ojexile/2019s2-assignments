@@ -8,7 +8,7 @@ ChengRigidbody::ChengRigidbody(ePhysicsTypes e, bool Grav)
 	, m_eType{ e }
 {
 	m_fMass = 1;
-	m_vGravity = { 0,0,0 };
+	m_vGravity = { 1,1,1 };
 
 	m_bGravityAffected = Grav;
 	this->SetActive(true);
@@ -22,10 +22,14 @@ void ChengRigidbody::Update(double dt)
 	//dt *= WorldValues::TimeScale;
 	Vector3 vAccel = m_vForce * (1 / m_fMass);
 	m_vForce.SetZero();
-	Vector3 CurrentGrav = m_vGravity + WorldValues::DefaultGravity;
+	Vector3 CurrentGrav = WorldValues::DefaultGravity;
 	CurrentGrav.x *= WorldValues::GravityExponent.x;
 	CurrentGrav.y *= WorldValues::GravityExponent.y;
 	CurrentGrav.z *= WorldValues::GravityExponent.z;
+
+	CurrentGrav.x *= m_vGravity.x;
+	CurrentGrav.y *= m_vGravity.y;
+	CurrentGrav.z *= m_vGravity.z;
 	if (m_bGravityAffected)
 		vAccel += CurrentGrav;
 	// Friction
@@ -112,6 +116,10 @@ void ChengRigidbody::SetGravityX(float x)
 		this->m_vGravity.x = x;
 	else
 		this->m_vGravity.x = -x;
+}
+void ChengRigidbody::SetGravity(Vector3 v)
+{
+	this->m_vGravity = v;
 }
 void ChengRigidbody::LockXAxis(bool b)
 {

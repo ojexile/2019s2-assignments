@@ -171,6 +171,7 @@
     <ClCompile Include="Source\CrouchingState.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
     <ClCompile Include="Source\DepthFBO.cpp" />
+    <ClCompile Include="Source\EnemyAIScript.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\FPSScript.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="Source\Constrain.h" />
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\DepthFBO.h" />
+    <ClInclude Include="Source\EnemyAIScript.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />

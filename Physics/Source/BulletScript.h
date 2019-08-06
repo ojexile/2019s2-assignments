@@ -6,8 +6,9 @@ private:
 	const float m_fLifeTime;
 	float m_fCurrentLife;
 	float m_fLastPopSoundTime;
+	float m_fDamage;
 public:
-	BulletScript(const float fLifeTime);
+	BulletScript(const float fLifeTime, float damage);
 	virtual ~BulletScript();
 	virtual ComponentBase* Clone()
 	{

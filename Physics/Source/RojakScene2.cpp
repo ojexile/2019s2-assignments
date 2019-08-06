@@ -14,6 +14,7 @@
 #include "WorldValues.h"
 #include "AmmoDumpScript.h"
 #include "ChengRigidbody.h"
+#include "EnemyAIScript.h"
 RojakScene2::RojakScene2()
 {
 }
@@ -90,6 +91,7 @@ void RojakScene2::Init()
 
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
+	GameObject* player = go;
 	go->AddChild(m_CameraGO);
 	go->TRANS->SetPosition({});
 	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
@@ -171,5 +173,9 @@ void RojakScene2::Init()
 	go->TRANS->SetScale(5, 100, 5);
 	go->RENDER->SetColor({ 0.01f, 0.01f, 0.01f });
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainDesert"), Constrain::eConstrainTypes::FIXED));
-	go->SetActive(false);
+	go->SetActive(true);
+	// enemy
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Enemy"));
+	go->TRANS->SetPosition(-100, 0, 100);
+	go->AddComponent(new EnemyAIScript(player));
 }

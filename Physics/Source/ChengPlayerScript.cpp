@@ -16,6 +16,7 @@
 #include "RojakAssignmentScene.h"
 #include "DataContainer.h"
 #include "Constrain.h"
+#include "AudioManager.h"
 
 #define CAMERA_ANGLE_OFFSET 5
 ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
@@ -56,6 +57,7 @@ void ChengPlayerScript::Start()
 }
 void ChengPlayerScript::Update(double dt)
 {
+	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	// Movement================================================================================
 	float bMoved = UpdateMovement(dt);

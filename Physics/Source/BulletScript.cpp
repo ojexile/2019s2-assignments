@@ -3,9 +3,11 @@
 #include "Time.h"
 #include "AudioManager.h"
 #include "ChengRigidbody.h"
+#include "EnemyAIScript.h"
 #define XGRAV 0
-BulletScript::BulletScript(const float fLifeTime)
-	:m_fLifeTime(fLifeTime)
+BulletScript::BulletScript(const float fLifeTime, float damage)
+	: m_fLifeTime(fLifeTime)
+	, m_fDamage(damage)
 {
 	m_fCurrentLife = 0;
 	m_fLastPopSoundTime = 0;
@@ -25,11 +27,11 @@ void BulletScript::Update(double dt)
 		DestroySelf();
 		return;
 	}
-	ChengRigidbody* rb = GetComponent<ChengRigidbody>();
-	if (GetComponent<TransformComponent>()->GetPosition().x > 0)
-		rb->SetGravityX(-XGRAV);
-	else
-		rb->SetGravityX(XGRAV);
+	//ChengRigidbody* rb = GetComponent<ChengRigidbody>();
+	//if (GetComponent<TransformComponent>()->GetPosition().x > 0)
+	//	rb->SetGravityX(-XGRAV);
+	//else
+	//	rb->SetGravityX(XGRAV);
 	//GetTransform()->SetPosition(GetPosition().x, 10, GetPosition().z);
 }
 void BulletScript::Collide(GameObject* go)
@@ -39,6 +41,15 @@ void BulletScript::Collide(GameObject* go)
 	if (Time::GetInstance()->GetElapsedTimeF() - m_fLastPopSoundTime > fBufferTime)
 	{
 		m_fLastPopSoundTime = Time::GetInstance()->GetElapsedTimeF();
-		AudioManager::GetInstance()->Play3D("pop.wav", {}, rb->GetVel().LengthSquared() * 0.0001f);
+		// z is left
+		Vector3 pos = GetPosition();
+		AudioManager::GetInstance()->Play3D("thump.wav", pos, rb->GetVel().LengthSquared() * .001f);
+	}
+	EnemyAIScript* es = go->GetComponent<EnemyAIScript>();
+	if (es)
+	{
+		es->Damage(m_fDamage);
+		DestroySelf();
+		return;
 	}
 }

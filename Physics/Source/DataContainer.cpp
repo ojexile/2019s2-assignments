@@ -13,7 +13,8 @@
 #include "GauntletScript.h"
 #include "FPSScript.h"
 #include "GunScript.h"
-
+#include "Constrain.h"
+#include "EnemyAIScript.h"
 #include <time.h>
 DataContainer::DataContainer()
 {
@@ -216,10 +217,10 @@ DataContainer::DataContainer()
 	m_map_GO["bullet"] = bullet;
 	bullet->AddComponent(new RenderComponent(this->GetMesh("ball")));
 	bullet->GetComponent<RenderComponent>()->SetLightEnabled(true);
-	bullet->AddComponent(new BulletScript(30.f));
+	bullet->AddComponent(new BulletScript(30.f, 1));
 	ChengRigidbody* rigid = new ChengRigidbody(ChengRigidbody::BALL);
 	rigid->SetMat(1, 0.5f);
-	//rigid->LockYAxis(true);
+	rigid->SetGravity({ 0,0.5f,0 });
 	bullet->AddComponent(rigid);
 	bullet->AddComponent(new BallScript());
 	// Assualt Bullet--------------------------------------------------------------------------------
@@ -230,7 +231,19 @@ DataContainer::DataContainer()
 	go->GetComponent<RenderComponent>()->SetLightEnabled(true);
 	rigid = new ChengRigidbody(ChengRigidbody::BALL);
 	rigid->SetMat(1, 0.5f);
-	go->AddComponent(new BulletScript(3.f));
+	rigid->SetGravity({ 0,0.5f,0 });
+	go->AddComponent(new BulletScript(3.f, 10));
+	go->AddComponent(rigid);
+	// Assualt Bullet--------------------------------------------------------------------------------
+	go = new GameObject();
+	m_map_GO["ColtBullet"] = go;
+	go->TRANS->SetScale(0.4f);
+	go->AddComponent(new RenderComponent(this->GetMesh("ball")));
+	go->GetComponent<RenderComponent>()->SetLightEnabled(true);
+	rigid = new ChengRigidbody(ChengRigidbody::BALL);
+	rigid->SetMat(1, 0.5f);
+	rigid->SetGravity({ 0,0.5f,0 });
+	go->AddComponent(new BulletScript(3.f, 70));
 	go->AddComponent(rigid);
 	// --------------------------------------------------------------------------------
 	GameObject* wall = new GameObject;
@@ -373,7 +386,6 @@ DataContainer::DataContainer()
 	/// Colt--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Colt"] = go;
-	go->TRANS->SetPosition(1500, 80, 0);
 	go->AddComponent(new RenderComponent(this->GetMesh("Colt")));
 	go->RENDER->SetLightEnabled(false);
 	//	go->RENDER->SetBillboard(true);
@@ -381,6 +393,13 @@ DataContainer::DataContainer()
 	go->GetComponent<GunScript>()->SetRecoil(5);
 	go->TRANS->SetScale(5);
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL, false));
+	/// Enemy--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Enemy"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("pillar")));
+	go->TRANS->SetScale(10, 25, 10);
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
+	go->AddComponent(new Constrain(GetHeightMap("TerrainDesert"), Constrain::FIXED));
 	/// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["Water"] = LoadShaders("water", "water");

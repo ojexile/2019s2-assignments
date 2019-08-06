@@ -51,6 +51,7 @@ public:
 	PhysicsMaterial GetMat();
 	// Grav
 	void SetGravityX(float x);
+	void SetGravity(Vector3 v);
 	void LockXAxis(bool);
 	void LockYAxis(bool);
 	void LockZAxis(bool);
