@@ -485,6 +485,10 @@ void ChengCollisionManager::CheckCollision(GameObject* go1, std::vector<GameObje
 		GameObject* goA = go1;
 		GameObject* goB = go2;
 		// force go1 to be a ball
+		if (!go1->GetComponent<ChengRigidbody>())
+			continue;
+		if (!go2->GetComponent<ChengRigidbody>())
+			continue;
 		if (go1->GetComponent<ChengRigidbody>()->GetType() != ChengRigidbody::BALL)
 		{
 			// swap ball to front

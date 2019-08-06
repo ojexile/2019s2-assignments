@@ -106,8 +106,9 @@ void RojakScene2::Init()
 	go->TRANS->SetScale(5, 25, 5);
 	//go->AddComponent(new RenderComponent(dataContainer->GetMesh("ball")));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
-	//GameObject* child = dataContainer->GetGameObject("playerPillar");
-	//go->AddChild(child);
+	GameObject* child = dataContainer->GetGameObject("pillar");
+	child->RENDER->SetColor({ 0.2f,0.1,0.9f });
+	go->AddChild(child);
 	/// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GOM.AddGameObject();
@@ -184,6 +185,11 @@ void RojakScene2::Init()
 	// enemy
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Enemy"));
 	go->TRANS->SetPosition(-100, 0, 100);
+	go2 = m_GOM.AddGameObject(dataContainer->GetGameObject("EnemyAssualt"));
+	go->AddComponent(new EnemyAIScript(player, go2));
+	// enemy
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Enemy"));
+	go->TRANS->SetPosition(-150, 0, 100);
 	go2 = m_GOM.AddGameObject(dataContainer->GetGameObject("EnemyAssualt"));
 	go->AddComponent(new EnemyAIScript(player, go2));
 }

@@ -395,12 +395,13 @@ DataContainer::DataContainer()
 	/// Assualt--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Assualt"] = go;
-	go->TRANS->SetScale(4);
+	go->TRANS->SetScale(8);
 	go->AddComponent(new RenderComponent(this->GetMesh("Assualt")));
 	go->RENDER->SetLightEnabled(false);
 	go->RENDER->SetBillboard(true);
 	go->AddComponent(new GunScript(m_map_GO["AssualtBullet"], 0.1f, GunScript::FULL_AUTO, m_map_GO["SmokeParticle"], 150, 25, 3, "bang1.wav"));
 	go->GetComponent<GunScript>()->SetRecoil(1);
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL, false));
 	/// Assualt--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["EnemyAssualt"] = go;

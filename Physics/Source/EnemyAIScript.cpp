@@ -29,7 +29,7 @@ void EnemyAIScript::Damage(float i)
 }
 void EnemyAIScript::Movement(double dt)
 {
-	const float speed = 25;
+	const float speed = 12;
 	// Dir
 	Vector3 dir = m_Player->GetComponent<TransformComponent>()->GetPosition() - GetPosition();
 	// dir.y += 5; // offset for player height
@@ -42,6 +42,8 @@ void EnemyAIScript::Movement(double dt)
 	Vector3 pos = GetPosition();
 	if (pos.x < 0 && pos.z > 0 || dir.x < 0 && dir.z > 0)
 	{
+		if (dir.Length() > 100)
+			rb->SetVel({});
 		if (dir.Length() > 50)
 			rb->SetVel(speed * dir.Normalized());
 		else
