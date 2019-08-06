@@ -51,4 +51,5 @@ public:
 	void SetRecoil(float f);
 	void SetHolding(bool b);
 	bool GetHolding();
+	bool IsEmpty();
 };

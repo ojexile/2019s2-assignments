@@ -85,7 +85,7 @@ void RojakScene2::Init()
 	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("Assualt"));
 
 	GameObject* gun1 = m_GOM.AddGameObject(dataContainer->GetGameObject("Colt"));
-	gun1->TRANS->SetRotation(45, { 0, 0, 1 });
+	gun1->TRANS->SetRotation(90, { 0, 0, 1 });
 	gun1->TRANS->SetPosition(0, 5, 0);
 
 	// Player--------------------------------------------------------------------------------

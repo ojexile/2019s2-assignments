@@ -59,15 +59,7 @@ float Lerp(float Start, float Target, float Rate)
 void GunScript::Update(double dt)
 {
 	m_fTimer += (float)dt;
-	// no ammo
-	if (m_iClipAmmo <= 0)
-	{
-		GetComponent<TransformComponent>()->SetRotation(45, 1, 1, 1);
-	}
-	else
-	{
-		GetComponent<TransformComponent>()->SetRotation(0, 0, 0, 1);
-	}
+
 	if (myaw != 0 || mpitch != 0)
 	{
 		float yaw = Lerp(GetCamera()->GetYaw(), myaw, m_fRecoil / 15);
@@ -181,4 +173,16 @@ void GunScript::SetHolding(bool b)
 bool GunScript::GetHolding()
 {
 	return m_bIsHolding;
+}
+bool GunScript::IsEmpty()
+{
+	// no ammo
+	if (m_iClipAmmo <= 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
