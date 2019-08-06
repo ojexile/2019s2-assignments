@@ -57,6 +57,9 @@ DataContainer::DataContainer()
 	m_map_Meshes["Assualt"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1.f);
 	m_map_Meshes["Assualt"]->m_uTextureArray[0] = LoadTGA("PLAYER_ASSAULT");
 
+	m_map_Meshes["Blood"] = MeshBuilder::GenerateQuad("QUAD", { 1,1,1 }, 1.f);
+	m_map_Meshes["Blood"]->m_uTextureArray[0] = LoadTGA("blood");
+
 	m_map_Meshes["Particle"] = MeshBuilder::GenerateQuad("Particle", { 1.f,1.f,1.f }, 1);
 	m_map_Meshes["Particle"]->m_uTextureArray[0] = LoadTGA("Particle");
 
@@ -410,6 +413,11 @@ DataContainer::DataContainer()
 	go->TRANS->SetScale(3, 10, 3);
 	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
 	go->AddComponent(new Constrain(GetHeightMap("TerrainDesert"), Constrain::FIXED));
+	/// Blood--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Blood"] = go;
+	go->AddComponent(new RenderComponent(this->GetMesh("Blood")));
+	go->RENDER->SetLightEnabled(false);
 	/// Shaders================================================================================
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["Water"] = LoadShaders("water", "water");

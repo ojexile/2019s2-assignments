@@ -4,6 +4,7 @@
 #include "AudioManager.h"
 #include "ChengRigidbody.h"
 #include "EnemyAIScript.h"
+#include "ChengPlayerScript.h"
 #define XGRAV 0
 BulletScript::BulletScript(const float fLifeTime, float damage)
 	: m_fLifeTime(fLifeTime)
@@ -49,6 +50,13 @@ void BulletScript::Collide(GameObject* go)
 	if (es)
 	{
 		es->Damage(m_fDamage);
+		DestroySelf();
+		return;
+	}
+	ChengPlayerScript* ps = go->GetComponent<ChengPlayerScript>();
+	if (ps)
+	{
+		ps->Damage(m_fDamage);
 		DestroySelf();
 		return;
 	}

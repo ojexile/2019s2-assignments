@@ -32,10 +32,10 @@ void EnemyAIScript::Movement(double dt)
 	const float speed = 25;
 	// Dir
 	Vector3 dir = m_Player->GetComponent<TransformComponent>()->GetPosition() - GetPosition();
-	dir.y = 0;
+	// dir.y += 5; // offset for player height
 	m_Gun->TRANS->SetPosition(GetPosition());
 	m_Gun->TRANS->Translate({ 0,4,0 });
-	m_Gun->TRANS->Translate(dir.Normalized() * 3);
+	m_Gun->TRANS->Translate(dir.Normalized() * 4);
 	ChengRigidbody* rb = GetComponent<ChengRigidbody>();
 	if (!rb)
 		return;

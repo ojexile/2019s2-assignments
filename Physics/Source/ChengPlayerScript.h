@@ -16,10 +16,11 @@ private:
 	GameObject* m_CurrentGun;
 	GameObject* m_CrossHair;
 	GameObject* m_Gaunt;
+	GameObject* m_Blood;
 	bool m_bState;
-
+	float m_fHealth;
 	Light* m_Light;
-
+	GameObject* Blood[3]{ nullptr, };
 	// Functions
 	// Switch view
 	void SwitchView();
@@ -29,7 +30,7 @@ private:
 	void UpdateConstrain();
 	// void AddGun(GameObject* go);
 public:
-	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt);
+	ChengPlayerScript(GameObject* Gun, GameObject* cross, GameObject* gaunt, GameObject* blood);
 	~ChengPlayerScript();
 	virtual ComponentBase* Clone()
 	{
@@ -42,4 +43,5 @@ public:
 	void SetDefaultCamPos();
 	void SetMovementSpeed(float f, float accel);
 	void RefillAmmo();
+	void Damage(float f);
 };

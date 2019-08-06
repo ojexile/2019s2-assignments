@@ -10,6 +10,7 @@
 #include "AudioManager.h"
 #include "Preferences.h"
 #include "Resources.h"
+#include "ParticleScript.h"
 GauntletScript::GauntletScript(GameObject* ball, GameObject* text)
 	: m_Ball(ball)
 	, m_Text(text)
@@ -190,7 +191,7 @@ void GauntletScript::Use()
 		int iter = 0;
 		for (unsigned i = 0; i < list->size(); ++i)
 		{
-			if (list->at(i)->GetComponent<BulletScript>())
+			if (list->at(i)->GetComponent<ParticleScript>())
 			{
 				++iter;
 				if (iter == 2)

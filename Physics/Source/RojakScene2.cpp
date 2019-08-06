@@ -97,10 +97,11 @@ void RojakScene2::Init()
 	GameObject* player = go;
 	go->AddChild(m_CameraGO);
 	go->TRANS->SetPosition({});
-	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt));
-	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
+	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt, dataContainer->GetGameObject("Blood")));
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
 	go->GetComponent<ChengRigidbody>()->SetMat(1.f, 0);
-	go->TRANS->SetScale(10, 10, 10);
+	go->TRANS->SetScale(5, 25, 5);
+	//go->AddComponent(new RenderComponent(dataContainer->GetMesh("ball")));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	//GameObject* child = dataContainer->GetGameObject("playerPillar");
 	//go->AddChild(child);
@@ -161,7 +162,7 @@ void RojakScene2::Init()
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(20, 0, -20);
 	go->TRANS->SetScale(10, 10, 10);
-	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR));
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainSnow"), Constrain::FIXED));
 	go->AddComponent(new AmmoDumpScript());
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("AmmoBox")));

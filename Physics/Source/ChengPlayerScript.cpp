@@ -17,11 +17,12 @@
 #include "DataContainer.h"
 #include "Constrain.h"
 #include "AudioManager.h"
-
 #define CAMERA_ANGLE_OFFSET 5
-ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt)
+#define MAX_HEALTH 100
+ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObject* gaunt, GameObject* blood)
 	: m_CrossHair(cross)
 	, m_Gaunt(gaunt)
+	, m_Blood(blood)
 {
 	m_Guns.push_back(gun);
 	m_CurrentGun = gun;
@@ -35,6 +36,8 @@ ChengPlayerScript::ChengPlayerScript(GameObject* gun, GameObject* cross, GameObj
 	m_Light->color.r = 0;
 	m_Light->color.g = 1;
 	m_fJumpForce = 10000.f;
+
+	m_fHealth = MAX_HEALTH;
 }
 
 ChengPlayerScript::~ChengPlayerScript()
@@ -64,6 +67,65 @@ void ChengPlayerScript::Update(double dt)
 	UpdateGauntlet();
 	UpdateTilt();
 	UpdateConstrain();
+	//
+	if (m_fHealth < MAX_HEALTH / 2)
+	{
+		if (!Blood[0])
+		{
+			Blood[0] = Instantiate(m_Blood, { 200,900 }, { 400,400 ,1 }, "UI");
+		}
+		else
+		{
+			Blood[0]->SetActive(true);
+		}
+	}
+	else
+	{
+		if (Blood[0])
+		{
+			Blood[0]->SetActive(false);
+		}
+	}
+	if (m_fHealth < MAX_HEALTH / 4)
+	{
+		if (!Blood[1])
+		{
+			Blood[1] = Instantiate(m_Blood, { 1800,300 }, { 800,800,1 }, "UI");
+		}
+		else
+		{
+			Blood[1]->SetActive(true);
+		}
+	}
+	else
+	{
+		if (Blood[1])
+		{
+			Blood[1]->SetActive(false);
+		}
+	}
+	if (m_fHealth < MAX_HEALTH / 8)
+	{
+		if (!Blood[2])
+		{
+			Blood[2] = Instantiate(m_Blood, { 0,0 }, { 2000,2000,1 }, "UI");
+		}
+		else
+		{
+			Blood[2]->SetActive(true);
+		}
+	}
+	else
+	{
+		if (Blood[2])
+		{
+			Blood[2]->SetActive(false);
+		}
+	}
+
+	m_fHealth += 0.05f * MAX_HEALTH * (float)dt;
+	if (m_fHealth > MAX_HEALTH)
+		m_fHealth = MAX_HEALTH;
 }
 void ChengPlayerScript::SetMovementSpeed(float f, float accel)
 {
@@ -367,14 +429,21 @@ void ChengPlayerScript::RefillAmmo()
 void ChengPlayerScript::Collide(GameObject* go)
 {
 	GunScript* gs = go->GetComponent<GunScript>();
-	if (!gs)
-		return;
-	if (gs->GetHolding())
-		return;
-	m_Guns.push_back(go);
-	go->SetActive(false);
-	m_CurrentGun->SetActive(false);
-	m_CurrentGun = go;
-	m_CurrentGun->SetActive(true);
-	m_CurrentGun->RENDER->SetBillboard(true);
+	if (gs)
+	{
+		if (gs->GetHolding())
+			return;
+		m_Guns.push_back(go);
+		go->SetActive(false);
+		m_CurrentGun->SetActive(false);
+		m_CurrentGun = go;
+		m_CurrentGun->SetActive(true);
+		m_CurrentGun->RENDER->SetBillboard(true);
+	}
+}
+void ChengPlayerScript::Damage(float f)
+{
+	m_fHealth -= f;
+	if (m_fHealth < 0)
+		m_fHealth = 0;
 }

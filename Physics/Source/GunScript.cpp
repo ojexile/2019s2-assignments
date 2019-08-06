@@ -82,6 +82,7 @@ void GunScript::Fire(Vector3 vDir)
 			return;
 	}
 	Vector3 pos = GetPosition();
+	pos.y += 1.5f;
 	Instantiate(m_Smoke, pos + vDir * 2);
 	GameObject* bul = Instantiate(m_Bullet, pos);
 	if (!bul)
