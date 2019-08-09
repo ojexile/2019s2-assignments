@@ -76,6 +76,7 @@ unsigned short ToKey(std::string str)
 	if (str == "lctrl") return VK_LCONTROL;
 	if (str == "rctrl") return VK_RCONTROL;
 	if (str == "space") return VK_SPACE;
+	if (str == "esc") return VK_ESCAPE;
 	return NULL;
 }
 

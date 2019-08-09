@@ -27,6 +27,6 @@ public:
 	int m_col;
 	float m_currentTime;
 	int m_currentFrame;
-	//int m_playCount;
+
 	Animation m_anim;
 };

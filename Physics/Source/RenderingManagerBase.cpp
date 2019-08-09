@@ -1,9 +1,10 @@
 #include "RenderingManagerBase.h"
 #include "DataContainer.h"
 #include "Locator.h"
+#include "KeyboardManager.h"
 
 #define FOG_ENABLED true
-#include "Application.h"
+
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
@@ -176,14 +177,13 @@ void RenderingManagerBase::Update(double dt)
 {
 	//Keyboard Section
 	// TODO SET DRAW MODE
-
-	if (Application::IsKeyPressed('1'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("EnableCull"))
 		glEnable(GL_CULL_FACE);
-	if (Application::IsKeyPressed('2'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("DisableCull"))
 		glDisable(GL_CULL_FACE);
-	if (Application::IsKeyPressed('3'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("DisableWireframe"))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	if (Application::IsKeyPressed('4'))
+	if (KeyboardManager::GetInstance()->GetKeyDown("EnableWireframe"))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// fps = (float)(1.f / dt);

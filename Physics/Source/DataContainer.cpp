@@ -20,32 +20,41 @@ void DataContainer::Init()
 		DEFAULT_LOG("Attempted re-init of datacontainer");
 		return;
 	}
+
+	InitTextures();
 	InitMeshes();
 	InitTerrain();
 	InitGO();
 	InitShaders();
 	m_bInitialsed = true;
+
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	CHENG_LOG("Time to load container: ", std::to_string(elapsed_secs));
 }
+void DataContainer::InitTextures()
+{
+	m_map_Textures["Text"] = LoadTGA("calibri");
+	m_map_Textures["Sky"] = LoadTGA("sky");
+	m_map_Textures["Cube"] = LoadTGA("Cube");
+	m_map_Textures["Dirt"] = LoadTGA("dirt");
+	m_map_Textures["GrassDirt"] = LoadTGA("grassdirt");
+}
 void  DataContainer::InitMeshes()
 {
 	/// Meshes================================================================================
-	// DO NOT REMOVE--------------------------------------------------------------------------------
-	m_map_Meshes["Text"] = MeshBuilder::GenerateText("text", 16, 16);
-	m_map_Meshes["Text"]->m_uTextureArray[0] = LoadTGA("calibri");
+	/// DO NOT REMOVE--------------------------------------------------------------------------------
+	m_map_Meshes["Text"] = MeshBuilder::GenerateText("text", 16, 16)->AddTexture("Text");
 	//--------------------------------------------------------------------------------
-	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6);
-	m_map_Meshes["SkyPlane"]->m_uTextureArray[0] = LoadTGA("sky");
+	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
+
+	m_map_Meshes["Cube"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Cube");
 }
 void  DataContainer::InitTerrain()
 {
 	/// Terrain================================================================================
 	// Plains--------------------------------------------------------------------------------
-	Mesh* mesh = GenerateTerrain("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 });
-	mesh->m_uTextureArray[0] = LoadTGA("dirt");
-	mesh->m_uTextureArray[1] = LoadTGA("grassdirt");
+	Mesh* mesh = GenerateTerrain("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })->AddTexture("Dirt")->AddTexture("GrassDirt");
 }
 void  DataContainer::InitGO()
 {
@@ -133,6 +142,13 @@ unsigned DataContainer::GetShader(std::string key)
 		DEFAULT_LOG("ERROR: Shader not found of name: " + key);
 	unsigned shader = m_map_Shaders[key];
 	return shader;
+}
+unsigned DataContainer::GetTexture(std::string key)
+{
+	if (m_map_Textures.count(key) <= 0)
+		DEFAULT_LOG("ERROR: Texture not found of name: " + key);
+	unsigned tex = m_map_Textures[key];
+	return tex;
 }
 HeightMapData* DataContainer::GetHeightMap(std::string key)
 {

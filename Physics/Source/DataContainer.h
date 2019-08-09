@@ -17,6 +17,7 @@ class DataContainer : public Singleton<DataContainer>
 {
 private:
 	std::map<std::string, Mesh*> m_map_Meshes;
+	std::map<std::string, unsigned> m_map_Textures;
 	std::map<std::string, AnimatedMesh*> m_map_Animated;
 	std::map<std::string, GameObject*> m_map_GO;
 	std::map<std::string, unsigned> m_map_Shaders;
@@ -27,6 +28,7 @@ private:
 
 	bool m_bInitialsed;
 	// Loading
+	void InitTextures();
 	void InitMeshes();
 	void InitTerrain();
 	void InitGO();
@@ -41,5 +43,6 @@ public:
 	AnimatedMesh* GetAnimation(std::string name);
 	GameObject* GetGameObject(std::string name);
 	unsigned GetShader(std::string key);
+	unsigned GetTexture(std::string key);
 	HeightMapData* GetHeightMap(std::string key);
 };

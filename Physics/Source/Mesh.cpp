@@ -2,9 +2,12 @@
 #include "GL\glew.h"
 #include "Vertex.h"
 
+#include "Locator.h"
+#include "DataContainer.h"
 Mesh::Mesh(const std::string &meshName)
 	: name(meshName)
 	, mode(DRAW_TRIANGLES)
+	, m_iNumTextures(0)
 {
 	glGenBuffers(1, &vertexBuffer);
 	glGenBuffers(1, &indexBuffer);
@@ -93,4 +96,26 @@ void Mesh::Render(unsigned offset, unsigned count)
 	{
 		glDisableVertexAttribArray(3);
 	}
+}
+Mesh* Mesh::AddTexture(unsigned i)
+{
+	if (m_iNumTextures >= 8)
+	{
+		DEFAULT_LOG("Max Textures reached.");
+		return this;
+	}
+	m_uTextureArray[m_iNumTextures] = i;
+	++m_iNumTextures;
+	return this;
+}
+Mesh* Mesh::AddTexture(std::string s)
+{
+	if (m_iNumTextures >= 8)
+	{
+		DEFAULT_LOG("Max Textures reached.");
+		return this;
+	}
+	m_uTextureArray[m_iNumTextures] = DataContainer::GetInstance()->GetTexture(s);
+	++m_iNumTextures;
+	return this;
 }

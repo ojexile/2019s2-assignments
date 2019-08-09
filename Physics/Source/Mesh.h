@@ -5,8 +5,13 @@
 #include "Material.h"
 #include "Vertex.h"
 
+#include <string>
+
 class Mesh
 {
+private:
+	int m_iNumTextures;
+	unsigned m_uTextureArray[MAX_TEXTURES];
 public:
 	enum DRAW_MODE
 	{
@@ -26,8 +31,11 @@ public:
 	unsigned indexBuffer;
 	unsigned indexSize;
 
-	//unsigned textureID;
-	unsigned m_uTextureArray[MAX_TEXTURES];
+	Mesh* AddTexture(unsigned i);
+	Mesh* AddTexture(std::string s);
+
+	friend class AnimatedMesh;
+	friend class RenderingManagerBase;
 };
 
 #endif

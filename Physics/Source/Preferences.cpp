@@ -47,7 +47,7 @@ void Preferences::GetData()
 			continue;
 		for (unsigned i = 0; i < sLine.size(); ++i)
 		{
-			if (sLine[i] == ' ')
+			if (sLine[i] == ' ' || sLine[i] == '	')
 			{
 				sLine.erase(i, 1);
 				--i;
