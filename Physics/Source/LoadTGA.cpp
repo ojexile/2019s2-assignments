@@ -19,8 +19,8 @@ GLuint LoadTGA(std::string path)				// load TGA file to memory
 			//std::cout << "Impossible to open " << file_path << ". Are you in the right directory ?\n";
 			std::string error = "Unable to load texture at ";
 			error += file_path;
+			error += " for HIGH preset.";
 			error += ".";
-			error += "for HIGH preset.";
 			DEFAULT_LOG(error);
 			return 0;
 		}
@@ -39,6 +39,7 @@ GLuint LoadTGA(std::string path)				// load TGA file to memory
 				//std::cout << "Impossible to open " << file_path << ". Are you in the right directory ?\n";
 				std::string error = "Unable to load texture at ";
 				error += file_path;
+				error += " for LOW & HIGH preset.";
 				error += ".";
 				DEFAULT_LOG(error);
 				return 0;

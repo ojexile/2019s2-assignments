@@ -5,6 +5,7 @@
 #include "MyMath.h"
 #include "LoadOBJ.h"
 #include "Resources.h"
+#include "Preferences.h"
 
 /******************************************************************************/
 /*!
@@ -425,10 +426,41 @@ Mesh* MeshBuilder::GenerateCone(const std::string &meshName, Color color, unsign
 }
 Mesh* MeshBuilder::GenerateOBJ(std::string name)
 {
-	std::string file_path = Resources::Path::Object + name + ".obj";
 	std::vector<Position> vertices;
 	std::vector<TexCoord> uvs;
 	std::vector<Vector3> normals;
+
+	std::string sQuality = Preferences::GetPref(Resources::PreferencesTerm::Quality);
+	std::ifstream fileStream;
+	if (sQuality == "HIGH")
+	{
+		std::string file_path = Resources::Path::Object + sQuality + '/' + name + ".obj";
+		bool success = LoadOBJ(file_path.c_str(), vertices, uvs, normals);
+		if (!success)
+		{
+			DEFAULT_LOG("Unable to load obj of: " + name + "for HIGH preset.");
+			return NULL;
+		}
+	}
+	else if (sQuality == "LOW")
+	{
+		std::string file_path = Resources::Path::Object + name + ".obj";
+		bool success = LoadOBJ(file_path.c_str(), vertices, uvs, normals);
+		if (!success)
+		{
+			std::string file_path = Resources::Path::Object + "HIGH" + '/' + name + ".obj";
+			bool success = LoadOBJ(file_path.c_str(), vertices, uvs, normals);
+			if (!success)
+			{
+				DEFAULT_LOG("Unable to load obj of: " + name + "for LOW & HIGH preset.");
+				return NULL;
+			}
+		}
+	}
+	else
+		DEFAULT_LOG("Unknown quality type of: " + sQuality);
+
+	std::string file_path = Resources::Path::Object + name + ".obj";
 	bool success = LoadOBJ(file_path.c_str(), vertices, uvs, normals);
 	if (!success)
 		return NULL;
