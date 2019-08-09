@@ -12,14 +12,14 @@ private:
 	float m_fMovementSpeed;
 	float m_fAccel;
 	float m_fJumpForce;
-	bool m_bState;
+	bool m_bFirstPerson;
 
 	float m_fHealth;
 
 	// Functions
 	// Switch view
 	void SwitchView();
-	void SetDefaultCamPos();
+	void SetTopDownPos();
 	void UpdateMovement(double dt);
 public:
 	PlayerScript();

@@ -31,6 +31,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		return new CrouchingState;
 	}
 
+	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, STANDING_HEIGHT, 0);
 	return nullptr;
 }
 void StandingState::OnEnter(ComponentBase* com)

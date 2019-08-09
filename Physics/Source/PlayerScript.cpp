@@ -8,7 +8,7 @@
 PlayerScript::PlayerScript()
 {
 	m_CurrentState = nullptr;
-	m_bState = false;
+	m_bFirstPerson = true;
 	m_fMovementSpeed = 1;
 
 	m_fJumpForce = 10000.f;
@@ -27,8 +27,6 @@ void PlayerScript::Start()
 	TransformComponent* trans = GetComponent<TransformComponent>();
 
 	TransformComponent* CamTrans = GetCameraGO()->TRANS;
-	CamTrans->SetRelativePosition(CamTrans->GetRelativePosition().x, CamTrans->GetRelativePosition().y, -trans->GetPosition().z - 0);
-	GetCamera()->SetDir(-90, -90);
 }
 void PlayerScript::Update(double dt)
 {
@@ -46,35 +44,33 @@ void PlayerScript::SwitchView()
 {
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 pos = trans->GetPosition();
-	if (m_bState)
+	if (m_bFirstPerson)
 	{
 		GetCameraGO()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
 		GetCameraGO()->GetComponent<CameraComponent>()->SetMouseEnabled(true);
-		GameObject* cam = GetCameraGO();
-		//trans->SetPosition(0, 0, 0);
-		cam->GetComponent<TransformComponent>()->SetRelativePosition(0, 10, 0);
-		cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, 0);
 
-		m_bState = false;
+		GetCamera()->SetDir(0, 0);
+
+		m_bFirstPerson = false;
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
 	}
 	else
 	{
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
-		SetDefaultCamPos();
+		SetTopDownPos();
 
-		m_bState = true;
+		m_bFirstPerson = true;
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
 	}
 }
-void PlayerScript::SetDefaultCamPos()
+void PlayerScript::SetTopDownPos()
 {
 	TransformComponent* trans = GetComponent<TransformComponent>();
-	GameObject* cam = SceneManager::GetInstance()->GetScene()->GetCameraGameObject();
+	GameObject* cam = GetCameraGO();
 	//trans->SetPosition(0, 0, 0);
 	cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -90);
-	Vector3 CamDir = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
+	Vector3 CamDir = GetCamera()->GetDir();
 	Vector3 newRelPos = trans->GetPosition();
 	newRelPos = -newRelPos;
 	newRelPos.z += CamDir.z * -200;
@@ -87,7 +83,7 @@ void PlayerScript::UpdateMovement(double dt)
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 pos = trans->GetPosition();
 
-	if (!m_bState)
+	if (!m_bFirstPerson)
 	{
 		if (!m_CurrentState)
 		{
@@ -102,8 +98,8 @@ void PlayerScript::UpdateMovement(double dt)
 			m_CurrentState = state;
 		}
 
-		Vector3 vCameraFront = SceneManager::GetInstance()->GetScene()->GetCamera()->GetDir();
-		Vector3 vCameraUp = SceneManager::GetInstance()->GetScene()->GetCamera()->GetUp();
+		Vector3 vCameraFront = GetCamera()->GetDir();
+		Vector3 vCameraUp = GetCamera()->GetUp();
 
 		Vector3 vPlayerFront = vCameraFront;
 		vPlayerFront.y = 0;

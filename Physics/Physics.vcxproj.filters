@@ -212,9 +212,6 @@
     <ClCompile Include="Source\PlayerScript.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ProneState.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\RenderComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -420,9 +417,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\PlayerScript.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ProneState.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\CollisionManager.h">
