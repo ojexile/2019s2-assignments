@@ -2,21 +2,10 @@
 #include "KeyboardManager.h"
 #include "Time.h"
 #include "AudioManager.h"
-#include "RojakAssignmentScene.h"
-#include "RojakScene2.h"
 #include "Preferences.h"
 #include "Resources.h"
 #include "Utility.h"
-#include "AudioManager.h"
 #include "RojakScene2.h"
-#include "MainMenu.h"
-// Select Debug logger user
-// Users are enums located in locator.h
-//#define USER CHENG
-//
-//#define TO_STR2(x) #x
-//#define TO_STR(x) TO_STR2(x)
-//#define USER_S ( TO_STR(USER) )
 
 Renderer* Engine::m_Renderer;
 

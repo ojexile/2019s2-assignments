@@ -19,11 +19,11 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 	// Sprint
 	if (KeyboardManager::GetInstance()->GetKeyDown("Sprint"))
 	{
-		com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
+		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
 	}
 	else
 	{
-		com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
+		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 	}
 	// Crouch
 	if (KeyboardManager::GetInstance()->GetKeyTriggered("Crouch"))
@@ -36,5 +36,5 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 void StandingState::OnEnter(ComponentBase* com)
 {
 	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, STANDING_HEIGHT, 0);
-	com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
+	com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 }

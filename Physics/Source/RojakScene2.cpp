@@ -1,20 +1,18 @@
 #include "RojakScene2.h"
 #include "AudioManager.h"
-#include "GunScript.h"
+
 #include "ChengPlayerScript.h"
 #include "MeshController.h"
 #include "Blackhole.h"
-#include "GauntletScript.h"
+
 #include "SunBrightnessScript.h"
 #include "Constrain.h"
 #include "Utility.h"
-#include "ParticleScript.h"
-#include "ParticleSpawnerScript.h"
-#include "ChargeBarScript.h"
+
 #include "WorldValues.h"
-#include "AmmoDumpScript.h"
+
 #include "ChengRigidbody.h"
-#include "EnemyAIScript.h"
+
 RojakScene2::RojakScene2()
 {
 }
@@ -24,18 +22,13 @@ RojakScene2::~RojakScene2()
 }
 void RojakScene2::Init()
 {
-	WorldValues::GravityExponent.z = 0;
-	WorldValues::DefaultGravityExponent.z = 0;
-	WorldValues::GravityExponent.y = 1;
-	WorldValues::DefaultGravityExponent.y = 1;
 	DataContainer* dataContainer = DataContainer::GetInstance();
-	GameObject* go;
-	GameObject* go2;
+	GameObject* go = nullptr;
+	GameObject* go2 = nullptr;
 	/// Create Camera================================================================================
 	m_CameraGO = new GameObject;
 	m_CameraGO->AddComponent(new CameraComponent);
 	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
-	//m_GameObjectManager.AddGameObject(CameraGO);
 	/// Layers================================================================================
 	// Set up camera
 	m_CameraGO->TRANS->SetPosition(0, 0, 0);
@@ -47,15 +40,13 @@ void RojakScene2::Init()
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
-
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
 	GameObject* player = go;
 	go->AddChild(m_CameraGO);
-	go->TRANS->SetPosition({});
-	go->AddComponent(new ChengPlayerScript(gun, Crosshair, Gaunt, dataContainer->GetGameObject("Blood")));
+	go->AddComponent(new PlayerScript());
+	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
-
 	/// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GOM.AddGameObject();

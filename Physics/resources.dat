@@ -1,6 +1,0 @@
-ContentPath = content/
-TexturePath = textures/
-ObjectPath = objects/
-AudioPath = audio/
-ShaderPath = shaders/
-HeightMapPath = heightMaps/

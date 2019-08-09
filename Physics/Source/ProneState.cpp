@@ -24,5 +24,5 @@ PlayerState* ProneState::HandleInput(ComponentBase* com, double dt)
 void ProneState::OnEnter(ComponentBase* com)
 {
 	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, PRONT_HEIGHT, 0);
-	com->GetComponent<ChengPlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, 200);
+	com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, 200);
 }

@@ -43,25 +43,13 @@
     <ClCompile Include="Source\AudioManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BallScript.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Blackhole.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BouncerScript.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BulletScript.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Camera.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\CameraComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ChargeBarScript.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\ChengCollisionManager.cpp">
@@ -95,15 +83,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameObjectManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GauntletScript.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GoalScript.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GunScript.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\HeightMapData.cpp">
@@ -142,12 +121,6 @@
     <ClCompile Include="Source\main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MainMenu.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\MenuScript.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Mesh.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -155,9 +128,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\MeshController.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\PaddleScript.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\ParticleScript.cpp">
@@ -175,9 +145,6 @@
     <ClCompile Include="Source\Preferences.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\RainScript.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\RenderComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -188,9 +155,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Resources.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\RojakAssignmentScene.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\RojakScene2.cpp">
@@ -230,8 +194,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\FPSScript.cpp" />
-    <ClCompile Include="Source\AmmoDumpScript.cpp" />
-    <ClCompile Include="Source\EnemyAIScript.cpp" />
     <ClCompile Include="Source\ProneState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -249,25 +211,13 @@
     <ClInclude Include="Source\AudioManager.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\BallScript.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Blackhole.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BouncerScript.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BulletScript.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Camera.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\CameraComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ChargeBarScript.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\ChengCollisionManager.h">
@@ -306,15 +256,6 @@
     <ClInclude Include="Source\GameObjectManager.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GauntletScript.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GoalScript.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GunScript.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\HeightMapData.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -351,13 +292,7 @@
     <ClInclude Include="Source\Logger.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MainMenu.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Material.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MenuScript.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Mesh.h">
@@ -367,9 +302,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\MeshController.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\PaddleScript.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\ParticleScript.h">
@@ -387,9 +319,6 @@
     <ClInclude Include="Source\Preferences.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\RainScript.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\RenderComponent.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -403,9 +332,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Resources.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\RojakAssignmentScene.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\RojakScene2.h">
@@ -451,8 +377,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\FPSScript.h" />
-    <ClInclude Include="Source\AmmoDumpScript.h" />
-    <ClInclude Include="Source\EnemyAIScript.h" />
     <ClInclude Include="Source\ProneState.h" />
   </ItemGroup>
   <ItemGroup>
