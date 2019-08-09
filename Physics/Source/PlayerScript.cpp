@@ -1,9 +1,9 @@
 #include "PlayerScript.h"
 #include "AudioManager.h"
 #include "SceneManager.h"
-#include "ChengRigidbody.h"
+#include "Rigidbody.h"
 #include "KeyboardManager.h"
-#define CAMERA_ANGLE_OFFSET 5
+
 #define MAX_HEALTH 100
 PlayerScript::PlayerScript()
 {

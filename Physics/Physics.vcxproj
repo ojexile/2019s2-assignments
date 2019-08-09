@@ -155,11 +155,10 @@
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
-    <ClCompile Include="Source\Blackhole.cpp" />
+    <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
-    <ClCompile Include="Source\ChengCollisionManager.cpp" />
-    <ClCompile Include="Source\ChengRigidbody.cpp" />
+    <ClCompile Include="Source\CollisionManager.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\Constrain.cpp" />
     <ClCompile Include="Source\CrouchingState.cpp" />
@@ -193,6 +192,7 @@
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
+    <ClCompile Include="Source\Rigidbody.cpp" />
     <ClCompile Include="Source\RojakScene2.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
@@ -211,10 +211,10 @@
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Blackhole.h" />
     <ClInclude Include="Source\AudioManager.h" />
+    <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
-    <ClInclude Include="Source\ChengCollisionManager.h" />
-    <ClInclude Include="Source\ChengRigidbody.h" />
+    <ClInclude Include="Source\CollisionManager.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\CrouchingState.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
@@ -251,6 +251,7 @@
     <ClInclude Include="Source\RenderingManager.h" />
     <ClInclude Include="Source\RenderingManagerBase.h" />
     <ClInclude Include="Source\Resources.h" />
+    <ClInclude Include="Source\Rigidbody.h" />
     <ClInclude Include="Source\RojakScene2.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
@@ -266,34 +267,7 @@
     <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\shaders\comg.fragmentshader" />
-    <None Include="Content\shaders\comg.vertexshader" />
-    <None Include="Content\shaders\Flare.fragmentshader" />
-    <None Include="Content\shaders\Flare.vertexshader" />
-    <None Include="Content\shaders\Fog.fragmentshader" />
-    <None Include="Content\shaders\Fog.vertexshader" />
-    <None Include="Content\shaders\GPass.fragmentshader" />
-    <None Include="Content\shaders\GPass.vertexshader" />
-    <None Include="Content\shaders\HeatWave.fragmentshader" />
-    <None Include="Content\shaders\HeatWave.vertexshader" />
-    <None Include="Content\shaders\MultiTexture.fragmentshader" />
-    <None Include="Content\shaders\Shadow.fragmentshader" />
-    <None Include="Content\shaders\Shadow.vertexshader" />
-    <None Include="Content\shaders\water.fragmentshader" />
-    <None Include="Content\shaders\water.vertexshader" />
-    <None Include="Shader\comg.fragmentshader" />
-    <None Include="Shader\comg.vertexshader" />
-    <None Include="Shader\Fog.fragmentshader" />
-    <None Include="Shader\Fog.vertexshader" />
-    <None Include="Shader\HeatWave.fragmentshader" />
-    <None Include="Shader\HeatWave.vertexshader" />
     <None Include="Shader\MultiTexture.fragmentshader" />
-    <None Include="Shader\shadow\Shadow.fragmentshader" />
-    <None Include="Shader\shadow\Shadow.vertexshader" />
-    <None Include="Shader\Smoke.fragmentshader" />
-    <None Include="Shader\Smoke.vertexshader" />
-    <None Include="Shader\water.fragmentshader" />
-    <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,4 @@
-#include "ChengRigidbody.h"
+#include "Rigidbody.h"
 #include "TransformComponent.h"
 #include "WorldValues.h"
 Rigidbody::Rigidbody(ePhysicsTypes e, bool Grav)
@@ -8,7 +8,7 @@ Rigidbody::Rigidbody(ePhysicsTypes e, bool Grav)
 	, m_eType{ e }
 {
 	m_fMass = 1;
-	m_vGravity = { 1,1,1 };
+	m_vGravityExponent = { 1,1,1 };
 
 	m_bGravityAffected = Grav;
 	this->SetActive(true);
@@ -27,9 +27,9 @@ void Rigidbody::Update(double dt)
 	CurrentGrav.y *= WorldValues::GravityExponent.y;
 	CurrentGrav.z *= WorldValues::GravityExponent.z;
 
-	CurrentGrav.x *= m_vGravity.x;
-	CurrentGrav.y *= m_vGravity.y;
-	CurrentGrav.z *= m_vGravity.z;
+	CurrentGrav.x *= m_vGravityExponent.x;
+	CurrentGrav.y *= m_vGravityExponent.y;
+	CurrentGrav.z *= m_vGravityExponent.z;
 	if (m_bGravityAffected)
 		vAccel += CurrentGrav;
 	// Friction
@@ -113,13 +113,13 @@ Rigidbody::ePhysicsTypes Rigidbody::GetType()
 void Rigidbody::SetGravityX(float x)
 {
 	if (WorldValues::TimeScale > 0)
-		this->m_vGravity.x = x;
+		this->m_vGravityExponent.x = x;
 	else
-		this->m_vGravity.x = -x;
+		this->m_vGravityExponent.x = -x;
 }
 void Rigidbody::SetGravity(Vector3 v)
 {
-	this->m_vGravity = v;
+	this->m_vGravityExponent = v;
 }
 void Rigidbody::LockXAxis(bool b)
 {

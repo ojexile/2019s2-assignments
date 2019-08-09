@@ -10,7 +10,7 @@
 #include "Locator.h"
 #include "Preferences.h"
 
-#include "ChengCollisionManager.h"
+#include "CollisionManager.h"
 
 #include <vector>
 

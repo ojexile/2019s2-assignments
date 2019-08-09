@@ -1,8 +1,8 @@
-#include "Blackhole.h"
+#include "BlackholeScript.h"
 #include "SceneManager.h"
 #include <vector>
 #include "GameObject.h"
-#include "ChengRigidbody.h"
+#include "Rigidbody.h"
 #define G_CONSTANT 200.f
 Blackhole::Blackhole(float fMass, float fMinDist)
 	: m_fMass(fMass)

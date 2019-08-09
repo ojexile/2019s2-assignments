@@ -23,7 +23,7 @@ private:
 	Vector3 m_vVel;
 	Vector3 m_vForce;
 
-	Vector3 m_vGravity;
+	Vector3 m_vGravityExponent;
 	// PhysicsMat m_PhysicsMat
 	float m_fMass;
 

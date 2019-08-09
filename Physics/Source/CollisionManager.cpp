@@ -1,5 +1,5 @@
-#include "ChengCollisionManager.h"
-#include "ChengRigidbody.h"
+#include "CollisionManager.h"
+#include "Rigidbody.h"
 #include "AudioManager.h"
 #include "ScriptComponent.h"
 #include "WorldValues.h"

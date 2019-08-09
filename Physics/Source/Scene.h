@@ -8,7 +8,7 @@
 #include "CameraComponent.h"
 #include "LightManager.h"
 #include "TransformComponent.h"
-#include "ChengRigidbody.h"
+#include "Rigidbody.h"
 #include "Constrain.h"
 
 class Scene

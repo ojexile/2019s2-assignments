@@ -11,19 +11,10 @@
     <ClCompile Include="Source\AudioManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Blackhole.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Camera.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\CameraComponent.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ChengCollisionManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ChengRigidbody.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\ComponentBase.cpp">
@@ -254,6 +245,15 @@
     <ClCompile Include="Source\Utility.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CollisionManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rigidbody.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BlackholeScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\LightManager.h" />
@@ -276,12 +276,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\CameraComponent.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ChengCollisionManager.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ChengRigidbody.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\ComponentBase.h">
@@ -434,45 +428,30 @@
     <ClInclude Include="Source\ProneState.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\CollisionManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rigidbody.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BlackholeScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Content\shaders\comg.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Shader\comg.vertexshader">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Content\shaders\comg.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\Flare.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\Flare.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Shader\Fog.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\Fog.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\Fog.vertexshader">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shader\Fog.vertexshader">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shader\HeatWave.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\HeatWave.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\HeatWave.vertexshader">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shader\HeatWave.vertexshader">
@@ -481,68 +460,11 @@
     <None Include="Shader\MultiTexture.fragmentshader">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Content\shaders\MultiTexture.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\shadow\Shadow.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\Shadow.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\Shadow.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\shadow\Shadow.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\Smoke.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\Smoke.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\water.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\water.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\water.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\water.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Shader\water.fragmentshader">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shader\water.vertexshader">
       <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\GPass.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\GPass.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\HeatWave.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\HeatWave.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\Fog.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\Fog.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\comg.fragmentshader">
-      <Filter>Source</Filter>
-    </None>
-    <None Include="Shader\comg.vertexshader">
-      <Filter>Source</Filter>
     </None>
     <None Include="Shader\MultiTexture.fragmentshader">
       <Filter>Source</Filter>
