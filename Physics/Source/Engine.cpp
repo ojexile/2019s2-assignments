@@ -5,8 +5,9 @@
 #include "Preferences.h"
 #include "Resources.h"
 #include "Utility.h"
+#include "DataContainer.h"
+// Start Scene
 #include "DefaultScene.h"
-
 Renderer* Engine::m_Renderer;
 
 Engine::Engine()
@@ -22,6 +23,7 @@ Engine::~Engine()
 
 void Engine::Init()
 {
+	DataContainer::GetInstance()->Init();
 	AudioManager* audio = AudioManager::GetInstance();
 	audio->Play3D("pop.wav", {});
 	m_Renderer->Init();
