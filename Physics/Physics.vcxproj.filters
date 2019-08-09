@@ -110,9 +110,6 @@
     <ClCompile Include="Source\Resources.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\RojakScene2.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scene.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -254,6 +251,9 @@
     <ClCompile Include="Source\BlackholeScript.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\DefaultScene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\LightManager.h" />
@@ -380,9 +380,6 @@
     <ClInclude Include="Source\Resources.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\RojakScene2.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Scene.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -437,6 +434,9 @@
     <ClInclude Include="Source\BlackholeScript.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Source\DefaultScene.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\comg.fragmentshader">
@@ -465,9 +465,6 @@
     </None>
     <None Include="Shader\water.vertexshader">
       <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\MultiTexture.fragmentshader">
-      <Filter>Source</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

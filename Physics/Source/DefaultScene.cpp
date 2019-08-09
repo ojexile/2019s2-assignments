@@ -1,17 +1,17 @@
-#include "RojakScene2.h"
+#include "DefaultScene.h"
 #include "AudioManager.h"
 
 #include "PlayerScript.h"
 #include "Utility.h"
 
-RojakScene2::RojakScene2()
+DefaultScene::DefaultScene()
 {
 }
 
-RojakScene2::~RojakScene2()
+DefaultScene::~DefaultScene()
 {
 }
-void RojakScene2::Init()
+void DefaultScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObject* go = nullptr;

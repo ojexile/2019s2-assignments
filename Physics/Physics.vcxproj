@@ -163,6 +163,7 @@
     <ClCompile Include="Source\Constrain.cpp" />
     <ClCompile Include="Source\CrouchingState.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
+    <ClCompile Include="Source\DefaultScene.cpp" />
     <ClCompile Include="Source\DepthFBO.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\FPSScript.cpp" />
@@ -193,7 +194,6 @@
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\Rigidbody.cpp" />
-    <ClCompile Include="Source\RojakScene2.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\ScriptComponent.cpp" />
@@ -220,6 +220,7 @@
     <ClInclude Include="Source\ComponentMacros.h" />
     <ClInclude Include="Source\Constrain.h" />
     <ClInclude Include="Source\DataContainer.h" />
+    <ClInclude Include="Source\DefaultScene.h" />
     <ClInclude Include="Source\DepthFBO.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\FPSScript.h" />
@@ -252,7 +253,6 @@
     <ClInclude Include="Source\RenderingManagerBase.h" />
     <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\Rigidbody.h" />
-    <ClInclude Include="Source\RojakScene2.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\ScriptComponent.h" />
@@ -265,9 +265,6 @@
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Preferences.h" />
     <ClInclude Include="Source\WorldValues.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Shader\MultiTexture.fragmentshader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

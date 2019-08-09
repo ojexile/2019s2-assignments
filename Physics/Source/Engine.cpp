@@ -5,7 +5,7 @@
 #include "Preferences.h"
 #include "Resources.h"
 #include "Utility.h"
-#include "RojakScene2.h"
+#include "DefaultScene.h"
 
 Renderer* Engine::m_Renderer;
 
@@ -27,7 +27,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new RojakScene2());
+	SceneManager->ChangeScene(new DefaultScene());
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
@@ -96,10 +96,6 @@ void Engine::Update(double dt)
 	m_Renderer->Render(CurrentScene);
 	// Log================================================================================
 	m_fLogUpdateTimer += (float)dt;
-	//CHENG_LOG("CHENG");
-	//RYAN_LOG("RYAN");
-	//KZ_LOG("KZ");
-	//LZ_LOG("LZ");
 	float fLogUpdateRate = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
 	if (m_fLogUpdateTimer >= fLogUpdateRate && fLogUpdateRate > 0)
 	{

@@ -7,12 +7,12 @@
 #include "CameraComponent.h"
 #include "DataContainer.h"
 
-class RojakScene2 :
+class DefaultScene :
 	public Scene
 {
 public:
-	RojakScene2();
-	virtual ~RojakScene2();
+	DefaultScene();
+	virtual ~DefaultScene();
 
 	virtual void Init() override;
 };
