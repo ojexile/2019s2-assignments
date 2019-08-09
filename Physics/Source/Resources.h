@@ -25,6 +25,7 @@ namespace Resources
 		extern const std::string AudioVolume;
 		extern const std::string LogUpdateRate;
 		extern const std::string LogUser;
+		extern const std::string Quality;
 	}
 	namespace Defaults
 	{

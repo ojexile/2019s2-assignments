@@ -24,6 +24,7 @@ void Preferences::InitDefault()
 	m_map_Data[Resources::PreferencesTerm::FontSize] = "12,22";
 	m_map_Data[Resources::PreferencesTerm::AudioVolume] = "0.1";
 	m_map_Data[Resources::PreferencesTerm::LogUpdateRate] = "10";
+	m_map_Data[Resources::PreferencesTerm::Quality] = "LOW";
 	m_map_Data[Resources::PreferencesTerm::LogUser] = "ALL";
 
 	GetData();
@@ -55,6 +56,8 @@ void Preferences::GetData()
 		std::string sTerm = sLine.substr(0, sLine.find("=", 0));
 		std::string sVal = sLine.substr(sLine.find("=", 0) + 1);
 
+		if (m_map_Data.count(sTerm) <= 0)
+			DEFAULT_LOG("Unknown preference term: " + sTerm);
 		m_map_Data[sTerm] = sVal;
 	}
 }
