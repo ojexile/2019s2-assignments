@@ -1,7 +1,7 @@
 #include "ProneState.h"
 #include "Application.h"
 #include "StandingState.h"
-#include "ChengPlayerScript.h"
+#include "PlayerScript.h"
 #include "KeyboardManager.h"
 #define PRONT_HEIGHT 3.f
 ProneState::ProneState()

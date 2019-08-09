@@ -1,8 +1,8 @@
 #include "StandingState.h"
-#include "Application.h"
 #include "CrouchingState.h"
-#include "ChengPlayerScript.h"
+#include "PlayerScript.h"
 #include "KeyboardManager.h"
+
 StandingState::StandingState()
 {
 	m_fBaseAccel = 300;

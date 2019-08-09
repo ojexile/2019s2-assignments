@@ -97,7 +97,7 @@ DataContainer::DataContainer()
 	go = new GameObject;
 	m_map_GO["Tree"] = go;
 	go->AddComponent(new RenderComponent(this->GetMesh("Tree")));
-	go->AddComponent(new ChengRigidbody(ChengRigidbody::PILLAR, false));
+	go->AddComponent(new Rigidbody(Rigidbody::PILLAR, false));
 	go->TRANS->SetScale(15, 100, 15);
 	/// misc================================================================================
 	go = new GameObject;

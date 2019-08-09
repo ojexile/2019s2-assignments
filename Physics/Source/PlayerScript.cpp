@@ -1,4 +1,4 @@
-#include "ChengPlayerScript.h"
+#include "PlayerScript.h"
 #include "AudioManager.h"
 #include "SceneManager.h"
 #include "ChengRigidbody.h"
@@ -110,7 +110,7 @@ void PlayerScript::UpdateMovement(double dt)
 		vPlayerFront.Normalize();
 
 		Vector3 vRight = vCameraFront.Cross(vCameraUp);
-		ChengRigidbody* rb = GetComponent<ChengRigidbody>();
+		Rigidbody* rb = GetComponent<Rigidbody>();
 		// Movement
 		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
 		{

@@ -3,31 +3,31 @@
 #include "AudioManager.h"
 #include "ScriptComponent.h"
 #include "WorldValues.h"
-ChengCollisionManager::ChengCollisionManager()
+CollisionManager::CollisionManager()
 {
 }
 
-ChengCollisionManager::~ChengCollisionManager()
+CollisionManager::~CollisionManager()
 {
 }
-ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* go1, GameObject* go2)
+Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameObject* go2)
 {
 	// go1 is always ball
-	switch (go2->GetComponent<ChengRigidbody>()->GetType())
+	switch (go2->GetComponent<Rigidbody>()->GetType())
 	{
-	case ChengRigidbody::BALL:
+	case Rigidbody::BALL:
 	{
 		Vector3 dis = (go2->GetComponent<TransformComponent>()->GetPosition() - go1->GetComponent<TransformComponent>()->GetPosition());
 		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x + go2->GetComponent<TransformComponent>()->GetScale().x;
-		Vector3 u = go1->GetComponent<ChengRigidbody>()->GetVel() - go2->GetComponent<ChengRigidbody>()->GetVel();
+		Vector3 u = go1->GetComponent<Rigidbody>()->GetVel() - go2->GetComponent<Rigidbody>()->GetVel();
 		if (dis.Length() < combRadius && u.Dot(dis) > 0.0f)
 		{
 			//CHENG_LOG("ball-ball");
-			return ChengRigidbody::BALL;
+			return Rigidbody::BALL;
 		}
 	}
 	break;
-	case ChengRigidbody::PILLAR:
+	case Rigidbody::PILLAR:
 	{
 		Vector3 pos1 = go1->GetComponent<TransformComponent>()->GetPosition();
 		Vector3 pos2 = go2->GetComponent<TransformComponent>()->GetPosition();
@@ -36,7 +36,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 		tempPos2.y = pos1.y;
 		Vector3 dis = (tempPos2 - pos1);
 		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x + go1->GetComponent<TransformComponent>()->GetScale().x;
-		Vector3 u = go1->GetComponent<ChengRigidbody>()->GetVel() - go2->GetComponent<ChengRigidbody>()->GetVel();
+		Vector3 u = go1->GetComponent<Rigidbody>()->GetVel() - go2->GetComponent<Rigidbody>()->GetVel();
 		if (dis.Length() < combRadius && u.Dot(dis) > 0.0f)
 		{
 			if (pos1.y < pos2.y + scale2.y)
@@ -44,17 +44,17 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				if (pos1.y >= pos2.y)
 				{
 					//CHENG_LOG("ball-pillar");
-					return ChengRigidbody::PILLAR;
+					return Rigidbody::PILLAR;
 				}
 			}
 		}
 	}
 	break;
-	case ChengRigidbody::BOX:
+	case Rigidbody::BOX:
 	{
 		//--------------------------------------------------------------------------------
-		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
-		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
+		Rigidbody* rigid1 = go1->GetComponent<Rigidbody>();
+		Rigidbody* rigid2 = go2->GetComponent<Rigidbody>();
 
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
@@ -90,18 +90,18 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				&& Math::FAbs(w0minusb1.Dot(NP.Cross(N))) < trans1->GetScale().x + height * 0.5f)
 			{
 				//CHENG_LOG("ball - cube");
-				return ChengRigidbody::SQUARE;
+				return Rigidbody::SQUARE;
 			}
 
 			//================================================================================
 		}
 	}
 	// DO NOT BREAK, FALL THROUGH TO ALLOW PERPEN WALL COLL
-	case ChengRigidbody::SQUARE:
+	case Rigidbody::SQUARE:
 	{
 		//--------------------------------------------------------------------------------
-		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
-		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
+		Rigidbody* rigid1 = go1->GetComponent<Rigidbody>();
+		Rigidbody* rigid2 = go2->GetComponent<Rigidbody>();
 
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
@@ -142,18 +142,18 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				float depth = (wallScale.x / 2 + radius) - projDepth;
 				trans1->Translate(depth * -N);
 				//trans1->Translate({ 0,0,-0.2f });
-				return ChengRigidbody::SQUARE;
+				return Rigidbody::SQUARE;
 			}
 		}
 
 		//================================================================================
 	}
 	// DO NOT BREAK, FALL THROUGH TO ALLOW PERPEN WALL COLL
-	case ChengRigidbody::WALL: // check coll
+	case Rigidbody::WALL: // check coll
 	{
 		//--------------------------------------------------------------------------------
-		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
-		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
+		Rigidbody* rigid1 = go1->GetComponent<Rigidbody>();
+		Rigidbody* rigid2 = go2->GetComponent<Rigidbody>();
 
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
@@ -193,16 +193,16 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				float projDepth = walltoball.Dot(-N) / walltoball.Length()*walltoball.Length();
 				float depth = (wallScale.x / 2 + radius) - projDepth;
 				trans1->Translate(depth * -N);
-				return ChengRigidbody::WALL;
+				return Rigidbody::WALL;
 			}
 		}
 	}
 	break;
-	case ChengRigidbody::PADDLE:
+	case Rigidbody::PADDLE:
 	{
 		//--------------------------------------------------------------------------------
-		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
-		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
+		Rigidbody* rigid1 = go1->GetComponent<Rigidbody>();
+		Rigidbody* rigid2 = go2->GetComponent<Rigidbody>();
 
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		Vector3 pos1 = trans1->GetPosition();
@@ -253,7 +253,7 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 				float projDepth = walltoball.Dot(-N) / walltoball.Length()*walltoball.Length();
 				float depth = (wallScale.x / 2 + radius) - projDepth;
 				trans1->Translate(depth * -N);
-				return ChengRigidbody::PADDLE;
+				return Rigidbody::PADDLE;
 			}
 		}
 	}
@@ -261,73 +261,73 @@ ChengRigidbody::ePhysicsTypes ChengCollisionManager::CheckCollision(GameObject* 
 	default:
 		break;
 	}
-	return ChengRigidbody::NONE;
+	return Rigidbody::NONE;
 }
-void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, ChengRigidbody::ePhysicsTypes e)
+void CollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, Rigidbody::ePhysicsTypes e)
 {
 	// go1 is always ball
 	switch (e)
 	{
-	case ChengRigidbody::BALL:
+	case Rigidbody::BALL:
 	{
 		//float p1 = go1->GetComponent<ChengRigidbody>()->GetMass() * go1->GetComponent<ChengRigidbody>()->GetVel().x;
 		//float p2 = go2->GetComponent<ChengRigidbody>()->GetMass() * go2->GetComponent<ChengRigidbody>()->GetVel().x;
 		// Response--------------------------------------------------------------------------------
-		float m1 = go1->GetComponent<ChengRigidbody>()->GetMass();
-		float m2 = go2->GetComponent<ChengRigidbody>()->GetMass();
-		Vector3 u1 = go1->GetComponent<ChengRigidbody>()->GetVel();
-		Vector3 u2 = go2->GetComponent<ChengRigidbody>()->GetVel();
+		float m1 = go1->GetComponent<Rigidbody>()->GetMass();
+		float m2 = go2->GetComponent<Rigidbody>()->GetMass();
+		Vector3 u1 = go1->GetComponent<Rigidbody>()->GetVel();
+		Vector3 u2 = go2->GetComponent<Rigidbody>()->GetVel();
 		Vector3 pos1 = go1->GetComponent<TransformComponent>()->GetPosition();
 		Vector3 pos2 = go2->GetComponent<TransformComponent>()->GetPosition();
 
 		Vector3 newVel1 = u1 - 2 * m2 / (m1 + m2) * (((u1 - u2).Dot(pos1 - pos2)) / (pos1 - pos2).LengthSquared()) * (pos1 - pos2);
 		Vector3 newVel2 = u2 - 2 * m1 / (m1 + m2) * (((u2 - u1).Dot(pos2 - pos1)) / (pos2 - pos1).LengthSquared()) * (pos2 - pos1);
 
-		go1->GetComponent<ChengRigidbody>()->SetVel(newVel1);
-		go2->GetComponent<ChengRigidbody>()->SetVel(newVel2);
+		go1->GetComponent<Rigidbody>()->SetVel(newVel1);
+		go2->GetComponent<Rigidbody>()->SetVel(newVel2);
 	}
 	break;
-	case ChengRigidbody::PILLAR:
+	case Rigidbody::PILLAR:
 	{
 		//float p1 = go1->GetComponent<ChengRigidbody>()->GetMass() * go1->GetComponent<ChengRigidbody>()->GetVel().x;
 		//float p2 = go2->GetComponent<ChengRigidbody>()->GetMass() * go2->GetComponent<ChengRigidbody>()->GetVel().x;
 		// Response--------------------------------------------------------------------------------
 		// change to wall coll base on pos diff as normal
-		float m1 = go1->GetComponent<ChengRigidbody>()->GetMass();
-		float m2 = go1->GetComponent<ChengRigidbody>()->GetMass();
-		Vector3 u1 = go1->GetComponent<ChengRigidbody>()->GetVel();
-		Vector3 u2 = -go1->GetComponent<ChengRigidbody>()->GetVel();
+		float m1 = go1->GetComponent<Rigidbody>()->GetMass();
+		float m2 = go1->GetComponent<Rigidbody>()->GetMass();
+		Vector3 u1 = go1->GetComponent<Rigidbody>()->GetVel();
+		Vector3 u2 = -go1->GetComponent<Rigidbody>()->GetVel();
 		Vector3 pos1 = go1->GetComponent<TransformComponent>()->GetPosition();
 		Vector3 pos2 = go2->GetComponent<TransformComponent>()->GetPosition();
 		pos2.y = pos1.y;
 
 		Vector3 newVel1 = u1 - 2 * m2 / (m1 + m2) * (((u1 - u2).Dot(pos1 - pos2)) / (pos1 - pos2).LengthSquared()) * (pos1 - pos2);
 		//Vector3 newVel2 = u2 - 2 * m1 / (m1 + m2) * (((u2 - u1).Dot(pos2 - pos1)) / (pos2 - pos1).LengthSquared()) * (pos2 - pos1);
-		go1->GetComponent<ChengRigidbody>()->SetVel(newVel1);
+		go1->GetComponent<Rigidbody>()->SetVel(newVel1);
 		//go2->GetComponent<ChengRigidbody>()->SetVel(newVel2);
 	}
 	break;
-	case ChengRigidbody::BOX:
+	case Rigidbody::BOX:
 	{
 		// DEPRECIATED 3D COLLDIER
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
-		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
+		Rigidbody* rigid1 = go1->GetComponent<Rigidbody>();
 		Mtx44 rot;
 		rot.SetToRotation(trans2->GetDegrees() + 90, 0, 1, 0);
 
 		Vector3 N = { 0,1,0 };
 		Vector3 v = rigid1->GetVel() - (2 * rigid1->GetVel().Dot(N)) *N;
 		v *= rigid1->GetMat().GetBounce();
-		go1->GetComponent<ChengRigidbody>()->SetVel(v);
+		go1->GetComponent<Rigidbody>()->SetVel(v);
 	}
 	break;
-	case ChengRigidbody::SQUARE:
+	case Rigidbody::SQUARE:
 	{
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
-		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
-		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
+		Rigidbody* rigid1 = go1->GetComponent<Rigidbody>();
+		Rigidbody* rigid2 = go2->GetComponent<Rigidbody>();
 		Mtx44 rot;
 		rot.SetToRotation(trans2->GetDegrees() + 90, 0, 1, 0);
 
@@ -341,7 +341,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 				v *= 1 / (rigid1->GetMat().GetBounce() * rigid2->GetMat().GetBounce());
 			//v *= rigid1->GetMat().GetBounce() * rigid2->GetMat().GetBounce();
 		}
-		go1->GetComponent<ChengRigidbody>()->SetVel(v);
+		go1->GetComponent<Rigidbody>()->SetVel(v);
 
 		// Angular
 		if ((trans2->GetPosition() - trans1->GetPosition()).Dot(N) < 0)
@@ -356,12 +356,12 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		rigid1->SetTorque(torque * 10000000);
 	}
 	break;
-	case ChengRigidbody::WALL:
+	case Rigidbody::WALL:
 	{
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
-		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
-		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
+		Rigidbody* rigid1 = go1->GetComponent<Rigidbody>();
+		Rigidbody* rigid2 = go2->GetComponent<Rigidbody>();
 		Vector3 N = { 1,0,0 };
 		if (trans2->GetDegrees() != 0)
 		{
@@ -382,7 +382,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 			// v *= rigid1->GetMat().GetBounce() * rigid2->GetMat().GetBounce();
 		}
 
-		go1->GetComponent<ChengRigidbody>()->SetVel(v);
+		go1->GetComponent<Rigidbody>()->SetVel(v);
 
 		// Angular
 		if ((trans2->GetPosition() - trans1->GetPosition()).Dot(N) < 0)
@@ -397,14 +397,14 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		rigid1->SetTorque(torque * 10000000);
 	}
 	break;
-	case ChengRigidbody::PADDLE:
+	case Rigidbody::PADDLE:
 	{
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 		TransformComponent* trans2 = go2->GetComponent<TransformComponent>();
 		//trans1->SetPosition()
 		float fDist = (trans1->GetPosition() - trans2->GetPosition()).Length();
-		ChengRigidbody* rigid1 = go1->GetComponent<ChengRigidbody>();
-		ChengRigidbody* rigid2 = go2->GetComponent<ChengRigidbody>();
+		Rigidbody* rigid1 = go1->GetComponent<Rigidbody>();
+		Rigidbody* rigid2 = go2->GetComponent<Rigidbody>();
 		Vector3 N = { 1,0,0 };
 		if (trans2->GetDegrees() != 0)
 		{
@@ -424,7 +424,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		Vector3 vel = rigid1->GetVel();
 		Vector3 relVel = rigid1->GetVel() + N * fSpeed;
 		Vector3 v = relVel - (2 * relVel.Dot(N)) * N;
-		go1->GetComponent<ChengRigidbody>()->SetVel(v);
+		go1->GetComponent<Rigidbody>()->SetVel(v);
 
 		// Angular
 		if ((trans2->GetPosition() - trans1->GetPosition()).Dot(N) < 0)
@@ -443,7 +443,7 @@ void ChengCollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, 
 		break;
 	}
 }
-void ChengCollisionManager::Update(GameObjectManager* GOM)
+void CollisionManager::Update(GameObjectManager* GOM)
 {
 	std::map<std::string, LayerData*>::iterator it;
 	// TODO multilayer collision?
@@ -458,41 +458,41 @@ void ChengCollisionManager::Update(GameObjectManager* GOM)
 			GameObject* go1 = GOList->at(i);
 			if (!go1->IsActive())
 				continue;
-			if (go1->GetComponent<ChengRigidbody>(true) && go1->GetComponent<ChengRigidbody>(true)->IsActive())
+			if (go1->GetComponent<Rigidbody>(true) && go1->GetComponent<Rigidbody>(true)->IsActive())
 				CheckCollision(go1, GOList, i);
 			for (unsigned j = 0; j < go1->GetChildList()->size(); ++j)
 			{
 				GameObject* goChild = go1->GetChildList()->at(j);
 				if (!goChild->IsActive())
 					continue;
-				if (goChild->GetComponent<ChengRigidbody>(true))
+				if (goChild->GetComponent<Rigidbody>(true))
 					CheckCollision(goChild, GOList, i);
 			}
 		}
 	}
 }
-void ChengCollisionManager::CheckCollision(GameObject* go1, std::vector<GameObject*>* GOList, int i)
+void CollisionManager::CheckCollision(GameObject* go1, std::vector<GameObject*>* GOList, int i)
 {
 	for (unsigned j = i + 1; j < GOList->size(); ++j)
 	{
 		GameObject* go2 = GOList->at(j);
 		if (!go2->IsActive())
 			continue;
-		if (!go2->GetComponent<ChengRigidbody>(true))
+		if (!go2->GetComponent<Rigidbody>(true))
 			continue;
-		if (!go2->GetComponent<ChengRigidbody>(true)->IsActive())
+		if (!go2->GetComponent<Rigidbody>(true)->IsActive())
 			continue;
 		GameObject* goA = go1;
 		GameObject* goB = go2;
 		// force go1 to be a ball
-		if (!go1->GetComponent<ChengRigidbody>())
+		if (!go1->GetComponent<Rigidbody>())
 			continue;
-		if (!go2->GetComponent<ChengRigidbody>())
+		if (!go2->GetComponent<Rigidbody>())
 			continue;
-		if (go1->GetComponent<ChengRigidbody>()->GetType() != ChengRigidbody::BALL)
+		if (go1->GetComponent<Rigidbody>()->GetType() != Rigidbody::BALL)
 		{
 			// swap ball to front
-			if (go2->GetComponent<ChengRigidbody>()->GetType() == ChengRigidbody::BALL)
+			if (go2->GetComponent<Rigidbody>()->GetType() == Rigidbody::BALL)
 			{
 				goA = go2;
 				goB = go1;
@@ -503,8 +503,8 @@ void ChengCollisionManager::CheckCollision(GameObject* go1, std::vector<GameObje
 				continue;
 			}
 		}
-		ChengRigidbody::ePhysicsTypes eCollideType = CheckCollision(goA, goB);
-		if (eCollideType != ChengRigidbody::NONE)
+		Rigidbody::ePhysicsTypes eCollideType = CheckCollision(goA, goB);
+		if (eCollideType != Rigidbody::NONE)
 		{
 			CollisionResponse(goA, goB, eCollideType);
 			ScriptComponent * Script1 = goA->GetComponent<ScriptComponent>(true);

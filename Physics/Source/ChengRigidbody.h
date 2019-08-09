@@ -1,7 +1,7 @@
 #pragma once
 #include "ComponentBase.h"
 #include "PhysicsMaterial.h"
-class ChengRigidbody :
+class Rigidbody :
 	public ComponentBase
 {
 public:
@@ -35,11 +35,11 @@ private:
 	ePhysicsTypes m_eType;
 	PhysicsMaterial m_PhyMat;
 public:
-	ChengRigidbody(ePhysicsTypes e, bool Grav = true);
-	virtual ~ChengRigidbody();
+	Rigidbody(ePhysicsTypes e, bool Grav = true);
+	virtual ~Rigidbody();
 	virtual ComponentBase* Clone()
 	{
-		return new ChengRigidbody(*this);
+		return new Rigidbody(*this);
 	}
 	virtual void Update(double dt) override;
 

@@ -5,6 +5,6 @@
 #define RENDER GetComponent<RenderComponent>()
 #define CAMERA GetComponent<CameraComponent>()
 #define RIGID GetComponent<ChengRigidBody>()
-#define RIGID GetComponent<Constrain>()
+#define CONSTRAIN GetComponent<Constrain>()
 
 typedef std::vector<unsigned char> _heightmap;

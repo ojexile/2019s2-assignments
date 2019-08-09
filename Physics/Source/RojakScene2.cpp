@@ -1,8 +1,7 @@
 #include "RojakScene2.h"
 #include "AudioManager.h"
 
-#include "ChengPlayerScript.h"
-
+#include "PlayerScript.h"
 #include "Utility.h"
 
 RojakScene2::RojakScene2()
@@ -37,7 +36,7 @@ void RojakScene2::Init()
 	GameObject* player = go;
 	go->AddChild(m_CameraGO);
 	go->AddComponent(new PlayerScript());
-	go->AddComponent(new ChengRigidbody(ChengRigidbody::BALL));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	/// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------

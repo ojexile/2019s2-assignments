@@ -29,6 +29,6 @@ private:
 	void Update(double dt);
 	void Exit();
 	static Renderer* m_Renderer;
-	ChengCollisionManager m_CollisionManager;
+	CollisionManager m_CollisionManager;
 public:
 };

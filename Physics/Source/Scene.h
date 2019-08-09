@@ -1,12 +1,15 @@
 #pragma once
 #include "GameObjectManager.h"
 
-#include "ComponentMacros.h"
 // Components================================================================================
+#include "ComponentMacros.h"
 // Camera--------------------------------------------------------------------------------
 #include "Camera.h"
 #include "CameraComponent.h"
 #include "LightManager.h"
+#include "TransformComponent.h"
+#include "ChengRigidbody.h"
+#include "Constrain.h"
 
 class Scene
 {

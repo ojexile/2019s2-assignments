@@ -1,7 +1,7 @@
 #include "ChengRigidbody.h"
 #include "TransformComponent.h"
 #include "WorldValues.h"
-ChengRigidbody::ChengRigidbody(ePhysicsTypes e, bool Grav)
+Rigidbody::Rigidbody(ePhysicsTypes e, bool Grav)
 	: m_bLockXAxis{ false }
 	, m_bLockYAxis{ false }
 	, m_bLockZAxis{ false }
@@ -14,10 +14,10 @@ ChengRigidbody::ChengRigidbody(ePhysicsTypes e, bool Grav)
 	this->SetActive(true);
 }
 
-ChengRigidbody::~ChengRigidbody()
+Rigidbody::~Rigidbody()
 {
 }
-void ChengRigidbody::Update(double dt)
+void Rigidbody::Update(double dt)
 {
 	//dt *= WorldValues::TimeScale;
 	Vector3 vAccel = m_vForce * (1 / m_fMass);
@@ -55,89 +55,89 @@ void ChengRigidbody::Update(double dt)
 	//m_vAVel.SetZero();
 	m_vTorque.SetZero();
 }
-void ChengRigidbody::SetTorque(Vector3 v)
+void Rigidbody::SetTorque(Vector3 v)
 {
 	if (WorldValues::TimeScale > 0)
 		this->m_vTorque = v;
 	else
 		this->m_vTorque = -v;
 }
-void ChengRigidbody::SetVel(Vector3 v)
+void Rigidbody::SetVel(Vector3 v)
 {
 	if (WorldValues::TimeScale > 0)
 		this->m_vVel = v;
 	else
 		this->m_vVel = -v;
 }
-void ChengRigidbody::SetAVel(Vector3 v)
+void Rigidbody::SetAVel(Vector3 v)
 {
 	if (WorldValues::TimeScale > 0)
 		this->m_vAVel = v;
 	else
 		this->m_vAVel = -v;
 }
-void ChengRigidbody::IncrementForce(Vector3 v)
+void Rigidbody::IncrementForce(Vector3 v)
 {
 	if (WorldValues::TimeScale > 0)
 		m_vForce += v;
 	else
 		m_vForce += -v;
 }
-Vector3 ChengRigidbody::GetVel()
+Vector3 Rigidbody::GetVel()
 {
 	if (WorldValues::TimeScale > 0)
 		return m_vVel;
 	else
 		return -m_vVel;
 }
-Vector3 ChengRigidbody::GetAVel()
+Vector3 Rigidbody::GetAVel()
 {
 	if (WorldValues::TimeScale > 0)
 		return m_vAVel;
 	else
 		return -m_vAVel;
 }
-float ChengRigidbody::GetMass()
+float Rigidbody::GetMass()
 {
 	return m_fMass;
 }
-void ChengRigidbody::SetMass(float f)
+void Rigidbody::SetMass(float f)
 {
 	m_fMass = f;
 }
-ChengRigidbody::ePhysicsTypes ChengRigidbody::GetType()
+Rigidbody::ePhysicsTypes Rigidbody::GetType()
 {
 	return m_eType;
 }
 // Grav
-void ChengRigidbody::SetGravityX(float x)
+void Rigidbody::SetGravityX(float x)
 {
 	if (WorldValues::TimeScale > 0)
 		this->m_vGravity.x = x;
 	else
 		this->m_vGravity.x = -x;
 }
-void ChengRigidbody::SetGravity(Vector3 v)
+void Rigidbody::SetGravity(Vector3 v)
 {
 	this->m_vGravity = v;
 }
-void ChengRigidbody::LockXAxis(bool b)
+void Rigidbody::LockXAxis(bool b)
 {
 	m_bLockXAxis = b;
 }
-void ChengRigidbody::LockYAxis(bool b)
+void Rigidbody::LockYAxis(bool b)
 {
 	m_bLockYAxis = b;
 }
-void ChengRigidbody::LockZAxis(bool b)
+void Rigidbody::LockZAxis(bool b)
 {
 	m_bLockZAxis = b;
 }
-void ChengRigidbody::SetMat(float f, float b)
+void Rigidbody::SetMat(float f, float b)
 {
 	m_PhyMat.SetMat(f, b);
 }
-PhysicsMaterial ChengRigidbody::GetMat()
+PhysicsMaterial Rigidbody::GetMat()
 {
 	return m_PhyMat;
 }

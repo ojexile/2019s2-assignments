@@ -1,38 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\AnimatedMesh.cpp" />
-    <ClCompile Include="Source\Application.cpp" />
-    <ClCompile Include="Source\AudioManager.cpp" />
-    <ClCompile Include="Source\Camera.cpp" />
-    <ClCompile Include="Source\CameraComponent.cpp" />
-    <ClCompile Include="Source\ComponentBase.cpp" />
-    <ClCompile Include="Source\DataContainer.cpp" />
-    <ClCompile Include="Source\DepthFBO.cpp" />
-    <ClCompile Include="Source\Engine.cpp" />
-    <ClCompile Include="Source\GameObject.cpp" />
-    <ClCompile Include="Source\GameObjectManager.cpp" />
-    <ClCompile Include="Source\KeyboardManager.cpp" />
-    <ClCompile Include="Source\LayerData.cpp" />
-    <ClCompile Include="Source\LoadHmap.cpp" />
-    <ClCompile Include="Source\LoadOBJ.cpp" />
-    <ClCompile Include="Source\LoadTGA.cpp" />
-    <ClCompile Include="Source\Locator.cpp" />
-    <ClCompile Include="Source\LogData.cpp" />
-    <ClCompile Include="Source\Logger.cpp" />
-    <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\Mesh.cpp" />
-    <ClCompile Include="Source\MeshBuilder.cpp" />
-    <ClCompile Include="Source\RenderComponent.cpp" />
-    <ClCompile Include="Source\RenderingManager.cpp" />
-    <ClCompile Include="Source\RenderingManagerBase.cpp" />
-    <ClCompile Include="Source\Scene.cpp" />
-    <ClCompile Include="Source\SceneManager.cpp" />
-    <ClCompile Include="Source\ScriptComponent.cpp" />
-    <ClCompile Include="Source\shader.cpp" />
-    <ClCompile Include="Source\TransformComponent.cpp" />
-    <ClCompile Include="Source\Utility.cpp" />
-    <ClCompile Include="Source\LightManager.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
     <ClCompile Include="Source\AnimatedMesh.cpp">
       <Filter>Source</Filter>
@@ -53,9 +21,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\ChengCollisionManager.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ChengPlayerScript.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\ChengRigidbody.cpp">
@@ -184,11 +149,113 @@
     <ClCompile Include="Source\WorldValues.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FPSScript.cpp" />
-    <ClCompile Include="Source\ProneState.cpp" />
+    <ClCompile Include="Source\AnimatedMesh.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AudioManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CameraComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ComponentBase.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DataContainer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DepthFBO.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FPSScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameObject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameObjectManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\KeyboardManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LayerData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LightManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadHmap.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadOBJ.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoadTGA.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Locator.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LogData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Logger.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MeshBuilder.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayerScript.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ProneState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderingManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderingManagerBase.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ScriptComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\shader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TransformComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utility.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\LightManager.h" />
     <ClInclude Include="Source\LightManager.h" />
     <ClInclude Include="Source\AnimatedMesh.h">
       <Filter>Source</Filter>
@@ -212,9 +279,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\ChengCollisionManager.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ChengPlayerScript.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\ChengRigidbody.h">
@@ -358,19 +422,20 @@
     <ClInclude Include="Source\WorldValues.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FPSScript.h" />
-    <ClInclude Include="Source\ProneState.h" />
+    <ClInclude Include="Source\FPSScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LightManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerScript.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ProneState.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\comg.fragmentshader" />
-    <None Include="Shader\comg.vertexshader" />
-    <None Include="Shader\Fog.fragmentshader" />
-    <None Include="Shader\Fog.vertexshader" />
-    <None Include="Shader\HeatWave.fragmentshader" />
-    <None Include="Shader\HeatWave.vertexshader" />
-    <None Include="Shader\MultiTexture.fragmentshader" />
-    <None Include="Shader\water.fragmentshader" />
-    <None Include="Shader\water.vertexshader" />
     <None Include="Shader\comg.fragmentshader">
       <Filter>Shaders</Filter>
     </None>
@@ -399,18 +464,6 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shader\Fog.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\GPass.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\shadow\GPass.fragmentshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Content\shaders\GPass.vertexshader">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shader\shadow\GPass.vertexshader">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shader\HeatWave.fragmentshader">
@@ -460,6 +513,39 @@
     </None>
     <None Include="Shader\water.vertexshader">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\water.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\water.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\GPass.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Content\shaders\GPass.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\HeatWave.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\HeatWave.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Fog.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\Fog.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shader\comg.fragmentshader">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="Shader\comg.vertexshader">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="Shader\MultiTexture.fragmentshader">
+      <Filter>Source</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

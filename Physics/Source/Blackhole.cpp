@@ -22,11 +22,11 @@ void Blackhole::Update(double dt)
 	{
 		GameObject* go = GOList->at(i);
 		// only affects rigid bodies
-		ChengRigidbody* rigid = go->GetComponent<ChengRigidbody>();
+		Rigidbody* rigid = go->GetComponent<Rigidbody>();
 		if (!rigid)
 			continue;
 		// only affects balls
-		if (rigid->GetType() != ChengRigidbody::BALL)
+		if (rigid->GetType() != Rigidbody::BALL)
 			continue;
 		Vector3 pos2 = go->GetComponent<TransformComponent>()->GetPosition();
 

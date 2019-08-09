@@ -1,7 +1,7 @@
 #include "CrouchingState.h"
 #include "Application.h"
 #include "StandingState.h"
-#include "ChengPlayerScript.h"
+#include "PlayerScript.h"
 #include "KeyboardManager.h"
 #include "ProneState.h"
 #define CROUCHING_HEIGHT 7.3f
