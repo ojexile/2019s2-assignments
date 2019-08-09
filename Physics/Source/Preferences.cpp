@@ -20,10 +20,10 @@ void Preferences::InitDefault()
 	m_map_Data[Resources::PreferencesTerm::WindowSize] = "1280,720";
 	m_map_Data[Resources::PreferencesTerm::ConsoleSize] = "1900,320";
 	m_map_Data[Resources::PreferencesTerm::WindowPosition] = "320,10";
-	m_map_Data[Resources::PreferencesTerm::ConsolePosition] = "20,740";
+	m_map_Data[Resources::PreferencesTerm::ConsolePosition] = "20,720";
 	m_map_Data[Resources::PreferencesTerm::FontSize] = "12,22";
 	m_map_Data[Resources::PreferencesTerm::AudioVolume] = "0.1";
-	m_map_Data[Resources::PreferencesTerm::LogUpdateRate] = "10";
+	m_map_Data[Resources::PreferencesTerm::LogUpdateRate] = "3";
 	m_map_Data[Resources::PreferencesTerm::Quality] = "LOW";
 	m_map_Data[Resources::PreferencesTerm::LogUser] = "ALL";
 

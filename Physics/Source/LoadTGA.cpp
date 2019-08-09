@@ -5,17 +5,45 @@
 #include "LoadTGA.h"
 #include "Resources.h"
 
+#include "Preferences.h"
 GLuint LoadTGA(std::string path)				// load TGA file to memory
 {
-	std::string file_path = Resources::Path::Texture + path + ".tga";
-	std::ifstream fileStream(file_path, std::ios::binary);
-	if (!fileStream.is_open()) {
-		//std::cout << "Impossible to open " << file_path << ". Are you in the right directory ?\n";
-		std::string error = "Unable to load texture at ";
-		error += file_path;
-		error += ".";
-		DEFAULT_LOG(error);
-		return 0;
+	std::string sQuality = Preferences::GetPref(Resources::PreferencesTerm::Quality);
+	std::ifstream fileStream;
+	if (sQuality == "HIGH")
+	{
+		std::string file_path = Resources::Path::Texture + sQuality + '/' + path + ".tga";
+		fileStream.open(file_path, std::ios::binary);
+		if (!fileStream.is_open())
+		{
+			//std::cout << "Impossible to open " << file_path << ". Are you in the right directory ?\n";
+			std::string error = "Unable to load texture at ";
+			error += file_path;
+			error += ".";
+			error += "for HIGH preset.";
+			DEFAULT_LOG(error);
+			return 0;
+		}
+	}
+	else if (sQuality == "LOW")
+	{
+		// Attempt to load LOW qual first,  if fail, use HIGH
+		std::string file_path = Resources::Path::Texture + sQuality + '/' + path + ".tga";
+		fileStream.open(file_path, std::ios::binary);
+		if (!fileStream.is_open())
+		{
+			std::string file_path = Resources::Path::Texture + "HIGH" + '/' + path + ".tga";
+			fileStream.open(file_path, std::ios::binary);
+			if (!fileStream.is_open())
+			{
+				//std::cout << "Impossible to open " << file_path << ". Are you in the right directory ?\n";
+				std::string error = "Unable to load texture at ";
+				error += file_path;
+				error += ".";
+				DEFAULT_LOG(error);
+				return 0;
+			}
+		}
 	}
 
 	GLubyte		header[18];									// first 6 useful header bytes
