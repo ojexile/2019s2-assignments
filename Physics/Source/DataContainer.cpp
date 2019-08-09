@@ -1,15 +1,14 @@
 #include "DataContainer.h"
 #include "ChengRigidbody.h"
 
+// Components================================================================================
+#include "Constrain.h"
+#include "MeshController.h"
+// Scripts--------------------------------------------------------------------------------
 #include "ParticleScript.h"
 #include "ParticleSpawnerScript.h"
 
-#include "HoleScript.h"
-#include "MeshController.h"
-
 #include "FPSScript.h"
-
-#include "Constrain.h"
 
 #include <time.h>
 DataContainer::DataContainer()

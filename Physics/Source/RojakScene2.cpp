@@ -2,16 +2,8 @@
 #include "AudioManager.h"
 
 #include "ChengPlayerScript.h"
-#include "MeshController.h"
-#include "Blackhole.h"
 
-#include "SunBrightnessScript.h"
-#include "Constrain.h"
 #include "Utility.h"
-
-#include "WorldValues.h"
-
-#include "ChengRigidbody.h"
 
 RojakScene2::RojakScene2()
 {

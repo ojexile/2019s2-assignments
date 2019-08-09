@@ -88,9 +88,6 @@
     <ClCompile Include="Source\HeightMapData.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\HoleScript.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\KeyboardManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -166,9 +163,6 @@
     <ClCompile Include="Source\SceneManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ScoreScript.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ScriptComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -176,9 +170,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\StandingState.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SunBrightnessScript.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Time.cpp">
@@ -257,9 +248,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\HeightMapData.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\HoleScript.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\KeyboardManager.h">
@@ -343,9 +331,6 @@
     <ClInclude Include="Source\SceneManager.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ScoreScript.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ScriptComponent.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -356,9 +341,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\StandingState.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SunBrightnessScript.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Source\Time.h">
