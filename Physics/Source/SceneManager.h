@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include "TestScene.h"
 #include "Singleton.h"
 
 class SceneManager : public Singleton<SceneManager>

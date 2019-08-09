@@ -6,6 +6,8 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+	/*if (m_CameraGO)
+		delete m_CameraGO;*/
 }
 GameObject* Scene::GetCameraGameObject()
 {
@@ -17,7 +19,7 @@ Camera* Scene::GetCamera()
 }
 GameObjectManager* Scene::GetGameObjectManager()
 {
-	return &m_GameObjectManager;
+	return &m_GOM;
 }
 LightManager* Scene::GetLightManager()
 {

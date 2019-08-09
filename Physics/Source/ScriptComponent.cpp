@@ -24,7 +24,7 @@ void ScriptComponent::DestroySelf()
 	SceneManager* sceneManager = SceneManager::GetInstance();
 	sceneManager->GetScene()->GetGameObjectManager()->DestroySelf(this);
 }
-GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer)
+GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer) const
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
 
@@ -49,7 +49,7 @@ GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, Vector3
 	DEFAULT_LOG("Instantiate failed, GORef is null.");
 	return nullptr;
 }
-GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, Vector3 vScal, std::string sLayer)
+GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, std::string sLayer) const
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
 
@@ -73,7 +73,7 @@ GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, Vector3
 	DEFAULT_LOG("Instantiate failed, GORef is null.");
 	return nullptr;
 }
-GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, std::string sLayer)
+GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, std::string sLayer) const
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
 
@@ -96,7 +96,7 @@ GameObject* ScriptComponent::Instantiate(GameObject* goRef, Vector3 pos, std::st
 	DEFAULT_LOG("Instantiate failed, GORef is null.");
 	return nullptr;
 }
-GameObject* ScriptComponent::Instantiate(GameObject* goRef, std::string sLayer)
+GameObject* ScriptComponent::Instantiate(const GameObject* goRef, std::string sLayer) const
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
 
@@ -116,6 +116,9 @@ GameObject* ScriptComponent::Instantiate(GameObject* goRef, std::string sLayer)
 	}
 	DEFAULT_LOG("Instantiate failed, GORef is null.");
 	return nullptr;
+}
+void ScriptComponent::Collide(GameObject*)
+{
 }
 Camera*  ScriptComponent::GetCamera()
 {

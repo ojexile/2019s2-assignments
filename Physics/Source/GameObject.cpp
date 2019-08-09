@@ -1,13 +1,13 @@
 #include "GameObject.h"
 
 GameObject::GameObject()
+	: m_bActive{ true }
+	, m_bStatic{ false }
 {
-	m_bActive = true;
-	m_bStatic = false;
 	AddComponent(new TransformComponent);
 }
 // Copy
-GameObject::GameObject(GameObject& go)
+GameObject::GameObject(const GameObject& go)
 {
 	this->m_bActive = go.m_bActive;
 	this->m_bStatic = go.m_bStatic;
@@ -37,8 +37,8 @@ GameObject::~GameObject()
 	{
 		delete m_vec_ChildList[i];
 	}
-	m_vec_ComponentList.clear();
-	m_vec_ChildList.clear();
+	// m_vec_ComponentList.clear();
+	// m_vec_ChildList.clear();
 }
 ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 {
@@ -60,7 +60,9 @@ void GameObject::Update(double dt)
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
 		if (!m_vec_ComponentList[i]->IsActive())
+		{
 			continue;
+		}
 		m_vec_ComponentList[i]->CheckStarted();
 		m_vec_ComponentList[i]->Update(dt);
 		if (m_vec_ComponentList.size() <= 0)
@@ -88,7 +90,7 @@ void GameObject::Update(double dt)
 		// TODO update rot
 		// Update scale
 		Vector3 scale = trans->GetScale();
-		Vector3 childScale = childTrans->GetScale();
+		Vector3 childScale = childTrans->GetRelativeScale();
 		childTrans->SetScale({ scale.x * childScale.x, scale.y * childScale.y, scale.z * childScale.z });
 		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
 		{
@@ -118,7 +120,7 @@ void GameObject::SetActive(bool b)
 {
 	m_bActive = b;
 }
-GameObject* GameObject::Clone()
+GameObject* GameObject::Clone() const
 {
 	GameObject* go = new GameObject(*this);
 	return go;

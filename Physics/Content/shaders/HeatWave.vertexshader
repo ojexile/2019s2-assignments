@@ -17,7 +17,7 @@ uniform mat4 MVP;
 uniform mat4 MV;
 uniform mat4 MV_inverse_transpose;
 uniform bool lightEnabled;
-uniform float vet;
+uniform float vert_et;
 
 
 void main(){
@@ -27,12 +27,9 @@ void main(){
 
 	// Vector position, in camera space
 	vertexPosition_cameraspace = ( MV * vec4(vertexPosition_modelspace, 1) ).xyz;
-	if(vertexPosition_cameraspace.z < -50)
+	if(vertexPosition_cameraspace.z < -50 && vertexPosition_cameraspace.z > -150)
 	{
-		//if(vertexPosition_modelspace.y > 0)
-		{
-			gl_Position.x += 0.010f*(-vertexPosition_cameraspace.z)*sin(0.1f*gl_Position.x + vet*2);
-		}
+			gl_Position.x += 0.010f*(-vertexPosition_cameraspace.z)*sin(0.1f*gl_Position.x + vert_et*2);
 	}
 	if(lightEnabled == true)
 	{		

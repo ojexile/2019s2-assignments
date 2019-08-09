@@ -2,6 +2,8 @@
 #include "DataContainer.h"
 #include "Locator.h"
 
+#define FOG_ENABLED true
+#include "Application.h"
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;
@@ -78,22 +80,9 @@ void RenderingManagerBase::BindUniforms()
 }
 void RenderingManagerBase::BindLightUniforms()
 {
-	// TODO Change to for loop
 	// Light================================================================================
 	for (int i = 0; i < MAX_LIGHTS; ++i)
 	{
-		//m_LightParameters[U_LIGHT_TYPE + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].type");
-		//m_LightParameters[U_LIGHT_POSITION + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
-		//m_LightParameters[U_LIGHT_COLOR + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].color");
-		//m_LightParameters[U_LIGHT_POWER + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].power");
-		//m_LightParameters[U_LIGHT_KC + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].kC");
-		//m_LightParameters[U_LIGHT_KL + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].kL");
-		//m_LightParameters[U_LIGHT_KQ + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].kQ");
-		//m_LightParameters[U_LIGHT_SPOTDIRECTION + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].spotDirection");
-		//m_LightParameters[U_LIGHT_COSCUTOFF + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
-		//m_LightParameters[U_LIGHT_COSINNER + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].cosInner");
-		//m_LightParameters[U_LIGHT_EXPONENT + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, "lights[0].exponent");
-
 		std::string prefix = "lights[" + std::to_string(i) + "].";
 		m_LightParameters[U_LIGHT_TYPE + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, std::string(prefix + "type").c_str());
 		m_LightParameters[U_LIGHT_POSITION + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, std::string(prefix + "position_cameraspace").c_str());
@@ -113,9 +102,9 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 	// Init fog================================================================================
 	Color fogColor{ 0.5f, 0.5f, 0.5f };
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
-	glUniform1f(m_parameters[U_FOG_START], 1);
-	glUniform1f(m_parameters[U_FOG_END], 1000);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 0.005f);
+	glUniform1f(m_parameters[U_FOG_START], 30);
+	glUniform1f(m_parameters[U_FOG_END], 100000);
+	glUniform1f(m_parameters[U_FOG_DENSITY], .005f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 
@@ -153,7 +142,7 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 void RenderingManagerBase::Init()
 {
 	// Black background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
@@ -188,16 +177,17 @@ void RenderingManagerBase::Update(double dt)
 	//Keyboard Section
 	// TODO SET DRAW MODE
 
-	//if (Application::IsKeyPressed('1'))
-	//	glEnable(GL_CULL_FACE);
-	//if (Application::IsKeyPressed('2'))
-	//	glDisable(GL_CULL_FACE);
-	//if (Application::IsKeyPressed('3'))
-	//	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//if (Application::IsKeyPressed('4'))
-	//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	if (Application::IsKeyPressed('1'))
+		glEnable(GL_CULL_FACE);
+	if (Application::IsKeyPressed('2'))
+		glDisable(GL_CULL_FACE);
+	if (Application::IsKeyPressed('3'))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	if (Application::IsKeyPressed('4'))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	fps = (float)(1.f / dt);
+	// fps = (float)(1.f / dt);
+	// CHENG_LOG("FPS: ", std::to_string(fps));
 	m_fElapsedTime += (float)dt;
 }
 
@@ -271,7 +261,12 @@ void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string t
 }
 void RenderingManagerBase::RenderUI(RenderComponent* rc, bool enableLight)
 {
-	Mesh* mesh = rc->GetMesh();
+	Mesh* mesh;
+	if (rc->GetMesh())
+		mesh = rc->GetMesh();
+	else if (rc->GetAnimatedMesh())
+		mesh = rc->GetAnimatedMesh()->m_Mesh;
+
 	Material mat = rc->GetMaterial();
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;

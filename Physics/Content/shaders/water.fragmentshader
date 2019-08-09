@@ -107,7 +107,7 @@ float GetFogFactor(FogParam fog, float fogDistance)
 void main(){
 	vec2 texCoordOG = texCoord;
 	vec2 texCoord = texCoordOG;
-	float speed = frag_et / 50;
+	float speed = frag_et / 5;
 	texCoord.x += sin(speed/100) + sin(speed/160);
 	texCoord.y += cos(speed/130) + sin(speed/190);
 	if(lightEnabled == true)

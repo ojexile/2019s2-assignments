@@ -78,7 +78,7 @@ void TransformComponent::SetRotation(float degrees, Vector3 v)
 }
 void TransformComponent::RotateBy(float degrees, Vector3 v)
 {
-	this->m_vRotateAxis = (v.x, v.y, v.z);
+	this->m_vRotateAxis = { v.x, v.y, v.z };
 	this->m_fDegrees += degrees;
 }
 

@@ -2,10 +2,10 @@
 #include "Application.h"
 #include "RenderComponent.h"
 #define VIEW_AS_LIGHT false
-#define SHADOW_VIEW_SIZE_X 200
-#define SHADOW_VIEW_SIZE_Y 200
-#define SHADOW_VIEW_SIZE_Z 1000
-#define SHADOW_RES 1024*3
+#define SHADOW_VIEW_SIZE_X 300
+#define SHADOW_VIEW_SIZE_Y 300
+#define SHADOW_VIEW_SIZE_Z 800
+#define SHADOW_RES 1024*1
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
@@ -141,7 +141,7 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		break;
 	case CameraComponent::CAM_FIRST:
 	case CameraComponent::CAM_CUSTOM_PERSPECT:
-		projection.SetToPerspective(45, (float)Application::GetWindowWidth() / (float)Application::GetWindowHeight(), 0.1f, 1000);
+		projection.SetToPerspective(45, (float)Application::GetWindowWidth() / (float)Application::GetWindowHeight(), 0.1f, 10000);
 		break;
 	case CameraComponent::CAM_ORTHO:
 	case CameraComponent::CAM_CUSTOM_ORTHO:
@@ -149,7 +149,8 @@ void RenderingManager::RenderPassMain(Scene* scene)
 		if (Camera->IsOrthoInit())
 		{
 			Vector3 vOrthoSize = Camera->GetOrthoSize();
-			projection.SetToOrtho(-vOrthoSize.x / 2, vOrthoSize.x / 2, -vOrthoSize.y / 2, vOrthoSize.y / 2, 0, vOrthoSize.z);
+			float height = vOrthoSize.x / ((float)Application::GetWindowWidth() / (float)Application::GetWindowHeight());
+			projection.SetToOrtho(-vOrthoSize.x / 2, vOrthoSize.x / 2, -height / 2, height / 2, 0, vOrthoSize.z);
 		}
 		else
 		{
@@ -191,6 +192,9 @@ void RenderingManager::RenderPassMain(Scene* scene)
 }
 void RenderingManager::RenderWorld(Scene* scene)
 {
+	Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
+	Vector3 vCamDir = scene->GetCameraGameObject()->GetComponent<CameraComponent>()->GetCamera()->GetDir();
+
 	GameObjectManager* GOM = scene->GetGameObjectManager();
 	std::map<std::string, LayerData*>::iterator it;
 	m_bFogEnabled = FOG_ENABLED;
@@ -200,6 +204,8 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// it->second == value
 		// Switch shader
 		if (it->first == "UI")
+			continue;
+		if (it->first == "Particle")
 			continue;
 		if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 		{
@@ -215,37 +221,60 @@ void RenderingManager::RenderWorld(Scene* scene)
 				continue;
 			Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 			RenderGameObject(go, vCamPos, false);
-			for (unsigned i = 0; i < GOList->at(i)->GetChildList()->size(); ++i)
+			for (unsigned i = 0; i < go->GetChildList()->size(); ++i)
 			{
-				GameObject* goChild = GOList->at(i);
-				if (!go->IsActive())
+				GameObject* goChild = go->GetChildList()->at(i);
+				if (!goChild->IsActive())
 					continue;
 				RenderGameObject(goChild, vCamPos, false);
 			}
 		}
 	}
-	// Render UI
+	// Render Particle
 	if (m_renderPass == RENDER_PASS_PRE)
 		return;
 	m_bFogEnabled = false;
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
-	std::vector<GameObject*>* GOList = map->at("UI")->GetGOList();
+	std::vector<GameObject*>* GOListPart = map->at("Particle")->GetGOList();
+	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
+	{
+		m_programID = (*map)["Particle"]->GetShader();
+		BindUniforms();
+		SetUniforms(scene);
+	}
+	for (unsigned i = 0; i < GOListPart->size(); ++i)
+	{
+		GameObject* go = GOListPart->at(i);
+		if (!go->IsActive())
+			continue;
+
+		RenderGameObject(go, vCamPos, true);
+		for (unsigned i = 0; i < GOListPart->at(i)->GetChildList()->size(); ++i)
+		{
+			GameObject* goChild = GOListPart->at(i);
+			if (!go->IsActive())
+				continue;
+			RenderGameObject(goChild, vCamPos, true);
+		}
+	}
+	m_bFogEnabled = false;
+	std::vector<GameObject*>* GOListUI = map->at("UI")->GetGOList();
 	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 	{
 		m_programID = (*map)["UI"]->GetShader();
 		BindUniforms();
 		SetUniforms(scene);
 	}
-	for (unsigned i = 0; i < GOList->size(); ++i)
+	for (unsigned i = 0; i < GOListUI->size(); ++i)
 	{
-		GameObject* go = GOList->at(i);
+		GameObject* go = GOListUI->at(i);
 		if (!go->IsActive())
 			continue;
-		Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
+
 		RenderGameObject(go, vCamPos, true);
-		for (unsigned i = 0; i < GOList->at(i)->GetChildList()->size(); ++i)
+		for (unsigned i = 0; i < GOListUI->at(i)->GetChildList()->size(); ++i)
 		{
-			GameObject* goChild = GOList->at(i);
+			GameObject* goChild = GOListUI->at(i);
 			if (!go->IsActive())
 				continue;
 			RenderGameObject(goChild, vCamPos, true);
@@ -283,7 +312,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 
 		modelStack.Rotate(dAngle, 0.f, 1.f, 0.f);
 	}
-	if (fGameObjectRotationDegrees != 0)
+	if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero())
 		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 	if (!vGameObjectScale.IsZero())
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
@@ -291,7 +320,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	{
 		if (CurrentMesh)
 			RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
-		if (AnimatedMesh)
+		else if (AnimatedMesh)
 			RenderAnimatedMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 	}
 	else

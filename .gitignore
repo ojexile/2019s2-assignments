@@ -272,7 +272,10 @@ __pycache__/
 *.mtl
 /Common/Release
 /Physics/Release
-/Physics/Content/preferences.ini
+preferences.ini
 *.iobj
 *.ipdb
 common.lib
+/Common/Release
+/Physics/Release
+/Release

@@ -1,17 +1,11 @@
 #include "Engine.h"
 #include "KeyboardManager.h"
 #include "Time.h"
+#include "AudioManager.h"
 #include "Preferences.h"
 #include "Resources.h"
 #include "Utility.h"
-#include "AudioManager.h"
-// Select Debug logger user
-// Users are enums located in locator.h
-//#define USER CHENG
-//
-//#define TO_STR2(x) #x
-//#define TO_STR(x) TO_STR2(x)
-//#define USER_S ( TO_STR(USER) )
+#include "DefaultScene.h"
 
 Renderer* Engine::m_Renderer;
 
@@ -28,10 +22,12 @@ Engine::~Engine()
 
 void Engine::Init()
 {
+	AudioManager* audio = AudioManager::GetInstance();
+	audio->Play3D("pop.wav", {});
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new TestScene);
+	SceneManager->ChangeScene(new DefaultScene());
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
@@ -86,20 +82,20 @@ void Engine::Update(double dt)
 		std::vector<GameObject*>* GOList = it->second->GetGOList();
 		for (unsigned i = 0; i < GOList->size(); ++i)
 		{
+			if (!GOList->at(i))
+				__debugbreak();
 			if (!GOList->at(i)->IsActive())
 				continue;
 			GOList->at(i)->Update(dt);
 		}
 	}
-
+	//Update coll--------------------------------------------------------------------------------
+	m_CollisionManager.Update(CurrentScene->GetGameObjectManager());
+	//--------------------------------------------------------------------------------
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
-	// Log
+	// Log================================================================================
 	m_fLogUpdateTimer += (float)dt;
-	//CHENG_LOG("CHENG");
-	//RYAN_LOG("RYAN");
-	//KZ_LOG("KZ");
-	//LZ_LOG("LZ");
 	float fLogUpdateRate = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
 	if (m_fLogUpdateTimer >= fLogUpdateRate && fLogUpdateRate > 0)
 	{

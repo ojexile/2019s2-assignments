@@ -22,7 +22,7 @@ private:
 	//Transform* m_Transform;
 public:
 	GameObject();
-	GameObject(GameObject& go);
+	GameObject(const GameObject& go);
 	~GameObject();
 
 	ComponentBase* AddComponent(ComponentBase* comp);
@@ -50,7 +50,7 @@ public:
 	std::vector<GameObject*>* GetChildList();
 
 	void SetActive(bool b);
-	GameObject* Clone();
+	GameObject* Clone() const;
 
 	friend class GameObjectManager;
 };

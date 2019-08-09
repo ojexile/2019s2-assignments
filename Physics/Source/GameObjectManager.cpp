@@ -3,6 +3,7 @@
 GameObjectManager::GameObjectManager()
 {
 	this->CreateLayer(DataContainer::GetInstance()->GetShader("Default"));
+	this->CreateLayer(DataContainer::GetInstance()->GetShader("Default"), "Particle");
 	this->CreateLayer(DataContainer::GetInstance()->GetShader("Default"), "UI");
 }
 
@@ -75,7 +76,7 @@ void GameObjectManager::Destroy(GameObject* go)
 		// it->first == key
 		// it->second == value
 		std::vector<GameObject*>* list = it->second->GetGOList();
-		for (unsigned i = list->size() - 1; i >= 0; --i)
+		for (unsigned i = 0; i < list->size(); ++i)
 		{
 			if ((*list)[i] == go)
 			{
@@ -95,7 +96,7 @@ void GameObjectManager::DestroySelf(ComponentBase* com)
 		// it->first == key
 		// it->second == value
 		std::vector<GameObject*>* list = it->second->GetGOList();
-		for (unsigned i = list->size() - 1; i >= 0; --i)
+		for (unsigned i = 0; i < list->size(); ++i)
 		{
 			GameObject* go = (*list)[i];
 			for (unsigned j = 0; j < go->m_vec_ComponentList.size(); ++j)

@@ -26,9 +26,9 @@ namespace Resources
 	}
 	namespace Defaults
 	{
-		extern const float fAmbient = 0.2f;
-		extern const float fDiffuse = 0.8f;
-		extern const float fSpecular = 0.3f;
-		extern const float fShininess = 5.f;
+		extern const float fAmbient = .7f;
+		extern const float fDiffuse = 1.f;
+		extern const float fSpecular = .0f;
+		extern const float fShininess = 1.f;
 	}
 }

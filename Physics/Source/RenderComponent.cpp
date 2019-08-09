@@ -39,6 +39,7 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 	m_bBillboard = ref.m_bBillboard;
 	m_bIsText = ref.m_bIsText;
 	m_sText = ref.m_sText;
+	this->m_Material = ref.m_Material;
 }
 
 RenderComponent::~RenderComponent()
@@ -83,6 +84,7 @@ void RenderComponent::SetColor(Vector3 color)
 	if (m_Mesh)
 	{
 		m_Material.kAmbient.Set(color.x, color.y, color.z);
+		m_Material.kDiffuse.Set(color.x, color.y, color.z);
 	}
 }
 void RenderComponent::ResetColor(Vector3 color)

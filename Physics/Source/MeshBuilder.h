@@ -17,6 +17,7 @@ class MeshBuilder
 public:
 	static Mesh* GenerateAxes(const std::string &meshName, float lengthX, float lengthY, float lengthZ);
 	static Mesh* GenerateQuad(const std::string &meshName, Color color, float length = 1.f);
+	static Mesh* GenerateQuadLeftCentered(Color color, float length = 1.f);
 	static Mesh* GenerateCube(const std::string &meshName, Color color, float length = 1.f);
 	static Mesh* GenerateRing(const std::string &meshName, Color color, unsigned numSlice, float outerR = 1.f, float innerR = 0.f);
 	static Mesh* GenerateSphere(const std::string &meshName, Color color, unsigned numStack, unsigned numSlice, float radius = 1.f);
@@ -25,7 +26,8 @@ public:
 	static Mesh* GenerateOBJ(std::string file_path);
 	static Mesh* GenerateText(const std::string &meshName, unsigned row, unsigned col);
 	static Mesh* GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap, Vector3 scale);
-	static Mesh* GenerateSkyPlane(const std::string &meshName, Color color, int slices, float PlanetRadius, float AtmosphereRadius, float hTile, float vTile);
+	static Mesh* GenerateTerrainTerrace(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap, Vector3 scale);
+	static Mesh* GenerateSkyPlane(const std::string &meshName, Color color, int slices, float PlanetRadius, float AtmosphereRadius, float hTilehTile, float vTile);
 	static AnimatedMesh* GenerateAnimatedMesh(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop);
 	//static AnimatedMesh* GenerateAnimatedMeshDetailed(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop, const std::string &file_path = "Objects/plane.obj");
 };
