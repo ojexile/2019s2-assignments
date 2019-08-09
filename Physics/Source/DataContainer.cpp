@@ -1,15 +1,12 @@
 #include "DataContainer.h"
 #include "Rigidbody.h"
-
 // Components================================================================================
 #include "Constrain.h"
 #include "MeshController.h"
 // Scripts--------------------------------------------------------------------------------
 #include "ParticleScript.h"
 #include "ParticleSpawnerScript.h"
-
 #include "FPSScript.h"
-
 #include <time.h>
 DataContainer::DataContainer()
 {
