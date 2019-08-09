@@ -24,12 +24,19 @@ private:
 
 	Mesh* GenerateTerrain(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
 	Mesh* GenerateTerrainTerrace(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
+
+	bool m_bInitialsed;
+	// Loading
+	void InitMeshes();
+	void InitTerrain();
+	void InitGO();
+	void InitShaders();
 public:
 	DataContainer();
 	~DataContainer();
 
 	std::vector<unsigned char> heightMap;
-
+	void Init();
 	Mesh* GetMesh(std::string name);
 	AnimatedMesh* GetAnimation(std::string name);
 	GameObject* GetGameObject(std::string name);

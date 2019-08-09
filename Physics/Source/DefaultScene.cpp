@@ -49,19 +49,4 @@ void DefaultScene::Init()
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
-	/// Trees--------------------------------------------------------------------------------
-	// tree 1--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Tree"));
-	go->TRANS->SetPosition(100, 0, 100);
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
-	go->TRANS->SetPosition(100, 100, 100);
-	go->SetActive(false);
-	// tree 2--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Tree"));
-	go->TRANS->SetPosition(150, 0, 100);
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("LeafSpawner"));
-	go->TRANS->SetPosition(150, 100, 100);
-	go->SetActive(false);
 }
