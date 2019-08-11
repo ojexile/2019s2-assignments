@@ -32,7 +32,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	Scene* CurrentScene = SceneManager->GetScene();
 	Camera* Cam = CurrentScene->GetCamera();
 
-	Cam->UpdateYawPitchMouse((float)xpos, (float)ypos);
+	//Cam->UpdateYawPitchMouse((float)xpos, (float)ypos);
 }
 void RenderingManager::SetMouseCallback(GLFWwindow* window)
 {

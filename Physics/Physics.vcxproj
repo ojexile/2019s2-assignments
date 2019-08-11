@@ -22,32 +22,32 @@
     <ProjectGuid>{0A9B1DD2-76DC-427D-B5E8-D8CF2ADDA603}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Physics</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -152,6 +152,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Shader\water.fragmentshader" />
+    <None Include="Shader\water.vertexshader" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
@@ -170,6 +174,8 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
     <ClCompile Include="Source\HeightMapData.cpp" />
+    <ClCompile Include="Source\InputBinding.cpp" />
+    <ClCompile Include="Source\InputManager.cpp" />
     <ClCompile Include="Source\KeyboardManager.cpp" />
     <ClCompile Include="Source\LayerData.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
@@ -182,12 +188,14 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\MeshController.cpp" />
+    <ClCompile Include="Source\MouseManager.cpp" />
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
-    <ClCompile Include="Source\MeshController.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
+    <ClCompile Include="Source\Preferences.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
@@ -201,23 +209,21 @@
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
-    <ClCompile Include="Source\Preferences.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
-    <ClInclude Include="Source\Blackhole.h" />
     <ClInclude Include="Source\AudioManager.h" />
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\CollisionManager.h" />
     <ClInclude Include="Source\ComponentBase.h" />
-    <ClInclude Include="Source\CrouchingState.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
     <ClInclude Include="Source\Constrain.h" />
+    <ClInclude Include="Source\CrouchingState.h" />
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\DefaultScene.h" />
     <ClInclude Include="Source\DepthFBO.h" />
@@ -226,6 +232,9 @@
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
     <ClInclude Include="Source\HeightMapData.h" />
+    <ClInclude Include="Source\InputBinding.h" />
+    <ClInclude Include="Source\InputDeviceManager.h" />
+    <ClInclude Include="Source\InputManager.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
     <ClInclude Include="Source\LayerData.h" />
     <ClInclude Include="Source\Light.h" />
@@ -240,11 +249,13 @@
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MeshController.h" />
+    <ClInclude Include="Source\MouseManager.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
+    <ClInclude Include="Source\Preferences.h" />
     <ClInclude Include="Source\RenderComponent.h" />
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />
@@ -261,7 +272,6 @@
     <ClInclude Include="Source\TransformComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
-    <ClInclude Include="Source\Preferences.h" />
     <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
