@@ -21,7 +21,7 @@ void CameraComponent::Update(double dt)
 {
 	TransformComponent* Trans = GetComponent<TransformComponent>();
 	Vector3 vPos = Trans->GetPosition();
-	m_Camera.UpdateView(dt, vPos, m_bMouseEnabled);
+	// m_Camera.UpdateView(dt, vPos, m_bMouseEnabled);
 }
 void CameraComponent::SetCameraType(eCameraTypes eCameratype)
 {

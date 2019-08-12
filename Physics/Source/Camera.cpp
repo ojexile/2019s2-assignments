@@ -41,45 +41,53 @@ void Camera::InitOrtho(Vector3 v)
 	m_fOrthoSize = v;
 	m_bOrthoInit = true;
 }
-void Camera::Update(double dt)
+void Camera::ClampView()
 {
-}
-void Camera::UpdateView(double dt, Vector3 vPos, bool mouseEnabled)
-{
-	if (mouseEnabled)
-	{
-		m_fXOffset *= this->m_fCamSpeed * (float)dt;
-		m_fYOffset *= this->m_fCamSpeed * (float)dt;
-
-		m_fYaw += m_fXOffset;
-		m_fPitch += m_fYOffset;
-	}
 	if (m_fPitch > 89.0f)
 		m_fPitch = 89.0f;
 	if (m_fPitch < -89.0f)
 		m_fPitch = -89.0f;
-
-	m_vDir.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
-	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
-	m_vDir.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
-
-	m_vTarget = vPos + m_vDir;
 }
-void Camera::UpdateYawPitchMouse(float xpos, float ypos)
+void Camera::Update(double dt)
 {
-	if (m_bIsFirstMouseMove)
-	{
-		m_fLastX = xpos;
-		m_fLastY = ypos;
-		m_bIsFirstMouseMove = false;
-	}
-
-	m_fXOffset = xpos;
-	m_fYOffset = - ypos;
-
-	m_fLastX = xpos;
-	m_fLastY = ypos;
+	ClampView();
 }
+//void Camera::UpdateView(double dt, Vector3 vPos, bool mouseEnabled)
+//{
+//	if (mouseEnabled)
+//	{
+//		m_fXOffset *= this->m_fCamSpeed * (float)dt;
+//		m_fYOffset *= this->m_fCamSpeed * (float)dt;
+//
+//		m_fYaw += m_fXOffset;
+//		m_fPitch += m_fYOffset;
+//	}
+//	if (m_fPitch > 89.0f)
+//		m_fPitch = 89.0f;
+//	if (m_fPitch < -89.0f)
+//		m_fPitch = -89.0f;
+//
+//	m_vDir.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
+//	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
+//	m_vDir.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
+//
+//	m_vTarget = vPos + m_vDir;
+//}
+//void Camera::UpdateYawPitchMouse(float xpos, float ypos)
+//{
+//	if (m_bIsFirstMouseMove)
+//	{
+//		m_fLastX = xpos;
+//		m_fLastY = ypos;
+//		m_bIsFirstMouseMove = false;
+//	}
+//
+//	m_fXOffset = xpos;
+//	m_fYOffset = - ypos;
+//
+//	m_fLastX = xpos;
+//	m_fLastY = ypos;
+//}
 // Getters
 Vector3 Camera::GetTarget()
 {

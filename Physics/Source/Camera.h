@@ -25,8 +25,8 @@ private:
 
 	Vector3 m_fOrthoSize;
 	bool m_bOrthoInit;
-
-	void UpdateView(double dt, Vector3 vPos, bool mouseEnabled);
+	void ClampView();
+	// void UpdateView(double dt, Vector3 vPos, bool mouseEnabled);
 public:
 
 	Camera();
@@ -35,7 +35,7 @@ public:
 	void InitOrtho(Vector3);
 	virtual void Reset();
 	virtual void Update(double dt);
-	void UpdateYawPitchMouse(float xpos, float ypos);
+	// void UpdateYawPitchMouse(float xpos, float ypos);
 	bool IsOrthoInit();
 	Vector3 GetOrthoSize();
 	// Getters
