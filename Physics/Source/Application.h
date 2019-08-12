@@ -27,7 +27,7 @@ private:
 	~Application();
 
 	//Declare a window object
-	StopWatch m_timer;
+	Timer m_timer;
 
 	Engine* m_Engine;
 };
