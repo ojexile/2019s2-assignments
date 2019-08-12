@@ -19,5 +19,5 @@ public:
 	~Logger();
 
 	void Log(std::string slog, std::string optional = "");
-	int PrintLogs(int iYOffset);
+	void PrintLogs();
 };

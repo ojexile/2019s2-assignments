@@ -4,7 +4,7 @@
 
 #define TRUNC_FILE_PATH(PATH)	std::string(PATH).substr(std::string(PATH).find_last_of("\\") + 1)
 
-#define LOG(...)				.Log(__VA_ARGS__ + std::string("	----")\
+#define LOG(...)				.Log(__VA_ARGS__ + std::string("----")\
 + std::string(__FUNCTION__) + std::string(" in ")\
 + TRUNC_FILE_PATH(__FILE__) + "-" + std::to_string(__LINE__))
 
