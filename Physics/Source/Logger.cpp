@@ -44,6 +44,8 @@ void Logger::Log(std::string s, std::string sOptional)
 
 void Logger::PrintLogs()
 {
+	// Logger print speed is limited due to reading preference through GetPref
+	// Preference stores data in a map
 	for (unsigned i = 0; i < m_vec_LogList.size(); ++i)
 	{
 		HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -65,7 +67,5 @@ void Logger::PrintLogs()
 		// Print
 		SetConsoleTextAttribute(handle, 0x0F);
 		std::cout << ss.str() << '\n';
-
-		//SetConsoleTextAttribute(handle, 0x0F);
 	}
 }

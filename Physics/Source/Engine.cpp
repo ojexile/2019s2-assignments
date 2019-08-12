@@ -104,16 +104,14 @@ void Engine::Update(double dt)
 	float fLogUpdateRate = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
 	if (m_fLogUpdateTimer >= fLogUpdateRate && fLogUpdateRate >= 0)
 	{
-		std::clock_t start;
-		//
+		// Set top left
 		HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		COORD coord;
 		coord.X = 0;
 		coord.Y = 0;
 		SetConsoleCursorPosition(handle, coord);
 		//
-		start = std::clock();
-		/* Your algorithm here */
+		//std::clock_t start = std::clock(); // --------------------------------------------------------------------------------
 		// Print current logger user
 		std::string sLogUser = Preferences::GetPref(Resources::PreferencesTerm::LogUser);
 		Locator::eLoggerUsers eLoggerUser = StringToUser(sLogUser);
@@ -136,7 +134,7 @@ void Engine::Update(double dt)
 			break;
 		}
 		m_fLogUpdateTimer = 0;
-		double duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
+		//double duration = (std::clock() - start) / (double)CLOCKS_PER_SEC; // --------------------------------------------------------------------------------
  	}
 }
 void Engine::Exit()
