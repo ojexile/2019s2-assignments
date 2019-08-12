@@ -3,7 +3,9 @@
 class FPSScript :public ScriptComponent
 {
 private:
-	RenderComponent* rc;
+	RenderComponent* m_rc;
+	float m_fLastUpdate;
+	int m_iNumFrames;
 public:
 	FPSScript();
 	virtual ~FPSScript();
