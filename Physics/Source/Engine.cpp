@@ -6,9 +6,6 @@
 #include "Resources.h"
 #include "Utility.h"
 #include "DataContainer.h"
-#include <conio.h>
-#include<stdio.h>
-#include <time.h>
 // Start Scene
 #include "DefaultScene.h"
 Renderer* Engine::m_Renderer;
