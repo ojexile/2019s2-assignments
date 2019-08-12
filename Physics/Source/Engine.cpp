@@ -6,6 +6,9 @@
 #include "Resources.h"
 #include "Utility.h"
 #include "DataContainer.h"
+#include <conio.h>
+#include<stdio.h>
+#include <time.h>
 // Start Scene
 #include "DefaultScene.h"
 Renderer* Engine::m_Renderer;
@@ -99,14 +102,20 @@ void Engine::Update(double dt)
 	// Log================================================================================
 	m_fLogUpdateTimer += (float)dt;
 	float fLogUpdateRate = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
-	if (m_fLogUpdateTimer >= fLogUpdateRate && fLogUpdateRate > 0)
+	if (m_fLogUpdateTimer >= fLogUpdateRate && fLogUpdateRate >= 0)
 	{
-		system("cls");
+		// Set top left
+		HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+		COORD coord;
+		coord.X = 0;
+		coord.Y = 0;
+		SetConsoleCursorPosition(handle, coord);
+		//
+		//std::clock_t start = std::clock(); // --------------------------------------------------------------------------------
 		// Print current logger user
 		std::string sLogUser = Preferences::GetPref(Resources::PreferencesTerm::LogUser);
 		Locator::eLoggerUsers eLoggerUser = StringToUser(sLogUser);
 		std::cout << "--------------" << "Current logger user is " << sLogUser << "--------------" << std::endl;
-		int iYOffset = 0;
 		switch (eLoggerUser)
 		{
 		case Locator::ALL:
@@ -114,18 +123,19 @@ void Engine::Update(double dt)
 			Locator::eLoggerUsers eCurrentUser = Locator::DEFAULT;
 			while (eCurrentUser != Locator::eLoggerUsers::ALL)
 			{
-				iYOffset = Locator::GetLogger(eCurrentUser).PrintLogs(iYOffset);
+				Locator::GetLogger(eCurrentUser).PrintLogs();
 				eCurrentUser = static_cast<Locator::eLoggerUsers>(eCurrentUser + 1);
 			}
 		}
 		break;
 		default:
-			iYOffset = Locator::GetLogger(Locator::DEFAULT).PrintLogs(iYOffset);
-			Locator::GetLogger(eLoggerUser).PrintLogs(iYOffset);
+			Locator::GetLogger(Locator::DEFAULT).PrintLogs();
+			Locator::GetLogger(eLoggerUser).PrintLogs();
 			break;
 		}
 		m_fLogUpdateTimer = 0;
-	}
+		//double duration = (std::clock() - start) / (double)CLOCKS_PER_SEC; // --------------------------------------------------------------------------------
+ 	}
 }
 void Engine::Exit()
 {
