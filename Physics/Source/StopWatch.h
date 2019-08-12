@@ -1,5 +1,11 @@
 #pragma once
 #include <ctime>
+#include <string>
+
+#define START StopWatch s(true)
+#define STOP_S s.Stop()->GetSTime()
+#define STOP_F s.Stop()->GetTime()
+
 ///--------------------------------------------------------------------------------
 // \author 
 // Hao Cheng
@@ -17,7 +23,8 @@ public:
 	~StopWatch();
 
 	void Start();
-	float Stop();
+	StopWatch* Stop();
 	float GetTime();
+	std::string GetSTime();
 };
 

@@ -24,11 +24,16 @@ void FPSScript::Update(double dt)
 		m_fLastUpdate = Time::GetInstance()->GetElapsedTimeF();
 		m_rc = RENDER;
 		float fps = m_iNumFrames / duration;
+		// float fps = 1/ (float)dt;
+		//int ifps = fps;
+		//ifps /= 10;
+		//ifps *= 10;
 		std::stringstream ss;
 		ss.precision(2);
 		ss << fps;
 		m_rc->SetText(ss.str());
 		// m_rc->SetText(std::to_string(1 / dt));
 		m_iNumFrames = 0;
+		// CHENG_LOG("TIME: " + ss.str());
 	}
 }
