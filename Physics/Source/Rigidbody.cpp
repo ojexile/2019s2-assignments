@@ -19,7 +19,7 @@ Rigidbody::~Rigidbody()
 }
 void Rigidbody::Update(double dt)
 {
-	//dt *= WorldValues::TimeScale;
+	dt *= WorldValues::TimeScale;
 	Vector3 vAccel = m_vForce * (1 / m_fMass);
 	m_vForce.SetZero();
 	Vector3 CurrentGrav = WorldValues::DefaultGravity;
@@ -35,7 +35,8 @@ void Rigidbody::Update(double dt)
 	// Friction
 	float coeff = m_PhyMat.GetFriction();
 
-	this->m_vVel += vAccel * (float)dt * WorldValues::TimeScale;
+	this->m_vVel += vAccel * (float)dt ;
+	m_vVel = m_vVel * this->m_PhyMat.GetFriction();
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
 	if (m_bLockYAxis)
@@ -43,59 +44,41 @@ void Rigidbody::Update(double dt)
 	if (m_bLockZAxis)
 		m_vVel.z = 0;
 	TransformComponent* Trans = this->GetComponent<TransformComponent>();
-	Trans->Translate(m_vVel * (float)dt * WorldValues::TimeScale);
-	m_vVel = m_vVel * this->m_PhyMat.GetFriction();
+	Trans->Translate(m_vVel * (float)dt );
+	// Angular
+	// note: angular only affects y axis
 	float I = this->m_fMass * (Trans->GetScale().x * Trans->GetScale().x);
 	Vector3 vAAccel = this->m_vTorque * (1.f / I);
 	m_vAVel += vAAccel * (float)dt;
 	float deg = Trans->GetDegrees();
-	deg += m_vAVel.y * (float)dt * WorldValues::TimeScale;
+	deg += m_vAVel.y * (float)dt ;
 	if (m_vAVel.y != 0)
 		Trans->SetRotation(deg, 0, 1, 0);
-	//m_vAVel.SetZero();
 	m_vTorque.SetZero();
 }
 void Rigidbody::SetTorque(Vector3 v)
 {
-	if (WorldValues::TimeScale > 0)
 		this->m_vTorque = v;
-	else
-		this->m_vTorque = -v;
 }
 void Rigidbody::SetVel(Vector3 v)
 {
-	if (WorldValues::TimeScale > 0)
 		this->m_vVel = v;
-	else
-		this->m_vVel = -v;
 }
 void Rigidbody::SetAVel(Vector3 v)
 {
-	if (WorldValues::TimeScale > 0)
 		this->m_vAVel = v;
-	else
-		this->m_vAVel = -v;
 }
-void Rigidbody::IncrementForce(Vector3 v)
+void Rigidbody::AddForce(Vector3 v)
 {
-	if (WorldValues::TimeScale > 0)
 		m_vForce += v;
-	else
-		m_vForce += -v;
 }
 Vector3 Rigidbody::GetVel()
 {
-	if (WorldValues::TimeScale > 0)
 		return m_vVel;
-	else
-		return -m_vVel;
 }
 Vector3 Rigidbody::GetAVel()
 {
-	if (WorldValues::TimeScale > 0)
 		return m_vAVel;
-	else
-		return -m_vAVel;
 }
 float Rigidbody::GetMass()
 {
@@ -112,10 +95,7 @@ Rigidbody::ePhysicsTypes Rigidbody::GetType()
 // Grav
 void Rigidbody::SetGravityX(float x)
 {
-	if (WorldValues::TimeScale > 0)
 		this->m_vGravityExponent.x = x;
-	else
-		this->m_vGravityExponent.x = -x;
 }
 void Rigidbody::SetGravity(Vector3 v)
 {
@@ -140,4 +120,11 @@ void Rigidbody::SetMat(float f, float b)
 PhysicsMaterial Rigidbody::GetMat()
 {
 	return m_PhyMat;
+}
+void Rigidbody::ClampVel(float max)
+{
+	if (m_vVel.LengthSquared() > max * max)
+	{
+		m_vVel = m_vVel.Normalize() * max;
+	}
 }

@@ -60,6 +60,8 @@ public:
 	void SetVel(Vector3);
 	void SetAVel(Vector3);
 	void SetTorque(Vector3);
-	void IncrementForce(Vector3);
+	void AddForce(Vector3);
 	void SetMat(float, float);
+
+	void ClampVel(float max);
 };

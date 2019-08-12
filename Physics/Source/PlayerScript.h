@@ -1,16 +1,15 @@
 #pragma once
-#include "ScriptComponent.h"
+#include "EntityScript.h"
 #include "CameraComponent.h"
 #include "PlayerState.h"
 #include "StandingState.h"
 #include "Light.h"
-class PlayerScript : public ScriptComponent
+class PlayerScript : public EntityScript
 {
 	friend class PlayerState;
 private:
 	PlayerState* m_CurrentState;
-	float m_fMovementSpeed;
-	float m_fAccel;
+
 	float m_fJumpForce;
 	bool m_bFirstPerson;
 

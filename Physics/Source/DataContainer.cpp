@@ -48,7 +48,7 @@ void  DataContainer::InitMeshes()
 	//--------------------------------------------------------------------------------
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
 
-	m_map_Meshes["Cube"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Cube");
+	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
 }
 void  DataContainer::InitTerrain()
 {

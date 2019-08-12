@@ -27,17 +27,18 @@ void DefaultScene::Init()
 	Vector3 WindowSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::WindowSize));
 	float aspect = WindowSize.x / WindowSize.y;
 	float size = 600;
-	this->m_Camera->InitOrtho({ size, 0,10000 });
+	this->m_Camera->InitOrtho(size);
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
-	GameObject* player = go;
+	go->TRANS->SetScale(1);
 	go->AddChild(m_CameraGO);
 	go->AddComponent(new PlayerScript());
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::FIXED));
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	/// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GOM.AddGameObject();

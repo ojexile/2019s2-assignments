@@ -36,43 +36,39 @@ bool Camera::IsOrthoInit()
 {
 	return m_bOrthoInit;
 }
-void Camera::InitOrtho(Vector3 v)
+void Camera::InitOrtho(float size)
 {
-	m_fOrthoSize = v;
+	m_vOrthoSize = {size, 0, 1000};
 	m_bOrthoInit = true;
 }
-void Camera::ClampView()
+void Camera::Update(double dt)
 {
+}
+void Camera::UpdateView(double dt, Vector3 vPos, bool usefloatyaw)
+{
+	// mouse camera depreciated
+	//if (mouseEnabled)
+	//{
+	//	m_fXOffset *= this->m_fCamSpeed * (float)dt;
+	//	m_fYOffset *= this->m_fCamSpeed * (float)dt;
+
+	//	m_fYaw += m_fXOffset;
+	//	m_fPitch += m_fYOffset;
+	//}
+	// Clamp
 	if (m_fPitch > 89.0f)
 		m_fPitch = 89.0f;
 	if (m_fPitch < -89.0f)
 		m_fPitch = -89.0f;
+	if (usefloatyaw)
+	{
+	m_vDir.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
+	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
+	m_vDir.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
+	}
+
+	m_vTarget = vPos + m_vDir;
 }
-void Camera::Update(double dt)
-{
-	ClampView();
-}
-//void Camera::UpdateView(double dt, Vector3 vPos, bool mouseEnabled)
-//{
-//	if (mouseEnabled)
-//	{
-//		m_fXOffset *= this->m_fCamSpeed * (float)dt;
-//		m_fYOffset *= this->m_fCamSpeed * (float)dt;
-//
-//		m_fYaw += m_fXOffset;
-//		m_fPitch += m_fYOffset;
-//	}
-//	if (m_fPitch > 89.0f)
-//		m_fPitch = 89.0f;
-//	if (m_fPitch < -89.0f)
-//		m_fPitch = -89.0f;
-//
-//	m_vDir.x = cos(Math::DegreeToRadian(m_fPitch)) * cos(Math::DegreeToRadian(m_fYaw));
-//	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
-//	m_vDir.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
-//
-//	m_vTarget = vPos + m_vDir;
-//}
 //void Camera::UpdateYawPitchMouse(float xpos, float ypos)
 //{
 //	if (m_bIsFirstMouseMove)
@@ -109,6 +105,10 @@ void Camera::SetDir(float yaw, float pitch)
 	m_vDir.y = sin(Math::DegreeToRadian(m_fPitch));
 	m_vDir.z = cos(Math::DegreeToRadian(m_fPitch)) * sin(Math::DegreeToRadian(m_fYaw));
 }
+void Camera::SetDir(Vector3 v)
+{
+	m_vDir = v;
+}
 void Camera::OffsetDir(float yaw, float pitch)
 {
 	m_fYaw += yaw;
@@ -119,7 +119,7 @@ void Camera::OffsetDir(float yaw, float pitch)
 }
 Vector3 Camera::GetOrthoSize()
 {
-	return m_fOrthoSize;
+	return m_vOrthoSize;
 }
 float Camera::GetYaw()
 {

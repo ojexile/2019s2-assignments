@@ -9,7 +9,7 @@ PlayerScript::PlayerScript()
 {
 	m_CurrentState = nullptr;
 	m_bFirstPerson = true;
-	m_fMovementSpeed = 1;
+	// m_fMovementSpeed = 1;
 
 	m_fJumpForce = 10000.f;
 
@@ -24,21 +24,18 @@ PlayerScript::~PlayerScript()
 void PlayerScript::Start()
 {
 	SwitchView();
-	TransformComponent* trans = GetComponent<TransformComponent>();
-
-	TransformComponent* CamTrans = GetCameraGO()->TRANS;
 }
 void PlayerScript::Update(double dt)
 {
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
-	TransformComponent* trans = GetComponent<TransformComponent>();
+	// TransformComponent* trans = GetComponent<TransformComponent>();
 	// Movement================================================================================
 	UpdateMovement(dt);
 }
 void PlayerScript::SetMovementSpeed(float f, float accel)
 {
-	m_fMovementSpeed = f;
-	m_fAccel = accel;
+	// m_fMovementSpeed = f;
+	// m_fAccel = accel;
 }
 void PlayerScript::SwitchView()
 {
@@ -47,17 +44,18 @@ void PlayerScript::SwitchView()
 	if (m_bFirstPerson)
 	{
 		GetCameraGO()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
-		GetCameraGO()->GetComponent<CameraComponent>()->SetMouseEnabled(true);
+		GetCameraGO()->GetComponent<CameraComponent>()->SetMouseUseFloatYaw(false);
 
-		GetCamera()->SetDir(0, 0);
+		GetCamera()->SetDir(Vector3{-1,-1,-1}.Normalize());
+
 
 		m_bFirstPerson = false;
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
 	}
 	else
 	{
 		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
-		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetMouseEnabled(false);
+
 		SetTopDownPos();
 
 		m_bFirstPerson = true;
@@ -110,50 +108,49 @@ void PlayerScript::UpdateMovement(double dt)
 		// Movement
 		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
 		{
-			rb->IncrementForce(vPlayerFront  *m_fAccel);
-			bMoved = true;
+			//rb->AddForce(vPlayerFront  *m_fAccel);
+			//bMoved = true;
+			Move(vPlayerFront);
 		}
 		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
 		{
-			rb->IncrementForce(vPlayerFront  * -m_fAccel);
-			bMoved = true;
+			//rb->AddForce(vPlayerFront  * -m_fAccel);
+			//bMoved = true;
+			Move(-vPlayerFront);
 		}
 		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
 		{
-			rb->IncrementForce(vRight  * -m_fAccel);
-			bMoved = true;
+			//rb->AddForce(vRight  * -m_fAccel);
+			//bMoved = true;
+			Move(-vRight);
 		}
 		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
 		{
-			rb->IncrementForce(vRight  * m_fAccel);
-			bMoved = true;
+			//rb->AddForce(vRight  * m_fAccel);
+			//bMoved = true;
+			Move(vRight);
 		}
 		if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
 		{
-			rb->IncrementForce(vCameraUp  * m_fJumpForce);
+			rb->AddForce(vCameraUp  * m_fJumpForce);
 		}
-		// Cap speed
-		if (rb->GetVel().Length() > m_fMovementSpeed)
-		{
-			rb->SetVel(rb->GetVel().Normalize() * m_fMovementSpeed);
-		}
-		// bob
-		if (bMoved)
-		{
-			const float maxBob = 0.3f;
-			static float speed = 0.07f * m_fMovementSpeed;
-			static float offset = 0;
-			if (offset > maxBob)
-				speed = -fabs(speed);
-			if (offset < -maxBob)
-				speed = fabs(speed);
-			float off = speed * (float)dt;
-			GetCameraGO()->GetComponent<TransformComponent>()->TranslateRelative(0, off, 0);
-			offset += off;
-		}
+		//// bob
+		//if (bMoved)
+		//{
+		//	const float maxBob = 0.3f;
+		//	static float speed = 0.07f * m_fMovementSpeed;
+		//	static float offset = 0;
+		//	if (offset > maxBob)
+		//		speed = -fabs(speed);
+		//	if (offset < -maxBob)
+		//		speed = fabs(speed);
+		//	float off = speed * (float)dt;
+		//	GetCameraGO()->GetComponent<TransformComponent>()->TranslateRelative(0, off, 0);
+		//	offset += off;
+		//}
 	}
 
 	// Camera================================================================================
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
-		SwitchView();
+	//if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
+	//	SwitchView();
 }

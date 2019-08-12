@@ -60,6 +60,7 @@
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
     <ClCompile Include="Source\StopWatch.cpp" />
+    <ClCompile Include="Source\EntityScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -124,5 +125,6 @@
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WorldValues.h" />
     <ClInclude Include="Source\StopWatch.h" />
+    <ClInclude Include="Source\EntityScript.h" />
   </ItemGroup>
 </Project>
