@@ -23,7 +23,7 @@ void Preferences::InitDefault()
 	m_map_Data[Resources::PreferencesTerm::ConsolePosition] = "20,740";
 	m_map_Data[Resources::PreferencesTerm::FontSize] = "12,22";
 	m_map_Data[Resources::PreferencesTerm::AudioVolume] = "0.1";
-	m_map_Data[Resources::PreferencesTerm::LogUpdateRate] = "10";
+	m_map_Data[Resources::PreferencesTerm::LogUpdateRate] = "1";
 	m_map_Data[Resources::PreferencesTerm::LogUser] = "ALL";
 
 	GetData();
