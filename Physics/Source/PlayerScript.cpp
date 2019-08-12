@@ -2,7 +2,7 @@
 #include "AudioManager.h"
 #include "SceneManager.h"
 #include "Rigidbody.h"
-#include "KeyboardManager.h"
+#include "InputManager.h"
 
 #define MAX_HEALTH 100
 PlayerScript::PlayerScript()
@@ -108,27 +108,27 @@ void PlayerScript::UpdateMovement(double dt)
 		Vector3 vRight = vCameraFront.Cross(vCameraUp);
 		Rigidbody* rb = GetComponent<Rigidbody>();
 		// Movement
-		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveForward"))
+		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
 		{
 			rb->IncrementForce(vPlayerFront  *m_fAccel);
 			bMoved = true;
 		}
-		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveBackward"))
+		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
 		{
 			rb->IncrementForce(vPlayerFront  * -m_fAccel);
 			bMoved = true;
 		}
-		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveLeft"))
+		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
 		{
 			rb->IncrementForce(vRight  * -m_fAccel);
 			bMoved = true;
 		}
-		if (KeyboardManager::GetInstance()->GetKeyDown("PlayerMoveRight"))
+		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
 		{
 			rb->IncrementForce(vRight  * m_fAccel);
 			bMoved = true;
 		}
-		if (KeyboardManager::GetInstance()->GetKeyTriggered("Jump"))
+		if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
 		{
 			rb->IncrementForce(vCameraUp  * m_fJumpForce);
 		}

@@ -16,6 +16,8 @@
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
+static double scrollX = 0;
+static double scrollY = 0;
 int m_width, m_height;
 
 //Define an error callback
@@ -39,6 +41,12 @@ void resize_callback(GLFWwindow* window, int w, int h)
 	glViewport(0, 0, w, h);
 }
 
+void scroll_callback(GLFWwindow* window, double dx, double dy)
+{
+	scrollX += dx;
+	scrollY += dy;
+}
+
 bool Application::IsKeyPressed(unsigned short key)
 {
 	DEFAULT_LOG("IsKeyPressed(unsigned short) is deprecated");
@@ -48,9 +56,14 @@ bool Application::IsMousePressed(unsigned short key) //0 - Left, 1 - Right, 2 - 
 {
 	return glfwGetMouseButton(m_window, key) != 0;
 }
-void Application::GetCursorPos(double *xpos, double *ypos)
+void Application::GetCursorPos(double* xpos, double* ypos)
 {
 	glfwGetCursorPos(m_window, xpos, ypos);
+}
+void Application::GetScrollWheelPos(double* x, double* y)
+{
+	*x = scrollX;
+	*y = scrollY;
 }
 int Application::GetWindowWidth()
 {
@@ -115,6 +128,7 @@ void Application::Init()
 	//Sets the key callback
 	//glfwSetKeyCallback(m_window, key_callback);
 	glfwSetWindowSizeCallback(m_window, resize_callback);
+	glfwSetScrollCallback(m_window, scroll_callback);
 
 	glewExperimental = true; // Needed for core profile
 	//Initialize GLEW
