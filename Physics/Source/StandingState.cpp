@@ -2,6 +2,7 @@
 #include "CrouchingState.h"
 #include "PlayerScript.h"
 #include "KeyboardManager.h"
+#include "InputManager.h"
 
 StandingState::StandingState()
 {
@@ -17,7 +18,7 @@ StandingState::~StandingState()
 PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 {
 	// Sprint
-	if (KeyboardManager::GetInstance()->GetKeyDown("Sprint"))
+	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint"))
 	{
 		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
 	}
@@ -26,7 +27,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 	}
 	// Crouch
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("Crouch"))
+	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
 		return new CrouchingState;
 	}

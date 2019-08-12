@@ -2,7 +2,8 @@
 #include "Application.h"
 #include "StandingState.h"
 #include "PlayerScript.h"
-#include "KeyboardManager.h"
+
+#include "InputManager.h"
 #define CROUCHING_HEIGHT 7.3f
 CrouchingState::CrouchingState()
 {
@@ -16,7 +17,7 @@ CrouchingState::~CrouchingState()
 PlayerState* CrouchingState::HandleInput(ComponentBase* com, double dt)
 {
 	// Crouch
-	if (KeyboardManager::GetInstance()->GetKeyTriggered("Crouch"))
+	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
 		return new StandingState;
 	}
