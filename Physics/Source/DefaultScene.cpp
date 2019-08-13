@@ -24,7 +24,8 @@ void DefaultScene::Init()
 
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
-	go->TRANS->SetScale(1);
+	go->TRANS->SetScale(.5);
+	go->TRANS->SetPosition(0, 16.5, 0);
 	go->AddComponent(new PlayerScript());
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->RIGID->SetMat(0.9f, 0.f);
