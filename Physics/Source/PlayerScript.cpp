@@ -11,6 +11,8 @@ PlayerScript::PlayerScript()
 	m_bFirstPerson = true;
 	m_fJumpForce = 10000.f;
 	m_fHealth = MAX_HEALTH;
+
+
 }
 
 PlayerScript::~PlayerScript()

@@ -9,6 +9,8 @@ private:
 	float m_fBaseAccel;
 	float m_fSprintMultiplier;
 	float m_fCurrentBobOffset;
+
+	float m_fDodgeForce;
 public:
 	StandingState();
 	virtual ~StandingState();
