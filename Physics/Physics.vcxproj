@@ -194,10 +194,12 @@
     <ClCompile Include="Source\MouseManager.cpp" />
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
+    <ClCompile Include="Source\PartScript.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
     <ClCompile Include="Source\Preferences.cpp" />
+    <ClCompile Include="Source\ProjectileScript.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
@@ -214,6 +216,7 @@
     <ClCompile Include="Source\TopDownState.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\WeaponScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -259,10 +262,12 @@
     <ClInclude Include="Source\MouseManager.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
+    <ClInclude Include="Source\PartScript.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\Preferences.h" />
+    <ClInclude Include="Source\ProjectileScript.h" />
     <ClInclude Include="Source\RenderComponent.h" />
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />
@@ -282,6 +287,7 @@
     <ClInclude Include="Source\TransformComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\WeaponScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

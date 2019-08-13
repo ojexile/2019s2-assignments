@@ -7,6 +7,7 @@
 #include "ParticleScript.h"
 #include "ParticleSpawnerScript.h"
 #include "FPSScript.h"
+#include "ProjectileScript.h"
 #include <time.h>
 DataContainer::DataContainer()
 {
@@ -67,6 +68,14 @@ void  DataContainer::InitGO()
 	go->TRANS->SetPosition(50, 10, 25);
 	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
+	//Bullet--------------------------------------------------------------------------------
+	go = new GameObject();
+	m_map_GO["Bullet"] = go;
+	go->TRANS->SetScale(10);
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->RIGID->SetMass(0.01f);
+	go->AddComponent(new ProjectileScript());
 }
 void  DataContainer::InitShaders()
 {
