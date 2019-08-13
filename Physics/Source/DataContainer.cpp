@@ -1,15 +1,18 @@
 #include "DataContainer.h"
-#include "Rigidbody.h"
+#include <time.h>
 // Components================================================================================
 #include "Constrain.h"
 #include "MeshController.h"
+#include "Rigidbody.h"
 // Scripts--------------------------------------------------------------------------------
 #include "ParticleScript.h"
 #include "ParticleSpawnerScript.h"
 #include "FPSScript.h"
 #include "ProjectileScript.h"
 #include "ReticleScript.h"
-#include <time.h>
+#include "PlayerScript.h"
+#include "WeaponScript.h"
+//
 DataContainer::DataContainer()
 {
 	m_bInitialsed = false;
@@ -59,6 +62,8 @@ void  DataContainer::InitMeshes()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
 
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
+
+	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 }
 void  DataContainer::InitTerrain()
 {
@@ -70,7 +75,6 @@ void  DataContainer::InitGO()
 {
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
-	/// misc================================================================================
 	go = new GameObject;
 	m_map_GO["FPS"] = go;
 	go->AddComponent(new FPSScript);
@@ -85,6 +89,16 @@ void  DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
 	go->AddComponent(new ProjectileScript());
+	// Player--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Player"] = go;
+	go->TRANS->SetScale(1);
+	go->AddComponent(new PlayerScript());
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->RIGID->SetMat(0.9f, 0.f);
+	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
+	go->AddComponent(new Constrain(GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
+	go->AddComponent(new RenderComponent(GetMesh("Player")));
 	// Reticle--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Reticle"] = go;

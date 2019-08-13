@@ -24,15 +24,8 @@ void DefaultScene::Init()
 	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	/// Player================================================================================
 	// Player--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject();
-	GameObject* Player = go;
-	go->TRANS->SetScale(1);
-	go->AddComponent(new PlayerScript());
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	go->RIGID->SetMat(0.9f, 0.f);
-	go->AddComponent(new WeaponScript(dataContainer->GetGameObject("Bullet")));
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
+	GameObject* Player = m_GOM.AddGameObject(dataContainer->GetGameObject("Player"));
+	Player->TRANS->SetPosition(0, 16, 0);
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
