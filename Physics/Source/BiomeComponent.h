@@ -1,5 +1,6 @@
 #pragma once
 #include "ComponentBase.h"
+#include <string> 
 
 /*
 author: lorenzo sayo yanga
@@ -12,6 +13,7 @@ class BiomeComponent : public ComponentBase
 public:
 	enum eBiomeTypes
 	{
+		BIOME_DEFAULT,
 		BIOME_FLAT,
 		BIOME_PLAINS,
 
@@ -35,4 +37,6 @@ public:
 
 	eBiomeTypes GetBiomeType();
 	void SetBiomeType(eBiomeTypes biomeType);
+
+	static std::string AppendBiomeToTextureName(std::string s, eBiomeTypes biomeType);
 };
