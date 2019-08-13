@@ -27,6 +27,7 @@ void DataContainer::Init()
 	InitMeshes();
 	InitTerrain();
 	InitGO();
+	InitChunks();
 	InitShaders();
 	m_bInitialsed = true;
 
@@ -34,6 +35,12 @@ void DataContainer::Init()
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	CHENG_LOG("Time to load container: ", std::to_string(elapsed_secs));
 }
+
+void DataContainer::InitChunks()
+{
+	m_map_Chunks["Map"] = new ChunkData("Content/Map.chunk");
+}
+
 void DataContainer::InitTextures()
 {
 	m_map_Textures["Text"] = LoadTGA("calibri");
@@ -41,6 +48,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Cube"] = LoadTGA("Cube");
 	m_map_Textures["Dirt"] = LoadTGA("dirt");
 	m_map_Textures["GrassDirt"] = LoadTGA("grassdirt");
+	m_map_Textures["Colors"] = LoadTGA("colors");
 }
 void  DataContainer::InitMeshes()
 {
@@ -72,7 +80,7 @@ void  DataContainer::InitGO()
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
-	go->TRANS->SetScale(10);
+	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
@@ -158,6 +166,15 @@ unsigned DataContainer::GetShader(std::string key)
 		DEFAULT_LOG("ERROR: Shader not found of name: " + key);
 	unsigned shader = m_map_Shaders[key];
 	return shader;
+}
+ChunkData* DataContainer::GetChunk(std::string key)
+{
+	if (m_map_Chunks.count(key) <= 0)
+	{
+		DEFAULT_LOG("ERROR: Chunk not found of name: " + key);
+		return nullptr;
+	}
+	return m_map_Chunks[key];
 }
 unsigned DataContainer::GetTexture(std::string key)
 {

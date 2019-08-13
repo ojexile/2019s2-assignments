@@ -26,6 +26,7 @@ TransformComponent::TransformComponent(Vector3 pos)
 
 TransformComponent::~TransformComponent()
 {
+
 }
 
 /*****

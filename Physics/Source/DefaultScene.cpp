@@ -28,7 +28,7 @@ void DefaultScene::Init()
 	GameObject* Player = go;
 	go->TRANS->SetScale(1);
 	go->AddComponent(new PlayerScript());
-	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->RIGID->SetMat(0.9f, 0.f);
 	go->AddComponent(new WeaponScript(dataContainer->GetGameObject("Bullet")));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
@@ -58,5 +58,5 @@ void DefaultScene::Init()
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
-	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
+	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMesh()));
 }
