@@ -204,6 +204,7 @@
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
+    <ClCompile Include="Source\ReticleScript.cpp" />
     <ClCompile Include="Source\Rigidbody.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="Source\RenderingManager.h" />
     <ClInclude Include="Source\RenderingManagerBase.h" />
     <ClInclude Include="Source\Resources.h" />
+    <ClInclude Include="Source\ReticleScript.h" />
     <ClInclude Include="Source\Rigidbody.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />

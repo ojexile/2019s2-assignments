@@ -67,6 +67,7 @@
     <ClCompile Include="Source\SprintingState.cpp" />
     <ClCompile Include="Source\TopDownState.cpp" />
     <ClCompile Include="Source\CameraScript.cpp" />
+    <ClCompile Include="Source\ReticleScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -138,5 +139,6 @@
     <ClInclude Include="Source\SprintingState.h" />
     <ClInclude Include="Source\TopDownState.h" />
     <ClInclude Include="Source\CameraScript.h" />
+    <ClInclude Include="Source\ReticleScript.h" />
   </ItemGroup>
 </Project>
