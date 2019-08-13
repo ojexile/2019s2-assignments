@@ -24,6 +24,7 @@ void DefaultScene::Init()
 
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
+	GameObject* Player = go;
 	go->TRANS->SetScale(1);
 	go->AddComponent(new PlayerScript());
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
@@ -31,9 +32,11 @@ void DefaultScene::Init()
 	go->AddComponent(new WeaponScript(dataContainer->GetGameObject("Bullet")));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
+	// Reticle
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Reticle"));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
-	m_CameraGO->AddComponent(new CameraScript(go));
+	m_CameraGO->AddComponent(new CameraScript(Player));
 	m_CameraGO->AddComponent(new CameraComponent);
 	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	// Set up camera

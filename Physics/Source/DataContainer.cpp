@@ -8,6 +8,7 @@
 #include "ParticleSpawnerScript.h"
 #include "FPSScript.h"
 #include "ProjectileScript.h"
+#include "ReticleScript.h"
 #include <time.h>
 DataContainer::DataContainer()
 {
@@ -79,8 +80,9 @@ void  DataContainer::InitGO()
 	// Reticle--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Reticle"] = go;
-	go->TRANS->SetScale(2);
+	go->TRANS->SetScale(1);
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new ReticleScript);
 }
 void  DataContainer::InitShaders()
 {

@@ -8,5 +8,7 @@ public:
 	virtual ~ReticleScript();
 
 	virtual ComponentBase* Clone() { return new ReticleScript(*this); };
+
+	void Update(double dt) override;
 };
 
