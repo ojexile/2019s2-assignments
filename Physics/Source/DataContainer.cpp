@@ -77,12 +77,19 @@ void  DataContainer::InitGO()
 {
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
+	///================================================================================
 	go = new GameObject;
 	m_map_GO["FPS"] = go;
 	go->AddComponent(new FPSScript);
 	go->TRANS->SetPosition(50, 10, 25);
 	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
+	// Reticle--------------------------------------------------------------------------------
+	go = new GameObject();
+	m_map_GO["Reticle"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Reticle")));
+	go->RENDER->SetColor(0, 1, 1);
+	go->AddComponent(new ReticleScript);
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
@@ -95,18 +102,12 @@ void  DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Player"] = go;
 	go->TRANS->SetScale(1);
-	go->AddComponent(new PlayerScript());
+	go->AddComponent(new PlayerScript(GetGameObject("Reticle")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->RIGID->SetMat(0.9f, 0.f);
 	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
 	go->AddComponent(new Constrain(GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	go->AddComponent(new RenderComponent(GetMesh("Player")));
-	// Reticle--------------------------------------------------------------------------------
-	go = new GameObject();
-	m_map_GO["Reticle"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Reticle")));
-	go->RENDER->SetColor(0, 1, 1);
-	go->AddComponent(new ReticleScript);
 }
 void  DataContainer::InitShaders()
 {

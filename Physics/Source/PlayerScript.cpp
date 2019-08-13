@@ -5,7 +5,8 @@
 #include "InputManager.h"
 #include "CameraScript.h"
 
-PlayerScript::PlayerScript()
+PlayerScript::PlayerScript(GameObject* Reticle)
+	:m_Reticle(Reticle)
 {
 	m_CurrentState = nullptr;
 
@@ -24,7 +25,6 @@ void PlayerScript::Start()
 void PlayerScript::Update(double dt)
 {
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
-	// TransformComponent* trans = GetComponent<TransformComponent>();
 	// Movement================================================================================
 	UpdateMovement(dt);
 }
