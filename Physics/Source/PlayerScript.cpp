@@ -4,13 +4,11 @@
 #include "Rigidbody.h"
 #include "InputManager.h"
 
-#define MAX_HEALTH 100
 PlayerScript::PlayerScript()
 {
 	m_CurrentState = nullptr;
 	m_bFirstPerson = true;
-	m_fJumpForce = 10000.f;
-	m_fHealth = MAX_HEALTH;
+	m_fJumpForce = 3000.f;
 
 
 }

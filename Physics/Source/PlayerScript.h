@@ -13,8 +13,6 @@ private:
 	float m_fJumpForce;
 	bool m_bFirstPerson;
 
-	float m_fHealth;
-
 	// Functions
 	// Switch view
 	void SwitchView();

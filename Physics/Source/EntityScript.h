@@ -17,6 +17,7 @@ private:
 	float m_fMoveForce;
 	float m_fMaxSpeed;
 	bool m_bInitialised;
+	float m_fHealth;
 	//--------------------------------------------------------------------------------
 	void Log();
 	bool CheckRB();

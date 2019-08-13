@@ -7,6 +7,8 @@ EntityScript::EntityScript()
 	m_fMoveForce = 300;
 	m_fMaxSpeed = 1;
 	m_bInitialised = false;
+
+	m_fHealth = 100;
 }
 EntityScript::~EntityScript()
 {

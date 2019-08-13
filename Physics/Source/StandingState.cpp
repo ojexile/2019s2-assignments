@@ -24,15 +24,15 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 	{
 		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
 	}
-	else
-	{
-		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
-	}
 	// Crouch
-	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
-		return new CrouchingState;
+		// return new CrouchingState; /// Disabled until key trigger is added
+		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
+	}
+	if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint") && !InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
+	{
+		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 	}
 	// Dodge
 	static bool bDodge = false;
