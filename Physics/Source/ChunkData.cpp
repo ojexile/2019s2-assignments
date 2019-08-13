@@ -11,7 +11,9 @@ ChunkData::ChunkData(const std::string fileName)
 	unsigned int zSizeInBlocks = m_iZSize << 4;
 	for (int i = 0; i < xSizeInBlocks * zSizeInBlocks * m_iYSize; ++i)
 	{
-		m_blocks.push_back((unsigned short)(fgetc(file) << 8 + fgetc(file)));
+		int k = fgetc(file);
+		int l = fgetc(file);
+		m_blocks.push_back(k << 8 | l);
 	}
 }
 
@@ -39,8 +41,9 @@ std::vector<unsigned short> * ChunkData::GetBlocks()
 	return &m_blocks;
 }
 
-RenderComponent* ChunkData::GenerateRenderComponent()
+Mesh* ChunkData::GenerateMesh()
 {
 	Mesh* mesh = MeshBuilder::GenerateChunk("chunk", m_iXSize, m_iYSize, m_iZSize, &m_blocks);
-	return new RenderComponent(mesh);
+	mesh->AddTexture("Colors");
+	return mesh;
 }

@@ -16,6 +16,6 @@ public:
 	ChunkData(const std::string fileName);
 	void WriteToFile(const std::string fileName);
 	Constrain* GetHeightConstraint();
-	RenderComponent* GenerateRenderComponent();
+	Mesh* GenerateMesh();
 	std::vector<unsigned short> * GetBlocks();
 };

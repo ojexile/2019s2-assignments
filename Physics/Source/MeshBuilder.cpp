@@ -1294,22 +1294,24 @@ AnimatedMesh* MeshBuilder::GenerateAnimatedMesh(std::string sMeshName, int numRo
 
 TexCoord GenTexCoord(int x, int u, int k, int l)
 {
+	x = ((x % 256) + 256) % 256;
 	return TexCoord((float)(x % u + k * 0.993 + 0.0035) / u, 1 - (float)(x / u + l * 0.993 + 0.0035) / u);
 }
 
 //@author Nam Kai Zhe
 Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int ySize, int zSize, std::vector<unsigned short>* chunk)
 {
-
+	xSize *= 16;
+	zSize *= 16;
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;
 	int index = 0;
-	for (int x = 0; x < xSize * 16; x++)
+	for (int x = 0; x < xSize ; x++)
 	{
-		for (int y = 0; y < ySize; y++)
+		for (int z = 0; z < zSize ; z++)
 		{
-			for (int z = 0; z < zSize * 16; z++)
+			for (int y = 0; y < ySize; y++)
 			{
 				if ((*chunk)[x + z * xSize + y * xSize*zSize] != 0)
 				{
@@ -1367,7 +1369,7 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 						index_buffer_data.push_back(index + 2);
 						index += 4;
 					}
-					if (y == 0 || (*chunk)[x + z * xSize + (y - 1) * xSize*zSize])
+					if (y == 0 || (*chunk)[x + z * xSize + (y - 1) * xSize*zSize]== 0)
 					{
 						Vertex v;
 						v.normal.Set(0, -1, 0);
@@ -1394,7 +1396,7 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 						index_buffer_data.push_back(index + 3);
 						index += 4;
 					}
-					if (y == ySize - 1 || (*chunk)[x + z * xSize + (y + 1) * xSize*zSize]) 
+					if (y == ySize - 1 || (*chunk)[x + z * xSize + (y + 1) * xSize*zSize] == 0) 
 					{
 						Vertex v;
 						v.normal.Set(0, 1, 0);
@@ -1422,7 +1424,7 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 						index += 4;
 					}
 
-					if (z == 0 || (*chunk)[x + (z - 1) * xSize + y * xSize*zSize]) 
+					if (z == 0 || (*chunk)[x + (z - 1) * xSize + y * xSize*zSize] == 0) 
 					{
 						Vertex v;
 						v.normal.Set(0, 0, -1);
@@ -1449,7 +1451,7 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 						index_buffer_data.push_back(index + 0);
 						index += 4;
 					}
-					if (z == zSize * 16 - 1 || (*chunk)[x + (z + 1) * xSize + y * xSize*zSize]) 
+					if (z == zSize * 16 - 1 || (*chunk)[x + (z + 1) * xSize + y * xSize*zSize] == 0) 
 					{
 						Vertex v;
 						v.normal.Set(0, 0, 1);

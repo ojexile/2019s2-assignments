@@ -36,7 +36,7 @@ void DefaultScene::Init()
 	GameObject* player = go;
 	go->AddChild(m_CameraGO);
 	go->AddComponent(new PlayerScript());
-	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	/// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
@@ -48,5 +48,5 @@ void DefaultScene::Init()
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
-	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
+	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMesh()));
 }
