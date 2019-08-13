@@ -13,4 +13,6 @@ Locator::eLoggerUsers StringToUser(std::string s);
 //Lerping
 float Lerp(float start, float end, float rate);
 Vector3 Lerp(Vector3 start, Vector3 end, float rate);
+
+bool IsClose(Vector3 a, Vector3 b, float buffer);
 #endif

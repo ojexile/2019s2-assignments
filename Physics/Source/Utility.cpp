@@ -26,7 +26,7 @@ float Lerp(float start, float end, float rate)
 	}
 	if (dir > 0)
 	{
-		if (dir >= end)
+		if (out >= end)
 			return end;
 	}
 	return out;
@@ -66,4 +66,19 @@ Locator::eLoggerUsers StringToUser(std::string s)
 		DEFAULT_LOG("(Cheng) Unknown user: " + s + "Using ALL users as default");
 		return Locator::ALL;
 	}
+}
+// Extra
+bool IsClose(Vector3 a, Vector3 b, float buffer)
+{
+	if (fabs(a.x - b.x) < buffer)
+	{
+		if (fabs(a.y - b.y) < buffer)
+		{
+			if ( fabs(a.z - b.z) < buffer)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }
