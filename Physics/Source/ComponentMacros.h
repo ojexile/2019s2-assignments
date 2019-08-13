@@ -6,5 +6,6 @@
 #define CAMERA GetComponent<CameraComponent>()
 #define RIGID GetComponent<Rigidbody>()
 #define CONSTRAIN GetComponent<Constrain>()
+#define PART GetComponent<PartScript>()
 
 typedef std::vector<unsigned char> _heightmap;

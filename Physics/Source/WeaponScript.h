@@ -21,7 +21,7 @@ public:
 		AUTO
 	};
 
-	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 0.333f, float fBulletSpread = 1.f, float fBulletForce = 100.f, FIRING_MODE FiringMode = AUTO);
+	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 1.333f, float fBulletSpread = 1.f, float fBulletForce = 100.f, FIRING_MODE FiringMode = AUTO);
 	~WeaponScript();
 
 	//Interface Functions
@@ -29,7 +29,7 @@ public:
 	void ReleaseTrigger();
 
 	void Update(double deltaTime) override;
-	void UpdateStats();
+	void UpdateStats(std::queue<GameObject*>& m_UpdatedQueue);
 
 	virtual WeaponScript* Clone() { return new WeaponScript(*this); }
 
@@ -39,7 +39,9 @@ private:
 	void ReloadWeapon(void);
 
 	void AddPart(GameObject* part);
-	void RemovePart();
+	void RemovePart(std::queue<GameObject*>& m_UpdatedQueue);
+
+	void DamageEquippedParts(const double deltaTime);
 
 	int m_iBulletsFiredCount;
 	
@@ -61,10 +63,10 @@ private:
 
 	GameObject* m_Projectile;
 
-	std::queue<PartScript*>	m_ScopeParts;
-	std::queue<PartScript*> m_MuzzleParts;
-	std::queue<PartScript*> m_GripParts;
-	std::queue<PartScript*> m_StockParts;
+	std::queue<GameObject*>	m_ScopeParts;
+	std::queue<GameObject*> m_MuzzleParts;
+	std::queue<GameObject*> m_GripParts;
+	std::queue<GameObject*> m_StockParts;
 
 };
 

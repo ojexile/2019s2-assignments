@@ -214,6 +214,7 @@
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\WeaponScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
@@ -283,6 +284,7 @@
     <ClInclude Include="Source\TransformComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\WeaponPartScript.h" />
     <ClInclude Include="Source\WeaponScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>

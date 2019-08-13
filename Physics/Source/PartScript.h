@@ -13,8 +13,8 @@ public:
 
 	enum PART_TYPE
 	{
-		GENERIC,
-		UNIQUE
+		WEAPON,
+		MISC
 	};
 
 	enum SLOT_TYPE
@@ -26,21 +26,25 @@ public:
 		ALL
 	};
 
-	PartScript();
+	PartScript(PART_TYPE type, SLOT_TYPE slot, float Multiplier, bool isAttached = false, float Durability = 5.f);
 	~PartScript();
 
 	virtual void Effect() = 0;
-	virtual void DecreaseDurability(float deltaTime);
+	virtual bool DecreaseDurability(double deltaTime);
+
+	PART_TYPE GetPartType();
+	SLOT_TYPE GetSlotType();
+
+	float GetMultiplier();
 
 private:
-
 	PART_TYPE m_partType;
 	SLOT_TYPE m_slotType;
 
 	bool m_isAttached;
 
 	float m_fDurability;
-	float m_fStatEffect;
+	float m_fStatMultiplier;
 
 };
 
