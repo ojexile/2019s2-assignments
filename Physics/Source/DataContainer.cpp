@@ -76,6 +76,11 @@ void  DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
 	go->AddComponent(new ProjectileScript());
+	// Reticle--------------------------------------------------------------------------------
+	go = new GameObject();
+	m_map_GO["Reticle"] = go;
+	go->TRANS->SetScale(2);
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 }
 void  DataContainer::InitShaders()
 {

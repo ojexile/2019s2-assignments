@@ -17,19 +17,7 @@ Vector3 StringToVector(std::string s)
 }
 float Lerp(float start, float end, float rate)
 {
-	float dir = end - start;
-	float out = start + dir * rate;
-	if (dir < 0)
-	{
-		if (out <= end)
-			return end;
-	}
-	if (dir > 0)
-	{
-		if (out >= end)
-			return end;
-	}
-	return out;
+	return start + rate * (end - start);
 }
 Vector3 Lerp(Vector3 start, Vector3 end, float rate)
 {
