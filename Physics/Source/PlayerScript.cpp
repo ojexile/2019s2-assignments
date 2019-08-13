@@ -130,9 +130,15 @@ void PlayerScript::UpdateMovement(double dt)
 			//bMoved = true;
 			Move(vRight);
 		}
-		if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
+		static bool jump = false;
+		if (InputManager::GetInstance()->GetInputStrength("PlayerJump") == 0)
+		{
+			jump = false;
+		}
+		if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0 && !jump)
 		{
 			rb->AddForce(vCameraUp  * m_fJumpForce);
+			jump = true;
 		}
 		//// bob
 		//if (bMoved)

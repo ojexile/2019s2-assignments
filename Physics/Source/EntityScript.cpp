@@ -41,5 +41,5 @@ void EntityScript::Move(Vector3 vDir)
 	if (!CheckRB())
 		return;
 	m_RB->AddForce(vDir * m_fMoveForce);
-	m_RB->ClampVel(m_fMaxSpeed);
+	m_RB->ClampVelXZ(m_fMaxSpeed);
 }

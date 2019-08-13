@@ -37,6 +37,7 @@ void DefaultScene::Init()
 	go->AddChild(m_CameraGO);
 	go->AddComponent(new PlayerScript());
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->RIGID->SetMat(0.9f, 0.f);
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	/// WORLD================================================================================

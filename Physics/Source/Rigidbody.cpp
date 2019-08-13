@@ -125,7 +125,7 @@ void Rigidbody::ClampVel(float max)
 {
 	if (m_vVel.LengthSquared() > max * max)
 	{
-		m_vVel = m_vVel.Normalize() * max;
+		m_vVel = m_vVel.Normalized() * max;
 	}
 }
 void Rigidbody::ClampVelXZ(float max)
@@ -134,7 +134,8 @@ void Rigidbody::ClampVelXZ(float max)
 	vTemp.y = 0;
 	if (vTemp.LengthSquared() > max * max)
 	{
-		vTemp = m_vVel.Normalize() * max;
+		vTemp = m_vVel.Normalized() * max;
 	}
-	m_vVel.x = ;
+	m_vVel.x = vTemp.x;
+	m_vVel.z = vTemp.z;
 }
