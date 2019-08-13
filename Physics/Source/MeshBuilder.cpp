@@ -444,7 +444,7 @@ Mesh* MeshBuilder::GenerateOBJ(std::string name)
 	}
 	else if (sQuality == "LOW")
 	{
-		std::string file_path = Resources::Path::Object + name + ".obj";
+		std::string file_path = Resources::Path::Object + sQuality + '/' + name + ".obj";
 		bool success = LoadOBJ(file_path.c_str(), vertices, uvs, normals);
 		if (!success)
 		{
@@ -1302,9 +1302,9 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 	std::vector<Vertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;
 	int index = 0;
-	for (int x = 0; x < xSize ; x++)
+	for (int x = 0; x < xSize; x++)
 	{
-		for (int z = 0; z < zSize ; z++)
+		for (int z = 0; z < zSize; z++)
 		{
 			for (int y = 0; y < ySize; y++)
 			{
@@ -1364,7 +1364,7 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 						index_buffer_data.push_back(index + 2);
 						index += 4;
 					}
-					if (y == 0 || (*chunk)[x + z * xSize + (y - 1) * xSize*zSize]== 0)
+					if (y == 0 || (*chunk)[x + z * xSize + (y - 1) * xSize*zSize] == 0)
 					{
 						Vertex v;
 						v.normal.Set(0, -1, 0);
@@ -1391,7 +1391,7 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 						index_buffer_data.push_back(index + 3);
 						index += 4;
 					}
-					if (y == ySize - 1 || (*chunk)[x + z * xSize + (y + 1) * xSize*zSize] == 0) 
+					if (y == ySize - 1 || (*chunk)[x + z * xSize + (y + 1) * xSize*zSize] == 0)
 					{
 						Vertex v;
 						v.normal.Set(0, 1, 0);
@@ -1419,7 +1419,7 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 						index += 4;
 					}
 
-					if (z == 0 || (*chunk)[x + (z - 1) * xSize + y * xSize*zSize] == 0) 
+					if (z == 0 || (*chunk)[x + (z - 1) * xSize + y * xSize*zSize] == 0)
 					{
 						Vertex v;
 						v.normal.Set(0, 0, -1);
@@ -1446,7 +1446,7 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 						index_buffer_data.push_back(index + 0);
 						index += 4;
 					}
-					if (z == zSize - 1 || (*chunk)[x + (z + 1) * xSize + y * xSize*zSize] == 0) 
+					if (z == zSize - 1 || (*chunk)[x + (z + 1) * xSize + y * xSize*zSize] == 0)
 					{
 						Vertex v;
 						v.normal.Set(0, 0, 1);
