@@ -1,6 +1,7 @@
 #include "Constrain.h"
 #include "LoadHmap.h"
 #include "TransformComponent.h"
+#include "StopWatch.h"
 Constrain::Constrain(HeightMapData* data, eConstrainTypes type)
 	: m_Data(data)
 	, m_ConstrainType(type)

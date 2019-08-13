@@ -460,11 +460,6 @@ Mesh* MeshBuilder::GenerateOBJ(std::string name)
 	else
 		DEFAULT_LOG("Unknown quality type of: " + sQuality);
 
-	std::string file_path = Resources::Path::Object + name + ".obj";
-	bool success = LoadOBJ(file_path.c_str(), vertices, uvs, normals);
-	if (!success)
-		return NULL;
-
 	std::vector<Vertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;
 

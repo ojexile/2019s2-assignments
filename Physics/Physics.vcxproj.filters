@@ -59,6 +59,9 @@
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
+    <ClCompile Include="Source\StopWatch.cpp" />
+    <ClCompile Include="Source\EntityScript.cpp" />
+    <ClCompile Include="Source\SprintingState.cpp" />
     <ClCompile Include="Source\ChunkData.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +126,9 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WorldValues.h" />
+    <ClInclude Include="Source\StopWatch.h" />
+    <ClInclude Include="Source\EntityScript.h" />
+    <ClInclude Include="Source\SprintingState.h" />
     <ClInclude Include="Source\ChunkData.h" />
   </ItemGroup>
 </Project>
