@@ -74,6 +74,7 @@ void  DataContainer::InitGO()
 	go->TRANS->SetScale(10);
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->RIGID->SetMass(0.01f);
 	go->AddComponent(new ProjectileScript());
 }
 void  DataContainer::InitShaders()
