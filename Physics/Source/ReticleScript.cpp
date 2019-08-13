@@ -12,7 +12,8 @@ ReticleScript::~ReticleScript()
 }
 void ReticleScript::Start()
 {
-	GetTransform()->SetRelativePosition(-100, -100, -100);
+	GetTransform()->SetRelativePosition(-CAMERA_DISTANCE, -CAMERA_DISTANCE, -CAMERA_DISTANCE);
+	GetTransform()->SetRelativePosition(-CAMERA_DISTANCE, -CAMERA_DISTANCE + 16, -CAMERA_DISTANCE); // overwriting  y pos as terrain coll has not been set up
 }
 void ReticleScript::Update(double dt)
 {

@@ -6,22 +6,21 @@
 
 #define LERP_RATE .05f
 #define LERP_RATE_M .05f
-#define DISTANCE 50
+
 CameraScript::CameraScript(GameObject* vTarget)
 	:m_vTarget(vTarget)
 {
 	m_bRotating = false;
 }
 
-
 CameraScript::~CameraScript()
 {
 }
 void CameraScript::Start()
 {
-	GetComponent<CameraComponent>()->GetCamera()->SetDir({-1, -1, -1});
-	m_vOffset = { DISTANCE,DISTANCE,DISTANCE };
-	m_vRotateOffset = { DISTANCE,DISTANCE,DISTANCE };
+	GetComponent<CameraComponent>()->GetCamera()->SetDir({ -1, -1, -1 });
+	m_vOffset = { CAMERA_DISTANCE,CAMERA_DISTANCE,CAMERA_DISTANCE };
+	m_vRotateOffset = { CAMERA_DISTANCE,CAMERA_DISTANCE,CAMERA_DISTANCE };
 }
 void CameraScript::Update(double d)
 {
@@ -30,8 +29,8 @@ void CameraScript::Update(double d)
 	Vector3 TargetPos = m_vTarget->TRANS->GetPosition();
 	Vector3 OffsetPosition = TargetPos + m_vOffset;
 	newPos.x = Lerp(CurrentPos.x, OffsetPosition.x, LERP_RATE);
+	newPos.y = Lerp(CurrentPos.y, OffsetPosition.y, LERP_RATE);
 	newPos.z = Lerp(CurrentPos.z, OffsetPosition.z, LERP_RATE);
-	newPos.y = DISTANCE;
 	GetTransform()->SetPosition(newPos);
 
 	static bool bTriggerCCW = false;
@@ -76,10 +75,9 @@ void CameraScript::Rotate()
 	Vector3 CurrentPos = GetPosition();
 	Vector3 PlayerPos = m_vTarget->TRANS->GetPosition();
 	Vector3 TargetPos = PlayerPos + m_vRotateOffset;
-	TargetPos.y = m_vRotateOffset.y;
 	newPos.x = Lerp(CurrentPos.x, TargetPos.x, LERP_RATE_M);
 	newPos.z = Lerp(CurrentPos.z, TargetPos.z, LERP_RATE_M);
-	newPos.y = DISTANCE;
+	newPos.y = TargetPos.y;
 	if (IsClose(newPos, TargetPos, 1.f))
 	{
 		m_bRotating = false;

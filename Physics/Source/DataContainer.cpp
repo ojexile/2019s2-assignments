@@ -64,6 +64,8 @@ void  DataContainer::InitMeshes()
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
 
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
+
+	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle")->AddTexture("Cube");
 }
 void  DataContainer::InitTerrain()
 {
@@ -102,8 +104,7 @@ void  DataContainer::InitGO()
 	// Reticle--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Reticle"] = go;
-	go->TRANS->SetScale(1);
-	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new RenderComponent(GetMesh("Reticle")));
 	go->AddComponent(new ReticleScript);
 }
 void  DataContainer::InitShaders()
@@ -149,6 +150,11 @@ DataContainer::~DataContainer()
 		delete x.second;
 	}
 	m_map_HeightMaps.clear();
+	//for (auto const& x : m_map_Chunks)
+	//{
+	//	delete x.second;
+	//}
+	//m_map_Chunks.clear();
 }
 Mesh* DataContainer::GetMesh(std::string name)
 {
