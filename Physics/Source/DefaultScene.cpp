@@ -1,10 +1,11 @@
- #include "DefaultScene.h"
+#include "DefaultScene.h"
 #include "AudioManager.h"
 
 #include "PlayerScript.h"
 #include "WeaponScript.h"
 #include "Utility.h"
 #include "CameraScript.h"
+
 DefaultScene::DefaultScene()
 {
 }
@@ -21,7 +22,7 @@ void DefaultScene::Init()
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
-
+	/// Player================================================================================
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
 	GameObject* Player = go;
@@ -32,8 +33,6 @@ void DefaultScene::Init()
 	go->AddComponent(new WeaponScript(dataContainer->GetGameObject("Bullet")));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
-	// Reticle
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Reticle"));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
@@ -46,6 +45,9 @@ void DefaultScene::Init()
 	float aspect = WindowSize.x / WindowSize.y;
 	float size = 600;
 	this->m_Camera->InitOrtho(size);
+	SetCursorEnabled(false);
+	// Reticle
+	m_CameraGO->AddChild(dataContainer->GetGameObject("Reticle"));
 	/// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GOM.AddGameObject();

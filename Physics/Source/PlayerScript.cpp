@@ -9,8 +9,6 @@ PlayerScript::PlayerScript()
 	m_CurrentState = nullptr;
 
 	m_fJumpForce = 3000.f;
-
-
 }
 
 PlayerScript::~PlayerScript()
@@ -20,7 +18,6 @@ PlayerScript::~PlayerScript()
 }
 void PlayerScript::Start()
 {
-	SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
 	GetCameraGO()->GetComponent<CameraComponent>()->SetMouseUseFloatYaw(false);
 }
 void PlayerScript::Update(double dt)
@@ -30,7 +27,6 @@ void PlayerScript::Update(double dt)
 	// Movement================================================================================
 	UpdateMovement(dt);
 }
-
 
 void PlayerScript::UpdateMovement(double dt)
 {
@@ -50,9 +46,9 @@ void PlayerScript::UpdateMovement(double dt)
 		m_CurrentState = state;
 	}
 
-	Vector3 vPlayerFront = {-1,0,-1};
+	Vector3 vPlayerFront = { -1,0,-1 };
 	vPlayerFront.Normalize();
-	Vector3 vRight = {1,0,-1};
+	Vector3 vRight = { 1,0,-1 };
 	vRight.Normalize();
 
 	Rigidbody* rb = GetComponent<Rigidbody>();
@@ -88,8 +84,7 @@ void PlayerScript::UpdateMovement(double dt)
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0 && !jump)
 	{
-		rb->AddForce({0,m_fJumpForce,0});
+		rb->AddForce({ 0,m_fJumpForce,0 });
 		jump = true;
 	}
-
 }

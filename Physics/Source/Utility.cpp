@@ -62,11 +62,23 @@ bool IsClose(Vector3 a, Vector3 b, float buffer)
 	{
 		if (fabs(a.y - b.y) < buffer)
 		{
-			if ( fabs(a.z - b.z) < buffer)
+			if (fabs(a.z - b.z) < buffer)
 			{
 				return true;
 			}
 		}
 	}
 	return false;
+}
+std::string VectorToString(Vector3& v)
+{
+	std::string out;
+	out += "{";
+	out += std::to_string(v.x);
+	out += ", ";
+	out += std::to_string(v.y);
+	out += ", ";
+	out += std::to_string(v.z);
+	out += " }";
+	return out;
 }
