@@ -25,6 +25,7 @@ void DataContainer::Init()
 	InitMeshes();
 	InitTerrain();
 	InitGO();
+	InitChunks();
 	InitShaders();
 	m_bInitialsed = true;
 
@@ -32,6 +33,12 @@ void DataContainer::Init()
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	CHENG_LOG("Time to load container: ", std::to_string(elapsed_secs));
 }
+
+void DataContainer::InitChunks()
+{
+	m_map_Chunks["test"] = new ChunkData("Content/Output.chunk");
+}
+
 void DataContainer::InitTextures()
 {
 	m_map_Textures["Text"] = LoadTGA("calibri");
