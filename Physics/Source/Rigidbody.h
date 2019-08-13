@@ -64,4 +64,5 @@ public:
 	void SetMat(float, float);
 
 	void ClampVel(float max);
+	void ClampVelXZ(float max);
 };
