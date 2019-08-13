@@ -7,7 +7,7 @@
 StandingState::StandingState()
 {
 	m_fBaseAccel = 300;
-	m_fSprintMultiplier = 2.0f;
+	m_fSprintMultiplier = 10.0f;
 	m_fBaseMovementSpeed = 40;
 }
 
@@ -32,7 +32,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		return new CrouchingState;
 	}
 
-	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 100,100,100 });
+	//SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 100,100,100 });
 	return nullptr;
 }
 void StandingState::OnEnter(ComponentBase* com)

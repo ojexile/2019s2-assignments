@@ -30,5 +30,4 @@ public:
 
 	void Update(double dt) override;
 	virtual void Start() override;
-	void SetMovementSpeed(float f, float accel);
 };

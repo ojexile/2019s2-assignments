@@ -43,3 +43,8 @@ void EntityScript::Move(Vector3 vDir)
 	m_RB->AddForce(vDir * m_fMoveForce);
 	m_RB->ClampVelXZ(m_fMaxSpeed);
 }
+void EntityScript::SetMovementSpeed(float Force, float Max)
+{
+	m_fMoveForce = Force;
+	m_fMaxSpeed = Max;
+}

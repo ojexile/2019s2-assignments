@@ -30,5 +30,7 @@ public:
 	EntityScript();
 	virtual ~EntityScript();
 	virtual ComponentBase* Clone() { return new EntityScript(*this); };
+
+	void SetMovementSpeed(float Force, float Max);
 };
 
