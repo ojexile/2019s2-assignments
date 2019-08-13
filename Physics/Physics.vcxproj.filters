@@ -64,6 +64,7 @@
     <ClCompile Include="Source\PartScript.cpp" />
     <ClCompile Include="Source\WeaponScript.cpp" />
     <ClCompile Include="Source\ProjectileScript.cpp" />
+    <ClCompile Include="Source\SprintingState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -132,5 +133,6 @@
     <ClInclude Include="Source\PartScript.h" />
     <ClInclude Include="Source\WeaponScript.h" />
     <ClInclude Include="Source\ProjectileScript.h" />
+    <ClInclude Include="Source\SprintingState.h" />
   </ItemGroup>
 </Project>

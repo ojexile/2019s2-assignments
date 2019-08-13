@@ -4,16 +4,13 @@
 #include "Rigidbody.h"
 #include "InputManager.h"
 
-#define MAX_HEALTH 100
 PlayerScript::PlayerScript()
 {
 	m_CurrentState = nullptr;
 	m_bFirstPerson = true;
-	// m_fMovementSpeed = 1;
+	m_fJumpForce = 3000.f;
 
-	m_fJumpForce = 10000.f;
 
-	m_fHealth = MAX_HEALTH;
 }
 
 PlayerScript::~PlayerScript()
@@ -31,11 +28,6 @@ void PlayerScript::Update(double dt)
 	// TransformComponent* trans = GetComponent<TransformComponent>();
 	// Movement================================================================================
 	UpdateMovement(dt);
-}
-void PlayerScript::SetMovementSpeed(float f, float accel)
-{
-	// m_fMovementSpeed = f;
-	// m_fAccel = accel;
 }
 void PlayerScript::SwitchView()
 {
@@ -130,27 +122,19 @@ void PlayerScript::UpdateMovement(double dt)
 			//bMoved = true;
 			Move(vRight);
 		}
-		if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
+		static bool jump = false;
+		if (InputManager::GetInstance()->GetInputStrength("PlayerJump") == 0)
+		{
+			jump = false;
+		}
+		if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0 && !jump)
 		{
 			rb->AddForce(vCameraUp  * m_fJumpForce);
+			jump = true;
 		}
-		//// bob
-		//if (bMoved)
-		//{
-		//	const float maxBob = 0.3f;
-		//	static float speed = 0.07f * m_fMovementSpeed;
-		//	static float offset = 0;
-		//	if (offset > maxBob)
-		//		speed = -fabs(speed);
-		//	if (offset < -maxBob)
-		//		speed = fabs(speed);
-		//	float off = speed * (float)dt;
-		//	GetCameraGO()->GetComponent<TransformComponent>()->TranslateRelative(0, off, 0);
-		//	offset += off;
-		//}
+		
 	}
-
 	// Camera================================================================================
 	//if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
-	//	SwitchView();
+	//	SwitchView()
 }

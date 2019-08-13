@@ -13,8 +13,6 @@ private:
 	float m_fJumpForce;
 	bool m_bFirstPerson;
 
-	float m_fHealth;
-
 	// Functions
 	// Switch view
 	void SwitchView();
@@ -30,5 +28,4 @@ public:
 
 	void Update(double dt) override;
 	virtual void Start() override;
-	void SetMovementSpeed(float f, float accel);
 };

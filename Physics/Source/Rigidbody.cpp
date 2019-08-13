@@ -125,8 +125,20 @@ void Rigidbody::ClampVel(float max)
 {
 	if (m_vVel.LengthSquared() > max * max)
 	{
-		m_vVel = m_vVel.Normalize() * max;
+		m_vVel = m_vVel.Normalized() * max;
 	}
+}
+void Rigidbody::ClampVelXZ(float max)
+{
+	Vector3 vTemp = m_vVel;
+	vTemp.y = 0;
+	if (vTemp.LengthSquared() > max * max)
+	{
+		vTemp = m_vVel.Normalized() * max;
+	}
+	m_vVel.x = vTemp.x;
+	m_vVel.z = vTemp.z;
+}
 }
 
 void Rigidbody::SetAffectedByGravity(bool AffectedByGrav)
