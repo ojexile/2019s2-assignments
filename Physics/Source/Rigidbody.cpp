@@ -128,3 +128,8 @@ void Rigidbody::ClampVel(float max)
 		m_vVel = m_vVel.Normalize() * max;
 	}
 }
+
+void Rigidbody::SetAffectedByGravity(bool AffectedByGrav)
+{
+	m_bGravityAffected = AffectedByGrav;
+}

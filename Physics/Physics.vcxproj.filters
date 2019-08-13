@@ -61,6 +61,9 @@
     <ClCompile Include="Source\WorldValues.cpp" />
     <ClCompile Include="Source\StopWatch.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
+    <ClCompile Include="Source\PartScript.cpp" />
+    <ClCompile Include="Source\WeaponScript.cpp" />
+    <ClCompile Include="Source\ProjectileScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -126,5 +129,8 @@
     <ClInclude Include="Source\WorldValues.h" />
     <ClInclude Include="Source\StopWatch.h" />
     <ClInclude Include="Source\EntityScript.h" />
+    <ClInclude Include="Source\PartScript.h" />
+    <ClInclude Include="Source\WeaponScript.h" />
+    <ClInclude Include="Source\ProjectileScript.h" />
   </ItemGroup>
 </Project>

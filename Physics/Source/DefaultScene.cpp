@@ -2,6 +2,7 @@
 #include "AudioManager.h"
 
 #include "PlayerScript.h"
+#include "WeaponScript.h"
 #include "Utility.h"
 
 DefaultScene::DefaultScene()
@@ -31,12 +32,14 @@ void DefaultScene::Init()
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
+
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetScale(1);
 	go->AddChild(m_CameraGO);
 	go->AddComponent(new PlayerScript());
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new WeaponScript(dataContainer->GetGameObject("Bullet")));
 	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	/// WORLD================================================================================
