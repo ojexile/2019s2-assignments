@@ -139,7 +139,7 @@ void Rigidbody::ClampVelXZ(float max)
 	m_vVel.x = vTemp.x;
 	m_vVel.z = vTemp.z;
 }
-}
+
 
 void Rigidbody::SetAffectedByGravity(bool AffectedByGrav)
 {
