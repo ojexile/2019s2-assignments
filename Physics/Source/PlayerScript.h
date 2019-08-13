@@ -11,12 +11,8 @@ private:
 	PlayerState* m_CurrentState;
 
 	float m_fJumpForce;
-	bool m_bFirstPerson;
 
 	// Functions
-	// Switch view
-	void SwitchView();
-	void SetTopDownPos();
 	void UpdateMovement(double dt);
 public:
 	PlayerScript();

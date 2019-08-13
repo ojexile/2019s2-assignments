@@ -62,7 +62,7 @@ public:
 	void SetTorque(Vector3);
 	void AddForce(Vector3);
 	void SetMat(float fric, float bounc);
-
+	void SetAffectedByGravity(bool);
 	void ClampVel(float max);
 	void ClampVelXZ(float max);
 };
