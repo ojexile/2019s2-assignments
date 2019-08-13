@@ -1,5 +1,6 @@
  #include "DefaultScene.h"
 #include "AudioManager.h"
+#include "ChunkCollider.h"
 
 #include "PlayerScript.h"
 #include "WeaponScript.h"
@@ -25,12 +26,11 @@ void DefaultScene::Init()
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetScale(.5);
-	go->TRANS->SetPosition(0, 16.5, 0);
+	go->TRANS->SetPosition(0, 17.5, 0);
 	go->AddComponent(new PlayerScript());
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->RIGID->SetMat(0.9f, 0.f);
 	go->AddComponent(new WeaponScript(dataContainer->GetGameObject("Bullet")));
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
@@ -53,6 +53,7 @@ void DefaultScene::Init()
 	/// Plains================================================================================
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
+	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
 	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMesh()));
+	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
 }

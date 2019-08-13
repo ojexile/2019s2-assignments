@@ -3,6 +3,8 @@
 #include "AudioManager.h"
 #include "ScriptComponent.h"
 #include "WorldValues.h"
+#include "ChunkCollider.h"
+#include "PlayerScript.h"
 CollisionManager::CollisionManager()
 {
 }
@@ -13,6 +15,72 @@ CollisionManager::~CollisionManager()
 Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameObject* go2)
 {
 	// go1 is always ball
+	if (go2->GetComponent<ChunkCollider>() != nullptr)
+	{
+		ChunkData* chunkData = go2->GetComponent<ChunkCollider>()->GetChunk();
+		float halfPlayerSize = go1->GetComponent<TransformComponent>()->GetScale().x;
+		Vector3 posInChunk = go1->GetComponent<TransformComponent>()->GetPosition() - go2->GetComponent<TransformComponent>()->GetPosition();
+		Vector3 posOfChunk = go2->GetComponent<TransformComponent>()->GetPosition();
+		if (posInChunk.x < -halfPlayerSize || posInChunk.x > chunkData->GetSize().x + halfPlayerSize ||
+			posInChunk.z < -halfPlayerSize || posInChunk.z > chunkData->GetSize().z + halfPlayerSize)
+		{;
+			return Rigidbody::ePhysicsTypes::NONE;
+		}
+		Vector3 corners[4] = { posInChunk + Vector3(halfPlayerSize, 0, halfPlayerSize),
+									posInChunk + Vector3(halfPlayerSize, 0, -halfPlayerSize),
+									posInChunk + Vector3(-halfPlayerSize, 0, halfPlayerSize),
+									posInChunk + Vector3(-halfPlayerSize, 0, -halfPlayerSize) };
+		unsigned char cornerCode = (chunkData->IsSolid(corners[0]) ? 8 : 0) + (chunkData->IsSolid(corners[1]) ? 4 : 0) + (chunkData->IsSolid(corners[2]) ? 2 : 0) + (chunkData->IsSolid(corners[3]) ? 1 : 0);
+		Vector3 forceDirection = Vector3(0,0,0);
+		Vector3 distance = Vector3(0,0,0);
+		switch (cornerCode)
+		{
+		case 0: return Rigidbody::ePhysicsTypes::NONE;
+		case 1: 
+			forceDirection = (Vector3(posInChunk.x, 0, posInChunk.z) - Vector3((int)corners[3].x + 0.5, 0, (int)corners[3].z + 0.5));
+			distance = (corners[3] - Vector3((int)corners[3].x + 0.5, corners[3].y, (int)corners[3].z + 0.5));
+			forceDirection = forceDirection.Normalized() * (0.72 - distance.Length()) * (0.72 - distance.Length());
+			break;
+		case 2:
+			forceDirection = (Vector3(posInChunk.x, 0, posInChunk.z) - Vector3((int)corners[2].x + 0.5, 0, (int)corners[2].z + 0.5));
+			distance = (corners[2] - Vector3((int)corners[2].x + 0.5, corners[2].y, (int)corners[2].z + 0.5));
+			forceDirection = forceDirection.Normalized() * (0.72 - distance.Length()) * (0.72 - distance.Length());
+			break;
+		case 4:
+			forceDirection = (Vector3(posInChunk.x, 0, posInChunk.z) - Vector3((int)corners[1].x + 0.5, 0, (int)corners[1].z + 0.5));
+			distance = (corners[1] - Vector3((int)corners[1].x + 0.5, corners[1].y, (int)corners[1].z + 0.5));
+			forceDirection = forceDirection.Normalized() * (0.72 - distance.Length()) * (0.72 - distance.Length());
+			break;
+		case 8:
+			forceDirection = (Vector3(posInChunk.x, 0, posInChunk.z) - Vector3((int)corners[0].x + 0.5, 0, (int)corners[0].z + 0.5));
+			distance = (corners[0] - Vector3((int)corners[0].x + 0.5, corners[0].y, (int)corners[0].z + 0.5));
+			forceDirection = forceDirection.Normalized() * (0.72 - distance.Length()) * (0.72 - distance.Length());
+			break;
+		case 3:
+			forceDirection = Vector3(1, 0, 0);
+			distance = (corners[3] - Vector3((int)corners[3].x + 0.5, corners[3].y, corners[3].z));
+			forceDirection = forceDirection.Normalized() * (0.5 - distance.Length()) * (0.5 - distance.Length());
+			break;
+		case 5:
+			forceDirection = Vector3(0, 0, 1);
+			distance = (corners[3] - Vector3(corners[3].x, corners[3].y, (int)corners[3].z + 0.5));
+			forceDirection = forceDirection.Normalized() * (0.5 - distance.Length()) * (0.5 - distance.Length());
+			break;
+		case 10:
+			forceDirection = Vector3(0, 0, -1);
+			distance = (corners[0] - Vector3(corners[0].x, corners[0].y, (int)corners[0].z + 0.5));
+			forceDirection = forceDirection.Normalized() * (0.5 - distance.Length()) * (0.5 - distance.Length());
+			break;
+		case 12:
+			forceDirection = Vector3(-1, 0, 0);
+			distance = (corners[0] - Vector3((int)corners[0].x+0.5, corners[0].y, corners[0].z));
+			forceDirection = forceDirection.Normalized() * (0.5 - distance.Length()) * (0.5 - distance.Length());
+			//TODO: create corner cases
+		}
+		go1->GetComponent<Rigidbody>()->AddForce(forceDirection * 20000);
+		DEFAULT_LOG("Collision!");
+	}
+
 	switch (go2->GetComponent<Rigidbody>()->GetType())
 	{
 	case Rigidbody::BALL:
