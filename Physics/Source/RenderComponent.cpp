@@ -87,6 +87,14 @@ void RenderComponent::SetColor(Vector3 color)
 		m_Material.kDiffuse.Set(color.x, color.y, color.z);
 	}
 }
+void RenderComponent::SetColor(float x, float y, float z)
+{
+	if (m_Mesh)
+	{
+		m_Material.kAmbient.Set(x, y, z);
+		m_Material.kDiffuse.Set(x, y, z);
+	}
+}
 void RenderComponent::ResetColor(Vector3 color)
 {
 	if (m_Mesh)

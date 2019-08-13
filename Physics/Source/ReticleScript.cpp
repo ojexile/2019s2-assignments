@@ -12,18 +12,18 @@ ReticleScript::~ReticleScript()
 }
 void ReticleScript::Start()
 {
-	GetTransform()->SetRelativePosition(-CAMERA_DISTANCE, -CAMERA_DISTANCE, -CAMERA_DISTANCE);
-	GetTransform()->SetRelativePosition(-CAMERA_DISTANCE, -CAMERA_DISTANCE + 16, -CAMERA_DISTANCE); // overwriting  y pos as terrain coll has not been set up
+	GetTransform()->SetRelativePosition(-CameraScript::GetOffset());
 }
 void ReticleScript::Update(double dt)
 {
 	float UD = InputManager::GetInstance()->GetInputStrength("ReticleUpDown");
 	float LR = InputManager::GetInstance()->GetInputStrength("ReticleLeftRight");
-	Vector3 Front(-1, 0, -1);
-	Vector3 Right(1, 0, -1);
-	GetTransform()->TranslateRelative(Front  * UD);
-	GetTransform()->TranslateRelative(Right  * LR);
-	CHENG_LOG("Reticle Pos: ", VectorToString(GetPosition()));
+	Vector3 Front = CameraScript::GetFront();
+	Vector3 Right = CameraScript::GetRight();
+	m_vOffset += (Front  * UD);
+	m_vOffset += (Right  * LR);
+	GetTransform()->SetRelativePosition(m_vOffset + -CameraScript::GetOffset());
+	// CHENG_LOG("Reticle Pos: ", VectorToString(GetPosition()));
 	///Screen space update------------------------------------------------------------------------------------
 	//Vector3 vOrigin = { 1920 / 2, 1080 / 2 };
 
@@ -37,7 +37,7 @@ void ReticleScript::Update(double dt)
 
 	//Vector3 vDir = ScreenPos - vOrigin;
 	//Mtx44 rot;
-	//rot.SetToRotation(45, 1, 1, 1);
+	//rot.SetToRotation(4fOffset, 1, 1, 1);
 	//vDir = rot * vDir;
 
 	//Vector3 CamPos = GetCameraGO()->TRANS->GetPosition();

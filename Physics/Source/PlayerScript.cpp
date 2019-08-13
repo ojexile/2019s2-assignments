@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "Rigidbody.h"
 #include "InputManager.h"
+#include "CameraScript.h"
 
 PlayerScript::PlayerScript()
 {
@@ -46,36 +47,31 @@ void PlayerScript::UpdateMovement(double dt)
 		m_CurrentState = state;
 	}
 
-	Vector3 vPlayerFront = { -1,0,-1 };
-	vPlayerFront.Normalize();
-	Vector3 vRight = { 1,0,-1 };
-	vRight.Normalize();
-
 	Rigidbody* rb = GetComponent<Rigidbody>();
 	// Movement
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
 	{
 		//rb->AddForce(vPlayerFront  *m_fAccel);
 		//bMoved = true;
-		Move(vPlayerFront);
+		Move(CameraScript::GetFront());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
 	{
 		//rb->AddForce(vPlayerFront  * -m_fAccel);
 		//bMoved = true;
-		Move(-vPlayerFront);
+		Move(-CameraScript::GetFront());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
 	{
 		//rb->AddForce(vRight  * -m_fAccel);
 		//bMoved = true;
-		Move(-vRight);
+		Move(-CameraScript::GetRight());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
 	{
 		//rb->AddForce(vRight  * m_fAccel);
 		//bMoved = true;
-		Move(vRight);
+		Move(CameraScript::GetRight());
 	}
 	static bool jump = false;
 	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") == 0)

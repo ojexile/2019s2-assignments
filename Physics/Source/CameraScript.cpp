@@ -7,6 +7,11 @@
 #define LERP_RATE .05f
 #define LERP_RATE_M .05f
 
+Vector3 CameraScript::m_vFront;
+Vector3 CameraScript::m_vRight;
+Vector3 CameraScript::m_vOffset;
+Vector3 CameraScript::m_vRotateOffset;
+
 CameraScript::CameraScript(GameObject* vTarget)
 	:m_vTarget(vTarget)
 {
@@ -21,6 +26,10 @@ void CameraScript::Start()
 	GetComponent<CameraComponent>()->GetCamera()->SetDir({ -1, -1, -1 });
 	m_vOffset = { CAMERA_DISTANCE,CAMERA_DISTANCE,CAMERA_DISTANCE };
 	m_vRotateOffset = { CAMERA_DISTANCE,CAMERA_DISTANCE,CAMERA_DISTANCE };
+	m_vFront = { -1,0,-1 };
+	m_vFront.Normalize();
+	m_vRight = { 1,0,-1 };
+	m_vRight.Normalize();
 }
 void CameraScript::Update(double d)
 {
@@ -60,6 +69,9 @@ void CameraScript::Update(double d)
 		m_vRotateOffset = rot * m_vRotateOffset;
 		m_vRotateOffset.x = round(m_vRotateOffset.x);
 		m_vRotateOffset.z = round(m_vRotateOffset.z);
+		//
+		m_vFront = rot * m_vFront;
+		m_vRight = rot * m_vRight;
 		m_bRotating = true;
 		bTriggerCW = true;
 	}
@@ -89,4 +101,20 @@ void CameraScript::Rotate()
 	GetCamera()->SetDir(CamToPlayer);
 	// Update Offset
 	m_vOffset = -CamToPlayer;
+}
+Vector3 CameraScript::GetFront()
+{
+	return m_vFront;
+}
+Vector3 CameraScript::GetRight()
+{
+	return m_vRight;
+}
+Vector3 CameraScript::GetOffset()
+{
+	return m_vOffset;
+}
+Vector3 CameraScript::GetRotateOffset()
+{
+	return m_vRotateOffset;
 }

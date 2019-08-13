@@ -65,7 +65,7 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
-	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle")->AddTexture("Cube");
+	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle");
 }
 void  DataContainer::InitTerrain()
 {
@@ -105,6 +105,7 @@ void  DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["Reticle"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Reticle")));
+	go->RENDER->SetColor(0, 1, 1);
 	go->AddComponent(new ReticleScript);
 }
 void  DataContainer::InitShaders()
