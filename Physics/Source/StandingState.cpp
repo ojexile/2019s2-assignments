@@ -63,7 +63,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 }
 void StandingState::OnEnter(ComponentBase* com)
 {
-	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 1,1,1 } *100);
-	SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir({-1, -1, -1});
+	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 1,1,1 } * 100);
+	// SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir({-1, -1, -1});
 	com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 }

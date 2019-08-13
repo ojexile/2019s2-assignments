@@ -3,7 +3,7 @@
 
 #include "PlayerScript.h"
 #include "Utility.h"
-
+#include "CameraScript.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -16,11 +16,23 @@ void DefaultScene::Init()
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
-	/// Create Camera================================================================================
-	m_CameraGO = new GameObject;
-	m_CameraGO->AddComponent(new CameraComponent);
-	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	/// Layers================================================================================
+	/// UI================================================================================
+	// FPS--------------------------------------------------------------------------------
+	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
+	// Player--------------------------------------------------------------------------------
+	go = m_GOM.AddGameObject();
+	go->TRANS->SetScale(1);
+	go->AddComponent(new PlayerScript());
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->RIGID->SetMat(0.9f, 0.f);
+	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
+	/// Create Camera================================================================================
+	m_CameraGO = m_GOM.AddGameObject();
+	m_CameraGO->AddComponent(new CameraComponent);
+	m_CameraGO->AddComponent(new CameraScript(go));
+	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	// Set up camera
 	m_CameraGO->TRANS->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
@@ -28,18 +40,6 @@ void DefaultScene::Init()
 	float aspect = WindowSize.x / WindowSize.y;
 	float size = 600;
 	this->m_Camera->InitOrtho(size);
-	/// UI================================================================================
-	// FPS--------------------------------------------------------------------------------
-	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
-	// Player--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject();
-	go->TRANS->SetScale(1);
-	go->AddChild(m_CameraGO);
-	go->AddComponent(new PlayerScript());
-	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->RIGID->SetMat(0.9f, 0.f);
-	go->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	/// WORLD================================================================================
 	// Skyplane--------------------------------------------------------------------------------
 	GameObject* SkyPlane = m_GOM.AddGameObject();

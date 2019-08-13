@@ -15,13 +15,6 @@ Vector3 StringToVector(std::string s)
 
 	return	Vector3((float)std::stoi(sX), (float)std::stoi(sY));
 }
-Vector3 Lerp(Vector3 start, Vector3 end, float rate)
-{
-	Vector3 out;
-	out.x = Lerp(start.x, end.x, rate);
-	out.y = Lerp(start.y, end.y, rate);
-	out.z = Lerp(start.z, end.z, rate);
-}
 float Lerp(float start, float end, float rate)
 {
 	float dir = end - start;
@@ -36,6 +29,14 @@ float Lerp(float start, float end, float rate)
 		if (dir > end)
 			return end;
 	}
+	return out;
+}
+Vector3 Lerp(Vector3 start, Vector3 end, float rate)
+{
+	Vector3 out;
+	out.x = Lerp(start.x, end.x, rate);
+	out.y = Lerp(start.y, end.y, rate);
+	out.z = Lerp(start.z, end.z, rate);
 	return out;
 }
 Locator::eLoggerUsers StringToUser(std::string s)
