@@ -62,6 +62,7 @@
     <ClCompile Include="Source\StopWatch.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
     <ClCompile Include="Source\SprintingState.cpp" />
+    <ClCompile Include="Source\TopDownState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -128,5 +129,6 @@
     <ClInclude Include="Source\StopWatch.h" />
     <ClInclude Include="Source\EntityScript.h" />
     <ClInclude Include="Source\SprintingState.h" />
+    <ClInclude Include="Source\TopDownState.h" />
   </ItemGroup>
 </Project>

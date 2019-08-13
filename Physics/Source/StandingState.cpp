@@ -4,6 +4,8 @@
 #include "KeyboardManager.h"
 #include "InputManager.h"
 
+#include "TopDownState.h"
+
 StandingState::StandingState()
 {
 	m_fBaseAccel = 300;
@@ -48,6 +50,11 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		com->RIGID->AddForce(vTempDir * m_fDodgeForce);
 		bDodge = true;
 	}
+	// Top Down
+	if (InputManager::GetInstance()->GetInputStrength("SwitchCam"))
+	{
+		return new TopDownState;
+	}
 	// Jump
 	// TODO: 
 
@@ -56,6 +63,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 }
 void StandingState::OnEnter(ComponentBase* com)
 {
-	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 1,1,1 } * 100);
+	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 1,1,1 } *100);
+	SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir({-1, -1, -1});
 	com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 }

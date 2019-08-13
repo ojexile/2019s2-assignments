@@ -7,7 +7,7 @@
 PlayerScript::PlayerScript()
 {
 	m_CurrentState = nullptr;
-	m_bFirstPerson = true;
+
 	m_fJumpForce = 3000.f;
 
 
@@ -20,7 +20,8 @@ PlayerScript::~PlayerScript()
 }
 void PlayerScript::Start()
 {
-	SwitchView();
+	SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
+	GetCameraGO()->GetComponent<CameraComponent>()->SetMouseUseFloatYaw(false);
 }
 void PlayerScript::Update(double dt)
 {
@@ -29,112 +30,66 @@ void PlayerScript::Update(double dt)
 	// Movement================================================================================
 	UpdateMovement(dt);
 }
-void PlayerScript::SwitchView()
-{
-	TransformComponent* trans = GetComponent<TransformComponent>();
-	Vector3 pos = trans->GetPosition();
-	if (m_bFirstPerson)
-	{
-		GetCameraGO()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_FIRST);
-		GetCameraGO()->GetComponent<CameraComponent>()->SetMouseUseFloatYaw(false);
-
-		GetCamera()->SetDir(Vector3{-1,-1,-1}.Normalize());
 
 
-		m_bFirstPerson = false;
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
-	}
-	else
-	{
-		SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<CameraComponent>()->SetCameraType(CameraComponent::CAM_ORTHO);
-
-		SetTopDownPos();
-
-		m_bFirstPerson = true;
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
-	}
-}
-void PlayerScript::SetTopDownPos()
-{
-	TransformComponent* trans = GetComponent<TransformComponent>();
-	GameObject* cam = GetCameraGO();
-	//trans->SetPosition(0, 0, 0);
-	cam->GetComponent<CameraComponent>()->GetCamera()->SetDir(-90, -90);
-	Vector3 CamDir = GetCamera()->GetDir();
-	Vector3 newRelPos = trans->GetPosition();
-	newRelPos = -newRelPos;
-	newRelPos.z += CamDir.z * -200;
-	newRelPos.y = CamDir.y * -200;
-	cam->GetComponent<TransformComponent>()->SetRelativePosition(newRelPos);
-}
 void PlayerScript::UpdateMovement(double dt)
 {
 	bool bMoved = false;
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 pos = trans->GetPosition();
-
-	if (!m_bFirstPerson)
+	if (!m_CurrentState)
 	{
-		if (!m_CurrentState)
-		{
-			m_CurrentState = new StandingState;
-			m_CurrentState->OnEnter(this);
-		}
-		PlayerState* state = m_CurrentState->HandleInput(this, dt);
-		if (m_CurrentState != state && state != nullptr)
-		{
-			state->OnEnter(this);
-			delete m_CurrentState;
-			m_CurrentState = state;
-		}
-
-		Vector3 vCameraFront = GetCamera()->GetDir();
-		Vector3 vCameraUp = GetCamera()->GetUp();
-
-		Vector3 vPlayerFront = vCameraFront;
-		vPlayerFront.y = 0;
-		vPlayerFront.Normalize();
-
-		Vector3 vRight = vCameraFront.Cross(vCameraUp);
-		Rigidbody* rb = GetComponent<Rigidbody>();
-		// Movement
-		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
-		{
-			//rb->AddForce(vPlayerFront  *m_fAccel);
-			//bMoved = true;
-			Move(vPlayerFront);
-		}
-		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
-		{
-			//rb->AddForce(vPlayerFront  * -m_fAccel);
-			//bMoved = true;
-			Move(-vPlayerFront);
-		}
-		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
-		{
-			//rb->AddForce(vRight  * -m_fAccel);
-			//bMoved = true;
-			Move(-vRight);
-		}
-		if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
-		{
-			//rb->AddForce(vRight  * m_fAccel);
-			//bMoved = true;
-			Move(vRight);
-		}
-		static bool jump = false;
-		if (InputManager::GetInstance()->GetInputStrength("PlayerJump") == 0)
-		{
-			jump = false;
-		}
-		if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0 && !jump)
-		{
-			rb->AddForce(vCameraUp  * m_fJumpForce);
-			jump = true;
-		}
-		
+		m_CurrentState = new StandingState;
+		m_CurrentState->OnEnter(this);
 	}
-	// Camera================================================================================
-	//if (KeyboardManager::GetInstance()->GetKeyTriggered("switchCamOrtho"))
-	//	SwitchView()
+	PlayerState* state = m_CurrentState->HandleInput(this, dt);
+	if (m_CurrentState != state && state != nullptr)
+	{
+		state->OnEnter(this);
+		delete m_CurrentState;
+		m_CurrentState = state;
+	}
+
+	Vector3 vPlayerFront = {-1,0,-1};
+	vPlayerFront.Normalize();
+	Vector3 vRight = {1,0,-1};
+	vRight.Normalize();
+
+	Rigidbody* rb = GetComponent<Rigidbody>();
+	// Movement
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
+	{
+		//rb->AddForce(vPlayerFront  *m_fAccel);
+		//bMoved = true;
+		Move(vPlayerFront);
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
+	{
+		//rb->AddForce(vPlayerFront  * -m_fAccel);
+		//bMoved = true;
+		Move(-vPlayerFront);
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
+	{
+		//rb->AddForce(vRight  * -m_fAccel);
+		//bMoved = true;
+		Move(-vRight);
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
+	{
+		//rb->AddForce(vRight  * m_fAccel);
+		//bMoved = true;
+		Move(vRight);
+	}
+	static bool jump = false;
+	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") == 0)
+	{
+		jump = false;
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0 && !jump)
+	{
+		rb->AddForce({0,m_fJumpForce,0});
+		jump = true;
+	}
+
 }
