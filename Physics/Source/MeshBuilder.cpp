@@ -1337,7 +1337,7 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 						index_buffer_data.push_back(index + 0);
 						index += 4;
 					}
-					if (x == xSize * 16 - 1 || (*chunk)[x + 1 + z * xSize + y * xSize*zSize] == 0)
+					if (x == xSize - 1 || (*chunk)[x + 1 + z * xSize + y * xSize*zSize] == 0)
 					{
 						Vertex v;
 						v.normal.Set(1, 0, 0);
@@ -1446,7 +1446,7 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 						index_buffer_data.push_back(index + 0);
 						index += 4;
 					}
-					if (z == zSize * 16 - 1 || (*chunk)[x + (z + 1) * xSize + y * xSize*zSize] == 0) 
+					if (z == zSize - 1 || (*chunk)[x + (z + 1) * xSize + y * xSize*zSize] == 0) 
 					{
 						Vertex v;
 						v.normal.Set(0, 0, 1);
