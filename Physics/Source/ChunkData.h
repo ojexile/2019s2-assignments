@@ -10,7 +10,6 @@ class ChunkData
 	std::vector<std::vector<unsigned short>> m_roofworlds;// vector of vectors of same size defining separate roofworlds
 	//std::vector<ChunkFeature> m_features;
 public:
-
 	ChunkData();
 	~ChunkData();
 	ChunkData(const std::string fileName);
@@ -18,4 +17,5 @@ public:
 	Constrain* GetHeightConstraint();
 	Mesh* GenerateMesh();
 	std::vector<unsigned short> * GetBlocks();
+	bool IsSolid(Vector3 pos);
 };

@@ -17,6 +17,14 @@ ChunkData::ChunkData(const std::string fileName)
 	}
 }
 
+bool ChunkData::IsSolid(Vector3 pos)
+{
+	int x = (int)pos.x;
+	int y = (int)pos.y;
+	int z = (int)pos.z;
+	return m_blocks[x + z * m_iXSize + y * m_iXSize * m_iZSize] != 0;
+}
+
 void PutShort(FILE* f, unsigned short s)
 {
 	fputc(s >> 8, f);
