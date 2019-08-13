@@ -17,7 +17,7 @@ public:
 private:
 	eCameraTypes m_eCameraType;
 	Camera m_Camera;
-	bool m_bMouseEnabled;
+	bool m_bUseFloatYaw;
 public:
 	CameraComponent();
 	virtual ~CameraComponent();
@@ -31,5 +31,5 @@ public:
 	void SetCameraType(eCameraTypes eCameratype);
 	eCameraTypes GetCameraType();
 
-	void SetMouseEnabled(bool b);
+	void SetMouseUseFloatYaw(bool b);
 };

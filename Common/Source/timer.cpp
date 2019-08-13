@@ -1,6 +1,6 @@
 #include "timer.h"
 
-StopWatch::StopWatch()
+Timer::Timer()
 {    
     QueryPerformanceFrequency( &frequency ) ;
 
@@ -17,21 +17,21 @@ StopWatch::StopWatch()
     timeBeginPeriod(wTimerRes); 
 }
 
-StopWatch::~StopWatch()
+Timer::~Timer()
 {
     timeEndPeriod(wTimerRes);
 }
 
-double StopWatch::LIToSecs( LARGE_INTEGER & L) {
+double Timer::LIToSecs( LARGE_INTEGER & L) {
      return ((double)L.QuadPart /(double)frequency.QuadPart) ;
  }
  
-void StopWatch::startTimer( )
+void Timer::startTimer( )
 {
     QueryPerformanceCounter(&prevTime) ;
 }
  
-double StopWatch::getElapsedTime() 
+double Timer::getElapsedTime() 
 {
     LARGE_INTEGER time;
     QueryPerformanceCounter(&currTime) ;
@@ -40,7 +40,7 @@ double StopWatch::getElapsedTime()
     return LIToSecs( time) ;
 }
 
-void StopWatch::waitUntil(long long time)
+void Timer::waitUntil(long long time)
 {
     LARGE_INTEGER nowTime;
     LONGLONG timeElapsed;

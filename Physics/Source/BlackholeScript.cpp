@@ -39,7 +39,7 @@ void Blackhole::Update(double dt)
 		try
 		{
 			Vector3 force = (fForceAttract) * (pos1 - pos2).Normalize() * (float)dt;
-			rigid->IncrementForce(force);
+			rigid->AddForce(force);
 		}
 		catch (std::exception e)
 		{

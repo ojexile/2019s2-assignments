@@ -34,7 +34,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -162,6 +162,7 @@
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
+    <ClCompile Include="Source\ChunkData.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\Constrain.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Source\DefaultScene.cpp" />
     <ClCompile Include="Source\DepthFBO.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="Source\EntityScript.cpp" />
     <ClCompile Include="Source\FPSScript.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
@@ -205,7 +207,9 @@
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\ScriptComponent.cpp" />
     <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\SprintingState.cpp" />
     <ClCompile Include="Source\StandingState.cpp" />
+    <ClCompile Include="Source\StopWatch.cpp" />
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
@@ -219,6 +223,7 @@
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
+    <ClInclude Include="Source\ChunkData.h" />
     <ClInclude Include="Source\CollisionManager.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
@@ -228,6 +233,7 @@
     <ClInclude Include="Source\DefaultScene.h" />
     <ClInclude Include="Source\DepthFBO.h" />
     <ClInclude Include="Source\Engine.h" />
+    <ClInclude Include="Source\EntityScript.h" />
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
@@ -267,7 +273,9 @@
     <ClInclude Include="Source\ScriptComponent.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Singleton.h" />
+    <ClInclude Include="Source\SprintingState.h" />
     <ClInclude Include="Source\StandingState.h" />
+    <ClInclude Include="Source\StopWatch.h" />
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\TransformComponent.h" />
     <ClInclude Include="Source\Utility.h" />

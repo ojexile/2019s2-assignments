@@ -460,11 +460,6 @@ Mesh* MeshBuilder::GenerateOBJ(std::string name)
 	else
 		DEFAULT_LOG("Unknown quality type of: " + sQuality);
 
-	std::string file_path = Resources::Path::Object + name + ".obj";
-	bool success = LoadOBJ(file_path.c_str(), vertices, uvs, normals);
-	if (!success)
-		return NULL;
-
 	std::vector<Vertex> vertex_buffer_data;
 	std::vector<GLuint> index_buffer_data;
 
@@ -1290,4 +1285,207 @@ AnimatedMesh* MeshBuilder::GenerateAnimatedMesh(std::string sMeshName, int numRo
 	mesh->indexSize = index_buffer_data.size();
 	AnimatedMesh *anim = new AnimatedMesh(sMeshName, numRow, numCol, start, end, time, loop, mesh);
 	return anim;
+}
+
+TexCoord GenTexCoord(int x, int u, int k, int l)
+{
+	x = ((x % 256) + 256) % 256;
+	return TexCoord((float)(x % u + k * 0.993 + 0.0035) / u, 1 - (float)(x / u + l * 0.993 + 0.0035) / u);
+}
+
+//@author Nam Kai Zhe
+Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int ySize, int zSize, std::vector<unsigned short>* chunk)
+{
+	xSize *= 16;
+	zSize *= 16;
+	Vertex v;
+	std::vector<Vertex> vertex_buffer_data;
+	std::vector<GLuint> index_buffer_data;
+	int index = 0;
+	for (int x = 0; x < xSize ; x++)
+	{
+		for (int z = 0; z < zSize ; z++)
+		{
+			for (int y = 0; y < ySize; y++)
+			{
+				if ((*chunk)[x + z * xSize + y * xSize*zSize] != 0)
+				{
+					if (x == 0 || (*chunk)[x - 1 + z * xSize + y * xSize*zSize] == 0)
+					{
+						Vertex v;
+						v.normal.Set(-1, 0, 0);
+						v.pos = Position(x, y, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(-1, 0, 0);
+						v.pos = Position(x, y + 1, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(-1, 0, 0);
+						v.pos = Position(x, y, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(-1, 0, 0);
+						v.pos = Position(x, y + 1, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
+						vertex_buffer_data.push_back(v);
+						index_buffer_data.push_back(index + 0);
+						index_buffer_data.push_back(index + 3);
+						index_buffer_data.push_back(index + 1);
+						index_buffer_data.push_back(index + 2);
+						index_buffer_data.push_back(index + 3);
+						index_buffer_data.push_back(index + 0);
+						index += 4;
+					}
+					if (x == xSize * 16 - 1 || (*chunk)[x + 1 + z * xSize + y * xSize*zSize] == 0)
+					{
+						Vertex v;
+						v.normal.Set(1, 0, 0);
+						v.pos = Position(x + 1, y, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(1, 0, 0);
+						v.pos = Position(x + 1, y + 1, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(1, 0, 0);
+						v.pos = Position(x + 1, y, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(1, 0, 0);
+						v.pos = Position(x + 1, y + 1, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
+						vertex_buffer_data.push_back(v);
+						index_buffer_data.push_back(index + 0);
+						index_buffer_data.push_back(index + 1);
+						index_buffer_data.push_back(index + 3);
+						index_buffer_data.push_back(index + 0);
+						index_buffer_data.push_back(index + 3);
+						index_buffer_data.push_back(index + 2);
+						index += 4;
+					}
+					if (y == 0 || (*chunk)[x + z * xSize + (y - 1) * xSize*zSize]== 0)
+					{
+						Vertex v;
+						v.normal.Set(0, -1, 0);
+						v.pos = Position(x, y, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, -1, 0);
+						v.pos = Position(x + 1, y, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, -1, 0);
+						v.pos = Position(x, y, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, -1, 0);
+						v.pos = Position(x + 1, y, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
+						vertex_buffer_data.push_back(v);
+						index_buffer_data.push_back(index + 0);
+						index_buffer_data.push_back(index + 1);
+						index_buffer_data.push_back(index + 3);
+						index_buffer_data.push_back(index + 2);
+						index_buffer_data.push_back(index + 0);
+						index_buffer_data.push_back(index + 3);
+						index += 4;
+					}
+					if (y == ySize - 1 || (*chunk)[x + z * xSize + (y + 1) * xSize*zSize] == 0) 
+					{
+						Vertex v;
+						v.normal.Set(0, 1, 0);
+						v.pos = Position(x, y + 1, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, 1, 0);
+						v.pos = Position(x + 1, y + 1, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, 1, 0);
+						v.pos = Position(x, y + 1, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, 1, 0);
+						v.pos = Position(x + 1, y + 1, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
+						vertex_buffer_data.push_back(v);
+						index_buffer_data.push_back(index + 0);
+						index_buffer_data.push_back(index + 3);
+						index_buffer_data.push_back(index + 1);
+						index_buffer_data.push_back(index + 0);
+						index_buffer_data.push_back(index + 2);
+						index_buffer_data.push_back(index + 3);
+						index += 4;
+					}
+
+					if (z == 0 || (*chunk)[x + (z - 1) * xSize + y * xSize*zSize] == 0) 
+					{
+						Vertex v;
+						v.normal.Set(0, 0, -1);
+						v.pos = Position(x, y, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, 0, -1);
+						v.pos = Position(x + 1, y, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, 0, -1);
+						v.pos = Position(x, y + 1, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, 0, -1);
+						v.pos = Position(x + 1, y + 1, z);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
+						vertex_buffer_data.push_back(v);
+						index_buffer_data.push_back(index + 0);
+						index_buffer_data.push_back(index + 3);
+						index_buffer_data.push_back(index + 1);
+						index_buffer_data.push_back(index + 2);
+						index_buffer_data.push_back(index + 3);
+						index_buffer_data.push_back(index + 0);
+						index += 4;
+					}
+					if (z == zSize * 16 - 1 || (*chunk)[x + (z + 1) * xSize + y * xSize*zSize] == 0) 
+					{
+						Vertex v;
+						v.normal.Set(0, 0, 1);
+						v.pos = Position(x, y, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, 0, 1);
+						v.pos = Position(x + 1, y, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, 0, 1);
+						v.pos = Position(x, y + 1, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
+						vertex_buffer_data.push_back(v);
+						v.normal.Set(0, 0, 1);
+						v.pos = Position(x + 1, y + 1, z + 1);
+						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
+						vertex_buffer_data.push_back(v);
+						index_buffer_data.push_back(index + 0);
+						index_buffer_data.push_back(index + 1);
+						index_buffer_data.push_back(index + 3);
+						index_buffer_data.push_back(index + 0);
+						index_buffer_data.push_back(index + 3);
+						index_buffer_data.push_back(index + 2);
+						index += 4;
+					}
+				}
+			}
+		}
+	}
+
+	Mesh* mesh = new Mesh(meshName);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+
+	mesh->indexSize = index_buffer_data.size();
+	mesh->mode = Mesh::DRAW_TRIANGLES;
+	return mesh;
 }

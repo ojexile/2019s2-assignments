@@ -3,7 +3,7 @@
 
 #include <windows.h>
 
-class StopWatch
+class Timer
 {
  
  private:
@@ -14,8 +14,8 @@ class StopWatch
     UINT     wTimerRes;
 
  public:
-     StopWatch() ;
-     ~StopWatch();
+     Timer() ;
+     ~Timer();
      void startTimer();
      double getElapsedTime(); // get time in seconds since the last call to this function
      void waitUntil(long long time);  // wait until this time in milliseconds has passed

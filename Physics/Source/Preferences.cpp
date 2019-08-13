@@ -43,8 +43,6 @@ void Preferences::GetData()
 	std::string sLine;
 	while (getline(ifFile, sLine))
 	{
-		if (sLine[0] == '#' || sLine == "")
-			continue;
 		for (unsigned i = 0; i < sLine.size(); ++i)
 		{
 			if (sLine[i] == ' ' || sLine[i] == '	')
@@ -53,6 +51,8 @@ void Preferences::GetData()
 				--i;
 			}
 		}
+		if (sLine[0] == '#' || sLine == "")
+			continue;
 		std::string sTerm = sLine.substr(0, sLine.find("=", 0));
 		std::string sVal = sLine.substr(sLine.find("=", 0) + 1);
 

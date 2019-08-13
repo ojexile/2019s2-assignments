@@ -25,6 +25,7 @@ void DataContainer::Init()
 	InitMeshes();
 	InitTerrain();
 	InitGO();
+	InitChunks();
 	InitShaders();
 	m_bInitialsed = true;
 
@@ -32,6 +33,12 @@ void DataContainer::Init()
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	CHENG_LOG("Time to load container: ", std::to_string(elapsed_secs));
 }
+
+void DataContainer::InitChunks()
+{
+	m_map_Chunks["Map"] = new ChunkData("Content/Map.chunk");
+}
+
 void DataContainer::InitTextures()
 {
 	m_map_Textures["Text"] = LoadTGA("calibri");
@@ -39,6 +46,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Cube"] = LoadTGA("Cube");
 	m_map_Textures["Dirt"] = LoadTGA("dirt");
 	m_map_Textures["GrassDirt"] = LoadTGA("grassdirt");
+	m_map_Textures["Colors"] = LoadTGA("colors");
 }
 void  DataContainer::InitMeshes()
 {
@@ -48,7 +56,7 @@ void  DataContainer::InitMeshes()
 	//--------------------------------------------------------------------------------
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
 
-	m_map_Meshes["Cube"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Cube");
+	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
 }
 void  DataContainer::InitTerrain()
 {
@@ -142,6 +150,15 @@ unsigned DataContainer::GetShader(std::string key)
 		DEFAULT_LOG("ERROR: Shader not found of name: " + key);
 	unsigned shader = m_map_Shaders[key];
 	return shader;
+}
+ChunkData* DataContainer::GetChunk(std::string key)
+{
+	if (m_map_Chunks.count(key) <= 0)
+	{
+		DEFAULT_LOG("ERROR: Chunk not found of name: " + key);
+		return nullptr;
+	}
+	return m_map_Chunks[key];
 }
 unsigned DataContainer::GetTexture(std::string key)
 {
