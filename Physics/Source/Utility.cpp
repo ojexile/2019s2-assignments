@@ -21,12 +21,12 @@ float Lerp(float start, float end, float rate)
 	float out = start + dir * rate;
 	if (dir < 0)
 	{
-		if (out < end)
+		if (out <= end)
 			return end;
 	}
 	if (dir > 0)
 	{
-		if (dir > end)
+		if (dir >= end)
 			return end;
 	}
 	return out;

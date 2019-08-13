@@ -30,8 +30,8 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
-	m_CameraGO->AddComponent(new CameraComponent);
 	m_CameraGO->AddComponent(new CameraScript(go));
+	m_CameraGO->AddComponent(new CameraComponent);
 	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	// Set up camera
 	m_CameraGO->TRANS->SetPosition(0, 0, 0);
