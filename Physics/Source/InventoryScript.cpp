@@ -13,7 +13,6 @@ InventoryScript::InventoryScript(GameObject* weapon, std::vector<GameObject*> li
 	}
 }
 
-
 InventoryScript::~InventoryScript()
 {
 }
@@ -33,6 +32,7 @@ void InventoryScript::Update(double dt)
 				m_Weapon->GetComponent<WeaponScript>()->AddPart(cpy);
 				Destroy(m_List[i]);
 				m_List[i] = nullptr;
+				--m_iNumInInventory;
 				CHENG_LOG("Part added");
 			}
 		}
@@ -43,8 +43,8 @@ void InventoryScript::AddItem(GameObject* go)
 	if (m_iNumInInventory < INVENTORY_SIZE)
 	{
 		Vector3 pos = m_SlotList.at(m_iNumInInventory)->TRANS->GetPosition();
-		Vector3 scal = {20,20,1};
-		GameObject* go2 =Instantiate(go, pos, scal, "UI");
+		Vector3 scal = { 20,20,1 };
+		GameObject* go2 = Instantiate(go, pos, scal, "UI");
 		m_List[m_iNumInInventory] = go2;
 		Destroy(go);
 		++m_iNumInInventory;
