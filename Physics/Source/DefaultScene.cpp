@@ -26,6 +26,7 @@ void DefaultScene::Init()
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject(dataContainer->GetGameObject("Player"));
 	Player->TRANS->SetPosition(0, 16, 0);
+	Player->GetComponent<EntityScript>()->Damage(5);
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));

@@ -35,7 +35,7 @@ public:
 	bool IsBillboard();
 	void SetColor(Vector3 color);
 	void SetColor(float x, float y, float z);
-	void ResetColor(Vector3 color);
+	void ResetColor();
 	Material GetMaterial();
 	void Update(double dt) override;
 	void SetMesh(Mesh* mesh);

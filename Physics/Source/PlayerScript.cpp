@@ -24,6 +24,7 @@ void PlayerScript::Start()
 }
 void PlayerScript::Update(double dt)
 {
+	EntityScript::Update(dt);
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	// Movement================================================================================
 	UpdateMovement(dt);
