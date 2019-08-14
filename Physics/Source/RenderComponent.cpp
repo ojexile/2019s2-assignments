@@ -4,14 +4,15 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 	:m_Mesh(Mesh)
 {
 	m_AnimatedMesh = nullptr;
+	m_MeshBiomed = nullptr;
 	m_bLightEnabled = true;
 	m_bBillboard = false;
 	m_bIsText = false;
 }
-RenderComponent::RenderComponent(MeshBiomed * meshBiomed, BiomeComponent * bc)
+RenderComponent::RenderComponent(MeshBiomed * meshBiomed)
+	:m_MeshBiomed(meshBiomed)
 {
-	m_Mesh = meshBiomed;
-	dynamic_cast<MeshBiomed*>(m_Mesh)->AttachBiomeComponent(bc);
+	m_Mesh = nullptr;
 	m_AnimatedMesh = nullptr;
 	m_bLightEnabled = true;
 	m_bBillboard = false;
@@ -23,6 +24,7 @@ RenderComponent::RenderComponent(Mesh* Mesh, std::string sText)
 {
 	m_sText = sText;
 	m_AnimatedMesh = nullptr;
+	m_MeshBiomed = nullptr;
 	m_bLightEnabled = false;
 	m_bBillboard = false;
 	m_bIsText = true;
@@ -31,6 +33,8 @@ RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 	: m_AnimatedMesh(Mesh)
 {
 	m_Mesh = nullptr;
+	m_MeshBiomed = nullptr;
+
 	m_bLightEnabled = false;	// Transparency doesn't work with light enabled
 	m_bBillboard = false;
 	m_bIsText = false;
@@ -61,6 +65,11 @@ RenderComponent::~RenderComponent()
 Mesh* RenderComponent::GetMesh()
 {
 	return m_Mesh;
+}
+
+MeshBiomed * RenderComponent::GetMeshBiomed()
+{
+	return m_MeshBiomed;
 }
 
 AnimatedMesh* RenderComponent::GetAnimatedMesh()

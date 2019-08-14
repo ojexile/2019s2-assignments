@@ -1,8 +1,8 @@
 #pragma once
 #include "ComponentBase.h"
 #include "Mesh.h"
-#include "AnimatedMesh.h"
 #include "MeshBiomed.h"
+#include "AnimatedMesh.h"
 #include <string>
 
 class RenderComponent :
@@ -10,6 +10,7 @@ class RenderComponent :
 {
 private:
 	Mesh* m_Mesh;
+	MeshBiomed* m_MeshBiomed;
 	AnimatedMesh* m_AnimatedMesh;
 	bool m_bLightEnabled;
 	bool m_bBillboard;
@@ -18,7 +19,7 @@ private:
 	bool m_bIsText;
 public:
 	RenderComponent(Mesh* mesh);
-	RenderComponent(MeshBiomed*, BiomeComponent*);
+	RenderComponent(MeshBiomed* mesh);
 	RenderComponent(Mesh* mesh, std::string sText);
 	RenderComponent(AnimatedMesh* mesh);
 	RenderComponent(RenderComponent& mesh);
@@ -30,7 +31,9 @@ public:
 	};
 
 	Mesh* GetMesh();
+	MeshBiomed* GetMeshBiomed();
 	AnimatedMesh* GetAnimatedMesh();
+
 	bool GetLightEnabled();
 	void SetLightEnabled(bool b);
 	void SetBillboard(bool b);

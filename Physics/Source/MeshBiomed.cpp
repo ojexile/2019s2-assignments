@@ -18,6 +18,7 @@ MeshBiomed::MeshBiomed(const std::string & meshName)
 		}
 		m_iNumBiomedTextures[i] = 0;
 	}
+	isInit = true;
 }
 
 MeshBiomed::~MeshBiomed()
@@ -33,10 +34,25 @@ MeshBiomed::~MeshBiomed()
 		m_iNumBiomedTextures[i] = NULL;
 	}
 
-	if (m_biomeComponentPtr != nullptr)
+}
+
+void MeshBiomed::Init()
+{
+	if (isInit  nullptr)
+		
+	if (isInit )
+		return;
+
+	for (int i = 0; i < MAX_BIOMES; i++)
 	{
-		m_biomeComponentPtr = nullptr;
+		for (int j = 0; j < MAX_TEXTURES; j++)
+		{
+			m_uBiomedTextureArray[i][j] = 0;
+		}
+		m_iNumBiomedTextures[i] = 0;
 	}
+	isInit = true;
+	return;
 }
 
 MeshBiomed * MeshBiomed::AddTexture(unsigned i, BiomeComponent::eBiomeTypes e)
@@ -64,17 +80,76 @@ MeshBiomed * MeshBiomed::AddTexture(std::string s, BiomeComponent::eBiomeTypes e
 	return this;
 }
 
-MeshBiomed * MeshBiomed::AttachBiomeComponent(BiomeComponent * ptr)
+void MeshBiomed::Render(BiomeComponent::eBiomeTypes type)
 {
-	this->m_biomeComponentPtr = ptr;
-	return this;
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(Position));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color)));
+	if (m_uBiomedTextureArray[type][0] > 0)
+	{
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color) + sizeof(Vector3)));
+	}
+
+	//glDrawArrays(GL_TRIANGLES, 0, 3);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+
+	if (mode == DRAW_LINES)
+		glDrawElements(GL_LINES, indexSize, GL_UNSIGNED_INT, 0);
+	else if (mode == DRAW_TRIANGLE_STRIP)
+		glDrawElements(GL_TRIANGLE_STRIP, indexSize, GL_UNSIGNED_INT, 0);
+	else
+		glDrawElements(GL_TRIANGLES, indexSize, GL_UNSIGNED_INT, 0);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+
+	if (m_uBiomedTextureArray[type][0] > 0)
+	{
+		glDisableVertexAttribArray(3);
+	}
 }
 
-void MeshBiomed::Render()
+void MeshBiomed::Render(BiomeComponent::eBiomeTypes type, unsigned offset, unsigned count)
 {
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(Position));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color)));
+	if (m_uBiomedTextureArray[type][0] > 0)
+	{
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color) + sizeof(Vector3)));
+	}
+
+	//glDrawArrays(GL_TRIANGLES, offset, count);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+
+	if (mode == DRAW_LINES)
+		glDrawElements(GL_LINES, count, GL_UNSIGNED_INT, (void*)(offset * sizeof(GLuint)));
+	else if (mode == DRAW_TRIANGLE_STRIP)
+		glDrawElements(GL_TRIANGLE_STRIP, count, GL_UNSIGNED_INT, (void*)(offset * sizeof(GLuint)));
+	else
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, (void*)(offset * sizeof(GLuint)));
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+
+	if (m_uBiomedTextureArray[type][0] > 0)
+	{
+		glDisableVertexAttribArray(3);
+	}
 }
 
-void MeshBiomed::Render(unsigned offset, unsigned count)
-{
-}
 

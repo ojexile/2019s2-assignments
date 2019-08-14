@@ -425,6 +425,90 @@ void RenderingManagerBase::RenderMesh(RenderComponent *rc, bool enableLight)
 	}
 }
 
+void RenderingManagerBase::RenderBiomedMesh(RenderComponent* rc, BiomeComponent *bc, bool enableLight)
+{
+	MeshBiomed* mesh = rc->GetMeshBiomed();
+	Material mat = rc->GetMaterial();
+	BiomeComponent::eBiomeTypes type = bc->GetBiomeType();
+
+	Mtx44 MVP, modelView, modelView_inverse_transpose;
+	glEnable(GL_DEPTH_TEST);
+	//Shadows
+	if (m_renderPass == RENDER_PASS_PRE)
+	{
+		m_lightDepthMVPGPass = m_lightDepthProj *
+			m_lightDepthView * modelStack.Top();
+		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP_GPASS], 1,
+			GL_FALSE, &m_lightDepthMVPGPass.a[0]);
+		for (int i = 0; i < MAX_TEXTURES; ++i)
+		{
+			if (mesh->m_uBiomedTextureArray[type][i] > 0)
+			{
+				glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED + i], 1);
+				glActiveTexture(GL_TEXTURE0 + i);
+				glBindTexture(GL_TEXTURE_2D, mesh->m_uBiomedTextureArray[type][i]);
+				glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE + i], i);
+			}
+			else
+			{
+				glUniform1i(m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED + i], 0);
+			}
+		}
+		mesh->Render(type);
+
+		return;
+	}
+	//--
+
+	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+	if (enableLight && bLightEnabled)
+	{
+		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
+		modelView = viewStack.Top() * modelStack.Top();
+		glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
+		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
+		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView.a[0]);
+		//Shadows--
+		m_lightDepthMVP = m_lightDepthProj *
+			m_lightDepthView * modelStack.Top();
+		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1,
+			GL_FALSE, &m_lightDepthMVP.a[0]);
+		//--
+		//load material
+		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
+		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
+		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
+		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
+	}
+	else
+	{
+		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
+	}
+	for (int i = 0; i < MAX_TEXTURES; ++i)
+	{
+		if (mesh->m_uBiomedTextureArray[type][i] > 0)
+		{
+			glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED + i], 1);
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, mesh->m_uBiomedTextureArray[type][i]);
+			glUniform1i(m_parameters[U_COLOR_TEXTURE + i], i);
+		}
+		else
+		{
+			glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED + i], 0);
+		}
+	}
+	mesh->Render(type);
+	for (int i = 0; i < MAX_TEXTURES; ++i)
+	{
+		if (mesh->m_uBiomedTextureArray[type][i] > 0)
+		{
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+	}
+}
+
 void RenderingManagerBase::RenderAnimatedMesh(RenderComponent *rc, bool enableLight)
 {
 	AnimatedMesh* anim = rc->GetAnimatedMesh();
