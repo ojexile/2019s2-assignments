@@ -4,8 +4,8 @@
 #define VIEW_AS_LIGHT false
 #define SHADOW_VIEW_SIZE_X 80
 #define SHADOW_VIEW_SIZE_Y 80
-#define SHADOW_VIEW_SIZE_Z 200
-#define SHADOW_RES 1024*2
+#define SHADOW_VIEW_SIZE_Z 100
+#define SHADOW_RES 1024*4
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
