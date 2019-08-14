@@ -54,8 +54,11 @@ void  DataContainer::InitTerrain()
 {
 	/// Terrain================================================================================
 	// Plains--------------------------------------------------------------------------------
-	Mesh* mesh = GenerateTerrain("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })->AddTexture("Dirt");
-	Mesh* mesh2 = GenerateTerrain("TerrainTest", "heightmapPlains", { 200,60,200 }, { 200,60,0 })->AddTexture("grassdirt");
+	MeshBiomed* mesh1 = GenerateTerrainBiomed("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })
+		->AddTexture("Dirt",BiomeComponent::BIOME_PLAINS)
+		->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
+
+	//Mesh* mesh2 = GenerateTerrain("TerrainTest", "heightmapPlains", { 200,60,200 }, { 200,60,0 })->AddTexture("grassdirt");
 
 }
 void  DataContainer::InitGO()
@@ -168,8 +171,9 @@ Mesh* DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 
 MeshBiomed * DataContainer::GenerateTerrainBiomed(std::string key, std::string path, Vector3 vScale, Vector3 vPos)
 {
 	_heightmap* heightMap = new _heightmap;
-	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale);
+	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale, true);
 	MeshBiomed* meshBiomed = dynamic_cast<MeshBiomed*>(mesh);
+
 	m_map_HeightMaps[key] = new HeightMapData(meshBiomed, heightMap, vScale, vPos);
 	return meshBiomed;
 }
