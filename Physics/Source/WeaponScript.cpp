@@ -40,34 +40,22 @@ void WeaponScript::PullTrigger(const Vector3& dir, const double deltaTime)
 	if (m_iMagazineRounds > 0 && m_fBufferTime > m_fFirerate)
 	{
 		m_fBufferTime = 0.f;
-		Vector3 SpawnPos = GetPosition();
-		SpawnPos.y += 0.5f;
+
 		switch (m_FiringMode)
 		{
 		case SINGLE:
 		{
 			if (!m_bSingleFired)
 			{
-				GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
-				bullet->RIGID->SetAffectedByGravity(false);
-				bullet->RIGID->AddForce(m_fBulletForce * dir);
-
-				--m_iMagazineRounds;
-
+				FireWeapon(dir, deltaTime);
 				DamageEquippedParts(deltaTime);
-
 				m_bSingleFired = true;
 			}
 			break;
 		}
 		case AUTO:
 		{
-			GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
-			bullet->RIGID->SetAffectedByGravity(false);
-			bullet->RIGID->AddForce(m_fBulletForce * dir);
-
-			--m_iMagazineRounds;
-
+			FireWeapon(dir, deltaTime);
 			DamageEquippedParts(deltaTime);
 			break;
 		}
@@ -100,7 +88,7 @@ void WeaponScript::Update(double deltaTime)
 
 	if (InputManager::GetInstance()->GetInputStrength("TempAttach") && !bAttachTmp)
 	{
-		AddPart(DataContainer::GetInstance()->GetGameObject("Muzzle"));
+ 		AddPart(DataContainer::GetInstance()->GetGameObject("Muzzle"));
 		bAttachTmp = true;
 	}
 	else if (!InputManager::GetInstance()->GetInputStrength("TempAttach") && bAttachTmp)
@@ -109,42 +97,82 @@ void WeaponScript::Update(double deltaTime)
 	}
 }
 
-void WeaponScript::UpdateStats(std::queue<GameObject*>& m_UpdatedQueue)
+void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 {
-	GameObject* go_Front = m_UpdatedQueue.front();
-	GameObject* go_Back = m_UpdatedQueue.back();
-
-	switch (go_Front->PART->GetSlotType())
+	if (Multiply)
 	{
-	case PartScript::SCOPE:
-	{
-		m_fBulletSpread = m_fBulletSpread * go_Back->PART->GetMultiplier();
-		break;
+		switch (go->PART->GetSlotType())
+		{
+		case PartScript::SCOPE:
+		{
+			m_fBulletSpread = m_fBulletSpread * go->PART->GetMultiplier();
+			break;
+		}
+		case PartScript::MUZZLE:
+		{
+			m_fFirerate = m_fFirerate * go->PART->GetMultiplier();
+			break;
+		}
+		case PartScript::STOCK:
+		{
+			m_iMagazineRounds_Max = m_iMagazineRounds_Max + go->PART->GetMultiplier();
+			break;
+		}
+		case PartScript::GRIP:
+		{
+			//Need another variable to edit, temporarily bullet spread
+			m_fBulletSpread = m_fBulletSpread * go->PART->GetMultiplier();
+			break;
+		}
+		default:
+			break;
+		}
 	}
-	case PartScript::MUZZLE:
+	else
 	{
-		m_fFirerate = m_fFirerate * go_Back->PART->GetMultiplier();
-		break;
-	}
-	case PartScript::STOCK:
-	{
-		m_iMagazineRounds_Max = m_iMagazineRounds_Max + go_Back->PART->GetMultiplier();
-		break;
-	}
-	case PartScript::GRIP:
-	{
-		//Need another variable to edit, temporarily bullet spread
-		m_fBulletSpread = m_fBulletSpread * go_Back->PART->GetMultiplier();
-		break;
-	}
-	default:
-		break;
+		switch (go->PART->GetSlotType())
+		{
+		case PartScript::SCOPE:
+		{
+			m_fBulletSpread = m_fBulletSpread / go->PART->GetMultiplier();
+			break;
+		}
+		case PartScript::MUZZLE:
+		{
+			m_fFirerate = m_fFirerate / go->PART->GetMultiplier();
+			break;
+		}
+		case PartScript::STOCK:
+		{
+			m_iMagazineRounds_Max = m_iMagazineRounds_Max - go->PART->GetMultiplier();
+			Math::Clamp(m_iMagazineRounds, m_iMagazineRounds, m_iMagazineRounds_Max);
+			
+			break;
+		}
+		case PartScript::GRIP:
+		{
+			//Need another variable to edit, temporarily bullet spread
+			m_fBulletSpread = m_fBulletSpread / go->PART->GetMultiplier();
+			break;
+		}
+		default:
+			break;
+		}
 	}
 }
 
 void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
-	
+	Vector3 SpawnPos = GetPosition();
+	SpawnPos.y += 0.5f;
+
+
+	GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
+	bullet->RIGID->SetAffectedByGravity(false);
+	bullet->RIGID->AddForce(m_fBulletForce * dir);
+
+	--m_iMagazineRounds;
+
 }
 
 void WeaponScript::ReloadWeapon(void)
@@ -169,75 +197,95 @@ void WeaponScript::AddPart(GameObject* part)
 		{
 		case PartScript::SCOPE:
 		{
-			m_ScopeParts.push(part);
-			UpdateStats(m_ScopeParts);
+			m_ScopeParts.push_back(part);
 			break;
 		}
 		case PartScript::MUZZLE:
 		{
-			m_MuzzleParts.push(part);
-			UpdateStats(m_MuzzleParts);
+			m_MuzzleParts.push_back(part);
 			break;
 		}
 		case PartScript::STOCK:
 		{
-			m_StockParts.push(part);
-			UpdateStats(m_StockParts);
+			m_StockParts.push_back(part);
 			break;
 		}
 		case PartScript::GRIP:
 		{
-			m_GripParts.push(part);
-			UpdateStats(m_GripParts);
+			m_GripParts.push_back(part);
 			break;
 		}
 		default:
 			break;
 		}
 		//Update parts after attaching a part
+		UpdateStats(part, true);
 	}
 }
 
-void WeaponScript::RemovePart(std::queue<GameObject*>& m_Queue)
+void WeaponScript::DestroyPart(std::vector<GameObject*> m_vector, GameObject* target)
 {
-	m_Queue.pop();
+	std::vector<GameObject*>::iterator it = m_vector.end() - 1;
+	while (m_vector.size() > 0)
+	{
+		GameObject* go = static_cast<GameObject*>(*it);
+
+		UpdateStats(go, false);
+
+		if (target == go)
+		{
+			Destroy(go);
+			m_vector.pop_back();
+			break;
+		}
+		else
+		{
+			--it;
+			Destroy(go);
+			m_vector.pop_back();
+		}
+	}
 }
 
 void WeaponScript::DamageEquippedParts(const double deltaTime)
 {
-	//if (m_ScopeParts.size() > 0)
-	//{
-	//	for (auto it = m_ScopeParts.front(); it != m_ScopeParts.back(); ++it)
-	//	{
-	//		GameObject* go = static_cast<GameObject*>(it);
-	//		go->PART->DecreaseDurability(deltaTime);
-	//	}
-	//}
+	if (m_ScopeParts.size() > 0)
+	{
+		for (auto it = m_MuzzleParts.begin(); it != m_MuzzleParts.end(); ++it)
+		{
+			GameObject* go = static_cast<GameObject*>(*it);
+			if (go->PART->DecreaseDurability(deltaTime))
+				DestroyPart(m_ScopeParts, go);
+		}
+	}
 
-	//if (m_MuzzleParts.size() > 0)
-	//{
-	//	for (auto it = m_MuzzleParts.front(); it != m_MuzzleParts.back(); ++it)
-	//	{
-	//		GameObject* go = static_cast<GameObject*>(it);
-	//		go->PART->DecreaseDurability(deltaTime);
-	//	}
-	//}
+	if (m_MuzzleParts.size() > 0)
+	{
+		for (auto it = m_MuzzleParts.begin(); it != m_MuzzleParts.end(); ++it)
+		{
+			GameObject* go = static_cast<GameObject*>(*it);
+			if (go->PART->DecreaseDurability(deltaTime))
+				DestroyPart(m_MuzzleParts, go);
+		}
+	}
 
-	//if (m_GripParts.size() > 0)
-	//{
-	//	for (auto it = m_GripParts.front(); it != m_GripParts.back(); ++it)
-	//	{
-	//		GameObject* go = static_cast<GameObject*>(it);
-	//		go->PART->DecreaseDurability(deltaTime);
-	//	}
-	//}
+	if (m_GripParts.size() > 0)
+	{
+		for (auto it = m_MuzzleParts.begin(); it != m_MuzzleParts.end(); ++it)
+		{
+			GameObject* go = static_cast<GameObject*>(*it);
+			if (go->PART->DecreaseDurability(deltaTime))
+				DestroyPart(m_GripParts, go);
+		}
+	}
 
-	//if (m_StockParts.size() > 0)
-	//{
-	//	for (auto it = m_StockParts.front(); it != m_StockParts.back(); ++it)
-	//	{
-	//		GameObject* go = static_cast<GameObject*>(it);
-	//		go->PART->DecreaseDurability(deltaTime);
-	//	}
-	//}
+	if (m_StockParts.size() > 0)
+	{
+		for (auto it = m_MuzzleParts.begin(); it != m_MuzzleParts.end(); ++it)
+		{
+			GameObject* go = static_cast<GameObject*>(*it);
+			if (go->PART->DecreaseDurability(deltaTime))
+				DestroyPart(m_StockParts, go);
+		}
+	}
 }

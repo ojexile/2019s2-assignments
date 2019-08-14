@@ -32,6 +32,9 @@ void DefaultScene::Init()
 	Player->RIGID->SetMat(0.9f, 0.f);
 	Player->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
+	
+	//Player->RENDER->SetActive(false);
+	
 	Player->TRANS->SetPosition(0, 16, 0);
 	Player->GetComponent<EntityScript>()->Damage(5);
 	/// Create Camera================================================================================

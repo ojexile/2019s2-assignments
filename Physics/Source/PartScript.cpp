@@ -19,7 +19,7 @@ PartScript::~PartScript()
 
 bool PartScript::DecreaseDurability(double deltaTime)
 {
-	m_fDurability = m_fDurability - deltaTime;
+	m_fDurability = m_fDurability - 0.1;
 	return m_fDurability <= 0.f;
 }
 

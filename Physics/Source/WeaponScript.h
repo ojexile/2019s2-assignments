@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "PartScript.h"
 
-#include <queue>
+#include <vector>
 
 /********************************************************************************
 Author: Ryan Tan Zheng Rong
@@ -29,7 +29,7 @@ public:
 	void ReleaseTrigger();
 
 	void Update(double deltaTime) override;
-	void UpdateStats(std::queue<GameObject*>& m_UpdatedQueue);
+	void UpdateStats(GameObject* go, bool Multiply);
 
 	virtual ComponentBase* Clone(){return new WeaponScript(*this);}
 
@@ -39,7 +39,7 @@ private:
 	void ReloadWeapon(void);
 
 	void AddPart(GameObject* part);
-	void RemovePart(std::queue<GameObject*>& m_UpdatedQueue);
+	void DestroyPart(std::vector<GameObject*> m_Updatedvector, GameObject* go);
 
 	void DamageEquippedParts(const double deltaTime);
 
@@ -64,10 +64,10 @@ private:
 
 	GameObject* m_Projectile;
 
-	std::queue<GameObject*>	m_ScopeParts;
-	std::queue<GameObject*> m_MuzzleParts;
-	std::queue<GameObject*> m_GripParts;
-	std::queue<GameObject*> m_StockParts;
+	std::vector<GameObject*>m_ScopeParts;
+	std::vector<GameObject*> m_MuzzleParts;
+	std::vector<GameObject*> m_GripParts;
+	std::vector<GameObject*> m_StockParts;
 
 };
 
