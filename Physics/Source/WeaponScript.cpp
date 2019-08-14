@@ -239,7 +239,7 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 			//Temporary fix, Destroy function does not destroy child of gun
 			go->RENDER->SetActive(false);
 			
-			Destroy(go);
+			// Destroy(go);
 			m_vector.pop_back();
 			break;
 		}
@@ -251,7 +251,7 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 			//Temporary fix, Destroy function does not destroy child of gun
 			go->RENDER->SetActive(false);
 			
-			Destroy(go);
+			/*Destroy(go);*/
 			m_vector.pop_back();
 		}
 	}
