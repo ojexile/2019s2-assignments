@@ -570,7 +570,8 @@ void CollisionManager::CheckCollision(GameObject* go1, std::vector<GameObject*>*
 		Rigidbody::ePhysicsTypes eCollideType = CheckCollision(goA, goB);
 		if (eCollideType != Rigidbody::NONE)
 		{
-			CollisionResponse(goA, goB, eCollideType);
+			if(goA->RIGID->GetResponseActive() && goB->RIGID->GetResponseActive())
+				CollisionResponse(goA, goB, eCollideType);
 			ScriptComponent* Script1 = goA->GetComponent<ScriptComponent>(true);
 			if (Script1)
 				Script1->Collide(goB);

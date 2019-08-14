@@ -23,8 +23,8 @@ void InventoryScript::AddItem(GameObject* go)
 	{
 		m_List[m_iNumInInventory] = go;
 		Vector3 pos = m_SlotList.at(m_iNumInInventory)->TRANS->GetPosition();
-		Vector3 scal = {10,10,10};
-		Instantiate(go, pos, "UI");
+		Vector3 scal = {20,20,1};
+		Instantiate(go, pos, scal, "UI");
 		Destroy(go);
 		++m_iNumInInventory;
 	}

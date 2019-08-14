@@ -116,6 +116,7 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Gun"] = go;
