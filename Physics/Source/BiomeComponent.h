@@ -1,6 +1,7 @@
 #pragma once
 #include "ComponentBase.h"
 #include <string> 
+//#include "MeshBiomed.h"
 
 /*
 author: lorenzo sayo yanga
@@ -21,6 +22,7 @@ public:
 	};
 private:
 	eBiomeTypes m_biomeType;
+	//MeshBiomed* m_meshBiomedPtr;
 
 public:
 	BiomeComponent();
@@ -37,6 +39,5 @@ public:
 
 	eBiomeTypes GetBiomeType();
 	void SetBiomeType(eBiomeTypes biomeType);
-
-	static std::string AppendBiomeToTextureName(std::string s, eBiomeTypes biomeType);
+	//void SetMeshBiomedPointer(MeshBiomed*);
 };

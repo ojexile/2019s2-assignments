@@ -35,19 +35,3 @@ void BiomeComponent::SetBiomeType(BiomeComponent::eBiomeTypes biomeType)
 	return;
 }
 
-std::string BiomeComponent::AppendBiomeToTextureName(std::string s, eBiomeTypes biomeType)
-{
-	std::string s1;
-	switch (biomeType)
-	{
-	case BIOME_PLAINS:
-		s1 = s + "PLAINS";
-		break;
-
-	case BIOME_DEFAULT: // for defaults use name as-is
-	default:
-		s1 = s; 
-		break;
-	}
-	return s1;
-}
