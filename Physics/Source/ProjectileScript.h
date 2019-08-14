@@ -12,7 +12,7 @@ public:
 
 	double getDamage();
 	double getLifespan();
-
+	virtual void Collide(GameObject*) override;
 private:
 	double m_fDamage;
 	double m_fLifespan;

@@ -4,9 +4,10 @@
 #include "Rigidbody.h"
 #include "InputManager.h"
 #include "CameraScript.h"
-
-PlayerScript::PlayerScript(GameObject* Reticle)
-	:m_Reticle(Reticle)
+#include "WeaponScript.h"
+PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun)
+	: m_Reticle(Reticle)
+	, m_Gun(gun)
 {
 	m_CurrentState = nullptr;
 
@@ -28,6 +29,8 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	// Movement================================================================================
 	UpdateMovement(dt);
+	m_Gun->TRANS->SetPosition(GetPosition());
+	m_Gun->Update(dt);
 }
 
 void PlayerScript::UpdateMovement(double dt)
@@ -83,5 +86,17 @@ void PlayerScript::UpdateMovement(double dt)
 	{
 		rb->AddForce({ 0,m_fJumpForce,0 });
 		jump = true;
+	}
+	Vector3 Currentpos = GetPosition();
+	Vector3 Reticle();
+	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
+	vDir.Normalize();
+	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 )
+	{
+		m_Gun->GetComponent<WeaponScript>()->PullTrigger(vDir, dt);
+	}
+	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 )
+	{
+		m_Gun->GetComponent<WeaponScript>()->ReleaseTrigger();
 	}
 }
