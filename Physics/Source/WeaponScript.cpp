@@ -2,6 +2,8 @@
 #include "Rigidbody.h"
 #include "InputManager.h"
 #include "TransformComponent.h"
+//Temporary
+#include "DataContainer.h"
 
 WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, int iAmmo, int iAmmo_Max, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
 	: m_iBulletsFiredCount(iBulletsFiredCount),
@@ -17,6 +19,7 @@ WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int i
 	m_fBufferTime(fFirerate),
 	m_bSingleFired(false)
 {
+	bAttachTmp = false;
 }
 
 
@@ -45,12 +48,23 @@ void WeaponScript::Update(double deltaTime)
 
 	//Note: use the direct function for now
 	if (InputManager::GetInstance()->GetInputStrength("Fire"))
-		FireWeapon(Vector3(1,0,0), deltaTime);
+		FireWeapon(Vector3(1, 0, 0), deltaTime);
 	if (!InputManager::GetInstance()->GetInputStrength("Fire") && m_bSingleFired)
 		m_bSingleFired = false;
 
 	if (InputManager::GetInstance()->GetInputStrength("Reload"))
 		ReloadWeapon();
+
+
+	if (InputManager::GetInstance()->GetInputStrength("TempAttach") && !bAttachTmp)
+	{
+		AddPart(DataContainer::GetInstance()->GetGameObject("Muzzle"));
+		bAttachTmp = true;
+	}
+	else if (!InputManager::GetInstance()->GetInputStrength("TempAttach") && bAttachTmp)
+	{
+		bAttachTmp = false;
+	}
 }
 
 void WeaponScript::UpdateStats(std::queue<GameObject*>& m_UpdatedQueue)
@@ -190,27 +204,39 @@ void WeaponScript::RemovePart(std::queue<GameObject*>& m_Queue)
 
 void WeaponScript::DamageEquippedParts(const double deltaTime)
 {
-	/*for (auto it = m_ScopeParts.front(); it != m_ScopeParts.back(); ++it)
-	{
-		GameObject* go = static_cast<GameObject*>(it);
-		go->PART->DecreaseDurability(deltaTime);
-	}
+	//if (m_ScopeParts.size() > 0)
+	//{
+	//	for (auto it = m_ScopeParts.front(); it != m_ScopeParts.back(); ++it)
+	//	{
+	//		GameObject* go = static_cast<GameObject*>(it);
+	//		go->PART->DecreaseDurability(deltaTime);
+	//	}
+	//}
 
-	for (auto it = m_MuzzleParts.front(); it != m_MuzzleParts.back(); ++it)
-	{
-		GameObject* go = static_cast<GameObject*>(it);
-		go->PART->DecreaseDurability(deltaTime);
-	}
+	//if (m_MuzzleParts.size() > 0)
+	//{
+	//	for (auto it = m_MuzzleParts.front(); it != m_MuzzleParts.back(); ++it)
+	//	{
+	//		GameObject* go = static_cast<GameObject*>(it);
+	//		go->PART->DecreaseDurability(deltaTime);
+	//	}
+	//}
 
-	for (auto it = m_GripParts.front(); it != m_GripParts.back(); ++it)
-	{
-		GameObject* go = static_cast<GameObject*>(it);
-		go->PART->DecreaseDurability(deltaTime);
-	}
+	//if (m_GripParts.size() > 0)
+	//{
+	//	for (auto it = m_GripParts.front(); it != m_GripParts.back(); ++it)
+	//	{
+	//		GameObject* go = static_cast<GameObject*>(it);
+	//		go->PART->DecreaseDurability(deltaTime);
+	//	}
+	//}
 
-	for (auto it = m_StockParts.front(); it != m_StockParts.back(); ++it)
-	{
-		GameObject* go = static_cast<GameObject*>(it);
-		go->PART->DecreaseDurability(deltaTime);
-	}*/
+	//if (m_StockParts.size() > 0)
+	//{
+	//	for (auto it = m_StockParts.front(); it != m_StockParts.back(); ++it)
+	//	{
+	//		GameObject* go = static_cast<GameObject*>(it);
+	//		go->PART->DecreaseDurability(deltaTime);
+	//	}
+	//}
 }

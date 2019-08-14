@@ -8,6 +8,8 @@
 #include "ParticleSpawnerScript.h"
 #include "FPSScript.h"
 #include "ProjectileScript.h"
+#include "PartScript.h"
+#include "WeaponPartScript.h"
 #include <time.h>
 DataContainer::DataContainer()
 {
@@ -76,6 +78,12 @@ void  DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
 	go->AddComponent(new ProjectileScript());
+
+	go = new GameObject();
+	m_map_GO["Muzzle"] = go;
+	go->TRANS->SetScale(5);
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
 }
 void  DataContainer::InitShaders()
 {

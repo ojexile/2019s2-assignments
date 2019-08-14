@@ -26,7 +26,7 @@ public:
 		ALL
 	};
 
-	PartScript(PART_TYPE type, SLOT_TYPE slot, float Multiplier, bool isAttached = false, float Durability = 5.f);
+	PartScript(PART_TYPE type, SLOT_TYPE slot, double Multiplier, bool isAttached = false, float Durability = 5.f);
 	~PartScript();
 
 	virtual void Effect() = 0;

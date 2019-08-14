@@ -3,9 +3,11 @@
 class WeaponPartScript : public PartScript
 {
 public:
-	WeaponPartScript(SLOT_TYPE slot, float Effect, float durability, bool isAttached = false);
+	WeaponPartScript(SLOT_TYPE slot, double Multiplier, float durability, bool isAttached = false);
 	virtual ~WeaponPartScript();
 
+
+	virtual WeaponPartScript* Clone() { return new WeaponPartScript(*this); }
 	void Effect() override;
 
 };
