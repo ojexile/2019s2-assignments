@@ -68,6 +68,7 @@
     <ClCompile Include="Source\TopDownState.cpp" />
     <ClCompile Include="Source\CameraScript.cpp" />
     <ClCompile Include="Source\ChunkData.cpp" />
+    <ClCompile Include="Source\ChunkCollider.cpp" />
     <ClCompile Include="Source\ReticleScript.cpp" />
     <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\UIButtonComponent.cpp" />
@@ -146,5 +147,6 @@
     <ClInclude Include="Source\ChunkData.h" />
     <ClInclude Include="Source\UIButtonComponent.h" />
     <ClInclude Include="Source\WeaponPartScript.h" />
+    <ClInclude Include="Source\ChunkCollider.h" />
   </ItemGroup>
 </Project>

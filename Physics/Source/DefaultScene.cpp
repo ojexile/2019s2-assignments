@@ -1,5 +1,6 @@
 #include "DefaultScene.h"
 #include "AudioManager.h"
+#include "ChunkCollider.h"
 
 #include "PlayerScript.h"
 #include "Utility.h"
@@ -51,6 +52,7 @@ void DefaultScene::Init()
 	/// WORLD================================================================================
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
+	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
 	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMesh()));
+	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
 }

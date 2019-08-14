@@ -18,4 +18,5 @@ public:
 	Mesh* GenerateMesh();
 	std::vector<unsigned short> * GetBlocks();
 	bool IsSolid(Vector3 pos);
+	Vector3 GetSize();
 };

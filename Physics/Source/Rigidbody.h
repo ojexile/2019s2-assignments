@@ -14,6 +14,7 @@ public:
 		SQUARE,
 		BOX,
 		PADDLE,
+		CHUNK,
 		TOTAL,
 	};
 private:

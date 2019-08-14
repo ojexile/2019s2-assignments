@@ -68,6 +68,7 @@ void Engine::SetMouseCallback(GLFWwindow* window)
 }
 void Engine::Update(double dt)
 {
+	dt = min(dt, 0.05);
 	SceneManager* SceneManager = SceneManager::GetInstance();
 	if (SceneManager->IsSceneChanged())
 		SceneManager->SwapScene();
