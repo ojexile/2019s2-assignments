@@ -54,6 +54,9 @@ void CameraScript::Update(double d)
 		m_vRotateOffset = rot * m_vRotateOffset;
 		m_vRotateOffset.x = round(m_vRotateOffset.x);
 		m_vRotateOffset.z = round(m_vRotateOffset.z);
+		//
+		m_vFront = rot * m_vFront;
+		m_vRight = rot * m_vRight;
 		m_bRotating = true;
 		bTriggerCCW = true;
 	}
