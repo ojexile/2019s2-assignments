@@ -89,13 +89,13 @@ void PlayerScript::UpdateMovement(double dt)
 		jump = true;
 	}
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
-	if(!vDir.IsZero())
+	if (!vDir.IsZero())
 		vDir.Normalize();
-	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 )
+	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0)
 	{
 		m_Gun->GUN->PullTrigger(vDir, dt);
 	}
-	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 )
+	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0)
 	{
 		m_Gun->GUN->ReleaseTrigger();
 	}
@@ -117,4 +117,11 @@ void PlayerScript::Collide(GameObject* go)
 	{
 		GetComponent<InventoryScript>()->AddItem(go);
 	}
+}
+void PlayerScript::Dash()
+{
+	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
+	if (!vDir.IsZero())
+		vDir.Normalize();
+	RIGID->AddForce(vDir * 4000);
 }

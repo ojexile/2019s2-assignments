@@ -9,7 +9,7 @@
 StandingState::StandingState()
 {
 	m_fBaseAccel = 300;
-	m_fSprintMultiplier = 4.0f;
+	m_fSprintMultiplier = 2.0f;
 	m_fBaseMovementSpeed = 40;
 
 	m_fDodgeForce = 4000;
@@ -46,8 +46,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge") && !bDodge)
 	{
 		// Add force in direction of reticle
-		Vector3 vTempDir = { 0,0,-1 };
-		com->RIGID->AddForce(vTempDir * m_fDodgeForce);
+		com->GetComponent<PlayerScript>()->Dash();
 		bDodge = true;
 	}
 	// Top Down
@@ -56,7 +55,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		return new TopDownState;
 	}
 	// Jump
-	// TODO: 
+	// TODO:
 
 	//SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 100,100,100 });
 	return nullptr;

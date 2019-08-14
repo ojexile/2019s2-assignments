@@ -7,16 +7,17 @@
 class PlayerScript : public EntityScript
 {
 	friend class PlayerState;
+	friend class StandingState;
 private:
 	PlayerState* m_CurrentState;
 	GameObject* m_Reticle;
 	GameObject* m_Gun;
 	float m_fJumpForce;
 
-
 	// Functions
 	void UpdateMovement(double dt);
 public:
+	void Dash();
 	PlayerScript(GameObject* Reticle, GameObject* gun);
 	~PlayerScript();
 	virtual ComponentBase* Clone()
