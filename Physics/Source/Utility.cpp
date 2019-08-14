@@ -15,6 +15,30 @@ Vector3 StringToVector(std::string s)
 
 	return	Vector3((float)std::stoi(sX), (float)std::stoi(sY));
 }
+float Lerp(float start, float end, float rate)
+{
+	float dir = end - start;
+	float out = start + dir * rate;
+	if (dir < 0)
+	{
+		if (out <= end)
+			return end;
+	}
+	if (dir > 0)
+	{
+		if (out >= end)
+			return end;
+	}
+	return out;
+}
+Vector3 Lerp(Vector3 start, Vector3 end, float rate)
+{
+	Vector3 out;
+	out.x = Lerp(start.x, end.x, rate);
+	out.y = Lerp(start.y, end.y, rate);
+	out.z = Lerp(start.z, end.z, rate);
+	return out;
+}
 Locator::eLoggerUsers StringToUser(std::string s)
 {
 	if (s == "CHENG")
@@ -42,4 +66,19 @@ Locator::eLoggerUsers StringToUser(std::string s)
 		DEFAULT_LOG("(Cheng) Unknown user: " + s + "Using ALL users as default");
 		return Locator::ALL;
 	}
+}
+// Extra
+bool IsClose(Vector3 a, Vector3 b, float buffer)
+{
+	if (fabs(a.x - b.x) < buffer)
+	{
+		if (fabs(a.y - b.y) < buffer)
+		{
+			if ( fabs(a.z - b.z) < buffer)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }

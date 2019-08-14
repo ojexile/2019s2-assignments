@@ -1,19 +1,13 @@
 #pragma once
 #include "PlayerState.h"
 
-class StandingState :
+class TopDownState :
 	public PlayerState
 {
 private:
-	float m_fBaseMovementSpeed;
-	float m_fBaseAccel;
-	float m_fSprintMultiplier;
-	float m_fCurrentBobOffset;
-
-	float m_fDodgeForce;
 public:
-	StandingState();
-	virtual ~StandingState();
+	TopDownState();
+	virtual ~TopDownState();
 
 	virtual PlayerState* HandleInput(ComponentBase* com, double dt) override;
 	virtual void OnEnter(ComponentBase* com) override;

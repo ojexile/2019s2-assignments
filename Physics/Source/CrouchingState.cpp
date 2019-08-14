@@ -17,16 +17,20 @@ CrouchingState::~CrouchingState()
 PlayerState* CrouchingState::HandleInput(ComponentBase* com, double dt)
 {
 	// Crouch
-	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
+	static bool bCrouch = true;
+	if (!InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
+	{
+		bCrouch = false;
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch") && !bCrouch)
 	{
 		return new StandingState;
 	}
-
-	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, CROUCHING_HEIGHT, 0);
+	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, CROUCHING_HEIGHT, 0);
 	return nullptr;
 }
 void CrouchingState::OnEnter(ComponentBase* com)
 {
-	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, CROUCHING_HEIGHT, 0);
+	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, CROUCHING_HEIGHT, 0);
 	com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, 200);
 }
