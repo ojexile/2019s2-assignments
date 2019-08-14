@@ -27,13 +27,15 @@ void InventoryScript::Update(double dt)
 			{
 				if (!m_List[i])
 					return;
-				GameObject* cpy = Instantiate(m_List[i], Vector3{ 0,0,0 }, Vector3{ 1,1,1 });
+				GameObject* Part = m_List[i];
+				GameObject* cpy = Instantiate(Part, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }, "Default", true);
 				m_Weapon->AddChild(cpy);
 				m_Weapon->GetComponent<WeaponScript>()->AddPart(cpy);
-				Destroy(m_List[i]);
+				Destroy(Part);
 				m_List[i] = nullptr;
 				--m_iNumInInventory;
 				CHENG_LOG("Part added");
+				break;
 			}
 		}
 	}

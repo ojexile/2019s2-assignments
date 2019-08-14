@@ -50,7 +50,7 @@ GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, V
 	DEFAULT_LOG("Instantiate failed, GORef is null.");
 	return nullptr;
 }
-GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, std::string sLayer) const
+GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, std::string sLayer, bool isChild) const
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
 
@@ -63,7 +63,8 @@ GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, V
 			TransformComponent* Trans = go->GetComponent<TransformComponent>();
 			Trans->SetPosition(pos);
 			Trans->SetScale(vScal.x, vScal.y, vScal.z);
-			sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go, sLayer);
+			if (!isChild)
+				sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go, sLayer);
 			return go;
 		}
 		catch (const std::exception&)
