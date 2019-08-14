@@ -50,7 +50,6 @@ void DefaultScene::Init()
 	Player->AddChild(gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->RIGID->SetMat(0.9f, 0.f);
-	//Player->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 
 	Player->RENDER->SetActive(true);
@@ -84,19 +83,6 @@ void DefaultScene::Init()
 
 	/// WORLD================================================================================
 	// Terrain================================================================================
-	//go = m_GOM.AddGameObject();
-	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200, 0, 0));
-	//go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
-	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
-	//go->GetComponent<BiomeComponent>(true)->SetMeshBiomedPointer(dynamic_cast<MeshBiomed*>(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
-
-	/*go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainTest")->GetPos());
-	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainTest")->GetMesh()));
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
-	*/
-
-	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
 	go = m_GOM.AddGameObject();
 	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMeshBiomed()));
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_SNOW));
