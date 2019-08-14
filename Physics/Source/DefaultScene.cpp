@@ -25,10 +25,10 @@ void DefaultScene::Init()
 
 	// Player--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject();
-	go->TRANS->SetScale(.5);
-	go->TRANS->SetPosition(0, 17.5, 0);
+	go->TRANS->SetScale(.5, 0.5, .5);
+	go->TRANS->SetPosition(2, 17.5, 2);
 	go->AddComponent(new PlayerScript());
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMat(0.9f, 0.f);
 	go->AddComponent(new WeaponScript(dataContainer->GetGameObject("Bullet")));
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
