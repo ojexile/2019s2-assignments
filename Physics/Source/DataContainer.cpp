@@ -55,7 +55,7 @@ void  DataContainer::InitTerrain()
 	/// Terrain================================================================================
 	// Plains--------------------------------------------------------------------------------
 	MeshBiomed* mesh1 = GenerateTerrainBiomed("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })
-		->AddTexture("Dirt",BiomeComponent::BIOME_PLAINS)
+		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS)
 		->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 
 	//Mesh* mesh2 = GenerateTerrain("TerrainTest", "heightmapPlains", { 200,60,200 }, { 200,60,0 })->AddTexture("grassdirt");

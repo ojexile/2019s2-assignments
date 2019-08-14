@@ -50,7 +50,7 @@ void DefaultScene::Init()
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_FLAT));
+	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	//go->GetComponent<BiomeComponent>(true)->SetMeshBiomedPointer(dynamic_cast<MeshBiomed*>(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
 	
 	

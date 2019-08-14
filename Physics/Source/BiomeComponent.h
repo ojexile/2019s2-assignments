@@ -25,7 +25,6 @@ private:
 	//MeshBiomed* m_meshBiomedPtr;
 
 public:
-	BiomeComponent();
 	BiomeComponent(eBiomeTypes biomeType);
 	virtual ~BiomeComponent();
 	BiomeComponent(BiomeComponent& com);

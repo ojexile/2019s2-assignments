@@ -1,14 +1,10 @@
 #include "BiomeComponent.h"
 
-BiomeComponent::BiomeComponent()
-	:
-	m_biomeType(BIOME_FLAT)
-{
-}
+
 
 BiomeComponent::BiomeComponent(eBiomeTypes biomeType = BIOME_FLAT)
 	:
-	m_biomeType(BIOME_FLAT)
+	m_biomeType(biomeType)
 {
 }
 
