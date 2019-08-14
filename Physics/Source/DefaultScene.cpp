@@ -7,7 +7,7 @@
 #include "CameraScript.h"
 #include "InventoryScript.h"
 #include "WeaponScript.h"
-
+#include "StaminaScript.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -37,6 +37,18 @@ void DefaultScene::Init()
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100 - 110 - 110, 100);
 	InventorySlots.push_back(go);
+	// Stamina--------------------------------------------------------------------------------
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(50, 50, 0);
+	go->TRANS->SetScale(200, 50, 1);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
+
+	GameObject* stam = m_GOM.AddGameObject("UI");
+	stam->TRANS->SetPosition(50, 50, 0);
+	stam->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	stam->RENDER->SetColor(1, 1, 0);
+
 	/// Player================================================================================
 	// Reticle
 	go2 = dataContainer->GetGameObject("Reticle");
@@ -57,6 +69,7 @@ void DefaultScene::Init()
 	Player->TRANS->SetPosition(0, 16, 0);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
 	Player->AddComponent(new InventoryScript(gun, InventorySlots));
+	Player->AddComponent(new StaminaScript(stam));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));

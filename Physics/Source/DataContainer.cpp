@@ -82,6 +82,8 @@ void  DataContainer::InitMeshes()
 	m_map_Meshes["Revolver"] = MeshBuilder::GenerateOBJ("revolver")->AddTexture("Revolver");
 
 	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
+
+	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
 }
 void  DataContainer::InitTerrain()
 {
@@ -140,6 +142,7 @@ void  DataContainer::InitGO()
 	m_map_GO["InventorySlot"] = go;
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
 }
 void  DataContainer::InitShaders()

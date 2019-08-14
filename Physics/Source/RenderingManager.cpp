@@ -302,8 +302,11 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 		}
 		if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero())
 			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-		if (!vGameObjectScale.IsZero())
-			modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
+		if (vGameObjectScale.x <= 0 || vGameObjectScale.y <= 0 || vGameObjectScale.z <= 0)
+		{
+			return;
+		}
+		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
 		if (!bIsUI)
 		{
 			if (CurrentMesh)
