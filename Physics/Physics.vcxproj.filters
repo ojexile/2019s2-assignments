@@ -69,6 +69,7 @@
     <ClCompile Include="Source\CameraScript.cpp" />
     <ClCompile Include="Source\ChunkData.cpp" />
     <ClCompile Include="Source\ReticleScript.cpp" />
+    <ClCompile Include="Source\UIButtonComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -142,5 +143,6 @@
     <ClInclude Include="Source\CameraScript.h" />
     <ClInclude Include="Source\ReticleScript.h" />
     <ClInclude Include="Source\ChunkData.h" />
+    <ClInclude Include="Source\UIButtonComponent.h" />
   </ItemGroup>
 </Project>
