@@ -45,6 +45,7 @@ void DataContainer::Init()
 void DataContainer::InitChunks()
 {
 	m_map_Chunks["Map"] = new ChunkData("Content/Map.chunk");
+	m_map_Chunks["goldmine"] = new ChunkData("Content/1x2_goldmine.chunk");
 }
 
 void DataContainer::InitTextures()
