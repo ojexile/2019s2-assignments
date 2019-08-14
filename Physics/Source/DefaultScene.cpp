@@ -42,12 +42,6 @@ void DefaultScene::Init()
 	// Reticle
 	m_CameraGO->AddChild(dataContainer->GetGameObject("Reticle"));
 	/// WORLD================================================================================
-	// Skyplane--------------------------------------------------------------------------------
-	GameObject* SkyPlane = m_GOM.AddGameObject();
-	SkyPlane->TRANS->SetPosition(0, 340, 0);
-	SkyPlane->AddComponent(new RenderComponent(dataContainer->GetMesh("SkyPlane")));
-	SkyPlane->RENDER->SetLightEnabled(true);
-	/// Plains================================================================================
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
