@@ -1,13 +1,11 @@
-	#include "MeshBiomed.h"
-	#include "GL\glew.h"
-	#include "Vertex.h"
+#include "MeshBiomed.h"
+#include "GL\glew.h"
+#include "Vertex.h"
 
-	#include "Locator.h"
-	#include "DataContainer.h"
+#include "Locator.h"
+#include "DataContainer.h"
 
-MeshBiomed::MeshBiomed(const std::string & meshName)
-	:
-	Mesh(meshName)
+MeshBiomed::MeshBiomed(const std::string & meshName) : Mesh(meshName)
 
 {
 	for (int i = 0; i < MAX_BIOMES; i++)

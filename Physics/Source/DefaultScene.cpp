@@ -66,6 +66,7 @@ void DefaultScene::Init()
 	
 	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
 	go = m_GOM.AddGameObject();
-	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMesh()));
+	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMeshBiomed()));
+	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
 }

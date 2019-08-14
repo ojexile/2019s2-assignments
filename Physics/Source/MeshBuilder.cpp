@@ -1303,7 +1303,7 @@ TexCoord GenTexCoord(int x, int u, int k, int l)
 }
 
 //@author Nam Kai Zhe
-Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int ySize, int zSize, std::vector<unsigned short>* chunk)
+Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int ySize, int zSize, std::vector<unsigned short>* chunk, bool biomed)
 {
 	xSize *= 16;
 	zSize *= 16;
@@ -1487,7 +1487,12 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 		}
 	}
 
-	Mesh* mesh = new Mesh(meshName);
+	Mesh* mesh;
+
+	if (!biomed)
+		mesh = new Mesh(meshName);
+	else
+		mesh = new MeshBiomed(meshName);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
