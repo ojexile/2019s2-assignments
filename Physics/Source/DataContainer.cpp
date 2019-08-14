@@ -1,13 +1,18 @@
 #include "DataContainer.h"
-#include "Rigidbody.h"
+#include <time.h>
 // Components================================================================================
 #include "Constrain.h"
 #include "MeshController.h"
+#include "Rigidbody.h"
 // Scripts--------------------------------------------------------------------------------
 #include "ParticleScript.h"
 #include "ParticleSpawnerScript.h"
 #include "FPSScript.h"
 #include "ProjectileScript.h"
+#include "ReticleScript.h"
+#include "PlayerScript.h"
+#include "WeaponScript.h"
+//
 #include "PartScript.h"
 #include "WeaponPartScript.h"
 #include <time.h>
@@ -28,6 +33,7 @@ void DataContainer::Init()
 	InitMeshes();
 	InitTerrain();
 	InitGO();
+	InitChunks();
 	InitShaders();
 	m_bInitialsed = true;
 
@@ -35,6 +41,12 @@ void DataContainer::Init()
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	CHENG_LOG("Time to load container: ", std::to_string(elapsed_secs));
 }
+
+void DataContainer::InitChunks()
+{
+	m_map_Chunks["Map"] = new ChunkData("Content/Map.chunk");
+}
+
 void DataContainer::InitTextures()
 {
 	m_map_Textures["Text"] = LoadTGA("calibri");
@@ -42,6 +54,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Cube"] = LoadTGA("Cube");
 	m_map_Textures["Dirt"] = LoadTGA("dirt");
 	m_map_Textures["GrassDirt"] = LoadTGA("grassdirt");
+	m_map_Textures["Colors"] = LoadTGA("colors");
 }
 void  DataContainer::InitMeshes()
 {
@@ -52,6 +65,10 @@ void  DataContainer::InitMeshes()
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
 
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
+
+	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
+
+	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle");
 }
 void  DataContainer::InitTerrain()
 {
@@ -63,17 +80,23 @@ void  DataContainer::InitGO()
 {
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
-	/// misc================================================================================
+	///================================================================================
 	go = new GameObject;
 	m_map_GO["FPS"] = go;
 	go->AddComponent(new FPSScript);
 	go->TRANS->SetPosition(50, 10, 25);
 	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
+	// Reticle--------------------------------------------------------------------------------
+	go = new GameObject();
+	m_map_GO["Reticle"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Reticle")));
+	go->RENDER->SetColor(0, 1, 1);
+	go->AddComponent(new ReticleScript);
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
-	go->TRANS->SetScale(10);
+	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
@@ -84,6 +107,16 @@ void  DataContainer::InitGO()
 	go->TRANS->SetScale(5);
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
+	// Player--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Player"] = go;
+	go->TRANS->SetScale(1);
+	go->AddComponent(new PlayerScript(GetGameObject("Reticle")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->RIGID->SetMat(0.9f, 0.f);
+	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
+	go->AddComponent(new Constrain(GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
+	go->AddComponent(new RenderComponent(GetMesh("Player")));
 }
 void  DataContainer::InitShaders()
 {
@@ -128,6 +161,11 @@ DataContainer::~DataContainer()
 		delete x.second;
 	}
 	m_map_HeightMaps.clear();
+	//for (auto const& x : m_map_Chunks)
+	//{
+	//	delete x.second;
+	//}
+	//m_map_Chunks.clear();
 }
 Mesh* DataContainer::GetMesh(std::string name)
 {
@@ -159,6 +197,15 @@ unsigned DataContainer::GetShader(std::string key)
 		DEFAULT_LOG("ERROR: Shader not found of name: " + key);
 	unsigned shader = m_map_Shaders[key];
 	return shader;
+}
+ChunkData* DataContainer::GetChunk(std::string key)
+{
+	if (m_map_Chunks.count(key) <= 0)
+	{
+		DEFAULT_LOG("ERROR: Chunk not found of name: " + key);
+		return nullptr;
+	}
+	return m_map_Chunks[key];
 }
 unsigned DataContainer::GetTexture(std::string key)
 {

@@ -65,6 +65,10 @@
     <ClCompile Include="Source\WeaponScript.cpp" />
     <ClCompile Include="Source\ProjectileScript.cpp" />
     <ClCompile Include="Source\SprintingState.cpp" />
+    <ClCompile Include="Source\TopDownState.cpp" />
+    <ClCompile Include="Source\CameraScript.cpp" />
+    <ClCompile Include="Source\ChunkData.cpp" />
+    <ClCompile Include="Source\ReticleScript.cpp" />
     <ClCompile Include="Source\WeaponPartScript.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +139,10 @@
     <ClInclude Include="Source\WeaponScript.h" />
     <ClInclude Include="Source\ProjectileScript.h" />
     <ClInclude Include="Source\SprintingState.h" />
+    <ClInclude Include="Source\TopDownState.h" />
+    <ClInclude Include="Source\CameraScript.h" />
+    <ClInclude Include="Source\ReticleScript.h" />
+    <ClInclude Include="Source\ChunkData.h" />
     <ClInclude Include="Source\WeaponPartScript.h" />
   </ItemGroup>
 </Project>

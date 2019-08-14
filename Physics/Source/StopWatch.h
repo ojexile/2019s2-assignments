@@ -26,5 +26,6 @@ public:
 	StopWatch* Stop();
 	float GetTime();
 	std::string GetSTime();
+	void Reset();
 };
 

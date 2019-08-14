@@ -107,7 +107,7 @@ void Camera::SetDir(float yaw, float pitch)
 }
 void Camera::SetDir(Vector3 v)
 {
-	m_vDir = v;
+	m_vDir = v.Normalized();
 }
 void Camera::OffsetDir(float yaw, float pitch)
 {

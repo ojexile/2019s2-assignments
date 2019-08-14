@@ -9,17 +9,13 @@ class PlayerScript : public EntityScript
 	friend class PlayerState;
 private:
 	PlayerState* m_CurrentState;
-
+	GameObject* m_Reticle;
 	float m_fJumpForce;
-	bool m_bFirstPerson;
 
 	// Functions
-	// Switch view
-	void SwitchView();
-	void SetTopDownPos();
 	void UpdateMovement(double dt);
 public:
-	PlayerScript();
+	PlayerScript(GameObject* Reticle);
 	~PlayerScript();
 	virtual ComponentBase* Clone()
 	{
