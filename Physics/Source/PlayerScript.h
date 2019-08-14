@@ -10,12 +10,13 @@ class PlayerScript : public EntityScript
 private:
 	PlayerState* m_CurrentState;
 	GameObject* m_Reticle;
+	GameObject* m_Gun;
 	float m_fJumpForce;
 
 	// Functions
 	void UpdateMovement(double dt);
 public:
-	PlayerScript(GameObject* Reticle);
+	PlayerScript(GameObject* Reticle, GameObject* gun);
 	~PlayerScript();
 	virtual ComponentBase* Clone()
 	{

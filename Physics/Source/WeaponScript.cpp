@@ -34,23 +34,65 @@ WeaponScript::~WeaponScript()
 
 void WeaponScript::PullTrigger(const Vector3& dir, const double deltaTime)
 {
+	if (!m_Projectile)
+		return;
 
+	if (m_iMagazineRounds > 0 && m_fBufferTime > m_fFirerate)
+	{
+		m_fBufferTime = 0.f;
+		Vector3 SpawnPos = GetPosition();
+		SpawnPos.y += 0.5f;
+		switch (m_FiringMode)
+		{
+		case SINGLE:
+		{
+			if (!m_bSingleFired)
+			{
+				GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
+				bullet->RIGID->SetAffectedByGravity(false);
+				bullet->RIGID->AddForce(m_fBulletForce * dir);
+
+				--m_iMagazineRounds;
+
+				DamageEquippedParts(deltaTime);
+
+				m_bSingleFired = true;
+			}
+			break;
+		}
+		case AUTO:
+		{
+			GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
+			bullet->RIGID->SetAffectedByGravity(false);
+			bullet->RIGID->AddForce(m_fBulletForce * dir);
+
+			--m_iMagazineRounds;
+
+			DamageEquippedParts(deltaTime);
+			break;
+		}
+		default:
+		{
+			break;
+		}
+		}
+	}
 }
 
 void WeaponScript::ReleaseTrigger()
 {
-
+	m_bSingleFired = false;
 }
 
 void WeaponScript::Update(double deltaTime)
 {
 	m_fBufferTime += (float)deltaTime;
 
-	//Note: use the direct function for now
-	if (InputManager::GetInstance()->GetInputStrength("Fire"))
-		FireWeapon(Vector3(1, 0, 0), deltaTime);
-	if (!InputManager::GetInstance()->GetInputStrength("Fire") && m_bSingleFired)
-		m_bSingleFired = false;
+	////Note: use the direct function for now
+	//if (InputManager::GetInstance()->GetInputStrength("Fire"))
+	//	FireWeapon(Vector3(1, 0, 0), deltaTime);
+	//if (!InputManager::GetInstance()->GetInputStrength("Fire") && m_bSingleFired)
+	//	m_bSingleFired = false;
 
 	if (InputManager::GetInstance()->GetInputStrength("Reload"))
 		ReloadWeapon();
@@ -102,48 +144,7 @@ void WeaponScript::UpdateStats(std::queue<GameObject*>& m_UpdatedQueue)
 
 void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
-	if (!m_Projectile)
-		return;
-
-	if (m_iMagazineRounds > 0 && m_fBufferTime > m_fFirerate)
-	{
-		m_fBufferTime = 0.f;
-
-		switch (m_FiringMode)
-		{
-		case SINGLE:
-		{
-			if (!m_bSingleFired)
-			{
-				GameObject* bullet = Instantiate(m_Projectile, Vector3(0, 10, 0));
-				bullet->RIGID->SetAffectedByGravity(false);
-				bullet->RIGID->AddForce(m_fBulletForce * dir);
-
-				--m_iMagazineRounds;
-				
-				DamageEquippedParts(deltaTime);
-
-				m_bSingleFired = true;
-			}
-			break;
-		}
-		case AUTO:
-		{
-			GameObject* bullet = Instantiate(m_Projectile, Vector3 (0,10,0));
-			bullet->RIGID->SetAffectedByGravity(false);
-			bullet->RIGID->AddForce(m_fBulletForce * dir);
-			
-			--m_iMagazineRounds;
-			
-			DamageEquippedParts(deltaTime);
-			break;
-		}
-		default:
-		{
-			break;
-		} 
-		}
-	}
+	
 }
 
 void WeaponScript::ReloadWeapon(void)

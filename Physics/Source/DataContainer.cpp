@@ -66,6 +66,8 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
 
+	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("Ball");
+
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
 	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle");
@@ -97,26 +99,21 @@ void  DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
 	go->TRANS->SetScale(0.5f);
-	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
 	go->AddComponent(new ProjectileScript());
-
+	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
 	go->TRANS->SetScale(5);
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
-	// Player--------------------------------------------------------------------------------
+	// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
-	m_map_GO["Player"] = go;
-	go->TRANS->SetScale(1);
-	go->AddComponent(new PlayerScript(GetGameObject("Reticle")));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	go->RIGID->SetMat(0.9f, 0.f);
+	m_map_GO["Gun"] = go;
 	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
-	go->AddComponent(new Constrain(GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
-	go->AddComponent(new RenderComponent(GetMesh("Player")));
+
 }
 void  DataContainer::InitShaders()
 {

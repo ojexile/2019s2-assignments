@@ -31,7 +31,7 @@ public:
 	void Update(double deltaTime) override;
 	void UpdateStats(std::queue<GameObject*>& m_UpdatedQueue);
 
-	virtual WeaponScript* Clone() { return new WeaponScript(*this); }
+	virtual ComponentBase* Clone(){return new WeaponScript(*this);}
 
 private:
 
