@@ -22,7 +22,13 @@ bool ChunkData::IsSolid(Vector3 pos)
 	int x = (int)pos.x;
 	int y = (int)pos.y;
 	int z = (int)pos.z;
-	return m_blocks[x + z * m_iXSize + y * m_iXSize * m_iZSize] != 0;
+	if (x < 0 || x >= m_iXSize * 16 || y < 0 || y >= m_iYSize || z < 0 || z >= m_iZSize* 16) return false;
+	return m_blocks[x + z * m_iXSize * 16 + y * m_iXSize * m_iZSize * 256] != 0;
+}
+
+Vector3 ChunkData::GetSize()
+{
+	return Vector3(m_iXSize * 16, m_iYSize, m_iZSize * 16);
 }
 
 void PutShort(FILE* f, unsigned short s)
@@ -53,5 +59,15 @@ Mesh* ChunkData::GenerateMesh()
 {
 	Mesh* mesh = MeshBuilder::GenerateChunk("chunk", m_iXSize, m_iYSize, m_iZSize, &m_blocks);
 	mesh->AddTexture("Colors");
+	return mesh;
+}
+
+MeshBiomed* ChunkData::GenerateMeshBiomed()
+{
+	MeshBiomed* mesh = dynamic_cast<MeshBiomed*>(MeshBuilder::GenerateChunk("chunk", m_iXSize, m_iYSize, m_iZSize, &m_blocks, true));
+	mesh->AddTexture("terrainflat", BiomeComponent::BIOME_FLAT);
+	mesh->AddTexture("Colors", BiomeComponent::BIOME_PLAINS);
+	mesh->AddTexture("snow", BiomeComponent::BIOME_SNOW);
+
 	return mesh;
 }

@@ -16,6 +16,8 @@ public:
 	void WriteToFile(const std::string fileName);
 	Constrain* GetHeightConstraint();
 	Mesh* GenerateMesh();
+	MeshBiomed* GenerateMeshBiomed();
 	std::vector<unsigned short> * GetBlocks();
 	bool IsSolid(Vector3 pos);
+	Vector3 GetSize();
 };

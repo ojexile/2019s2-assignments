@@ -12,6 +12,7 @@
 #include "HeightMapData.h"
 #include "ChunkData.h"
 
+#include "MeshBiomed.h"
 #include "shader.hpp"
 
 class DataContainer : public Singleton<DataContainer>
@@ -26,6 +27,7 @@ private:
 	std::map<std::string, ChunkData*> m_map_Chunks;
 
 	Mesh* GenerateTerrain(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
+	MeshBiomed* GenerateTerrainBiomed(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
 	Mesh* GenerateTerrainTerrace(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
 
 	bool m_bInitialsed;

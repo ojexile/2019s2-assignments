@@ -17,6 +17,13 @@ Mesh* HeightMapData::GetMesh()
 {
 	return m_Mesh;
 }
+
+MeshBiomed * HeightMapData::GetMeshBiomed()
+{
+	return dynamic_cast<MeshBiomed*>(m_Mesh);
+}
+
+
 _heightmap* HeightMapData::GetHeightMap()
 {
 	return m_Map;

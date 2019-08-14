@@ -45,6 +45,7 @@ void DataContainer::Init()
 void DataContainer::InitChunks()
 {
 	m_map_Chunks["Map"] = new ChunkData("Content/Map.chunk");
+	m_map_Chunks["goldmine"] = new ChunkData("Content/1x2_goldmine.chunk");
 }
 
 void DataContainer::InitTextures()
@@ -53,8 +54,11 @@ void DataContainer::InitTextures()
 	m_map_Textures["Sky"] = LoadTGA("sky");
 	m_map_Textures["Cube"] = LoadTGA("Cube");
 	m_map_Textures["Dirt"] = LoadTGA("dirt");
+	m_map_Textures["grassdirt"] = LoadTGA("grassdirt");
 	m_map_Textures["GrassDirt"] = LoadTGA("grassdirt");
 	m_map_Textures["Colors"] = LoadTGA("colors");
+	m_map_Textures["snow"] = LoadTGA("snow");
+
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
 }
 void  DataContainer::InitMeshes()
@@ -79,7 +83,12 @@ void  DataContainer::InitTerrain()
 {
 	/// Terrain================================================================================
 	// Plains--------------------------------------------------------------------------------
-	Mesh* mesh = GenerateTerrain("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })->AddTexture("Dirt")->AddTexture("GrassDirt");
+	MeshBiomed* mesh1 = GenerateTerrainBiomed("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })
+		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS)
+		->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
+
+	//Mesh* mesh2 = GenerateTerrain("TerrainTest", "heightmapPlains", { 200,60,200 }, { 200,60,0 })->AddTexture("grassdirt");
+
 }
 void  DataContainer::InitGO()
 {
@@ -233,6 +242,15 @@ Mesh* DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 
 	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale);
 	m_map_HeightMaps[key] = new HeightMapData(mesh, heightMap, vScale, vPos);
 	return mesh;
+}
+MeshBiomed * DataContainer::GenerateTerrainBiomed(std::string key, std::string path, Vector3 vScale, Vector3 vPos)
+{
+	_heightmap* heightMap = new _heightmap;
+	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale, true);
+	MeshBiomed* meshBiomed = dynamic_cast<MeshBiomed*>(mesh);
+
+	m_map_HeightMaps[key] = new HeightMapData(meshBiomed, heightMap, vScale, vPos);
+	return meshBiomed;
 }
 Mesh* DataContainer::GenerateTerrainTerrace(std::string key, std::string path, Vector3 vScale, Vector3 vPos)
 {
