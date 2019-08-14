@@ -101,7 +101,8 @@ void PlayerScript::UpdateMovement(double dt)
 	Vector3 Currentpos = GetPosition();
 	Vector3 Reticle();
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
-	vDir.Normalize();
+	if(!vDir.IsZero())
+		vDir.Normalize();
 	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 )
 	{
 		m_Gun->GetComponent<WeaponScript>()->PullTrigger(vDir, dt);

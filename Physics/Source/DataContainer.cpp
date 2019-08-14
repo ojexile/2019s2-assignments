@@ -124,8 +124,6 @@ void  DataContainer::InitGO()
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->TRANS->SetScale(100);
-	go->TRANS->SetPosition(1920/2,1080/2);
-
 }
 void  DataContainer::InitShaders()
 {

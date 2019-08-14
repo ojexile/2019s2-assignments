@@ -21,7 +21,6 @@ void DefaultScene::Init()
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
-	m_GOM.AddGameObject(dataContainer->GetGameObject("UIButton"), "UI");
 	/// Player================================================================================
 	// Reticle
 	go2 =dataContainer->GetGameObject("Reticle");
@@ -33,7 +32,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->TRANS->SetPosition(0, 16, 0);
-	Player->GetComponent<EntityScript>()->Damage(5);
+	// Player->GetComponent<EntityScript>()->Damage(5);
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
