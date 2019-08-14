@@ -182,6 +182,7 @@ void WeaponScript::AddPart(GameObject* part)
 		case PartScript::SCOPE:
 		{
 			m_ScopeParts.push_back(part);
+			part->TRANS->SetRelativePosition(1 * m_ScopeParts.size(), 0.5, 0);
 			break;
 		}
 		case PartScript::MUZZLE:
@@ -194,11 +195,13 @@ void WeaponScript::AddPart(GameObject* part)
 		case PartScript::STOCK:
 		{
 			m_StockParts.push_back(part);
+			part->TRANS->SetRelativePosition(0, -0.5 * m_StockParts.size(), 0);
 			break;
 		}
 		case PartScript::GRIP:
 		{
 			m_GripParts.push_back(part);
+			part->TRANS->SetRelativePosition(-2 * m_GripParts.size(), 0, 0);
 			break;
 		}
 		default:
@@ -224,7 +227,7 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 			////Temporary fix, Destroy function does not destroy child of gun
 			//go->RENDER->SetActive(false);
 			
-		 Destroy(go);
+			Destroy(go);
 			m_vector.pop_back();
 			break;
 		}

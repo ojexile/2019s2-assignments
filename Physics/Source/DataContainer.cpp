@@ -119,7 +119,7 @@ void  DataContainer::InitGO()
 	m_map_GO["Muzzle"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Muzzle")));
-	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
+	go->AddComponent(new WeaponPartScript(PartScript::STOCK, 2.0, 50));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------
