@@ -87,6 +87,17 @@ void PlayerScript::UpdateMovement(double dt)
 		rb->AddForce({ 0,m_fJumpForce,0 });
 		jump = true;
 	}
+	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
+	{
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
+		m_Reticle->SetActive(false);
+	}
+	else
+	{
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
+		m_Reticle->SetActive(true);
+		m_Reticle->TRANS->SetPosition(GetPosition());
+	}
 	Vector3 Currentpos = GetPosition();
 	Vector3 Reticle();
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();

@@ -21,10 +21,10 @@ void DefaultScene::Init()
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
+	m_GOM.AddGameObject(dataContainer->GetGameObject("UIButton"), "UI");
 	/// Player================================================================================
 	// Reticle
 	go2 =dataContainer->GetGameObject("Reticle");
-	
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	Player->AddComponent(new PlayerScript(go2, dataContainer->GetGameObject("Gun")));
