@@ -10,7 +10,7 @@ private:
 	GameObject* m_List[INVENTORY_SIZE];
 	std::vector<GameObject*> m_SlotList;
 public:
-	InventoryScript(GameObject* gun, std::vector<GameObject*> &list);
+	InventoryScript(GameObject* gun, std::vector<GameObject*> list);
 	virtual ~InventoryScript();
 	virtual ComponentBase* Clone() { return new InventoryScript(*this); };
 	virtual void Update(double dt) override;

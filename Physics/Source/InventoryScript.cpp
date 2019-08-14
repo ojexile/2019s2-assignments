@@ -1,7 +1,8 @@
 #include "InventoryScript.h"
 #include "InputManager.h"
 #include "UIButtonComponent.h"
-InventoryScript::InventoryScript(GameObject* weapon, std::vector<GameObject*> &list)
+#include "WeaponScript.h"
+InventoryScript::InventoryScript(GameObject* weapon, std::vector<GameObject*> list)
 {
 	m_Weapon = weapon;
 	m_SlotList = list;
@@ -23,9 +24,16 @@ void InventoryScript::Update(double dt)
 	{
 		for (int i = 0; i < m_iNumInInventory; ++i)
 		{
-			if (m_List[i]->GetComponent<UIButtonComponent>()->GetHover())
+			//if (m_SlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
 			{
-				//
+				if (!m_List[i])
+					return;
+				GameObject* cpy = Instantiate(m_List[i], Vector3{ 0,0,0 }, Vector3{ 1,1,1 });
+				m_Weapon->AddChild(cpy);
+				m_Weapon->GetComponent<WeaponScript>()->AddPart(cpy);
+				Destroy(m_List[i]);
+				m_List[i] = nullptr;
+				CHENG_LOG("Part added");
 			}
 		}
 	}
@@ -34,10 +42,10 @@ void InventoryScript::AddItem(GameObject* go)
 {
 	if (m_iNumInInventory < INVENTORY_SIZE)
 	{
-		m_List[m_iNumInInventory] = go;
 		Vector3 pos = m_SlotList.at(m_iNumInInventory)->TRANS->GetPosition();
 		Vector3 scal = {20,20,1};
-		Instantiate(go, pos, scal, "UI");
+		GameObject* go2 =Instantiate(go, pos, scal, "UI");
+		m_List[m_iNumInInventory] = go2;
 		Destroy(go);
 		++m_iNumInInventory;
 	}

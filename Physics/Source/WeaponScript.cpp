@@ -202,7 +202,7 @@ void WeaponScript::AddPart(GameObject* part)
 		case PartScript::MUZZLE:
 		{
 			m_MuzzleParts.push_back(part);
-			part->TRANS->SetRelativePosition(1 * m_MuzzleParts.size(),0,0);
+			part->TRANS->SetRelativePosition(2 * m_MuzzleParts.size(),0,0);
 
 			break;
 		}
