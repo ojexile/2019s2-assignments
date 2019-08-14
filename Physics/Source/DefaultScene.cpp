@@ -29,14 +29,14 @@ void DefaultScene::Init()
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100, 100);
 	InventorySlots.push_back(go);
-	////
-	//go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
-	//go->TRANS->SetPosition(1920 - 100 - 110, 100);
-	//InventorySlots.push_back(go);
-	////
-	//go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
-	//go->TRANS->SetPosition(1920 - 100 - 110 - 110, 100);
-	//InventorySlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
+	go->TRANS->SetPosition(1920 - 100 - 110, 100);
+	InventorySlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
+	go->TRANS->SetPosition(1920 - 100 - 110 - 110, 100);
+	InventorySlots.push_back(go);
 	/// Player================================================================================
 	// Reticle
 	go2 = dataContainer->GetGameObject("Reticle");
