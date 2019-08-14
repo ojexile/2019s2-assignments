@@ -53,7 +53,7 @@ void DefaultScene::Init()
 	/// Plains================================================================================
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vec3(200,0,0));
+	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200,0,0));
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	//go->GetComponent<BiomeComponent>(true)->SetMeshBiomedPointer(dynamic_cast<MeshBiomed*>(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
@@ -64,7 +64,7 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainTest")->GetMesh()));
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	*/
-	}
+	
 	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
 	go = m_GOM.AddGameObject();
 	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMesh()));
