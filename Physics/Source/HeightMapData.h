@@ -1,6 +1,8 @@
 #pragma once
 #include "ComponentMacros.h"
 #include "Mesh.h"
+#include "MeshBiomed.h"
+
 class HeightMapData
 {
 private:
@@ -13,6 +15,7 @@ public:
 	~HeightMapData();
 
 	Mesh* GetMesh();
+	MeshBiomed* GetMeshBiomed();
 	_heightmap* GetHeightMap();
 	Vector3 GetScale();
 	Vector3 GetPos();
