@@ -108,6 +108,7 @@ Mesh* Mesh::AddTexture(unsigned i)
 	++m_iNumTextures;
 	return this;
 }
+
 Mesh* Mesh::AddTexture(std::string s)
 {
 	if (m_iNumTextures >= 8)
@@ -115,6 +116,7 @@ Mesh* Mesh::AddTexture(std::string s)
 		DEFAULT_LOG("Max Textures reached.");
 		return this;
 	}
+
 	m_uTextureArray[m_iNumTextures] = DataContainer::GetInstance()->GetTexture(s);
 	++m_iNumTextures;
 	return this;

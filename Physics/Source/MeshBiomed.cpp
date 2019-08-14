@@ -32,6 +32,11 @@ MeshBiomed::~MeshBiomed()
 		}
 		m_iNumBiomedTextures[i] = NULL;
 	}
+
+	if (m_biomeComponentPtr != nullptr)
+	{
+		m_biomeComponentPtr = nullptr;
+	}
 }
 
 MeshBiomed * MeshBiomed::AddTexture(unsigned i, BiomeComponent::eBiomeTypes e)
@@ -57,5 +62,19 @@ MeshBiomed * MeshBiomed::AddTexture(std::string s, BiomeComponent::eBiomeTypes e
 	m_uBiomedTextureArray[e][m_iNumBiomedTextures[e]] = DataContainer::GetInstance()->GetTexture(s);
 	++m_iNumBiomedTextures[e];
 	return this;
+}
+
+MeshBiomed * MeshBiomed::AttachBiomeComponent(BiomeComponent * ptr)
+{
+	this->m_biomeComponentPtr = ptr;
+	return this;
+}
+
+void MeshBiomed::Render()
+{
+}
+
+void MeshBiomed::Render(unsigned offset, unsigned count)
+{
 }
 

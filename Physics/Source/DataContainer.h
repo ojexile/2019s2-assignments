@@ -11,6 +11,7 @@
 #include "ComponentMacros.h"
 #include "HeightMapData.h"
 
+#include "MeshBiomed.h"
 #include "shader.hpp"
 
 class DataContainer : public Singleton<DataContainer>
@@ -24,6 +25,7 @@ private:
 	std::map<std::string, HeightMapData*> m_map_HeightMaps;
 
 	Mesh* GenerateTerrain(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
+	MeshBiomed* GenerateTerrainBiomed(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
 	Mesh* GenerateTerrainTerrace(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
 
 	bool m_bInitialsed;

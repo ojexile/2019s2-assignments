@@ -2,6 +2,7 @@
 #include "ComponentBase.h"
 #include "Mesh.h"
 #include "AnimatedMesh.h"
+#include "MeshBiomed.h"
 #include <string>
 
 class RenderComponent :
@@ -17,6 +18,7 @@ private:
 	bool m_bIsText;
 public:
 	RenderComponent(Mesh* mesh);
+	RenderComponent(MeshBiomed*, BiomeComponent*);
 	RenderComponent(Mesh* mesh, std::string sText);
 	RenderComponent(AnimatedMesh* mesh);
 	RenderComponent(RenderComponent& mesh);

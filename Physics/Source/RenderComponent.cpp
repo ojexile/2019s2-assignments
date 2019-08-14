@@ -8,6 +8,16 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 	m_bBillboard = false;
 	m_bIsText = false;
 }
+RenderComponent::RenderComponent(MeshBiomed * meshBiomed, BiomeComponent * bc)
+{
+	m_Mesh = meshBiomed;
+	dynamic_cast<MeshBiomed*>(m_Mesh)->AttachBiomeComponent(bc);
+	m_AnimatedMesh = nullptr;
+	m_bLightEnabled = true;
+	m_bBillboard = false;
+	m_bIsText = false;
+
+}
 RenderComponent::RenderComponent(Mesh* Mesh, std::string sText)
 	:m_Mesh(Mesh)
 {
