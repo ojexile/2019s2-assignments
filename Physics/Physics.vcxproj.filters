@@ -74,6 +74,7 @@
     <ClCompile Include="Source\ReticleScript.cpp" />
     <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\UIButtonComponent.cpp" />
+    <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -152,5 +153,6 @@
     <ClInclude Include="Source\ChunkCollider.h" />
     <ClInclude Include="Source\BiomeComponent.h" />
     <ClInclude Include="Source\MeshBiomed.h" />
+    <ClInclude Include="Source\FoilageGeneratorComponent.h" />
   </ItemGroup>
 </Project>

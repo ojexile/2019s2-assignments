@@ -175,6 +175,7 @@
     <ClCompile Include="Source\DepthFBO.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
+    <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
     <ClCompile Include="Source\FPSScript.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="Source\DepthFBO.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\EntityScript.h" />
+    <ClInclude Include="Source\FoilageGeneratorComponent.h" />
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
