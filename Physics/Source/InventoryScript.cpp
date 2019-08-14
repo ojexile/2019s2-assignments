@@ -23,7 +23,7 @@ void InventoryScript::Update(double dt)
 	{
 		for (int i = 0; i < m_iNumInInventory; ++i)
 		{
-			//if (m_SlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
+			if (m_SlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
 			{
 				if (!m_List[i])
 					return;

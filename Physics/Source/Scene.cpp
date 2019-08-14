@@ -2,12 +2,11 @@
 #include "Application.h"
 Scene::Scene()
 {
+	m_bCursorEnabled = false;
 }
 
 Scene::~Scene()
 {
-	/*if (m_CameraGO)
-		delete m_CameraGO;*/
 }
 GameObject* Scene::GetCameraGameObject()
 {
@@ -28,8 +27,13 @@ LightManager* Scene::GetLightManager()
 void Scene::SetCursorEnabled(bool b)
 {
 	Application::SetCursorEnabled(b);
+	m_bCursorEnabled = b;
 }
 GameObject* Scene::GetGO(std::string s)
 {
 	return DataContainer::GetInstance()->GetGameObject(s);
+}
+bool Scene::GetCursorEnabled()
+{
+	return m_bCursorEnabled;
 }

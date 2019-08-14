@@ -29,18 +29,18 @@ void DefaultScene::Init()
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100, 100);
 	InventorySlots.push_back(go);
-	//
-	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
-	go->TRANS->SetPosition(1920 - 100 - 110, 100);
-	InventorySlots.push_back(go);
-	//
-	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
-	go->TRANS->SetPosition(1920 - 100 - 110 - 110, 100);
-	InventorySlots.push_back(go);
+	////
+	//go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
+	//go->TRANS->SetPosition(1920 - 100 - 110, 100);
+	//InventorySlots.push_back(go);
+	////
+	//go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
+	//go->TRANS->SetPosition(1920 - 100 - 110 - 110, 100);
+	//InventorySlots.push_back(go);
 	/// Player================================================================================
 	// Reticle
-	go2 =dataContainer->GetGameObject("Reticle");
-	
+	go2 = dataContainer->GetGameObject("Reticle");
+
 	//Gun------------------------------------------------------------------------------------
 	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("Gun"));
 	gun->TRANS->SetPosition(5, 16, 5);
@@ -51,9 +51,9 @@ void DefaultScene::Init()
 	Player->RIGID->SetMat(0.9f, 0.f);
 	//Player->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
-	
+
 	Player->RENDER->SetActive(false);
-	
+
 	Player->TRANS->SetPosition(0, 16, 0);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
 	Player->AddComponent(new InventoryScript(gun, InventorySlots));
@@ -84,18 +84,17 @@ void DefaultScene::Init()
 	/// WORLD================================================================================
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200,0,0));
+	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200, 0, 0));
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	//go->GetComponent<BiomeComponent>(true)->SetMeshBiomedPointer(dynamic_cast<MeshBiomed*>(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
-	
-	
+
 	/*go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainTest")->GetPos());
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainTest")->GetMesh()));
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	*/
-	
+
 	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos());
 	go = m_GOM.AddGameObject();
 	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMeshBiomed()));
