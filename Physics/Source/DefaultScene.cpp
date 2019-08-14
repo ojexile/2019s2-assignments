@@ -6,6 +6,7 @@
 #include "Utility.h"
 #include "CameraScript.h"
 #include "InventoryScript.h"
+#include "WeaponScript.h"
 
 DefaultScene::DefaultScene()
 {
@@ -39,14 +40,20 @@ void DefaultScene::Init()
 	/// Player================================================================================
 	// Reticle
 	go2 =dataContainer->GetGameObject("Reticle");
+	
+	//Gun------------------------------------------------------------------------------------
+	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("Gun"));
+	gun->TRANS->SetPosition(5, 16, 5);
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
-	GameObject* gun = dataContainer->GetGameObject("Gun");
 	Player->AddComponent(new PlayerScript(go2, gun));
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->RIGID->SetMat(0.9f, 0.f);
 	//Player->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
+	
+	Player->RENDER->SetActive(false);
+	
 	Player->TRANS->SetPosition(0, 16, 0);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
 	Player->AddComponent(new InventoryScript(gun, InventorySlots));
@@ -64,6 +71,16 @@ void DefaultScene::Init()
 	float size = 100;
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
+
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
+	go->TRANS->SetPosition(6, 16.5, 5);
+
+	go = dataContainer->GetGameObject("Muzzle");
+	go->TRANS->SetScale(3);
+
+	gun->AddChild(go);
+	gun->GUN->AddPart(go);
+
 	/// WORLD================================================================================
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject();

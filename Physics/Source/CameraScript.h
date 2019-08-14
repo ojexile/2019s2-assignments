@@ -23,6 +23,7 @@ private:
 public:
 	CameraScript(GameObject* vTarget);
 	virtual ~CameraScript();
+
 	virtual ComponentBase* Clone() { return new CameraScript(*this); };
 	virtual void Start() override;
 	virtual void Update(double d) override;

@@ -2,10 +2,10 @@
 
 #include "EntityScript.h"
 
-ProjectileScript::ProjectileScript()
-	: m_fLifespan(1.f)
+ProjectileScript::ProjectileScript(double lifespan, double Damage)
+	: m_dLifespan(lifespan),
+	  m_dDamage(m_dDamage)
 {
-	m_fDamage = 0;
 }
 
 
@@ -15,26 +15,26 @@ ProjectileScript::~ProjectileScript()
 
 void ProjectileScript::Update(double deltaTime)
 {
-	if (m_fLifespan >= 0.f)
-		m_fLifespan = m_fLifespan - deltaTime;
+	if (m_dLifespan >= 0.f)
+		m_dLifespan = m_dLifespan - deltaTime;
 	else
 		DestroySelf();
 }
 
 double ProjectileScript::getDamage()
 {
-	return m_fDamage;
+	return m_dDamage;
 }
 
 double ProjectileScript::getLifespan()
 {
-	return m_fLifespan;
+	return m_dLifespan;
 }
 void ProjectileScript::Collide(GameObject* go)
 {
 	EntityScript* es = go->GetComponent<EntityScript>();
 	if (es)
 	{
-		es->Damage(m_fDamage);
+		es->Damage(m_dDamage);
 	}
 }

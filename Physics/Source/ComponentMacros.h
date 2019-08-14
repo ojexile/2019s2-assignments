@@ -7,5 +7,6 @@
 #define RIGID GetComponent<Rigidbody>()
 #define CONSTRAIN GetComponent<Constrain>()
 #define PART GetComponent<PartScript>()
+#define GUN GetComponent<WeaponScript>()
 
 typedef std::vector<unsigned char> _heightmap;

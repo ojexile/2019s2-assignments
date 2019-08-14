@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "PartScript.h"
 
-#include <queue>
+#include <vector>
 
 /********************************************************************************
 Author: Ryan Tan Zheng Rong
@@ -21,7 +21,7 @@ public:
 		AUTO
 	};
 
-	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 1.0f, float fBulletSpread = 1.f, float fBulletForce = 100.f, FIRING_MODE FiringMode = AUTO);
+	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 1.0f, float fBulletSpread = 1.f, float fBulletForce = 10.f, FIRING_MODE FiringMode = AUTO);
 	~WeaponScript();
 
 	//Interface Functions
@@ -29,7 +29,9 @@ public:
 	void ReleaseTrigger();
 
 	void Update(double deltaTime) override;
-	void UpdateStats(std::queue<GameObject*>& m_UpdatedQueue);
+	void UpdateStats(GameObject* go, bool Multiply);
+
+	void AddPart(GameObject* part);
 
 	virtual ComponentBase* Clone(){return new WeaponScript(*this);}
 
@@ -38,10 +40,9 @@ private:
 	void FireWeapon(const Vector3& dir, const double deltaTime);
 	void ReloadWeapon(void);
 
-	void AddPart(GameObject* part);
-	void RemovePart(std::queue<GameObject*>& m_UpdatedQueue);
+	void DestroyPart(std::vector<GameObject*>& m_Updatedvector, GameObject* go);
 
-	void DamageEquippedParts(const double deltaTime);
+	void DamageEquippedParts(std::vector<GameObject*>& m_vector, const double deltaTime);
 
 	int m_iBulletsFiredCount;
 	
@@ -58,16 +59,15 @@ private:
 	float m_fBulletSpread;
 
 	bool m_bSingleFired;
-	bool bAttachTmp;
 
 	enum FIRING_MODE m_FiringMode;
 
 	GameObject* m_Projectile;
 
-	std::queue<GameObject*>	m_ScopeParts;
-	std::queue<GameObject*> m_MuzzleParts;
-	std::queue<GameObject*> m_GripParts;
-	std::queue<GameObject*> m_StockParts;
+	std::vector<GameObject*> m_ScopeParts;
+	std::vector<GameObject*> m_MuzzleParts;
+	std::vector<GameObject*> m_GripParts;
+	std::vector<GameObject*> m_StockParts;
 
 };
 

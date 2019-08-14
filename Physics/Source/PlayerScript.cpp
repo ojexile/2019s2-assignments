@@ -93,11 +93,11 @@ void PlayerScript::UpdateMovement(double dt)
 		vDir.Normalize();
 	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 )
 	{
-		m_Gun->GetComponent<WeaponScript>()->PullTrigger(vDir, dt);
+		m_Gun->GUN->PullTrigger(vDir, dt);
 	}
 	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 )
 	{
-		m_Gun->GetComponent<WeaponScript>()->ReleaseTrigger();
+		m_Gun->GUN->ReleaseTrigger();
 	}
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
 	{
