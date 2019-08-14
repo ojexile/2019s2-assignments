@@ -2,8 +2,9 @@
 
 
 
-InventoryScript::InventoryScript()
+InventoryScript::InventoryScript(std::vector<GameObject*> &list)
 {
+	m_SlotList = list;
 	m_iNumInInventory = 0;
 	for (int i = 0; i < INVENTORY_SIZE; ++i)
 	{
@@ -16,12 +17,15 @@ InventoryScript::~InventoryScript()
 {
 }
 
-bool InventoryScript::AddItem(GameObject* go)
+void InventoryScript::AddItem(GameObject* go)
 {
 	if (m_iNumInInventory < INVENTORY_SIZE)
 	{
 		m_List[m_iNumInInventory] = go;
-		return true;
+		Vector3 pos = m_SlotList.at(m_iNumInInventory)->TRANS->GetPosition();
+		Vector3 scal = {10,10,10};
+		Instantiate(go, pos, "UI");
+		Destroy(go);
+		++m_iNumInInventory;
 	}
-	return false;
 }

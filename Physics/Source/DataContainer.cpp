@@ -128,9 +128,9 @@ void  DataContainer::InitGO()
 	go->TRANS->SetPosition(50, 10, 25);
 	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
-	// Gun--------------------------------------------------------------------------------
+	// InventorySlot--------------------------------------------------------------------------------
 	go = new GameObject;
-	m_map_GO["UIButton"] = go;
+	m_map_GO["InventorySlot"] = go;
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->TRANS->SetScale(100);

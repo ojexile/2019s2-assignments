@@ -23,6 +23,19 @@ void DefaultScene::Init()
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
+	// Inventory--------------------------------------------------------------------------------
+	std::vector<GameObject*> InventorySlots;
+	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
+	go->TRANS->SetPosition(1920 - 100, 100);
+	InventorySlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
+	go->TRANS->SetPosition(1920 - 100 - 110, 100);
+	InventorySlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
+	go->TRANS->SetPosition(1920 - 100 - 110 - 110, 100);
+	InventorySlots.push_back(go);
 	/// Player================================================================================
 	// Reticle
 	go2 =dataContainer->GetGameObject("Reticle");
@@ -35,7 +48,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->TRANS->SetPosition(0, 16, 0);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
-	Player->AddComponent(new InventoryScript);
+	Player->AddComponent(new InventoryScript(InventorySlots));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
@@ -47,7 +60,7 @@ void DefaultScene::Init()
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_FIRST);
 	Vector3 WindowSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::WindowSize));
 	float aspect = WindowSize.x / WindowSize.y;
-	float size = 600;
+	float size = 100;
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	/// WORLD================================================================================
@@ -77,6 +90,6 @@ void DefaultScene::Init()
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("goldmine")));
 	// Parts
-	go = m_GOM.AddGameObject(GetGameObject("Muzzle"));
+	go = m_GOM.AddGameObject(GetGO("Muzzle"));
 	go->TRANS->SetPosition(5, 16, 5);
 }

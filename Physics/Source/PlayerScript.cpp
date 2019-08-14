@@ -108,7 +108,6 @@ void PlayerScript::UpdateMovement(double dt)
 	{
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
 		m_Reticle->SetActive(true);
-		m_Reticle->TRANS->SetPosition(GetPosition());
 	}
 }
 void PlayerScript::Collide(GameObject* go)
@@ -116,9 +115,6 @@ void PlayerScript::Collide(GameObject* go)
 	PartScript* ps = go->GetComponent<PartScript>();
 	if (ps)
 	{
-		if (GetComponent<InventoryScript>()->AddItem(go))
-		{
-			go->SetActive(false);
-		}
+		GetComponent<InventoryScript>()->AddItem(go);
 	}
 }

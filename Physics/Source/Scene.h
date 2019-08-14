@@ -28,5 +28,5 @@ protected:
 	LightManager m_LightManager;
 	GameObject* m_CameraGO;
 	Camera* m_Camera;
-	GameObject* GetGameObject(std::string);
+	GameObject* GetGO(std::string);
 };

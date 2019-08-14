@@ -6,11 +6,12 @@ class InventoryScript :
 {
 private:
 	int m_iNumInInventory;
-	GameObject* m_List[INVENTORY_SIZE] ;
+	GameObject* m_List[INVENTORY_SIZE];
+	std::vector<GameObject*> m_SlotList;
 public:
-	InventoryScript();
+	InventoryScript(std::vector<GameObject*> &list);
 	virtual ~InventoryScript();
 	virtual ComponentBase* Clone() { return new InventoryScript(*this); };
-	bool AddItem(GameObject* go);
+	void AddItem(GameObject* go);
 };
 
