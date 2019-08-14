@@ -82,3 +82,11 @@ std::string VectorToString(Vector3& v)
 	out += " }";
 	return out;
 }
+float AngleBetween(const Vector3 &a, const Vector3 &b)
+{
+	double num = a.Dot(b);
+	double den = a.Length() * b.Length();
+	float RAngle = acos(num / den);
+	float DAngle = Math::RadianToDegree(RAngle);
+	return DAngle;
+}

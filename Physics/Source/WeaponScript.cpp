@@ -22,7 +22,6 @@ WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int i
 {
 }
 
-
 WeaponScript::~WeaponScript()
 {
 	//if (m_Projectile)
@@ -74,14 +73,13 @@ void WeaponScript::Update(double deltaTime)
 {
 	m_fBufferTime += (float)deltaTime;
 
-
 	//if (InputManager::GetInstance()->GetInputStrength("TempAttach") && !bAttachTmp)
 	//{
 	//	//GameObject* copy = DataContainer::GetInstance()->GetGameObject("Muzzle");
 	//	//
 	//	//m_Gun->GUN->AddPart(copy);
 	//	//m_Gun->AddChild(copy);
-	//	
+	//
 	//	bAttachTmp = true;
 	//}
 	//else if (!InputManager::GetInstance()->GetInputStrength("TempAttach") && bAttachTmp)
@@ -142,7 +140,7 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 		{
 			m_iMagazineRounds_Max = m_iMagazineRounds_Max - go->PART->GetMultiplier();
 			Math::Clamp(m_iMagazineRounds, m_iMagazineRounds, m_iMagazineRounds_Max);
-			
+
 			break;
 		}
 		case PartScript::GRIP:
@@ -171,7 +169,6 @@ void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 	DamageEquippedParts(m_GripParts, deltaTime);
 	DamageEquippedParts(m_StockParts, deltaTime);
 	--m_iMagazineRounds;
-
 }
 
 void WeaponScript::ReloadWeapon(void)
@@ -202,7 +199,7 @@ void WeaponScript::AddPart(GameObject* part)
 		case PartScript::MUZZLE:
 		{
 			m_MuzzleParts.push_back(part);
-			part->TRANS->SetRelativePosition(2 * m_MuzzleParts.size(),0,0);
+			part->TRANS->SetRelativePosition(1 * m_MuzzleParts.size(), 0, 0);
 
 			break;
 		}
@@ -233,12 +230,11 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 
 		if (target == go)
 		{
-
 			UpdateStats(go, false);
 
 			//Temporary fix, Destroy function does not destroy child of gun
 			go->RENDER->SetActive(false);
-			
+
 			// Destroy(go);
 			m_vector.pop_back();
 			break;
@@ -247,10 +243,10 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 		{
 			--it;
 			UpdateStats(go, false);
-			
+
 			//Temporary fix, Destroy function does not destroy child of gun
 			go->RENDER->SetActive(false);
-			
+
 			/*Destroy(go);*/
 			m_vector.pop_back();
 		}

@@ -42,17 +42,18 @@ void DefaultScene::Init()
 	go2 = dataContainer->GetGameObject("Reticle");
 
 	//Gun------------------------------------------------------------------------------------
-	GameObject* gun = m_GOM.AddGameObject(dataContainer->GetGameObject("Gun"));
-	gun->TRANS->SetPosition(5, 16, 5);
+	GameObject* gun = dataContainer->GetGameObject("Gun");
+	gun->TRANS->SetRelativePosition(1, 0, 0);
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	Player->AddComponent(new PlayerScript(go2, gun));
+	Player->AddChild(gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->RIGID->SetMat(0.9f, 0.f);
 	//Player->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 
-	Player->RENDER->SetActive(false);
+	Player->RENDER->SetActive(true);
 
 	Player->TRANS->SetPosition(0, 16, 0);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
@@ -83,10 +84,10 @@ void DefaultScene::Init()
 
 	/// WORLD================================================================================
 	// Terrain================================================================================
-	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200, 0, 0));
-	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
+	//go = m_GOM.AddGameObject();
+	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200, 0, 0));
+	//go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
+	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	//go->GetComponent<BiomeComponent>(true)->SetMeshBiomedPointer(dynamic_cast<MeshBiomed*>(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
 
 	/*go = m_GOM.AddGameObject();

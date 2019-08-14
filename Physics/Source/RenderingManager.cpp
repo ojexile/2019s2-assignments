@@ -221,13 +221,6 @@ void RenderingManager::RenderWorld(Scene* scene)
 				continue;
 			Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 			RenderGameObject(go, vCamPos, false);
-			for (unsigned i = 0; i < go->GetChildList()->size(); ++i)
-			{
-				GameObject* goChild = go->GetChildList()->at(i);
-				if (!goChild->IsActive())
-					continue;
-				RenderGameObject(goChild, vCamPos, false);
-			}
 		}
 	}
 	// Render Particle
@@ -339,6 +332,13 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	}
 
 	modelStack.PopMatrix();
+	for (unsigned i = 0; i < go->GetChildList()->size(); ++i)
+	{
+		GameObject* goChild = go->GetChildList()->at(i);
+		if (!goChild->IsActive())
+			continue;
+		RenderGameObject(goChild, vCamPos, false);
+	}
 }
 void RenderingManager::Exit()
 {

@@ -30,8 +30,8 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	// Movement================================================================================
 	UpdateMovement(dt);
-	m_Gun->TRANS->SetPosition(GetPosition());
-	m_Gun->Update(dt);
+	// m_Gun->TRANS->SetPosition(GetPosition());
+	// m_Gun->Update(dt);
 }
 
 void PlayerScript::UpdateMovement(double dt)
@@ -91,6 +91,18 @@ void PlayerScript::UpdateMovement(double dt)
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
 	if (!vDir.IsZero())
 		vDir.Normalize();
+	// Rotate to dir
+	Vector3 PosDir = { 1,0,0 };
+	float angle = AngleBetween(vDir, PosDir); // player defaults to look at pos x
+	if (PosDir.Cross(vDir).y > 0)
+	{
+		GetTransform()->SetRotation(angle, 0, 1, 0);
+	}
+	else
+	{
+		GetTransform()->SetRotation(-angle, 0, 1, 0);
+	}
+	//
 	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0)
 	{
 		m_Gun->GUN->PullTrigger(vDir, dt);
@@ -116,6 +128,7 @@ void PlayerScript::Collide(GameObject* go)
 	if (ps)
 	{
 		GetComponent<InventoryScript>()->AddItem(go);
+		CHENG_LOG("Part Taken");
 	}
 }
 void PlayerScript::Dash()

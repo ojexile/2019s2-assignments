@@ -61,6 +61,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["snow"] = LoadTGA("snow");
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
+	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
 }
 void  DataContainer::InitMeshes()
 {
@@ -80,7 +81,7 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Revolver"] = MeshBuilder::GenerateOBJ("revolver")->AddTexture("Revolver");
 
-	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {},1);
+	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
 }
 void  DataContainer::InitTerrain()
 {
@@ -91,7 +92,6 @@ void  DataContainer::InitTerrain()
 		->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 
 	//Mesh* mesh2 = GenerateTerrain("TerrainTest", "heightmapPlains", { 200,60,200 }, { 200,60,0 })->AddTexture("grassdirt");
-
 }
 void  DataContainer::InitGO()
 {
