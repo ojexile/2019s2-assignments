@@ -116,6 +116,11 @@ void PlayerScript::UpdateMovement(double dt)
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
 		m_Reticle->SetActive(false);
 	}
+	else
+	{
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
+		m_Reticle->SetActive(true);
+	}
 	float fScroll = InputManager::GetInstance()->GetInputStrength("Zoom");
 	if (fScroll != 0)
 	{
@@ -123,11 +128,6 @@ void PlayerScript::UpdateMovement(double dt)
 		fCamDist += fScroll;
 		fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
 		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
-	}
-	else
-	{
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
-		m_Reticle->SetActive(true);
 	}
 }
 void PlayerScript::Collide(GameObject* go)
