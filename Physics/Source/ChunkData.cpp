@@ -66,6 +66,8 @@ MeshBiomed* ChunkData::GenerateMeshBiomed()
 {
 	MeshBiomed* mesh = dynamic_cast<MeshBiomed*>(MeshBuilder::GenerateChunk("chunk", m_iXSize, m_iYSize, m_iZSize, &m_blocks, true));
 	mesh->AddTexture("terrainflat", BiomeComponent::BIOME_FLAT);
-	mesh->AddTexture("terrainplains", BiomeComponent::BIOME_PLAINS);
+	mesh->AddTexture("Colors", BiomeComponent::BIOME_PLAINS);
+	mesh->AddTexture("snow", BiomeComponent::BIOME_SNOW);
+
 	return mesh;
 }
