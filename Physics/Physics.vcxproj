@@ -217,6 +217,7 @@
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TopDownState.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
+    <ClCompile Include="Source\UIButtonComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\WeaponScript.cpp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\TopDownState.h" />
     <ClInclude Include="Source\TransformComponent.h" />
+    <ClInclude Include="Source\UIButtonComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WeaponPartScript.h" />
