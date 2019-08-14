@@ -26,7 +26,6 @@ void DefaultScene::Init()
 	/// Player================================================================================
 	// Reticle
 	go2 =dataContainer->GetGameObject("Reticle");
-	
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	Player->AddComponent(new PlayerScript(go2, dataContainer->GetGameObject("Gun")));

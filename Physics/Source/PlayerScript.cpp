@@ -88,10 +88,9 @@ void PlayerScript::UpdateMovement(double dt)
 		rb->AddForce({ 0,m_fJumpForce,0 });
 		jump = true;
 	}
-	Vector3 Currentpos = GetPosition();
-	Vector3 Reticle();
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
-	vDir.Normalize();
+	if(!vDir.IsZero())
+		vDir.Normalize();
 	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 )
 	{
 		m_Gun->GetComponent<WeaponScript>()->PullTrigger(vDir, dt);
@@ -99,6 +98,17 @@ void PlayerScript::UpdateMovement(double dt)
 	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 )
 	{
 		m_Gun->GetComponent<WeaponScript>()->ReleaseTrigger();
+	}
+	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
+	{
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
+		m_Reticle->SetActive(false);
+	}
+	else
+	{
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
+		m_Reticle->SetActive(true);
+		m_Reticle->TRANS->SetPosition(GetPosition());
 	}
 }
 void PlayerScript::Collide(GameObject* go)

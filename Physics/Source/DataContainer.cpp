@@ -4,6 +4,7 @@
 #include "Constrain.h"
 #include "MeshController.h"
 #include "Rigidbody.h"
+#include "UIButtonComponent.h"
 // Scripts--------------------------------------------------------------------------------
 #include "ParticleScript.h"
 #include "ParticleSpawnerScript.h"
@@ -75,6 +76,8 @@ void  DataContainer::InitMeshes()
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
 	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle");
+
+	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {},1);
 }
 void  DataContainer::InitTerrain()
 {
@@ -92,12 +95,6 @@ void  DataContainer::InitGO()
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
 	///================================================================================
-	go = new GameObject;
-	m_map_GO["FPS"] = go;
-	go->AddComponent(new FPSScript);
-	go->TRANS->SetPosition(50, 10, 25);
-	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
-	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	// Reticle--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Reticle"] = go;
@@ -123,7 +120,20 @@ void  DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Gun"] = go;
 	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
-
+	/// UI================================================================================
+	// FPS--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["FPS"] = go;
+	go->AddComponent(new FPSScript);
+	go->TRANS->SetPosition(50, 10, 25);
+	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
+	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
+	// Gun--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["UIButton"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->TRANS->SetScale(100);
 }
 void  DataContainer::InitShaders()
 {
