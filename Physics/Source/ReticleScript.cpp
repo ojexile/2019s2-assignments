@@ -3,6 +3,7 @@
 #include "InputManager.h"
 #include "Application.h"
 #include "CameraScript.h"
+#include "Utility.h"
 ReticleScript::ReticleScript()
 {
 }
@@ -22,7 +23,9 @@ void ReticleScript::Update(double dt)
 	Vector3 Right = CameraScript::GetRight();
 	m_vOffset += (Front  * UD);
 	m_vOffset += (Right  * LR);
-	Vector3 RelPos = m_vOffset + -CameraScript::GetRotateOffset();
+	Vector3 TargetPos = m_vOffset + -CameraScript::GetOffset();
+	Vector3 RelPos = Lerp(GetTransform()->GetRelativePosition(), TargetPos, 0.5f);
+
 	GetTransform()->SetRelativePosition(RelPos);
 	CHENG_LOG("", VectorToString(GetTransform()->GetScale()));
 	// CHENG_LOG("Reticle Pos: ", VectorToString(GetPosition()));
