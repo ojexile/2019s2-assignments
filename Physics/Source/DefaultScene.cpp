@@ -41,14 +41,15 @@ void DefaultScene::Init()
 	go2 =dataContainer->GetGameObject("Reticle");
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
-	Player->AddComponent(new PlayerScript(go2, dataContainer->GetGameObject("Gun")));
+	GameObject* gun = dataContainer->GetGameObject("Gun");
+	Player->AddComponent(new PlayerScript(go2, gun));
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->RIGID->SetMat(0.9f, 0.f);
 	//Player->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->TRANS->SetPosition(0, 16, 0);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
-	Player->AddComponent(new InventoryScript(InventorySlots));
+	Player->AddComponent(new InventoryScript(gun, InventorySlots));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));

@@ -1,9 +1,9 @@
 #include "InventoryScript.h"
-
-
-
-InventoryScript::InventoryScript(std::vector<GameObject*> &list)
+#include "InputManager.h"
+#include "UIButtonComponent.h"
+InventoryScript::InventoryScript(GameObject* weapon, std::vector<GameObject*> &list)
 {
+	m_Weapon = weapon;
 	m_SlotList = list;
 	m_iNumInInventory = 0;
 	for (int i = 0; i < INVENTORY_SIZE; ++i)
@@ -16,7 +16,20 @@ InventoryScript::InventoryScript(std::vector<GameObject*> &list)
 InventoryScript::~InventoryScript()
 {
 }
-
+void InventoryScript::Update(double dt)
+{
+	// Check if inventory click
+	if (InputManager::GetInstance()->GetInputStrength("Click"))
+	{
+		for (int i = 0; i < m_iNumInInventory; ++i)
+		{
+			if (m_List[i]->GetComponent<UIButtonComponent>()->GetHover())
+			{
+				//
+			}
+		}
+	}
+}
 void InventoryScript::AddItem(GameObject* go)
 {
 	if (m_iNumInInventory < INVENTORY_SIZE)

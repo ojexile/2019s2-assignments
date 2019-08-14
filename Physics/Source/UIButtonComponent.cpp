@@ -39,3 +39,7 @@ void UIButtonComponent::Update(double dt)
 	 else
 		 m_bIsHover = false;
 }
+bool UIButtonComponent::GetHover()
+{
+	return m_bIsHover;
+}

@@ -18,5 +18,6 @@ public:
 	virtual ComponentBase* Clone() { return new UIButtonComponent(*this); };
 
 	virtual void Update(double dt) override;
+	bool GetHover();
 };
 
