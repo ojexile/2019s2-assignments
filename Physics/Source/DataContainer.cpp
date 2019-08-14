@@ -74,6 +74,8 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("Ball");
 
+	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Ball");
+
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
 	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle");
@@ -116,7 +118,7 @@ void  DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
 	go->TRANS->SetScale(0.5f);
-	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->AddComponent(new RenderComponent(GetMesh("Muzzle")));
 	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->RIGID->SetResponseActive(false);

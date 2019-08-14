@@ -47,7 +47,7 @@ void DefaultScene::Init()
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	Player->AddComponent(new PlayerScript(go2, gun));
-	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	Player->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	Player->RIGID->SetMat(0.9f, 0.f);
 	//Player->AddComponent(new Constrain(dataContainer->GetHeightMap("TerrainPlains"), Constrain::eConstrainTypes::LIMIT));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));

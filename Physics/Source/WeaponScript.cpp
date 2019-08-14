@@ -74,21 +74,6 @@ void WeaponScript::Update(double deltaTime)
 {
 	m_fBufferTime += (float)deltaTime;
 
-
-	//if (InputManager::GetInstance()->GetInputStrength("TempAttach") && !bAttachTmp)
-	//{
-	//	//GameObject* copy = DataContainer::GetInstance()->GetGameObject("Muzzle");
-	//	//
-	//	//m_Gun->GUN->AddPart(copy);
-	//	//m_Gun->AddChild(copy);
-	//	
-	//	bAttachTmp = true;
-	//}
-	//else if (!InputManager::GetInstance()->GetInputStrength("TempAttach") && bAttachTmp)
-	//{
-	//	bAttachTmp = false;
-	//}
-
 	if (InputManager::GetInstance()->GetInputStrength("Reload"))
 		ReloadWeapon();
 }
@@ -236,10 +221,10 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 
 			UpdateStats(go, false);
 
-			//Temporary fix, Destroy function does not destroy child of gun
-			go->RENDER->SetActive(false);
+			////Temporary fix, Destroy function does not destroy child of gun
+			//go->RENDER->SetActive(false);
 			
-			// Destroy(go);
+		 Destroy(go);
 			m_vector.pop_back();
 			break;
 		}
@@ -248,10 +233,10 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 			--it;
 			UpdateStats(go, false);
 			
-			//Temporary fix, Destroy function does not destroy child of gun
-			go->RENDER->SetActive(false);
-			
-			/*Destroy(go);*/
+			////Temporary fix, Destroy function does not destroy child of gun
+			//go->RENDER->SetActive(false);
+			//
+			Destroy(go);
 			m_vector.pop_back();
 		}
 	}

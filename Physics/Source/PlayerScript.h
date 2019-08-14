@@ -13,6 +13,7 @@ private:
 	GameObject* m_Gun;
 	float m_fJumpForce;
 
+	bool bAttachTmp;
 
 	// Functions
 	void UpdateMovement(double dt);
