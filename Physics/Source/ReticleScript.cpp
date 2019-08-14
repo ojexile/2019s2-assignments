@@ -23,6 +23,7 @@ void ReticleScript::Update(double dt)
 	m_vOffset += (Front  * UD);
 	m_vOffset += (Right  * LR);
 	GetTransform()->SetRelativePosition(m_vOffset + -CameraScript::GetOffset());
+	CHENG_LOG("", VectorToString(GetTransform()->GetScale()));
 	// CHENG_LOG("Reticle Pos: ", VectorToString(GetPosition()));
 	///Screen space update------------------------------------------------------------------------------------
 	//Vector3 vOrigin = { 1920 / 2, 1080 / 2 };
