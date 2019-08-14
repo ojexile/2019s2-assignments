@@ -121,6 +121,7 @@ void PlayerScript::UpdateMovement(double dt)
 	{
 		float fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
 		fCamDist += fScroll;
+		fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
 		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
 	}
 	else
