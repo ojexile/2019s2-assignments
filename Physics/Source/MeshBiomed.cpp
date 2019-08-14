@@ -18,7 +18,6 @@ MeshBiomed::MeshBiomed(const std::string & meshName)
 		}
 		m_iNumBiomedTextures[i] = 0;
 	}
-	isInit = true;
 }
 
 MeshBiomed::~MeshBiomed()
@@ -34,25 +33,6 @@ MeshBiomed::~MeshBiomed()
 		m_iNumBiomedTextures[i] = NULL;
 	}
 
-}
-
-void MeshBiomed::Init()
-{
-	if (isInit  nullptr)
-		
-	if (isInit )
-		return;
-
-	for (int i = 0; i < MAX_BIOMES; i++)
-	{
-		for (int j = 0; j < MAX_TEXTURES; j++)
-		{
-			m_uBiomedTextureArray[i][j] = 0;
-		}
-		m_iNumBiomedTextures[i] = 0;
-	}
-	isInit = true;
-	return;
 }
 
 MeshBiomed * MeshBiomed::AddTexture(unsigned i, BiomeComponent::eBiomeTypes e)

@@ -14,13 +14,10 @@ private:
 	int m_iNumBiomedTextures[MAX_BIOMES];
 	unsigned m_uBiomedTextureArray[MAX_BIOMES][MAX_TEXTURES];
 	
-	bool isInit = false;
 public:
 	MeshBiomed(const std::string &meshName);
 	//MeshBiomed(Mesh*) //upgradish function
 	~MeshBiomed();
-
-	void Init();
 
 	MeshBiomed* AddTexture(unsigned i, BiomeComponent::eBiomeTypes);
 	MeshBiomed* AddTexture(std::string s, BiomeComponent::eBiomeTypes);
