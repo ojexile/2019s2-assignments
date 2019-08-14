@@ -116,6 +116,13 @@ void PlayerScript::UpdateMovement(double dt)
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
 		m_Reticle->SetActive(false);
 	}
+	float fScroll = InputManager::GetInstance()->GetInputStrength("Zoom");
+	if (fScroll != 0)
+	{
+		float fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
+		fCamDist += fScroll;
+		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
+	}
 	else
 	{
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);

@@ -36,6 +36,9 @@ void CameraScript::Start()
 }
 void CameraScript::Update(double d)
 {
+	m_fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
+	m_vOffset = { m_fCamDist,m_fCamDist,m_fCamDist };
+	m_vRotateOffset = { m_fCamDist,m_fCamDist,m_fCamDist };
 	Vector3 newPos;
 	Vector3 CurrentPos = GetPosition();
 	Vector3 TargetPos = m_vTarget->TRANS->GetPosition();

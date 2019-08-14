@@ -22,7 +22,8 @@ void ReticleScript::Update(double dt)
 	Vector3 Right = CameraScript::GetRight();
 	m_vOffset += (Front  * UD);
 	m_vOffset += (Right  * LR);
-	GetTransform()->SetRelativePosition(m_vOffset + -CameraScript::GetOffset());
+	Vector3 RelPos = m_vOffset + -CameraScript::GetRotateOffset();
+	GetTransform()->SetRelativePosition(RelPos);
 	CHENG_LOG("", VectorToString(GetTransform()->GetScale()));
 	// CHENG_LOG("Reticle Pos: ", VectorToString(GetPosition()));
 	///Screen space update------------------------------------------------------------------------------------

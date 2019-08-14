@@ -1,6 +1,6 @@
 #include "EntityScript.h"
 
-#define DAMAGE_TIME 3.f
+#define DAMAGE_TIME 1.f
 #define COLOR_TIME 0.5f
 
 EntityScript::EntityScript()
@@ -41,12 +41,10 @@ void EntityScript::Update(double dt)
 	}
 	if (m_bDamageAnim)
 	{
-
 	}
 }
 void EntityScript::DamageAnim()
 {
-
 }
 void EntityScript::Log()
 {
@@ -77,7 +75,7 @@ void EntityScript::SetMovementSpeed(float Force, float Max)
 void EntityScript::Damage(float fDamage)
 {
 	m_bDamageAnim = true;
-	RENDER->SetColor(20, 20, 20);
+	RENDER->SetColor(50, 50, 50);
 	m_SW.Start();
 	m_fHealth -= fDamage;
 }

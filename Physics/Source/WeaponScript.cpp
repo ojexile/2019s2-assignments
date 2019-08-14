@@ -158,7 +158,7 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	Vector3 SpawnPos = GetPosition();
-	SpawnPos.y += 0.5f;
+	SpawnPos.y += 1.f;
 
 	GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
 	bullet->RIGID->SetAffectedByGravity(false);
