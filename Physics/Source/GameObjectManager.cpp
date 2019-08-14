@@ -78,14 +78,35 @@ void GameObjectManager::Destroy(GameObject* go)
 		std::vector<GameObject*>* list = it->second->GetGOList();
 		for (unsigned i = 0; i < list->size(); ++i)
 		{
-			if ((*list)[i] == go)
+			GameObject* curgo = (*list)[i];
+			if (curgo == go)
 			{
 				delete(*list)[i];
 				(*list).erase((*list).begin() + i);
 				return;
 			}
+			// Search Child
+			if (SearchDestroyChild(go, curgo))
+			{
+				return;
+			}
 		}
 	}
+	DEFAULT_LOG("Gameobject not deleted.");
+}
+bool GameObjectManager::SearchDestroyChild(GameObject* go, GameObject* curgo)
+{
+	for (int i = 0; i < curgo->m_vec_ChildList.size(); ++i)
+	{
+		GameObject* child = curgo->m_vec_ChildList.at(i);
+		if (child == go)
+		{
+			curgo->m_vec_ChildList.erase(curgo->m_vec_ChildList.begin() + i);
+			return true;
+		}
+		return SearchDestroyChild(go, child);
+	}
+	return false;
 }
 void GameObjectManager::DestroySelf(ComponentBase* com)
 {
