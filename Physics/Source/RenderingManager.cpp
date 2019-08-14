@@ -290,8 +290,10 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	if (!isActive)
 		return;
 	Mesh* CurrentMesh = renderComponent->GetMesh();
+	Mesh* MeshBiomed = renderComponent->GetMeshBiomed();
 	AnimatedMesh* AnimatedMesh = renderComponent->GetAnimatedMesh();
-	if (!CurrentMesh && !AnimatedMesh)
+
+	if (!CurrentMesh && !AnimatedMesh && !MeshBiomed)
 	{
 		DEFAULT_LOG("Mesh not initialised");
 		return;
@@ -320,8 +322,12 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	{
 		if (CurrentMesh)
 			RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+
 		else if (AnimatedMesh)
 			RenderAnimatedMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+
+		else if (MeshBiomed)
+			RenderBiomedMesh(renderComponent, go->GetComponent<BiomeComponent>(), go->GetComponent<RenderComponent>()->GetLightEnabled());
 	}
 	else
 	{

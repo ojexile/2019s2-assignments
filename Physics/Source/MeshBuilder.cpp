@@ -424,7 +424,7 @@ Mesh* MeshBuilder::GenerateCone(const std::string &meshName, Color color, unsign
 
 	return mesh;
 }
-Mesh* MeshBuilder::GenerateOBJ(std::string name)
+Mesh* MeshBuilder::GenerateOBJ(std::string name, bool isMeshBiomed)
 {
 	std::vector<Position> vertices;
 	std::vector<TexCoord> uvs;
@@ -464,8 +464,12 @@ Mesh* MeshBuilder::GenerateOBJ(std::string name)
 	std::vector<GLuint> index_buffer_data;
 
 	IndexVBO(vertices, uvs, normals, index_buffer_data, vertex_buffer_data, { 1,1,1 });
-
-	Mesh *mesh = new Mesh(name);
+	
+	Mesh *mesh;
+	if (!isMeshBiomed)
+		mesh = new Mesh(name);
+	else
+		mesh = new MeshBiomed(name);
 
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 
@@ -533,7 +537,7 @@ Mesh* MeshBuilder::GenerateText(const std::string &meshName, unsigned numRow, un
 	return mesh;
 }
 
-Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap, Vector3 terrainScale)
+Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file_path, std::vector<unsigned char> &heightMap, Vector3 terrainScale, bool isMeshBiomed)
 {
 	file_path = Resources::Path::HeightMap + file_path + ".raw";
 	Vertex v;
@@ -828,7 +832,12 @@ Mesh* MeshBuilder::GenerateTerrain(const std::string &meshName, std::string file
 		}
 	}
 
-	Mesh *mesh = new Mesh(meshName);
+	Mesh *mesh;
+	if (isMeshBiomed)
+		mesh = new MeshBiomed(meshName);
+	else
+		mesh = new Mesh(meshName);
+
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);

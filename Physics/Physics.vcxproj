@@ -159,6 +159,7 @@
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
+    <ClCompile Include="Source\BiomeComponent.cpp" />
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\MeshBiomed.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
     <ClCompile Include="Source\MouseManager.cpp" />
@@ -264,6 +266,7 @@
     <ClInclude Include="Source\Logger.h" />
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
+    <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MeshController.h" />
     <ClInclude Include="Source\MouseManager.h" />
@@ -274,6 +277,7 @@
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\Preferences.h" />
+    <ClInclude Include="Source\BiomeComponent.h" />
     <ClInclude Include="Source\ProjectileScript.h" />
     <ClInclude Include="Source\RenderComponent.h" />
     <ClInclude Include="Source\Renderer.h" />

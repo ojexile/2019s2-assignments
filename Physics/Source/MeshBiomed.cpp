@@ -1,32 +1,66 @@
-#include "Mesh.h"
-#include "GL\glew.h"
-#include "Vertex.h"
+	#include "MeshBiomed.h"
+	#include "GL\glew.h"
+	#include "Vertex.h"
 
-#include "Locator.h"
-#include "DataContainer.h"
-Mesh::Mesh(const std::string &meshName)
-	: name(meshName)
-	, mode(DRAW_TRIANGLES)
-	, m_iNumTextures(0)
+	#include "Locator.h"
+	#include "DataContainer.h"
+
+MeshBiomed::MeshBiomed(const std::string & meshName)
+	:
+	Mesh(meshName)
+
 {
-	glGenBuffers(1, &vertexBuffer);
-	glGenBuffers(1, &indexBuffer);
-	for (int i = 0; i < MAX_TEXTURES; ++i)
+	for (int i = 0; i < MAX_BIOMES; i++)
 	{
-		m_uTextureArray[i] = 0;
+		for (int j = 0; j < MAX_TEXTURES; j++)
+		{
+			m_uBiomedTextureArray[i][j] = 0;
+		}
+		m_iNumBiomedTextures[i] = 0;
 	}
 }
 
-Mesh::~Mesh()
+MeshBiomed::~MeshBiomed()
 {
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteBuffers(1, &indexBuffer);
-	for (int i = 0; i < MAX_TEXTURES; ++i)
+	for (int i = 0; i < MAX_BIOMES; ++i)
 	{
-		glDeleteTextures(1, &m_uTextureArray[i]);
+		for (int j = 0; j < MAX_TEXTURES; ++j)
+		{
+			glDeleteTextures(1, &m_uBiomedTextureArray[i][j]);
+		}
+		m_iNumBiomedTextures[i] = NULL;
 	}
+
 }
-void Mesh::Render()
+
+MeshBiomed * MeshBiomed::AddTexture(unsigned i, BiomeComponent::eBiomeTypes e)
+{
+	if (m_iNumBiomedTextures[e] >= 8)
+	{
+		DEFAULT_LOG("Max Textures reached.");
+		return this;
+	}
+	m_uBiomedTextureArray[e][m_iNumBiomedTextures[e]] = i;
+	++m_iNumBiomedTextures[e];
+	return this;
+}
+
+MeshBiomed * MeshBiomed::AddTexture(std::string s, BiomeComponent::eBiomeTypes e)
+{
+	if (m_iNumBiomedTextures[e] >= 8)
+	{
+		DEFAULT_LOG("Max Textures reached.");
+		return this;
+	}
+
+	m_uBiomedTextureArray[e][m_iNumBiomedTextures[e]] = DataContainer::GetInstance()->GetTexture(s);
+	++m_iNumBiomedTextures[e];
+	return this;
+}
+
+void MeshBiomed::Render(BiomeComponent::eBiomeTypes type)
 {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -36,7 +70,7 @@ void Mesh::Render()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(Position));
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color)));
-	if (m_uTextureArray[0] > 0)
+	if (m_uBiomedTextureArray[type][0] > 0)
 	{
 		glEnableVertexAttribArray(3);
 		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color) + sizeof(Vector3)));
@@ -56,13 +90,13 @@ void Mesh::Render()
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 
-	if (m_uTextureArray[0] > 0)
+	if (m_uBiomedTextureArray[type][0] > 0)
 	{
 		glDisableVertexAttribArray(3);
 	}
 }
 
-void Mesh::Render(unsigned offset, unsigned count)
+void MeshBiomed::Render(BiomeComponent::eBiomeTypes type, unsigned offset, unsigned count)
 {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -72,7 +106,7 @@ void Mesh::Render(unsigned offset, unsigned count)
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(Position));
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color)));
-	if (m_uTextureArray[0] > 0)
+	if (m_uBiomedTextureArray[type][0] > 0)
 	{
 		glEnableVertexAttribArray(3);
 		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color) + sizeof(Vector3)));
@@ -92,32 +126,10 @@ void Mesh::Render(unsigned offset, unsigned count)
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 
-	if (m_uTextureArray[0] > 0)
+	if (m_uBiomedTextureArray[type][0] > 0)
 	{
 		glDisableVertexAttribArray(3);
 	}
 }
-Mesh* Mesh::AddTexture(unsigned i)
-{
-	if (m_iNumTextures >= 8)
-	{
-		DEFAULT_LOG("Max Textures reached.");
-		return this;
-	}
-	m_uTextureArray[m_iNumTextures] = i;
-	++m_iNumTextures;
-	return this;
-}
 
-Mesh* Mesh::AddTexture(std::string s)
-{
-	if (m_iNumTextures >= 8)
-	{
-		DEFAULT_LOG("Max Textures reached.");
-		return this;
-	}
 
-	m_uTextureArray[m_iNumTextures] = DataContainer::GetInstance()->GetTexture(s);
-	++m_iNumTextures;
-	return this;
-}

@@ -61,6 +61,8 @@
     <ClCompile Include="Source\WorldValues.cpp" />
     <ClCompile Include="Source\StopWatch.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
+    <ClCompile Include="Source\BiomeComponent.cpp" />
+    <ClCompile Include="Source\MeshBiomed.cpp" />
     <ClCompile Include="Source\PartScript.cpp" />
     <ClCompile Include="Source\WeaponScript.cpp" />
     <ClCompile Include="Source\ProjectileScript.cpp" />
@@ -148,5 +150,7 @@
     <ClInclude Include="Source\UIButtonComponent.h" />
     <ClInclude Include="Source\WeaponPartScript.h" />
     <ClInclude Include="Source\ChunkCollider.h" />
+    <ClInclude Include="Source\BiomeComponent.h" />
+    <ClInclude Include="Source\MeshBiomed.h" />
   </ItemGroup>
 </Project>
