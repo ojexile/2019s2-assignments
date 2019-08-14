@@ -3,6 +3,8 @@
 #include "CameraComponent.h"
 #include "InputManager.h"
 #include "Mtx44.h"
+#include "Preferences.h"
+#include "Resources.h"
 
 #define LERP_RATE .05f
 #define LERP_RATE_M .05f
@@ -16,6 +18,7 @@ CameraScript::CameraScript(GameObject* vTarget)
 	:m_vTarget(vTarget)
 {
 	m_bRotating = false;
+	m_fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
 }
 
 CameraScript::~CameraScript()
@@ -24,8 +27,8 @@ CameraScript::~CameraScript()
 void CameraScript::Start()
 {
 	GetComponent<CameraComponent>()->GetCamera()->SetDir({ -1, -1, -1 });
-	m_vOffset = { CAMERA_DISTANCE,CAMERA_DISTANCE,CAMERA_DISTANCE };
-	m_vRotateOffset = { CAMERA_DISTANCE,CAMERA_DISTANCE,CAMERA_DISTANCE };
+	m_vOffset = { m_fCamDist,m_fCamDist,m_fCamDist };
+	m_vRotateOffset = { m_fCamDist,m_fCamDist,m_fCamDist };
 	m_vFront = { -1,0,-1 };
 	m_vFront.Normalize();
 	m_vRight = { 1,0,-1 };

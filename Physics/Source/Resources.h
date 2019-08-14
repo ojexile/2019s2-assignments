@@ -26,6 +26,7 @@ namespace Resources
 		extern const std::string LogUpdateRate;
 		extern const std::string LogUser;
 		extern const std::string Quality;
+		extern const std::string CamDist;
 	}
 	namespace Defaults
 	{

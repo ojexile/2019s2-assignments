@@ -7,7 +7,6 @@
 Script to control camera movements
 /*!
 /********************************************************************************/
-#define CAMERA_DISTANCE 50
 class CameraScript :
 	public ScriptComponent
 {
@@ -18,6 +17,7 @@ private:
 	bool m_bRotating;
 	static Vector3 m_vFront;				///<	Front dir of world
 	static Vector3 m_vRight;				///<	Right dir of world
+	float m_fCamDist;
 	//----------------------------------
 	void Rotate();
 public:

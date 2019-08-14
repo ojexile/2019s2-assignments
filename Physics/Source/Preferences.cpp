@@ -26,6 +26,7 @@ void Preferences::InitDefault()
 	m_map_Data[Resources::PreferencesTerm::LogUpdateRate] = "1";
 	m_map_Data[Resources::PreferencesTerm::Quality] = "LOW";
 	m_map_Data[Resources::PreferencesTerm::LogUser] = "ALL";
+	m_map_Data[Resources::PreferencesTerm::CamDist] = "30";
 
 	GetData();
 }
