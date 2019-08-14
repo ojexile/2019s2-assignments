@@ -115,9 +115,10 @@ void  DataContainer::InitGO()
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
-	go->TRANS->SetScale(5);
+	go->TRANS->SetScale(1);
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Gun"] = go;

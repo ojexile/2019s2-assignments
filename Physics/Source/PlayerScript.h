@@ -25,4 +25,5 @@ public:
 
 	void Update(double dt) override;
 	virtual void Start() override;
+	virtual void Collide(GameObject*) override;
 };

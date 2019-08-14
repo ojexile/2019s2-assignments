@@ -5,6 +5,7 @@
 #include "InputManager.h"
 #include "CameraScript.h"
 #include "WeaponScript.h"
+#include "InventoryScript.h"
 PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun)
 	: m_Reticle(Reticle)
 	, m_Gun(gun)
@@ -98,5 +99,16 @@ void PlayerScript::UpdateMovement(double dt)
 	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 )
 	{
 		m_Gun->GetComponent<WeaponScript>()->ReleaseTrigger();
+	}
+}
+void PlayerScript::Collide(GameObject* go)
+{
+	PartScript* ps = go->GetComponent<PartScript>();
+	if (ps)
+	{
+		if (GetComponent<InventoryScript>()->AddItem(go))
+		{
+			go->SetActive(false);
+		}
 	}
 }

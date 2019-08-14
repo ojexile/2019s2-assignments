@@ -29,3 +29,7 @@ void Scene::SetCursorEnabled(bool b)
 {
 	Application::SetCursorEnabled(b);
 }
+GameObject* Scene::GetGameObject(std::string s)
+{
+	return DataContainer::GetInstance()->GetGameObject(s);
+}
