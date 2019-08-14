@@ -55,6 +55,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Dirt"] = LoadTGA("dirt");
 	m_map_Textures["GrassDirt"] = LoadTGA("grassdirt");
 	m_map_Textures["Colors"] = LoadTGA("colors");
+	m_map_Textures["Revolver"] = LoadTGA("revolver");
 }
 void  DataContainer::InitMeshes()
 {
@@ -71,6 +72,8 @@ void  DataContainer::InitMeshes()
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
 	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle");
+
+	m_map_Meshes["Revolver"] = MeshBuilder::GenerateOBJ("revolver")->AddTexture("Revolver");
 }
 void  DataContainer::InitTerrain()
 {
@@ -102,18 +105,25 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
-	go->AddComponent(new ProjectileScript());
+	go->AddComponent(new ProjectileScript(1.0, 50.0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
-	go->TRANS->SetScale(5);
-	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->TRANS->SetScale(1);
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
 	// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Gun"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Revolver")));
 	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
-
+	//Enemies-----------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["BaseEnemy"] = go;
+	go->TRANS->SetScale(0.5f);
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->AddComponent(new EntityScript());
 }
 void  DataContainer::InitShaders()
 {
