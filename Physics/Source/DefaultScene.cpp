@@ -62,7 +62,7 @@ void DefaultScene::Init()
 	Player->RIGID->SetMat(0.9f, 0.f);
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RENDER->SetActive(true);
-	Player->TRANS->SetPosition(24, 18, 20);
+	Player->TRANS->SetPosition(12, 18, 20);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
 	Player->AddComponent(new InventoryScript(gun, InventorySlots));
 	Player->AddComponent(new StaminaScript(stam));
