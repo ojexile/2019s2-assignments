@@ -1,9 +1,10 @@
-#include "ObserverBaase.h"
+#include "ObserverBase.h"
 
 
 
 ObserverBase::ObserverBase()
 {
+	m_bActive = true;
 }
 
 

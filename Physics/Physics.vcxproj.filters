@@ -83,7 +83,7 @@
     <ClCompile Include="Source\InventoryScript.cpp" />
     <ClCompile Include="Source\PlayerStatsScript.cpp" />
     <ClCompile Include="Source\GenericSubject.cpp" />
-    <ClCompile Include="ObserverBase.cpp" />
+    <ClCompile Include="Source\ObserverBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -165,7 +165,7 @@
     <ClInclude Include="Source\InventoryScript.h" />
     <ClInclude Include="Source\PlayerStatsScript.h" />
     <ClInclude Include="Source\GenericSubject.h" />
-    <ClInclude Include="ObserverBase.h" />
+    <ClInclude Include="Source\ObserverBase.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
