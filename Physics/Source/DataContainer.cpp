@@ -61,6 +61,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["snow"] = LoadTGA("snow");
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
+	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
 }
 void  DataContainer::InitMeshes()
 {
@@ -72,7 +73,7 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
 
-	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("Ball");
+	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("Cube");
 
 	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Ball");
 
@@ -82,18 +83,14 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Revolver"] = MeshBuilder::GenerateOBJ("revolver")->AddTexture("Revolver");
 
-	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {},1);
+	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
+
+	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
 }
 void  DataContainer::InitTerrain()
 {
 	/// Terrain================================================================================
 	// Plains--------------------------------------------------------------------------------
-	MeshBiomed* mesh1 = GenerateTerrainBiomed("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })
-		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS)
-		->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
-
-	//Mesh* mesh2 = GenerateTerrain("TerrainTest", "heightmapPlains", { 200,60,200 }, { 200,60,0 })->AddTexture("grassdirt");
-
 }
 void  DataContainer::InitGO()
 {
@@ -147,6 +144,7 @@ void  DataContainer::InitGO()
 	m_map_GO["InventorySlot"] = go;
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
 }
 void  DataContainer::InitShaders()

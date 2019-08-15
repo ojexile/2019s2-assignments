@@ -4,10 +4,9 @@
 
 ProjectileScript::ProjectileScript(double lifespan, double Damage)
 	: m_dLifespan(lifespan),
-	  m_dDamage(m_dDamage)
+	m_dDamage(m_dDamage)
 {
 }
-
 
 ProjectileScript::~ProjectileScript()
 {
@@ -32,9 +31,10 @@ double ProjectileScript::getLifespan()
 }
 void ProjectileScript::Collide(GameObject* go)
 {
-	EntityScript* es = go->GetComponent<EntityScript>();
+	EntityScript* es = go->GetComponent<EntityScript>(true);
 	if (es)
 	{
 		es->Damage(m_dDamage);
 	}
+	//DestroySelf();
 }

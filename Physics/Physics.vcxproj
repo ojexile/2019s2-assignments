@@ -152,6 +152,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Content\keybinds.cfg" />
+    <None Include="Content\preferences.ini" />
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
@@ -216,6 +218,7 @@
     <ClCompile Include="Source\ScriptComponent.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SprintingState.cpp" />
+    <ClCompile Include="Source\StaminaScript.cpp" />
     <ClCompile Include="Source\StandingState.cpp" />
     <ClCompile Include="Source\StopWatch.cpp" />
     <ClCompile Include="Source\Time.cpp" />
@@ -294,6 +297,7 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\SprintingState.h" />
+    <ClInclude Include="Source\StaminaScript.h" />
     <ClInclude Include="Source\StandingState.h" />
     <ClInclude Include="Source\StopWatch.h" />
     <ClInclude Include="Source\Time.h" />

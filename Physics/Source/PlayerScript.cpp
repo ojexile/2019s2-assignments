@@ -30,8 +30,8 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	// Movement================================================================================
 	UpdateMovement(dt);
-	m_Gun->TRANS->SetPosition(GetPosition());
-	m_Gun->Update(dt);
+	// m_Gun->TRANS->SetPosition(GetPosition());
+	// m_Gun->Update(dt);
 }
 
 void PlayerScript::UpdateMovement(double dt)
@@ -89,13 +89,25 @@ void PlayerScript::UpdateMovement(double dt)
 		jump = true;
 	}
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
-	if(!vDir.IsZero())
+	if (!vDir.IsZero())
 		vDir.Normalize();
-	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 )
+	// Rotate to dir
+	Vector3 PosDir = { 1,0,0 };
+	float angle = AngleBetween(vDir, PosDir); // player defaults to look at pos x
+	if (PosDir.Cross(vDir).y > 0)
+	{
+		GetTransform()->SetRotation(angle, 0, 1, 0);
+	}
+	else
+	{
+		GetTransform()->SetRotation(-angle, 0, 1, 0);
+	}
+	//
+	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
 	{
 		m_Gun->GUN->PullTrigger(vDir, dt);
 	}
-	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 )
+	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
 	{
 		m_Gun->GUN->ReleaseTrigger();
 	}
@@ -124,12 +136,28 @@ void PlayerScript::UpdateMovement(double dt)
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
 		m_Reticle->SetActive(true);
 	}
+	float fScroll = InputManager::GetInstance()->GetInputStrength("Zoom");
+	if (fScroll != 0)
+	{
+		float fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
+		fCamDist += fScroll;
+		fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
+		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
+	}
 }
 void PlayerScript::Collide(GameObject* go)
 {
-	PartScript* ps = go->GetComponent<PartScript>();
+	PartScript* ps = go->GetComponent<PartScript>(true);
 	if (ps)
 	{
 		GetComponent<InventoryScript>()->AddItem(go);
+		CHENG_LOG("Part Taken");
 	}
+}
+void PlayerScript::Dash()
+{
+	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
+	if (!vDir.IsZero())
+		vDir.Normalize();
+	RIGID->AddForce(vDir * 4000);
 }

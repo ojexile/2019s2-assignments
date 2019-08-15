@@ -17,4 +17,5 @@ Vector3 Lerp(Vector3 start, Vector3 end, float rate);
 
 bool IsClose(Vector3 a, Vector3 b, float buffer);
 std::string VectorToString(Vector3& v);
+float AngleBetween(const Vector3 &a, const Vector3 &b);
 #endif
