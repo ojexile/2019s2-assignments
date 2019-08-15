@@ -9,6 +9,7 @@
 #include "InventoryScript.h"
 #include "WeaponScript.h"
 #include "PlayerStatsScript.h"
+#include "ReticleScript.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -57,14 +58,23 @@ void DefaultScene::Init()
 	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
 	/// Player================================================================================
+	//
+	go = m_GOM.AddGameObject();
+	ChunkData* dat = dataContainer->GetChunk("Map");
+	go->AddComponent(new RenderComponent(dat->GenerateMeshBiomed()));
+	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_SNOW));
+	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
 	// Reticle
-	go2 = dataContainer->GetGameObject("Reticle");
+	GameObject* ret = m_GOM.AddGameObject();
+	ret->AddComponent(new RenderComponent(dataContainer->GetMesh("Reticle")));
+	ret->RENDER->SetColor(0, 1, 1);
+	ret->AddComponent(new ReticleScript(dat));
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 1, 0);
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
-	Player->AddComponent(new PlayerScript(go2, Gun));
+	Player->AddComponent(new PlayerScript(ret, Gun));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->RIGID->SetMat(0.9f, 0.f);
@@ -74,12 +84,12 @@ void DefaultScene::Init()
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
-	Player->AddComponent(new MapSpawningScript());
+	// Player->AddComponent(new MapSpawningScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
 	m_CameraGO->AddComponent(new CameraComponent);
-	m_CameraGO->AddChild(go2);
+	// m_CameraGO->AddChild(go2);
 	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	// Set up camera
 	m_CameraGO->TRANS->SetPosition(0, 0, 0);
@@ -108,6 +118,7 @@ void DefaultScene::Init()
 	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type3 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	// Terrain================================================================================
+
 	// Parts
 	go = m_GOM.AddGameObject(GetGO("Muzzle"));
 	go->TRANS->SetPosition(28, 20, 26);

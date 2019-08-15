@@ -6,7 +6,9 @@
 #include "Utility.h"
 #include "RenderingManager.h"
 #include "Mtx44.h"
-ReticleScript::ReticleScript(GameObject* chunk)
+#include "ChunkData.h"
+#include  "ChunkCollider.h"
+ReticleScript::ReticleScript(ChunkData* chunk)
 	:m_Chunk(chunk)
 {
 }
@@ -33,9 +35,17 @@ void ReticleScript::Update(double dt)
 	//CHENG_LOG("", VectorToString(GetTransform()->GetScale()));
 	// CHENG_LOG("Reticle Pos: ", VectorToString(GetPosition()));
 	///Screen space update------------------------------------------------------------------------------------
-	//if (UD > 0)
+	Vector3 Dir = RenderingManager::MouseWorldDir();
+	Vector3 StartPos = GetCameraGO()->TRANS->GetPosition();
+	float Offset = 1.73205f; // diag of cube
+	for (int i = 0; i < 100; ++i)
 	{
-		Vector3 Dir = RenderingManager::MouseWorldDir();
-		GetTransform()->SetRelativePosition(Dir * 30);
+		Vector3 Pos = StartPos + Offset * Dir * i;
+		if (m_Chunk->IsSolid(Pos))
+		{
+			TRANS->SetPosition(Pos - Offset * Dir);
+			CHENG_LOG("", "Collide Chunk");
+			break;
+		}
 	}
 }

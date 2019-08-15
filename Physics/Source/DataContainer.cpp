@@ -62,7 +62,6 @@ void DataContainer::InitTextures()
 	m_map_Textures["beachy"] = LoadTGA("beachy");
 	m_map_Textures["Ball"] = LoadTGA("Ball");
 
-
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
 }
@@ -104,11 +103,11 @@ void  DataContainer::InitGO()
 	GameObject* go2 = nullptr;
 	///================================================================================
 	// Reticle--------------------------------------------------------------------------------
-	go = new GameObject();
-	m_map_GO["Reticle"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Reticle")));
-	go->RENDER->SetColor(0, 1, 1);
-	go->AddComponent(new ReticleScript);
+	//go = new GameObject();
+	//m_map_GO["Reticle"] = go;
+	//go->AddComponent(new RenderComponent(GetMesh("Reticle")));
+	//go->RENDER->SetColor(0, 1, 1);
+	//go->AddComponent(new ReticleScript);
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
@@ -167,7 +166,7 @@ void  DataContainer::InitGO()
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->RENDER->SetLightEnabled(false);
-	go->TRANS->SetScale(50,20,1);
+	go->TRANS->SetScale(50, 20, 1);
 }
 void  DataContainer::InitShaders()
 {
