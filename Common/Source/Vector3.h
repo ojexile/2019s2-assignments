@@ -40,7 +40,7 @@ struct Vector3
 	
 	Vector3 operator-( const Vector3& rhs ) const; //Vector subtraction
 	Vector3& operator-=( const Vector3& rhs );
-	
+
 	Vector3 operator-( void ) const; //Unary negation
 	
 	Vector3 operator*( float scalar ) const; //Scalar multiplication
@@ -48,6 +48,7 @@ struct Vector3
 
 	bool operator==( const Vector3& rhs ) const; //Equality check
 	bool operator!= ( const Vector3& rhs ) const; //Inequality check
+	bool operator< (const Vector3& rhs) const;
 
 	Vector3& operator=(const Vector3& rhs); //Assignment operator
 
