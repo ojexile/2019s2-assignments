@@ -33,6 +33,12 @@ public:
 
 	void AddPart(GameObject* part);
 
+	int GetAmmo();
+	int GetMaxAmmo();
+
+	int GetMagazineRounds();
+	int GetMaxMagazineRounds();
+
 	virtual ComponentBase* Clone(){return new WeaponScript(*this);}
 
 private:

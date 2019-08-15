@@ -77,15 +77,10 @@ void PlayerScript::UpdateMovement(double dt)
 		//bMoved = true;
 		Move(CameraScript::GetRight());
 	}
-	static bool jump = false;
-	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") == 0)
-	{
-		jump = false;
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0 && !jump)
+	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
 	{
 		rb->AddForce({ 0,m_fJumpForce,0 });
-		jump = true;
+		rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
 	}
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
 	if (!vDir.IsZero())

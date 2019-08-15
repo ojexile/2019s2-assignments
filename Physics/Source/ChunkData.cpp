@@ -15,6 +15,39 @@ ChunkData::ChunkData(const std::string fileName)
 		int l = fgetc(file);
 		m_blocks.push_back(k << 8 | l);
 	}
+	int j = fgetc(file);
+	if (j == EOF) return;
+	j = fgetc(file);
+	for (int i = 0; i < j; ++i)
+	{
+		int x = fgetc(file);
+		int y = fgetc(file);
+		int z = fgetc(file);
+		int dir = fgetc(file);
+		int k = fgetc(file);
+		int l = fgetc(file);
+		m_chunkConnections[Vector3(x, y, z)][dir] = k << 8 | l;
+	}
+	j = fgetc(file);
+	for (int i = 0; i < BiomeComponent::BIOME_COUNT; ++i)
+	{
+		m_validBiomes[static_cast<BiomeComponent::eBiomeTypes>(i)] = false;
+	}
+	for (int i = 0; i < j; ++i)
+	{
+		m_validBiomes[static_cast<BiomeComponent::eBiomeTypes>(fgetc(file))] = true;
+	}
+	j = fgetc(file);
+	for (int i = 0; i < j; ++i)
+	{
+		int k = fgetc(file);
+		int l = fgetc(file);
+		m_events.push_back(k << 8 | l);
+	}
+}
+
+ChunkData::~ChunkData()
+{
 }
 
 bool ChunkData::IsSolid(Vector3 pos)
@@ -72,4 +105,12 @@ MeshBiomed* ChunkData::GenerateMeshBiomed()
 
 
 	return mesh;
+}
+
+Vector3 ChunkData::GetGroundPosition(Vector3 in)
+{
+	for (int i = 0; i < m_iYSize; i++)
+	{
+		if (!IsSolid(Vector3(in.x, i, in.z))) return Vector3(in.x, i, in.z);
+	}
 }

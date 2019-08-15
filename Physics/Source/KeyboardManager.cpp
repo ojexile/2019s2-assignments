@@ -66,6 +66,9 @@ bool KeyboardManager::GetKeyDown(std::string bind)
 
 float KeyboardManager::GetStrength(std::string bind)
 {
+	if (bind.length() > 4 && bind.substr(bind.length() - 5) == "_down")
+		if (GetKeyTriggered(bind.substr(0, bind.length() - 5))) return 1;
+		else return 0;
 	if (GetKeyDown(bind)) return 1;
 	else return 0;
 }

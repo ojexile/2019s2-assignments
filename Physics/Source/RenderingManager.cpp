@@ -272,6 +272,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent)
 	{
+		if ((go->TRANS->GetPosition() - vCamPos).Length() > go->RENDER->GetRenderDistance()) return;
 		bool isActive = renderComponent->IsActive();
 		if (!isActive)
 			return;

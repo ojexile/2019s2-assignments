@@ -76,7 +76,7 @@ void  DataContainer::InitMeshes()
 	m_map_Meshes["Text"] = MeshBuilder::GenerateText("text", 16, 16)->AddTexture("Text");
 	//--------------------------------------------------------------------------------
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
-	m_map_Meshes["Axis"] = MeshBuilder::GenerateAxes("Axes", 10, 10, 10);
+	m_map_Meshes["Axis"] = MeshBuilder::GenerateAxes("Axes", 1000, 1000, 1000);
 
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
 
