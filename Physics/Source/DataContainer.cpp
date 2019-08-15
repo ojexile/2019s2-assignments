@@ -13,6 +13,7 @@
 #include "ReticleScript.h"
 #include "PlayerScript.h"
 #include "WeaponScript.h"
+#include "GrenadeScript.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -88,6 +89,8 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Revolver"] = MeshBuilder::GenerateOBJ("revolver")->AddTexture("Revolver");
 
+	m_map_Meshes["Grenade"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
+	
 	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
 
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
@@ -137,6 +140,14 @@ void  DataContainer::InitGO()
 	m_map_GO["Gun"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Revolver")));
 	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
+	// Grenade----------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Grenade"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->RENDER->SetActive(false);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->RIGID->SetMass(0.5f);
+	go->AddComponent(new GrenadeScript(5.0, 50.0, 5));
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;

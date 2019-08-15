@@ -182,6 +182,7 @@
     <ClCompile Include="Source\FPSScript.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
+    <ClCompile Include="Source\GrenadeScript.cpp" />
     <ClCompile Include="Source\HeightMapData.cpp" />
     <ClCompile Include="Source\InputBinding.cpp" />
     <ClCompile Include="Source\InputManager.cpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
+    <ClInclude Include="Source\GrenadeScript.h" />
     <ClInclude Include="Source\HeightMapData.h" />
     <ClInclude Include="Source\InputBinding.h" />
     <ClInclude Include="Source\InputDeviceManager.h" />

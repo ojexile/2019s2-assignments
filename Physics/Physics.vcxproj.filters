@@ -82,6 +82,7 @@
     <ClCompile Include="Source\UIButtonComponent.cpp" />
     <ClCompile Include="Source\InventoryScript.cpp" />
     <ClCompile Include="Source\StaminaScript.cpp" />
+    <ClCompile Include="Source\GrenadeScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\InventoryScript.h" />
     <ClInclude Include="Source\StaminaScript.h" />
+    <ClInclude Include="Source\GrenadeScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

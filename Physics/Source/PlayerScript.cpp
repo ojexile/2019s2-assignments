@@ -6,9 +6,10 @@
 #include "CameraScript.h"
 #include "WeaponScript.h"
 #include "InventoryScript.h"
-PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun)
+PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun, GameObject* grenade)
 	: m_Reticle(Reticle)
 	, m_Gun(gun)
+	, m_Grenade(grenade)
 {
 	m_CurrentState = nullptr;
 	m_fJumpForce = 3000.f;
@@ -111,6 +112,10 @@ void PlayerScript::UpdateMovement(double dt)
 		m_Gun->GUN->ReleaseTrigger();
 	}
 
+	if (InputManager::GetInstance()->GetInputStrength("Grenades") != 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
+	{
+		ThrowGrenade();
+	}
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
 	{
@@ -146,4 +151,18 @@ void PlayerScript::Dash()
 	if (!vDir.IsZero())
 		vDir.Normalize();
 	RIGID->AddForce(vDir * 3000);
+}
+
+void PlayerScript::ThrowGrenade()
+{
+	if (m_iNumberOfGrenades > 0)
+	{
+		--m_iNumberOfGrenades;
+
+		Vector3 SpawnPos = GetPosition();
+
+		GameObject* grenade = Instantiate(m_Grenade, SpawnPos);
+		grenade->RIGID->SetAffectedByGravity(false);
+		grenade->RIGID->AddForce(Vector3(0,10,0));
+	}
 }

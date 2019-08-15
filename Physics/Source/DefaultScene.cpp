@@ -54,9 +54,11 @@ void DefaultScene::Init()
 	//Gun------------------------------------------------------------------------------------
 	GameObject* gun = dataContainer->GetGameObject("Gun");
 	gun->TRANS->SetRelativePosition(1, 1, 0);
+	// Grenade-------------------------------------------------------------------------------
+	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
-	Player->AddComponent(new PlayerScript(go2, gun));
+	Player->AddComponent(new PlayerScript(go2, gun, grenade));
 	Player->AddChild(gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->RIGID->SetMat(0.9f, 0.f);
