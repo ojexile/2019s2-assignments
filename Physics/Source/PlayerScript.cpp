@@ -11,7 +11,6 @@ PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun)
 	, m_Gun(gun)
 {
 	m_CurrentState = nullptr;
-	bAttachTmp = false;
 	m_fJumpForce = 3000.f;
 }
 
@@ -112,19 +111,6 @@ void PlayerScript::UpdateMovement(double dt)
 		m_Gun->GUN->ReleaseTrigger();
 	}
 
-	if (InputManager::GetInstance()->GetInputStrength("TempAttach") && !bAttachTmp)
-	{
-		GameObject* copy = DataContainer::GetInstance()->GetGameObject("Muzzle");
-		
-		m_Gun->GUN->AddPart(copy);
-		m_Gun->AddChild(copy);
-
-		bAttachTmp = true;
-	}
-	else if (!InputManager::GetInstance()->GetInputStrength("TempAttach") && bAttachTmp)
-	{
-		bAttachTmp = false;
-	}
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
 	{

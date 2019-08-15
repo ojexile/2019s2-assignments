@@ -20,7 +20,7 @@ public:
 	enum SLOT_TYPE
 	{
 		SCOPE,
-		STOCK,
+		CLIP,
 		GRIP,
 		MUZZLE,
 		ALL

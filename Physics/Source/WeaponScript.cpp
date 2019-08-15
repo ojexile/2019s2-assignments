@@ -93,7 +93,7 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 			m_fFirerate = m_fFirerate * go->PART->GetMultiplier();
 			break;
 		}
-		case PartScript::STOCK:
+		case PartScript::CLIP:
 		{
 			m_iMagazineRounds_Max = m_iMagazineRounds_Max + go->PART->GetMultiplier();
 			break;
@@ -122,7 +122,7 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 			m_fFirerate = m_fFirerate / go->PART->GetMultiplier();
 			break;
 		}
-		case PartScript::STOCK:
+		case PartScript::CLIP:
 		{
 			m_iMagazineRounds_Max = m_iMagazineRounds_Max - go->PART->GetMultiplier();
 			Math::Clamp(m_iMagazineRounds, m_iMagazineRounds, m_iMagazineRounds_Max);
@@ -190,7 +190,7 @@ void WeaponScript::AddPart(GameObject* part)
 
 			break;
 		}
-		case PartScript::STOCK:
+		case PartScript::CLIP:
 		{
 			m_StockParts.push_back(part);
 			part->TRANS->SetRelativePosition(0, -0.5 * m_StockParts.size(), 0);

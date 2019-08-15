@@ -55,7 +55,7 @@ void DefaultScene::Init()
 
 	//Gun------------------------------------------------------------------------------------
 	GameObject* gun = dataContainer->GetGameObject("Gun");
-	gun->TRANS->SetRelativePosition(1, 0, 0);
+	gun->TRANS->SetRelativePosition(1, 1, 0);
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	Player->AddComponent(new PlayerScript(go2, gun));
@@ -86,7 +86,11 @@ void DefaultScene::Init()
 	SetCursorEnabled(false);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
-	go->TRANS->SetPosition(6, 16.5, 5);
+	go->TRANS->SetPosition(6, 18.5, 5);
+
+
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
+	go->TRANS->SetPosition(-6, 18.5, 25);
 
 	go = dataContainer->GetGameObject("Muzzle");
 	go->TRANS->SetScale(3);
@@ -94,6 +98,11 @@ void DefaultScene::Init()
 	gun->AddChild(go);
 	gun->GUN->AddPart(go);
 
+	go = dataContainer->GetGameObject("Stock");
+	go->TRANS->SetScale(3);
+
+	gun->AddChild(go);
+	gun->GUN->AddPart(go);
 	/// WORLD================================================================================
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject();

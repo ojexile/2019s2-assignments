@@ -77,6 +77,8 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Ball");
 
+	m_map_Meshes["Stock"] = MeshBuilder::GenerateOBJ("Stock")->AddTexture("Ball");
+
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
 	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle");
@@ -110,13 +112,21 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
-	go->AddComponent(new ProjectileScript(1.0, 50.0));
+	go->AddComponent(new ProjectileScript(1.0, 75.0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Muzzle")));
-	go->AddComponent(new WeaponPartScript(PartScript::STOCK, 2.0, 50));
+	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->RIGID->SetResponseActive(false);
+
+	go = new GameObject();
+	m_map_GO["Stock"] = go;
+	go->TRANS->SetScale(0.5f);
+	go->AddComponent(new RenderComponent(GetMesh("Stock")));
+	go->AddComponent(new WeaponPartScript(PartScript::CLIP, 2.0, 50));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------
@@ -127,9 +137,9 @@ void  DataContainer::InitGO()
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
-	go->TRANS->SetScale(0.5f);
+	go->TRANS->SetScale(2.f);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->AddComponent(new EntityScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
