@@ -2,7 +2,7 @@
 
 PhysicsMaterial::PhysicsMaterial()
 {
-	m_fFriction = 1;
+	m_fFriction = 0.9f;
 	m_fBounciness = 1;
 }
 PhysicsMaterial::PhysicsMaterial(float fric, float bounce)

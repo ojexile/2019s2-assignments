@@ -59,6 +59,8 @@ void DataContainer::InitTextures()
 	m_map_Textures["GrassDirt"] = LoadTGA("grassdirt");
 	m_map_Textures["Colors"] = LoadTGA("colors");
 	m_map_Textures["snow"] = LoadTGA("snow");
+	m_map_Textures["beachy"] = LoadTGA("beachy");
+
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
@@ -74,7 +76,7 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
 
-	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("Cube");
+	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
 	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Ball");
 
@@ -113,16 +115,16 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
-	go->AddComponent(new ProjectileScript(1.0, 75.0));
+	go->RIGID->SetMat(1, 1);
+	go->AddComponent(new ProjectileScript(1.0, 25.0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Muzzle")));
 	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
-
 	go = new GameObject();
 	m_map_GO["Stock"] = go;
 	go->TRANS->SetScale(0.5f);
@@ -138,9 +140,10 @@ void  DataContainer::InitGO()
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
-	go->TRANS->SetScale(2.f);
+	go->TRANS->SetScale(1.f);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new EntityScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
