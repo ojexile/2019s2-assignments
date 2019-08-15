@@ -108,8 +108,6 @@ void DefaultScene::Init()
 	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type3 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	// Terrain================================================================================
-
-	go = m_GOM.AddGameObject();
 	// Parts
 	go = m_GOM.AddGameObject(GetGO("Muzzle"));
 	go->TRANS->SetPosition(28, 20, 26);

@@ -6,7 +6,8 @@
 #include "Utility.h"
 #include "RenderingManager.h"
 #include "Mtx44.h"
-ReticleScript::ReticleScript()
+ReticleScript::ReticleScript(GameObject* chunk)
+	:m_Chunk(chunk)
 {
 }
 

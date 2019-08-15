@@ -12,8 +12,9 @@ class ReticleScript :
 {
 private:
 	Vector3 m_vOffset;
+	GameObject* m_Chunk;
 public:
-	ReticleScript();
+	ReticleScript(GameObject* Chunk);
 	virtual ~ReticleScript();
 
 	virtual ComponentBase* Clone() { return new ReticleScript(*this); };
