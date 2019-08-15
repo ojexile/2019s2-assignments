@@ -52,10 +52,10 @@ void DefaultScene::Init()
 	SetCursorEnabled(false);
 	/// WORLD================================================================================
 	// Terrain================================================================================
-	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200,0,0));
-	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
+	//go = m_GOM.AddGameObject();
+	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200,0,0));
+	//go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
+	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	//go->GetComponent<BiomeComponent>(true)->SetMeshBiomedPointer(dynamic_cast<MeshBiomed*>(dataContainer->GetHeightMap("TerrainPlains")->GetMesh()));
 	
 	
@@ -70,6 +70,9 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMeshBiomed()));
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_SNOW));
 	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
+
+	go = m_GOM.AddGameObject();
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Axis")));
 
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(Vector3(16, 0, 0));

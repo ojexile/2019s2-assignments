@@ -7,7 +7,7 @@
 Script to control camera movements
 /*!
 /********************************************************************************/
-#define CAMERA_DISTANCE 50
+#define CAMERA_DISTANCE 20
 class CameraScript :
 	public ScriptComponent
 {
