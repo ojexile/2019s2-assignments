@@ -200,6 +200,7 @@
     <ClCompile Include="Source\MeshBiomed.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
+    <ClCompile Include="Source\MiscellaneousPartScript.cpp" />
     <ClCompile Include="Source\MouseManager.cpp" />
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MeshController.h" />
+    <ClInclude Include="Source\MiscellaneousPartScript.h" />
     <ClInclude Include="Source\MouseManager.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />

@@ -2,11 +2,10 @@
 
 
 
-PartScript::PartScript(PART_TYPE type, SLOT_TYPE slot, double Multiplier, bool isAttached, float durability) 
+PartScript::PartScript(PART_TYPE type, SLOT_TYPE slot, double Multiplier, float durability) 
 	:m_partType (type),
 	 m_slotType (slot),
 	 m_fStatMultiplier(Multiplier),
-	 m_isAttached (isAttached),
 	 m_fDurability(durability)
 {
 }

@@ -26,7 +26,7 @@ public:
 		ALL
 	};
 
-	PartScript(PART_TYPE type, SLOT_TYPE slot, double Multiplier, bool isAttached = false, float Durability = 5.f);
+	PartScript(PART_TYPE type, SLOT_TYPE slot, double Multiplier, float Durability = 5.f);
 	~PartScript();
 
 	virtual void Effect() = 0;
@@ -40,8 +40,6 @@ public:
 private:
 	PART_TYPE m_partType;
 	SLOT_TYPE m_slotType;
-
-	bool m_isAttached;
 
 	float m_fDurability;
 	float m_fStatMultiplier;
