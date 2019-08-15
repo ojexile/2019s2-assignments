@@ -7,7 +7,7 @@
 #include "CameraScript.h"
 #include "InventoryScript.h"
 #include "WeaponScript.h"
-#include "StaminaScript.h"
+#include "PlayerStatsScript.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -44,10 +44,14 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
 
-	GameObject* stam = m_GOM.AddGameObject("UI");
-	stam->TRANS->SetPosition(50, 50, 0);
-	stam->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
-	stam->RENDER->SetColor(1, 1, 0);
+	GameObject* StaminaBar = m_GOM.AddGameObject("UI");
+	StaminaBar->TRANS->SetPosition(50, 50, 0);
+	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	StaminaBar->RENDER->SetColor(1, 1, 0);
+	GameObject* HealthBar = m_GOM.AddGameObject("UI");
+	HealthBar->TRANS->SetPosition(50, 1800, 0);
+	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
 	/// Player================================================================================
 	// Reticle
 	go2 = dataContainer->GetGameObject("Reticle");
@@ -65,7 +69,7 @@ void DefaultScene::Init()
 	Player->TRANS->SetPosition(12, 18, 20);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
 	Player->AddComponent(new InventoryScript(gun, InventorySlots));
-	Player->AddComponent(new StaminaScript(stam));
+	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
@@ -86,23 +90,18 @@ void DefaultScene::Init()
 	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
 	go->TRANS->SetPosition(20, 18.5, 26);
-
 	go = dataContainer->GetGameObject("Muzzle");
 	go->TRANS->SetScale(3);
-
 	gun->AddChild(go);
 	gun->GUN->AddPart(go);
-
 	go = dataContainer->GetGameObject("Stock");
 	go->TRANS->SetScale(3);
-
 	gun->AddChild(go);
 	gun->GUN->AddPart(go);
 	/// WORLD================================================================================
 	BiomeComponent::eBiomeTypes type = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type3 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
-
 	// Terrain================================================================================
 	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(Vector3(0, 0, 0));
