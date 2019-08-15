@@ -1,17 +1,50 @@
 #include "PlayerStatsScript.h"
+#include "WeaponScript.h"
 
 
-
-PlayerStatsScript::PlayerStatsScript(GameObject* Player, GameObject* Stamina, GameObject* Health)
+PlayerStatsScript::PlayerStatsScript(GameObject* Player, GameObject* Stamina, 
+	GameObject* Health, GameObject* Gun, GameObject* BulletRef)
 	: m_Player(Player)
 	, m_Stamina(Stamina)
 	, m_Health(Health)
+	, m_Gun(Gun)
+	, m_BulletUIRef(BulletRef)
 {
 	m_fStamina = 50;
 	m_fHealth = 100;
+	m_iMaxMag = 0;
+	m_iMag = 0;
 }
 
+void PlayerStatsScript::Start()
+{
+	m_iMaxMag = m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds();
+	m_iMag = m_Gun->GetComponent<WeaponScript>()->GetMagazineRounds();
+	InitBulletUI();
+}
+void PlayerStatsScript::InitBulletUI()
+{
+	Vector3 vStartPos = { 30,900,0 };
+	float fOffset = -25;
+	for (int i = 0; i < m_iMaxMag; ++i)
+	{
+		Vector3 Pos = vStartPos + Vector3{0, i * fOffset, 0};
+		m_BulletList.push_back(Instantiate(m_BulletUIRef, Pos, "UI"));
+	}
+}
+void PlayerStatsScript::UpdateBulletUI()
+{
+	m_iMaxMag = m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds();
+	m_iMag = m_Gun->GetComponent<WeaponScript>()->GetMagazineRounds();
+	for (int i = 0; i < m_iMaxMag; ++i)
+	{
+		if(i < m_iMag)
+			m_BulletList.at(i)->SetActive(true);
+		else
+			m_BulletList.at(i)->SetActive(false);
 
+	}
+}
 PlayerStatsScript::~PlayerStatsScript()
 {
 }
@@ -22,7 +55,8 @@ void PlayerStatsScript::Update(double dt)
 	m_Stamina->TRANS->SetScale(m_fStamina / 100 * 200, 50, 1);
 
 	m_Health->TRANS->SetScale(m_fHealth / 100 * 200, 50, 1);
-
+	
+	UpdateBulletUI();
 }
 float PlayerStatsScript::GetStamina()
 {

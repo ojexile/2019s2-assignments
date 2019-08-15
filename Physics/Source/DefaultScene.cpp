@@ -57,20 +57,20 @@ void DefaultScene::Init()
 	// Reticle
 	go2 = dataContainer->GetGameObject("Reticle");
 	//Gun------------------------------------------------------------------------------------
-	GameObject* gun = dataContainer->GetGameObject("Gun");
-	gun->TRANS->SetRelativePosition(1, 1, 0);
+	GameObject* Gun = dataContainer->GetGameObject("Gun");
+	Gun->TRANS->SetRelativePosition(1, 1, 0);
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
-	Player->AddComponent(new PlayerScript(go2, gun));
-	Player->AddChild(gun);
+	Player->AddComponent(new PlayerScript(go2, Gun));
+	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->RIGID->SetMat(0.9f, 0.f);
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(12, 18, 20);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
-	Player->AddComponent(new InventoryScript(gun, InventorySlots));
-	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar));
+	Player->AddComponent(new InventoryScript(Gun, InventorySlots));
+	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar,Gun, GetGO("BulletUI")));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
@@ -93,12 +93,12 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(20, 18.5, 26);
 	go = dataContainer->GetGameObject("Muzzle");
 	go->TRANS->SetScale(3);
-	gun->AddChild(go);
-	gun->GUN->AddPart(go);
+	Gun->AddChild(go);
+	Gun->GUN->AddPart(go);
 	go = dataContainer->GetGameObject("Stock");
 	go->TRANS->SetScale(3);
-	gun->AddChild(go);
-	gun->GUN->AddPart(go);
+	Gun->AddChild(go);
+	Gun->GUN->AddPart(go);
 	/// WORLD================================================================================
 	BiomeComponent::eBiomeTypes type = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
