@@ -20,6 +20,7 @@ public:
 	GameObject* AddGameObject(std::string layer = "Default");
 	void RemoveObject(GameObject* go);
 	void Destroy(GameObject*);
+	bool SearchDestroyChild(GameObject* go, GameObject* curgo);
 	void DestroySelf(ComponentBase* com);
 	bool CreateLayer(unsigned shader, std::string layer = "Default");
 

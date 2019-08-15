@@ -7,6 +7,7 @@
 class PlayerScript : public EntityScript
 {
 	friend class PlayerState;
+	friend class StandingState;
 private:
 	PlayerState* m_CurrentState;
 	GameObject* m_Reticle;
@@ -16,6 +17,7 @@ private:
 	// Functions
 	void UpdateMovement(double dt);
 public:
+	void Dash();
 	PlayerScript(GameObject* Reticle, GameObject* gun);
 	~PlayerScript();
 	virtual ComponentBase* Clone()
@@ -25,4 +27,5 @@ public:
 
 	void Update(double dt) override;
 	virtual void Start() override;
+	virtual void Collide(GameObject*) override;
 };

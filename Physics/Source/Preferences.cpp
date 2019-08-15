@@ -26,6 +26,7 @@ void Preferences::InitDefault()
 	m_map_Data[Resources::PreferencesTerm::LogUpdateRate] = "1";
 	m_map_Data[Resources::PreferencesTerm::Quality] = "LOW";
 	m_map_Data[Resources::PreferencesTerm::LogUser] = "ALL";
+	m_map_Data[Resources::PreferencesTerm::CamDist] = "30";
 
 	GetData();
 }
@@ -67,6 +68,7 @@ std::string Preferences::GetPref(std::string s)
 	if (!m_bInitialsed)
 	{
 		InitDefault();
+		m_bInitialsed = true;
 	}
 	if (m_map_Data.count(s) <= 0)
 	{
@@ -77,4 +79,10 @@ std::string Preferences::GetPref(std::string s)
 	{
 		return m_map_Data[s];
 	}
+}
+void Preferences::SetPref(std::string sTerm, std::string sVal)
+{
+	if (m_map_Data.count(sTerm) <= 0)
+		DEFAULT_LOG("Unknown preference term: " + sTerm);
+	m_map_Data[sTerm] = sVal;
 }

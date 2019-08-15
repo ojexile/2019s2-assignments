@@ -14,10 +14,11 @@ class BiomeComponent : public ComponentBase
 public:
 	enum eBiomeTypes
 	{
-		BIOME_DEFAULT,
-		BIOME_FLAT,
+		// BIOME_DEFAULT,
+		// BIOME_FLAT,
 		BIOME_PLAINS,
 		BIOME_SNOW,
+		BIOME_BEACHY,
 
 		BIOME_COUNT
 	};

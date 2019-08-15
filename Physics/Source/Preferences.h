@@ -29,5 +29,6 @@ private:
 public:
 
 	static std::string GetPref(std::string s);
+	static void SetPref(std::string key, std::string val);
 	static void Clear();
 };

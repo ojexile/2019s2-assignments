@@ -101,12 +101,12 @@ void RenderingManagerBase::BindLightUniforms()
 void RenderingManagerBase::SetUniforms(Scene* scene)
 {
 	// Init fog================================================================================
-	Color fogColor{ 0.5f, 0.5f, 0.5f };
+	Color fogColor{ 0.5f, 0.5f, 0.6f };
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
 	glUniform1f(m_parameters[U_FOG_START], 30);
 	glUniform1f(m_parameters[U_FOG_END], 100000);
-	glUniform1f(m_parameters[U_FOG_DENSITY], .005f);
-	glUniform1i(m_parameters[U_FOG_TYPE], 1);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 0.014f);
+	glUniform1i(m_parameters[U_FOG_TYPE], 2);
 	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 
 	// Shadows================================================================================

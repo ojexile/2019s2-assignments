@@ -3,6 +3,12 @@
   <ItemGroup>
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
+    <None Include="Content\keybinds.cfg">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\preferences.ini">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AnimatedMesh.cpp" />
@@ -75,6 +81,8 @@
     <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\UIButtonComponent.cpp" />
     <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
+    <ClCompile Include="Source\InventoryScript.cpp" />
+    <ClCompile Include="Source\StaminaScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -153,6 +161,13 @@
     <ClInclude Include="Source\ChunkCollider.h" />
     <ClInclude Include="Source\BiomeComponent.h" />
     <ClInclude Include="Source\MeshBiomed.h" />
+    <ClInclude Include="Source\InventoryScript.h" />
+    <ClInclude Include="Source\StaminaScript.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{7b08675f-3044-469b-80bc-df9d9748cb2a}</UniqueIdentifier>
+    </Filter>
     <ClInclude Include="Source\FoilageGeneratorComponent.h" />
   </ItemGroup>
 </Project>

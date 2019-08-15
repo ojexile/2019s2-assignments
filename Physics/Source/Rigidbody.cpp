@@ -12,6 +12,7 @@ Rigidbody::Rigidbody(ePhysicsTypes e, bool Grav)
 
 	m_bGravityAffected = Grav;
 	this->SetActive(true);
+	m_bResponseActive = true;
 }
 
 Rigidbody::~Rigidbody()
@@ -144,4 +145,13 @@ void Rigidbody::ClampVelXZ(float max)
 void Rigidbody::SetAffectedByGravity(bool AffectedByGrav)
 {
 	m_bGravityAffected = AffectedByGrav;
+}
+
+void Rigidbody::SetResponseActive(bool b)
+{
+	m_bResponseActive = b;
+}
+bool Rigidbody::GetResponseActive()
+{
+	return m_bResponseActive;
 }

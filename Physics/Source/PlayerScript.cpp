@@ -5,12 +5,12 @@
 #include "InputManager.h"
 #include "CameraScript.h"
 #include "WeaponScript.h"
+#include "InventoryScript.h"
 PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun)
 	: m_Reticle(Reticle)
 	, m_Gun(gun)
 {
 	m_CurrentState = nullptr;
-
 	m_fJumpForce = 3000.f;
 }
 
@@ -29,8 +29,8 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	// Movement================================================================================
 	UpdateMovement(dt);
-	m_Gun->TRANS->SetPosition(GetPosition());
-	m_Gun->Update(dt);
+	// m_Gun->TRANS->SetPosition(GetPosition());
+	// m_Gun->Update(dt);
 }
 
 void PlayerScript::UpdateMovement(double dt)
@@ -87,16 +87,63 @@ void PlayerScript::UpdateMovement(double dt)
 		rb->AddForce({ 0,m_fJumpForce,0 });
 		jump = true;
 	}
-	Vector3 Currentpos = GetPosition();
-	Vector3 Reticle();
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
-	vDir.Normalize();
-	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 )
+	if (!vDir.IsZero())
+		vDir.Normalize();
+	// Rotate to dir
+	Vector3 PosDir = { 1,0,0 };
+	float angle = AngleBetween(vDir, PosDir); // player defaults to look at pos x
+	if (PosDir.Cross(vDir).y > 0)
 	{
-		m_Gun->GetComponent<WeaponScript>()->PullTrigger(vDir, dt);
+		GetTransform()->SetRotation(angle, 0, 1, 0);
 	}
-	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 )
+	else
 	{
-		m_Gun->GetComponent<WeaponScript>()->ReleaseTrigger();
+		GetTransform()->SetRotation(-angle, 0, 1, 0);
 	}
+	//
+	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
+	{
+		m_Gun->GUN->PullTrigger(vDir, dt);
+	}
+	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
+	{
+		m_Gun->GUN->ReleaseTrigger();
+	}
+
+
+	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
+	{
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
+		m_Reticle->SetActive(false);
+	}
+	else
+	{
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
+		m_Reticle->SetActive(true);
+	}
+	float fScroll = InputManager::GetInstance()->GetInputStrength("Zoom");
+	if (fScroll != 0)
+	{
+		float fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
+		fCamDist += fScroll;
+		fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
+		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
+	}
+}
+void PlayerScript::Collide(GameObject* go)
+{
+	PartScript* ps = go->GetComponent<PartScript>(true);
+	if (ps)
+	{
+		GetComponent<InventoryScript>()->AddItem(go);
+		CHENG_LOG("Part Taken");
+	}
+}
+void PlayerScript::Dash()
+{
+	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
+	if (!vDir.IsZero())
+		vDir.Normalize();
+	RIGID->AddForce(vDir * 3000);
 }

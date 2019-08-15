@@ -90,6 +90,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)\Common\Source;$(SolutionDir)\glfw\include;$(SolutionDir)\irrklang\include;$(SolutionDir)\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,6 +125,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)\Common\Source;$(SolutionDir)\glfw\include;$(SolutionDir)\irrklang\include;$(SolutionDir)\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,6 +154,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Content\keybinds.cfg" />
+    <None Include="Content\preferences.ini" />
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
@@ -182,6 +186,7 @@
     <ClCompile Include="Source\HeightMapData.cpp" />
     <ClCompile Include="Source\InputBinding.cpp" />
     <ClCompile Include="Source\InputManager.cpp" />
+    <ClCompile Include="Source\InventoryScript.cpp" />
     <ClCompile Include="Source\KeyboardManager.cpp" />
     <ClCompile Include="Source\LayerData.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
@@ -216,6 +221,7 @@
     <ClCompile Include="Source\ScriptComponent.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SprintingState.cpp" />
+    <ClCompile Include="Source\StaminaScript.cpp" />
     <ClCompile Include="Source\StandingState.cpp" />
     <ClCompile Include="Source\StopWatch.cpp" />
     <ClCompile Include="Source\Time.cpp" />
@@ -256,6 +262,7 @@
     <ClInclude Include="Source\InputBinding.h" />
     <ClInclude Include="Source\InputDeviceManager.h" />
     <ClInclude Include="Source\InputManager.h" />
+    <ClInclude Include="Source\InventoryScript.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
     <ClInclude Include="Source\LayerData.h" />
     <ClInclude Include="Source\Light.h" />
@@ -294,6 +301,7 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\SprintingState.h" />
+    <ClInclude Include="Source\StaminaScript.h" />
     <ClInclude Include="Source\StandingState.h" />
     <ClInclude Include="Source\StopWatch.h" />
     <ClInclude Include="Source\Time.h" />

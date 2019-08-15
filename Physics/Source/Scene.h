@@ -13,6 +13,8 @@
 
 class Scene
 {
+private:
+	bool m_bCursorEnabled;
 public:
 	Scene();
 	virtual ~Scene();
@@ -23,9 +25,11 @@ public:
 	GameObjectManager* GetGameObjectManager();
 	LightManager* GetLightManager();
 	void SetCursorEnabled(bool);
+	bool GetCursorEnabled();
 protected:
 	GameObjectManager m_GOM;
 	LightManager m_LightManager;
 	GameObject* m_CameraGO;
 	Camera* m_Camera;
+	GameObject* GetGO(std::string);
 };

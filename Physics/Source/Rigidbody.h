@@ -35,6 +35,8 @@ private:
 	bool m_bGravityAffected;
 	ePhysicsTypes m_eType;
 	PhysicsMaterial m_PhyMat;
+
+	bool m_bResponseActive;
 public:
 	Rigidbody(ePhysicsTypes e, bool Grav = true);
 	virtual ~Rigidbody();
@@ -66,4 +68,7 @@ public:
 	void SetAffectedByGravity(bool);
 	void ClampVel(float max);
 	void ClampVelXZ(float max);
+
+	void SetResponseActive(bool);
+	bool GetResponseActive();
 };

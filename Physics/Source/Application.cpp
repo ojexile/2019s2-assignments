@@ -66,7 +66,7 @@ void Application::GetCursorPosRelative(double* xpos, double* ypos)
 	double x, y;
 	GetCursorPos(&x, &y);
 	*xpos = x / Application::GetWindowWidth();
-	*ypos = y / Application::GetWindowWidth();
+	*ypos = y / Application::GetWindowHeight();
 }
 void Application::GetScrollWheelPos(double* x, double* y)
 {

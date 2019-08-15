@@ -3,6 +3,8 @@
 #include "CameraComponent.h"
 #include "InputManager.h"
 #include "Mtx44.h"
+#include "Preferences.h"
+#include "Resources.h"
 
 #define LERP_RATE .05f
 #define LERP_RATE_M .05f
@@ -16,6 +18,7 @@ CameraScript::CameraScript(GameObject* vTarget)
 	:m_vTarget(vTarget)
 {
 	m_bRotating = false;
+	m_fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
 }
 
 CameraScript::~CameraScript()
@@ -24,8 +27,8 @@ CameraScript::~CameraScript()
 void CameraScript::Start()
 {
 	GetComponent<CameraComponent>()->GetCamera()->SetDir({ -1, -1, -1 });
-	m_vOffset = { CAMERA_DISTANCE,CAMERA_DISTANCE,CAMERA_DISTANCE };
-	m_vRotateOffset = { CAMERA_DISTANCE,CAMERA_DISTANCE,CAMERA_DISTANCE };
+	m_vOffset = { m_fCamDist,m_fCamDist,m_fCamDist };
+	m_vRotateOffset = { m_fCamDist,m_fCamDist,m_fCamDist };
 	m_vFront = { -1,0,-1 };
 	m_vFront.Normalize();
 	m_vRight = { 1,0,-1 };
@@ -33,6 +36,9 @@ void CameraScript::Start()
 }
 void CameraScript::Update(double d)
 {
+	m_fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
+	m_vOffset = m_vOffset.Normalized() * m_fCamDist;
+	m_vRotateOffset = m_vRotateOffset.Normalized() * m_fCamDist;
 	Vector3 newPos;
 	Vector3 CurrentPos = GetPosition();
 	Vector3 TargetPos = m_vTarget->TRANS->GetPosition();
@@ -93,7 +99,7 @@ void CameraScript::Rotate()
 	newPos.x = Lerp(CurrentPos.x, TargetPos.x, LERP_RATE_M);
 	newPos.z = Lerp(CurrentPos.z, TargetPos.z, LERP_RATE_M);
 	newPos.y = TargetPos.y;
-	if (IsClose(newPos, TargetPos, 1.f))
+	if (IsClose(newPos, TargetPos, 0.05f))
 	{
 		m_bRotating = false;
 		newPos = TargetPos;
