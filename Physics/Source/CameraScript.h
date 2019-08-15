@@ -14,10 +14,11 @@ private:
 	GameObject* m_vTarget;
 	static Vector3 m_vOffset;			///< represets offset of camera to player
 	static Vector3 m_vRotateOffset;	///< represent current corner its supopsed to be rotated towards
-	bool m_bRotating;
+	static bool m_bRotating;
 	static Vector3 m_vFront;				///<	Front dir of world
 	static Vector3 m_vRight;				///<	Right dir of world
 	float m_fCamDist;
+	static bool m_bIsTopDown;
 	//----------------------------------
 	void Rotate();
 public:
@@ -32,4 +33,6 @@ public:
 	static Vector3 GetRight();
 	static Vector3 GetOffset();
 	static Vector3 GetRotateOffset();
+
+	static void SetTopDown(bool b);
 };

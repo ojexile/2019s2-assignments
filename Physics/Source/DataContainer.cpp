@@ -60,6 +60,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Colors"] = LoadTGA("colors");
 	m_map_Textures["snow"] = LoadTGA("snow");
 	m_map_Textures["beachy"] = LoadTGA("beachy");
+	m_map_Textures["Ball"] = LoadTGA("Ball");
 
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
@@ -80,7 +81,7 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Ball");
 
-	m_map_Meshes["Stock"] = MeshBuilder::GenerateOBJ("Stock")->AddTexture("Ball");
+	m_map_Meshes["Stock"] = MeshBuilder::GenerateOBJ("Stock")->AddTexture("Revolver");
 
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
@@ -160,6 +161,13 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
+	// BulletUI--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["BulletUI"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->RENDER->SetLightEnabled(false);
+	go->TRANS->SetScale(50,20,1);
 }
 void  DataContainer::InitShaders()
 {

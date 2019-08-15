@@ -7,6 +7,7 @@
 
 #include "LightManager.h"
 #include "Camera.h"
+#include "GenericSubject.h"
 class ScriptComponent : public ComponentBase
 {
 protected:
@@ -22,6 +23,7 @@ protected:
 	LightManager* GetLightManager();
 	TransformComponent* GetTransform();
 	Vector3 GetPosition();
+	void Notify(std::string msg);
 public:
 	ScriptComponent();
 	virtual ~ScriptComponent();

@@ -13,12 +13,15 @@ Vector3 CameraScript::m_vFront;
 Vector3 CameraScript::m_vRight;
 Vector3 CameraScript::m_vOffset;
 Vector3 CameraScript::m_vRotateOffset;
+bool CameraScript::m_bIsTopDown;
+bool CameraScript::m_bRotating;
 
 CameraScript::CameraScript(GameObject* vTarget)
 	:m_vTarget(vTarget)
 {
 	m_bRotating = false;
 	m_fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
+	m_bIsTopDown = false;
 }
 
 CameraScript::~CameraScript()
@@ -36,57 +39,73 @@ void CameraScript::Start()
 }
 void CameraScript::Update(double d)
 {
-	m_fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
-	m_vOffset = m_vOffset.Normalized() * m_fCamDist;
-	m_vRotateOffset = m_vRotateOffset.Normalized() * m_fCamDist;
-	Vector3 newPos;
-	Vector3 CurrentPos = GetPosition();
-	Vector3 TargetPos = m_vTarget->TRANS->GetPosition();
-	Vector3 OffsetPosition = TargetPos + m_vOffset;
-	newPos.x = Lerp(CurrentPos.x, OffsetPosition.x, LERP_RATE);
-	newPos.y = Lerp(CurrentPos.y, OffsetPosition.y, LERP_RATE);
-	newPos.z = Lerp(CurrentPos.z, OffsetPosition.z, LERP_RATE);
-	GetTransform()->SetPosition(newPos);
+	if (!m_bIsTopDown)
+	{
+		m_fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
+		m_vOffset = m_vOffset.Normalized() * m_fCamDist;
+		m_vRotateOffset = m_vRotateOffset.Normalized() * m_fCamDist;
 
-	static bool bTriggerCCW = false;
-	if (!InputManager::GetInstance()->GetInputStrength("CameraRotateCCW"))
-	{
-		bTriggerCCW = false;
+		m_vOffset = m_vOffset.Normalized() * m_fCamDist;
+		m_vRotateOffset = m_vRotateOffset.Normalized() * m_fCamDist;
+		// GetCamera()->SetDir(-m_vOffset.Normalized());
+		Vector3 newPos;
+		Vector3 CurrentPos = GetPosition();
+		Vector3 TargetPos = m_vTarget->TRANS->GetPosition();
+		Vector3 OffsetPosition = TargetPos + m_vOffset;
+		newPos.x = Lerp(CurrentPos.x, OffsetPosition.x, LERP_RATE);
+		newPos.y = Lerp(CurrentPos.y, OffsetPosition.y, LERP_RATE);
+		newPos.z = Lerp(CurrentPos.z, OffsetPosition.z, LERP_RATE);
+		GetTransform()->SetPosition(newPos);
+
+		static bool bTriggerCCW = false;
+		if (!InputManager::GetInstance()->GetInputStrength("CameraRotateCCW"))
+		{
+			bTriggerCCW = false;
+		}
+		if (InputManager::GetInstance()->GetInputStrength("CameraRotateCCW") && !bTriggerCCW)
+		{
+			Mtx44 rot;
+			rot.SetToRotation(90, 0, 1, 0);
+			m_vRotateOffset = rot * m_vRotateOffset;
+			m_vRotateOffset.x = round(m_vRotateOffset.x);
+			m_vRotateOffset.z = round(m_vRotateOffset.z);
+			//
+			m_vFront = rot * m_vFront;
+			m_vRight = rot * m_vRight;
+			m_bRotating = true;
+			bTriggerCCW = true;
+		}
+		static bool bTriggerCW = false;
+		if (!InputManager::GetInstance()->GetInputStrength("CameraRotateCW"))
+		{
+			bTriggerCW = false;
+		}
+		if (InputManager::GetInstance()->GetInputStrength("CameraRotateCW") && !bTriggerCW)
+		{
+			Mtx44 rot;
+			rot.SetToRotation(-90, 0, 1, 0);
+			m_vRotateOffset = rot * m_vRotateOffset;
+			m_vRotateOffset.x = round(m_vRotateOffset.x);
+			m_vRotateOffset.z = round(m_vRotateOffset.z);
+			//
+			m_vFront = rot * m_vFront;
+			m_vRight = rot * m_vRight;
+			m_bRotating = true;
+			bTriggerCW = true;
+		}
+		if (m_bRotating)
+		{
+			Rotate();
+		}
 	}
-	if (InputManager::GetInstance()->GetInputStrength("CameraRotateCCW") && !bTriggerCCW)
+	else
 	{
-		Mtx44 rot;
-		rot.SetToRotation(90, 0, 1, 0);
-		m_vRotateOffset = rot * m_vRotateOffset;
-		m_vRotateOffset.x = round(m_vRotateOffset.x);
-		m_vRotateOffset.z = round(m_vRotateOffset.z);
-		//
-		m_vFront = rot * m_vFront;
-		m_vRight = rot * m_vRight;
-		m_bRotating = true;
-		bTriggerCCW = true;
-	}
-	static bool bTriggerCW = false;
-	if (!InputManager::GetInstance()->GetInputStrength("CameraRotateCW"))
-	{
-		bTriggerCW = false;
-	}
-	if (InputManager::GetInstance()->GetInputStrength("CameraRotateCW") && !bTriggerCW)
-	{
-		Mtx44 rot;
-		rot.SetToRotation(-90, 0, 1, 0);
-		m_vRotateOffset = rot * m_vRotateOffset;
-		m_vRotateOffset.x = round(m_vRotateOffset.x);
-		m_vRotateOffset.z = round(m_vRotateOffset.z);
-		//
-		m_vFront = rot * m_vFront;
-		m_vRight = rot * m_vRight;
-		m_bRotating = true;
-		bTriggerCW = true;
-	}
-	if (m_bRotating)
-	{
-		Rotate();
+		Vector3 Pos = m_vTarget->TRANS->GetPosition();
+		Pos.x += m_vRotateOffset.x / 100;
+		Pos.z += m_vRotateOffset.z / 100;
+		Pos.y += 60;
+		GetTransform()->SetPosition(Pos);
+		GetCamera()->SetDir(m_vTarget->TRANS->GetPosition() - Pos);
 	}
 }
 void CameraScript::Rotate()
@@ -126,4 +145,10 @@ Vector3 CameraScript::GetOffset()
 Vector3 CameraScript::GetRotateOffset()
 {
 	return m_vRotateOffset;
+}
+void CameraScript::SetTopDown(bool b)
+{
+	if (b)
+		m_bRotating = true;
+	m_bIsTopDown = b;
 }
