@@ -2,8 +2,8 @@
 #include "Application.h"
 #include "RenderComponent.h"
 #define VIEW_AS_LIGHT false
-#define SHADOW_VIEW_SIZE_X 80
-#define SHADOW_VIEW_SIZE_Y 80
+#define SHADOW_VIEW_SIZE_X 110
+#define SHADOW_VIEW_SIZE_Y 110
 #define SHADOW_VIEW_SIZE_Z 100
 #define SHADOW_RES 1024*4
 

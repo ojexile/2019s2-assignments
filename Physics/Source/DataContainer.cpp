@@ -142,7 +142,6 @@ void  DataContainer::InitGO()
 	m_map_GO["BaseEnemy"] = go;
 	go->TRANS->SetScale(1.f);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
-	go->RENDER->SetColor(0.8f, 0.1f, 0.1f);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new EntityScript());
