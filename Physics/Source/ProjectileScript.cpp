@@ -36,5 +36,5 @@ void ProjectileScript::Collide(GameObject* go)
 	{
 		es->Damage(m_dDamage);
 	}
-	//DestroySelf();
+	DestroySelf();
 }
