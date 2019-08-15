@@ -25,7 +25,7 @@ void DefaultScene::Init()
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
-	go->TRANS->SetPosition(1920-40, 1080-20, 25);
+	go->TRANS->SetPosition(1920 - 40, 1080 - 20, 25);
 	// Inventory--------------------------------------------------------------------------------
 	//go = m_GOM.AddGameObject();
 	//go->AddComponent(new RenderComponent(dataContainer->GetMesh("Axis")));
@@ -70,11 +70,10 @@ void DefaultScene::Init()
 	Player->RIGID->SetMat(0.9f, 0.f);
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RENDER->SetActive(true);
-	Player->TRANS->SetPosition(12, 100, 20);
+	Player->TRANS->SetPosition(0, 18, 0);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots));
-	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar,Gun, GetGO("BulletUI")));
-	Player->AddComponent(new InventoryScript(gun, InventorySlots));
+	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();

@@ -32,9 +32,9 @@ void ReticleScript::Update(double dt)
 	//CHENG_LOG("", VectorToString(GetTransform()->GetScale()));
 	// CHENG_LOG("Reticle Pos: ", VectorToString(GetPosition()));
 	///Screen space update------------------------------------------------------------------------------------
-	if (UD > 0)
+	//if (UD > 0)
 	{
-		Vector3 Pos = RenderingManager::MouseWorldSpace();
-		GetTransform()->SetRelativePosition(Pos);
+		Vector3 Dir = RenderingManager::MouseWorldDir();
+		GetTransform()->SetRelativePosition(Dir * 30);
 	}
 }

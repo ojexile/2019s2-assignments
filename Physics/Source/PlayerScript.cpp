@@ -97,11 +97,11 @@ void PlayerScript::UpdateMovement(double dt)
 		GetTransform()->SetRotation(-angle, 0, 1, 0);
 	}
 	//
-	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
+	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0)
 	{
 		m_Gun->GUN->PullTrigger(vDir, dt);
 	}
-	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
+	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0)
 	{
 		m_Gun->GUN->ReleaseTrigger();
 	}
@@ -124,6 +124,7 @@ void PlayerScript::UpdateMovement(double dt)
 		fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
 		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
 	}
+	CHENG_LOG("Player pos: ", vtos(GetPosition()));
 }
 void PlayerScript::Collide(GameObject* go)
 {

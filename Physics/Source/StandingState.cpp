@@ -28,7 +28,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		if (com->GetComponent<PlayerStatsScript>()->GetStamina() >= dt * fDrain)
 		{
 			com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
-			com->GetComponent<PlayerStatsScript>()->DrainStamina(dt * fDrain);
+			com->GetComponent<PlayerStatsScript>()->DrainStamina((float)dt * fDrain);
 		}
 	}
 	// Crouch
@@ -49,7 +49,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		{
 			// Add force in direction of reticle
 			com->GetComponent<PlayerScript>()->Dash();
-			bDodge = true;
+			// bDodge = true;
 			com->GetComponent<PlayerStatsScript>()->DrainStamina(fDrain);
 		}
 	}

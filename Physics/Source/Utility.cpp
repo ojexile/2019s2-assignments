@@ -70,7 +70,7 @@ bool IsClose(Vector3 a, Vector3 b, float buffer)
 	}
 	return false;
 }
-std::string VectorToString(Vector3& v)
+std::string vtos(Vector3& v)
 {
 	std::string out;
 	out += "{";
