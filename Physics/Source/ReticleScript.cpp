@@ -8,8 +8,8 @@
 #include "Mtx44.h"
 #include "ChunkData.h"
 #include  "ChunkCollider.h"
-ReticleScript::ReticleScript(ChunkData* chunk)
-	:m_Chunk(chunk)
+#include "GameObjectManager.h"
+ReticleScript::ReticleScript()
 {
 }
 
@@ -22,8 +22,8 @@ void ReticleScript::Start()
 }
 void ReticleScript::Update(double dt)
 {
-	float UD = InputManager::GetInstance()->GetInputStrength("ReticleUpDown");
-	float LR = InputManager::GetInstance()->GetInputStrength("ReticleLeftRight");
+	//float UD = InputManager::GetInstance()->GetInputStrength("ReticleUpDown");
+	//float LR = InputManager::GetInstance()->GetInputStrength("ReticleLeftRight");
 	//Vector3 Front = CameraScript::GetFront();
 	//Vector3 Right = CameraScript::GetRight();
 	//m_vOffset += (Front  * UD);
@@ -35,17 +35,46 @@ void ReticleScript::Update(double dt)
 	//CHENG_LOG("", VectorToString(GetTransform()->GetScale()));
 	// CHENG_LOG("Reticle Pos: ", VectorToString(GetPosition()));
 	///Screen space update------------------------------------------------------------------------------------
+	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
+	// get chunks
+	std::vector<GameObject*> ChunkList;
+	float fDist = 100;
+	std::vector<GameObject*>* GOList = GOM->GetLayerList()->at("Default")->GetGOList();
+	for (unsigned i = 0; i < GOList->size(); ++i)
+	{
+		GameObject* go = GOList->at(i);
+		ChunkCollider* chunkcol = go->GetComponent<ChunkCollider>(true);
+		if (chunkcol)
+		{
+			Vector3 ChunkXZ = chunkcol->TRANS->GetPosition();
+			ChunkXZ.y = 0;
+			Vector3 PosXZ = GetPosition();
+			PosXZ.y = 0;
+			// dist check
+			if ((ChunkXZ - PosXZ).Length() < fDist)
+			{
+				ChunkList.push_back(go);
+			}
+		}
+	}
 	Vector3 Dir = RenderingManager::MouseWorldDir();
 	Vector3 StartPos = GetCameraGO()->TRANS->GetPosition();
 	float Offset = 1.73205f; // diag of cube
-	for (int i = 0; i < 100; ++i)
+	for (int j = 0; j < ChunkList.size(); ++j)
 	{
-		Vector3 Pos = StartPos + Offset * Dir * i;
-		if (m_Chunk->IsSolid(Pos))
+		GameObject* go = ChunkList.at(j);
+		ChunkData* chunk = go->GetComponent<ChunkCollider>()->GetChunk();
+		for (int i = 0; i < 100; ++i)
 		{
-			TRANS->SetPosition(Pos - Offset * Dir);
-			CHENG_LOG("", "Collide Chunk");
-			break;
+			Vector3 Pos = StartPos + Offset * Dir * i;
+			if (chunk->IsSolid(Pos - go->TRANS->GetPosition()))
+			{
+				TRANS->SetPosition(Pos - Offset * Dir);
+				CHENG_LOG("Collide Chunk");
+				CHENG_LOG("ReticlePos", vtos(GetPosition()));
+				return;
+			}
 		}
 	}
+	CHENG_LOG("no chunk");
 }

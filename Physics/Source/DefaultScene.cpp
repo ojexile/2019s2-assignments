@@ -58,17 +58,11 @@ void DefaultScene::Init()
 	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
 	/// Player================================================================================
-	//
-	go = m_GOM.AddGameObject();
-	ChunkData* dat = dataContainer->GetChunk("Map");
-	go->AddComponent(new RenderComponent(dat->GenerateMeshBiomed()));
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_SNOW));
-	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
 	// Reticle
 	GameObject* ret = m_GOM.AddGameObject();
 	ret->AddComponent(new RenderComponent(dataContainer->GetMesh("Reticle")));
 	ret->RENDER->SetColor(0, 1, 1);
-	ret->AddComponent(new ReticleScript(dat));
+	ret->AddComponent(new ReticleScript());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 1, 0);
@@ -84,7 +78,7 @@ void DefaultScene::Init()
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
-	// Player->AddComponent(new MapSpawningScript());
+	Player->AddComponent(new MapSpawningScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
