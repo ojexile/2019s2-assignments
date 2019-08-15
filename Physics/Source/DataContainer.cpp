@@ -64,6 +64,10 @@ void DataContainer::InitTextures()
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
+
+	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
+	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
+
 }
 void  DataContainer::InitMeshes()
 {
@@ -86,6 +90,12 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle");
 
+	//Mesh
+	m_map_Meshes["plaintree"] = MeshBuilder::GenerateOBJ("plain_tree", true);
+	GetMeshBiomed("plaintree")
+		->AddTexture("plaintree", BiomeComponent::BIOME_PLAINS)
+		->AddTexture("snowtree", BiomeComponent::BIOME_SNOW);
+
 	m_map_Meshes["Revolver"] = MeshBuilder::GenerateOBJ("revolver")->AddTexture("Revolver");
 
 	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
@@ -96,6 +106,9 @@ void  DataContainer::InitTerrain()
 {
 	/// Terrain================================================================================
 	// Plains--------------------------------------------------------------------------------
+	MeshBiomed* mesh1 = GenerateTerrainBiomed("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })
+		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS);
+		//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 }
 void  DataContainer::InitGO()
 {
@@ -160,6 +173,15 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
+
+	// Interactabes--------------------------------------------------------------------------------
+	go = new GameObject();
+	m_map_GO["plaintree"] = go;
+	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetMat(0.9f, 0);
+	go->AddComponent(new EntityScript());
+
 }
 void  DataContainer::InitShaders()
 {
@@ -217,6 +239,12 @@ Mesh* DataContainer::GetMesh(std::string name)
 		DEFAULT_LOG("ERROR: Mesh not found of name: " + name);
 	return mesh;
 }
+
+MeshBiomed * DataContainer::GetMeshBiomed(std::string name)
+{
+	return dynamic_cast<MeshBiomed*>(GetMesh(name));
+}
+
 AnimatedMesh* DataContainer::GetAnimation(std::string name)
 {
 	AnimatedMesh* mesh = m_map_Animated[name];
