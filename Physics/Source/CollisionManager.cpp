@@ -174,8 +174,8 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameO
 					shortestDirection = forceDirection;
 				}
 			}
-			if (shortestDirection.IsZero()) return Rigidbody::ePhysicsTypes::NONE;
-			go1->GetComponent<TransformComponent>()->Translate(shortestDirection * (shortestMagnitude) * 1.01);
+			if (shortestDirection.IsZero() || shortestMagnitude < 0.0003) return Rigidbody::ePhysicsTypes::NONE;
+			go1->GetComponent<Rigidbody>()->AddForce(shortestDirection * (shortestMagnitude) * 3000);
 			//Vector3 vel = go1->RIGID->GetVel();
 			//go1->GetComponent<Rigidbody>()->SetVel(vel);
 		}
