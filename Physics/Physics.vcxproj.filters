@@ -82,6 +82,8 @@
     <ClCompile Include="Source\UIButtonComponent.cpp" />
     <ClCompile Include="Source\InventoryScript.cpp" />
     <ClCompile Include="Source\PlayerStatsScript.cpp" />
+    <ClCompile Include="Source\GenericSubject.cpp" />
+    <ClCompile Include="ObserverBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -162,6 +164,8 @@
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\InventoryScript.h" />
     <ClInclude Include="Source\PlayerStatsScript.h" />
+    <ClInclude Include="Source\GenericSubject.h" />
+    <ClInclude Include="ObserverBase.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

@@ -160,6 +160,7 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObserverBase.cpp" />
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Source\FPSScript.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
+    <ClCompile Include="Source\GenericSubject.cpp" />
     <ClCompile Include="Source\HeightMapData.cpp" />
     <ClCompile Include="Source\InputBinding.cpp" />
     <ClCompile Include="Source\InputManager.cpp" />
@@ -233,6 +235,7 @@
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ObserverBase.h" />
     <ClInclude Include="Source\AnimatedMesh.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
@@ -256,6 +259,7 @@
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
+    <ClInclude Include="Source\GenericSubject.h" />
     <ClInclude Include="Source\HeightMapData.h" />
     <ClInclude Include="Source\InputBinding.h" />
     <ClInclude Include="Source\InputDeviceManager.h" />
