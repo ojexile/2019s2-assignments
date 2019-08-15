@@ -17,7 +17,7 @@ PlayerStatsScript::~PlayerStatsScript()
 }
 void PlayerStatsScript::Update(double dt)
 {
-	m_fStamina += dt * 40;
+	m_fStamina += (float)dt * 10;
 	m_fStamina = Math::Clamp(m_fStamina, 0.f, 100.f);
 	m_Stamina->TRANS->SetScale(m_fStamina / 100 * 200, 50, 1);
 

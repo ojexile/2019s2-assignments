@@ -23,7 +23,8 @@ void DefaultScene::Init()
 	/// Layers================================================================================
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
-	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
+	go->TRANS->SetPosition(1920-40, 1080-20, 25);
 	// Inventory--------------------------------------------------------------------------------
 	std::vector<GameObject*> InventorySlots;
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
@@ -49,7 +50,7 @@ void DefaultScene::Init()
 	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	StaminaBar->RENDER->SetColor(1, 1, 0);
 	GameObject* HealthBar = m_GOM.AddGameObject("UI");
-	HealthBar->TRANS->SetPosition(50, 1800, 0);
+	HealthBar->TRANS->SetPosition(50, 1030, 0);
 	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
 	/// Player================================================================================
