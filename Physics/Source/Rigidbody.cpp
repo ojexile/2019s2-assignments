@@ -21,6 +21,9 @@ Rigidbody::~Rigidbody()
 void Rigidbody::Update(double dt)
 {
 	dt *= WorldValues::TimeScale;
+	if(m_iMapForceCount != 0) m_vForce += m_vMapForce * (1.f / m_iMapForceCount);
+	m_vMapForce.SetZero();
+	m_iMapForceCount = 0;
 	Vector3 vAccel = m_vForce * (1 / m_fMass);
 	m_vForce.SetZero();
 	Vector3 CurrentGrav = WorldValues::DefaultGravity;
@@ -139,6 +142,12 @@ void Rigidbody::ClampVelXZ(float max)
 	}
 	m_vVel.x = vTemp.x;
 	m_vVel.z = vTemp.z;
+}
+
+void Rigidbody::QueueMapForce(Vector3 in)
+{
+	m_vMapForce += in;
+	m_iMapForceCount++;
 }
 
 

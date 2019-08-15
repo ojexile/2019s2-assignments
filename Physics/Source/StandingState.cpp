@@ -42,20 +42,13 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 	}
 	// Dodge
-	static bool bDodge = false;
-
-	if (!InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
-	{
-		bDodge = false;
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge") && !bDodge)
+	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
 	{
 		float fDrain = 25;
 		if (com->GetComponent<StaminaScript>()->GetStamina() >= fDrain)
 		{
 			// Add force in direction of reticle
 			com->GetComponent<PlayerScript>()->Dash();
-			bDodge = true;
 			com->GetComponent<StaminaScript>()->DrainStamina(fDrain);
 		}
 	}

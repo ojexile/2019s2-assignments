@@ -14,6 +14,7 @@ private:
 	AnimatedMesh* m_AnimatedMesh;
 	bool m_bLightEnabled;
 	bool m_bBillboard;
+	float m_fRenderDistance;
 	Material m_Material;
 	std::string m_sText;
 	bool m_bIsText;
@@ -23,6 +24,9 @@ public:
 	RenderComponent(Mesh* mesh, std::string sText);
 	RenderComponent(AnimatedMesh* mesh);
 	RenderComponent(RenderComponent& mesh);
+
+	float GetRenderDistance();
+	void SetRenderDistance(float);
 
 	virtual ~RenderComponent();
 	virtual ComponentBase* Clone()

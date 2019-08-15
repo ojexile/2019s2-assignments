@@ -243,6 +243,13 @@ bool Vector3::operator!= (const Vector3& rhs) const
 	return !IsEqual(x, rhs.x) || !IsEqual(y, rhs.y) || !IsEqual(z, rhs.z);
 }
 
+bool Vector3::operator<(const Vector3& rhs) const
+{
+	if (rhs.x != this->x) return (this->x < rhs.x);
+	if (rhs.y != this->y) return (this->y < rhs.y);
+	return (this->z < rhs.z);
+}
+
 /******************************************************************************/
 /*!
 \brief	Assignment operation (assign a vector to this vector)

@@ -5,6 +5,7 @@
 #include "PlayerScript.h"
 #include "Utility.h"
 #include "CameraScript.h"
+#include "MapSpawningScript.h"
 #include "InventoryScript.h"
 #include "WeaponScript.h"
 #include "StaminaScript.h"
@@ -25,6 +26,8 @@ void DefaultScene::Init()
 	// FPS--------------------------------------------------------------------------------
 	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	// Inventory--------------------------------------------------------------------------------
+	//go = m_GOM.AddGameObject();
+	//go->AddComponent(new RenderComponent(dataContainer->GetMesh("Axis")));
 	std::vector<GameObject*> InventorySlots;
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100, 100);
@@ -62,10 +65,11 @@ void DefaultScene::Init()
 	Player->RIGID->SetMat(0.9f, 0.f);
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RENDER->SetActive(true);
-	Player->TRANS->SetPosition(12, 18, 20);
+	Player->TRANS->SetPosition(12, 100, 20);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
 	Player->AddComponent(new InventoryScript(gun, InventorySlots));
 	Player->AddComponent(new StaminaScript(stam));
+	Player->AddComponent(new MapSpawningScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
@@ -98,29 +102,10 @@ void DefaultScene::Init()
 
 	gun->AddChild(go);
 	gun->GUN->AddPart(go);
-	/// WORLD================================================================================
-	BiomeComponent::eBiomeTypes type = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
-	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
-	BiomeComponent::eBiomeTypes type3 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
-
+	/// WORLD=================================================================================
 	// Terrain================================================================================
-	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(Vector3(0, 0, 0));
-	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMeshBiomed()));
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_SNOW));
-	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
 
 	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(Vector3(0, 0, 16));
-	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMeshBiomed()));
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_BEACHY));
-	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
-
-	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(Vector3(16, 0, 19));
-	go->AddComponent(new RenderComponent(dataContainer->GetChunk("goldmine")->GenerateMeshBiomed()));
-	go->AddComponent(new BiomeComponent(type2));
-	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("goldmine")));
 	// Parts
 	go = m_GOM.AddGameObject(GetGO("Muzzle"));
 	go->TRANS->SetPosition(28, 20, 26);

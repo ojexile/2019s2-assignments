@@ -35,6 +35,10 @@ Update
 
 void TransformComponent::Update(double dt)
 {
+	if (m_iQueuedTranslationCount != 0)
+	m_vPosition += m_vQueuedTranslation * (1.f / m_iQueuedTranslationCount);
+	m_vQueuedTranslation.SetZero();
+	m_iQueuedTranslationCount = 0;
 }
 
 /***************
@@ -114,6 +118,11 @@ void TransformComponent::Translate(float translateX, float translateY, float tra
 void TransformComponent::Translate(Vector3 arg)
 {
 	m_vPosition += arg;
+}
+void TransformComponent::QueueTranslate(Vector3 arg)
+{
+	m_vQueuedTranslation += arg;
+	m_iQueuedTranslationCount++;
 }
 void TransformComponent::TranslateRelative(float translateX, float translateY, float translateZ)
 {
