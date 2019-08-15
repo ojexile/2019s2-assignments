@@ -60,6 +60,7 @@ void ReticleScript::Update(double dt)
 	Vector3 Dir = RenderingManager::MouseWorldDir();
 	Vector3 StartPos = GetCameraGO()->TRANS->GetPosition();
 	float Offset = 1.73205f; // diag of cube
+	int SmallestDist = 101;
 	for (int j = 0; j < ChunkList.size(); ++j)
 	{
 		GameObject* go = ChunkList.at(j);
@@ -69,12 +70,16 @@ void ReticleScript::Update(double dt)
 			Vector3 Pos = StartPos + Offset * Dir * i;
 			if (chunk->IsSolid(Pos - go->TRANS->GetPosition()))
 			{
-				TRANS->SetPosition(Pos - Offset * Dir);
-				CHENG_LOG("Collide Chunk");
-				CHENG_LOG("ReticlePos", vtos(GetPosition()));
-				return;
+				if (i < SmallestDist)
+					SmallestDist = i;
 			}
 		}
+	}
+	if (SmallestDist < 101)
+	{
+		TRANS->SetPosition(StartPos + Offset * Dir * (SmallestDist - 1));
+		CHENG_LOG("Collide Chunk");
+		CHENG_LOG("ReticlePos", vtos(GetPosition()));
 	}
 	CHENG_LOG("no chunk");
 }
