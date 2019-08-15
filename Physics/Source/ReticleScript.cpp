@@ -81,5 +81,4 @@ void ReticleScript::Update(double dt)
 		CHENG_LOG("Collide Chunk");
 		CHENG_LOG("ReticlePos", vtos(GetPosition()));
 	}
-	CHENG_LOG("no chunk");
 }
