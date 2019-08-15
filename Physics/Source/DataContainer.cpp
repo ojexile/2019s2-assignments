@@ -180,7 +180,7 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMat(0.9f, 0);
-	go->AddComponent(new EntityScript());
+	 go->AddComponent(new EntityScript());
 
 }
 void  DataContainer::InitShaders()
