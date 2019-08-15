@@ -5,6 +5,10 @@
 
 #define FOG_ENABLED true
 
+MS RenderingManagerBase::modelStack;
+MS RenderingManagerBase::viewStack;
+MS RenderingManagerBase::projectionStack;
+
 RenderingManagerBase::RenderingManagerBase()
 {
 	m_fElapsedTime = 0;

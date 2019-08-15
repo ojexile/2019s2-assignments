@@ -106,7 +106,6 @@ void PlayerScript::UpdateMovement(double dt)
 		m_Gun->GUN->ReleaseTrigger();
 	}
 
-
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
 	{
 		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
@@ -114,7 +113,7 @@ void PlayerScript::UpdateMovement(double dt)
 	}
 	else
 	{
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
 		m_Reticle->SetActive(true);
 	}
 	float fScroll = InputManager::GetInstance()->GetInputStrength("Zoom");

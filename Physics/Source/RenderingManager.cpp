@@ -342,3 +342,17 @@ void RenderingManager::Exit()
 {
 	RenderingManagerBase::Exit();
 }
+Vector3 RenderingManager::MouseWorldSpace()
+{
+	double x, y;
+	Application::GetCursorPosRelative(&x, &y);
+	Vector3 MousePosDevice(x * 2 - 1, y * 2 - 1);
+	Vector3 ClipCoord(MousePosDevice.x, 1 - MousePosDevice.y, -1.f);
+
+	Mtx44 InvertProjection = projectionStack.Top().GetInverse();
+	Vector3 EyeCoords = InvertProjection * ClipCoord;
+	Mtx44 InvertView = viewStack.Top().GetInverse();
+	Vector3 WorldSpace = InvertView * EyeCoords;
+	CHENG_LOG("MOUSE WORLD: ", VectorToString(WorldSpace));
+	return WorldSpace;
+}
