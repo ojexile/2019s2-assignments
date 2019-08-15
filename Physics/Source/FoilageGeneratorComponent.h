@@ -9,6 +9,14 @@ desc: base class for foilage generation in chunks. to be used in conjunction wit
 
 class FoilageGeneratorComponent : public ComponentBase
 {
+	// when the chunk is created, the FGcomp will trigger.
+	/*
+	determine the density of foilage spawned
+	randomise the foilage transformation x times
+		lock position by the tile, rotation, (and maybe scale)
+		for every time, create a gameobject (using MeshBiomed) and randomly pick the model used (from preset).
+		attach to the chunk as a child object
+	*/
 private:
 
 public:
