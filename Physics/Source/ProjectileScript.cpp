@@ -4,7 +4,7 @@
 
 ProjectileScript::ProjectileScript(double lifespan, double Damage)
 	: m_dLifespan(lifespan),
-	m_dDamage(m_dDamage)
+	m_dDamage(Damage)
 {
 }
 

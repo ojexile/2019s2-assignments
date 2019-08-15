@@ -29,6 +29,7 @@ void InventoryScript::Update(double dt)
 					return;
 				GameObject* Part = m_List[i];
 				GameObject* cpy = Instantiate(Part, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }, "Default", true);
+				cpy->RIGID->SetAffectedByGravity(false);
 				m_Weapon->AddChild(cpy);
 				m_Weapon->GetComponent<WeaponScript>()->AddPart(cpy);
 				Destroy(Part);
@@ -47,6 +48,7 @@ void InventoryScript::AddItem(GameObject* go)
 		Vector3 pos = m_SlotList.at(m_iNumInInventory)->TRANS->GetPosition();
 		Vector3 scal = { 20,20,1 };
 		GameObject* go2 = Instantiate(go, pos, scal, "UI");
+		go2->RIGID->SetAffectedByGravity(false);
 		m_List[m_iNumInInventory] = go2;
 		Destroy(go);
 		++m_iNumInInventory;

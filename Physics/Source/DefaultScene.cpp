@@ -48,11 +48,9 @@ void DefaultScene::Init()
 	stam->TRANS->SetPosition(50, 50, 0);
 	stam->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	stam->RENDER->SetColor(1, 1, 0);
-
 	/// Player================================================================================
 	// Reticle
 	go2 = dataContainer->GetGameObject("Reticle");
-
 	//Gun------------------------------------------------------------------------------------
 	GameObject* gun = dataContainer->GetGameObject("Gun");
 	gun->TRANS->SetRelativePosition(1, 1, 0);
@@ -63,10 +61,8 @@ void DefaultScene::Init()
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->RIGID->SetMat(0.9f, 0.f);
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
-
 	Player->RENDER->SetActive(true);
-
-	Player->TRANS->SetPosition(0, 16, 0);
+	Player->TRANS->SetPosition(24, 18, 16);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
 	Player->AddComponent(new InventoryScript(gun, InventorySlots));
 	Player->AddComponent(new StaminaScript(stam));
@@ -84,13 +80,12 @@ void DefaultScene::Init()
 	float size = 100;
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
-
+	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
-	go->TRANS->SetPosition(6, 18.5, 5);
-
-
+	go->TRANS->SetPosition(10, 18.5, 5);
+	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
-	go->TRANS->SetPosition(-6, 18.5, 25);
+	go->TRANS->SetPosition(20, 18.5, 24);
 
 	go = dataContainer->GetGameObject("Muzzle");
 	go->TRANS->SetScale(3);
@@ -122,5 +117,5 @@ void DefaultScene::Init()
 	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("goldmine")));
 	// Parts
 	go = m_GOM.AddGameObject(GetGO("Muzzle"));
-	go->TRANS->SetPosition(5, 16, 5);
+	go->TRANS->SetPosition(28, 20, 20);
 }

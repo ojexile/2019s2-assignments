@@ -144,7 +144,6 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	Vector3 SpawnPos = GetPosition();
-	SpawnPos.y += 1.f;
 
 	GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
 	bullet->RIGID->SetAffectedByGravity(false);
@@ -172,7 +171,7 @@ void WeaponScript::AddPart(GameObject* part)
 {
 	if (!part->PART)
 		return;
-
+	part->RIGID->SetAffectedByGravity(false);
 	if (part->PART->GetPartType() == PartScript::WEAPON)
 	{
 		switch (part->PART->GetSlotType())
