@@ -145,5 +145,5 @@ void PlayerScript::Dash()
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
 	if (!vDir.IsZero())
 		vDir.Normalize();
-	RIGID->AddForce(vDir * 4000);
+	RIGID->AddForce(vDir * 3000);
 }

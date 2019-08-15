@@ -59,6 +59,8 @@ void DataContainer::InitTextures()
 	m_map_Textures["GrassDirt"] = LoadTGA("grassdirt");
 	m_map_Textures["Colors"] = LoadTGA("colors");
 	m_map_Textures["snow"] = LoadTGA("snow");
+	m_map_Textures["beachy"] = LoadTGA("beachy");
+
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
