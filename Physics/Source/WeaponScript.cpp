@@ -256,3 +256,23 @@ void WeaponScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const
 		}
 	}
 }
+
+int WeaponScript::GetAmmo()
+{
+	return m_iAmmo;
+}
+
+int WeaponScript::GetMaxAmmo()
+{
+	return m_iAmmo_Max;
+}
+
+int WeaponScript::GetMagazineRounds()
+{
+	return m_iMagazineRounds;
+}
+
+int WeaponScript::GetMaxMagazineRounds()
+{
+	return m_iMagazineRounds_Max;
+}
