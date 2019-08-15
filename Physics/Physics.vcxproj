@@ -163,6 +163,7 @@
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
+    <ClCompile Include="Source\AudioObserver.cpp" />
     <ClCompile Include="Source\BiomeComponent.cpp" />
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\AudioManager.h" />
+    <ClInclude Include="Source\AudioObserver.h" />
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />

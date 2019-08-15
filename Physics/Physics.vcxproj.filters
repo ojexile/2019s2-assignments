@@ -84,6 +84,7 @@
     <ClCompile Include="Source\PlayerStatsScript.cpp" />
     <ClCompile Include="Source\GenericSubject.cpp" />
     <ClCompile Include="Source\ObserverBase.cpp" />
+    <ClCompile Include="Source\AudioObserver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Source\PlayerStatsScript.h" />
     <ClInclude Include="Source\GenericSubject.h" />
     <ClInclude Include="Source\ObserverBase.h" />
+    <ClInclude Include="Source\AudioObserver.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
