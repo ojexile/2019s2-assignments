@@ -72,6 +72,12 @@ void DefaultScene::Init()
 	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
 
 	go = m_GOM.AddGameObject();
+	go->TRANS->SetPosition(Vector3(0, 0, 16));
+	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMeshBiomed()));
+	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
+	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
+
+	go = m_GOM.AddGameObject();
 	go->TRANS->SetPosition(Vector3(16, 0, 0));
 	go->AddComponent(new RenderComponent(dataContainer->GetChunk("goldmine")->GenerateMeshBiomed()));
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
