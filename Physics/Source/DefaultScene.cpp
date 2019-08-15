@@ -124,4 +124,17 @@ void DefaultScene::Init()
 	// Parts
 	go = m_GOM.AddGameObject(GetGO("Muzzle"));
 	go->TRANS->SetPosition(28, 20, 26);
+
+	///interactable test
+
+	go = m_GOM.AddGameObject();
+	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200, 0, 0));
+	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
+	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
+
+
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
+	go->GetComponent<EntityScript>()->SetHealth(1.f);
+	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
+	go->TRANS->SetPosition(20, 18.5, 20);
 }
