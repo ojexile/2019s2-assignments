@@ -9,6 +9,11 @@ GenericSubject::GenericSubject()
 
 GenericSubject::~GenericSubject()
 {
+	for (unsigned j = 0; j < m_ObList.size(); ++j)
+	{
+		ObserverBase* ob = m_ObList.at(j);
+		delete ob;
+	}
 }
 void GenericSubject::NotifySubject(ComponentBase* com, std::string msg)
 {
@@ -18,9 +23,9 @@ void GenericSubject::NotifySubject(ComponentBase* com, std::string msg)
 }
 void GenericSubject::NotifyObservers(std::vector<GameObject*>* OBComList)
 {
-	for (unsigned i = 0; i < m_List.size(); ++i)
+	for (unsigned i = 0; i < m_ObList.size(); ++i)
 	{
-		ObserverBase* ob = m_List.at(i);
+		ObserverBase* ob = m_ObList.at(i);
 		if (!ob->m_bActive)
 			continue;
 		for (unsigned j = 0; j < m_Messages.size(); ++j)
@@ -29,6 +34,7 @@ void GenericSubject::NotifyObservers(std::vector<GameObject*>* OBComList)
 			ob->Notify(message->m_Com, message->m_sMessage, OBComList);
 		}
 	}
+	ClearMessages();
 }
 void GenericSubject::ClearMessages()
 {
@@ -38,4 +44,18 @@ void GenericSubject::ClearMessages()
 		delete message;
 	}
 	m_Messages.clear();
+}
+void GenericSubject::AddObserver(ObserverBase* in)
+{
+	// check if exists
+	for (unsigned i = 0; i < m_ObList.size(); ++i)
+	{
+		ObserverBase* ob = m_ObList.at(i);
+		if (ob == in)
+		{
+			DEFAULT_LOG("Observer already added");
+			return;
+		}
+	}
+	m_ObList.push_back(in);
 }

@@ -8,13 +8,14 @@
 class GenericSubject : public Singleton<GenericSubject>
 {
 private:
-	std::vector<ObserverBase*> m_List;
+	std::vector<ObserverBase*> m_ObList;
 	std::vector<Message*> m_Messages;
 	void ClearMessages();
 public:
 	GenericSubject();
 	~GenericSubject();
 
+	void AddObserver(ObserverBase*);
 	void NotifySubject(ComponentBase* com, std::string msg);
 	void NotifyObservers(std::vector<GameObject*>* OBComList);
 };

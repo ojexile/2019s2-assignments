@@ -1,4 +1,6 @@
 #include "DefaultScene.h"
+#include "GenericSubject.h"
+#include "AudioObserver.h"
 #include "AudioManager.h"
 #include "ChunkCollider.h"
 
@@ -22,6 +24,8 @@ void DefaultScene::Init()
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
+	/// Observers================================================================================
+	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	/// Layers================================================================================
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------

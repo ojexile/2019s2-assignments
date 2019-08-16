@@ -11,9 +11,8 @@ AudioObserver::~AudioObserver()
 
 void AudioObserver::Notify(ComponentBase* com, std::string msg, std::vector<GameObject*>* OBComList)
 {
-	if (msg == "susu")
+	if (msg == "Jump")
 	{
-		AudioManager::GetInstance()->Play3D("susu.wav",com->TRANS->GetPosition());
-		CHENG_LOG("susu");
+		AudioManager::GetInstance()->Play3D("boing.wav",com->TRANS->GetPosition());
 	}
 }
