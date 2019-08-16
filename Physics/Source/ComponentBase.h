@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "Locator.h"
+#include "ComponentMacros.h"
 class ComponentBase
 {
 private:

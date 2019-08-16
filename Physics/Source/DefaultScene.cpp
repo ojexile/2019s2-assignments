@@ -79,11 +79,10 @@ void DefaultScene::Init()
 	Player->AddComponent(new PlayerScript(ret, Gun));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	Player->RIGID->SetMat(0.9f, 0.f);
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(0, 18, 0);
-	Player->TRANS->SetScale(0.5, 0.5, 0.5);
+	Player->TRANS->SetScale(0.5f);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
