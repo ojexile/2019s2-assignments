@@ -37,25 +37,26 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(1920 - 40, 1080 - 20, 25);
 	/// Inventory--------------------------------------------------------------------------------
 	// slots--------------------------------------------------------------------------------
-	std::vector<GameObject*> InventorySlots;
+	GameObject** InventorySlots;
+	InventorySlots = new GameObject*[INVENTORY_SIZE];
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100, 100);
-	InventorySlots.push_back(go);
+	InventorySlots[0] = go;
 	//
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100 - 110, 100);
-	InventorySlots.push_back(go);
+	InventorySlots[1] = go;
 	//
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100 - 110 - 110, 100);
-	InventorySlots.push_back(go);
+	InventorySlots[2] = go;
 	// customise--------------------------------------------------------------------------------
 	std::vector<GameObject*> CustoSlots;
 	Vector3 CustoPos(1920 - 200, 600);
 	float fCustoDist = 100;
 	//
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
-	go->TRANS->SetPosition(CustoPos - Vector3(-fCustoDist,0,0));
+	go->TRANS->SetPosition(CustoPos - Vector3(-fCustoDist, 0, 0));
 	CustoSlots.push_back(go);
 	//
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
@@ -113,7 +114,7 @@ void DefaultScene::Init()
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(0, 18, 0);
 	Player->TRANS->SetScale(0.5f);
-	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots));
+	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
 	/// Create Camera================================================================================

@@ -8,12 +8,15 @@ class InventoryScript :
 private:
 	GameObject* m_Holding;
 	int m_iHoldingIndex;
+	int m_iNumInventory;
 	GameObject* m_Weapon;
-	std::vector<GameObject*> m_InventoryItems;
-	std::vector<GameObject*> m_SlotList;
+	GameObject* m_InventoryItems[INVENTORY_SIZE];
+	GameObject** m_SlotList;
 	std::vector<GameObject*> m_WeaponSlotList;
+	GameObject* m_Reticle;
 public:
-	InventoryScript(GameObject* gun, std::vector<GameObject*> list, std::vector<GameObject*> wlist);
+	InventoryScript(GameObject* gun, GameObject** list
+		, std::vector<GameObject*> wlist, GameObject* reticle);
 	virtual ~InventoryScript();
 	virtual ComponentBase* Clone() { return new InventoryScript(*this); };
 	virtual void Update(double dt) override;

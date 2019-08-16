@@ -3,13 +3,20 @@
 #include "UIButtonComponent.h"
 #include "WeaponScript.h"
 #include "Application.h"
-InventoryScript::InventoryScript(GameObject* weapon, std::vector<GameObject*> list, std::vector<GameObject*> wlist)
+InventoryScript::InventoryScript(GameObject* weapon, GameObject** list, std::vector<GameObject*> wlist, GameObject* reticle)
 	: m_WeaponSlotList(wlist)
+	, m_Reticle(reticle)
 {
 	m_Weapon = weapon;
 	m_SlotList = list;
 	m_Holding = nullptr;
 	m_iHoldingIndex = -1;
+	m_iNumInventory = 0;
+
+	for (int i = 0; i < INVENTORY_SIZE; ++i)
+	{
+		m_InventoryItems[i] = nullptr;
+	}
 }
 
 InventoryScript::~InventoryScript()
@@ -18,10 +25,16 @@ InventoryScript::~InventoryScript()
 void InventoryScript::Update(double dt)
 {
 	// Check if inventory click
+	bool bClick = false;
 	if (InputManager::GetInstance()->GetInputStrength("Click"))
 	{
-		if (m_Holding)
+		bClick = true;
+	}
+	if (m_Holding)
+	{
+		if (bClick)
 		{
+			// check for hover
 			for (int i = 0; i < 4; ++i)
 			{
 				if (m_WeaponSlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
@@ -51,12 +64,23 @@ void InventoryScript::Update(double dt)
 					break;
 				}
 			}
+
 		}
-		else
+	}
+
+	else
+	{
+
+		// check for hover
+		bool hover = false;
+		for (unsigned i = 0; i < INVENTORY_SIZE; ++i)
 		{
-			for (unsigned i = 0; i < m_InventoryItems.size(); ++i)
+
+			if (m_SlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
 			{
-				if (m_SlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
+				hover = true;
+
+				if (bClick)
 				{
 					if (!m_InventoryItems[i])
 						return;
@@ -67,29 +91,40 @@ void InventoryScript::Update(double dt)
 					break;
 				}
 			}
+			m_Reticle->SetActive(!hover);
 		}
-		
 	}
 	if (m_Holding)
 	{
 		double x, y;
 		Application::GetCursorPosRelative(&x, &y);
 
-		Vector3 ScreenMousePos(x * 1920, (1-y) * 1080);
+		Vector3 ScreenMousePos(x * 1920, (1 - y) * 1080);
 
 		m_Holding->TRANS->SetPosition(ScreenMousePos);
 	}
 }
 void InventoryScript::AddItem(GameObject* go)
 {
-	if (m_InventoryItems.size() < INVENTORY_SIZE)
+	int iSlot = -1;
+	if (m_iNumInventory < INVENTORY_SIZE)
 	{
-		Vector3 pos = m_SlotList.at(m_InventoryItems.size())->TRANS->GetPosition();
+		// find slot
+		for (int i = 0; i < INVENTORY_SIZE; ++i)
+		{
+			if (m_InventoryItems[i] == nullptr)
+			{
+				iSlot = i;
+				break;
+			}
+		}
+		Vector3 pos = m_SlotList[iSlot]->TRANS->GetPosition();
 		Vector3 scal = { 20,20,1 };
 		GameObject* go2 = Instantiate(go, pos, scal, "UI");
 		go2->RIGID->SetAffectedByGravity(false);
-		m_InventoryItems.push_back(go2);
+		m_InventoryItems[iSlot] = go2;
 		Destroy(go);
+		++m_iNumInventory;
 	}
 }
 
@@ -101,5 +136,6 @@ void InventoryScript::Attach()
 	m_Weapon->AddChild(cpy);
 	m_Weapon->GetComponent<WeaponScript>()->AddPart(cpy);
 	Destroy(go);
-	m_InventoryItems.erase(m_InventoryItems.begin() + m_iHoldingIndex);
+	m_InventoryItems[m_iHoldingIndex] = nullptr;
+	--m_iNumInventory;
 }
