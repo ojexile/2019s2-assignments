@@ -109,11 +109,11 @@ void DefaultScene::Init()
 	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
 	go->TRANS->SetPosition(20, 18.5, 26);
-	go = dataContainer->GetGameObject("Muzzle");
-	go->TRANS->SetScale(3);
-	Gun->AddChild(go);
-	Gun->GUN->AddPart(go);
-	go = dataContainer->GetGameObject("Stock");
+	//go = dataContainer->GetGameObject("Scope");
+	//go->TRANS->SetScale(3);
+	//Gun->AddChild(go);
+	//Gun->GUN->AddPart(go);
+	go = dataContainer->GetGameObject("Grip");
 	go->TRANS->SetScale(3);
 	Gun->AddChild(go);
 	Gun->GUN->AddPart(go);

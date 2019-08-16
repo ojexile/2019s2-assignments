@@ -94,6 +94,7 @@
     <ClCompile Include="Source\InteractablesObserver.cpp" />
     <ClCompile Include="Source\InteractableObCom.cpp" />
     <ClCompile Include="Source\GrenadeScript.cpp" />
+    <ClCompile Include="Source\LootScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="Source\InteractablesObserver.h" />
     <ClInclude Include="Source\InteractableObCom.h" />
     <ClInclude Include="Source\GrenadeScript.h" />
+    <ClInclude Include="Source\LootScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

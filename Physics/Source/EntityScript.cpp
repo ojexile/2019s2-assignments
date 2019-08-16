@@ -1,5 +1,6 @@
 #include "EntityScript.h"
 #include "PlayerScript.h"
+#include "LootScript.h"
 
 #define DAMAGE_TIME 1.f
 #define COLOR_TIME 0.5f
@@ -32,6 +33,10 @@ void EntityScript::Update(double dt)
 	// Check death
 	if (m_fHealth <= 0 && !this->GetComponent<PlayerScript>())
 	{
+		if (this->LOOT)
+		{
+			this->LOOT->DropLoot();
+		}
 		DestroySelf(); // should switch to play death anim
 		return;
 	}

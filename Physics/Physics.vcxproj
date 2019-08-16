@@ -201,6 +201,7 @@
     <ClCompile Include="Source\Locator.cpp" />
     <ClCompile Include="Source\LogData.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
+    <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MapSpawningScript.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
@@ -286,6 +287,7 @@
     <ClInclude Include="Source\Locator.h" />
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
+    <ClInclude Include="Source\LootScript.h" />
     <ClInclude Include="Source\MapSpawningScript.h" />
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />

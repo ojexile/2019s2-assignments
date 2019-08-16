@@ -13,13 +13,14 @@ public:
 
 	enum PART_TYPE
 	{
-		WEAPON,
-		MISC
+		WEAPON = 1,
+		MISC,
+		NUM_TYPES
 	};
 
 	enum SLOT_TYPE
 	{
-		SCOPE,
+		SCOPE = 1,
 		CLIP,
 		GRIP,
 		MUZZLE,
