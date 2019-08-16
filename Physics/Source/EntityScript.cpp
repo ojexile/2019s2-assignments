@@ -72,6 +72,30 @@ void EntityScript::SetMovementSpeed(float Force, float Max)
 	m_fMoveForce = Force;
 	m_fMaxSpeed = Max;
 }
+void EntityScript::SetForce(float force)
+{
+	m_fMoveForce = force;
+}
+float EntityScript::GetForce()
+{
+	return m_fMoveForce;
+}
+void EntityScript::SetMaxSpeed(float maxspeed)
+{
+	m_fMaxSpeed = maxspeed;
+}
+float EntityScript::GetMaxSpeed()
+{
+	return m_fMaxSpeed;
+}
+void EntityScript::SetHealth(float health)
+{
+	m_fHealth = health;
+}
+float EntityScript::GetHealth()
+{
+	return m_fHealth;
+}
 void EntityScript::Damage(float fDamage)
 {
 	m_bDamageAnim = true;

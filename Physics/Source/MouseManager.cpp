@@ -20,6 +20,22 @@ float MouseManager::GetStrength(std::string bind)
 	{
 		return (Application::IsMousePressed(2) ? 1 : 0);
 	}
+	if (bind == "lmb_down")
+	{
+		bool result = !lastLMB && Application::IsMousePressed(0);
+		lastLMB = Application::IsMousePressed(0);
+		return ( result ? 1 : 0);
+	}
+	if (bind == "rmb_down")
+	{
+		bool result = !lastRMB  && Application::IsMousePressed(1);
+		lastRMB = Application::IsMousePressed(1);
+		return (result ? 1 : 0);
+	}
+	if (bind == "mmb")
+	{
+		return (Application::IsMousePressed(2) ? 1 : 0);
+	}
 	if (bind == "x")
 	{
 		double xpos, ypos;

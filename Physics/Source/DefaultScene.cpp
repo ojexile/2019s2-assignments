@@ -5,9 +5,11 @@
 #include "PlayerScript.h"
 #include "Utility.h"
 #include "CameraScript.h"
+#include "MapSpawningScript.h"
 #include "InventoryScript.h"
 #include "WeaponScript.h"
-#include "StaminaScript.h"
+#include "PlayerStatsScript.h"
+#include "ReticleScript.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -23,8 +25,11 @@ void DefaultScene::Init()
 	/// Layers================================================================================
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
-	m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
+	go->TRANS->SetPosition(1920 - 40, 1080 - 20, 25);
 	// Inventory--------------------------------------------------------------------------------
+	//go = m_GOM.AddGameObject();
+	//go->AddComponent(new RenderComponent(dataContainer->GetMesh("Axis")));
 	std::vector<GameObject*> InventorySlots;
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100, 100);
@@ -44,13 +49,20 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
 
-	GameObject* stam = m_GOM.AddGameObject("UI");
-	stam->TRANS->SetPosition(50, 50, 0);
-	stam->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
-	stam->RENDER->SetColor(1, 1, 0);
+	GameObject* StaminaBar = m_GOM.AddGameObject("UI");
+	StaminaBar->TRANS->SetPosition(50, 50, 0);
+	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	StaminaBar->RENDER->SetColor(1, 1, 0);
+	GameObject* HealthBar = m_GOM.AddGameObject("UI");
+	HealthBar->TRANS->SetPosition(50, 1030, 0);
+	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
 	/// Player================================================================================
 	// Reticle
-	go2 = dataContainer->GetGameObject("Reticle");
+	GameObject* ret = m_GOM.AddGameObject();
+	ret->AddComponent(new RenderComponent(dataContainer->GetMesh("Reticle")));
+	ret->RENDER->SetColor(0, 1, 1);
+	ret->AddComponent(new ReticleScript());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* gun = dataContainer->GetGameObject("Gun");
 	gun->TRANS->SetRelativePosition(1, 1, 0);
@@ -58,21 +70,24 @@ void DefaultScene::Init()
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
+	Player->AddComponent(new PlayerScript(ret, Gun));
+	Player->AddChild(Gun);
 	Player->AddComponent(new PlayerScript(go2, gun, grenade));
 	Player->AddChild(gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->RIGID->SetMat(0.9f, 0.f);
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RENDER->SetActive(true);
-	Player->TRANS->SetPosition(12, 18, 20);
+	Player->TRANS->SetPosition(0, 18, 0);
 	Player->TRANS->SetScale(0.5, 0.5, 0.5);
-	Player->AddComponent(new InventoryScript(gun, InventorySlots));
-	Player->AddComponent(new StaminaScript(stam));
+	Player->AddComponent(new InventoryScript(Gun, InventorySlots));
+	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
+	Player->AddComponent(new MapSpawningScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
 	m_CameraGO->AddComponent(new CameraComponent);
-	m_CameraGO->AddChild(go2);
+	// m_CameraGO->AddChild(go2);
 	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	// Set up camera
 	m_CameraGO->TRANS->SetPosition(0, 0, 0);
@@ -88,41 +103,20 @@ void DefaultScene::Init()
 	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
 	go->TRANS->SetPosition(20, 18.5, 26);
-
 	go = dataContainer->GetGameObject("Muzzle");
 	go->TRANS->SetScale(3);
-
-	gun->AddChild(go);
-	gun->GUN->AddPart(go);
-
+	Gun->AddChild(go);
+	Gun->GUN->AddPart(go);
 	go = dataContainer->GetGameObject("Stock");
 	go->TRANS->SetScale(3);
-
-	gun->AddChild(go);
-	gun->GUN->AddPart(go);
+	Gun->AddChild(go);
+	Gun->GUN->AddPart(go);
 	/// WORLD================================================================================
 	BiomeComponent::eBiomeTypes type = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type3 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
-
 	// Terrain================================================================================
-	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(Vector3(0, 0, 0));
-	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMeshBiomed()));
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_SNOW));
-	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
 
-	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(Vector3(0, 0, 16));
-	go->AddComponent(new RenderComponent(dataContainer->GetChunk("Map")->GenerateMeshBiomed()));
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_BEACHY));
-	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("Map")));
-
-	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(Vector3(16, 0, 19));
-	go->AddComponent(new RenderComponent(dataContainer->GetChunk("goldmine")->GenerateMeshBiomed()));
-	go->AddComponent(new BiomeComponent(type2));
-	go->AddComponent(new ChunkCollider(dataContainer->GetChunk("goldmine")));
 	// Parts
 	go = m_GOM.AddGameObject(GetGO("Muzzle"));
 	go->TRANS->SetPosition(28, 20, 26);

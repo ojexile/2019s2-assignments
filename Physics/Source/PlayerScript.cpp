@@ -80,15 +80,10 @@ void PlayerScript::UpdateMovement(double dt)
 		//bMoved = true;
 		Move(CameraScript::GetRight());
 	}
-	static bool jump = false;
-	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") == 0)
-	{
-		jump = false;
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0 && !jump)
+	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
 	{
 		rb->AddForce({ 0,m_fJumpForce,0 });
-		jump = true;
+		rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
 	}
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
 	if (!vDir.IsZero())
@@ -105,11 +100,11 @@ void PlayerScript::UpdateMovement(double dt)
 		GetTransform()->SetRotation(-angle, 0, 1, 0);
 	}
 	//
-	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
+	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0)
 	{
 		m_Gun->GUN->PullTrigger(vDir, dt);
 	}
-	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
+	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0)
 	{
 		m_Gun->GUN->ReleaseTrigger();
 	}
@@ -137,7 +132,7 @@ void PlayerScript::UpdateMovement(double dt)
 	}
 	else
 	{
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
 		m_Reticle->SetActive(true);
 	}
 	float fScroll = InputManager::GetInstance()->GetInputStrength("Zoom");
@@ -148,6 +143,7 @@ void PlayerScript::UpdateMovement(double dt)
 		fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
 		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
 	}
+	CHENG_LOG("Player pos: ", vtos(GetPosition()));
 }
 void PlayerScript::Collide(GameObject* go)
 {

@@ -131,9 +131,9 @@ protected:
 	int m_parameters[U_TOTAL];
 	int m_LightParameters[U_LIGHT_TOTAL * MAX_LIGHTS];
 
-	MS modelStack;
-	MS viewStack;
-	MS projectionStack;
+	static MS modelStack;
+	static MS viewStack;
+	static MS projectionStack;
 
 	bool bLightEnabled;
 	float fps;

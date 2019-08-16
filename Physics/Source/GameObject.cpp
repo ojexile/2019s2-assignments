@@ -1,16 +1,19 @@
 #include "GameObject.h"
+#include "SceneManager.h"
 
 GameObject::GameObject()
 	: m_bActive{ true }
 	, m_bStatic{ false }
 {
 	AddComponent(new TransformComponent);
+	m_fDisableDistance = 2000000;
 }
 // Copy
 GameObject::GameObject(const GameObject& go)
 {
 	this->m_bActive = go.m_bActive;
 	this->m_bStatic = go.m_bStatic;
+	m_fDisableDistance = 2000000;
 	for (unsigned i = 0; i < go.m_vec_ComponentList.size(); ++i)
 	{
 		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());
@@ -54,9 +57,21 @@ bool GameObject::IsActive()
 	return m_bActive;
 }
 
+void GameObject::SetDisableDistance(float f)
+{
+	m_fDisableDistance = f;
+}
+
+float GameObject::GetDisableDistance()
+{
+	return m_fDisableDistance;
+}
+
 void GameObject::Update(double dt)
 {
-	// Update components
+	if (m_fDisableDistance < (SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition() - TRANS->GetPosition()).Length())
+		return;
+		// Update components
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
 		if (!m_vec_ComponentList[i]->IsActive())

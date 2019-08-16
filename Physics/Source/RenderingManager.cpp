@@ -272,6 +272,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent)
 	{
+		if ((go->TRANS->GetPosition() - vCamPos).Length() > go->RENDER->GetRenderDistance()) return;
 		bool isActive = renderComponent->IsActive();
 		if (!isActive)
 			return;
@@ -340,4 +341,22 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 void RenderingManager::Exit()
 {
 	RenderingManagerBase::Exit();
+}
+Vector3 RenderingManager::MouseWorldDir()
+{
+	double x, y;
+	Application::GetCursorPosRelative(&x, &y);
+	Vector3 MousePosDevice(x * 2 - 1, -(y * 2 - 1));
+	CHENG_LOG("MOUSE Dev: ", vtos(MousePosDevice));
+	// MousePosDevice = { 0,0,1 };
+	Vector3 ClipCoord(MousePosDevice.x, MousePosDevice.y, -1.f);
+
+	Mtx44 InvertProjection = projectionStack.Top().GetInverse();
+	Vector3 EyeCoords = InvertProjection.Multi(ClipCoord, 1);
+	EyeCoords.z = -1;
+	Mtx44 InvertView = viewStack.Top().GetInverse();
+	Vector3 WorldSpace = InvertView.Multi(EyeCoords, 0);
+	WorldSpace.Normalize();
+	CHENG_LOG("MOUSE DIR: ", vtos(WorldSpace));
+	return WorldSpace;
 }

@@ -9,6 +9,9 @@
     <None Include="Content\preferences.ini">
       <Filter>Resources</Filter>
     </None>
+    <None Include="Content\Map.chunk">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AnimatedMesh.cpp" />
@@ -81,7 +84,12 @@
     <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\UIButtonComponent.cpp" />
     <ClCompile Include="Source\InventoryScript.cpp" />
+    <ClCompile Include="Source\PlayerStatsScript.cpp" />
+    <ClCompile Include="Source\GenericSubject.cpp" />
+    <ClCompile Include="Source\ObserverBase.cpp" />
+    <ClCompile Include="Source\AudioObserver.cpp" />
     <ClCompile Include="Source\StaminaScript.cpp" />
+    <ClCompile Include="Source\MapSpawningScript.cpp" />
     <ClCompile Include="Source\GrenadeScript.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +170,12 @@
     <ClInclude Include="Source\BiomeComponent.h" />
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\InventoryScript.h" />
+    <ClInclude Include="Source\PlayerStatsScript.h" />
+    <ClInclude Include="Source\GenericSubject.h" />
+    <ClInclude Include="Source\ObserverBase.h" />
+    <ClInclude Include="Source\AudioObserver.h" />
     <ClInclude Include="Source\StaminaScript.h" />
+    <ClInclude Include="Source\MapSpawningScript.h" />
     <ClInclude Include="Source\GrenadeScript.h" />
   </ItemGroup>
   <ItemGroup>
