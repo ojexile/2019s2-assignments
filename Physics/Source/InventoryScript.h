@@ -8,9 +8,8 @@ class InventoryScript :
 private:
 	GameObject* m_Holding;
 	int m_iHoldingIndex;
-	int m_iNumInInventory;
 	GameObject* m_Weapon;
-	GameObject* m_List[INVENTORY_SIZE];
+	std::vector<GameObject*> m_InventoryItems;
 	std::vector<GameObject*> m_SlotList;
 	std::vector<GameObject*> m_WeaponSlotList;
 public:

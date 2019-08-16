@@ -8,11 +8,6 @@ InventoryScript::InventoryScript(GameObject* weapon, std::vector<GameObject*> li
 {
 	m_Weapon = weapon;
 	m_SlotList = list;
-	m_iNumInInventory = 0;
-	for (int i = 0; i < INVENTORY_SIZE; ++i)
-	{
-		m_List[i] = nullptr;
-	}
 	m_Holding = nullptr;
 	m_iHoldingIndex = -1;
 }
@@ -59,13 +54,13 @@ void InventoryScript::Update(double dt)
 		}
 		else
 		{
-			for (int i = 0; i < m_iNumInInventory; ++i)
+			for (unsigned i = 0; i < m_InventoryItems.size(); ++i)
 			{
 				if (m_SlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
 				{
-					if (!m_List[i])
+					if (!m_InventoryItems[i])
 						return;
-					GameObject* Part = m_List[i];
+					GameObject* Part = m_InventoryItems[i];
 					m_Holding = Part;
 					m_iHoldingIndex = i;
 					CHENG_LOG("Part added");
@@ -87,26 +82,24 @@ void InventoryScript::Update(double dt)
 }
 void InventoryScript::AddItem(GameObject* go)
 {
-	if (m_iNumInInventory < INVENTORY_SIZE)
+	if (m_InventoryItems.size() < INVENTORY_SIZE)
 	{
-		Vector3 pos = m_SlotList.at(m_iNumInInventory)->TRANS->GetPosition();
+		Vector3 pos = m_SlotList.at(m_InventoryItems.size())->TRANS->GetPosition();
 		Vector3 scal = { 20,20,1 };
 		GameObject* go2 = Instantiate(go, pos, scal, "UI");
 		go2->RIGID->SetAffectedByGravity(false);
-		m_List[m_iNumInInventory] = go2;
+		m_InventoryItems.push_back(go2);
 		Destroy(go);
-		++m_iNumInInventory;
 	}
 }
 
 void InventoryScript::Attach()
 {
-	GameObject* go = m_List[m_iHoldingIndex];
+	GameObject* go = m_InventoryItems[m_iHoldingIndex];
 	GameObject* cpy = Instantiate(go, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }, "Default", true);
 	cpy->RIGID->SetAffectedByGravity(false);
 	m_Weapon->AddChild(cpy);
 	m_Weapon->GetComponent<WeaponScript>()->AddPart(cpy);
 	Destroy(go);
-	go = nullptr;
-	--m_iNumInInventory;
+	m_InventoryItems.erase(m_InventoryItems.begin() + m_iHoldingIndex);
 }
