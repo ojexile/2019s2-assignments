@@ -2,6 +2,10 @@
 #include "ScriptComponent.h"
 #include "Rigidbody.h"
 #include "StopWatch.h"
+
+#define DAMAGE_TIME 1.f
+#define COLOR_TIME 0.5f
+
 /********************************************************************************/
 /*!
 \author Hao Cheng
@@ -44,7 +48,9 @@ public:
 	float GetMaxSpeed();
 	void SetHealth(float health);
 	float GetHealth();
-
+	StopWatch GetSW();
+	bool IsDamageAnim();
+	void SetDamageAnim(bool);
 	void Damage(float fDamage);
 };
 

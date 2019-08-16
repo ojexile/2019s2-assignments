@@ -1,7 +1,6 @@
 #include "EntityScript.h"
 
-#define DAMAGE_TIME 1.f
-#define COLOR_TIME 0.5f
+
 
 EntityScript::EntityScript()
 {
@@ -95,6 +94,19 @@ void EntityScript::SetHealth(float health)
 float EntityScript::GetHealth()
 {
 	return m_fHealth;
+}
+StopWatch EntityScript::GetSW()
+{
+	return m_SW;
+}
+bool EntityScript::IsDamageAnim()
+{
+	return m_bDamageAnim;
+}
+
+void EntityScript::SetDamageAnim(bool anim)
+{
+	m_bDamageAnim = anim;
 }
 void EntityScript::Damage(float fDamage)
 {
