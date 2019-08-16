@@ -25,7 +25,15 @@ void PlayerStatsScript::InitBulletUI()
 {
 	Vector3 vStartPos = { 30,900,0 };
 	float fOffset = -25;
-	for (int i = 0; i < m_iMaxMag; ++i)
+	if (m_BulletList.size() > 0)
+	{
+		for (int i = 0; i < m_iMaxMag; ++i)
+		{
+			Destroy(m_BulletList.at(i));
+		}
+	}
+	m_BulletList.clear();
+	for (int i = 0; i < m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds(); ++i)
 	{
 		Vector3 Pos = vStartPos + Vector3{0, i * fOffset, 0};
 		m_BulletList.push_back(Instantiate(m_BulletUIRef, Pos, "UI"));

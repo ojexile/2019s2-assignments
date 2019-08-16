@@ -107,11 +107,11 @@ void PlayerScript::UpdateMovement(double dt)
 		GetTransform()->SetRotation(-angle, 0, 1, 0);
 	}
 	//
-	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0)
+	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && m_Reticle->IsActive())
 	{
 		m_Gun->GUN->PullTrigger(vDir, dt);
 	}
-	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0)
+	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && m_Reticle->IsActive())
 	{
 		m_Gun->GUN->ReleaseTrigger();
 	}
