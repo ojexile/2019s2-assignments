@@ -1,5 +1,6 @@
 #include "Utility.h"
 #include <string>
+#include "Time.h"
 Position operator*(const Mtx44& lhs, const Position& rhs)
 {
 	float b[4];
@@ -17,7 +18,7 @@ Vector3 StringToVector(std::string s)
 }
 float Lerp(float start, float end, float rate)
 {
-	return start + rate * (end - start);
+	return start + (1 - pow(rate, Time::GetInstance()->GetDeltaTimeF())) * (end - start);
 }
 Vector3 Lerp(Vector3 start, Vector3 end, float rate)
 {
@@ -70,7 +71,7 @@ bool IsClose(Vector3 a, Vector3 b, float buffer)
 	}
 	return false;
 }
-std::string VectorToString(Vector3& v)
+std::string vtos(Vector3& v)
 {
 	std::string out;
 	out += "{";

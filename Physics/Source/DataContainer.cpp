@@ -60,7 +60,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Colors"] = LoadTGA("colors");
 	m_map_Textures["snow"] = LoadTGA("snow");
 	m_map_Textures["beachy"] = LoadTGA("beachy");
-
+	m_map_Textures["Ball"] = LoadTGA("Ball");
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
@@ -84,7 +84,7 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Ball");
 
-	m_map_Meshes["Stock"] = MeshBuilder::GenerateOBJ("Stock")->AddTexture("Ball");
+	m_map_Meshes["Stock"] = MeshBuilder::GenerateOBJ("Stock")->AddTexture("Revolver");
 
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
@@ -116,11 +116,11 @@ void  DataContainer::InitGO()
 	GameObject* go2 = nullptr;
 	///================================================================================
 	// Reticle--------------------------------------------------------------------------------
-	go = new GameObject();
-	m_map_GO["Reticle"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Reticle")));
-	go->RENDER->SetColor(0, 1, 1);
-	go->AddComponent(new ReticleScript);
+	//go = new GameObject();
+	//m_map_GO["Reticle"] = go;
+	//go->AddComponent(new RenderComponent(GetMesh("Reticle")));
+	//go->RENDER->SetColor(0, 1, 1);
+	//go->AddComponent(new ReticleScript);
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
@@ -173,6 +173,13 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
+	// BulletUI--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["BulletUI"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->RENDER->SetLightEnabled(false);
+	go->TRANS->SetScale(50, 20, 1);
 
 	// Interactabes--------------------------------------------------------------------------------
 	go = new GameObject();
