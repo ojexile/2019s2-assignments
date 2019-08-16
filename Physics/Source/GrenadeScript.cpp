@@ -76,7 +76,7 @@ void GrenadeScript::ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRe
 	Vector3 SpawnPos = GetPosition();
 
 	GameObject* Grenade = Instantiate(GrenadeRef, SpawnPos);
-	Grenade->RIGID->AddForce(1000 * dir);
+	Grenade->RIGID->AddForce(500 * dir);
 	Grenade->RIGID->SetAffectedByGravity(true);
 
 	--m_iGrenadeCount;

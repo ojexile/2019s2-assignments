@@ -12,7 +12,6 @@ class PlayerStatsScript :
 {
 private:
 	float m_fStamina;
-	float m_fHealth;
 	float m_fTime;
 
 	int m_iMaxMag;

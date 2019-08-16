@@ -61,10 +61,18 @@ void DefaultScene::Init()
 	StaminaBar->TRANS->SetPosition(50, 50, 0);
 	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	StaminaBar->RENDER->SetColor(1, 1, 0);
+
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(50, 1030, 0);
+	go->TRANS->SetScale(200, 50, 1);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
+
 	GameObject* HealthBar = m_GOM.AddGameObject("UI");
 	HealthBar->TRANS->SetPosition(50, 1030, 0);
 	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
+	
 	/// Player================================================================================
 	// Reticle
 	GameObject* ret = m_GOM.AddGameObject();
