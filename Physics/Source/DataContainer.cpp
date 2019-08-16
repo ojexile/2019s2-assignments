@@ -144,11 +144,12 @@ void  DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Grenade"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
-	go->RENDER->SetActive(false);
-	go->TRANS->SetScale(1);
-	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->RIGID->SetMass(0.5f);
-	go->AddComponent(new GrenadeScript(5.0, 50.0, 5));
+	//go->RENDER->SetActive(false);
+	go->TRANS->SetScale(0.5);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->RIGID->SetMass(0.25f);
+	go->RIGID->SetMat(0.9f, 0.f);
+	go->AddComponent(new GrenadeScript(3.0, 10.0, 2));
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;

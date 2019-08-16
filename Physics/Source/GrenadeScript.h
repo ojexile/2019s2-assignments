@@ -3,14 +3,14 @@
 class GrenadeScript : public ProjectileScript
 {
 public:
-	GrenadeScript(double Lifespan = 1.0, double Damage = 10., float ExplosionRadius = 5.);
+	GrenadeScript(float Lifespan = 1.0, float Damage = 10., float ExplosionRadius = 5.);
 	virtual ~GrenadeScript();
 
 	void Update(double deltaTime) override;
 	virtual void Collide(GameObject*) override;
 
 	void PullPin(void);
-	void ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRef, const double deltaTime);
+	void ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRef, const float deltaTime);
 
 	virtual ComponentBase* Clone() { return new GrenadeScript(*this); }
 
@@ -18,6 +18,12 @@ public:
 private:
 
 	float m_fExplosionRadius;
+	
+	float m_fExplosionDamage;
+
+	int m_iGrenadeCount;
+
 	bool m_bIsGrenadeCooking;
+	bool m_bHasExploded;
 };
 

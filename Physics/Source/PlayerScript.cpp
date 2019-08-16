@@ -14,7 +14,6 @@ PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun, GameObject* gre
 {
 	m_CurrentState = nullptr;
 	m_fJumpForce = 3000.f;
-	m_iNumberOfGrenades = 5;
 }
 
 PlayerScript::~PlayerScript()
@@ -32,6 +31,9 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	// Movement================================================================================
 	UpdateMovement(dt);
+	
+	m_Grenade->TRANS->SetPosition(GetPosition());
+
 	// m_Gun->TRANS->SetPosition(GetPosition());
 	// m_Gun->Update(dt);
 }
@@ -109,20 +111,14 @@ void PlayerScript::UpdateMovement(double dt)
 		m_Gun->GUN->ReleaseTrigger();
 	}
 
-	if (InputManager::GetInstance()->GetInputStrength("Grenades") != 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
+	if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
 	{
-		if (m_iNumberOfGrenades > 0)
-		{
-			--m_iNumberOfGrenades;
-			m_Grenade->GetComponent<GrenadeScript>()->PullPin();
-		}
+		m_Grenade->GetComponent<GrenadeScript>()->PullPin();
+		
 	}
-	if (InputManager::GetInstance()->GetInputStrength("Grenades") == 0 && !SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
+	else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
 	{
-		if (m_iNumberOfGrenades > 0)
-		{
-			m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, dt);
-		}
+		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, dt);
 	}
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))

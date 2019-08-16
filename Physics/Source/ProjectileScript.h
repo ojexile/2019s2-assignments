@@ -3,7 +3,7 @@
 class ProjectileScript : public ScriptComponent
 {
 public:
-	ProjectileScript(double Lifespan = 1.0, double Damage = 10.);
+	ProjectileScript(float Lifespan = 1.0, float Damage = 10.);
 	virtual ~ProjectileScript();
 
 	void Update(double deltaTime) override;
@@ -11,11 +11,11 @@ public:
 	virtual ComponentBase* Clone() { return new ProjectileScript(*this); }
 	virtual void Collide(GameObject*) override;
 
-	double getDamage();
-	double getLifespan();
+	float getDamage();
+	float getLifespan();
 
 protected:
-	double m_dDamage;
-	double m_dLifespan;
+	float m_fDamage;
+	float m_fLifespan;
 };
 

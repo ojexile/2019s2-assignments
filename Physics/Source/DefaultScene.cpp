@@ -64,16 +64,15 @@ void DefaultScene::Init()
 	ret->RENDER->SetColor(0, 1, 1);
 	ret->AddComponent(new ReticleScript());
 	//Gun------------------------------------------------------------------------------------
-	GameObject* gun = dataContainer->GetGameObject("Gun");
-	gun->TRANS->SetRelativePosition(1, 1, 0);
+	GameObject* Gun = dataContainer->GetGameObject("Gun");
+	Gun->TRANS->SetRelativePosition(1, 1, 0);
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
+	grenade->TRANS->SetRelativePosition(0, 1, 1);
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
-	Player->AddComponent(new PlayerScript(ret, Gun));
+	Player->AddComponent(new PlayerScript(ret, Gun, grenade));
 	Player->AddChild(Gun);
-	Player->AddComponent(new PlayerScript(go2, gun, grenade));
-	Player->AddChild(gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->RIGID->SetMat(0.9f, 0.f);
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));

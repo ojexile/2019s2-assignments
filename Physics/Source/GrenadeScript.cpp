@@ -2,10 +2,14 @@
 #include "EntityScript.h"
 
 
-GrenadeScript::GrenadeScript(double Lifespan, double Damage, float ExplosionRadius)
+GrenadeScript::GrenadeScript(float Lifespan, float Damage, float ExplosionRadius)
 	: ProjectileScript(Lifespan, Damage)
 	, m_fExplosionRadius(ExplosionRadius)
+	, m_bIsGrenadeCooking(false)
+	, m_bHasExploded(false)
 {
+	m_iGrenadeCount = 5;
+	m_fExplosionDamage = m_fDamage * 2;
 }
 
 
@@ -15,17 +19,23 @@ GrenadeScript::~GrenadeScript()
 
 void GrenadeScript::Update(double deltaTime)
 {
-	if (m_dLifespan >= 0.f)
-		m_dLifespan = m_dLifespan - deltaTime;
+	if (m_fLifespan >= 0.f)
+		m_fLifespan = m_fLifespan - static_cast<float>(deltaTime);
 	else
-		Explode();
+	{
+		if (!m_bHasExploded)
+			Explode();
+		else
+			DestroySelf();
+	}
 }
 
 void GrenadeScript::Explode(void)
 {
-	TRANS->SetScale(5);
+	TRANS->SetScale(m_fExplosionRadius);
 
-	m_dLifespan = m_dLifespan + 0.5;
+	m_fLifespan = m_fLifespan + 0.005f;
+	m_bHasExploded = true;
 }
 
 void GrenadeScript::Collide(GameObject* go)
@@ -34,26 +44,42 @@ void GrenadeScript::Collide(GameObject* go)
 	
 	if (es)
 	{
-		es->Damage(m_dDamage);
+		if (m_bHasExploded)
+		{
+			Vector3 relDir = go->TRANS->GetPosition() - GetPosition();
+
+			es->Damage(m_fExplosionDamage);
+			go->RIGID->AddForce(relDir.Normalize() * 1000);
+		}
+		else
+			es->Damage(m_fDamage);
 	}
-	/*DestroySelf();*/
 }
 
 void GrenadeScript::PullPin(void)
 {
-	m_bIsGrenadeCooking = true;
+	if (m_iGrenadeCount > 0 && !m_bIsGrenadeCooking)
+	{
+		RYAN_LOG("GRENADE THROW");
+		m_bIsGrenadeCooking = true;
+	}
 }
 
-void GrenadeScript::ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRef, const double deltaTime)
+void GrenadeScript::ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRef, const float deltaTime)
 {
 	if (!m_bIsGrenadeCooking)
 		return;
 
 	float scalarForce = 20.f;
 	Vector3 arcDir = dir.Normalized();
-	arcDir.y = arcDir.y + 2;
+	arcDir.y = arcDir.y + 4;
 	Vector3 SpawnPos = GetPosition();
 
 	GameObject* Grenade = Instantiate(GrenadeRef, SpawnPos);
-	Grenade->RIGID->AddForce(20 * dir);
+	Grenade->RIGID->AddForce(1000 * dir);
+	Grenade->RIGID->SetAffectedByGravity(true);
+
+	--m_iGrenadeCount;
+
+	m_bIsGrenadeCooking = false;
 }
