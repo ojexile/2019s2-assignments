@@ -60,7 +60,7 @@ void InventoryScript::Update(double dt)
 					default:
 						break;
 					}
-					CHENG_LOG("Part added");
+					// CHENG_LOG("Part added");
 					break;
 				}
 			}

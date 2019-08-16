@@ -50,7 +50,7 @@ void PlayerStatsScript::UpdateBulletUI()
 	m_iMag = m_Gun->GetComponent<WeaponScript>()->GetMagazineRounds();
 	for (int i = 0; i < m_iMaxMag; ++i)
 	{
-		if(i < m_iMag)
+		if (i < m_iMag)
 			m_BulletList.at(i)->SetActive(true);
 		else
 			m_BulletList.at(i)->SetActive(false);
@@ -67,7 +67,7 @@ void PlayerStatsScript::Update(double dt)
 	m_fStamina = Math::Clamp(m_fStamina, 0.f, 100.f);
 	m_Stamina->TRANS->SetScale(m_fStamina / 100 * 200, 50, 1);
 
-	CHENG_LOG(std::to_string(fHealth));
+	// CHENG_LOG(std::to_string(fHealth));
 	m_Health->TRANS->SetScale(fHealth / 100 * 200, 50, 1);
 	
 	UpdateBulletUI();

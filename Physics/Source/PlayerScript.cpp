@@ -144,7 +144,7 @@ void PlayerScript::UpdateMovement(double dt)
 		fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
 		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
 	}
-	CHENG_LOG("Player pos: ", vtos(GetPosition()));
+	// CHENG_LOG("Player pos: ", vtos(GetPosition()));
 }
 void PlayerScript::Collide(GameObject* go)
 {
@@ -152,7 +152,7 @@ void PlayerScript::Collide(GameObject* go)
 	if (ps)
 	{
 		GetComponent<InventoryScript>()->AddItem(go);
-		CHENG_LOG("Part Taken");
+		// CHENG_LOG("Part Taken");
 	}
 }
 void PlayerScript::Dash()

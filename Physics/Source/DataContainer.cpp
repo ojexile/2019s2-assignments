@@ -41,7 +41,7 @@ void DataContainer::Init()
 
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-	CHENG_LOG("Time to load container: ", std::to_string(elapsed_secs));
+	// CHENG_LOG("Time to load container: ", std::to_string(elapsed_secs));
 }
 
 void DataContainer::InitChunks()
