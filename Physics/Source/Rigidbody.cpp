@@ -20,6 +20,7 @@ Rigidbody::~Rigidbody()
 }
 void Rigidbody::Update(double dt)
 {
+	if (this->m_eType == ePhysicsTypes::NONE) return;
 	dt *= WorldValues::TimeScale;
 	if(m_iMapForceCount != 0) m_vForce += m_vMapForce * (1.f / m_iMapForceCount);
 	m_vMapForce.SetZero();
@@ -40,11 +41,9 @@ void Rigidbody::Update(double dt)
 	float coeff = m_PhyMat.GetFriction();
 
 	this->m_vVel += vAccel * (float)dt;
-	if(m_iVelChangeCount != 0) m_vVelChange* (1.f / m_iVelChangeCount);
+	if(m_iVelChangeCount != 0) this->m_vVel += m_vVelChange * (1.f / m_iVelChangeCount);
 	m_vVelChange.SetZero();
 	m_iVelChangeCount = 0;
-	m_vVel = m_vVel * this->m_PhyMat.GetFriction();
-	this->m_vVel += vAccel * (float)dt ;
 	// Air Resistance
 	float fric = m_PhyMat.GetFriction();
 	Vector3 vScale = TRANS->GetScale();

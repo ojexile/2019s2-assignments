@@ -92,7 +92,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RENDER->SetActive(true);
-	Player->TRANS->SetPosition(0, 18, 0);
+	Player->TRANS->SetPosition(418, 17, 0);
 	Player->TRANS->SetScale(0.5f);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
@@ -110,30 +110,30 @@ void DefaultScene::Init()
 	float aspect = WindowSize.x / WindowSize.y;
 	float size = 100;
 	this->m_Camera->InitOrtho(size);
-	SetCursorEnabled(false);
-	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
-	go->TRANS->SetPosition(10, 18.5, 5);
-	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
-	go->TRANS->SetPosition(20, 18.5, 26);
-	go = dataContainer->GetGameObject("Muzzle");
-	go->TRANS->SetScale(3);
-	Gun->AddChild(go);
-	Gun->GUN->AddPart(go);
-	go = dataContainer->GetGameObject("Stock");
-	go->TRANS->SetScale(3);
-	Gun->AddChild(go);
-	Gun->GUN->AddPart(go);
+	//SetCursorEnabled(false);
+	//// Enemy--------------------------------------------------------------------------------
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
+	//go->TRANS->SetPosition(10, 18.5, 5);
+	//// Enemy--------------------------------------------------------------------------------
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
+	//go->TRANS->SetPosition(20, 18.5, 26);
+	//go = dataContainer->GetGameObject("Muzzle");
+	//go->TRANS->SetScale(3);
+	//Gun->AddChild(go);
+	//Gun->GUN->AddPart(go);
+	//go = dataContainer->GetGameObject("Stock");
+	//go->TRANS->SetScale(3);
+	//Gun->AddChild(go);
+	//Gun->GUN->AddPart(go);
 	/// WORLD================================================================================
 	BiomeComponent::eBiomeTypes type = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type3 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	// Terrain================================================================================
 
-	// Parts
-	go = m_GOM.AddGameObject(GetGO("Muzzle"));
-	go->TRANS->SetPosition(28, 20, 26);
+	//// Parts
+	//go = m_GOM.AddGameObject(GetGO("Muzzle"));
+	//go->TRANS->SetPosition(28, 20, 26);
 
 	///interactable test
 
