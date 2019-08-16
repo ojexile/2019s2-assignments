@@ -33,6 +33,11 @@ void PlayerStatsScript::InitBulletUI()
 }
 void PlayerStatsScript::UpdateBulletUI()
 {
+	int iNewMaxMag = m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds();
+	if (iNewMaxMag != m_iMaxMag)
+	{
+		InitBulletUI();
+	}
 	m_iMaxMag = m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds();
 	m_iMag = m_Gun->GetComponent<WeaponScript>()->GetMagazineRounds();
 	for (int i = 0; i < m_iMaxMag; ++i)

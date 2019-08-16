@@ -126,14 +126,14 @@ void  DataContainer::InitGO()
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Muzzle")));
 	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
 	m_map_GO["Stock"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Stock")));
 	go->AddComponent(new WeaponPartScript(PartScript::CLIP, 2.0, 50));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
