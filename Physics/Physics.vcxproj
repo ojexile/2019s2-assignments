@@ -179,6 +179,7 @@
     <ClCompile Include="Source\DataContainer.cpp" />
     <ClCompile Include="Source\DefaultScene.cpp" />
     <ClCompile Include="Source\DepthFBO.cpp" />
+    <ClCompile Include="Source\DestructibleEntityScript.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
     <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
@@ -258,6 +259,7 @@
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\DefaultScene.h" />
     <ClInclude Include="Source\DepthFBO.h" />
+    <ClInclude Include="Source\DestructibleEntityScript.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\EntityScript.h" />
     <ClInclude Include="Source\FoilageGeneratorComponent.h" />

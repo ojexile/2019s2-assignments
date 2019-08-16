@@ -89,8 +89,8 @@
     <ClCompile Include="Source\GenericSubject.cpp" />
     <ClCompile Include="Source\ObserverBase.cpp" />
     <ClCompile Include="Source\AudioObserver.cpp" />
-    <ClCompile Include="Source\StaminaScript.cpp" />
     <ClCompile Include="Source\MapSpawningScript.cpp" />
+    <ClCompile Include="Source\DestructibleEntityScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -174,8 +174,8 @@
     <ClInclude Include="Source\GenericSubject.h" />
     <ClInclude Include="Source\ObserverBase.h" />
     <ClInclude Include="Source\AudioObserver.h" />
-    <ClInclude Include="Source\StaminaScript.h" />
     <ClInclude Include="Source\MapSpawningScript.h" />
+    <ClInclude Include="Source\DestructibleEntityScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
