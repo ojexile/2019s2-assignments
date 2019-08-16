@@ -3,7 +3,8 @@
 #include "AudioObserver.h"
 #include "AudioManager.h"
 #include "ChunkCollider.h"
-
+#include "InteractablesObserver.h"
+#include "InteractableObCom.h"
 #include "PlayerScript.h"
 #include "Utility.h"
 #include "CameraScript.h"
@@ -26,6 +27,7 @@ void DefaultScene::Init()
 	GameObject* go2 = nullptr;
 	/// Observers================================================================================
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
+	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
 	/// Layers================================================================================
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
@@ -67,6 +69,7 @@ void DefaultScene::Init()
 	ret->AddComponent(new RenderComponent(dataContainer->GetMesh("Reticle")));
 	ret->RENDER->SetColor(0, 1, 1);
 	ret->AddComponent(new ReticleScript());
+	ret->AddComponent(new InteractableObCom());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 1, 0);

@@ -91,6 +91,8 @@
     <ClCompile Include="Source\MapSpawningScript.cpp" />
     <ClCompile Include="Source\ObserverComponent.cpp" />
     <ClCompile Include="Source\Message.cpp" />
+    <ClCompile Include="Source\InteractablesObserver.cpp" />
+    <ClCompile Include="Source\InteractableObCom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -177,6 +179,8 @@
     <ClInclude Include="Source\MapSpawningScript.h" />
     <ClInclude Include="Source\ObserverComponent.h" />
     <ClInclude Include="Source\Message.h" />
+    <ClInclude Include="Source\InteractablesObserver.h" />
+    <ClInclude Include="Source\InteractableObCom.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

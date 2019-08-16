@@ -34,6 +34,7 @@ public:
 	void SetRelativeScale(float);
 	void ScaleBy(Vector3);
 	void SetRotation(float, int, int, int);
+	void SetRotation(float, float, float, float);
 	void SetRotation(float, Vector3);
 	void RotateBy(float, Vector3);
 	void SetPosition(float translateX = 0, float translateY = 0, float translateZ = 0);

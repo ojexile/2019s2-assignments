@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
-#include "Locator.h"
 #include <string>
-
+#include "Locator.h"
 class ComponentBase
 {
 private:
@@ -43,4 +42,6 @@ public:
 
 	// Function accessors
 	void Notify(ComponentBase* com, std::string msg);
+	Vector3 GetPosition();
+
 };
