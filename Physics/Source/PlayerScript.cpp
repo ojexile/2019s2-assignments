@@ -5,10 +5,12 @@
 #include "InputManager.h"
 #include "CameraScript.h"
 #include "WeaponScript.h"
+#include "GrenadeScript.h"
 #include "InventoryScript.h"
-PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun)
+PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun, GameObject* grenade)
 	: m_Reticle(Reticle)
 	, m_Gun(gun)
+	, m_Grenade(grenade)
 {
 	m_CurrentState = nullptr;
 	m_fJumpForce = 2000.f;
@@ -29,6 +31,9 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	// Movement================================================================================
 	UpdateMovement(dt);
+	
+	m_Grenade->TRANS->SetPosition(GetPosition());
+
 	// m_Gun->TRANS->SetPosition(GetPosition());
 	// m_Gun->Update(dt);
 }
@@ -109,6 +114,16 @@ void PlayerScript::UpdateMovement(double dt)
 	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0)
 	{
 		m_Gun->GUN->ReleaseTrigger();
+	}
+
+	if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
+	{
+		m_Grenade->GetComponent<GrenadeScript>()->PullPin();
+		
+	}
+	else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
+	{
+		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, dt);
 	}
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))

@@ -24,11 +24,7 @@ WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int i
 
 WeaponScript::~WeaponScript()
 {
-	//if (m_Projectile)
-	//{
-	//	delete m_Projectile;
-	//	m_Projectile = nullptr;
-	//}
+
 }
 
 void WeaponScript::PullTrigger(const Vector3& dir, const double deltaTime)
