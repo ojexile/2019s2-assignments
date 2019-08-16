@@ -6,9 +6,15 @@ DestructibleEntityScript::DestructibleEntityScript()
 	m_particleSpawnerRef = nullptr;
 }
 
+DestructibleEntityScript::DestructibleEntityScript(GameObject * m_particleSpawnerRef)
+	: EntityScript()
+{
+	this->m_particleSpawnerRef = m_particleSpawnerRef;
+}
+
 DestructibleEntityScript::~DestructibleEntityScript()
 {
-	delete m_particleSpawnerRef;
+	// delete m_particleSpawnerRef;
 }
 
 void DestructibleEntityScript::Update(double dt)
