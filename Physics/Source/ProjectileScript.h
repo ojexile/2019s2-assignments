@@ -1,5 +1,12 @@
 #pragma once
 #include "ScriptComponent.h"
+/********************************************************************************/
+/*!
+\author Ryan Tan Zheng Rong
+\brief
+Script to handle general Projectile Behaviour.
+/*!
+/********************************************************************************/
 class ProjectileScript : public ScriptComponent
 {
 public:

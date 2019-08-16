@@ -1,5 +1,14 @@
 #pragma once
 #include "ProjectileScript.h"
+
+/********************************************************************************/
+/*!
+\author Ryan Tan Zheng Rong
+\brief
+ Script to handle Grenade behaviour (Explosion, cooking)
+/*!
+/********************************************************************************/
+
 class GrenadeScript : public ProjectileScript
 {
 public:
