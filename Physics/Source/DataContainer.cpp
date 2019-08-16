@@ -13,6 +13,7 @@
 #include "ReticleScript.h"
 #include "PlayerScript.h"
 #include "WeaponScript.h"
+#include "DestructibleEntityScript.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -102,7 +103,7 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
 	
-	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", { 1,1,1 });
+	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", { 1,1,1 }, 10.f);
 }
 void  DataContainer::InitTerrain()
 {
@@ -186,13 +187,6 @@ void  DataContainer::InitGO()
 
 	// Interactabes--------------------------------------------------------------------------------
 	go = new GameObject();
-	m_map_GO["plaintree"] = go;
-	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetMat(0.9f, 0);
-	go->AddComponent(new EntityScript());
-
-	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
 	go->GetComponent<RenderComponent>()->SetColor(255.f, 153.f, 51.f);
@@ -201,8 +195,14 @@ void  DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["particlespawnerdestroy"] = go;
-	go->AddComponent(new ParticleSpawnerScript(m_map_GO["particledestroy"], 100, Vector3(1.f, 1.f, 1.f ), 0.5f));
+	go->AddComponent(new ParticleSpawnerScript(m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", -10.f));
 
+	go = new GameObject();
+	m_map_GO["plaintree"] = go;
+	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetMat(0.9f, 0);
+	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
 
 }
 void  DataContainer::InitShaders()
