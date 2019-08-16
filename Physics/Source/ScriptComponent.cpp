@@ -145,5 +145,5 @@ Vector3 ScriptComponent::GetPosition()
 }
 void ScriptComponent::Notify(std::string msg)
 {
-	GenericSubject::GetInstance()->Notify(this, msg);
+	GenericSubject::GetInstance()->NotifySubject(this, msg);
 }

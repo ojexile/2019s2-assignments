@@ -88,8 +88,9 @@
     <ClCompile Include="Source\GenericSubject.cpp" />
     <ClCompile Include="Source\ObserverBase.cpp" />
     <ClCompile Include="Source\AudioObserver.cpp" />
-    <ClCompile Include="Source\StaminaScript.cpp" />
     <ClCompile Include="Source\MapSpawningScript.cpp" />
+    <ClCompile Include="Source\ObserverComponent.cpp" />
+    <ClCompile Include="Source\Message.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -173,8 +174,9 @@
     <ClInclude Include="Source\GenericSubject.h" />
     <ClInclude Include="Source\ObserverBase.h" />
     <ClInclude Include="Source\AudioObserver.h" />
-    <ClInclude Include="Source\StaminaScript.h" />
     <ClInclude Include="Source\MapSpawningScript.h" />
+    <ClInclude Include="Source\ObserverComponent.h" />
+    <ClInclude Include="Source\Message.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

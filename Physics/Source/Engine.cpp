@@ -6,6 +6,7 @@
 #include "Resources.h"
 #include "Utility.h"
 #include "DataContainer.h"
+#include "ObserverComponent.h"
 // Start Scene
 #include "DefaultScene.h"
 Renderer* Engine::m_Renderer;

@@ -1,6 +1,7 @@
 #include "ComponentBase.h"
 #include "SceneManager.h"
 #include "DataContainer.h"
+#include "GenericSubject.h"
 ComponentBase::ComponentBase()
 	: m_vec_RefList{ nullptr }
 	, m_bStarted{ false }
@@ -53,4 +54,8 @@ bool ComponentBase::IsStarted()
 void ComponentBase::SetStarted(bool b)
 {
 	m_bStarted = b;
+}
+void ComponentBase::Notify(ComponentBase* com, std::string msg)
+{
+	GenericSubject::GetInstance()->NotifySubject(com, msg);
 }

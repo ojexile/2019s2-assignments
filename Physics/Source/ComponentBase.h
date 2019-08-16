@@ -40,4 +40,7 @@ public:
 	void SetActive(bool b);
 	bool IsStarted();
 	void SetStarted(bool);
+
+	// Function accessors
+	void Notify(ComponentBase* com, std::string msg);
 };
