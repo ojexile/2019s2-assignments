@@ -36,5 +36,24 @@ void GrenadeScript::Collide(GameObject* go)
 	{
 		es->Damage(m_dDamage);
 	}
-	DestroySelf();
+	/*DestroySelf();*/
+}
+
+void GrenadeScript::PullPin(void)
+{
+	m_bIsGrenadeCooking = true;
+}
+
+void GrenadeScript::ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRef, const double deltaTime)
+{
+	if (!m_bIsGrenadeCooking)
+		return;
+
+	float scalarForce = 20.f;
+	Vector3 arcDir = dir.Normalized();
+	arcDir.y = arcDir.y + 2;
+	Vector3 SpawnPos = GetPosition();
+
+	GameObject* Grenade = Instantiate(GrenadeRef, SpawnPos);
+	Grenade->RIGID->AddForce(20 * dir);
 }

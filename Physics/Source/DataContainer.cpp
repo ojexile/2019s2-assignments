@@ -145,6 +145,7 @@ void  DataContainer::InitGO()
 	m_map_GO["Grenade"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->RENDER->SetActive(false);
+	go->TRANS->SetScale(1);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.5f);
 	go->AddComponent(new GrenadeScript(5.0, 50.0, 5));

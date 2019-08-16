@@ -28,7 +28,6 @@ public:
 	}
 
 	void Update(double dt) override;
-	void ThrowGrenade(void);
 	virtual void Start() override;
 	virtual void Collide(GameObject*) override;
 };
