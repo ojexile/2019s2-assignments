@@ -39,7 +39,10 @@ void Rigidbody::Update(double dt)
 	// Friction
 	float coeff = m_PhyMat.GetFriction();
 
-	this->m_vVel += vAccel * (float)dt ;
+	this->m_vVel += vAccel * (float)dt;
+	if(m_iVelChangeCount != 0) m_vVelChange* (1.f / m_iVelChangeCount);
+	m_vVelChange.SetZero();
+	m_iVelChangeCount = 0;
 	m_vVel = m_vVel * this->m_PhyMat.GetFriction();
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
@@ -79,6 +82,11 @@ void Rigidbody::AddForce(Vector3 v)
 Vector3 Rigidbody::GetVel()
 {
 		return m_vVel;
+}
+void Rigidbody::QueueVel(Vector3 v)
+{
+	m_vVelChange += v;
+	m_iVelChangeCount += 1;
 }
 Vector3 Rigidbody::GetAVel()
 {

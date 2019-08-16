@@ -6,6 +6,7 @@ class MapSpawningScript :
 	public ScriptComponent
 {
 private:
+	std::map<Vector3, std::map<unsigned char, unsigned int>> m_connections;
 	std::set<Vector3> m_spawnedLocations;
 public:
 	MapSpawningScript();

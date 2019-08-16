@@ -176,8 +176,9 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameO
 			}
 			if (shortestDirection.IsZero() || shortestMagnitude < 0.0003) return Rigidbody::ePhysicsTypes::NONE;
 			go1->GetComponent<Rigidbody>()->QueueMapForce(shortestDirection * shortestMagnitude * 800);
-			//Vector3 vel = go1->RIGID->GetVel();
-			//go1->GetComponent<Rigidbody>()->SetVel(vel);
+			Vector3 vel = go1->RIGID->GetVel();
+			
+			go1->GetComponent<Rigidbody>()->QueueVel(-2 * shortestDirection * (vel.Dot(shortestDirection)));
 		}
 #endif
 		DEFAULT_LOG("Collision!");
