@@ -1,5 +1,6 @@
 #include "EntityScript.h"
 #include "PlayerScript.h"
+#include "LootScript.h"
 
 
 
@@ -31,6 +32,10 @@ void EntityScript::Update(double dt)
 	// Check death
 	if (m_fHealth <= 0 && !this->GetComponent<PlayerScript>())
 	{
+		if (this->LOOT)
+		{
+			this->LOOT->DropLoot();
+		}
 		Notify("EntityDied");
 		DestroySelf(); // should switch to play death anim
 		return;
