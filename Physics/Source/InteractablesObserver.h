@@ -1,12 +1,13 @@
 #pragma once
 #include "ObserverBase.h"
-#include "ComponentBase.h"
-class AudioObserver :
+class InteractablesObserver :
 	public ObserverBase
 {
 public:
-	AudioObserver();
-	virtual ~AudioObserver();
+	InteractablesObserver();
+	virtual ~InteractablesObserver();
+
 
 	virtual void Notify(ComponentBase* com, std::string msg, std::vector<GameObject*>* OBComList) override;
 };
+

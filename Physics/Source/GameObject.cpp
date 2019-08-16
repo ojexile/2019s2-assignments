@@ -43,6 +43,7 @@ GameObject::~GameObject()
 	// m_vec_ComponentList.clear();
 	// m_vec_ChildList.clear();
 }
+
 ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 {
 	// TODO check if component already exists?
