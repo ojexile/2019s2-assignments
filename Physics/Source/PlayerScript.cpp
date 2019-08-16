@@ -123,7 +123,7 @@ void PlayerScript::UpdateMovement(double dt)
 	}
 	else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
 	{
-		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, dt);
+		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, (float)dt);
 	}
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
