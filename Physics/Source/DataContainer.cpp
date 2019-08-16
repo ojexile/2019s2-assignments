@@ -173,6 +173,13 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
+	// CustomiseSlot--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["CustomiseSlot"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->RENDER->SetLightEnabled(false);
+	go->TRANS->SetScale(100);
 	// BulletUI--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BulletUI"] = go;
