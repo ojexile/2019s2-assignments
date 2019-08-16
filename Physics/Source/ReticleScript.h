@@ -1,10 +1,11 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "ChunkData.h"
 /********************************************************************************/
 /*!
 \author Hao Cheng
 \brief
-Scrippt to handle reticle movement. The reticle is a child of camera GO. Camera GO has no rotation as it uses a dir vector.
+Script to handle reticle movement. The reticle is a child of camera GO. Camera GO has no rotation as it uses a dir vector.
 /*!
 /********************************************************************************/
 class ReticleScript :

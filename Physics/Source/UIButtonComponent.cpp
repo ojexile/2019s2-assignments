@@ -28,9 +28,9 @@ void UIButtonComponent::Update(double dt)
 	// Check collision
 	Vector3 vMin = PosRel - vScaleRel * 0.5f;
 	Vector3 vMax = PosRel + vScaleRel * 0.5f;
-	CHENG_LOG("Min: ", VectorToString(vMin));
-	CHENG_LOG("Mouse: ", VectorToString(MousePos));
-	CHENG_LOG("Max: ", VectorToString(vMax));
+	//CHENG_LOG("Min: ", VectorToString(vMin));
+	//CHENG_LOG("Mouse: ", VectorToString(MousePos));
+	//CHENG_LOG("Max: ", VectorToString(vMax));
 	if (MousePos.x >= vMin.x && MousePos.y >= vMin.y)
 	{
 		if (MousePos.x <= vMax.x && MousePos.y <= vMax.y)
@@ -42,10 +42,10 @@ void UIButtonComponent::Update(double dt)
 	}
 	else
 		m_bIsHover = false;
-	if (m_bIsHover)
-		CHENG_LOG("Coll", "YES");
-	else
-		CHENG_LOG("Coll", "NO");
+	//if (m_bIsHover)
+	//	CHENG_LOG("Coll", "YES");
+	//else
+	//	CHENG_LOG("Coll", "NO");
 }
 bool UIButtonComponent::GetHover()
 {

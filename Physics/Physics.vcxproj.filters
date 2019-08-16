@@ -9,6 +9,9 @@
     <None Include="Content\preferences.ini">
       <Filter>Resources</Filter>
     </None>
+    <None Include="Content\Map.chunk">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AnimatedMesh.cpp" />
@@ -80,7 +83,21 @@
     <ClCompile Include="Source\ReticleScript.cpp" />
     <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\UIButtonComponent.cpp" />
+    <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
     <ClCompile Include="Source\InventoryScript.cpp" />
+    <ClCompile Include="Source\PlayerStatsScript.cpp" />
+    <ClCompile Include="Source\GenericSubject.cpp" />
+    <ClCompile Include="Source\ObserverBase.cpp" />
+    <ClCompile Include="Source\AudioObserver.cpp" />
+    <ClCompile Include="Source\MapSpawningScript.cpp" />
+    <ClCompile Include="Source\ObserverComponent.cpp" />
+    <ClCompile Include="Source\Message.cpp" />
+    <ClCompile Include="Source\InteractablesObserver.cpp" />
+    <ClCompile Include="Source\InteractableObCom.cpp" />
+    <ClCompile Include="Source\GrenadeScript.cpp" />
+    <ClCompile Include="Source\LootScript.cpp" />
+    <ClCompile Include="Source\ParticleObserver.cpp" />
+    <ClCompile Include="Source\DestructibleEntityScript.cpp" />
     <ClCompile Include="Source\StaminaScript.cpp" />
     <ClCompile Include="Source\MiscellaneousPartScript.cpp" />
   </ItemGroup>
@@ -162,6 +179,19 @@
     <ClInclude Include="Source\BiomeComponent.h" />
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\InventoryScript.h" />
+    <ClInclude Include="Source\PlayerStatsScript.h" />
+    <ClInclude Include="Source\GenericSubject.h" />
+    <ClInclude Include="Source\ObserverBase.h" />
+    <ClInclude Include="Source\AudioObserver.h" />
+    <ClInclude Include="Source\MapSpawningScript.h" />
+    <ClInclude Include="Source\DestructibleEntityScript.h" />
+    <ClInclude Include="Source\ObserverComponent.h" />
+    <ClInclude Include="Source\Message.h" />
+    <ClInclude Include="Source\InteractablesObserver.h" />
+    <ClInclude Include="Source\InteractableObCom.h" />
+    <ClInclude Include="Source\GrenadeScript.h" />
+    <ClInclude Include="Source\LootScript.h" />
+    <ClInclude Include="Source\ParticleObserver.h" />
     <ClInclude Include="Source\StaminaScript.h" />
     <ClInclude Include="Source\MiscellaneousPartScript.h" />
   </ItemGroup>
@@ -169,5 +199,6 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{7b08675f-3044-469b-80bc-df9d9748cb2a}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="Source\FoilageGeneratorComponent.h" />
   </ItemGroup>
 </Project>

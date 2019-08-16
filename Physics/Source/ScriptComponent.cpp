@@ -1,6 +1,7 @@
 #include "ScriptComponent.h"
 #include "SceneManager.h"
 #include "DataContainer.h"
+#include "GenericSubject.h"
 ScriptComponent::ScriptComponent()
 {
 }
@@ -134,11 +135,11 @@ LightManager* ScriptComponent::GetLightManager()
 {
 	return SceneManager::GetInstance()->GetScene()->GetLightManager();
 }
-TransformComponent*  ScriptComponent::GetTransform()
+TransformComponent* ScriptComponent::GetTransform()
 {
 	return GetComponent<TransformComponent>();
 }
-Vector3 ScriptComponent::GetPosition()
+void ScriptComponent::Notify(std::string msg)
 {
-	return GetTransform()->GetPosition();
+	GenericSubject::GetInstance()->NotifySubject(this, msg);
 }

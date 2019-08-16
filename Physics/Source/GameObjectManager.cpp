@@ -96,7 +96,7 @@ void GameObjectManager::Destroy(GameObject* go)
 }
 bool GameObjectManager::SearchDestroyChild(GameObject* go, GameObject* curgo)
 {
-	for (int i = 0; i < curgo->m_vec_ChildList.size(); ++i)
+	for (unsigned i = 0; i < curgo->m_vec_ChildList.size(); ++i)
 	{
 		GameObject* child = curgo->m_vec_ChildList.at(i);
 		if (child == go)

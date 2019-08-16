@@ -5,12 +5,14 @@
 
 #include <vector>
 
-/********************************************************************************
-Author: Ryan Tan Zheng Rong
-Brief: Script to handle weapon behaviours such as Firing, Shooting, Reloading
+/********************************************************************************/
+/*!
+\author Ryan Tan Zheng Rong
+\brief
+ Script to handle weapon behaviours such as Firing, Shooting, Reloading
 	   etc.
-********************************************************************************/
-
+/*!
+/********************************************************************************/
 class WeaponScript : public ScriptComponent
 {
 public:
@@ -32,6 +34,12 @@ public:
 	void UpdateStats(GameObject* go, bool Multiply);
 
 	void AddPart(GameObject* part);
+
+	int GetAmmo();
+	int GetMaxAmmo();
+
+	int GetMagazineRounds();
+	int GetMaxMagazineRounds();
 
 	virtual ComponentBase* Clone(){return new WeaponScript(*this);}
 

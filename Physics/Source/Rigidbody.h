@@ -23,6 +23,8 @@ private:
 
 	Vector3 m_vVel;
 	Vector3 m_vForce;
+	Vector3 m_vMapForce;
+	int m_iMapForceCount;
 
 	Vector3 m_vGravityExponent;
 	// PhysicsMat m_PhysicsMat
@@ -68,7 +70,7 @@ public:
 	void SetAffectedByGravity(bool);
 	void ClampVel(float max);
 	void ClampVelXZ(float max);
-
+	void QueueMapForce(Vector3);
 	void SetResponseActive(bool);
 	bool GetResponseActive();
 };

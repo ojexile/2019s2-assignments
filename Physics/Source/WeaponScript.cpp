@@ -24,11 +24,7 @@ WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int i
 
 WeaponScript::~WeaponScript()
 {
-	//if (m_Projectile)
-	//{
-	//	delete m_Projectile;
-	//	m_Projectile = nullptr;
-	//}
+
 }
 
 void WeaponScript::PullTrigger(const Vector3& dir, const double deltaTime)
@@ -179,7 +175,7 @@ void WeaponScript::AddPart(GameObject* part)
 		case PartScript::SCOPE:
 		{
 			m_ScopeParts.push_back(part);
-			part->TRANS->SetRelativePosition(1 * m_ScopeParts.size(), 0.5, 0);
+			part->TRANS->SetRelativePosition(0.5 * m_ScopeParts.size(), 0.5, 0);
 			break;
 		}
 		case PartScript::MUZZLE:
@@ -198,7 +194,7 @@ void WeaponScript::AddPart(GameObject* part)
 		case PartScript::GRIP:
 		{
 			m_GripParts.push_back(part);
-			part->TRANS->SetRelativePosition(-2 * m_GripParts.size(), 0, 0);
+			part->TRANS->SetRelativePosition((-1.0 * m_GripParts.size()), 0, 0);
 			break;
 		}
 		default:
@@ -254,4 +250,24 @@ void WeaponScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const
 				break;
 		}
 	}
+}
+
+int WeaponScript::GetAmmo()
+{
+	return m_iAmmo;
+}
+
+int WeaponScript::GetMaxAmmo()
+{
+	return m_iAmmo_Max;
+}
+
+int WeaponScript::GetMagazineRounds()
+{
+	return m_iMagazineRounds;
+}
+
+int WeaponScript::GetMaxMagazineRounds()
+{
+	return m_iMagazineRounds_Max;
 }

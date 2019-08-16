@@ -35,6 +35,10 @@ Update
 
 void TransformComponent::Update(double dt)
 {
+	if (m_iQueuedTranslationCount != 0)
+	m_vPosition += m_vQueuedTranslation * (1.f / m_iQueuedTranslationCount);
+	m_vQueuedTranslation.SetZero();
+	m_iQueuedTranslationCount = 0;
 }
 
 /***************
@@ -68,6 +72,11 @@ void TransformComponent::ScaleBy(Vector3 v)
 }
 
 void TransformComponent::SetRotation(float degrees, int xAxis, int yAxis, int zAxis)
+{
+	this->m_vRotateAxis.Set((float)xAxis, (float)yAxis, (float)zAxis);
+	this->m_fDegrees = degrees;
+}
+void TransformComponent::SetRotation(float degrees, float xAxis, float yAxis, float zAxis)
 {
 	this->m_vRotateAxis.Set((float)xAxis, (float)yAxis, (float)zAxis);
 	this->m_fDegrees = degrees;
@@ -114,6 +123,11 @@ void TransformComponent::Translate(float translateX, float translateY, float tra
 void TransformComponent::Translate(Vector3 arg)
 {
 	m_vPosition += arg;
+}
+void TransformComponent::QueueTranslate(Vector3 arg)
+{
+	m_vQueuedTranslation += arg;
+	m_iQueuedTranslationCount++;
 }
 void TransformComponent::TranslateRelative(float translateX, float translateY, float translateZ)
 {

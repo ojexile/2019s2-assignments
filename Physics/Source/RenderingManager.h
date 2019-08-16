@@ -27,6 +27,7 @@ public:
 	virtual void RenderPassGPass(Scene* scene);
 	virtual void RenderPassMain(Scene* scene);
 	virtual void RenderWorld(Scene* scene);
+	static Vector3 MouseWorldDir();
 protected:
 	RenderingManager();
 	virtual ~RenderingManager();

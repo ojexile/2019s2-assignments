@@ -1,7 +1,8 @@
 #include "EntityScript.h"
+#include "PlayerScript.h"
+#include "LootScript.h"
 
-#define DAMAGE_TIME 1.f
-#define COLOR_TIME 0.5f
+
 
 EntityScript::EntityScript()
 {
@@ -29,8 +30,13 @@ void EntityScript::CheckInit()
 void EntityScript::Update(double dt)
 {
 	// Check death
-	if (m_fHealth <= 0)
+	if (m_fHealth <= 0 && !this->GetComponent<PlayerScript>())
 	{
+		if (this->LOOT)
+		{
+			this->LOOT->DropLoot();
+		}
+		Notify("EntityDied");
 		DestroySelf(); // should switch to play death anim
 		return;
 	}
@@ -71,6 +77,43 @@ void EntityScript::SetMovementSpeed(float Force, float Max)
 {
 	m_fMoveForce = Force;
 	m_fMaxSpeed = Max;
+}
+void EntityScript::SetForce(float force)
+{
+	m_fMoveForce = force;
+}
+float EntityScript::GetForce()
+{
+	return m_fMoveForce;
+}
+void EntityScript::SetMaxSpeed(float maxspeed)
+{
+	m_fMaxSpeed = maxspeed;
+}
+float EntityScript::GetMaxSpeed()
+{
+	return m_fMaxSpeed;
+}
+void EntityScript::SetHealth(float health)
+{
+	m_fHealth = health;
+}
+float EntityScript::GetHealth()
+{
+	return m_fHealth;
+}
+StopWatch EntityScript::GetSW()
+{
+	return m_SW;
+}
+bool EntityScript::IsDamageAnim()
+{
+	return m_bDamageAnim;
+}
+
+void EntityScript::SetDamageAnim(bool anim)
+{
+	m_bDamageAnim = anim;
 }
 void EntityScript::Damage(float fDamage)
 {

@@ -2,6 +2,10 @@
 #include "ScriptComponent.h"
 #include "Rigidbody.h"
 #include "StopWatch.h"
+
+#define DAMAGE_TIME 1.f
+#define COLOR_TIME 0.5f
+
 /********************************************************************************/
 /*!
 \author Hao Cheng
@@ -36,7 +40,17 @@ public:
 	virtual ~EntityScript();
 	virtual ComponentBase* Clone() { return new EntityScript(*this); };
 	virtual void Update(double dt) override;
+
 	void SetMovementSpeed(float Force, float Max);
+	void SetForce(float force);
+	float GetForce();
+	void SetMaxSpeed(float maxspeed);
+	float GetMaxSpeed();
+	void SetHealth(float health);
+	float GetHealth();
+	StopWatch GetSW();
+	bool IsDamageAnim();
+	void SetDamageAnim(bool);
 	void Damage(float fDamage);
 };
 

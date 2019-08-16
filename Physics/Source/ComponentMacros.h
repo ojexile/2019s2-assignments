@@ -8,5 +8,6 @@
 #define CONSTRAIN GetComponent<Constrain>()
 #define PART GetComponent<PartScript>()
 #define GUN GetComponent<WeaponScript>()
+#define LOOT GetComponent<LootScript>()
 
 typedef std::vector<unsigned char> _heightmap;

@@ -4,7 +4,7 @@
 class WeaponPartScript : public PartScript
 {
 public:
-	WeaponPartScript(SLOT_TYPE slot, double Multiplier, float durability);
+	WeaponPartScript(SLOT_TYPE slot, float Multiplier, float durability, bool isAttached = false);
 	virtual ~WeaponPartScript();
 
 
