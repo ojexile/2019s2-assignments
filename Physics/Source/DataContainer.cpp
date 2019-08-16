@@ -101,6 +101,8 @@ void  DataContainer::InitMeshes()
 	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
 
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
+	
+	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", { 1,1,1 });
 }
 void  DataContainer::InitTerrain()
 {
@@ -181,13 +183,26 @@ void  DataContainer::InitGO()
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(50, 20, 1);
 
+
 	// Interactabes--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["plaintree"] = go;
 	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMat(0.9f, 0);
-	 go->AddComponent(new EntityScript());
+	go->AddComponent(new EntityScript());
+
+	go = new GameObject();
+	m_map_GO["particledestroy"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
+	go->GetComponent<RenderComponent>()->SetColor(255.f, 153.f, 51.f);
+	go->GetComponent<RenderComponent>()->SetBillboard(true);
+	go->AddComponent(new ParticleScript(1.f, Vector3(0.f, 1.f, 0.f), Vector3(0.f, 100.f, 0.f), Vector3(), Vector3(), Vector3(1.f, 1.f, 1.f)));
+
+	go = new GameObject();
+	m_map_GO["particlespawnerdestroy"] = go;
+	go->AddComponent(new ParticleSpawnerScript(m_map_GO["particledestroy"], 100, Vector3(1.f, 1.f, 1.f ), 0.5f));
+
 
 }
 void  DataContainer::InitShaders()
