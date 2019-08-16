@@ -210,6 +210,7 @@
     <ClCompile Include="Source\MouseManager.cpp" />
     <ClCompile Include="Source\ObserverBase.cpp" />
     <ClCompile Include="Source\ObserverComponent.cpp" />
+    <ClCompile Include="Source\ParticleObserver.cpp" />
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\PartScript.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="Source\MouseManager.h" />
     <ClInclude Include="Source\ObserverBase.h" />
     <ClInclude Include="Source\ObserverComponent.h" />
+    <ClInclude Include="Source\ParticleObserver.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
     <ClInclude Include="Source\PartScript.h" />

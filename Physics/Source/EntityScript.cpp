@@ -31,6 +31,7 @@ void EntityScript::Update(double dt)
 	// Check death
 	if (m_fHealth <= 0)
 	{
+		Notify("EntityDied");
 		DestroySelf(); // should switch to play death anim
 		return;
 	}

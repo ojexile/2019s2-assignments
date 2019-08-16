@@ -147,7 +147,7 @@ void Engine::Update(double dt)
 }
 void Engine::CheckGOForObserver(GameObject* go, std::vector<GameObject*>* GOList)
 {
-	if (go->GetComponent<ObserverComponent>())
+	if (go->GetComponent<ObserverComponent>(true))
 	{
 		GOList->push_back(go);
 	}

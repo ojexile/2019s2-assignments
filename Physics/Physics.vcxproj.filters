@@ -93,6 +93,7 @@
     <ClCompile Include="Source\Message.cpp" />
     <ClCompile Include="Source\InteractablesObserver.cpp" />
     <ClCompile Include="Source\InteractableObCom.cpp" />
+    <ClCompile Include="Source\ParticleObserver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Source\Message.h" />
     <ClInclude Include="Source\InteractablesObserver.h" />
     <ClInclude Include="Source\InteractableObCom.h" />
+    <ClInclude Include="Source\ParticleObserver.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

@@ -13,6 +13,7 @@
 #include "WeaponScript.h"
 #include "PlayerStatsScript.h"
 #include "ReticleScript.h"
+#include "ParticleObserver.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -28,6 +29,7 @@ void DefaultScene::Init()
 	/// Observers================================================================================
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
+	GenericSubject::GetInstance()->AddObserver(new ParticleObserver);
 	/// Layers================================================================================
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
@@ -69,7 +71,6 @@ void DefaultScene::Init()
 	ret->AddComponent(new RenderComponent(dataContainer->GetMesh("Reticle")));
 	ret->RENDER->SetColor(0, 1, 1);
 	ret->AddComponent(new ReticleScript());
-	ret->AddComponent(new InteractableObCom());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 1, 0);

@@ -11,7 +11,7 @@ PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun)
 	, m_Gun(gun)
 {
 	m_CurrentState = nullptr;
-	m_fJumpForce = 3000.f;
+	m_fJumpForce = 2000.f;
 }
 
 PlayerScript::~PlayerScript()
@@ -145,5 +145,5 @@ void PlayerScript::Dash()
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
 	if (!vDir.IsZero())
 		vDir.Normalize();
-	RIGID->AddForce(vDir * 3000);
+	RIGID->AddForce(vDir * 2000);
 }

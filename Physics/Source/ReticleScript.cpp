@@ -79,6 +79,5 @@ void ReticleScript::Update(double dt)
 	{
 		TRANS->SetPosition(StartPos + Offset * Dir * (float)(SmallestDist - 1));
 		CHENG_LOG("Collide Chunk");
-		CHENG_LOG("ReticlePos", vtos(GetPosition()));
 	}
 }

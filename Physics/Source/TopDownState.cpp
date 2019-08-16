@@ -25,5 +25,5 @@ void TopDownState::OnEnter(ComponentBase* com)
 {
 	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetPosition(0, 20, 0);
 	CameraScript::SetTopDown(true);
-	com->GetComponent<PlayerScript>()->SetMovementSpeed(0, 0);
+	// com->GetComponent<PlayerScript>()->SetMovementSpeed(0, 0);
 }
