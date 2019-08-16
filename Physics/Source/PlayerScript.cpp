@@ -86,6 +86,11 @@ void PlayerScript::UpdateMovement(double dt)
 	{
 		rb->AddForce({ 0,m_fJumpForce,0 });
 		rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
+		Notify("Jump");
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerInteract") != 0)
+	{
+		Notify("Interact");
 	}
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
 	if (!vDir.IsZero())

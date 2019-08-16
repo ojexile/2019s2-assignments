@@ -22,7 +22,6 @@ protected:
 	GameObject* GetCameraGO();
 	LightManager* GetLightManager();
 	TransformComponent* GetTransform();
-	Vector3 GetPosition();
 	void Notify(std::string msg);
 public:
 	ScriptComponent();

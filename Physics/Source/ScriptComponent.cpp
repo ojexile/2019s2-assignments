@@ -139,11 +139,7 @@ TransformComponent* ScriptComponent::GetTransform()
 {
 	return GetComponent<TransformComponent>();
 }
-Vector3 ScriptComponent::GetPosition()
-{
-	return GetTransform()->GetPosition();
-}
 void ScriptComponent::Notify(std::string msg)
 {
-	GenericSubject::GetInstance()->Notify(this, msg);
+	GenericSubject::GetInstance()->NotifySubject(this, msg);
 }

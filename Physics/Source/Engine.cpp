@@ -6,6 +6,8 @@
 #include "Resources.h"
 #include "Utility.h"
 #include "DataContainer.h"
+#include "ObserverComponent.h"
+#include "GenericSubject.h"
 // Start Scene
 #include "DefaultScene.h"
 Renderer* Engine::m_Renderer;
@@ -77,6 +79,7 @@ void Engine::Update(double dt)
 	Time::GetInstance()->Update(dt);
 	// Update gameobject here
 	GameObjectManager* GOM = CurrentScene->GetGameObjectManager();
+	std::vector<GameObject*> GOObserverList;
 	std::map<std::string, LayerData*>::iterator it;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
@@ -85,15 +88,22 @@ void Engine::Update(double dt)
 		std::vector<GameObject*>* GOList = it->second->GetGOList();
 		for (unsigned i = 0; i < GOList->size(); ++i)
 		{
-			if (!GOList->at(i))
-				__debugbreak();
-			if (!GOList->at(i)->IsActive())
+			GameObject* go = GOList->at(i);
+			if (!go)
+			{
+				DEFAULT_LOG("GO IS UNITIALISED.");
 				continue;
-			GOList->at(i)->Update(dt);
+			}
+			if (!go->IsActive())
+				continue;
+			go->Update(dt);
+			CheckGOForObserver(go, &GOObserverList);
 		}
 	}
 	//Update coll--------------------------------------------------------------------------------
 	m_CollisionManager.Update(CurrentScene->GetGameObjectManager());
+	// Update Observers
+	GenericSubject::GetInstance()->NotifyObservers(&GOObserverList);
 	//--------------------------------------------------------------------------------
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
@@ -134,6 +144,18 @@ void Engine::Update(double dt)
 		m_fLogUpdateTimer = 0;
 		//double duration = (std::clock() - start) / (double)CLOCKS_PER_SEC; // --------------------------------------------------------------------------------
  	}
+}
+void Engine::CheckGOForObserver(GameObject* go, std::vector<GameObject*>* GOList)
+{
+	if (go->GetComponent<ObserverComponent>())
+	{
+		GOList->push_back(go);
+	}
+	for (unsigned i = 0; i < go->GetChildList()->size(); ++i)
+	{
+		GameObject* GOChild = go->GetChildList()->at(i);
+		CheckGOForObserver(GOChild, GOList);
+	}
 }
 void Engine::Exit()
 {
