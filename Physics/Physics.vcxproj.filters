@@ -89,7 +89,6 @@
     <ClCompile Include="Source\GenericSubject.cpp" />
     <ClCompile Include="Source\ObserverBase.cpp" />
     <ClCompile Include="Source\AudioObserver.cpp" />
-    <ClCompile Include="Source\StaminaScript.cpp" />
     <ClCompile Include="Source\MapSpawningScript.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -174,8 +173,8 @@
     <ClInclude Include="Source\GenericSubject.h" />
     <ClInclude Include="Source\ObserverBase.h" />
     <ClInclude Include="Source\AudioObserver.h" />
-    <ClInclude Include="Source\StaminaScript.h" />
     <ClInclude Include="Source\MapSpawningScript.h" />
+    <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

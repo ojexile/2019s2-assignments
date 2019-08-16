@@ -239,6 +239,7 @@
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
     <ClInclude Include="Source\AnimatedMesh.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
