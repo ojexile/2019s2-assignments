@@ -14,6 +14,7 @@
 #include "PlayerScript.h"
 #include "WeaponScript.h"
 #include "GrenadeScript.h"
+#include "LootScript.h"
 #include "DestructibleEntityScript.h"
 //
 #include "PartScript.h"
@@ -72,13 +73,14 @@ void DataContainer::InitTextures()
 	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
 
 }
-void  DataContainer::InitMeshes()
+void DataContainer::InitMeshes()
 {
 	/// Meshes================================================================================
 	/// DO NOT REMOVE--------------------------------------------------------------------------------
 	m_map_Meshes["Text"] = MeshBuilder::GenerateText("text", 16, 16)->AddTexture("Text");
 	//--------------------------------------------------------------------------------
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
+	
 	m_map_Meshes["Axis"] = MeshBuilder::GenerateAxes("Axes", 1000, 1000, 1000);
 
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
@@ -87,7 +89,11 @@ void  DataContainer::InitMeshes()
 
 	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Ball");
 
-	m_map_Meshes["Stock"] = MeshBuilder::GenerateOBJ("Stock")->AddTexture("Revolver");
+	m_map_Meshes["Clip"] = MeshBuilder::GenerateOBJ("Clip")->AddTexture("Revolver");
+
+	m_map_Meshes["Grip"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Revolver");
+
+	m_map_Meshes["Scope"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Revolver");
 
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
@@ -136,7 +142,7 @@ void  DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
 	go->RIGID->SetMat(1, 1);
-	go->AddComponent(new ProjectileScript(1.0, 25.0));
+	go->AddComponent(new ProjectileScript(1.0, 100.0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
@@ -146,11 +152,25 @@ void  DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
-	m_map_GO["Stock"] = go;
+	m_map_GO["Clip"] = go;
 	go->TRANS->SetScale(0.5f);
-	go->AddComponent(new RenderComponent(GetMesh("Stock")));
+	go->AddComponent(new RenderComponent(GetMesh("Clip")));
 	go->AddComponent(new WeaponPartScript(PartScript::CLIP, 2.0, 50));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetResponseActive(false);
+	go = new GameObject();
+	m_map_GO["Scope"] = go;
+	go->TRANS->SetScale(0.5f);
+	go->AddComponent(new RenderComponent(GetMesh("Scope")));
+	go->AddComponent(new WeaponPartScript(PartScript::SCOPE, 0.5, 1));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetResponseActive(false);
+	go = new GameObject();
+	m_map_GO["Grip"] = go;
+	go->TRANS->SetScale(0.5f);
+	go->AddComponent(new RenderComponent(GetMesh("Grip")));
+	go->AddComponent(new WeaponPartScript(PartScript::GRIP, 2.0, 50));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -161,12 +181,17 @@ void  DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Grenade"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
-	//go->RENDER->SetActive(false);
 	go->TRANS->SetScale(0.5);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->RIGID->SetMass(0.25f);
 	go->RIGID->SetMat(0.9f, 0.f);
 	go->AddComponent(new GrenadeScript(3.0, 10.0, 2));
+	// Loot------------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Loot"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	//go->RENDER->SetActive(false);
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
@@ -175,6 +200,7 @@ void  DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new EntityScript());
+	go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;

@@ -2,7 +2,7 @@
 
 
 
-WeaponPartScript::WeaponPartScript(SLOT_TYPE slot, double Multiplier, float durability, bool isAttached)
+WeaponPartScript::WeaponPartScript(SLOT_TYPE slot, float Multiplier, float durability, bool isAttached)
 	: PartScript(PART_TYPE::WEAPON, slot, Multiplier, isAttached, durability)
 {
 
