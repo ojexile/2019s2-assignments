@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "ComponentBase.h"
+#include "GameObject.h"
 class ObserverBase
 {
 	friend class GenericSubject;
@@ -10,6 +11,6 @@ public:
 	ObserverBase();
 	~ObserverBase();
 
-	virtual void Notify(ComponentBase* go, std::string msg) = 0;
+	virtual void Notify(ComponentBase* com, std::string msg, std::vector<GameObject*>* OBComList) = 0;
 };
 

@@ -5,12 +5,14 @@
 
 #include <vector>
 
-/********************************************************************************
-Author: Ryan Tan Zheng Rong
-Brief: Script to handle weapon behaviours such as Firing, Shooting, Reloading
+/********************************************************************************/
+/*!
+\author Ryan Tan Zheng Rong
+\brief
+ Script to handle weapon behaviours such as Firing, Shooting, Reloading
 	   etc.
-********************************************************************************/
-
+/*!
+/********************************************************************************/
 class WeaponScript : public ScriptComponent
 {
 public:

@@ -1,7 +1,7 @@
 #include "EntityScript.h"
+#include "PlayerScript.h"
 
-#define DAMAGE_TIME 1.f
-#define COLOR_TIME 0.5f
+
 
 EntityScript::EntityScript()
 {
@@ -29,8 +29,9 @@ void EntityScript::CheckInit()
 void EntityScript::Update(double dt)
 {
 	// Check death
-	if (m_fHealth <= 0)
+	if (m_fHealth <= 0 && !this->GetComponent<PlayerScript>())
 	{
+		Notify("EntityDied");
 		DestroySelf(); // should switch to play death anim
 		return;
 	}
@@ -95,6 +96,19 @@ void EntityScript::SetHealth(float health)
 float EntityScript::GetHealth()
 {
 	return m_fHealth;
+}
+StopWatch EntityScript::GetSW()
+{
+	return m_SW;
+}
+bool EntityScript::IsDamageAnim()
+{
+	return m_bDamageAnim;
+}
+
+void EntityScript::SetDamageAnim(bool anim)
+{
+	m_bDamageAnim = anim;
 }
 void EntityScript::Damage(float fDamage)
 {

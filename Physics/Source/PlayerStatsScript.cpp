@@ -1,6 +1,6 @@
 #include "PlayerStatsScript.h"
 #include "WeaponScript.h"
-
+#include "PlayerScript.h"
 
 PlayerStatsScript::PlayerStatsScript(GameObject* Player, GameObject* Stamina, 
 	GameObject* Health, GameObject* Gun, GameObject* BulletRef)
@@ -11,7 +11,6 @@ PlayerStatsScript::PlayerStatsScript(GameObject* Player, GameObject* Stamina,
 	, m_BulletUIRef(BulletRef)
 {
 	m_fStamina = 50;
-	m_fHealth = 100;
 	m_iMaxMag = 0;
 	m_iMag = 0;
 }
@@ -50,11 +49,13 @@ PlayerStatsScript::~PlayerStatsScript()
 }
 void PlayerStatsScript::Update(double dt)
 {
+	float fHealth = m_Player->GetComponent<PlayerScript>()->GetHealth();
 	m_fStamina += (float)dt * 10;
 	m_fStamina = Math::Clamp(m_fStamina, 0.f, 100.f);
 	m_Stamina->TRANS->SetScale(m_fStamina / 100 * 200, 50, 1);
 
-	m_Health->TRANS->SetScale(m_fHealth / 100 * 200, 50, 1);
+	CHENG_LOG(std::to_string(fHealth));
+	m_Health->TRANS->SetScale(fHealth / 100 * 200, 50, 1);
 	
 	UpdateBulletUI();
 }

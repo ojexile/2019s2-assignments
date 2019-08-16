@@ -22,7 +22,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameO
 {
 	// go1 is always ball
 
-	if (go2->GetComponent<ChunkCollider>() != nullptr)
+	if (go2->GetComponent<ChunkCollider>(true) != nullptr)
 	{
 #ifndef NEW_COLLISION
 		ChunkData* chunkData = go2->GetComponent<ChunkCollider>()->GetChunk();
@@ -181,7 +181,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameO
 			go1->GetComponent<Rigidbody>()->QueueVel(-2 * shortestDirection * (vel.Dot(shortestDirection)));
 		}
 #endif
-		DEFAULT_LOG("Collision!");
+		// DEFAULT_LOG("Collision!");
 		return Rigidbody::ePhysicsTypes::CHUNK;
 	}
 

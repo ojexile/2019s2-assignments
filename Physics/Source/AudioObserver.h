@@ -8,6 +8,5 @@ public:
 	AudioObserver();
 	virtual ~AudioObserver();
 
-	virtual void Notify(ComponentBase* com, std::string msg);
+	virtual void Notify(ComponentBase* com, std::string msg, std::vector<GameObject*>* OBComList) override;
 };
-

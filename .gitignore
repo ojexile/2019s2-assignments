@@ -279,3 +279,7 @@ common.lib
 /Common/Release
 /Physics/Release
 /Release
+
+Physics/Content/textures/LOW/plain_tree\.psd
+
+Physics/Content/textures/LOW/snow_tree\.psd

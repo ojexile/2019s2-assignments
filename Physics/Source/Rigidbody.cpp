@@ -44,6 +44,16 @@ void Rigidbody::Update(double dt)
 	m_vVelChange.SetZero();
 	m_iVelChangeCount = 0;
 	m_vVel = m_vVel * this->m_PhyMat.GetFriction();
+	this->m_vVel += vAccel * (float)dt ;
+	// Air Resistance
+	float fric = m_PhyMat.GetFriction();
+	Vector3 vScale = TRANS->GetScale();
+	// Set volume as cuboid
+	float volume = vScale.x * vScale.y * vScale.z;
+	float density = m_fMass / volume;
+	float area = volume; // ignore cross section area, use raw volume
+	Vector3 fDrag = 0.5f * density * m_vVel * area * fric * WorldValues::DragCoeff * dt;
+	m_vVel -= fDrag;
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
 	if (m_bLockYAxis)
