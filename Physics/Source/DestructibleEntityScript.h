@@ -14,7 +14,9 @@ public:
 	DestructibleEntityScript();
 	DestructibleEntityScript(GameObject* m_particleSpawnerRef);
 	virtual ~DestructibleEntityScript();
-	virtual ComponentBase* Clone() { return new DestructibleEntityScript(*this); };
+	virtual ComponentBase* Clone() { 
+		return new DestructibleEntityScript(*this);
+	};
 	virtual void Update(double dt) override;
 
 	DestructibleEntityScript* AttachGameObject(GameObject*);
