@@ -27,7 +27,7 @@ public:
 		ALL
 	};
 
-	PartScript(PART_TYPE type, SLOT_TYPE slot, double Multiplier, float Durability = 5.f);
+	PartScript(PART_TYPE type, SLOT_TYPE slot, float Multiplier, float Durability = 5.f);
 	~PartScript();
 
 	virtual void Effect() = 0;

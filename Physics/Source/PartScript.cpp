@@ -2,7 +2,7 @@
 
 
 
-PartScript::PartScript(PART_TYPE type, SLOT_TYPE slot, double Multiplier, float durability) 
+PartScript::PartScript(PART_TYPE type, SLOT_TYPE slot, float Multiplier, float durability) 
 	:m_partType (type),
 	 m_slotType (slot),
 	 m_fStatMultiplier(Multiplier),

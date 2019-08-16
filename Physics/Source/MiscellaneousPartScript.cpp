@@ -13,51 +13,13 @@ MiscellaneousPartScript::~MiscellaneousPartScript()
 {
 }
 
-void MiscellaneousPartScript::Effect()
-{
-	Buff();
-	Debuff();
-}
-
-void MiscellaneousPartScript::Buff()
-{
-	switch (m_BuffedStat)
-	{
-	default:
-	{
-		break;
-	}
-	}
-}
-
-void MiscellaneousPartScript::Debuff()
-{
-	switch (m_AttachedSlotType)
-	{
-	case PartScript::SCOPE:
-	{
-		break;
-	}
-	case PartScript::MUZZLE:
-	{
-		break;
-	}
-	case PartScript::CLIP:
-	{
-		break;
-	}
-	case PartScript::GRIP:
-	{
-		break;
-	}
-	default:
-	{
-		break;
-	}
-	}
-}
 
 void MiscellaneousPartScript::SetAttachment(MiscellaneousPartScript::SLOT_TYPE AttachedSlot)
 {
 	this->m_AttachedSlotType = AttachedSlot;
+}
+
+void MiscellaneousPartScript::Effect()
+{
+
 }

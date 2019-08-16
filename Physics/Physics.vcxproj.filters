@@ -98,8 +98,9 @@
     <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\ParticleObserver.cpp" />
     <ClCompile Include="Source\DestructibleEntityScript.cpp" />
-    <ClCompile Include="Source\StaminaScript.cpp" />
     <ClCompile Include="Source\MiscellaneousPartScript.cpp" />
+    <ClCompile Include="Source\ConcreteMiscParts\HealthRegenPart.cpp" />
+    <ClCompile Include="Source\ConcreteMiscParts\StaminaRegenPart.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -192,8 +193,9 @@
     <ClInclude Include="Source\GrenadeScript.h" />
     <ClInclude Include="Source\LootScript.h" />
     <ClInclude Include="Source\ParticleObserver.h" />
-    <ClInclude Include="Source\StaminaScript.h" />
     <ClInclude Include="Source\MiscellaneousPartScript.h" />
+    <ClInclude Include="Source\ConcreteMiscParts\HealthRegenPart.h" />
+    <ClInclude Include="Source\ConcreteMiscParts\StaminaRegenPart.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

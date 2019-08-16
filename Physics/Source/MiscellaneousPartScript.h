@@ -29,16 +29,14 @@ public:
 	MiscellaneousPartScript(SLOT_TYPE slot, double Multiplier, float durability);
 	virtual ~MiscellaneousPartScript();
 
-	void Effect() override;
-
-	virtual ComponentBase* Clone() { return new MiscellaneousPartScript(*this); }
-
 	void SetAttachment(SLOT_TYPE AttachedSlot);
 
-	void Buff();
-	void Debuff();
+	virtual void Effect();
 
-private:
+	virtual void Buff() = 0;
+	virtual void Debuff() = 0;
+
+protected:
 
 	GameObject* playerRef;
 
