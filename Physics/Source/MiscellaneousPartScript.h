@@ -1,6 +1,6 @@
 #pragma once
 #include "PartScript.h"
-
+#include "PlayerStatsScript.h"
 #include <string>
 
 /********************************************************************************
@@ -10,43 +10,32 @@ Brief: Script for special weapon parts that can be attached to the weapon
 	   these parts will affect the player and not the weapon 
 ********************************************************************************/
 
-enum STAT_EFFECTS
-{
-	NONE,
-	STAMINA_REGEN,
-	HEALTH_REGEN,
-	MOVEMENT_SPEED,
-	JUMP_HEIGHT,
-	MAX_HEALTH,
-	SELF_DAMAGE,
-	EQUALIZER,
-	NUM_EFFECTS
-};
-
 class MiscellaneousPartScript : public PartScript
 {
 public:
-	MiscellaneousPartScript(SLOT_TYPE slot, double Multiplier, float durability);
+	MiscellaneousPartScript(double Multiplier, float durability);
 	virtual ~MiscellaneousPartScript();
 
-	void SetAttachment(SLOT_TYPE AttachedSlot);
+	void SetGunReference(GameObject* ref);
+	void SetPlayerReference(PlayerStatsScript* ref);
+
+	std::string getName();
 
 	virtual void Effect();
-
-	virtual void Buff() = 0;
-	virtual void Debuff() = 0;
+	
+	virtual void RevertEffect() = 0;
+	virtual void Buff(bool reverse) = 0;
+	virtual void Debuff(bool reverse) = 0;
 
 protected:
 
-	GameObject* playerRef;
+	PlayerStatsScript* m_PlayerRef;
+	GameObject* m_GunRef;
 
-	STAT_EFFECTS m_BuffedStat;
-	STAT_EFFECTS m_DebuffedStat;
-
-	float m_fBuffMultiplier;
-	float m_fDebuffMultiplier;
-
-	SLOT_TYPE m_AttachedSlotType;
+	float m_fSpreadDebuff;
+	float m_fMaxAmmoDebuff;
+	float m_fFireRateDebuff;
+	int m_iMaxMagazineDebuff;
 
 	std::string m_Name;
 

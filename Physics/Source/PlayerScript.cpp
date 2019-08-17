@@ -5,6 +5,7 @@
 #include "InputManager.h"
 #include "CameraScript.h"
 #include "WeaponScript.h"
+#include "MiscellaneousPartScript.h"
 #include "GrenadeScript.h"
 #include "InventoryScript.h"
 PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun, GameObject* grenade)
@@ -152,6 +153,11 @@ void PlayerScript::Collide(GameObject* go)
 	if (ps)
 	{
 		GetComponent<InventoryScript>()->AddItem(go);
+		if (go->MISCPART)
+		{
+			/*go->MISCPART->SetPlayerReference();*/
+			go->MISCPART->SetGunReference(m_Gun);
+		}
 		CHENG_LOG("Part Taken");
 	}
 }

@@ -10,7 +10,9 @@ PlayerStatsScript::PlayerStatsScript(GameObject* Player, GameObject* Stamina,
 	, m_Gun(Gun)
 	, m_BulletUIRef(BulletRef)
 {
-	m_fStamina = 50;
+	m_fStamina = 50.f;
+	m_fStaminaMax = 100.f;
+	m_fStaminaRegenRate = 10.f;
 	m_iMaxMag = 0;
 	m_iMag = 0;
 }
@@ -50,8 +52,8 @@ PlayerStatsScript::~PlayerStatsScript()
 void PlayerStatsScript::Update(double dt)
 {
 	float fHealth = m_Player->GetComponent<PlayerScript>()->GetHealth();
-	m_fStamina += (float)dt * 10;
-	m_fStamina = Math::Clamp(m_fStamina, 0.f, 100.f);
+	m_fStamina += (float)dt * m_fStaminaRegenRate;
+	m_fStamina = Math::Clamp(m_fStamina, 0.f, m_fStaminaMax);
 	m_Stamina->TRANS->SetScale(m_fStamina / 100 * 200, 50, 1);
 
 	CHENG_LOG(std::to_string(fHealth));
@@ -62,6 +64,21 @@ void PlayerStatsScript::Update(double dt)
 float PlayerStatsScript::GetStamina()
 {
 	return m_fStamina;
+}
+void PlayerStatsScript::AdjustStaminaRegenRate(float f, bool b)
+{
+	if(b)
+		m_fStaminaRegenRate += f;
+	else
+		m_fStaminaRegenRate -= f;
+
+}
+void PlayerStatsScript::AdjustMaxStamina(float f, bool b)
+{
+	if (b)
+		m_fStaminaMax += f;
+	else
+		m_fStamina -= f;
 }
 void PlayerStatsScript::DrainStamina(float f)
 {

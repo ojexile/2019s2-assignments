@@ -38,10 +38,15 @@ public:
 
 	float GetMultiplier();
 
-private:
-	PART_TYPE m_partType;
-	SLOT_TYPE m_slotType;
+	//This is for Miscellaneous Parts, initially their slot type will be ALL
+	void SetSlotType(SLOT_TYPE slot);
 
+protected:
+	//Allows for reading in subclasses
+	PART_TYPE m_PartType;
+	SLOT_TYPE m_SlotType;
+
+private:
 	float m_fDurability;
 	float m_fStatMultiplier;
 

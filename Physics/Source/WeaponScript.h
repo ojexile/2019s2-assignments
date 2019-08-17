@@ -35,11 +35,21 @@ public:
 
 	void AddPart(GameObject* part);
 
+	void SetAmmo(int Ammo);
+	void SetMaxAmmo(int Ammo_Max);
+	void SetBulletsFired(int BulletsFired);
+	void SetMagazineRounds(int MagRounds);
+	void SetMaxMagazineRounds(int MagRounds_Max);
+	void SetFireRate(float FireRate);
+	void SetBulletSpread(float BulletSpread);
+
 	int GetAmmo();
 	int GetMaxAmmo();
-
+	int GetBulletsFired();
 	int GetMagazineRounds();
 	int GetMaxMagazineRounds();
+	float GetFireRate();
+	float GetBulletSpread();
 
 	virtual ComponentBase* Clone(){return new WeaponScript(*this);}
 

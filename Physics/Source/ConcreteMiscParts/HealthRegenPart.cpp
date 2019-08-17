@@ -3,7 +3,7 @@
 
 
 HealthRegenPart::HealthRegenPart(SLOT_TYPE slot, double Multiplier, float durability)
-	: MiscellaneousPartScript(slot, Multiplier, durability)
+	: MiscellaneousPartScript(Multiplier, durability)
 {
 }
 
@@ -21,18 +21,18 @@ void HealthRegenPart::Effect()
 
 void HealthRegenPart::Buff()
 {
-	switch (m_BuffedStat)
-	{
-	default:
-	{
-		break;
-	}
-	}
+	//switch (m_BuffedStat)
+	//{
+	//default:
+	//{
+	//	break;
+	//}
+	//}
 }
 
 void HealthRegenPart::Debuff()
 {
-	switch (m_AttachedSlotType)
+	switch (m_SlotType)
 	{
 	case PartScript::SCOPE:
 	{
