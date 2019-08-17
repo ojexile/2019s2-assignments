@@ -455,6 +455,7 @@ void CollisionManager::Update(GameObjectManager* GOM)
 {
 	std::map<std::string, LayerData*>::iterator it;
 	// TODO multilayer collision?
+	int nCounts = 0;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
 		// it->first == key
@@ -469,8 +470,11 @@ void CollisionManager::Update(GameObjectManager* GOM)
 			if (go1->GetComponent<Rigidbody>(true) && go1->GetComponent<Rigidbody>(true)->IsActive())
 			{
 				CheckCollision(go1, GOList, i);
-				if (go1->GetComponent<ChunkCollider>() == nullptr)
+				if (go1->GetComponent<ChunkCollider>(true) == nullptr)
+				{
 					CheckChunkCollision(go1, GOList);
+					nCounts++;
+				}
 			}
 			for (unsigned j = 0; j < go1->GetChildList()->size(); ++j)
 			{
@@ -482,6 +486,9 @@ void CollisionManager::Update(GameObjectManager* GOM)
 			}
 		}
 	}
+	std::ostringstream ss;
+	ss << nCounts;
+	KZ_LOG("Total number of chunk collision checks:" + ss.str());
 }
 
 Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, std::vector<GameObject*>* GOList)
@@ -502,7 +509,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 	{
 		GameObject* go2 = *it1;
 		Vector3 dist = go2->TRANS->GetPosition() - go1->TRANS->GetPosition();
-		if (go2->GetComponent<ChunkCollider>() != nullptr)
+		if (go2->GetComponent<ChunkCollider>(true) != nullptr)
 		{
 			ChunkData* chunkData = go2->GetComponent<ChunkCollider>()->GetChunk();
 			if (dist.Length() < chunkData->GetSize().Length())
