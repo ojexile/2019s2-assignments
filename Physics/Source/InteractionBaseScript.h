@@ -21,5 +21,5 @@ public:
 
 	virtual void Update(double dt) = 0;
 	virtual void Trigger(GameObject* go1, GameObject * go2) = 0;
-	virtual ComponentBase* Clone() = 0;
+	virtual Component* Clone() = 0;
 };
