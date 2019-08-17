@@ -1,23 +1,17 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 #include "Resources.h"
+#include "Vertex.h"
 #define DEFAULT_DIFFUSE Resources::Defaults::fDiffuse
 #define DEFAULT_AMBIENT  Resources::Defaults::fAmbient
 #define DEFAULT_SPECULAR  Resources::Defaults::fSpecular
 #define DEFAULT_SHININESS Resources::Defaults::fShininess
 
-struct Comp
-{
-	float r, g, b;
-	Comp() {};
-	Comp(float r, float g, float b) { Set(r, g, b); }
-	void Set(float r, float g, float b) { this->r = r; this->g = g; this->b = b; }
-};
 struct Material
 {
-	Comp kAmbient;
-	Comp kDiffuse;
-	Comp kSpecular;
+	Color kAmbient;
+	Color kDiffuse;
+	Color kSpecular;
 	float kShininess;
 
 	Material()

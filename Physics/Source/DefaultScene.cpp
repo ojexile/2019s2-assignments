@@ -137,10 +137,6 @@ void DefaultScene::Init()
 	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
 	go->TRANS->SetPosition(20, 18.5, 26);
-	//go = dataContainer->GetGameObject("Scope");
-	//go->TRANS->SetScale(3);
-	//Gun->AddChild(go);
-	//Gun->GUN->AddPart(go);
 	go = dataContainer->GetGameObject("Grip");
 	go->TRANS->SetScale(3);
 	Gun->AddChild(go);
@@ -171,4 +167,15 @@ void DefaultScene::Init()
 	go->GetComponent<EntityScript>()->SetHealth(1.f);
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	go->TRANS->SetPosition(20, 18.5, 20);
+
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("ItemInfo"));
+	go->TRANS->SetPosition(0, 16, 0);
+	go->SetActive(false);
+
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(0, 16, 0);
+	go->TRANS->SetScale(1);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
+	go->RENDER->Set3DBillboard(true);
+	go->RENDER->SetColor(0, 1, 1);
 }

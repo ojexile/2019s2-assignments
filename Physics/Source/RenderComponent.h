@@ -19,10 +19,11 @@ private:
 	Material m_Material;
 	std::string m_sText;
 	bool m_bIsText;
+	bool m_bTextOnScreen;
 public:
 	RenderComponent(Mesh* mesh);
 	RenderComponent(MeshBiomed* mesh);
-	RenderComponent(Mesh* mesh, std::string sText);
+	RenderComponent(Mesh* mesh, std::string sText, bool onScreen = true);
 	RenderComponent(AnimatedMesh* mesh);
 	RenderComponent(RenderComponent& mesh);
 
@@ -53,6 +54,7 @@ public:
 	void SetMesh(Mesh* mesh);
 	void SetMesh(AnimatedMesh* mesh);
 	bool IsText();
+	bool IsTextOnScreen();
 	std::string GetText();
 	void SetText(std::string);
 };

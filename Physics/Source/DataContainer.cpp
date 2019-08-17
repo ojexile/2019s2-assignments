@@ -234,7 +234,7 @@ void  DataContainer::InitGO()
 	// ItemInfo--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["ItemInfo"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Player")));
+	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
 	// Interactabes--------------------------------------------------------------------------------
 	go = new GameObject();

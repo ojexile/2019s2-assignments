@@ -338,8 +338,13 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 			if (!renderComponent->IsText())
 				RenderUI(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 			else
-				RenderTextOnScreen(renderComponent, renderComponent->GetText(), { renderComponent->GetMaterial().kAmbient.r,renderComponent->GetMaterial().kAmbient.g,renderComponent->GetMaterial().kAmbient.b },
-					vGameObjectPosition.z, vGameObjectPosition.x, vGameObjectPosition.y);
+			{
+				if (!renderComponent->IsTextOnScreen())
+					RenderText(renderComponent);
+				else
+					RenderTextOnScreen(renderComponent, renderComponent->GetText(), { renderComponent->GetMaterial().kAmbient.r,renderComponent->GetMaterial().kAmbient.g,renderComponent->GetMaterial().kAmbient.b },
+						vGameObjectPosition.z, vGameObjectPosition.x, vGameObjectPosition.y);
+			}
 		}
 
 		modelStack.PopMatrix();
