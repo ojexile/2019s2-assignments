@@ -51,7 +51,7 @@ void Rigidbody::Update(double dt)
 	float volume = vScale.x * vScale.y * vScale.z;
 	float density = m_fMass / volume;
 	float area = volume; // ignore cross section area, use raw volume
-	Vector3 fDrag = 0.5f * density * m_vVel * area * fric * WorldValues::DragCoeff * dt;
+	Vector3 fDrag = 0.5f * density * m_vVel * area * fric * WorldValues::DragCoeff * (float)dt;
 	m_vVel -= fDrag;
 	if (m_bLockXAxis)
 		m_vVel.x = 0;

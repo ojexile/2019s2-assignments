@@ -346,8 +346,8 @@ Vector3 RenderingManager::MouseWorldDir()
 {
 	double x, y;
 	Application::GetCursorPosRelative(&x, &y);
-	Vector3 MousePosDevice(x * 2 - 1, -(y * 2 - 1));
-	CHENG_LOG("MOUSE Dev: ", vtos(MousePosDevice));
+	Vector3 MousePosDevice((float)x * 2 - 1, -((float)y * 2 - 1));
+	// CHENG_LOG("MOUSE Dev: ", vtos(MousePosDevice));
 	// MousePosDevice = { 0,0,1 };
 	Vector3 ClipCoord(MousePosDevice.x, MousePosDevice.y, -1.f);
 
@@ -357,6 +357,6 @@ Vector3 RenderingManager::MouseWorldDir()
 	Mtx44 InvertView = viewStack.Top().GetInverse();
 	Vector3 WorldSpace = InvertView.Multi(EyeCoords, 0);
 	WorldSpace.Normalize();
-	CHENG_LOG("MOUSE DIR: ", vtos(WorldSpace));
+	// CHENG_LOG("MOUSE DIR: ", vtos(WorldSpace));
 	return WorldSpace;
 }

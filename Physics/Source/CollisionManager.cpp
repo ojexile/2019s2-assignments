@@ -584,9 +584,9 @@ void CollisionManager::CheckCollision(GameObject* go1, std::vector<GameObject*>*
 		GameObject* goA = go1;
 		GameObject* goB = go2;
 		// force go1 to be a ball
-		if (!go1->GetComponent<Rigidbody>())
+		if (!go1->GetComponent<Rigidbody>(true))
 			continue;
-		if (!go2->GetComponent<Rigidbody>())
+		if (!go2->GetComponent<Rigidbody>(true))
 			continue;
 		if (go1->GetComponent<Rigidbody>()->GetType() != Rigidbody::BALL)
 		{

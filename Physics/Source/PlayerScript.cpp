@@ -107,11 +107,11 @@ void PlayerScript::UpdateMovement(double dt)
 		GetTransform()->SetRotation(-angle, 0, 1, 0);
 	}
 	//
-	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0)
+	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && m_Reticle->IsActive())
 	{
 		m_Gun->GUN->PullTrigger(vDir, dt);
 	}
-	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0)
+	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && m_Reticle->IsActive())
 	{
 		m_Gun->GUN->ReleaseTrigger();
 	}
@@ -123,7 +123,7 @@ void PlayerScript::UpdateMovement(double dt)
 	}
 	else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
 	{
-		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, dt);
+		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, (float)dt);
 	}
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
@@ -144,7 +144,7 @@ void PlayerScript::UpdateMovement(double dt)
 		fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
 		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
 	}
-	CHENG_LOG("Player pos: ", vtos(GetPosition()));
+	// CHENG_LOG("Player pos: ", vtos(GetPosition()));
 }
 void PlayerScript::Collide(GameObject* go)
 {
@@ -152,7 +152,7 @@ void PlayerScript::Collide(GameObject* go)
 	if (ps)
 	{
 		GetComponent<InventoryScript>()->AddItem(go);
-		CHENG_LOG("Part Taken");
+		// CHENG_LOG("Part Taken");
 	}
 }
 void PlayerScript::Dash()

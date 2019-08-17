@@ -25,7 +25,15 @@ void PlayerStatsScript::InitBulletUI()
 {
 	Vector3 vStartPos = { 30,900,0 };
 	float fOffset = -25;
-	for (int i = 0; i < m_iMaxMag; ++i)
+	if (m_BulletList.size() > 0)
+	{
+		for (int i = 0; i < m_iMaxMag; ++i)
+		{
+			Destroy(m_BulletList.at(i));
+		}
+	}
+	m_BulletList.clear();
+	for (int i = 0; i < m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds(); ++i)
 	{
 		Vector3 Pos = vStartPos + Vector3{0, i * fOffset, 0};
 		m_BulletList.push_back(Instantiate(m_BulletUIRef, Pos, "UI"));
@@ -33,11 +41,16 @@ void PlayerStatsScript::InitBulletUI()
 }
 void PlayerStatsScript::UpdateBulletUI()
 {
+	int iNewMaxMag = m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds();
+	if (iNewMaxMag != m_iMaxMag)
+	{
+		InitBulletUI();
+	}
 	m_iMaxMag = m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds();
 	m_iMag = m_Gun->GetComponent<WeaponScript>()->GetMagazineRounds();
 	for (int i = 0; i < m_iMaxMag; ++i)
 	{
-		if(i < m_iMag)
+		if (i < m_iMag)
 			m_BulletList.at(i)->SetActive(true);
 		else
 			m_BulletList.at(i)->SetActive(false);
@@ -54,7 +67,7 @@ void PlayerStatsScript::Update(double dt)
 	m_fStamina = Math::Clamp(m_fStamina, 0.f, 100.f);
 	m_Stamina->TRANS->SetScale(m_fStamina / 100 * 200, 50, 1);
 
-	CHENG_LOG(std::to_string(fHealth));
+	// CHENG_LOG(std::to_string(fHealth));
 	m_Health->TRANS->SetScale(fHealth / 100 * 200, 50, 1);
 	
 	UpdateBulletUI();
