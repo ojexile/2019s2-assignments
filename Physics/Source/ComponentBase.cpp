@@ -62,7 +62,3 @@ void ComponentBase::Notify(ComponentBase* com, std::string msg)
 {
 	GenericSubject::GetInstance()->NotifySubject(com, msg);
 }
-Vector3 ComponentBase::GetPosition()
-{
-	return GetComponent<TransformComponent>()->GetPosition();
-}

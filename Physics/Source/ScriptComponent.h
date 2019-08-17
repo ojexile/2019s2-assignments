@@ -1,5 +1,5 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 #include "GameObject.h"
 #include <string>
 #include "Time.h"
@@ -18,8 +18,6 @@
 class ScriptComponent : public Component
 {
 protected:
-void Destroy(GameObject* go);
-	void DestroySelf();
 	// QoL
 	Camera* GetCamera();
 	GameObject* GetCameraGO();

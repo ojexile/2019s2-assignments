@@ -44,5 +44,4 @@ public:
 
 	// Function accessors
 	void Notify(ComponentBase* com, std::string msg);
-	Vector3 GetPosition();
 };

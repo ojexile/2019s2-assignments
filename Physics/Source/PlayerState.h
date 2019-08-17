@@ -7,6 +7,6 @@ public:
 	PlayerState();
 	virtual ~PlayerState();
 
-	virtual PlayerState* HandleInput(Component* com, double dt) = 0;
-	virtual void OnEnter(Component* com) = 0;
+	virtual PlayerState* HandleInput(ComponentBase* com, double dt) = 0;
+	virtual void OnEnter(ComponentBase* com) = 0;
 };
