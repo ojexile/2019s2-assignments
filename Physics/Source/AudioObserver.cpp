@@ -9,7 +9,7 @@ AudioObserver::~AudioObserver()
 {
 }
 
-void AudioObserver::Notify(Component* com, std::string msg, std::vector<GameObject*>* OBComList)
+void AudioObserver::Notify(ComponentBase* com, std::string msg, std::vector<GameObject*>* OBComList)
 {
 	if (msg == "Jump")
 	{

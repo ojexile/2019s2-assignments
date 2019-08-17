@@ -1,5 +1,5 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 #include "Vector3.h"
 class TransformComponent :
 	public Component
@@ -20,7 +20,7 @@ public:
 	TransformComponent();
 	TransformComponent(Vector3);
 	virtual ~TransformComponent();
-	virtual Component* Clone()
+	virtual ComponentBase* Clone()
 	{
 		return new TransformComponent(*this);
 	}

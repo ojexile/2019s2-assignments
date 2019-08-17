@@ -1,5 +1,5 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 #include "Utility.h"
 /**********************************************************8*********************/
 /*!
@@ -15,5 +15,5 @@ class ObserverComponent :
 public:
 	ObserverComponent();
 	virtual ~ObserverComponent();
-	virtual void Notify(Component* com, std::string msg);
+	virtual void Notify(ComponentBase* com, std::string msg);
 };

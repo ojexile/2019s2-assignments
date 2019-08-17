@@ -98,6 +98,7 @@
     <ClCompile Include="Source\ParticleObserver.cpp" />
     <ClCompile Include="Source\DestructibleEntityScript.cpp" />
     <ClCompile Include="Source\Component.cpp" />
+    <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\InteractionBaseScript.cpp" />
     <ClCompile Include="Source\FlipEntityScript.cpp" />
   </ItemGroup>
@@ -192,6 +193,7 @@
     <ClInclude Include="Source\LootScript.h" />
     <ClInclude Include="Source\ParticleObserver.h" />
     <ClInclude Include="Source\Component.h" />
+    <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\FlipEntityScript.h" />
     <ClInclude Include="Source\InteractionBaseScript.h" />
   </ItemGroup>

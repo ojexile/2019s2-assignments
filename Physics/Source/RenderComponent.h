@@ -1,5 +1,5 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 #include "Mesh.h"
 #include "MeshBiomed.h"
 #include "AnimatedMesh.h"

@@ -1,5 +1,5 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 #include "PhysicsMaterial.h"
 class Rigidbody :
 	public Component
@@ -42,7 +42,7 @@ private:
 public:
 	Rigidbody(ePhysicsTypes e, bool Grav = true);
 	virtual ~Rigidbody();
-	virtual Component* Clone()
+	virtual ComponentBase* Clone()
 	{
 		return new Rigidbody(*this);
 	}
