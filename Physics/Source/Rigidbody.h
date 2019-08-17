@@ -1,8 +1,8 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 #include "PhysicsMaterial.h"
 class Rigidbody :
-	public ComponentBase
+	public Component
 {
 public:
 	enum ePhysicsTypes

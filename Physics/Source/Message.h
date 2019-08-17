@@ -11,4 +11,3 @@ public:
 	Message(ComponentBase* com, std::string s);
 	~Message();
 };
-

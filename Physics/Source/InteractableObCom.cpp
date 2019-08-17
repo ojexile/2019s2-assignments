@@ -1,11 +1,8 @@
 #include "InteractableObCom.h"
 
-
-
 InteractableObCom::InteractableObCom()
 {
 }
-
 
 InteractableObCom::~InteractableObCom()
 {

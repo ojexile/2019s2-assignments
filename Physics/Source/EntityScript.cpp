@@ -1,8 +1,7 @@
 #include "EntityScript.h"
 #include "PlayerScript.h"
 #include "LootScript.h"
-
-
+#include "RenderComponent.h"
 
 EntityScript::EntityScript()
 {

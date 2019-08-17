@@ -22,7 +22,7 @@ public:
 	void Dash();
 	PlayerScript(GameObject* Reticle, GameObject* gun, GameObject* grenade);
 	~PlayerScript();
-	virtual ComponentBase* Clone()
+	virtual Component* Clone()
 	{
 		return new PlayerScript(*this);
 	}

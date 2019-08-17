@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "SceneManager.h"
+#include "Mtx44.h"
 
 GameObject::GameObject()
 	: m_bActive{ true }
@@ -72,7 +73,7 @@ void GameObject::Update(double dt)
 {
 	if (m_fDisableDistance < (SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition() - TRANS->GetPosition()).Length())
 		return;
-		// Update components
+	// Update components
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
 		if (!m_vec_ComponentList[i]->IsActive())

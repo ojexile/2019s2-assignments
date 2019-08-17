@@ -1,11 +1,9 @@
 #include "InteractablesObserver.h"
 #include "InteractableObCom.h"
 
-
 InteractablesObserver::InteractablesObserver()
 {
 }
-
 
 InteractablesObserver::~InteractablesObserver()
 {
@@ -19,7 +17,7 @@ void InteractablesObserver::Notify(ComponentBase* com, std::string msg, std::vec
 		InteractableObCom* ioc = go->GetComponent<InteractableObCom>();
 		if (ioc)
 		{
-			ioc->Notify(com,msg);
+			ioc->Notify(com, msg);
 		}
 	}
 }

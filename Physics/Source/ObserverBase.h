@@ -13,4 +13,3 @@ public:
 
 	virtual void Notify(ComponentBase* com, std::string msg, std::vector<GameObject*>* OBComList) = 0;
 };
-

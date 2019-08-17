@@ -1,4 +1,5 @@
 #pragma once
+#include "Vector3.h"
 #include <vector>
 #include <string>
 #include "Locator.h"
@@ -43,6 +44,4 @@ public:
 
 	// Function accessors
 	void Notify(ComponentBase* com, std::string msg);
-	Vector3 GetPosition();
-
 };

@@ -1,5 +1,5 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 /********************************************************************************/
 /*!
 \author Hao Cheng
@@ -8,7 +8,7 @@ UI Button interaction. Collision with button is based on mesh with 1x1 aspect
 /*!
 /********************************************************************************/
 class UIButtonComponent :
-	public ComponentBase
+	public Component
 {
 private:
 	bool m_bIsHover;
@@ -20,4 +20,3 @@ public:
 	virtual void Update(double dt) override;
 	bool GetHover();
 };
-

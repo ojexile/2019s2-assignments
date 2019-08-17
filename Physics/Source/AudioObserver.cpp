@@ -13,6 +13,6 @@ void AudioObserver::Notify(ComponentBase* com, std::string msg, std::vector<Game
 {
 	if (msg == "Jump")
 	{
-		AudioManager::GetInstance()->Play3D("boing.wav",com->TRANS->GetPosition());
+		AudioManager::GetInstance()->Play3D("boing.wav", com->TRANS->GetPosition());
 	}
 }

@@ -1,11 +1,8 @@
 #include "GenericSubject.h"
 
-
-
 GenericSubject::GenericSubject()
 {
 }
-
 
 GenericSubject::~GenericSubject()
 {
@@ -19,7 +16,6 @@ void GenericSubject::NotifySubject(ComponentBase* com, std::string msg)
 {
 	m_Messages.push_back(new Message(com, msg));
 	// update observers
-
 }
 void GenericSubject::NotifyObservers(std::vector<GameObject*>* OBComList)
 {

@@ -19,4 +19,3 @@ public:
 	void NotifySubject(ComponentBase* com, std::string msg);
 	void NotifyObservers(std::vector<GameObject*>* OBComList);
 };
-

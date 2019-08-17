@@ -1,12 +1,12 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 #include "Mesh.h"
 #include "MeshBiomed.h"
 #include "AnimatedMesh.h"
 #include <string>
 
 class RenderComponent :
-	public ComponentBase
+	public Component
 {
 private:
 	Mesh* m_Mesh;
@@ -29,7 +29,7 @@ public:
 	void SetRenderDistance(float);
 
 	virtual ~RenderComponent();
-	virtual ComponentBase* Clone()
+	virtual Component* Clone()
 	{
 		return new RenderComponent(*this);
 	};

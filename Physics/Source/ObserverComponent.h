@@ -1,5 +1,5 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 #include "Utility.h"
 /**********************************************************8*********************/
 /*!
@@ -10,11 +10,10 @@ Generic subject to be updated
 /*!
 /********************************************************************************/
 class ObserverComponent :
-	public ComponentBase
+	public Component
 {
 public:
 	ObserverComponent();
 	virtual ~ObserverComponent();
 	virtual void Notify(ComponentBase* com, std::string msg);
 };
-

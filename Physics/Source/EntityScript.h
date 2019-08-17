@@ -10,7 +10,7 @@
 /*!
 \author Hao Cheng
 \brief
-Script to handle entity movement. Input / AI scripts should communicate through this to move 
+Script to handle entity movement. Input / AI scripts should communicate through this to move
 entity
 /*!
 /********************************************************************************/
@@ -38,7 +38,7 @@ protected:
 public:
 	EntityScript();
 	virtual ~EntityScript();
-	virtual ComponentBase* Clone() { return new EntityScript(*this); };
+	virtual Component* Clone() { return new EntityScript(*this); };
 	virtual void Update(double dt) override;
 
 	void SetMovementSpeed(float Force, float Max);
@@ -53,4 +53,3 @@ public:
 	void SetDamageAnim(bool);
 	void Damage(float fDamage);
 };
-

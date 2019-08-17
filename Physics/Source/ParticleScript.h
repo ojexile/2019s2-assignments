@@ -27,7 +27,7 @@ public:
 		const Vector3 vSizeChange
 		, const Vector3 vRandAxis, const Vector3 sinamp = { 0,0,0 }, const Vector3 sinfreq = { 0,0,0 });
 	virtual ~ParticleScript();
-	virtual ComponentBase* Clone() { return new ParticleScript(*this); }
+	virtual Component* Clone() { return new ParticleScript(*this); }
 
 	// Cos
 	void SetCos(Vector3, Vector3);

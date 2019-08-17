@@ -1,8 +1,10 @@
 #include "ComponentBase.h"
+
 #include "SceneManager.h"
 #include "DataContainer.h"
 #include "GenericSubject.h"
 #include "TransformComponent.h"
+
 ComponentBase::ComponentBase()
 	: m_vec_RefList{ nullptr }
 	, m_bStarted{ false }
@@ -18,11 +20,11 @@ ComponentBase::~ComponentBase()
 {
 	//DEFAULT_LOG("Default component destructor called. Ensure your concrete component's destructor is virtual.");
 }
-
 void ComponentBase::Init(std::vector<ComponentBase*>* refList)
 {
 	m_vec_RefList = refList;
 }
+//
 void ComponentBase::Update(double dt)
 {
 	DEFAULT_LOG("Default update called.");
@@ -59,8 +61,4 @@ void ComponentBase::SetStarted(bool b)
 void ComponentBase::Notify(ComponentBase* com, std::string msg)
 {
 	GenericSubject::GetInstance()->NotifySubject(com, msg);
-}
-Vector3 ComponentBase::GetPosition()
-{
-	return GetComponent<TransformComponent>()->GetPosition();
 }

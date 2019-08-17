@@ -35,21 +35,41 @@ void DefaultScene::Init()
 	// FPS--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	go->TRANS->SetPosition(1920 - 40, 1080 - 20, 25);
-	// Inventory--------------------------------------------------------------------------------
-	//go = m_GOM.AddGameObject();
-	//go->AddComponent(new RenderComponent(dataContainer->GetMesh("Axis")));
-	std::vector<GameObject*> InventorySlots;
+	/// Inventory--------------------------------------------------------------------------------
+	// slots--------------------------------------------------------------------------------
+	GameObject** InventorySlots;
+	InventorySlots = new GameObject*[INVENTORY_SIZE];
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100, 100);
-	InventorySlots.push_back(go);
+	InventorySlots[0] = go;
 	//
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100 - 110, 100);
-	InventorySlots.push_back(go);
+	InventorySlots[1] = go;
 	//
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100 - 110 - 110, 100);
-	InventorySlots.push_back(go);
+	InventorySlots[2] = go;
+	// customise--------------------------------------------------------------------------------
+	std::vector<GameObject*> CustoSlots;
+	Vector3 CustoPos(1920 - 200, 600);
+	float fCustoDist = 100;
+	//
+	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
+	go->TRANS->SetPosition(CustoPos - Vector3(-fCustoDist, 0, 0));
+	CustoSlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
+	go->TRANS->SetPosition(CustoPos - Vector3(0, fCustoDist, 0));
+	CustoSlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
+	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0));
+	CustoSlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
+	go->TRANS->SetPosition(CustoPos - Vector3(0, -fCustoDist, 0));
+	CustoSlots.push_back(go);
 	// Stamina--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 50, 0);
@@ -72,7 +92,7 @@ void DefaultScene::Init()
 	HealthBar->TRANS->SetPosition(50, 1030, 0);
 	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
-	
+
 	/// Player================================================================================
 	// Reticle
 	GameObject* ret = m_GOM.AddGameObject();
@@ -94,7 +114,7 @@ void DefaultScene::Init()
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(0, 18, 0);
 	Player->TRANS->SetScale(0.5f);
-	Player->AddComponent(new InventoryScript(Gun, InventorySlots));
+	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
 	/// Create Camera================================================================================
@@ -133,6 +153,11 @@ void DefaultScene::Init()
 
 	// Parts
 	go = m_GOM.AddGameObject(GetGO("Muzzle"));
+	go->TRANS->SetPosition(0, 18, 0);
+	go = m_GOM.AddGameObject(GetGO("Clip"));
+	go->TRANS->SetPosition(1, 16, 0);
+	go = m_GOM.AddGameObject(GetGO("Clip"));
+	go->TRANS->SetPosition(2, 16, 0);
 	go->TRANS->SetPosition(28, 20, 26);
 
 	///interactable test
@@ -141,7 +166,6 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200, 0, 0));
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
-
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
 	go->GetComponent<EntityScript>()->SetHealth(1.f);

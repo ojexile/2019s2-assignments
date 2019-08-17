@@ -13,7 +13,6 @@ class MeshBiomed : public Mesh
 private:
 	int m_iNumBiomedTextures[MAX_BIOMES];
 	unsigned m_uBiomedTextureArray[MAX_BIOMES][MAX_TEXTURES];
-	
 public:
 	MeshBiomed(const std::string &meshName);
 	//MeshBiomed(Mesh*) //upgradish function

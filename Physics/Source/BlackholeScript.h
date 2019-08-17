@@ -9,7 +9,7 @@ private:
 public:
 	Blackhole(float fMass, float fMinDist);
 	virtual ~Blackhole();
-	virtual ComponentBase* Clone()
+	virtual Component* Clone()
 	{
 		return new Blackhole(*this);
 	}

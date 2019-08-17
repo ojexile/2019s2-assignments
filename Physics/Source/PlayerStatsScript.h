@@ -32,9 +32,9 @@ private:
 public:
 	PlayerStatsScript(GameObject* Player, GameObject* Stamina,
 		GameObject* Health, GameObject* Gun,
-	GameObject* BulletRef);
+		GameObject* BulletRef);
 	virtual ~PlayerStatsScript();
-	virtual ComponentBase* Clone() { return new PlayerStatsScript(*this); };
+	virtual Component* Clone() { return new PlayerStatsScript(*this); };
 	virtual void Update(double dt) override;
 	virtual void Start() override;
 	void DrainStamina(float f);
@@ -45,4 +45,3 @@ public:
 	float GetStamina();
 	
 };
-

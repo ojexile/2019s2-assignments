@@ -1,5 +1,6 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "RenderComponent.h"
 class FPSScript :public ScriptComponent
 {
 private:
@@ -9,7 +10,7 @@ private:
 public:
 	FPSScript();
 	virtual ~FPSScript();
-	virtual ComponentBase* Clone() { return new FPSScript(*this); };
+	virtual Component* Clone() { return new FPSScript(*this); };
 
 	virtual void Update(double dt);
 	virtual void Start() override;

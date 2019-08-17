@@ -78,6 +78,6 @@ void ReticleScript::Update(double dt)
 	if (SmallestDist < 101)
 	{
 		TRANS->SetPosition(StartPos + Offset * Dir * (float)(SmallestDist - 1));
-		CHENG_LOG("Collide Chunk");
+		// CHENG_LOG("Collide Chunk");
 	}
 }

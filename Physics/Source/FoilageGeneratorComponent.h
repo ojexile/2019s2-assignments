@@ -7,7 +7,7 @@ author: lorenzo yanga
 desc: base class for foilage generation in chunks. to be used in conjunction with chunks and the biome script
 */
 
-class FoilageGeneratorComponent : public ComponentBase
+class FoilageGeneratorComponent : public Component
 {
 	// when the chunk is created, the FGcomp will trigger.
 	/*
