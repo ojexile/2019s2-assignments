@@ -1,8 +1,8 @@
 #pragma once
-#include "Component.h"
+#include "ComponentBase.h"
 #include "Vector3.h"
 class TransformComponent :
-	public Component
+	public ComponentBase
 {
 private:
 	Vector3 m_vPosition;

@@ -1,4 +1,5 @@
 #include "DestructibleEntityScript.h"
+#include "RenderComponent.h"
 
 DestructibleEntityScript::DestructibleEntityScript()
 	: EntityScript()
@@ -46,5 +47,3 @@ DestructibleEntityScript * DestructibleEntityScript::AttachGameObject(GameObject
 	m_particleSpawnerRef = go;
 	return this;
 }
-
-

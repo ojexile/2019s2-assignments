@@ -1,5 +1,6 @@
 #pragma once
 #include "ScriptComponent.h"
+#include "RenderComponent.h"
 class FPSScript :public ScriptComponent
 {
 private:

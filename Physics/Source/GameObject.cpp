@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "SceneManager.h"
+#include "Mtx44.h"
 
 GameObject::GameObject()
 	: m_bActive{ true }

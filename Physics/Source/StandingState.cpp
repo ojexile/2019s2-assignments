@@ -19,7 +19,7 @@ StandingState::~StandingState()
 {
 }
 
-PlayerState* StandingState::HandleInput(Component* com, double dt)
+PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 {
 	// Sprint
 	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint"))
@@ -64,7 +64,7 @@ PlayerState* StandingState::HandleInput(Component* com, double dt)
 	//SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 100,100,100 });
 	return nullptr;
 }
-void StandingState::OnEnter(Component* com)
+void StandingState::OnEnter(ComponentBase* com)
 {
 	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetPosition(0,100,0);
 	CameraScript::SetTopDown(false);

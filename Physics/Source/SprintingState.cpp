@@ -12,11 +12,11 @@ SprintingState::~SprintingState()
 {
 }
 
-PlayerState* SprintingState::HandleInput(Component* com, double dt)
+PlayerState* SprintingState::HandleInput(ComponentBase* com, double dt)
 {
 	// TO BE IMPLEMENTED WHEN KEY TRIGGER IS ADDED
 	return nullptr;
 }
-void SprintingState::OnEnter(Component* com)
+void SprintingState::OnEnter(ComponentBase* com)
 {
 }
