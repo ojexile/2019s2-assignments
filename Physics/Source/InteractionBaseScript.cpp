@@ -7,3 +7,8 @@ InteractionBaseScript::InteractionBaseScript()
 {
 
 }
+
+InteractionBaseScript::~InteractionBaseScript()
+{
+
+}

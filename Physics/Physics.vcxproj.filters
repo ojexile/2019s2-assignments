@@ -99,6 +99,7 @@
     <ClCompile Include="Source\ParticleObserver.cpp" />
     <ClCompile Include="Source\DestructibleEntityScript.cpp" />
     <ClCompile Include="Source\InteractionBaseScript.cpp" />
+    <ClCompile Include="Source\FlipEntityScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />

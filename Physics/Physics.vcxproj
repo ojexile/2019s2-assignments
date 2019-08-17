@@ -182,6 +182,7 @@
     <ClCompile Include="Source\DestructibleEntityScript.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
+    <ClCompile Include="Source\FlipEntityScript.cpp" />
     <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
     <ClCompile Include="Source\FPSScript.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
