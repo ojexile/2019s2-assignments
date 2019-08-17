@@ -18,13 +18,13 @@ void ScriptComponent::Update(double dt)
 void ScriptComponent::Destroy(GameObject* go)
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
-	sceneManager->GetScene()->GetGameObjectManager()->Destroy(go);
+	sceneManager->GetScene()->GetGameObjectManager()->QueueDestroy(go);
 }
 
 void ScriptComponent::DestroySelf()
 {
 	SceneManager* sceneManager = SceneManager::GetInstance();
-	sceneManager->GetScene()->GetGameObjectManager()->DestroySelf(this);
+	sceneManager->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
 }
 GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer) const
 {

@@ -68,6 +68,16 @@ void GameObjectManager::RemoveObject(GameObject* go)
 	}
 	DEFAULT_LOG("Failed to remove go, does not exist.");
 }
+// Destroy--------------------------------------------------------------------------------
+void GameObjectManager::DestroyQueued()
+{
+	for (unsigned i = 0; i < m_ToDelete.size(); ++i)
+	{
+		GameObject* go = m_ToDelete.at(i);
+		Destroy(go);
+	}
+	m_ToDelete.clear();
+}
 void GameObjectManager::Destroy(GameObject* go)
 {
 	std::map<std::string, LayerData*>::iterator it;
@@ -105,11 +115,13 @@ bool GameObjectManager::SearchDestroyChild(GameObject* go, GameObject* curgo)
 			curgo->m_vec_ChildList.erase(curgo->m_vec_ChildList.begin() + i);
 			return true;
 		}
-		return SearchDestroyChild(go, child);
+		if (SearchDestroyChild(go, child))
+			return true;
 	}
 	return false;
 }
-void GameObjectManager::DestroySelf(ComponentBase* com)
+//Queue for destroy--------------------------------------------------------------------------------
+void GameObjectManager::QueueDestroyFromComponent(ComponentBase* com)
 {
 	std::map<std::string, LayerData*>::iterator it;
 
@@ -125,27 +137,74 @@ void GameObjectManager::DestroySelf(ComponentBase* com)
 			{
 				if (go->m_vec_ComponentList[j] == com)
 				{
-					delete go;
-					(*list).erase((*list).begin() + i);
+					m_ToDelete.push_back(go);
+				}
+				if (QueueSearchDestroyChildFromComponent(go, com))
 					return;
-				}
-				for (unsigned k = 0; k < go->GetChildList()->size(); ++k)
-				{
-					GameObject* child = go->GetChildList()->at(k);
-					for (unsigned l = 0; l < child->m_vec_ComponentList.size(); ++l)
-					{
-						if (child->m_vec_ComponentList[l] == com)
-						{
-							delete go;
-							(*list).erase((*list).begin() + i);
-							return;
-						}
-					}
-				}
 			}
 		}
 	}
 }
+bool GameObjectManager::QueueSearchDestroyChildFromComponent(GameObject* go, ComponentBase* com)
+{
+	for (unsigned k = 0; k < go->GetChildList()->size(); ++k)
+	{
+		GameObject* child = go->GetChildList()->at(k);
+		for (unsigned l = 0; l < child->m_vec_ComponentList.size(); ++l)
+		{
+			if (child->m_vec_ComponentList[l] == com)
+			{
+				m_ToDelete.push_back(child);
+				return true;
+			}
+		}
+		if (QueueSearchDestroyChildFromComponent(child, com))
+			return true;
+	}
+	return false;
+}
+void GameObjectManager::QueueDestroy(GameObject* go)
+{
+	std::map<std::string, LayerData*>::iterator it;
+
+	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
+	{
+		// it->first == key
+		// it->second == value
+		std::vector<GameObject*>* list = it->second->GetGOList();
+		for (unsigned i = 0; i < list->size(); ++i)
+		{
+			GameObject* curgo = (*list)[i];
+			if (curgo == go)
+			{
+				m_ToDelete.push_back(curgo);
+				return;
+			}
+			// Search Child
+			if (QueueSearchDestroyChild(go, curgo))
+			{
+				return;
+			}
+		}
+	}
+	DEFAULT_LOG("Gameobject not deleted.");
+}
+bool GameObjectManager::QueueSearchDestroyChild(GameObject* go, GameObject* curgo)
+{
+	for (unsigned i = 0; i < curgo->m_vec_ChildList.size(); ++i)
+	{
+		GameObject* child = curgo->m_vec_ChildList.at(i);
+		if (child == go)
+		{
+			m_ToDelete.push_back(child);
+			return true;
+		}
+		if (SearchDestroyChild(go, child))
+			return true;
+	}
+	return false;
+}
+//--------------------------------------------------------------------------------
 bool GameObjectManager::CreateLayer(unsigned shader, std::string layer)
 {
 	if (m_map_Layers.count(layer) > 0)
