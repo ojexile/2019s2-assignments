@@ -171,4 +171,7 @@ void DefaultScene::Init()
 	go->GetComponent<EntityScript>()->SetHealth(1.f);
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	go->TRANS->SetPosition(20, 18.5, 20);
+
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("ItemInfo"));
+	go->TRANS->SetPosition(0, 16, 0);
 }

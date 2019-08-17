@@ -14,6 +14,7 @@ private:
 	AnimatedMesh* m_AnimatedMesh;
 	bool m_bLightEnabled;
 	bool m_bBillboard;
+	bool m_b3DBillboard;
 	float m_fRenderDistance;
 	Material m_Material;
 	std::string m_sText;
@@ -41,7 +42,9 @@ public:
 	bool GetLightEnabled();
 	void SetLightEnabled(bool b);
 	void SetBillboard(bool b);
+	void Set3DBillboard(bool b);
 	bool IsBillboard();
+	bool Is3DBillboard();
 	void SetColor(Vector3 color);
 	void SetColor(float x, float y, float z);
 	void ResetColor();

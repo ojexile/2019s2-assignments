@@ -301,6 +301,20 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 
 			modelStack.Rotate(dAngle, 0.f, 1.f, 0.f);
 		}
+		if (renderComponent->Is3DBillboard())
+		{
+			float fYaw = Math::RadianToDegree(atan2((vCamPos.x - trans->GetPosition().x), (vCamPos.z - trans->GetPosition().z)));
+			Vector3 v = vCamPos - trans->GetPosition();
+			Vector3 v1 = v;
+			v.y = 0;
+			float fPitch = AngleBetween(v, v1);
+
+			modelStack.Rotate(fYaw, 0, 1, 0);
+			modelStack.Rotate(-fPitch, 1, 0, 0);
+			CHENG_LOG("Pitch: ", std::to_string(fPitch));
+			CHENG_LOG("v: ", vtos(v));
+			CHENG_LOG("v1: ", vtos(v1));
+		}
 		if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero())
 			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 		if (vGameObjectScale.x <= 0 || vGameObjectScale.y <= 0 || vGameObjectScale.z <= 0)

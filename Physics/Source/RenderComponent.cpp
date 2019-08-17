@@ -8,6 +8,7 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 	m_MeshBiomed = nullptr;
 	m_bLightEnabled = true;
 	m_bBillboard = false;
+	m_b3DBillboard = false;
 	m_bIsText = false;
 }
 RenderComponent::RenderComponent(MeshBiomed * meshBiomed)
@@ -18,8 +19,8 @@ RenderComponent::RenderComponent(MeshBiomed * meshBiomed)
 	m_AnimatedMesh = nullptr;
 	m_bLightEnabled = true;
 	m_bBillboard = false;
+	m_b3DBillboard = false;
 	m_bIsText = false;
-
 }
 RenderComponent::RenderComponent(Mesh* Mesh, std::string sText)
 	:m_Mesh(Mesh)
@@ -30,6 +31,7 @@ RenderComponent::RenderComponent(Mesh* Mesh, std::string sText)
 	m_MeshBiomed = nullptr;
 	m_bLightEnabled = false;
 	m_bBillboard = false;
+	m_b3DBillboard = false;
 	m_bIsText = true;
 }
 RenderComponent::RenderComponent(AnimatedMesh* Mesh)
@@ -41,6 +43,7 @@ RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 
 	m_bLightEnabled = false;	// Transparency doesn't work with light enabled
 	m_bBillboard = false;
+	m_b3DBillboard = false;
 	m_bIsText = false;
 }
 RenderComponent::RenderComponent(RenderComponent& ref)
@@ -64,6 +67,7 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 	m_bBillboard = ref.m_bBillboard;
 	m_bIsText = ref.m_bIsText;
 	m_sText = ref.m_sText;
+	m_b3DBillboard = ref.m_b3DBillboard;
 	this->m_Material = ref.m_Material;
 }
 
@@ -118,6 +122,14 @@ void RenderComponent::SetBillboard(bool b)
 bool RenderComponent::IsBillboard()
 {
 	return m_bBillboard;
+}
+void RenderComponent::Set3DBillboard(bool b)
+{
+	m_b3DBillboard = b;
+}
+bool RenderComponent::Is3DBillboard()
+{
+	return m_b3DBillboard;
 }
 void RenderComponent::SetColor(Vector3 color)
 {
