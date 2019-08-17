@@ -154,9 +154,9 @@ void DefaultScene::Init()
 	// Parts
 	go = m_GOM.AddGameObject(GetGO("Muzzle"));
 	go->TRANS->SetPosition(0, 18, 0);
-	go = m_GOM.AddGameObject(GetGO("Stock"));
+	go = m_GOM.AddGameObject(GetGO("Clip"));
 	go->TRANS->SetPosition(1, 16, 0);
-	go = m_GOM.AddGameObject(GetGO("Stock"));
+	go = m_GOM.AddGameObject(GetGO("Clip"));
 	go->TRANS->SetPosition(2, 16, 0);
 	go->TRANS->SetPosition(28, 20, 26);
 
