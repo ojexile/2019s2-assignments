@@ -116,7 +116,7 @@ void DefaultScene::Init()
 	Player->TRANS->SetScale(0.5f);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
-	// Player->AddComponent(new MapSpawningScript());
+	Player->AddComponent(new MapSpawningScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
