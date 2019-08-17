@@ -171,4 +171,6 @@ void DefaultScene::Init()
 	go->GetComponent<EntityScript>()->SetHealth(1.f);
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	go->TRANS->SetPosition(20, 18.5, 20);
+
+	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg");
 }

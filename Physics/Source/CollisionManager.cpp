@@ -592,6 +592,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 	go1->GetComponent<Rigidbody>()->QueueVel(-2 * shortestDirection * (vel.Dot(shortestDirection)));
 	if(go1->GetComponent<ScriptComponent>() != nullptr)
 		go1->GetComponent<ScriptComponent>()->Collide(GOList->front());
+	
 	return Rigidbody::ePhysicsTypes::CHUNK;
 }
 

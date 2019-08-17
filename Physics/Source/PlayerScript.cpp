@@ -61,25 +61,25 @@ void PlayerScript::UpdateMovement(double dt)
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
 	{
 		//rb->AddForce(vPlayerFront  *m_fAccel);
-		//bMoved = true;
+		bMoved = true;
 		Move(CameraScript::GetFront());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
 	{
 		//rb->AddForce(vPlayerFront  * -m_fAccel);
-		//bMoved = true;
+		bMoved = true;
 		Move(-CameraScript::GetFront());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
 	{
 		//rb->AddForce(vRight  * -m_fAccel);
-		//bMoved = true;
+		bMoved = true;
 		Move(-CameraScript::GetRight());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
 	{
 		//rb->AddForce(vRight  * m_fAccel);
-		//bMoved = true;
+		bMoved = true;
 		Move(CameraScript::GetRight());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
@@ -110,6 +110,7 @@ void PlayerScript::UpdateMovement(double dt)
 	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && m_Reticle->IsActive())
 	{
 		m_Gun->GUN->PullTrigger(vDir, dt);
+		
 	}
 	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && m_Reticle->IsActive())
 	{
@@ -128,12 +129,12 @@ void PlayerScript::UpdateMovement(double dt)
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
 	{
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
 		m_Reticle->SetActive(false);
 	}
 	else
 	{
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
 		m_Reticle->SetActive(true);
 	}
 	float fScroll = InputManager::GetInstance()->GetInputStrength("Zoom");
