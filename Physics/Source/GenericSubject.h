@@ -16,6 +16,6 @@ public:
 	~GenericSubject();
 
 	void AddObserver(ObserverBase*);
-	void NotifySubject(Component* com, std::string msg);
+	void NotifySubject(ComponentBase* com, std::string msg);
 	void NotifyObservers(std::vector<GameObject*>* OBComList);
 };

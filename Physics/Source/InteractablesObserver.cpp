@@ -9,7 +9,7 @@ InteractablesObserver::~InteractablesObserver()
 {
 }
 
-void InteractablesObserver::Notify(Component* com, std::string msg, std::vector<GameObject*>* OBComList)
+void InteractablesObserver::Notify(ComponentBase* com, std::string msg, std::vector<GameObject*>* OBComList)
 {
 	for (unsigned i = 0; i < OBComList->size(); i++)
 	{

@@ -1,8 +1,8 @@
 #pragma once
-
 #include "GameObject.h"
 #include "LayerData.h"
 #include "Vector3.h"
+#include "ComponentBase.h"
 
 #include <vector>
 #include <string>
@@ -27,10 +27,10 @@ public:
 	bool CreateLayer(unsigned shader, std::string layer = "Default");
 	void ClearGameObjects();
 
-	void QueueDestroyFromComponent(Component* com);
+	void QueueDestroyFromComponent(ComponentBase* com);
 	void QueueDestroy(GameObject*);
 	bool QueueSearchDestroyChild(GameObject* go, GameObject* curgo);
-	bool QueueSearchDestroyChildFromComponent(GameObject* go, Component* com);
+	bool QueueSearchDestroyChildFromComponent(GameObject* go, ComponentBase* com);
 
 	void DestroyQueued();
 	// Instantiation

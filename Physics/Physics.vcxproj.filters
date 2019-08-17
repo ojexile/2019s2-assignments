@@ -98,6 +98,7 @@
     <ClCompile Include="Source\ParticleObserver.cpp" />
     <ClCompile Include="Source\DestructibleEntityScript.cpp" />
     <ClCompile Include="Source\Component.cpp" />
+    <ClCompile Include="Source\ComponentBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Source\LootScript.h" />
     <ClInclude Include="Source\ParticleObserver.h" />
     <ClInclude Include="Source\Component.h" />
+    <ClInclude Include="Source\ComponentBase.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

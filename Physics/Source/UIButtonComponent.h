@@ -1,5 +1,5 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 /********************************************************************************/
 /*!
 \author Hao Cheng
@@ -15,7 +15,7 @@ private:
 public:
 	UIButtonComponent();
 	virtual ~UIButtonComponent();
-	virtual Component* Clone() { return new UIButtonComponent(*this); };
+	virtual ComponentBase* Clone() { return new UIButtonComponent(*this); };
 
 	virtual void Update(double dt) override;
 	bool GetHover();

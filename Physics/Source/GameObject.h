@@ -18,7 +18,7 @@ private:
 	bool m_bStatic;
 	bool m_bActive;
 	float m_fDisableDistance;
-	std::vector<Component*> m_vec_ComponentList;
+	std::vector<ComponentBase*> m_vec_ComponentList;
 	std::vector<GameObject*> m_vec_ChildList;
 	//Transform* m_Transform;
 public:
@@ -26,7 +26,7 @@ public:
 	GameObject(const GameObject& go);
 	~GameObject();
 
-	Component* AddComponent(Component* comp);
+	ComponentBase* AddComponent(ComponentBase* comp);
 	bool IsActive();
 	void SetDisableDistance(float f);
 	float GetDisableDistance();
