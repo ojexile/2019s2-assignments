@@ -30,14 +30,16 @@ void InventoryScript::Update(double dt)
 	{
 		bClick = true;
 	}
+	bool hover = false;
 	if (m_Holding)
 	{
-		if (bClick)
+		// check for hover
+		for (int i = 0; i < 4; ++i)
 		{
-			// check for hover
-			for (int i = 0; i < 4; ++i)
+			if (m_WeaponSlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
 			{
-				if (m_WeaponSlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
+				hover = true;
+				if (bClick)
 				{
 					switch (i)
 					{
@@ -64,18 +66,13 @@ void InventoryScript::Update(double dt)
 					break;
 				}
 			}
-
 		}
 	}
 
 	else
 	{
-
-		// check for hover
-		bool hover = false;
 		for (unsigned i = 0; i < INVENTORY_SIZE; ++i)
 		{
-
 			if (m_SlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
 			{
 				hover = true;
@@ -88,21 +85,23 @@ void InventoryScript::Update(double dt)
 					m_Holding = Part;
 					m_iHoldingIndex = i;
 					CHENG_LOG("Part added");
-					break;
 				}
 			}
-			m_Reticle->SetActive(!hover);
 		}
 	}
+
 	if (m_Holding)
 	{
 		double x, y;
 		Application::GetCursorPosRelative(&x, &y);
 
-		Vector3 ScreenMousePos(x * 1920, (1 - y) * 1080);
+		Vector3 ScreenMousePos((float)x * 1920, (1 - (float)y) * 1080);
 
 		m_Holding->TRANS->SetPosition(ScreenMousePos);
+		m_Reticle->SetActive(false);
 	}
+	else
+		m_Reticle->SetActive(!hover);
 }
 void InventoryScript::AddItem(GameObject* go)
 {
