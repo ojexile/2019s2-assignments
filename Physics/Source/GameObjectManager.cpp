@@ -1,5 +1,6 @@
 #include "GameObjectManager.h"
 #include "DataContainer.h"
+#include "TransformComponent.h"
 GameObjectManager::GameObjectManager()
 {
 	this->CreateLayer(DataContainer::GetInstance()->GetShader("Default"));
@@ -172,4 +173,91 @@ void GameObjectManager::ClearGameObjects()
 			(*list).erase((*list).begin() + i);
 		}
 	}
+}
+// Instantiation
+GameObject* GameObjectManager::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer)
+{
+	// TODO change to pooling
+	if (goRef)
+	{
+		try
+		{
+			GameObject* go = goRef->Clone();
+			AddGameObject(go, sLayer);
+			TransformComponent* Trans = go->GetComponent<TransformComponent>();
+			Trans->SetPosition(pos);
+			Trans->SetRotation(fAngle, (int)vRot.x, (int)vRot.y, (int)vRot.z);
+			Trans->SetScale(vScal.x, vScal.y, vScal.z);
+			return go;
+		}
+		catch (const std::exception&)
+		{
+			DEFAULT_LOG("Instantiate failed.");
+		}
+	}
+	DEFAULT_LOG("Instantiate failed, GORef is null.");
+	return nullptr;
+}
+GameObject* GameObjectManager::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, std::string sLayer, bool isChild)
+{
+	// TODO change to pooling
+	if (goRef)
+	{
+		try
+		{
+			GameObject* go = goRef->Clone();
+			TransformComponent* Trans = go->GetComponent<TransformComponent>();
+			Trans->SetPosition(pos);
+			Trans->SetScale(vScal.x, vScal.y, vScal.z);
+			if (!isChild)
+				AddGameObject(go, sLayer);
+			return go;
+		}
+		catch (const std::exception&)
+		{
+			DEFAULT_LOG("Instantiate failed.");
+		}
+	}
+	DEFAULT_LOG("Instantiate failed, GORef is null.");
+	return nullptr;
+}
+GameObject* GameObjectManager::Instantiate(const GameObject* goRef, Vector3 pos, std::string sLayer)
+{
+	// TODO change to pooling
+	if (goRef)
+	{
+		try
+		{
+			GameObject* go = goRef->Clone();
+			TransformComponent* Trans = go->GetComponent<TransformComponent>();
+			Trans->SetPosition(pos);
+			AddGameObject(go, sLayer);
+			return go;
+		}
+		catch (const std::exception&)
+		{
+			DEFAULT_LOG("Instantiate failed.");
+		}
+	}
+	DEFAULT_LOG("Instantiate failed, GORef is null.");
+	return nullptr;
+}
+GameObject* GameObjectManager::Instantiate(const GameObject* goRef, std::string sLayer)
+{
+	// TODO change to pooling
+	if (goRef)
+	{
+		try
+		{
+			GameObject* go = goRef->Clone();
+			AddGameObject(go, sLayer);
+			return go;
+		}
+		catch (const std::exception&)
+		{
+			DEFAULT_LOG("Instantiate failed.");
+		}
+	}
+	DEFAULT_LOG("Instantiate failed, GORef is null.");
+	return nullptr;
 }

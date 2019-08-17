@@ -8,6 +8,13 @@
 #include "LightManager.h"
 #include "Camera.h"
 #include "GenericSubject.h"
+/********************************************************************************/
+/*!
+\author Hao Cheng
+\brief
+
+/*!
+/********************************************************************************/
 class ScriptComponent : public ComponentBase
 {
 protected:

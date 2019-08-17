@@ -28,97 +28,23 @@ void ScriptComponent::DestroySelf()
 }
 GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer) const
 {
-	SceneManager* sceneManager = SceneManager::GetInstance();
-
-	// TODO change to pooling
-	if (goRef)
-	{
-		try
-		{
-			GameObject* go = goRef->Clone();
-			sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go, sLayer);
-			TransformComponent* Trans = go->GetComponent<TransformComponent>();
-			Trans->SetPosition(pos);
-			Trans->SetRotation(fAngle, (int)vRot.x, (int)vRot.y, (int)vRot.z);
-			Trans->SetScale(vScal.x, vScal.y, vScal.z);
-			return go;
-		}
-		catch (const std::exception&)
-		{
-			DEFAULT_LOG("Instantiate failed.");
-		}
-	}
-	DEFAULT_LOG("Instantiate failed, GORef is null.");
-	return nullptr;
+	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
+	return GOM->Instantiate(goRef, pos, vScal, vRot, fAngle, sLayer);
 }
 GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, std::string sLayer, bool isChild) const
 {
-	SceneManager* sceneManager = SceneManager::GetInstance();
-
-	// TODO change to pooling
-	if (goRef)
-	{
-		try
-		{
-			GameObject* go = goRef->Clone();
-			TransformComponent* Trans = go->GetComponent<TransformComponent>();
-			Trans->SetPosition(pos);
-			Trans->SetScale(vScal.x, vScal.y, vScal.z);
-			if (!isChild)
-				sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go, sLayer);
-			return go;
-		}
-		catch (const std::exception&)
-		{
-			DEFAULT_LOG("Instantiate failed.");
-		}
-	}
-	DEFAULT_LOG("Instantiate failed, GORef is null.");
-	return nullptr;
+	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
+	return GOM->Instantiate(goRef, pos, vScal, sLayer, isChild);
 }
 GameObject* ScriptComponent::Instantiate(const GameObject* goRef, Vector3 pos, std::string sLayer) const
 {
-	SceneManager* sceneManager = SceneManager::GetInstance();
-
-	// TODO change to pooling
-	if (goRef)
-	{
-		try
-		{
-			GameObject* go = goRef->Clone();
-			TransformComponent* Trans = go->GetComponent<TransformComponent>();
-			Trans->SetPosition(pos);
-			sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go, sLayer);
-			return go;
-		}
-		catch (const std::exception&)
-		{
-			DEFAULT_LOG("Instantiate failed.");
-		}
-	}
-	DEFAULT_LOG("Instantiate failed, GORef is null.");
-	return nullptr;
+	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
+	return GOM->Instantiate(goRef, pos, sLayer);
 }
 GameObject* ScriptComponent::Instantiate(const GameObject* goRef, std::string sLayer) const
 {
-	SceneManager* sceneManager = SceneManager::GetInstance();
-
-	// TODO change to pooling
-	if (goRef)
-	{
-		try
-		{
-			GameObject* go = goRef->Clone();
-			sceneManager->GetScene()->GetGameObjectManager()->AddGameObject(go, sLayer);
-			return go;
-		}
-		catch (const std::exception&)
-		{
-			DEFAULT_LOG("Instantiate failed.");
-		}
-	}
-	DEFAULT_LOG("Instantiate failed, GORef is null.");
-	return nullptr;
+	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
+	return GOM->Instantiate(goRef, sLayer);
 }
 void ScriptComponent::Collide(GameObject*)
 {
