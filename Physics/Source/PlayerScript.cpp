@@ -158,6 +158,7 @@ void PlayerScript::Collide(GameObject* go)
 void PlayerScript::Dash()
 {
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
+	vDir.y = 0;
 	if (!vDir.IsZero())
 		vDir.Normalize();
 	RIGID->AddForce(vDir * 2000);

@@ -22,5 +22,6 @@ public:
 	std::vector<unsigned short> * GetBlocks();
 	bool IsSolid(Vector3 pos);
 	Vector3 GetSize();
+	unsigned short GetChunkConnection(Vector3 coords, unsigned char dir);
 	Vector3 GetGroundPosition(Vector3 coords);
 };

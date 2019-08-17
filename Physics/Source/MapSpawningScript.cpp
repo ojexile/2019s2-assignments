@@ -13,12 +13,14 @@ MapSpawningScript::~MapSpawningScript()
 
 const char* RandomChunk()
 {
-	switch (Math::RandIntMinMax(0, 1))
+	switch (Math::RandIntMinMax(0, 2))
 	{
 	case 0:
-		return "Map";
+		return "archway";
 	case 1:
 		return "goldmine";
+	case 2:
+		return "smallhouse";
 	}
 }
 
@@ -27,9 +29,9 @@ void MapSpawningScript::Update(double dt)
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	Vector3 v = GetComponent<TransformComponent>()->GetPosition();
-	for (int x = -1; x <= 1; ++x)
+	for (int x = 0; x <= 4; x = (x > 0? -x : -x + 1))
 	{
-		for (int z = -1; z <= 1; ++z)
+		for (int z = 0; z <= 4; z = (z > 0? -z : -z + 1))
 		{
 			int offsetX = floor(v.x / 16.f) + x;
 			int offsetZ = floor(v.z / 16.f) + z;
@@ -58,7 +60,13 @@ void MapSpawningScript::Update(double dt)
 			go->AddComponent(new ChunkCollider(chunk));
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 				for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
-			m_spawnedLocations.emplace(Vector3(offsetX + xDiff, 0, offsetZ + zDiff));
+				{
+					m_spawnedLocations.emplace(Vector3(offsetX + xDiff, 0, offsetZ + zDiff));
+					m_connections[Vector3(offsetX + xDiff + 1, 0, offsetZ + zDiff)][0] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 2);
+					m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff + 1)][1] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 3);
+					m_connections[Vector3(offsetX + xDiff - 1, 0, offsetZ + zDiff)][2] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 0);
+					m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff - 1)][3] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 1);
+				}
 			
 		}
 	}
