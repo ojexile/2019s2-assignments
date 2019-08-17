@@ -469,7 +469,7 @@ void CollisionManager::Update(GameObjectManager* GOM)
 			if (go1->GetComponent<Rigidbody>(true) && go1->GetComponent<Rigidbody>(true)->IsActive())
 			{
 				CheckCollision(go1, GOList, i);
-				if (go1->GetComponent<ChunkCollider>() == nullptr)
+				if (go1->GetComponent<ChunkCollider>(true) == nullptr)
 					CheckChunkCollision(go1, GOList);
 			}
 			for (unsigned j = 0; j < go1->GetChildList()->size(); ++j)
@@ -502,7 +502,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 	{
 		GameObject* go2 = *it1;
 		Vector3 dist = go2->TRANS->GetPosition() - go1->TRANS->GetPosition();
-		if (go2->GetComponent<ChunkCollider>() != nullptr)
+		if (go2->GetComponent<ChunkCollider>(true) != nullptr)
 		{
 			ChunkData* chunkData = go2->GetComponent<ChunkCollider>()->GetChunk();
 			if (dist.Length() < chunkData->GetSize().Length())

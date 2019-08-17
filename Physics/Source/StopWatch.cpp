@@ -35,5 +35,6 @@ std::string StopWatch::GetSTime()
 }
 void StopWatch::Reset()
 {
+	m_Start = std::clock();
 	m_fTime = -1;
 }

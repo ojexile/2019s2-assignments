@@ -5,7 +5,7 @@
 #define SHADOW_VIEW_SIZE_X 110
 #define SHADOW_VIEW_SIZE_Y 110
 #define SHADOW_VIEW_SIZE_Z 100
-#define SHADOW_RES 1024*4
+#define SHADOW_RES 1024*0.5
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
@@ -311,9 +311,6 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 
 			modelStack.Rotate(fYaw, 0, 1, 0);
 			modelStack.Rotate(-fPitch, 1, 0, 0);
-			CHENG_LOG("Pitch: ", std::to_string(fPitch));
-			CHENG_LOG("v: ", vtos(v));
-			CHENG_LOG("v1: ", vtos(v1));
 		}
 		if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero())
 			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
