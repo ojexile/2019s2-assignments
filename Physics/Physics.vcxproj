@@ -269,6 +269,7 @@
     <ClInclude Include="Source\DestructibleEntityScript.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\EntityScript.h" />
+    <ClInclude Include="Source\FlipEntityScript.h" />
     <ClInclude Include="Source\FoilageGeneratorComponent.h" />
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />

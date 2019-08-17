@@ -190,6 +190,7 @@
     <ClInclude Include="Source\GrenadeScript.h" />
     <ClInclude Include="Source\LootScript.h" />
     <ClInclude Include="Source\ParticleObserver.h" />
+    <ClInclude Include="Source\FlipEntityScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
