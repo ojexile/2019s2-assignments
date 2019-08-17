@@ -2,10 +2,11 @@
 
 #include "GameObject.h"
 #include "LayerData.h"
+#include "Vector3.h"
 
 #include <vector>
+#include <string>
 #include <map>
-
 class GameObjectManager
 {
 private:
@@ -25,4 +26,10 @@ public:
 	bool CreateLayer(unsigned shader, std::string layer = "Default");
 
 	void ClearGameObjects();
+
+	// Instantiation
+	GameObject* Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer = "Default");
+	GameObject* Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, std::string sLayer = "Default", bool bIsChild = false);
+	GameObject* Instantiate(const GameObject* goRef, Vector3 pos, std::string sLayer = "Default");
+	GameObject* Instantiate(const GameObject* goRef, std::string sLayer = "Default");
 };
