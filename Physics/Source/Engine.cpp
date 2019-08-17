@@ -104,6 +104,8 @@ void Engine::Update(double dt)
 	m_CollisionManager.Update(CurrentScene->GetGameObjectManager());
 	// Update Observers
 	GenericSubject::GetInstance()->NotifyObservers(&GOObserverList);
+	// Remove to be destroyed--------------------------------------------------------------------------------
+	GOM->DestroyQueued();
 	//--------------------------------------------------------------------------------
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
@@ -143,7 +145,7 @@ void Engine::Update(double dt)
 		}
 		m_fLogUpdateTimer = 0;
 		//double duration = (std::clock() - start) / (double)CLOCKS_PER_SEC; // --------------------------------------------------------------------------------
- 	}
+	}
 }
 void Engine::CheckGOForObserver(GameObject* go, std::vector<GameObject*>* GOList)
 {
