@@ -7,6 +7,5 @@ public:
 	ParticleObserver();
 	virtual ~ParticleObserver();
 
-	virtual void Notify(ComponentBase* com, std::string msg, std::vector<GameObject*>* OBComList);
+	virtual void Notify(Component* com, std::string msg, std::vector<GameObject*>* OBComList);
 };
-

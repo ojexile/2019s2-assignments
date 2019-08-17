@@ -17,7 +17,7 @@ public:
 	ReticleScript();
 	virtual ~ReticleScript();
 
-	virtual ComponentBase* Clone() { return new ReticleScript(*this); };
+	virtual Component* Clone() { return new ReticleScript(*this); };
 	virtual void Start() override;
 	virtual void Update(double dt) override;
 };

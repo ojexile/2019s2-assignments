@@ -13,7 +13,7 @@ TopDownState::~TopDownState()
 {
 }
 
-PlayerState* TopDownState::HandleInput(ComponentBase* com, double dt)
+PlayerState* TopDownState::HandleInput(Component* com, double dt)
 {
 	if (!InputManager::GetInstance()->GetInputStrength("SwitchCam"))
 	{
@@ -21,7 +21,7 @@ PlayerState* TopDownState::HandleInput(ComponentBase* com, double dt)
 	}
 	return nullptr;
 }
-void TopDownState::OnEnter(ComponentBase* com)
+void TopDownState::OnEnter(Component* com)
 {
 	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetPosition(0, 20, 0);
 	CameraScript::SetTopDown(true);

@@ -6,14 +6,14 @@
 #include "Mesh.h"
 #include "AnimatedMesh.h"
 template<class t>
-class MeshController : public ComponentBase
+class MeshController : public Component
 {
 private:
 	std::map<std::string, t*> m_map_List;
 public:
 	MeshController() {};
 	virtual ~MeshController() {};
-	virtual ComponentBase* Clone()
+	virtual Component* Clone()
 	{
 		return new MeshController(*this);
 	};

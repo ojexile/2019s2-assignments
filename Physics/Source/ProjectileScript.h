@@ -15,7 +15,7 @@ public:
 
 	void Update(double deltaTime) override;
 
-	virtual ComponentBase* Clone() { return new ProjectileScript(*this); }
+	virtual Component* Clone() { return new ProjectileScript(*this); }
 	virtual void Collide(GameObject*) override;
 
 	float getDamage();
@@ -25,4 +25,3 @@ protected:
 	float m_fDamage;
 	float m_fLifespan;
 };
-

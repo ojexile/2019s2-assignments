@@ -41,7 +41,7 @@ public:
 	int GetMagazineRounds();
 	int GetMaxMagazineRounds();
 
-	virtual ComponentBase* Clone(){return new WeaponScript(*this);}
+	virtual Component* Clone() { return new WeaponScript(*this); }
 
 private:
 
@@ -53,7 +53,7 @@ private:
 	void DamageEquippedParts(std::vector<GameObject*>& m_vector, const double deltaTime);
 
 	int m_iBulletsFiredCount;
-	
+
 	int m_iMagazineRounds;
 	int m_iMagazineRounds_Max;
 
@@ -76,6 +76,4 @@ private:
 	std::vector<GameObject*> m_MuzzleParts;
 	std::vector<GameObject*> m_GripParts;
 	std::vector<GameObject*> m_StockParts;
-
 };
-

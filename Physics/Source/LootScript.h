@@ -12,7 +12,7 @@ public:
 
 	void DropLoot(void);
 
-	virtual ComponentBase* Clone() { return new LootScript(*this); }
+	virtual Component* Clone() { return new LootScript(*this); }
 
 private:
 
@@ -21,6 +21,4 @@ private:
 	void GenerateMiscPart(void);
 
 	GameObject* m_LootDrop;
-	
 };
-

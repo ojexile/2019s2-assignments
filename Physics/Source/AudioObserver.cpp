@@ -9,10 +9,10 @@ AudioObserver::~AudioObserver()
 {
 }
 
-void AudioObserver::Notify(ComponentBase* com, std::string msg, std::vector<GameObject*>* OBComList)
+void AudioObserver::Notify(Component* com, std::string msg, std::vector<GameObject*>* OBComList)
 {
 	if (msg == "Jump")
 	{
-		AudioManager::GetInstance()->Play3D("boing.wav",com->TRANS->GetPosition());
+		AudioManager::GetInstance()->Play3D("boing.wav", com->TRANS->GetPosition());
 	}
 }

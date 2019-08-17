@@ -6,19 +6,17 @@
 
 SprintingState::SprintingState()
 {
-
 }
 
 SprintingState::~SprintingState()
 {
 }
 
-PlayerState* SprintingState::HandleInput(ComponentBase* com, double dt)
+PlayerState* SprintingState::HandleInput(Component* com, double dt)
 {
 	// TO BE IMPLEMENTED WHEN KEY TRIGGER IS ADDED
 	return nullptr;
 }
-void SprintingState::OnEnter(ComponentBase* com)
+void SprintingState::OnEnter(Component* com)
 {
-
 }

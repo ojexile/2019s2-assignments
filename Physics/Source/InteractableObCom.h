@@ -6,7 +6,6 @@ class InteractableObCom :
 public:
 	InteractableObCom();
 	virtual ~InteractableObCom();
-	virtual ComponentBase* Clone() { return new InteractableObCom(*this); };
-	virtual void Notify(ComponentBase* com, std::string msg);
+	virtual Component* Clone() { return new InteractableObCom(*this); };
+	virtual void Notify(Component* com, std::string msg);
 };
-

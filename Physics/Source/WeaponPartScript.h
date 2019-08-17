@@ -6,9 +6,6 @@ public:
 	WeaponPartScript(SLOT_TYPE slot, float Multiplier, float durability, bool isAttached = false);
 	virtual ~WeaponPartScript();
 
-
-	virtual ComponentBase* Clone() { return new WeaponPartScript(*this); }
+	virtual Component* Clone() { return new WeaponPartScript(*this); }
 	void Effect() override;
-
 };
-

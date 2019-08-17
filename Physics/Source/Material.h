@@ -6,18 +6,18 @@
 #define DEFAULT_SPECULAR  Resources::Defaults::fSpecular
 #define DEFAULT_SHININESS Resources::Defaults::fShininess
 
-struct Component
+struct Comp
 {
 	float r, g, b;
-	Component() {};
-	Component(float r, float g, float b) { Set(r, g, b); }
+	Comp() {};
+	Comp(float r, float g, float b) { Set(r, g, b); }
 	void Set(float r, float g, float b) { this->r = r; this->g = g; this->b = b; }
 };
 struct Material
 {
-	Component kAmbient;
-	Component kDiffuse;
-	Component kSpecular;
+	Comp kAmbient;
+	Comp kDiffuse;
+	Comp kSpecular;
 	float kShininess;
 
 	Material()

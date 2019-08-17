@@ -2,7 +2,7 @@
 #include "ComponentBase.h"
 #include "Vector3.h"
 class TransformComponent :
-	public ComponentBase
+	public Component
 {
 private:
 	Vector3 m_vPosition;
@@ -20,7 +20,7 @@ public:
 	TransformComponent();
 	TransformComponent(Vector3);
 	virtual ~TransformComponent();
-	virtual ComponentBase* Clone()
+	virtual Component* Clone()
 	{
 		return new TransformComponent(*this);
 	}

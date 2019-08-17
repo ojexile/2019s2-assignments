@@ -15,7 +15,7 @@
 
 /*!
 /********************************************************************************/
-class ScriptComponent : public ComponentBase
+class ScriptComponent : public Component
 {
 protected:
 void Destroy(GameObject* go);
@@ -32,11 +32,5 @@ public:
 
 	virtual void Update(double dt);
 	virtual void Collide(GameObject*);
-	virtual ComponentBase* Clone() = 0;
-
-	GameObject* Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer = "Default") const;
-	GameObject* Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, std::string sLayer = "Default", bool bIsChild = false) const;
-	GameObject* Instantiate(const GameObject* goRef, Vector3 pos, std::string sLayer = "Default") const;
-	GameObject* Instantiate(const GameObject* goRef, std::string sLayer = "Default") const;
-
+	virtual Component* Clone() = 0;
 };

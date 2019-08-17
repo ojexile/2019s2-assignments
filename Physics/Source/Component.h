@@ -3,18 +3,18 @@
 #include <string>
 #include "Locator.h"
 #include "ComponentMacros.h"
-class ComponentBase
+class Component
 {
 private:
 	bool m_bStarted;
-	std::vector<ComponentBase*>* m_vec_RefList = nullptr;
+	std::vector<Component*>* m_vec_RefList = nullptr;
 	bool m_bActive;
 public:
-	ComponentBase();
-	virtual ~ComponentBase();
-	ComponentBase(ComponentBase& com);
+	Component();
+	virtual ~Component();
+	Component(Component& com);
 
-	void Init(std::vector<ComponentBase*>* refList);
+	void Init(std::vector<Component*>* refList);
 	virtual void Update(double dt);
 
 	template <class t>
@@ -31,7 +31,7 @@ public:
 			DEFAULT_LOG("Component of type " + sTypeName + " not found");
 		return nullptr;
 	};
-	virtual ComponentBase* Clone() = 0;
+	virtual Component* Clone() = 0;
 
 	virtual void CheckStarted();
 	virtual void Start();
@@ -42,7 +42,6 @@ public:
 	void SetStarted(bool);
 
 	// Function accessors
-	void Notify(ComponentBase* com, std::string msg);
+	void Notify(Component* com, std::string msg);
 	Vector3 GetPosition();
-
 };

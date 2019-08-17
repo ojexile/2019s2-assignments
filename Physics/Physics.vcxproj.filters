@@ -21,7 +21,6 @@
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
-    <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\Constrain.cpp" />
     <ClCompile Include="Source\CrouchingState.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
@@ -98,6 +97,7 @@
     <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\ParticleObserver.cpp" />
     <ClCompile Include="Source\DestructibleEntityScript.cpp" />
+    <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\InteractionBaseScript.cpp" />
     <ClCompile Include="Source\FlipEntityScript.cpp" />
   </ItemGroup>
@@ -110,7 +110,6 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\CollisionManager.h" />
-    <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
     <ClInclude Include="Source\Constrain.h" />
     <ClInclude Include="Source\CrouchingState.h" />
@@ -192,6 +191,7 @@
     <ClInclude Include="Source\GrenadeScript.h" />
     <ClInclude Include="Source\LootScript.h" />
     <ClInclude Include="Source\ParticleObserver.h" />
+    <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\FlipEntityScript.h" />
     <ClInclude Include="Source\InteractionBaseScript.h" />
   </ItemGroup>

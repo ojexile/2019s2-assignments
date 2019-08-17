@@ -3,7 +3,7 @@
 #include "TransformComponent.h"
 #include "Camera.h"
 class CameraComponent :
-	public ComponentBase
+	public Component
 {
 public:
 	enum eCameraTypes
@@ -21,7 +21,7 @@ private:
 public:
 	CameraComponent();
 	virtual ~CameraComponent();
-	virtual ComponentBase* Clone()
+	virtual Component* Clone()
 	{
 		return new CameraComponent(*this);
 	}

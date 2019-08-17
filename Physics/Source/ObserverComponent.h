@@ -10,11 +10,10 @@ Generic subject to be updated
 /*!
 /********************************************************************************/
 class ObserverComponent :
-	public ComponentBase
+	public Component
 {
 public:
 	ObserverComponent();
 	virtual ~ObserverComponent();
-	virtual void Notify(ComponentBase* com, std::string msg);
+	virtual void Notify(Component* com, std::string msg);
 };
-
