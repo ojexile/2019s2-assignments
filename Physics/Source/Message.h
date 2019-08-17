@@ -6,9 +6,8 @@ class Message
 	friend class GenericSubject;
 private:
 	std::string m_sMessage;
-	ComponentBase* m_Com;
+	Component* m_Com;
 public:
-	Message(ComponentBase* com, std::string s);
+	Message(Component* com, std::string s);
 	~Message();
 };
-

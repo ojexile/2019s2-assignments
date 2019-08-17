@@ -14,7 +14,7 @@ CrouchingState::CrouchingState()
 CrouchingState::~CrouchingState()
 {
 }
-PlayerState* CrouchingState::HandleInput(ComponentBase* com, double dt)
+PlayerState* CrouchingState::HandleInput(Component* com, double dt)
 {
 	// Crouch
 	static bool bCrouch = true;
@@ -29,7 +29,7 @@ PlayerState* CrouchingState::HandleInput(ComponentBase* com, double dt)
 	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, CROUCHING_HEIGHT, 0);
 	return nullptr;
 }
-void CrouchingState::OnEnter(ComponentBase* com)
+void CrouchingState::OnEnter(Component* com)
 {
 	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->SetRelativePosition(0, CROUCHING_HEIGHT, 0);
 	com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, 200);

@@ -21,13 +21,13 @@ public:
 	void PullPin(void);
 	void ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRef, const float deltaTime);
 
-	virtual ComponentBase* Clone() { return new GrenadeScript(*this); }
+	virtual Component* Clone() { return new GrenadeScript(*this); }
 
 	void Explode(void);
 private:
 
 	float m_fExplosionRadius;
-	
+
 	float m_fExplosionDamage;
 
 	int m_iGrenadeCount;
@@ -35,4 +35,3 @@ private:
 	bool m_bIsGrenadeCooking;
 	bool m_bHasExploded;
 };
-

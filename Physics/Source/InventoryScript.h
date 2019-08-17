@@ -12,9 +12,8 @@ private:
 public:
 	InventoryScript(GameObject* gun, std::vector<GameObject*> list);
 	virtual ~InventoryScript();
-	virtual ComponentBase* Clone() { return new InventoryScript(*this); };
+	virtual Component* Clone() { return new InventoryScript(*this); };
 	virtual void Update(double dt) override;
-	
+
 	void AddItem(GameObject* go);
 };
-

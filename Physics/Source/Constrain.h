@@ -3,7 +3,7 @@
 #include "ComponentMacros.h"
 #include "HeightMapData.h"
 class Constrain :
-	public ComponentBase
+	public Component
 {
 public:
 	enum eConstrainTypes
@@ -17,7 +17,7 @@ private:
 public:
 	Constrain(HeightMapData*, eConstrainTypes type);
 	virtual ~Constrain();
-	virtual ComponentBase* Clone() { return new Constrain(*this); };
+	virtual Component* Clone() { return new Constrain(*this); };
 	virtual void Update(double dt) override;
 
 	void SetHeightMapData(HeightMapData* data);

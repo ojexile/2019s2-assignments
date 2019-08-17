@@ -16,7 +16,7 @@ GameObject::GameObject(const GameObject& go)
 	m_fDisableDistance = 2000000;
 	for (unsigned i = 0; i < go.m_vec_ComponentList.size(); ++i)
 	{
-		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());
+		Component* cb = (go.m_vec_ComponentList[i]->Clone());
 		cb->SetActive(go.m_vec_ComponentList[i]->IsActive());
 		cb->SetStarted(go.m_vec_ComponentList[i]->IsStarted());
 		this->AddComponent(cb);
@@ -44,7 +44,7 @@ GameObject::~GameObject()
 	// m_vec_ChildList.clear();
 }
 
-ComponentBase* GameObject::AddComponent(ComponentBase* comp)
+Component* GameObject::AddComponent(Component* comp)
 {
 	// TODO check if component already exists?
 	// Should there be duplicate components?
@@ -72,7 +72,7 @@ void GameObject::Update(double dt)
 {
 	if (m_fDisableDistance < (SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition() - TRANS->GetPosition()).Length())
 		return;
-		// Update components
+	// Update components
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
 		if (!m_vec_ComponentList[i]->IsActive())
@@ -114,7 +114,7 @@ void GameObject::Update(double dt)
 		{
 			if (!go2->m_vec_ComponentList[j]->IsActive())
 				continue;
-			ComponentBase* childcomp = go2->m_vec_ComponentList[j];
+			Component* childcomp = go2->m_vec_ComponentList[j];
 			if (childcomp->IsActive())
 			{
 				childcomp->CheckStarted();
@@ -154,7 +154,7 @@ void GameObject::Update(double dt)
 			{
 				if (!go3->m_vec_ComponentList[l]->IsActive())
 					continue;
-				ComponentBase* childcomp = go3->m_vec_ComponentList[l];
+				Component* childcomp = go3->m_vec_ComponentList[l];
 				if (childcomp->IsActive())
 				{
 					childcomp->CheckStarted();

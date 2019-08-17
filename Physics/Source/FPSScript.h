@@ -9,7 +9,7 @@ private:
 public:
 	FPSScript();
 	virtual ~FPSScript();
-	virtual ComponentBase* Clone() { return new FPSScript(*this); };
+	virtual Component* Clone() { return new FPSScript(*this); };
 
 	virtual void Update(double dt);
 	virtual void Start() override;

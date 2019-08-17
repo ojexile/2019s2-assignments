@@ -27,10 +27,10 @@ public:
 	bool CreateLayer(unsigned shader, std::string layer = "Default");
 	void ClearGameObjects();
 
-	void QueueDestroyFromComponent(ComponentBase* com);
+	void QueueDestroyFromComponent(Component* com);
 	void QueueDestroy(GameObject*);
 	bool QueueSearchDestroyChild(GameObject* go, GameObject* curgo);
-	bool QueueSearchDestroyChildFromComponent(GameObject* go, ComponentBase* com);
+	bool QueueSearchDestroyChildFromComponent(GameObject* go, Component* com);
 
 	void DestroyQueued();
 	// Instantiation

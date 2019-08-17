@@ -9,12 +9,12 @@ class DestructibleEntityScript : public EntityScript
 {
 private:
 	GameObject* m_particleSpawnerRef;
-	
+
 public:
 	DestructibleEntityScript();
 	DestructibleEntityScript(GameObject* m_particleSpawnerRef);
 	virtual ~DestructibleEntityScript();
-	virtual ComponentBase* Clone() { 
+	virtual Component* Clone() {
 		return new DestructibleEntityScript(*this);
 	};
 	virtual void Update(double dt) override;

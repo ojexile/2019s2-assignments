@@ -11,6 +11,6 @@ public:
 	CrouchingState();
 	virtual ~CrouchingState();
 
-	virtual PlayerState* HandleInput(ComponentBase* com, double dt) override;
-	virtual void OnEnter(ComponentBase* com) override;
+	virtual PlayerState* HandleInput(Component* com, double dt) override;
+	virtual void OnEnter(Component* com) override;
 };

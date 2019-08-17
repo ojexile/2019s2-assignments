@@ -2,7 +2,7 @@
 #include "ComponentBase.h"
 #include "PhysicsMaterial.h"
 class Rigidbody :
-	public ComponentBase
+	public Component
 {
 public:
 	enum ePhysicsTypes
@@ -44,7 +44,7 @@ private:
 public:
 	Rigidbody(ePhysicsTypes e, bool Grav = true);
 	virtual ~Rigidbody();
-	virtual ComponentBase* Clone()
+	virtual Component* Clone()
 	{
 		return new Rigidbody(*this);
 	}

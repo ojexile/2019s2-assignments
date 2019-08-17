@@ -11,6 +11,5 @@ public:
 	ObserverBase();
 	~ObserverBase();
 
-	virtual void Notify(ComponentBase* com, std::string msg, std::vector<GameObject*>* OBComList) = 0;
+	virtual void Notify(Component* com, std::string msg, std::vector<GameObject*>* OBComList) = 0;
 };
-

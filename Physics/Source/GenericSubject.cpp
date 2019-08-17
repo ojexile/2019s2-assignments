@@ -1,11 +1,8 @@
 #include "GenericSubject.h"
 
-
-
 GenericSubject::GenericSubject()
 {
 }
-
 
 GenericSubject::~GenericSubject()
 {
@@ -15,11 +12,10 @@ GenericSubject::~GenericSubject()
 		delete ob;
 	}
 }
-void GenericSubject::NotifySubject(ComponentBase* com, std::string msg)
+void GenericSubject::NotifySubject(Component* com, std::string msg)
 {
 	m_Messages.push_back(new Message(com, msg));
 	// update observers
-
 }
 void GenericSubject::NotifyObservers(std::vector<GameObject*>* OBComList)
 {

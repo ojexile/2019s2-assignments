@@ -121,7 +121,7 @@ bool GameObjectManager::SearchDestroyChild(GameObject* go, GameObject* curgo)
 	return false;
 }
 //Queue for destroy--------------------------------------------------------------------------------
-void GameObjectManager::QueueDestroyFromComponent(ComponentBase* com)
+void GameObjectManager::QueueDestroyFromComponent(Component* com)
 {
 	std::map<std::string, LayerData*>::iterator it;
 
@@ -145,7 +145,7 @@ void GameObjectManager::QueueDestroyFromComponent(ComponentBase* com)
 		}
 	}
 }
-bool GameObjectManager::QueueSearchDestroyChildFromComponent(GameObject* go, ComponentBase* com)
+bool GameObjectManager::QueueSearchDestroyChildFromComponent(GameObject* go, Component* com)
 {
 	for (unsigned k = 0; k < go->GetChildList()->size(); ++k)
 	{

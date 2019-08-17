@@ -12,5 +12,5 @@ public:
 	MapSpawningScript();
 	virtual ~MapSpawningScript();
 	virtual void Update(double dt) override;
-	virtual ComponentBase* Clone() { return new MapSpawningScript(*this); };
+	virtual Component* Clone() { return new MapSpawningScript(*this); };
 };

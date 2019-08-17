@@ -15,7 +15,7 @@
 
 /*!
 /********************************************************************************/
-class ScriptComponent : public ComponentBase
+class ScriptComponent : public Component
 {
 protected:
 	GameObject* Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer = "Default") const;
@@ -36,5 +36,5 @@ public:
 
 	virtual void Update(double dt);
 	virtual void Collide(GameObject*);
-	virtual ComponentBase* Clone() = 0;
+	virtual Component* Clone() = 0;
 };
