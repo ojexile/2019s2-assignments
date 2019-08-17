@@ -193,6 +193,7 @@
     <ClCompile Include="Source\InputManager.cpp" />
     <ClCompile Include="Source\InteractableObCom.cpp" />
     <ClCompile Include="Source\InteractablesObserver.cpp" />
+    <ClCompile Include="Source\InteractionBaseScript.cpp" />
     <ClCompile Include="Source\InventoryScript.cpp" />
     <ClCompile Include="Source\KeyboardManager.cpp" />
     <ClCompile Include="Source\LayerData.cpp" />
@@ -282,6 +283,7 @@
     <ClInclude Include="Source\InputManager.h" />
     <ClInclude Include="Source\InteractableObCom.h" />
     <ClInclude Include="Source\InteractablesObserver.h" />
+    <ClInclude Include="Source\InteractionBaseScript.h" />
     <ClInclude Include="Source\InventoryScript.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
     <ClInclude Include="Source\LayerData.h" />
