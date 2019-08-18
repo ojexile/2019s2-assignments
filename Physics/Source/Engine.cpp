@@ -8,6 +8,7 @@
 #include "DataContainer.h"
 #include "ObserverComponent.h"
 #include "GenericSubject.h"
+#include "StopWatch.h"
 // Start Scene
 #include "DefaultScene.h"
 Renderer* Engine::m_Renderer;
@@ -27,7 +28,6 @@ void Engine::Init()
 {
 	DataContainer::GetInstance()->Init();
 	AudioManager* audio = AudioManager::GetInstance();
-	audio->Play3D("pop.wav", {});
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
@@ -100,8 +100,11 @@ void Engine::Update(double dt)
 			CheckGOForObserver(go, &GOObserverList);
 		}
 	}
-	//Update coll--------------------------------------------------------------------------------
+	//Update coll-------------------------------------------------------------------------------
+	StopWatch sw(true);
 	m_CollisionManager.Update(CurrentScene->GetGameObjectManager());
+	sw.Stop();
+	KZ_LOG("[Collision_Time_2]", " CollisionManager.Update() took " + sw.GetSTime() + "s");
 	// Update Observers
 	GenericSubject::GetInstance()->NotifyObservers(&GOObserverList);
 	// Remove to be destroyed--------------------------------------------------------------------------------
