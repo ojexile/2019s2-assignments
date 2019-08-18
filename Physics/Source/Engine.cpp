@@ -28,7 +28,6 @@ void Engine::Init()
 {
 	DataContainer::GetInstance()->Init();
 	AudioManager* audio = AudioManager::GetInstance();
-	audio->Play3D("pop.wav", {});
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
@@ -111,8 +110,12 @@ void Engine::Update(double dt)
 	CHENG_LOG("Time to update: ", STOP_S);
 	//Update coll--------------------------------------------------------------------------------
 	s.Reset();
+	//Update coll-------------------------------------------------------------------------------
+	StopWatch sw(true);
 	m_CollisionManager.Update(CurrentScene->GetGameObjectManager());
 	CHENG_LOG("Time to check collision: ", STOP_S);
+	sw.Stop();
+	KZ_LOG("[Collision_Time_2]", " CollisionManager.Update() took " + sw.GetSTime() + "s");
 	// Update Observers
 	GenericSubject::GetInstance()->NotifyObservers(&GOObserverList);
 	// Remove to be destroyed--------------------------------------------------------------------------------

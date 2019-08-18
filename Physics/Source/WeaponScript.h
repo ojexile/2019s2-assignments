@@ -33,13 +33,23 @@ public:
 	void Update(double deltaTime) override;
 	void UpdateStats(GameObject* go, bool Multiply);
 
-	void AddPart(GameObject* part);
+	void EquipPart(GameObject* part);
+
+	void SetAmmo(int Ammo);
+	void SetMaxAmmo(int Ammo_Max);
+	void SetBulletsFired(int BulletsFired);
+	void SetMagazineRounds(int MagRounds);
+	void SetMaxMagazineRounds(int MagRounds_Max);
+	void SetFireRate(float FireRate);
+	void SetBulletSpread(float BulletSpread);
 
 	int GetAmmo();
 	int GetMaxAmmo();
-
+	int GetBulletsFired();
 	int GetMagazineRounds();
 	int GetMaxMagazineRounds();
+	float GetFireRate();
+	float GetBulletSpread();
 
 	virtual Component* Clone() { return new WeaponScript(*this); }
 

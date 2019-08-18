@@ -5,6 +5,9 @@
 #include "WorldValues.h"
 #include "ChunkCollider.h"
 #include "PlayerScript.h"
+
+static int nCollisionRuns = 0;
+
 CollisionManager::CollisionManager()
 {
 }
@@ -453,8 +456,12 @@ void CollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, Rigid
 }
 void CollisionManager::Update(GameObjectManager* GOM)
 {
+	nCollisionRuns++;
+	StopWatch timer;
+	timer.Start();
 	std::map<std::string, LayerData*>::iterator it;
 	// TODO multilayer collision?
+	int nCounts = 0;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
 		// it->first == key
@@ -468,9 +475,12 @@ void CollisionManager::Update(GameObjectManager* GOM)
 				continue;
 			if (go1->GetComponent<Rigidbody>(true) && go1->GetComponent<Rigidbody>(true)->IsActive())
 			{
-				CheckCollision(go1, GOList, i);
 				if (go1->GetComponent<ChunkCollider>(true) == nullptr)
+				{
 					CheckChunkCollision(go1, GOList);
+					CheckCollision(go1, GOList, i);
+					nCounts++;
+				}
 			}
 			for (unsigned j = 0; j < go1->GetChildList()->size(); ++j)
 			{
@@ -482,42 +492,53 @@ void CollisionManager::Update(GameObjectManager* GOM)
 			}
 		}
 	}
+	std::ostringstream ss;
+	ss << nCounts;
+	timer.Stop();
+	KZ_LOG("[Collision_Time]", " Total time taken: " + timer.GetSTime() + "s for " + ss.str() + "checks");
 }
 
 Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, std::vector<GameObject*>* GOList)
 {
-	std::vector<GameObject*> chunks;
-	float halfPlayerSize = go1->GetComponent<TransformComponent>()->GetScale().x;
-	float halfPlayerHeight = go1->GetComponent<TransformComponent>()->GetScale().y;
-	float ky = go1->TRANS->GetPosition().y;
-	Vector3 vertices[] = { go1->TRANS->GetPosition()  + Vector3(halfPlayerSize, halfPlayerHeight, halfPlayerSize),
-					 go1->TRANS->GetPosition() + Vector3(halfPlayerSize, halfPlayerHeight, -halfPlayerSize),
-					 go1->TRANS->GetPosition() + Vector3(-halfPlayerSize, halfPlayerHeight, halfPlayerSize),
-					 go1->TRANS->GetPosition() + Vector3(-halfPlayerSize, halfPlayerHeight, -halfPlayerSize),
-					 go1->TRANS->GetPosition() + Vector3(halfPlayerSize, -halfPlayerHeight, halfPlayerSize),
-					 go1->TRANS->GetPosition() + Vector3(halfPlayerSize, -halfPlayerHeight, -halfPlayerSize),
-					 go1->TRANS->GetPosition() + Vector3(-halfPlayerSize, -halfPlayerHeight, halfPlayerSize),
-					 go1->TRANS->GetPosition() + Vector3(-halfPlayerSize, -halfPlayerHeight, -halfPlayerSize) };
+	std::map<Vector3, ChunkData*> chunks;
+	TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
+	float halfPlayerSize = trans1->GetScale().x;
+	float halfPlayerHeight = trans1->GetScale().y;
+
+	int nCounts = 0;
+	Vector3 vertices[] = { trans1->GetPosition()  + Vector3(halfPlayerSize, halfPlayerHeight, halfPlayerSize),
+					 trans1->GetPosition() + Vector3(halfPlayerSize, halfPlayerHeight, -halfPlayerSize),
+					 trans1->GetPosition() + Vector3(-halfPlayerSize, halfPlayerHeight, halfPlayerSize),
+					 trans1->GetPosition() + Vector3(-halfPlayerSize, halfPlayerHeight, -halfPlayerSize),
+					 trans1->GetPosition() + Vector3(halfPlayerSize, -halfPlayerHeight, halfPlayerSize),
+					 trans1->GetPosition() + Vector3(halfPlayerSize, -halfPlayerHeight, -halfPlayerSize),
+					 trans1->GetPosition() + Vector3(-halfPlayerSize, -halfPlayerHeight, halfPlayerSize),
+					 trans1->GetPosition() + Vector3(-halfPlayerSize, -halfPlayerHeight, -halfPlayerSize) };
 	for (auto it1 = GOList->begin(); it1 != GOList->end(); ++it1)
 	{
 		GameObject* go2 = *it1;
-		Vector3 dist = go2->TRANS->GetPosition() - go1->TRANS->GetPosition();
+		Vector3 dist = go2->TRANS->GetPosition() - trans1->GetPosition();
 		if (go2->GetComponent<ChunkCollider>(true) != nullptr)
 		{
+			nCounts++;
 			ChunkData* chunkData = go2->GetComponent<ChunkCollider>()->GetChunk();
-			if (dist.Length() < chunkData->GetSize().Length())
+			if (dist.LengthSquared() < chunkData->GetSize().LengthSquared() * 1.01)
 			{
 				for (int i = 0; i < 8; ++i)
 				{
 					if (go2->GetComponent<ChunkCollider>()->GetChunk()->IsSolid(vertices[i] - go2->GetComponent<TransformComponent>()->GetPosition()))
 					{
-						chunks.push_back(go2);
+						chunks.emplace(go2->GetComponent<TransformComponent>()->GetPosition(), go2->GetComponent<ChunkCollider>()->GetChunk());
 						break;
 					}
 				}
 			}
 		}
+		if (chunks.size() == 4) break;
 	}
+	std::ostringstream ss;
+	ss << nCounts;
+	KZ_LOG("[NChunks]", "Total number of chunks: " + ss.str());
 	float shortestMagnitude = 10;
 	Vector3 shortestDirection = Vector3(0, 0, 0);
 	if(chunks.size() != 0)
@@ -530,17 +551,17 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 		forceDirection.z = ((i % 9) / 3 == 0 ? -1 : ((i % 9) / 3 == 1 ? 0 : 1));
 		forceDirection.y = (i / 9 == 0 ? -1 : (i / 9 == 1 ? 0 : 1));
 		forceDirection.Normalize();
-		for (float increment = 1; increment > 0.000004; increment /= 2)
+		for (float increment = 1; increment > 0.0001; increment /= 10)
 		{
 			while (true)
 			{
 				bool k = true;
 				for (auto it = chunks.begin(); it != chunks.end(); it++)
 				{
-					ChunkData* cd = (*it)->GetComponent<ChunkCollider>()->GetChunk();
+					ChunkData* cd = it->second;
 					for (int i = 0; i < 8; ++i)
 					{
-						Vector3 pos = - (*it)->TRANS->GetPosition() + vertices[i];
+						Vector3 pos = - it->first + vertices[i];
 						if (cd->IsSolid(pos + forceDirection * (forceMagnitudePos + increment)))
 						{
 							k = false;
@@ -559,6 +580,10 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 			shortestMagnitude = forceMagnitudePos;
 			shortestDirection = forceDirection;
 		}
+		if (shortestMagnitude < 0.001)
+		{
+			break;
+		}
 	}
 	if (shortestDirection.IsZero() || shortestMagnitude <= 0.008) return Rigidbody::ePhysicsTypes::NONE;
 	go1->GetComponent<Rigidbody>()->QueueMapForce(shortestDirection * shortestMagnitude * go1->RIGID->GetMass() * 400);
@@ -567,6 +592,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 	go1->GetComponent<Rigidbody>()->QueueVel(-2 * shortestDirection * (vel.Dot(shortestDirection)));
 	if(go1->GetComponent<ScriptComponent>() != nullptr)
 		go1->GetComponent<ScriptComponent>()->Collide(GOList->front());
+	
 	return Rigidbody::ePhysicsTypes::CHUNK;
 }
 
@@ -581,6 +607,8 @@ void CollisionManager::CheckCollision(GameObject* go1, std::vector<GameObject*>*
 			continue;
 		if (!go2->GetComponent<Rigidbody>(true)->IsActive())
 			continue;
+
+		if (go2->GetComponent<ChunkCollider>()) continue;
 		GameObject* goA = go1;
 		GameObject* goB = go2;
 		// force go1 to be a ball

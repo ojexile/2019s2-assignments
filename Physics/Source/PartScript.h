@@ -27,7 +27,7 @@ public:
 		ALL
 	};
 
-	PartScript(PART_TYPE type, SLOT_TYPE slot, double Multiplier, bool isAttached = false, float Durability = 5.f);
+	PartScript(PART_TYPE type, SLOT_TYPE slot, float Multiplier, float Durability = 5.f);
 	~PartScript();
 
 	virtual void Effect() = 0;
@@ -38,12 +38,15 @@ public:
 
 	float GetMultiplier();
 
+	//This is for Miscellaneous Parts, initially their slot type will be ALL
+	void SetSlotType(SLOT_TYPE slot);
+
+protected:
+	//Allows for reading in subclasses
+	PART_TYPE m_PartType;
+	SLOT_TYPE m_SlotType;
+
 private:
-	PART_TYPE m_partType;
-	SLOT_TYPE m_slotType;
-
-	bool m_isAttached;
-
 	float m_fDurability;
 	float m_fStatMultiplier;
 
