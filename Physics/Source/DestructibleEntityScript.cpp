@@ -21,7 +21,7 @@ DestructibleEntityScript::~DestructibleEntityScript()
 void DestructibleEntityScript::Update(double dt)
 {
 	// Check death
-	if (GetHealth() <= 0)
+	if (this->GetStats()->GetHealth() <= 0)
 	{
 		if (m_particleSpawnerRef != nullptr)
 		{
@@ -32,7 +32,7 @@ void DestructibleEntityScript::Update(double dt)
 		DestroySelf(); // should switch to play death anim
 		return;
 	}
-	if (GetSW().Stop()->GetTime() >= DAMAGE_TIME)
+	if (m_SW.Stop()->GetTime() >= DAMAGE_TIME)
 	{
 		SetDamageAnim(false);
 		RENDER->ResetColor();

@@ -175,7 +175,7 @@ void DefaultScene::Init()
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
-	go->GetComponent<EntityScript>()->SetHealth(1.f);
+	go->GetComponent<EntityScript>()->GetStats()->SetHealth(1.f);
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	go->TRANS->SetPosition(20, 18.5, 20);
 

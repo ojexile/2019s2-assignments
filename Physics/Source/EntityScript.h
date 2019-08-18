@@ -2,6 +2,7 @@
 #include "ScriptComponent.h"
 #include "Rigidbody.h"
 #include "StopWatch.h"
+#include "Stats.h"
 
 #define DAMAGE_TIME 1.f
 #define COLOR_TIME 0.5f
@@ -18,10 +19,9 @@ class EntityScript :
 	public ScriptComponent
 {
 private:
-	float m_fMoveForce;
-	float m_fMaxSpeed;
+	Stats m_Stats;
+
 	bool m_bInitialised;
-	float m_fHealth;
 	bool m_bDamageAnim;
 	float m_fAnimStartTime;
 	//--------------------------------------------------------------------------------
@@ -30,8 +30,8 @@ private:
 	void Init();
 	void CheckInit();
 	void DamageAnim();
-	StopWatch m_SW;
 protected:
+	StopWatch m_SW;
 	Rigidbody* m_RB;
 	//--------------------------------------------------------------------------------
 	void Move(Vector3 vDir);
@@ -41,14 +41,8 @@ public:
 	virtual Component* Clone() { return new EntityScript(*this); };
 	virtual void Update(double dt) override;
 
-	void SetMovementSpeed(float Force, float Max);
-	void SetForce(float force);
-	float GetForce();
-	void SetMaxSpeed(float maxspeed);
-	float GetMaxSpeed();
-	void SetHealth(float health);
-	float GetHealth();
-	StopWatch GetSW();
+	Stats* GetStats();
+
 	bool IsDamageAnim();
 	void SetDamageAnim(bool);
 	void Damage(float fDamage);

@@ -25,32 +25,31 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint"))
 	{
 		float fDrain = 100;
-		if (com->GetComponent<PlayerStatsScript>()->GetStamina() >= dt * fDrain)
+		if (com->GetComponent<PlayerScript>()->GetStats()->GetStamina() >= dt * fDrain)
 		{
-			com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
-			com->GetComponent<PlayerStatsScript>()->DrainStamina((float)dt * fDrain);
+			com->GetComponent<PlayerScript>()->GetStats()->SetMovement(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
+			// com->GetComponent<PlayerStatsScript>()->DrainStamina((float)dt * fDrain);
 		}
 	}
 	// Crouch
 	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
 		// return new CrouchingState; /// Disabled until key trigger is added
-		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
+		com->GetComponent<PlayerScript>()->GetStats()->SetMovement(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
 	}
 	if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint") && !InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
-		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
+		com->GetComponent<PlayerScript>()->GetStats()->SetMovement(m_fBaseMovementSpeed, m_fBaseAccel);
 	}
 	// Dodge
 	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
 	{
 		float fDrain = 25;
-		if (com->GetComponent<PlayerStatsScript>()->GetStamina() >= fDrain)
+		if (com->GetComponent<PlayerScript>()->GetStats()->GetStamina() >= fDrain)
 		{
 			// Add force in direction of reticle
 			com->GetComponent<PlayerScript>()->Dash();
-			// bDodge = true;
-			com->GetComponent<PlayerStatsScript>()->DrainStamina(fDrain);
+			// com->GetComponent<PlayerStatsScript>()->DrainStamina(fDrain);
 		}
 	}
 	// Top Down
@@ -68,5 +67,5 @@ void StandingState::OnEnter(ComponentBase* com)
 {
 	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetPosition(0,100,0);
 	CameraScript::SetTopDown(false);
-	com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
+	com->GetComponent<PlayerScript>()->GetStats()->SetMovement(m_fBaseMovementSpeed, m_fBaseAccel);
 }
