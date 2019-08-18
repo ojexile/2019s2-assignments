@@ -172,5 +172,11 @@ void DefaultScene::Init()
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	go->TRANS->SetPosition(20, 18.5, 20);
 
-	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg");
+	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg", "low_synth");
+	AudioManager::GetInstance()->SetBGMVolume(0, "low_synth");
+	AudioManager::GetInstance()->QueueFade(1, 0.05, "low_synth");
+	AudioManager::GetInstance()->PlayBGM("bgm_02.ogg", "low_pad");
+	AudioManager::GetInstance()->PlayBGM("bgm_03.ogg", "low_piano");
+	AudioManager::GetInstance()->PlayBGM("bgm_04.ogg", "high_piano");
+	AudioManager::GetInstance()->SetBGMVolume(0, "high_piano");
 }
