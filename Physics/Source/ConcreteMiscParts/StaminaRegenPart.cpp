@@ -1,6 +1,7 @@
 #include "StaminaRegenPart.h"
-#include "../PlayerStatsScript.h"
+#include "../PlayerScript.h"
 #include "../WeaponScript.h"
+#include "../Stats.h"
 
 StaminaRegenPart::StaminaRegenPart(float SpreadDebuff, float FireRateDebuff, int MaxMagazineDebuff, int MaxAmmoDebuff, float durability)
 	: MiscellaneousPartScript(SpreadDebuff, FireRateDebuff, MaxMagazineDebuff, MaxAmmoDebuff, durability)
@@ -39,6 +40,7 @@ void StaminaRegenPart::Buff(bool reverse)
 		case PartScript::SCOPE:
 		{
 			// m_PlayerRef->AdjustMaxStamina(20.f, true);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectMaxStamina(0.5f);
 			break;
 		}
 		case PartScript::MUZZLE:
@@ -54,6 +56,7 @@ void StaminaRegenPart::Buff(bool reverse)
 		case PartScript::GRIP:
 		{
 			// m_PlayerRef->AdjustStaminaRegenRate(20.f, true);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectStaminaRegenRate(2.5f);
 			break;
 		}
 		default:

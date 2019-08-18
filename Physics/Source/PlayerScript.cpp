@@ -32,7 +32,7 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	// Movement================================================================================
 	UpdateMovement(dt);
-	
+
 	m_Grenade->TRANS->SetPosition(GetPosition());
 
 	// m_Gun->TRANS->SetPosition(GetPosition());
@@ -111,7 +111,6 @@ void PlayerScript::UpdateMovement(double dt)
 	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && m_Reticle->IsActive())
 	{
 		m_Gun->GUN->PullTrigger(vDir, dt);
-		
 	}
 	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && m_Reticle->IsActive())
 	{
@@ -121,7 +120,6 @@ void PlayerScript::UpdateMovement(double dt)
 	if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
 	{
 		m_Grenade->GetComponent<GrenadeScript>()->PullPin();
-		
 	}
 	else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
 	{
@@ -168,5 +166,5 @@ void PlayerScript::Dash()
 	vDir.y = 0;
 	if (!vDir.IsZero())
 		vDir.Normalize();
-	RIGID->AddForce(vDir * 2000);
+	RIGID->AddForce(vDir * 3000);
 }

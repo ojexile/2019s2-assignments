@@ -29,6 +29,7 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		{
 			com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
 			// com->GetComponent<PlayerStatsScript>()->DrainStamina((float)dt * fDrain);
+			com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(dt * fDrain);
 		}
 		else
 		{
@@ -49,11 +50,12 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
 	{
 		float fDrain = 25;
-		if (com->GetComponent<PlayerScript>()->GetAdditionalStats()->GetStamina() >= fDrain)
+		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= fDrain)
 		{
 			// Add force in direction of reticle
 			com->GetComponent<PlayerScript>()->Dash();
 			// com->GetComponent<PlayerStatsScript>()->DrainStamina(fDrain);
+			com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(fDrain);
 		}
 	}
 	// Top Down

@@ -60,12 +60,15 @@ PlayerStatsScript::~PlayerStatsScript()
 }
 void PlayerStatsScript::Update(double dt)
 {
-	float fHealth = m_Player->GetComponent<PlayerScript>()->GetValues()->GetHealth();
-	float fStamina = m_Player->GetComponent<PlayerScript>()->GetValues()->GetStamina();
-	m_Stamina->TRANS->SetScale(fStamina / 100 * 200, 50, 1);
+	PlayerScript* ps = m_Player->GetComponent<PlayerScript>();
+	float fHealth = ps->GetValues()->GetHealth();
+	float fStamina = ps->GetValues()->GetStamina();
 
+	const Stats* Base = ps->GetBaseStats();
+	const Stats* Add = ps->GetAdditionalStats();
+	m_Stamina->TRANS->SetScale(fStamina / (Base->GetMaxStamina() * Add->GetMaxStamina()) * 200, 50, 1);
 	// CHENG_LOG(std::to_string(fHealth));
-	m_Health->TRANS->SetScale(fHealth / 100 * 200, 50, 1);
+	m_Health->TRANS->SetScale(fHealth / (Base->GetMaxHealth() * Add->GetMaxHealth()) * 200, 50, 1);
 
 	UpdateBulletUI();
 }

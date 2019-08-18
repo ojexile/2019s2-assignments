@@ -9,6 +9,7 @@ EntityScript::EntityScript()
 	m_bDamageAnim = false;
 	m_fAnimStartTime = -1;
 	m_AdditionalStats.SetZero();
+	m_AdditionalStats.SetOne();
 }
 EntityScript::~EntityScript()
 {
@@ -42,9 +43,9 @@ void EntityScript::Update(double dt)
 		m_bDamageAnim = false;
 		RENDER->ResetColor();
 	}
-	if (m_bDamageAnim)
-	{
-	}
+	// Update Values
+	m_Values.m_fStamina += m_BaseStats.m_fStaminaRegenRate * m_AdditionalStats.m_fStaminaRegenRate * dt;
+	m_Values.m_fStamina = Math::Clamp(m_Values.m_fStamina, 0.f, m_BaseStats.m_fStaminaMax * m_AdditionalStats.m_fStaminaMax);
 }
 const Stats * EntityScript::GetBaseStats()
 {

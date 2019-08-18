@@ -16,13 +16,14 @@ public:
 	~Stats();
 
 	void SetZero();
+	void SetOne();
 
-	void SetHealth(int i);
-	int GetHealth();
-	void OffSetHealth(int i);
-	void SetStamina(float f);
-	float GetStamina();
-	void OffsetStamina(float f);
+	void SetMaxHealth(int i);
+	int GetMaxHealth() const;
+	void SetMaxStamina(float f);
+	float GetMaxStamina() const;
 	void SetStaminaRegen(float f);
 	void SetMovement(float max, float force);
+	void AffectMaxStamina(float f);
+	void AffectStaminaRegenRate(float f);
 };

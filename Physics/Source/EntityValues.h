@@ -10,6 +10,7 @@ public:
 	~EntityValues();
 
 	float GetStamina();
+	void OffsetStamina(float f);
 	int GetHealth();
 	void SetHealth(int i);
 };
