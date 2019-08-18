@@ -3,9 +3,9 @@
 Stats::Stats()
 {
 	m_iHealthMax = 100;
-	m_fStaminaRegenRate = 10;
+	m_fStaminaRegenRate = 20;
 	m_fStaminaMax = 100;
-	m_fMaxMovementSpeed = 3;
+	m_fMaxMovementSpeed = 30;
 	m_fMovementForce = 40;
 }
 
