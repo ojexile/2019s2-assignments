@@ -21,7 +21,7 @@ DestructibleEntityScript::~DestructibleEntityScript()
 void DestructibleEntityScript::Update(double dt)
 {
 	// Check death
-	if (this->GetStats()->GetHealth() <= 0)
+	if (GetValues()->GetHealth() <= 0)
 	{
 		if (m_particleSpawnerRef != nullptr)
 		{

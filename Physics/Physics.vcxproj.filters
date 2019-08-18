@@ -103,6 +103,7 @@
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\Stats.cpp" />
+    <ClCompile Include="EntityValues.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Source\ConcreteMiscParts\HealthRegenPart.h" />
     <ClInclude Include="Source\ConcreteMiscParts\StaminaRegenPart.h" />
     <ClInclude Include="Source\Stats.h" />
+    <ClInclude Include="Source\EntityValues.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

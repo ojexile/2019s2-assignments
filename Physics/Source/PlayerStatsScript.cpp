@@ -60,8 +60,8 @@ PlayerStatsScript::~PlayerStatsScript()
 }
 void PlayerStatsScript::Update(double dt)
 {
-	float fHealth = m_Player->GetComponent<PlayerScript>()->GetStats()->GetHealth();
-	float fStamina = m_Player->GetComponent<PlayerScript>()->GetStats()->GetStamina();
+	float fHealth = m_Player->GetComponent<PlayerScript>()->GetValues()->GetHealth();
+	float fStamina = m_Player->GetComponent<PlayerScript>()->GetValues()->GetStamina();
 	m_Stamina->TRANS->SetScale(fStamina / 100 * 200, 50, 1);
 
 	// CHENG_LOG(std::to_string(fHealth));

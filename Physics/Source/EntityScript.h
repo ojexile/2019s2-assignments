@@ -3,9 +3,9 @@
 #include "Rigidbody.h"
 #include "StopWatch.h"
 #include "Stats.h"
+#include "EntityValues.h"
 
 #define DAMAGE_TIME 1.f
-#define COLOR_TIME 0.5f
 
 /********************************************************************************/
 /*!
@@ -15,11 +15,12 @@ Script to handle entity movement. Input / AI scripts should communicate through 
 entity
 /*!
 /********************************************************************************/
-class EntityScript :
-	public ScriptComponent
+class EntityScript : public ScriptComponent
 {
 private:
-	Stats m_Stats;
+	EntityValues m_Values;
+	const Stats m_BaseStats;
+	Stats m_AdditionalStats;
 
 	bool m_bInitialised;
 	bool m_bDamageAnim;
@@ -41,9 +42,11 @@ public:
 	virtual Component* Clone() { return new EntityScript(*this); };
 	virtual void Update(double dt) override;
 
-	Stats* GetStats();
+	const Stats* GetBaseStats();
+	Stats* GetAdditionalStats();
+	EntityValues* GetValues();
 
 	bool IsDamageAnim();
 	void SetDamageAnim(bool);
-	void Damage(float fDamage);
+	void Damage(int iDamage);
 };
