@@ -3,15 +3,15 @@
 #include "../WeaponScript.h"
 
 
-StaminaRegenPart::StaminaRegenPart(double Multiplier, float durability)
-	: MiscellaneousPartScript(Multiplier, durability)
+StaminaRegenPart::StaminaRegenPart(float SpreadDebuff, float FireRateDebuff, int MaxMagazineDebuff, int MaxAmmoDebuff, float durability)
+	: MiscellaneousPartScript(SpreadDebuff, FireRateDebuff, MaxMagazineDebuff, MaxAmmoDebuff, durability)
 {
 	RYAN_LOG("Stamina Obj created");
 }
 
-
 StaminaRegenPart::~StaminaRegenPart()
 {
+
 }
 
 
@@ -21,7 +21,7 @@ void StaminaRegenPart::Effect()
 	Debuff(false);
 }
 
-void StaminaRegenPart::ReverseEffect()
+void StaminaRegenPart::RevertEffect()
 {
 	Buff(true);
 	Debuff(true);

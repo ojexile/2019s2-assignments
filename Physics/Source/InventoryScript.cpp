@@ -133,7 +133,7 @@ void InventoryScript::Attach()
 	GameObject* cpy = Instantiate(go, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }, "Default", true);
 	cpy->RIGID->SetAffectedByGravity(false);
 	m_Weapon->AddChild(cpy);
-	m_Weapon->GetComponent<WeaponScript>()->AddPart(cpy);
+	m_Weapon->GetComponent<WeaponScript>()->EquipPart(cpy);
 	Destroy(go);
 	m_InventoryItems[m_iHoldingIndex] = nullptr;
 	--m_iNumInventory;

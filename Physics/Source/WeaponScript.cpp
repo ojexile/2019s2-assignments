@@ -153,7 +153,7 @@ void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 
 void WeaponScript::ReloadWeapon(void)
 {
-	if (m_iMagazineRounds == m_iMagazineRounds_Max)
+	if (m_iMagazineRounds == m_iMagazineRounds_Max || m_iMagazineRounds > m_iMagazineRounds_Max)
 		return;
 
 	int refillAmt = m_iMagazineRounds_Max - m_iMagazineRounds;
@@ -162,7 +162,7 @@ void WeaponScript::ReloadWeapon(void)
 	m_iMagazineRounds = m_iMagazineRounds + refillAmt;
 }
 
-void WeaponScript::AddPart(GameObject* part)
+void WeaponScript::EquipPart(GameObject* part)
 {
 	if (!part->PART)
 		return;
@@ -206,6 +206,36 @@ void WeaponScript::AddPart(GameObject* part)
 	}
 	else if(part->PART->GetPartType() == PartScript::MISC)
 	{
+		switch (part->PART->GetSlotType())
+		{
+		case PartScript::SCOPE:
+		{
+			m_ScopeParts.push_back(part);
+			part->TRANS->SetRelativePosition(0.5f * m_ScopeParts.size(), 0.5f, 0.f);
+			break;
+		}
+		case PartScript::MUZZLE:
+		{
+			m_MuzzleParts.push_back(part);
+			part->TRANS->SetRelativePosition(1.f * m_MuzzleParts.size(), 0, 0);
+
+			break;
+		}
+		case PartScript::CLIP:
+		{
+			m_StockParts.push_back(part);
+			part->TRANS->SetRelativePosition(0, -0.5f* m_StockParts.size(), 0);
+			break;
+		}
+		case PartScript::GRIP:
+		{
+			m_GripParts.push_back(part);
+			part->TRANS->SetRelativePosition((-1.0f * m_GripParts.size()), 0, 0);
+			break;
+		}
+		default:
+			break;
+		}
 		part->MISCPART->Effect();
 	}
 }
@@ -217,10 +247,15 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 	while (m_vector.size() > 0)
 	{
 		GameObject* go = static_cast<GameObject*>(*it);
-
+		PartScript::PART_TYPE type = go->PART->GetPartType();
+		
 		if (target == go)
 		{
-			UpdateStats(go, false);
+
+			if (type == PartScript::PART_TYPE::WEAPON)
+				UpdateStats(go, false);
+			else
+				go->MISCPART->RevertEffect();
 
 			Destroy(go);
 			m_vector.pop_back();
@@ -229,7 +264,11 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 		else
 		{
 			--it;
-			UpdateStats(go, false);
+			
+			if (type == PartScript::PART_TYPE::WEAPON)
+				UpdateStats(go, false);
+			else
+				go->MISCPART->RevertEffect();
 
 			Destroy(go);
 			m_vector.pop_back();

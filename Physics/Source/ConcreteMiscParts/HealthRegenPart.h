@@ -3,13 +3,16 @@
 class HealthRegenPart : public MiscellaneousPartScript
 {
 public:
-	HealthRegenPart(SLOT_TYPE slot, double Multiplier, float durability);
+	HealthRegenPart(float SpreadDebuff, float FireRateDebuff, int MaxMagazineDebuff, int MaxAmmoDebuff, float durability);
 	virtual ~HealthRegenPart();
 
-	void Buff();
-	void Debuff();
+	virtual Component* Clone() { return new HealthRegenPart(*this); }
 
-	void Effect();
+	void Buff(bool reverse) override;
+	void Debuff(bool reverse) override;
+
+	void Effect() override;
+	void RevertEffect() override;
 
 };
 

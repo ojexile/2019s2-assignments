@@ -91,7 +91,7 @@ void PlayerStatsScript::AdjustMaxStamina(float f, bool b)
 	if (b)
 		m_fStaminaMax += f;
 	else
-		m_fStamina -= f;
+		m_fStaminaMax -= f;
 }
 void PlayerStatsScript::DrainStamina(float f)
 {

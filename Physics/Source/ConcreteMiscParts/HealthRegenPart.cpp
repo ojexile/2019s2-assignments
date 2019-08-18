@@ -2,8 +2,8 @@
 
 
 
-HealthRegenPart::HealthRegenPart(SLOT_TYPE slot, double Multiplier, float durability)
-	: MiscellaneousPartScript(Multiplier, durability)
+HealthRegenPart::HealthRegenPart(float SpreadDebuff, float FireRateDebuff, int MaxMagazineDebuff, int MaxAmmoDebuff, float durability)
+	: MiscellaneousPartScript(SpreadDebuff, FireRateDebuff, MaxMagazineDebuff, MaxAmmoDebuff, durability)
 {
 }
 
@@ -15,11 +15,18 @@ HealthRegenPart::~HealthRegenPart()
 
 void HealthRegenPart::Effect()
 {
-	Buff();
-	Debuff();
+	Buff(false);
+	Debuff(false);
 }
 
-void HealthRegenPart::Buff()
+void HealthRegenPart::RevertEffect()
+{
+	Buff(true);
+	Debuff(true);
+}
+
+
+void HealthRegenPart::Buff(bool reverse)
 {
 	//switch (m_BuffedStat)
 	//{
@@ -30,7 +37,7 @@ void HealthRegenPart::Buff()
 	//}
 }
 
-void HealthRegenPart::Debuff()
+void HealthRegenPart::Debuff(bool reverse)
 {
 	switch (m_SlotType)
 	{

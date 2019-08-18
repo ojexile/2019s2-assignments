@@ -16,6 +16,7 @@
 #include "GrenadeScript.h"
 #include "LootScript.h"
 #include "DestructibleEntityScript.h"
+#include "ConcreteMiscParts/StaminaRegenPart.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -171,6 +172,13 @@ void  DataContainer::InitGO()
 	go->AddComponent(new WeaponPartScript(PartScript::GRIP, 2.0, 50));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
+	go = new GameObject();
+	m_map_GO["Stamina"] = go;
+	go->TRANS->SetScale(0.5f);
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new StaminaRegenPart(1, 1.5, 5, 1, 50));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Gun"] = go;
@@ -229,7 +237,6 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(50, 20, 1);
-
 	// Interactabes--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;

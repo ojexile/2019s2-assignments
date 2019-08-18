@@ -2,10 +2,15 @@
 
 
 
-MiscellaneousPartScript::MiscellaneousPartScript(double Multiplier, float durability)
-	: PartScript(PART_TYPE::MISC, SLOT_TYPE::ALL, Multiplier, durability)
+MiscellaneousPartScript::MiscellaneousPartScript(float SpreadDebuff, float FireRateDebuff, int MaxMagazineDebuff, int MaxAmmoDebuff, float durability)
+	: PartScript(PART_TYPE::MISC, SLOT_TYPE::ALL, 0.f, durability)
 	, m_PlayerRef(nullptr)
 	, m_GunRef(nullptr)
+	, m_fSpreadDebuff(SpreadDebuff)
+	, m_fFireRateDebuff(FireRateDebuff)
+	, m_iMaxAmmoDebuff(MaxAmmoDebuff)
+	, m_iMaxMagazineDebuff(MaxMagazineDebuff)
+
 {
 }
 

@@ -12,6 +12,7 @@
 #include "InventoryScript.h"
 #include "WeaponScript.h"
 #include "PlayerStatsScript.h"
+#include "MiscellaneousPartScript.h"
 #include "ReticleScript.h"
 #include "ParticleObserver.h"
 DefaultScene::DefaultScene()
@@ -141,10 +142,16 @@ void DefaultScene::Init()
 	//go->TRANS->SetScale(3);
 	//Gun->AddChild(go);
 	//Gun->GUN->AddPart(go);
-	go = dataContainer->GetGameObject("Grip");
+	go = dataContainer->GetGameObject("Stamina");
+
+	go->MISCPART->SetPlayerReference(Player->GetComponent<PlayerStatsScript>());
+	go->MISCPART->SetGunReference(Gun);
+	
 	go->TRANS->SetScale(3);
+	go->PART->SetSlotType(PartScript::SLOT_TYPE::CLIP);
+	
 	Gun->AddChild(go);
-	Gun->GUN->AddPart(go);
+	Gun->GUN->EquipPart(go);
 	/// WORLD================================================================================
 	BiomeComponent::eBiomeTypes type = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
