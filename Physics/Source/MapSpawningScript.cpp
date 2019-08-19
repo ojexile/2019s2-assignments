@@ -2,13 +2,23 @@
 #include "SceneManager.h"
 #include "DataContainer.h"
 #include "ChunkCollider.h"
+#include "Utility.h"
 #define NCHUNKS 17
 MapSpawningScript::MapSpawningScript()
 {
+	for (int i = 0; i < 4096; ++i)
+	{
+		m_biomeNoise.emplace_back();
+		for (BiomeComponent::eBiomeTypes b = (BiomeComponent::eBiomeTypes) 0; b < BiomeComponent::BIOME_COUNT; b = (BiomeComponent::eBiomeTypes) (b + 1))
+		{
+			m_biomeNoise[i][b] = Math::RandFloatMinMax(-1, 1);
+		}
+	}
 }
 
 MapSpawningScript::~MapSpawningScript()
 {
+
 }
 
 
@@ -149,7 +159,7 @@ void MapSpawningScript::Update(double dt)
 			RenderComponent* render = new RenderComponent(chunk->GenerateMeshBiomed());
 			render->SetRenderDistance(100);
 			go->AddComponent(render);
-			go->AddComponent(new BiomeComponent(static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT)));
+			go->AddComponent(new BiomeComponent(GetBiomeAt(Vector3(offsetX, 0, offsetZ))));
 			go->AddComponent(new ChunkCollider(chunk));
 			
 #ifdef DEBUG_NUMBERS
@@ -179,5 +189,53 @@ void MapSpawningScript::Update(double dt)
 			
 		}
 	}
+}
+
+float PolyLerp1D(float x0, float fx0, float x1, float fx1, float k)
+{
+	return Lerp(fx0, fx1, (k - x0) / (x1 - x0));
+}
+float BiLerp2D(float x0y0, float x0y1, float x1y0, float x1y1, float x, float y)
+{
+	return Lerp(Lerp(x0y0, x0y1, y), Lerp(x1y0, x1y1, y), x);
+}
+float Mod(float x, float b)
+{
+	return x - floor(x / b) * b;
+}
+int Mod(int x, int b)
+{
+	return (x % b + b) % b;
+}
+BiomeComponent::eBiomeTypes MapSpawningScript::GetBiomeAt(Vector3 v)
+{
+	std::map<BiomeComponent::eBiomeTypes, float> biomeWeights;
+	float X = v.x;
+	float Z = v.z;
+	for (int i = 0; i < 6; ++i)
+	{
+		float multiplier = pow(2, i) / 8;
+		float x = X * multiplier;
+		float z = Z * multiplier;
+		x = Mod(x, 64.f);
+		z = Mod(z, 64.f);
+		int xLow = floor(x);
+		int zLow = floor(z); 
+		for (BiomeComponent::eBiomeTypes b = (BiomeComponent::eBiomeTypes) 0; b < BiomeComponent::BIOME_COUNT; b = (BiomeComponent::eBiomeTypes) (b+1))
+		{
+			biomeWeights[b] += BiLerp2D(m_biomeNoise[Mod(xLow * 64 + zLow, 4096)][b],
+				m_biomeNoise[Mod(xLow * 64 + zLow + 1, 4096)][b],
+				m_biomeNoise[Mod(xLow * 64 + zLow + 64, 4096)][b],
+				m_biomeNoise[Mod(xLow * 64 + zLow + 65, 4096)][b],
+				Mod(x, 1.f),
+				Mod(z, 1.f)) / multiplier;
+		}
+	}
+	BiomeComponent::eBiomeTypes highestBiome = BiomeComponent::BIOME_COUNT;
+	for (BiomeComponent::eBiomeTypes b = (BiomeComponent::eBiomeTypes) 0; b < BiomeComponent::BIOME_COUNT; b = (BiomeComponent::eBiomeTypes) (b + 1))
+	{
+		if (biomeWeights[b] > biomeWeights[highestBiome] || highestBiome == BiomeComponent::BIOME_COUNT) highestBiome = b;
+	}
+	return highestBiome;
 }
 
