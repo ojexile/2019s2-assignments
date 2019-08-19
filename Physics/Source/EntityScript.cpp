@@ -5,12 +5,11 @@
 
 EntityScript::EntityScript()
 {
-	m_fMoveForce = 300;
-	m_fMaxSpeed = 1;
 	m_bInitialised = false;
 	m_bDamageAnim = false;
-	m_fHealth = 100;
 	m_fAnimStartTime = -1;
+	m_AdditionalStats.SetZero();
+	m_AdditionalStats.SetOne();
 }
 EntityScript::~EntityScript()
 {
@@ -29,7 +28,7 @@ void EntityScript::CheckInit()
 void EntityScript::Update(double dt)
 {
 	// Check death
-	if (m_fHealth <= 0 && !this->GetComponent<PlayerScript>())
+	if (m_Values.m_iHealth <= 0 && !this->GetComponent<PlayerScript>())
 	{
 		if (this->LOOT)
 		{
@@ -44,9 +43,21 @@ void EntityScript::Update(double dt)
 		m_bDamageAnim = false;
 		RENDER->ResetColor();
 	}
-	if (m_bDamageAnim)
-	{
-	}
+	// Update Values
+	m_Values.m_fStamina += m_BaseStats.m_fStaminaRegenRate * m_AdditionalStats.m_fStaminaRegenRate * dt;
+	m_Values.m_fStamina = Math::Clamp(m_Values.m_fStamina, 0.f, m_BaseStats.m_fStaminaMax * m_AdditionalStats.m_fStaminaMax);
+}
+const Stats * EntityScript::GetBaseStats()
+{
+	return &m_BaseStats;
+}
+Stats * EntityScript::GetAdditionalStats()
+{
+	return &m_AdditionalStats;
+}
+EntityValues * EntityScript::GetValues()
+{
+	return &m_Values;
 }
 void EntityScript::DamageAnim()
 {
@@ -69,41 +80,8 @@ void EntityScript::Move(Vector3 vDir)
 	CheckInit();
 	if (!CheckRB())
 		return;
-	m_RB->AddForce(vDir * m_fMoveForce);
-	m_RB->ClampVelXZ(m_fMaxSpeed);
-}
-void EntityScript::SetMovementSpeed(float Force, float Max)
-{
-	m_fMoveForce = Force;
-	m_fMaxSpeed = Max;
-}
-void EntityScript::SetForce(float force)
-{
-	m_fMoveForce = force;
-}
-float EntityScript::GetForce()
-{
-	return m_fMoveForce;
-}
-void EntityScript::SetMaxSpeed(float maxspeed)
-{
-	m_fMaxSpeed = maxspeed;
-}
-float EntityScript::GetMaxSpeed()
-{
-	return m_fMaxSpeed;
-}
-void EntityScript::SetHealth(float health)
-{
-	m_fHealth = health;
-}
-float EntityScript::GetHealth()
-{
-	return m_fHealth;
-}
-StopWatch EntityScript::GetSW()
-{
-	return m_SW;
+	m_RB->AddForce(vDir * m_BaseStats.m_fMovementForce + vDir * m_AdditionalStats.m_fMovementForce);
+	m_RB->ClampVelXZ(m_BaseStats.m_fMaxMovementSpeed + m_AdditionalStats.m_fMaxMovementSpeed);
 }
 bool EntityScript::IsDamageAnim()
 {
@@ -114,10 +92,10 @@ void EntityScript::SetDamageAnim(bool anim)
 {
 	m_bDamageAnim = anim;
 }
-void EntityScript::Damage(float fDamage)
+void EntityScript::Damage(int iDamage)
 {
 	m_bDamageAnim = true;
 	RENDER->SetColor(50, 50, 50);
 	m_SW.Start();
-	m_fHealth -= fDamage;
+	m_Values.m_iHealth -= iDamage;
 }

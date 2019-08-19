@@ -5,6 +5,7 @@
 #include "InputManager.h"
 #include "CameraScript.h"
 #include "WeaponScript.h"
+#include "MiscellaneousPartScript.h"
 #include "GrenadeScript.h"
 #include "InventoryScript.h"
 PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun, GameObject* grenade)
@@ -31,7 +32,7 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	// Movement================================================================================
 	UpdateMovement(dt);
-	
+
 	m_Grenade->TRANS->SetPosition(GetPosition());
 
 	// m_Gun->TRANS->SetPosition(GetPosition());
@@ -61,25 +62,25 @@ void PlayerScript::UpdateMovement(double dt)
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
 	{
 		//rb->AddForce(vPlayerFront  *m_fAccel);
-		//bMoved = true;
+		bMoved = true;
 		Move(CameraScript::GetFront());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
 	{
 		//rb->AddForce(vPlayerFront  * -m_fAccel);
-		//bMoved = true;
+		bMoved = true;
 		Move(-CameraScript::GetFront());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
 	{
 		//rb->AddForce(vRight  * -m_fAccel);
-		//bMoved = true;
+		bMoved = true;
 		Move(-CameraScript::GetRight());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
 	{
 		//rb->AddForce(vRight  * m_fAccel);
-		//bMoved = true;
+		bMoved = true;
 		Move(CameraScript::GetRight());
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
@@ -107,11 +108,11 @@ void PlayerScript::UpdateMovement(double dt)
 		GetTransform()->SetRotation(-angle, 0, 1, 0);
 	}
 	//
-	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0)
+	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && m_Reticle->IsActive())
 	{
 		m_Gun->GUN->PullTrigger(vDir, dt);
 	}
-	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0)
+	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && m_Reticle->IsActive())
 	{
 		m_Gun->GUN->ReleaseTrigger();
 	}
@@ -119,21 +120,20 @@ void PlayerScript::UpdateMovement(double dt)
 	if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
 	{
 		m_Grenade->GetComponent<GrenadeScript>()->PullPin();
-		
 	}
 	else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
 	{
-		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, dt);
+		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, (float)dt);
 	}
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
 	{
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
 		m_Reticle->SetActive(false);
 	}
 	else
 	{
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
+		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
 		m_Reticle->SetActive(true);
 	}
 	float fScroll = InputManager::GetInstance()->GetInputStrength("Zoom");
@@ -144,7 +144,7 @@ void PlayerScript::UpdateMovement(double dt)
 		fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
 		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
 	}
-	CHENG_LOG("Player pos: ", vtos(GetPosition()));
+	// CHENG_LOG("Player pos: ", vtos(GetPosition()));
 }
 void PlayerScript::Collide(GameObject* go)
 {
@@ -152,13 +152,19 @@ void PlayerScript::Collide(GameObject* go)
 	if (ps)
 	{
 		GetComponent<InventoryScript>()->AddItem(go);
-		CHENG_LOG("Part Taken");
+		if (go->MISCPART)
+		{
+			go->MISCPART->SetPlayerReference(GetComponent<PlayerStatsScript>());
+			go->MISCPART->SetGunReference(m_Gun);
+		}
+		// CHENG_LOG("Part Taken");
 	}
 }
 void PlayerScript::Dash()
 {
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
+	vDir.y = 0;
 	if (!vDir.IsZero())
 		vDir.Normalize();
-	RIGID->AddForce(vDir * 2000);
+	RIGID->AddForce(vDir * 3000);
 }

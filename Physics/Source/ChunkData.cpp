@@ -64,6 +64,11 @@ Vector3 ChunkData::GetSize()
 	return Vector3(m_iXSize * 16, m_iYSize, m_iZSize * 16);
 }
 
+unsigned short ChunkData::GetChunkConnection(Vector3 coords, unsigned char dir)
+{
+	return m_chunkConnections[coords][dir];
+}
+
 void PutShort(FILE* f, unsigned short s)
 {
 	fputc(s >> 8, f);

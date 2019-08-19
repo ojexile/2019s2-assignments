@@ -22,8 +22,10 @@ private:
 	Vector3 m_vTorque;
 
 	Vector3 m_vVel;
+	Vector3 m_vVelChange;
 	Vector3 m_vForce;
 	Vector3 m_vMapForce;
+	int m_iVelChangeCount;
 	int m_iMapForceCount;
 
 	Vector3 m_vGravityExponent;
@@ -63,6 +65,7 @@ public:
 	// Set
 	void SetMass(float f);
 	void SetVel(Vector3);
+	void QueueVel(Vector3);
 	void SetAVel(Vector3);
 	void SetTorque(Vector3);
 	void AddForce(Vector3);

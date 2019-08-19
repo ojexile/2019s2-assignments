@@ -2,11 +2,10 @@
 
 
 
-PartScript::PartScript(PART_TYPE type, SLOT_TYPE slot, double Multiplier, bool isAttached, float durability) 
-	:m_partType (type),
-	 m_slotType (slot),
+PartScript::PartScript(PART_TYPE type, SLOT_TYPE slot, float Multiplier, float durability) 
+	:m_PartType (type),
+	 m_SlotType (slot),
 	 m_fStatMultiplier(Multiplier),
-	 m_isAttached (isAttached),
 	 m_fDurability(durability)
 {
 }
@@ -24,14 +23,19 @@ bool PartScript::DecreaseDurability(double deltaTime)
 	return m_fDurability <= 0.f;
 }
 
+void PartScript::SetSlotType(PartScript::SLOT_TYPE slot)
+{
+	m_SlotType = slot;
+}
+
 PartScript::PART_TYPE PartScript::GetPartType()
 {
-	return m_partType;
+	return m_PartType;
 }
 
 PartScript::SLOT_TYPE PartScript::GetSlotType()
 {
-	return m_slotType;
+	return m_SlotType;
 }
 
 float PartScript::GetMultiplier()

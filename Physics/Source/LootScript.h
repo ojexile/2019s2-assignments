@@ -2,9 +2,9 @@
 #include "ScriptComponent.h"
 #include "PartScript.h"
 #include "WeaponPartScript.h"
+#include "MiscellaneousPartScript.h"
 
-class LootScript :
-	public ScriptComponent
+class LootScript : public ScriptComponent
 {
 public:
 	LootScript();
@@ -14,11 +14,17 @@ public:
 
 	virtual Component* Clone() { return new LootScript(*this); }
 
+	enum MISC_PARTLIST
+	{
+		STAMINA,
+	};
+
+
 private:
 
 	//Returns a partScript
 	WeaponPartScript* GenerateWeaponPart(void);
-	void GenerateMiscPart(void);
+	MiscellaneousPartScript* GenerateMiscPart(void);
 
 	GameObject* m_LootDrop;
 };

@@ -18,6 +18,7 @@
 #include "DestructibleEntityScript.h"
 #include "FlipEntityScript.h"
 #include "InteractableObCom.h"
+#include "ConcreteMiscParts/StaminaRegenPart.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -45,13 +46,14 @@ void DataContainer::Init()
 
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-	CHENG_LOG("Time to load container: ", std::to_string(elapsed_secs));
+	// CHENG_LOG("Time to load container: ", std::to_string(elapsed_secs));
 }
 
 void DataContainer::InitChunks()
 {
-	m_map_Chunks["Map"] = new ChunkData("Content/Map.chunk");
-	m_map_Chunks["goldmine"] = new ChunkData("Content/1x2_goldmine.chunk");
+	m_map_Chunks["archway"] = new ChunkData("Content/chunks/1x1_archway.chunk");
+	m_map_Chunks["goldmine"] = new ChunkData("Content/chunks/1x2_goldmine.chunk");
+	m_map_Chunks["smallhouse"] = new ChunkData("Content/chunks/1x1_smallhouse.chunk");
 }
 
 void DataContainer::InitTextures()
@@ -68,11 +70,11 @@ void DataContainer::InitTextures()
 	m_map_Textures["Ball"] = LoadTGA("Ball");
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
+	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
 	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
-
 }
 void DataContainer::InitMeshes()
 {
@@ -81,14 +83,14 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["Text"] = MeshBuilder::GenerateText("text", 16, 16)->AddTexture("Text");
 	//--------------------------------------------------------------------------------
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
-	
+
 	m_map_Meshes["Axis"] = MeshBuilder::GenerateAxes("Axes", 1000, 1000, 1000);
 
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
 
 	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
-	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Ball");
+	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Muzzle");
 
 	m_map_Meshes["Clip"] = MeshBuilder::GenerateOBJ("Clip")->AddTexture("Revolver");
 
@@ -106,14 +108,16 @@ void DataContainer::InitMeshes()
 		->AddTexture("plaintree", BiomeComponent::BIOME_PLAINS)
 		->AddTexture("snowtree", BiomeComponent::BIOME_SNOW);
 
-	m_map_Meshes["Revolver"] = MeshBuilder::GenerateOBJ("revolver")->AddTexture("Revolver");
+	m_map_Meshes["Gun"] = MeshBuilder::GenerateOBJ("gun")->AddTexture("Revolver");
 
 	m_map_Meshes["Grenade"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
-	
+
 	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
 
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
-	
+
+	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
+
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", { 1,1,1 }, 1.f);
 
 	//m_map_Meshes["fliprock"] = MeshBuilder::GenerateCube("fliprock", { 1,1,1 }, 1.f);
@@ -125,7 +129,7 @@ void  DataContainer::InitTerrain()
 	// Plains--------------------------------------------------------------------------------
 	MeshBiomed* mesh1 = GenerateTerrainBiomed("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })
 		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS);
-		//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
+	//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 }
 void  DataContainer::InitGO()
 {
@@ -141,7 +145,7 @@ void  DataContainer::InitGO()
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
-	go->TRANS->SetScale(0.5f);
+	go->TRANS->SetScale(0.1f);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
@@ -153,7 +157,7 @@ void  DataContainer::InitGO()
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Muzzle")));
 	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
 	m_map_GO["Clip"] = go;
@@ -176,10 +180,17 @@ void  DataContainer::InitGO()
 	go->AddComponent(new WeaponPartScript(PartScript::GRIP, 2.0, 50));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
+	go = new GameObject();
+	m_map_GO["Stamina"] = go;
+	go->TRANS->SetScale(0.5f);
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new StaminaRegenPart(1, 1.5, 5, 1, 50));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Gun"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Revolver")));
+	go->AddComponent(new RenderComponent(GetMesh("Gun")));
 	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
 	// Grenade----------------------------------------------------------------------------
 	go = new GameObject;
@@ -187,7 +198,7 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(0.5);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	go->RIGID->SetMass(0.25f);
+	go->RIGID->SetMass(0.15f);
 	go->RIGID->SetMat(0.9f, 0.f);
 	go->AddComponent(new GrenadeScript(3.0, 10.0, 2));
 	// Loot------------------------------------------------------------------------------------
@@ -220,6 +231,13 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
+	// CustomiseSlot--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["CustomiseSlot"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->RENDER->SetLightEnabled(false);
+	go->TRANS->SetScale(100);
 	// BulletUI--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BulletUI"] = go;
@@ -227,13 +245,18 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(50, 20, 1);
+	// ItemInfo--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["ItemInfo"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
+	go->RENDER->Set3DBillboard(true);
 
 
 	// Interactabes/Foilage--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
-	go->GetComponent<RenderComponent>()->SetColor(1.f , 0.6f, 0.2f);
+	go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
 	go->GetComponent<RenderComponent>()->SetBillboard(true);
 	go->AddComponent(new ParticleScript(1.f, Vector3(0.f, 1.f, 0.f), Vector3(0.f, 100.f, 0.f), Vector3(), Vector3(), Vector3(1.f, 1.f, 1.f)));
 

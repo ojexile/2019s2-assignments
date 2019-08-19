@@ -13,8 +13,6 @@ UIButtonComponent::~UIButtonComponent()
 
 void UIButtonComponent::Update(double dt)
 {
-	if (!SceneManager::GetInstance()->GetScene()->GetCursorEnabled())
-		return;
 	double x, y;
 	Application::GetCursorPosRelative(&x, &y);
 	Vector3 MousePos((float)x, (float)y, 0);
@@ -36,6 +34,7 @@ void UIButtonComponent::Update(double dt)
 		if (MousePos.x <= vMax.x && MousePos.y <= vMax.y)
 		{
 			m_bIsHover = true;
+			SceneManager::GetInstance()->GetScene()->SetCursorEnabled(true);
 		}
 		else
 			m_bIsHover = false;
