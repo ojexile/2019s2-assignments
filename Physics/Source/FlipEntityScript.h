@@ -22,14 +22,14 @@ private:
 	};
 	float m_fRotationAmount;
 	eFlipDirection m_flipDirection;
-	Vector3 m_vflipDirection;
+	//Vector3 m_vflipDirection;
 public:
 
 	FlipEntityScript();
 	~FlipEntityScript();
 
 	virtual void Update(double dt) override;
-	virtual void Trigger(GameObject* go, GameObject* go2) override;
+	virtual void Trigger(ComponentBase* player) override;
 
 	virtual Component* Clone() { return new FlipEntityScript(*this); };
 	/*

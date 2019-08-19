@@ -13,11 +13,10 @@ InteractableObCom::~InteractableObCom()
 void InteractableObCom::Notify(ComponentBase* com, std::string msg)
 {
 	CHENG_LOG("Yeet", vtos(GetPosition()));
-		FlipEntityScript* flipscript = GetComponent<FlipEntityScript>();
-	if (flipscript)
+	FlipEntityScript* flipscript = GetComponent<FlipEntityScript>();
+	if (flipscript && !flipscript->IsAlreadyTriggered())
 	{
 		LZ_LOG("flipentityscript rock yeeted");
-		flipscript->Trigger(new GameObject(), new GameObject());
+		flipscript->Trigger(com);
 	}
-
 }

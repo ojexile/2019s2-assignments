@@ -16,3 +16,8 @@ void InteractionBaseScript::SetMaxElapsedTime(float maxtime)
 {
 	m_fMaximumTimeElapsed = maxtime;
 }
+
+bool InteractionBaseScript::IsAlreadyTriggered()
+{
+	return m_bIsTriggered;
+}

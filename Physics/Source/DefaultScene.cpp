@@ -149,7 +149,7 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(20, 18.5, 20);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("fliprock"));
-	// go->GetComponent<EntityScript>()->SetHealth(1.f);
+	go->GetComponent<EntityScript>()->SetHealth(1.f);
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
-	go->TRANS->SetPosition(20, 18.5, 20);
+	go->TRANS->SetPosition(25, 18.5, 20);
 }
