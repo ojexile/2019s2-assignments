@@ -175,6 +175,12 @@ void DefaultScene::Init()
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	go->TRANS->SetPosition(20, 18.5, 20);
 
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("treasurebox"));
+	go->TRANS->SetPosition(20, 18.5, 20);
+
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("boulder"));
+	go->TRANS->SetPosition(10, 19, 20);
+
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("ItemInfo"));
 	go->TRANS->SetPosition(0, 16, 0);
 	go->SetActive(false);
