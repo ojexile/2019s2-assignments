@@ -22,8 +22,9 @@
 #include "WeaponPartScript.h"
 //States
 #include "StandingState.h"
-#include "WanderState.h"
-#include <time.h>
+#include "IdleState.h"
+#include "MeleeCombatState.h"
+
 DataContainer::DataContainer()
 {
 	m_bInitialsed = false;
@@ -223,8 +224,8 @@ void  DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
-	go->AddComponent(new Rigidbody(Rigidbody::SQUARE));
-	go->AddComponent(new EntityScript(GetBehaviour("Wander")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy")));
 	//go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
@@ -286,7 +287,7 @@ void  DataContainer::InitShaders()
 void DataContainer::InitBehaviour()
 {
 	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
-	m_map_Behaviour["Wander"] = new Behaviour(new WanderState);
+	m_map_Behaviour["MeleeEnemy"] = new Behaviour(new IdleState(new MeleeCombatState));
 }
 DataContainer::~DataContainer()
 {

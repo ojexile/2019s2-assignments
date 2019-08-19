@@ -221,6 +221,7 @@
     <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MapSpawningScript.cpp" />
+    <ClCompile Include="Source\MeleeCombatState.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBiomed.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
@@ -324,6 +325,7 @@
     <ClInclude Include="Source\LootScript.h" />
     <ClInclude Include="Source\MapSpawningScript.h" />
     <ClInclude Include="Source\Material.h" />
+    <ClInclude Include="Source\MeleeCombatState.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\MeshBuilder.h" />

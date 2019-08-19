@@ -1,20 +1,19 @@
 #pragma once
 #include "AIState.h"
-#include "StopWatch.h"
-class IdleState :
+#include "GameObject.h"
+
+class MeleeCombatState :
 	public AIState
 {
 private:
-	StopWatch m_SW;
-	float m_fTime;
-	State* m_Combat;
+	GameObject* m_Player;
 public:
-	IdleState(State* Combat);
-	virtual ~IdleState();
-
+	MeleeCombatState();
+	virtual ~MeleeCombatState();
 
 	virtual State* HandleState(ComponentBase* com) override;
 	virtual void OnEnter(ComponentBase* com) override;
 	virtual void OnExit(ComponentBase* com) override;
-	virtual State* Clone() { return new IdleState(*this); };
+	virtual State* Clone() { return new MeleeCombatState(*this); };
 };
+

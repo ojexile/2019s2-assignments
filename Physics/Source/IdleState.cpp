@@ -5,9 +5,10 @@
 #define MIN_TIME 1
 #define MAX_TIME 5
 
-IdleState::IdleState()
+IdleState::IdleState(State* Combat)
 {
 	m_fTime = 0;
+	m_Combat = Combat;
 }
 
 
@@ -20,7 +21,7 @@ State * IdleState::HandleState(ComponentBase * com)
 	if (m_SW.Stop()->GetTime() < m_fTime)
 		return this;
 	else
-		return new WanderState;
+		return new WanderState(m_Combat);
 }
 
 void IdleState::OnEnter(ComponentBase * com)

@@ -22,10 +22,12 @@ public:
 	virtual void Init() = 0;
 	GameObject* GetCameraGameObject();
 	Camera* GetCamera();
+	GameObject* m_Player;
 	GameObjectManager* GetGameObjectManager();
 	LightManager* GetLightManager();
 	void SetCursorEnabled(bool);
 	bool GetCursorEnabled();
+	GameObject* GetPlayer();
 protected:
 	GameObjectManager m_GOM;
 	LightManager m_LightManager;
