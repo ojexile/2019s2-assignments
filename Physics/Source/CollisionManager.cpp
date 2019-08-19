@@ -61,7 +61,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameO
 		}
 	}
 	break;
-	case Rigidbody::BOX:
+	case Rigidbody::BOX_NOT_IMPLEMENTED:
 	{
 		//--------------------------------------------------------------------------------
 		Rigidbody* rigid1 = go1->GetComponent<Rigidbody>();
@@ -318,7 +318,7 @@ void CollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, Rigid
 		//go2->GetComponent<ChengRigidbody>()->SetVel(newVel2);
 	}
 	break;
-	case Rigidbody::BOX:
+	case Rigidbody::BOX_NOT_IMPLEMENTED:
 	{
 		// DEPRECIATED 3D COLLDIER
 		TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
@@ -364,7 +364,7 @@ void CollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, Rigid
 		Vector3 proj = (v.Dot(NP)) / (v.LengthSquared()) * NP;
 		// Angular
 		Vector3 torque = (proj * 1).Cross(N * trans1->GetScale().x);
-		rigid1->SetTorque(torque * 10000000);
+		// rigid1->SetTorque(torque * 10000000);
 	}
 	break;
 	case Rigidbody::WALL:
@@ -405,7 +405,7 @@ void CollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, Rigid
 		Vector3 proj = (v.Dot(NP)) / (v.LengthSquared()) * NP;
 		// Angular
 		Vector3 torque = (proj * 1).Cross(N * trans1->GetScale().x);
-		rigid1->SetTorque(torque * 10000000);
+		// rigid1->SetTorque(torque * 10000000);
 	}
 	break;
 	case Rigidbody::PADDLE:
@@ -447,7 +447,7 @@ void CollisionManager::CollisionResponse(GameObject* go1, GameObject* go2, Rigid
 		Vector3 proj = (v.Dot(NP)) / (v.LengthSquared()) * NP;
 		// Angular
 		Vector3 torque = (proj * 1).Cross(N * trans1->GetScale().x);
-		rigid1->SetTorque(torque * 100000);
+		// rigid1->SetTorque(torque * 100000);
 	}
 	break;
 	default:
@@ -594,6 +594,10 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 	go1->GetComponent<Rigidbody>()->QueueVel(-2 * shortestDirection * (vel.Dot(shortestDirection)));
 	if(go1->GetComponent<ScriptComponent>() != nullptr)
 		go1->GetComponent<ScriptComponent>()->Collide(GOList->front());
+	if (go1->GetComponent<PlayerScript>() && shortestDirection.y > 0)
+	{
+		go1->GetComponent<PlayerScript>()->SetCanJump(true);
+	}
 	
 	return Rigidbody::ePhysicsTypes::CHUNK;
 }

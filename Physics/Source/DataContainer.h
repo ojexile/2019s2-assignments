@@ -11,6 +11,7 @@
 #include "ComponentMacros.h"
 #include "HeightMapData.h"
 #include "ChunkData.h"
+#include "Behaviour.h"
 
 #include "MeshBiomed.h"
 #include "shader.hpp"
@@ -25,6 +26,7 @@ private:
 	std::map<std::string, unsigned> m_map_Shaders;
 	std::map<std::string, HeightMapData*> m_map_HeightMaps;
 	std::map<std::string, ChunkData*> m_map_Chunks;
+	std::map<std::string, Behaviour*> m_map_Behaviour;
 
 	Mesh* GenerateTerrain(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
 	MeshBiomed* GenerateTerrainBiomed(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
@@ -38,6 +40,7 @@ private:
 	void InitGO();
 	void InitChunks();
 	void InitShaders();
+	void InitBehaviour();
 public:
 	DataContainer();
 	~DataContainer();
@@ -52,5 +55,6 @@ public:
 	unsigned GetTexture(std::string key);
 	HeightMapData* GetHeightMap(std::string key);
 	ChunkData* GetChunk(std::string key);
+	Behaviour* GetBehaviour(std::string key);
 };
 

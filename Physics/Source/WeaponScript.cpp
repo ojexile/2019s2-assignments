@@ -139,10 +139,17 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	Vector3 SpawnPos = GetPosition();
+	Vector3 direction = dir.Normalized();
+	
+	direction.x = direction.x + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread);
+	direction.y = direction.y + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread) / 10;
+	direction.z = direction.z + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread);
+	
+	direction.Normalize();
 
 	GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
 	bullet->RIGID->SetAffectedByGravity(false);
-	bullet->RIGID->AddForce(m_fBulletForce * dir);
+	bullet->RIGID->AddForce(m_fBulletForce * direction);
 
 	DamageEquippedParts(m_ScopeParts, deltaTime);
 	DamageEquippedParts(m_MuzzleParts, deltaTime);
@@ -282,11 +289,13 @@ void WeaponScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const
 	{
 		for (auto it = m_vector.begin(); it != m_vector.end(); ++it)
 		{
+			if (m_vector.size() == 0)
+				break;
+
 			GameObject* go = static_cast<GameObject*>(*it);
 			if (go->PART->DecreaseDurability(deltaTime))
 				DestroyPart(m_vector, go);
-			if (m_vector.size() == 0)
-				break;
+			
 		}
 	}
 }
