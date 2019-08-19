@@ -6,45 +6,43 @@
 #include "PlayerStatsScript.h"
 #include "TopDownState.h"
 #include "CameraScript.h"
+#include "Time.h"
 StandingState::StandingState()
 {
-	m_fBaseAccel = 300;
-	m_fSprintMultiplier = 0.5f;
-	m_fBaseMovementSpeed = 40;
-
-	m_fDodgeForce = 4000;
+	m_fMovementBoost = 50;
+	m_fForrceBoost = 20;
 }
 
 StandingState::~StandingState()
 {
 }
 
-PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
+State* StandingState::HandleState(ComponentBase* com)
 {
+	float dt = Time::GetInstance()->GetDeltaTimeF();
+
 	// Sprint
 	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint"))
 	{
 		float fDrain = 100;
 		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= dt * fDrain)
 		{
-			com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
-			// com->GetComponent<PlayerStatsScript>()->DrainStamina((float)dt * fDrain);
-			com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(dt * fDrain);
+			com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(m_fMovementBoost, m_fForrceBoost);
+			com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(dt * fDrain);
 		}
 		else
 		{
-			com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(0, 0);
+			com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
 		}
 	}
 	// Crouch
 	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
-		// return new CrouchingState; /// Disabled until key trigger is added
-		com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
+		// com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
 	}
 	if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint") && !InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
-		com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(0, 0);
+		com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
 	}
 	// Dodge
 	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
@@ -52,10 +50,8 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		float fDrain = 25;
 		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= fDrain)
 		{
-			// Add force in direction of reticle
 			com->GetComponent<PlayerScript>()->Dash();
-			// com->GetComponent<PlayerStatsScript>()->DrainStamina(fDrain);
-			com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(fDrain);
+			com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(fDrain);
 		}
 	}
 	// Top Down
@@ -63,15 +59,16 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 	{
 		return new TopDownState;
 	}
-	// Jump
-	// TODO:
+	m_MovementCommand.HandleCommand(com);
 
-	//SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 100,100,100 });
 	return nullptr;
 }
 void StandingState::OnEnter(ComponentBase* com)
 {
-	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetPosition(0,100,0);
 	CameraScript::SetTopDown(false);
-	com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(0, 0);
+	com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
+}
+
+void StandingState::OnExit(ComponentBase * com)
+{
 }

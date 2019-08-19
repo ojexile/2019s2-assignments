@@ -4,6 +4,7 @@
 #include "StopWatch.h"
 #include "Stats.h"
 #include "EntityValues.h"
+#include "Behaviour.h"
 
 #define DAMAGE_TIME 1.f
 
@@ -22,6 +23,8 @@ private:
 	const Stats m_BaseStats;
 	Stats m_AdditionalStats;
 
+	Behaviour* m_Behaviour;
+
 	bool m_bInitialised;
 	bool m_bDamageAnim;
 	float m_fAnimStartTime;
@@ -31,13 +34,15 @@ private:
 	void Init();
 	void CheckInit();
 	void DamageAnim();
+	bool CheckDeath();
+	void UpdateValues();
 protected:
 	StopWatch m_SW;
 	Rigidbody* m_RB;
 	//--------------------------------------------------------------------------------
-	void Move(Vector3 vDir);
 public:
-	EntityScript();
+	EntityScript(Behaviour* Behaviour = nullptr);
+	EntityScript(EntityScript& ref);
 	virtual ~EntityScript();
 	virtual Component* Clone() { return new EntityScript(*this); };
 	virtual void Update(double dt) override;
@@ -46,6 +51,10 @@ public:
 	Stats* GetAdditionalStats();
 	EntityValues* GetValues();
 
+	void Move(Vector3 vDir);
+	void MoveForwards();
+	void RotateTowards(Vector3 vDir);
+	void Jump();
 	bool IsDamageAnim();
 	void SetDamageAnim(bool);
 	void Damage(int iDamage);

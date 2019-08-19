@@ -1,20 +1,19 @@
 #pragma once
 #include "PlayerState.h"
-
-class StandingState :
-	public PlayerState
+#include "MovementCommand.h"
+class StandingState : public PlayerState
 {
 private:
-	float m_fBaseMovementSpeed;
-	float m_fBaseAccel;
-	float m_fSprintMultiplier;
-	float m_fCurrentBobOffset;
+	float m_fMovementBoost;
+	float m_fForrceBoost;
 
-	float m_fDodgeForce;
+	MovementCommand m_MovementCommand;
 public:
 	StandingState();
 	virtual ~StandingState();
 
-	virtual PlayerState* HandleInput(ComponentBase* com, double dt) override;
+	virtual State* HandleState(ComponentBase* com) override;
 	virtual void OnEnter(ComponentBase* com) override;
+	virtual void OnExit(ComponentBase* com) override;
+	virtual State* Clone() { return new StandingState(*this); };
 };

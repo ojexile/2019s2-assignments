@@ -123,6 +123,14 @@
     <ClCompile Include="Source\Stats.cpp" />
     <ClCompile Include="EntityValues.cpp" />
     <ClCompile Include="Source\ChunkEvent.cpp" />
+    <ClCompile Include="Source\State.cpp" />
+    <ClCompile Include="Source\Behaviour.cpp" />
+    <ClCompile Include="Source\EntityValues.cpp" />
+    <ClCompile Include="Source\Command.cpp" />
+    <ClCompile Include="Source\MovementCommand.cpp" />
+    <ClCompile Include="Source\AIState.cpp" />
+    <ClCompile Include="Source\WanderState.cpp" />
+    <ClCompile Include="Source\IdleState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -222,6 +230,13 @@
     <ClInclude Include="Source\Stats.h" />
     <ClInclude Include="Source\EntityValues.h" />
     <ClInclude Include="Source\ChunkEvent.h" />
+    <ClInclude Include="Source\State.h" />
+    <ClInclude Include="Source\Behaviour.h" />
+    <ClInclude Include="Source\Command.h" />
+    <ClInclude Include="Source\MovementCommand.h" />
+    <ClInclude Include="Source\AIState.h" />
+    <ClInclude Include="Source\WanderState.h" />
+    <ClInclude Include="Source\IdleState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

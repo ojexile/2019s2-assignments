@@ -8,19 +8,16 @@
 #include "MiscellaneousPartScript.h"
 #include "GrenadeScript.h"
 #include "InventoryScript.h"
-PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun, GameObject* grenade)
-	: m_Reticle(Reticle)
-	, m_Gun(gun)
-	, m_Grenade(grenade)
+PlayerScript::PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun, GameObject* grenade)
+	: EntityScript(beh)
 {
-	m_CurrentState = nullptr;
-	m_fJumpForce = 3000.f;
+	m_Reticle = Reticle;
+	m_Gun = gun;
+	m_Grenade = grenade;
 }
 
 PlayerScript::~PlayerScript()
 {
-	if (m_CurrentState)
-		delete m_CurrentState;
 }
 void PlayerScript::Start()
 {
@@ -49,18 +46,6 @@ void PlayerScript::UpdateMovement(double dt)
 	bool bMoved = false;
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 pos = trans->GetPosition();
-	if (!m_CurrentState)
-	{
-		m_CurrentState = new StandingState;
-		m_CurrentState->OnEnter(this);
-	}
-	PlayerState* state = m_CurrentState->HandleInput(this, dt);
-	if (m_CurrentState != state && state != nullptr)
-	{
-		state->OnEnter(this);
-		delete m_CurrentState;
-		m_CurrentState = state;
-	}
 
 	Rigidbody* rb = GetComponent<Rigidbody>();
 	// Movement

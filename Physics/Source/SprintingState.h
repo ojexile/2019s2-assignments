@@ -9,6 +9,8 @@ public:
 	SprintingState();
 	virtual ~SprintingState();
 
-	virtual PlayerState* HandleInput(ComponentBase* com, double dt) override;
+	virtual State* HandleState(ComponentBase* com) override;
 	virtual void OnEnter(ComponentBase* com) override;
+	virtual void OnExit(ComponentBase* com) override;
+	virtual State* Clone() { return new SprintingState(*this); };
 };
