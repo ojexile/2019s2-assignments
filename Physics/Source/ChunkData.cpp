@@ -157,6 +157,11 @@ MeshBiomed* ChunkData::GenerateMeshBiomed()
 	mesh->AddTexture("Colors", BiomeComponent::BIOME_PLAINS);
 	mesh->AddTexture("snow", BiomeComponent::BIOME_SNOW);
 	mesh->AddTexture("beachy", BiomeComponent::BIOME_BEACHY);
+	mesh->AddTexture("gb", BiomeComponent::BIOME_GAMEBOY);
+	mesh->AddTexture("mesa", BiomeComponent::BIOME_MESA);
+	mesh->AddTexture("crimson", BiomeComponent::BIOME_CRIMSON);
+	mesh->AddTexture("void", BiomeComponent::BIOME_VOID);
+	mesh->AddTexture("gray", BiomeComponent::BIOME_MONOCHROME);
 
 
 	return mesh;
