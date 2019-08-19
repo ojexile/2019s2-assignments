@@ -17,7 +17,7 @@ class ChunkData
 	ChunkEvent* m_event;
 	//std::vector<ChunkFeature> m_features;
 public:
-	ChunkData(const std::string fileName);
+	ChunkData(const std::string fileName, int rotate = 0);
 	~ChunkData();
 	void WriteToFile(const std::string fileName);
 	Mesh* GenerateMesh();

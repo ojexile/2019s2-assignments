@@ -14,7 +14,7 @@ PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun, GameObject* gre
 	, m_Grenade(grenade)
 {
 	m_CurrentState = nullptr;
-	m_fJumpForce = 2000.f;
+	m_fJumpForce = 3000.f;
 }
 
 PlayerScript::~PlayerScript()
@@ -30,6 +30,7 @@ void PlayerScript::Update(double dt)
 {
 	EntityScript::Update(dt);
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
+	AudioManager::GetInstance()->UpdateFading(dt);
 	// Movement================================================================================
 	UpdateMovement(dt);
 
@@ -145,6 +146,16 @@ void PlayerScript::UpdateMovement(double dt)
 		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
 	}
 	// CHENG_LOG("Player pos: ", vtos(GetPosition()));
+	if (GetValues()->GetHealth() < 30)
+	{
+		AudioManager::GetInstance()->QueueFade(0, 0.3, "low_piano");
+		AudioManager::GetInstance()->QueueFade(1, 0.3, "high_piano");
+	}
+	else
+	{
+		AudioManager::GetInstance()->QueueFade(1, 0.3, "low_piano");
+		AudioManager::GetInstance()->QueueFade(0, 0.3, "high_piano");
+	}
 }
 void PlayerScript::Collide(GameObject* go)
 {

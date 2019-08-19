@@ -12,6 +12,24 @@
     <None Include="Content\Map.chunk">
       <Filter>Resources</Filter>
     </None>
+    <None Include="Content\chunks\1x1_archway.chunk">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\chunks\1x1_smallhouse.chunk">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\chunks\1x2_goldmine.chunk">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\chunks\1x1_bazaar1.chunk">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\chunks\1x1_wellspring.chunk">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\chunks\1x1_walledoff.chunk">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AnimatedMesh.cpp" />

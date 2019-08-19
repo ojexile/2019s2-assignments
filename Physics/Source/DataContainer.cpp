@@ -52,6 +52,20 @@ void DataContainer::InitChunks()
 	m_map_Chunks["archway"] = new ChunkData("Content/chunks/1x1_archway.chunk");
 	m_map_Chunks["goldmine"] = new ChunkData("Content/chunks/1x2_goldmine.chunk");
 	m_map_Chunks["smallhouse"] = new ChunkData("Content/chunks/1x1_smallhouse.chunk");
+	m_map_Chunks["bazaar1"] = new ChunkData("Content/chunks/1x1_bazaar1.chunk");
+	m_map_Chunks["bazaar1_1"] = new ChunkData("Content/chunks/1x1_bazaar1.chunk", 1);
+	m_map_Chunks["bazaar1_2"] = new ChunkData("Content/chunks/1x1_bazaar1.chunk", 2);
+	m_map_Chunks["bazaar1_3"] = new ChunkData("Content/chunks/1x1_bazaar1.chunk", 3);
+	m_map_Chunks["wellspring"] = new ChunkData("Content/chunks/1x1_wellspring.chunk");
+	m_map_Chunks["wellspring_1"] = new ChunkData("Content/chunks/1x1_wellspring.chunk", 1);
+	m_map_Chunks["walledoff"] = new ChunkData("Content/chunks/1x1_walledoff.chunk");
+	m_map_Chunks["walledoff_1"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 1);
+	m_map_Chunks["walledoff_2"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 2);
+	m_map_Chunks["walledoff_3"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 3);
+	m_map_Chunks["barline"] = new ChunkData("Content/chunks/1x2_barline.chunk");
+	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["barline_3"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 }
 
 void DataContainer::InitTextures()
