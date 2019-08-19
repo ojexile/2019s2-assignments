@@ -10,12 +10,16 @@ MapSpawningScript::MapSpawningScript()
 {
 	for (int i = 0; i < 4096; ++i)
 	{
-		m_biomeNoise.emplace_back();
-		for (BiomeComponent::eBiomeTypes b = (BiomeComponent::eBiomeTypes) 0; b < BiomeComponent::BIOME_COUNT; b = (BiomeComponent::eBiomeTypes) (b + 1))
-		{
-			m_biomeNoise[i][b] = Math::RandFloatMinMax(-1, 1);
-		}
+		m_biomeNoise.emplace_back(Vector3(Math::RandFloatMinMax(-1, 1), Math::RandFloatMinMax(-1, 1), Math::RandFloatMinMax(-1, 1)));
 	}
+	m_biomeToVec3Mapping.emplace(Vector3(0, -1, -1), BiomeComponent::BIOME_BEACHY);
+	m_biomeToVec3Mapping.emplace(Vector3(0, 0, -1), BiomeComponent::BIOME_PLAINS);
+	m_biomeToVec3Mapping.emplace(Vector3(0, 1, -1), BiomeComponent::BIOME_SNOW);
+	m_biomeToVec3Mapping.emplace(Vector3(1, 0, -1), BiomeComponent::BIOME_MESA);
+	m_biomeToVec3Mapping.emplace(Vector3(0, 0, 1), BiomeComponent::BIOME_GAMEBOY);
+	m_biomeToVec3Mapping.emplace(Vector3(0, 1, 1), BiomeComponent::BIOME_VOID);
+	m_biomeToVec3Mapping.emplace(Vector3(-1, 0, 1), BiomeComponent::BIOME_CRIMSON);
+	m_biomeToVec3Mapping.emplace(Vector3(-1, -1, 1), BiomeComponent::BIOME_MONOCHROME);
 }
 
 MapSpawningScript::~MapSpawningScript()
@@ -159,9 +163,9 @@ void MapSpawningScript::Update(double dt)
 			Vector3 goPos = Vector3(offsetX * 16, 0, offsetZ * 16);
 			go->TRANS->SetPosition(goPos);
 			RenderComponent* render = new RenderComponent(chunk->GenerateMeshBiomed());
-			render->SetRenderDistance(100);
+			render->SetRenderDistance(10000);
 			go->AddComponent(render);
-			go->AddComponent(new BiomeComponent(GetBiomeAt(Vector3(offsetX, 0, offsetZ))));
+			go->AddComponent(new BiomeComponent(GetBiomeFromNoise(GetNoiseAt(Vector3(offsetX, 0, offsetZ)))));
 			go->AddComponent(new ChunkCollider(chunk));
 			
 #ifdef DEBUG_NUMBERS
@@ -209,35 +213,76 @@ int Mod(int x, int b)
 {
 	return (x % b + b) % b;
 }
-BiomeComponent::eBiomeTypes MapSpawningScript::GetBiomeAt(Vector3 v)
+Vector3 MapSpawningScript::GetNoiseAt(Vector3 v)
 {
-	std::map<BiomeComponent::eBiomeTypes, float> biomeWeights;
+	Vector3 biomeWeights;
 	float X = v.x;
 	float Z = v.z;
-	for (int i = 0; i < 6; ++i)
+	float max = 0;
+	for (int i = 0; i < 9; ++i)
 	{
-		float multiplier = pow(2, i) / 8;
+		float multiplier = pow(2, i) / 64;
 		float x = X * multiplier;
 		float z = Z * multiplier;
 		x = Mod(x, 64.f);
 		z = Mod(z, 64.f);
 		int xLow = floor(x);
-		int zLow = floor(z); 
+		int zLow = floor(z);
+		xLow += (((i * 31569) % 6238) * 103343) % 64;
+		zLow += (((i * 34251) % 6352) * 213923) % 64;
+		xLow %= 64;
+		zLow %= 64;
 		for (BiomeComponent::eBiomeTypes b = (BiomeComponent::eBiomeTypes) 0; b < BiomeComponent::BIOME_COUNT; b = (BiomeComponent::eBiomeTypes) (b+1))
 		{
-			biomeWeights[b] += BiLerp2D(m_biomeNoise[Mod(xLow * 64 + zLow, 4096)][b],
-				m_biomeNoise[Mod(xLow * 64 + zLow + 1, 4096)][b],
-				m_biomeNoise[Mod(xLow * 64 + zLow + 64, 4096)][b],
-				m_biomeNoise[Mod(xLow * 64 + zLow + 65, 4096)][b],
+			biomeWeights.x += BiLerp2D(m_biomeNoise[xLow * 64 + zLow].x,
+				m_biomeNoise[xLow * 64 + Mod(zLow + 1, 64)].x,
+				m_biomeNoise[Mod(xLow + 1, 64) * 64 + zLow].x,
+				m_biomeNoise[Mod(xLow + 1, 64) * 64 + Mod(zLow + 1, 64)].x,
+				Mod(x, 1.f),
+				Mod(z, 1.f)) / multiplier;
+			biomeWeights.y += BiLerp2D(m_biomeNoise[xLow * 64 + zLow].y,
+				m_biomeNoise[xLow * 64 + Mod(zLow + 1, 64)].y,
+				m_biomeNoise[Mod(xLow + 1, 64) * 64 + zLow].y,
+				m_biomeNoise[Mod(xLow + 1, 64) * 64 + Mod(zLow + 1, 64)].y,
+				Mod(x, 1.f),
+				Mod(z, 1.f)) / multiplier;
+			biomeWeights.z += BiLerp2D(m_biomeNoise[xLow * 64 + zLow].z,
+				m_biomeNoise[xLow * 64 + Mod(zLow + 1, 64)].z,
+				m_biomeNoise[Mod(xLow + 1, 64) * 64 + zLow].z,
+				m_biomeNoise[Mod(xLow + 1, 64) * 64 + Mod(zLow + 1, 64)].z,
 				Mod(x, 1.f),
 				Mod(z, 1.f)) / multiplier;
 		}
+		max += 1 / multiplier;
 	}
-	BiomeComponent::eBiomeTypes highestBiome = BiomeComponent::BIOME_COUNT;
-	for (BiomeComponent::eBiomeTypes b = (BiomeComponent::eBiomeTypes) 0; b < BiomeComponent::BIOME_COUNT; b = (BiomeComponent::eBiomeTypes) (b + 1))
+	return biomeWeights * (1 / max);
+}
+
+BiomeComponent::eBiomeTypes MapSpawningScript::GetBiomeFromNoise(Vector3 vec)
+{
+	std::map<float, BiomeComponent::eBiomeTypes> neighbors;
+	for (auto i = m_biomeToVec3Mapping.begin(); i != m_biomeToVec3Mapping.end(); ++i)
 	{
-		if (biomeWeights[b] > biomeWeights[highestBiome] || highestBiome == BiomeComponent::BIOME_COUNT) highestBiome = b;
+		neighbors.emplace(1 / (i->first - vec).Length(), i->second);
 	}
-	return highestBiome;
+	int i = 0;
+	std::map< BiomeComponent::eBiomeTypes, float> output;
+	for (auto m = neighbors.begin(); i < 9 && m != neighbors.end(); ++i, ++m)
+	{
+		output[m->second] += m->first;
+	}
+	std::map< float, BiomeComponent::eBiomeTypes> candidates;
+	for (auto m = output.begin(); m != output.end(); ++m)
+	{
+		candidates[m->second] = m->first;
+	}
+	auto x = candidates.rbegin();
+	BiomeComponent::eBiomeTypes one = x->second;
+	float oneW = x->first;
+	BiomeComponent::eBiomeTypes two = (++x)->second;
+	float twoW = x->first;
+	return (Math::RandFloatMinMax(0, oneW + twoW) > oneW ? two : one);
+	
+
 }
 

@@ -26,6 +26,10 @@ void PlayerScript::Start()
 {
 	GetCameraGO()->GetComponent<CameraComponent>()->SetMouseUseFloatYaw(false);
 }
+void PlayerScript::SetCanJump(bool b)
+{
+	m_bCanJump = b;
+}
 void PlayerScript::Update(double dt)
 {
 	EntityScript::Update(dt);
@@ -86,9 +90,13 @@ void PlayerScript::UpdateMovement(double dt)
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
 	{
-		rb->AddForce({ 0,m_fJumpForce,0 });
-		rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
-		Notify("Jump");
+		if (m_bCanJump)
+		{
+			rb->AddForce({ 0,m_fJumpForce,0 });
+			rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
+			Notify("Jump");
+			m_bCanJump = false;
+		}
 	}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerInteract") != 0)
 	{
