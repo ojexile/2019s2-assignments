@@ -14,8 +14,26 @@ EntityScript::EntityScript(Behaviour* Behaviour)
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
 }
+EntityScript::EntityScript(EntityScript & ref)
+	: m_BaseStats(ref.m_BaseStats)
+{
+	m_Values = ref.m_Values;
+	m_AdditionalStats = ref.m_AdditionalStats;
+
+	if (ref.m_Behaviour)
+	{
+		m_Behaviour = new Behaviour(*ref.m_Behaviour);
+		m_Behaviour->Init(this);
+	}
+	else
+		m_Behaviour = nullptr;
+	m_bInitialised = false;
+	m_fAnimStartTime = 0;
+
+}
 EntityScript::~EntityScript()
 {
+	
 }
 void EntityScript::Init()
 {

@@ -42,6 +42,7 @@ protected:
 	//--------------------------------------------------------------------------------
 public:
 	EntityScript(Behaviour* Behaviour = nullptr);
+	EntityScript(EntityScript& ref);
 	virtual ~EntityScript();
 	virtual Component* Clone() { return new EntityScript(*this); };
 	virtual void Update(double dt) override;
