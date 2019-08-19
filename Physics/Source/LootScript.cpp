@@ -1,7 +1,7 @@
 #include "LootScript.h"
 #include "DataContainer.h"
 #include "Rigidbody.h"
-
+#include "ChunkCollider.h"
 #include "ConcreteMiscParts/StaminaRegenPart.h"
 #include "SceneManager.h"
 
