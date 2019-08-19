@@ -68,6 +68,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Ball"] = LoadTGA("Ball");
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
+	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
@@ -87,7 +88,7 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
-	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Ball");
+	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Muzzle");
 
 	m_map_Meshes["Clip"] = MeshBuilder::GenerateOBJ("Clip")->AddTexture("Revolver");
 
@@ -192,7 +193,7 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(0.5);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	go->RIGID->SetMass(0.25f);
+	go->RIGID->SetMass(0.15f);
 	go->RIGID->SetMat(0.9f, 0.f);
 	go->AddComponent(new GrenadeScript(3.0, 10.0, 2));
 	// Loot------------------------------------------------------------------------------------

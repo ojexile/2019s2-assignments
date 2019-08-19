@@ -176,20 +176,20 @@ void WeaponScript::EquipPart(GameObject* part)
 		case PartScript::SCOPE:
 		{
 			m_ScopeParts.push_back(part);
-			part->TRANS->SetRelativePosition(0.5f * m_ScopeParts.size(), 0.5f, 0.f);
+			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.2f, 0.f);
 			break;
 		}
 		case PartScript::MUZZLE:
 		{
 			m_MuzzleParts.push_back(part);
-			part->TRANS->SetRelativePosition(1.f * m_MuzzleParts.size(), 0, 0);
+			part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
 
 			break;
 		}
 		case PartScript::CLIP:
 		{
 			m_StockParts.push_back(part);
-			part->TRANS->SetRelativePosition(0, -0.5f* m_StockParts.size(), 0);
+			part->TRANS->SetRelativePosition(-0.45f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
 			break;
 		}
 		case PartScript::GRIP:
@@ -224,7 +224,7 @@ void WeaponScript::EquipPart(GameObject* part)
 		case PartScript::CLIP:
 		{
 			m_StockParts.push_back(part);
-			part->TRANS->SetRelativePosition(0, -0.5f* m_StockParts.size(), 0);
+			part->TRANS->SetRelativePosition(-0.35f + (0.15f * m_StockParts.size()), -0.5f * m_StockParts.size(), 0);
 			break;
 		}
 		case PartScript::GRIP:
