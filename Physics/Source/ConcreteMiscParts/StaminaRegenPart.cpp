@@ -1,7 +1,7 @@
 #include "StaminaRegenPart.h"
-#include "../PlayerStatsScript.h"
+#include "../PlayerScript.h"
 #include "../WeaponScript.h"
-
+#include "../Stats.h"
 
 StaminaRegenPart::StaminaRegenPart(float SpreadDebuff, float FireRateDebuff, int MaxMagazineDebuff, int MaxAmmoDebuff, float durability)
 	: MiscellaneousPartScript(SpreadDebuff, FireRateDebuff, MaxMagazineDebuff, MaxAmmoDebuff, durability)
@@ -11,9 +11,7 @@ StaminaRegenPart::StaminaRegenPart(float SpreadDebuff, float FireRateDebuff, int
 
 StaminaRegenPart::~StaminaRegenPart()
 {
-
 }
-
 
 void StaminaRegenPart::Effect()
 {
@@ -41,22 +39,24 @@ void StaminaRegenPart::Buff(bool reverse)
 		{
 		case PartScript::SCOPE:
 		{
-			m_PlayerRef->AdjustMaxStamina(20.f, true);
+			// m_PlayerRef->AdjustMaxStamina(20.f, true);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectMaxStamina(0.5f);
 			break;
 		}
 		case PartScript::MUZZLE:
 		{
-			m_PlayerRef->AdjustMaxStamina(50.f, true);
+			// m_PlayerRef->AdjustMaxStamina(50.f, true);
 			break;
 		}
 		case PartScript::CLIP:
 		{
-			m_PlayerRef->AdjustStaminaRegenRate(10.f, true);
+			// m_PlayerRef->AdjustStaminaRegenRate(10.f, true);
 			break;
 		}
 		case PartScript::GRIP:
 		{
-			m_PlayerRef->AdjustStaminaRegenRate(20.f, true);
+			// m_PlayerRef->AdjustStaminaRegenRate(20.f, true);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectStaminaRegenRate(2.5f);
 			break;
 		}
 		default:
@@ -71,22 +71,22 @@ void StaminaRegenPart::Buff(bool reverse)
 		{
 		case PartScript::SCOPE:
 		{
-			m_PlayerRef->AdjustMaxStamina(20.f, false);
+			// m_PlayerRef->AdjustMaxStamina(20.f, false);
 			break;
 		}
 		case PartScript::MUZZLE:
 		{
-			m_PlayerRef->AdjustMaxStamina(50.f, false);
+			// m_PlayerRef->AdjustMaxStamina(50.f, false);
 			break;
 		}
 		case PartScript::CLIP:
 		{
-			m_PlayerRef->AdjustStaminaRegenRate(10.f, false);
+			// ->AdjustStaminaRegenRate(10.f, false);
 			break;
 		}
 		case PartScript::GRIP:
 		{
-			m_PlayerRef->AdjustStaminaRegenRate(20.f, false);
+			// m_PlayerRef->AdjustStaminaRegenRate(20.f, false);
 			break;
 		}
 		default:
@@ -95,7 +95,6 @@ void StaminaRegenPart::Buff(bool reverse)
 		}
 		}
 	}
-
 }
 
 void StaminaRegenPart::Debuff(bool reverse)

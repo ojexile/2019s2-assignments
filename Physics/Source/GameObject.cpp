@@ -7,14 +7,14 @@ GameObject::GameObject()
 	, m_bStatic{ false }
 {
 	AddComponent(new TransformComponent);
-	m_fDisableDistance = 2000000;
+	m_fDisableDistance = 10000;
 }
 // Copy
 GameObject::GameObject(const GameObject& go)
 {
 	this->m_bActive = go.m_bActive;
 	this->m_bStatic = go.m_bStatic;
-	m_fDisableDistance = 2000000;
+	m_fDisableDistance = go.m_fDisableDistance;
 	for (unsigned i = 0; i < go.m_vec_ComponentList.size(); ++i)
 	{
 		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());

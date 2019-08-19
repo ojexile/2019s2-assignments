@@ -175,9 +175,20 @@ void DefaultScene::Init()
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
-	go->GetComponent<EntityScript>()->SetHealth(1.f);
+	go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	go->TRANS->SetPosition(20, 18.5, 20);
+
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("ItemInfo"));
+	go->TRANS->SetPosition(0, 16, 0);
+	go->SetActive(false);
+
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(0, 16, 0);
+	go->TRANS->SetScale(1);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
+	go->RENDER->Set3DBillboard(true);
+	go->RENDER->SetColor(0, 1, 1);
 
 	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg");
 }

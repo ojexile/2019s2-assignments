@@ -113,6 +113,8 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
 
+	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
+
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", { 1,1,1 }, 1.f);
 }
 void  DataContainer::InitTerrain()
@@ -121,7 +123,7 @@ void  DataContainer::InitTerrain()
 	// Plains--------------------------------------------------------------------------------
 	MeshBiomed* mesh1 = GenerateTerrainBiomed("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })
 		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS);
-		//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
+	//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 }
 void  DataContainer::InitGO()
 {
@@ -237,11 +239,16 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(50, 20, 1);
+	// ItemInfo--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["ItemInfo"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
+	go->RENDER->Set3DBillboard(true);
 	// Interactabes--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
-	go->GetComponent<RenderComponent>()->SetColor(1.f , 0.6f, 0.2f);
+	go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
 	go->GetComponent<RenderComponent>()->SetBillboard(true);
 	go->AddComponent(new ParticleScript(1.f, Vector3(0.f, 1.f, 0.f), Vector3(0.f, 100.f, 0.f), Vector3(), Vector3(), Vector3(1.f, 1.f, 1.f)));
 

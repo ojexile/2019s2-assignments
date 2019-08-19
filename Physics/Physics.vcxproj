@@ -161,6 +161,7 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EntityValues.cpp" />
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
@@ -240,6 +241,7 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SprintingState.cpp" />
     <ClCompile Include="Source\StandingState.cpp" />
+    <ClCompile Include="Source\Stats.cpp" />
     <ClCompile Include="Source\StopWatch.cpp" />
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TopDownState.cpp" />
@@ -276,6 +278,7 @@
     <ClInclude Include="Source\DestructibleEntityScript.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\EntityScript.h" />
+    <ClInclude Include="Source\EntityValues.h" />
     <ClInclude Include="Source\FoilageGeneratorComponent.h" />
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />
@@ -336,6 +339,7 @@
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\SprintingState.h" />
     <ClInclude Include="Source\StandingState.h" />
+    <ClInclude Include="Source\Stats.h" />
     <ClInclude Include="Source\StopWatch.h" />
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\TopDownState.h" />

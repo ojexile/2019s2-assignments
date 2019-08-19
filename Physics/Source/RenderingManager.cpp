@@ -5,7 +5,7 @@
 #define SHADOW_VIEW_SIZE_X 110
 #define SHADOW_VIEW_SIZE_Y 110
 #define SHADOW_VIEW_SIZE_Z 100
-#define SHADOW_RES 1024*4
+#define SHADOW_RES 1024*0.5
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
@@ -301,6 +301,17 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 
 			modelStack.Rotate(dAngle, 0.f, 1.f, 0.f);
 		}
+		if (renderComponent->Is3DBillboard())
+		{
+			float fYaw = Math::RadianToDegree(atan2((vCamPos.x - trans->GetPosition().x), (vCamPos.z - trans->GetPosition().z)));
+			Vector3 v = vCamPos - trans->GetPosition();
+			Vector3 v1 = v;
+			v.y = 0;
+			float fPitch = AngleBetween(v, v1);
+
+			modelStack.Rotate(fYaw, 0, 1, 0);
+			modelStack.Rotate(-fPitch, 1, 0, 0);
+		}
 		if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero())
 			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 		if (vGameObjectScale.x <= 0 || vGameObjectScale.y <= 0 || vGameObjectScale.z <= 0)
@@ -324,8 +335,13 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 			if (!renderComponent->IsText())
 				RenderUI(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 			else
-				RenderTextOnScreen(renderComponent, renderComponent->GetText(), { renderComponent->GetMaterial().kAmbient.r,renderComponent->GetMaterial().kAmbient.g,renderComponent->GetMaterial().kAmbient.b },
-					vGameObjectPosition.z, vGameObjectPosition.x, vGameObjectPosition.y);
+			{
+				if (!renderComponent->IsTextOnScreen())
+					RenderText(renderComponent);
+				else
+					RenderTextOnScreen(renderComponent, renderComponent->GetText(), { renderComponent->GetMaterial().kAmbient.r,renderComponent->GetMaterial().kAmbient.g,renderComponent->GetMaterial().kAmbient.b },
+						vGameObjectPosition.z, vGameObjectPosition.x, vGameObjectPosition.y);
+			}
 		}
 
 		modelStack.PopMatrix();
