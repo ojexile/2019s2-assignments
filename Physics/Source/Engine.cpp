@@ -28,6 +28,7 @@ void Engine::Init()
 {
 	DataContainer::GetInstance()->Init();
 	AudioManager* audio = AudioManager::GetInstance();
+	audio->Play3D("pop.wav", {});
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();

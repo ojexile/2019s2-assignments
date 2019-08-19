@@ -31,9 +31,19 @@ void DefaultScene::Init()
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
 	GenericSubject::GetInstance()->AddObserver(new ParticleObserver);
+
+
+	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg", "low_synth");
+	AudioManager::GetInstance()->SetBGMVolume(0, "low_synth");
+	AudioManager::GetInstance()->QueueFade(1, 0.05, "low_synth");
+	AudioManager::GetInstance()->PlayBGM("bgm_02.ogg", "low_pad");
+	AudioManager::GetInstance()->PlayBGM("bgm_03.ogg", "low_piano");
+	AudioManager::GetInstance()->PlayBGM("bgm_04.ogg", "high_piano");
+	AudioManager::GetInstance()->SetBGMVolume(0, "high_piano");
 	/// Layers================================================================================
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
+
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	go->TRANS->SetPosition(1920 - 40, 1080 - 20, 25);
 	/// Inventory--------------------------------------------------------------------------------
@@ -190,6 +200,4 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
 	go->RENDER->Set3DBillboard(true);
 	go->RENDER->SetColor(0, 1, 1);
-
-	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg");
 }
