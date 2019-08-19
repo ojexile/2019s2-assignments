@@ -1,9 +1,9 @@
 #include "FleeState.h"
 #include "EntityScript.h"
 #include "IdleState.h"
+#include "AIStatesList.h"
 
-FleeState::FleeState(State* Combat)
-	:AIState(Combat)
+FleeState::FleeState()
 {
 }
 
@@ -25,7 +25,7 @@ State * FleeState::HandleState(ComponentBase * com)
 		}
 	}
 	else
-		return new IdleState(this);
+		return &AIStatesList::Idle;
 	return this;
 }
 

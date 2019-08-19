@@ -4,7 +4,7 @@ class FleeState :
 	public AIState
 {
 public:
-	FleeState(State* Combat);
+	FleeState();
 	virtual ~FleeState();
 
 	virtual State* HandleState(ComponentBase* com) override;

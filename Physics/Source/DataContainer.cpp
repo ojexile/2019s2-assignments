@@ -25,6 +25,8 @@
 #include "IdleState.h"
 #include "MeleeCombatState.h"
 #include "FleeState.h"
+//
+#include "AIStatesList.h"
 
 DataContainer::DataContainer()
 {
@@ -235,14 +237,14 @@ void DataContainer::InitGO()
 	m_map_GO["BaseEnemy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy")));
+	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy"), &AIStatesList::Melee));
 	go->AddComponent(new LootScript());
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Cow"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new EntityScript(GetBehaviour("FleeEnemy")));
+	go->AddComponent(new EntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee));
 	go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
@@ -304,8 +306,8 @@ void  DataContainer::InitShaders()
 void DataContainer::InitBehaviour()
 {
 	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
-	m_map_Behaviour["MeleeEnemy"] = new Behaviour(new IdleState(new MeleeCombatState(nullptr)));
-	m_map_Behaviour["FleeEnemy"] = new Behaviour(new IdleState(new FleeState(nullptr)));
+	m_map_Behaviour["MeleeEnemy"] = new Behaviour(&AIStatesList::Idle);
+	m_map_Behaviour["FleeEnemy"] = new Behaviour(&AIStatesList::Idle);
 }
 DataContainer::~DataContainer()
 {

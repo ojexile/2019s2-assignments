@@ -8,7 +8,7 @@ private:
 	StopWatch m_SW;
 	float m_fTime;
 public:
-	IdleState(State* Combat);
+	IdleState();
 	virtual ~IdleState();
 
 	virtual State* HandleState(ComponentBase* com) override;

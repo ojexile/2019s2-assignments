@@ -5,6 +5,7 @@
 #include "Stats.h"
 #include "EntityValues.h"
 #include "Behaviour.h"
+#include "AIState.h"
 
 #define DAMAGE_TIME 1.f
 
@@ -22,7 +23,7 @@ private:
 	EntityValues m_Values;
 	const Stats m_BaseStats;
 	Stats m_AdditionalStats;
-
+	AIState* m_CombatState; ///<	active state when ai is near player
 	Behaviour* m_Behaviour;
 
 	bool m_bInitialised;
@@ -41,7 +42,7 @@ protected:
 	Rigidbody* m_RB;
 	//--------------------------------------------------------------------------------
 public:
-	EntityScript(Behaviour* Behaviour = nullptr);
+	EntityScript(Behaviour* Behaviour = nullptr, AIState* CombatState = nullptr);
 	EntityScript(EntityScript& ref);
 	virtual ~EntityScript();
 	virtual Component* Clone() { return new EntityScript(*this); };
@@ -58,4 +59,5 @@ public:
 	bool IsDamageAnim();
 	void SetDamageAnim(bool);
 	void Damage(int iDamage);
+	AIState* GetCombatState();
 };

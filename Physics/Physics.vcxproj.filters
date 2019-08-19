@@ -132,6 +132,7 @@
     <ClCompile Include="Source\IdleState.cpp" />
     <ClCompile Include="Source\MeleeCombatState.cpp" />
     <ClCompile Include="Source\FleeState.cpp" />
+    <ClCompile Include="AIStatesList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -240,6 +241,7 @@
     <ClInclude Include="Source\IdleState.h" />
     <ClInclude Include="Source\MeleeCombatState.h" />
     <ClInclude Include="Source\FleeState.h" />
+    <ClInclude Include="Source\AIStatesList.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

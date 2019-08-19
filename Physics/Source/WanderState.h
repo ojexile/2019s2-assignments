@@ -9,7 +9,7 @@ private:
 	float m_fTime;
 	Vector3 m_vDir;
 public:
-	WanderState(State* Combat);
+	WanderState();
 	virtual ~WanderState();
 
 	virtual State* HandleState(ComponentBase* com) override;

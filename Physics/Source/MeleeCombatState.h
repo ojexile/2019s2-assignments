@@ -7,7 +7,7 @@ class MeleeCombatState :
 {
 private:
 public:
-	MeleeCombatState(State* Combat);
+	MeleeCombatState();
 	virtual ~MeleeCombatState();
 
 	virtual State* HandleState(ComponentBase* com) override;

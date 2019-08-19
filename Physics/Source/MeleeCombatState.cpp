@@ -3,8 +3,8 @@
 #include "SceneManager.h"
 #include "Rigidbody.h"
 #include "IdleState.h"
-MeleeCombatState::MeleeCombatState(State* Combat)
-	: AIState(Combat)
+#include "AIStatesList.h"
+MeleeCombatState::MeleeCombatState()
 {
 }
 
@@ -26,7 +26,7 @@ State * MeleeCombatState::HandleState(ComponentBase * com)
 		}
 	}
 	else
-		return new IdleState(this);
+		return &AIStatesList::Idle;
 	return this;
 }
 

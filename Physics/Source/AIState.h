@@ -1,12 +1,12 @@
 #pragma once
 #include "State.h"
 #include "GameObject.h"
+
 class AIState :
 	public State
 {
 private:
 protected:
-	State* m_Combat;
 	//
 	bool PlayerInRange(ComponentBase* com);
 	bool PlayerInRange(ComponentBase* com, float dist);
@@ -14,7 +14,7 @@ protected:
 	void DamagePlayer(int damage, float force, Vector3 Dir);
 
 public:
-	AIState(State* Combat);
+	AIState();
 	virtual ~AIState();
 
 	virtual State* HandleState(ComponentBase* com) = 0;
