@@ -36,6 +36,9 @@ public:
 	void SetRotation(float, int, int, int);
 	void SetRotation(float, float, float, float);
 	void SetRotation(float, Vector3);
+	void SetRelativeRotation(float, int, int, int);
+	void SetRelativeRotation(float, float, float, float);
+	void SetRelativeRotation(float, Vector3);
 	void RotateBy(float, Vector3);
 	void SetPosition(float translateX = 0, float translateY = 0, float translateZ = 0);
 	void SetPosition(Vector3);

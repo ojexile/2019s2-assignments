@@ -113,6 +113,7 @@ void DefaultScene::Init()
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 1, 1);
+	Gun->TRANS->SetRelativeRotation(25, Vector3(0,1,0));
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);

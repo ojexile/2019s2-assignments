@@ -8,6 +8,7 @@
 #include "MiscellaneousPartScript.h"
 #include "GrenadeScript.h"
 #include "InventoryScript.h"
+#include "Utility.h"
 PlayerScript::PlayerScript(GameObject* Reticle, GameObject* gun, GameObject* grenade)
 	: m_Reticle(Reticle)
 	, m_Gun(gun)
@@ -108,10 +109,17 @@ void PlayerScript::UpdateMovement(double dt)
 	{
 		GetTransform()->SetRotation(-angle, 0, 1, 0);
 	}
+
 	//
+	Vector3 vGunDir = m_Reticle->TRANS->GetPosition() - m_Gun->TRANS->GetPosition();
+	if (!vGunDir.IsZero())
+	{
+		vGunDir.Normalize();
+		m_Gun->TRANS->SetRelativeRotation(AngleBetween(vGunDir, vDir), 0, 1, 0);
+	}
 	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && m_Reticle->IsActive())
 	{
-		m_Gun->GUN->PullTrigger(vDir, dt);
+		m_Gun->GUN->PullTrigger(vGunDir, dt);
 	}
 	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && m_Reticle->IsActive())
 	{
