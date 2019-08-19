@@ -9,6 +9,8 @@
 #include "Time.h"
 StandingState::StandingState()
 {
+	m_fMovementBoost = 50;
+	m_fForrceBoost = 20;
 }
 
 StandingState::~StandingState()

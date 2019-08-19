@@ -161,8 +161,8 @@ void  DataContainer::InitGO()
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->RIGID->SetMass(0.01f);
-	go->RIGID->SetMat(1, 1);
+	go->RIGID->SetMass(0.005f);
+	go->RIGID->SetMat(0.9f, 1);
 	go->AddComponent(new ProjectileScript(1.0, 100.0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
@@ -223,7 +223,7 @@ void  DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new Rigidbody(Rigidbody::SQUARE));
 	go->AddComponent(new EntityScript(GetBehaviour("Wander")));
 	//go->AddComponent(new LootScript());
 	/// UI================================================================================
