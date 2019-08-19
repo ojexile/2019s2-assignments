@@ -90,6 +90,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)\Common\Source;$(SolutionDir)\glfw\include;$(SolutionDir)\irrklang\include;$(SolutionDir)\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,6 +125,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)\Common\Source;$(SolutionDir)\glfw\include;$(SolutionDir)\irrklang\include;$(SolutionDir)\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,6 +154,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Content\keybinds.cfg" />
+    <None Include="Content\Map.chunk" />
+    <None Include="Content\preferences.ini" />
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
@@ -159,6 +164,7 @@
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
+    <ClCompile Include="Source\AudioObserver.cpp" />
     <ClCompile Include="Source\BiomeComponent.cpp" />
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -167,20 +173,30 @@
     <ClCompile Include="Source\ChunkCollider.cpp" />
     <ClCompile Include="Source\ChunkData.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
+    <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\Constrain.cpp" />
     <ClCompile Include="Source\CrouchingState.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
     <ClCompile Include="Source\DefaultScene.cpp" />
     <ClCompile Include="Source\DepthFBO.cpp" />
+    <ClCompile Include="Source\DestructibleEntityScript.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
+    <ClCompile Include="Source\FlipEntityScript.cpp" />
+    <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
     <ClCompile Include="Source\FPSScript.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
+    <ClCompile Include="Source\GenericSubject.cpp" />
+    <ClCompile Include="Source\GrenadeScript.cpp" />
     <ClCompile Include="Source\HeightMapData.cpp" />
     <ClCompile Include="Source\InputBinding.cpp" />
     <ClCompile Include="Source\InputManager.cpp" />
+    <ClCompile Include="Source\InteractableObCom.cpp" />
+    <ClCompile Include="Source\InteractablesObserver.cpp" />
+    <ClCompile Include="Source\InteractionBaseScript.cpp" />
+    <ClCompile Include="Source\InventoryScript.cpp" />
     <ClCompile Include="Source\KeyboardManager.cpp" />
     <ClCompile Include="Source\LayerData.cpp" />
     <ClCompile Include="Source\LightManager.cpp" />
@@ -190,24 +206,32 @@
     <ClCompile Include="Source\Locator.cpp" />
     <ClCompile Include="Source\LogData.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
+    <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MapSpawningScript.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBiomed.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
+    <ClCompile Include="Source\Message.cpp" />
     <ClCompile Include="Source\MouseManager.cpp" />
+    <ClCompile Include="Source\ObserverBase.cpp" />
+    <ClCompile Include="Source\ObserverComponent.cpp" />
+    <ClCompile Include="Source\ParticleObserver.cpp" />
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\PartScript.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
+    <ClCompile Include="Source\PlayerStatsScript.cpp" />
     <ClCompile Include="Source\Preferences.cpp" />
     <ClCompile Include="Source\ProjectileScript.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
+    <ClCompile Include="Source\ReticleScript.cpp" />
     <ClCompile Include="Source\Rigidbody.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
@@ -219,7 +243,9 @@
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TopDownState.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
+    <ClCompile Include="Source\UIButtonComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\WeaponScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
@@ -228,6 +254,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\AudioManager.h" />
+    <ClInclude Include="Source\AudioObserver.h" />
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
@@ -235,6 +262,7 @@
     <ClInclude Include="Source\ChunkCollider.h" />
     <ClInclude Include="Source\ChunkData.h" />
     <ClInclude Include="Source\CollisionManager.h" />
+    <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
     <ClInclude Include="Source\Constrain.h" />
@@ -242,15 +270,24 @@
     <ClInclude Include="Source\DataContainer.h" />
     <ClInclude Include="Source\DefaultScene.h" />
     <ClInclude Include="Source\DepthFBO.h" />
+    <ClInclude Include="Source\DestructibleEntityScript.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\EntityScript.h" />
+    <ClInclude Include="Source\FlipEntityScript.h" />
+    <ClInclude Include="Source\FoilageGeneratorComponent.h" />
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
+    <ClInclude Include="Source\GenericSubject.h" />
+    <ClInclude Include="Source\GrenadeScript.h" />
     <ClInclude Include="Source\HeightMapData.h" />
     <ClInclude Include="Source\InputBinding.h" />
     <ClInclude Include="Source\InputDeviceManager.h" />
     <ClInclude Include="Source\InputManager.h" />
+    <ClInclude Include="Source\InteractableObCom.h" />
+    <ClInclude Include="Source\InteractablesObserver.h" />
+    <ClInclude Include="Source\InteractionBaseScript.h" />
+    <ClInclude Include="Source\InventoryScript.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
     <ClInclude Include="Source\LayerData.h" />
     <ClInclude Include="Source\Light.h" />
@@ -261,18 +298,25 @@
     <ClInclude Include="Source\Locator.h" />
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
+    <ClInclude Include="Source\LootScript.h" />
+    <ClInclude Include="Source\MapSpawningScript.h" />
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MeshController.h" />
+    <ClInclude Include="Source\Message.h" />
     <ClInclude Include="Source\MouseManager.h" />
+    <ClInclude Include="Source\ObserverBase.h" />
+    <ClInclude Include="Source\ObserverComponent.h" />
+    <ClInclude Include="Source\ParticleObserver.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
     <ClInclude Include="Source\PartScript.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
+    <ClInclude Include="Source\PlayerStatsScript.h" />
     <ClInclude Include="Source\Preferences.h" />
     <ClInclude Include="Source\BiomeComponent.h" />
     <ClInclude Include="Source\ProjectileScript.h" />
@@ -281,6 +325,7 @@
     <ClInclude Include="Source\RenderingManager.h" />
     <ClInclude Include="Source\RenderingManagerBase.h" />
     <ClInclude Include="Source\Resources.h" />
+    <ClInclude Include="Source\ReticleScript.h" />
     <ClInclude Include="Source\Rigidbody.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
@@ -293,8 +338,10 @@
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\TopDownState.h" />
     <ClInclude Include="Source\TransformComponent.h" />
+    <ClInclude Include="Source\UIButtonComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\WeaponPartScript.h" />
     <ClInclude Include="Source\WeaponScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>

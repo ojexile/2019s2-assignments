@@ -12,12 +12,19 @@ CollisionManager::CollisionManager()
 CollisionManager::~CollisionManager()
 {
 }
+
+Vector3 Truncate(Vector3 input)
+{
+	return Vector3((int)input.x, (int)input.y, (int)input.z) + Vector3(0.5, 0.5, 0.5);
+}
+#define NEW_COLLISION
 Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameObject* go2)
 {
 	// go1 is always ball
 
-	if (go2->GetComponent<ChunkCollider>() != nullptr)
+	if (go2->GetComponent<ChunkCollider>(true) != nullptr)
 	{
+#ifndef NEW_COLLISION
 		ChunkData* chunkData = go2->GetComponent<ChunkCollider>()->GetChunk();
 		float halfPlayerSize = go1->GetComponent<TransformComponent>()->GetScale().x;
 		Vector3 posInChunk = go1->GetComponent<TransformComponent>()->GetPosition() - go2->GetComponent<TransformComponent>()->GetPosition();
@@ -43,37 +50,137 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameO
 		{
 			return Rigidbody::ePhysicsTypes::NONE;
 		}
-		if (chunkData->IsSolid(verticesLow[3])) forceDirection += Vector3(-1, -1, -1);
-		if (chunkData->IsSolid(verticesLow[2])) forceDirection += Vector3(-1, -1, +1);
-		if (chunkData->IsSolid(verticesLow[1])) forceDirection += Vector3(+1, -1, -1);
-		if (chunkData->IsSolid(verticesLow[0])) forceDirection += Vector3(+1, -1, +1);
-		if (chunkData->IsSolid(verticesHigh[3]))forceDirection += Vector3(-1, +1, -1);
-		if (chunkData->IsSolid(verticesHigh[2]))forceDirection += Vector3(-1, +1, +1);
-		if (chunkData->IsSolid(verticesHigh[1]))forceDirection += Vector3(+1, +1, -1);
-		if (chunkData->IsSolid(verticesHigh[0]))forceDirection += Vector3(+1, +1, +1);
+		unsigned char lastHitChunk = 255;
+		if (chunkData->IsSolid(verticesLow[3]))
+		{
+			forceDirection += Vector3(-1, -1, -1);
+			lastHitChunk = 7;
+		}
+		if (chunkData->IsSolid(verticesLow[2])) 
+		{ 
+			forceDirection += Vector3(-1, -1, +1);
+			lastHitChunk = 6;
+		}
+		if (chunkData->IsSolid(verticesLow[1])) 
+		{ 
+			forceDirection += Vector3(+1, -1, -1);
+			lastHitChunk = 5;
+		}
+		if (chunkData->IsSolid(verticesLow[0])) 
+		{
+			forceDirection += Vector3(+1, -1, +1);
+			lastHitChunk = 4;
+		}
+		if (chunkData->IsSolid(verticesHigh[3])) 
+		{
+			forceDirection += Vector3(-1, +1, -1);
+			lastHitChunk = 3;
+		}
+		if (chunkData->IsSolid(verticesHigh[2])) 
+		{
+			forceDirection += Vector3(-1, +1, +1);
+			lastHitChunk = 2;
+		}
+		if (chunkData->IsSolid(verticesHigh[1])) 
+		{ 
+			forceDirection += Vector3(+1, +1, -1);
+			lastHitChunk = 1;
+		}
+		if (chunkData->IsSolid(verticesHigh[0])) 
+		{ 
+			forceDirection += Vector3(+1, +1, +1);
+			lastHitChunk = 0;
+		}
+		if (chunkData == 0)
+		{
+			
+		}
 
 		if (!forceDirection.IsZero())
 		{
+			forceDirection.Normalize();
 			forceDirection = -forceDirection;
 			float forceMagnitude = 0;
-			for (float increment = 0.2; increment > 0.00002; increment /= 2)
+			for (float increment = 1.2; increment > 0.00002; increment /= 2)
 			{
-					while (chunkData->IsSolid(verticesLow[0] + forceDirection * (forceMagnitude + increment)) ||
-						chunkData->IsSolid(verticesLow[1] + forceDirection * (forceMagnitude + increment)) ||
-						chunkData->IsSolid(verticesLow[2] + forceDirection * (forceMagnitude + increment)) ||
-						chunkData->IsSolid(verticesLow[3] + forceDirection * (forceMagnitude + increment)) || 
-						chunkData->IsSolid(verticesHigh[0] + forceDirection * (forceMagnitude + increment)) ||
-						chunkData->IsSolid(verticesHigh[1] + forceDirection * (forceMagnitude + increment)) ||
-						chunkData->IsSolid(verticesHigh[2] + forceDirection * (forceMagnitude + increment)) ||
-						chunkData->IsSolid(verticesHigh[3] + forceDirection * (forceMagnitude + increment)))
-						forceMagnitude += increment;
+				while (chunkData->IsSolid(verticesLow[0] + forceDirection * (forceMagnitude + increment)) ||
+					chunkData->IsSolid(verticesLow[1] + forceDirection * (forceMagnitude + increment)) ||
+					chunkData->IsSolid(verticesLow[2] + forceDirection * (forceMagnitude + increment)) ||
+					chunkData->IsSolid(verticesLow[3] + forceDirection * (forceMagnitude + increment)) ||
+					chunkData->IsSolid(verticesHigh[0] + forceDirection * (forceMagnitude + increment)) ||
+					chunkData->IsSolid(verticesHigh[1] + forceDirection * (forceMagnitude + increment)) ||
+					chunkData->IsSolid(verticesHigh[2] + forceDirection * (forceMagnitude + increment)) ||
+					chunkData->IsSolid(verticesHigh[3] + forceDirection * (forceMagnitude + increment)))
+					forceMagnitude += increment;
 			}
 			forceDirection *= forceMagnitude;
-			go1->GetComponent<TransformComponent>()->Translate(forceDirection );
+			go1->GetComponent<TransformComponent>()->Translate(forceDirection);
 
 		}
-
-		DEFAULT_LOG("Collision!");
+#endif
+#ifdef NEW_COLLISION
+		{
+			ChunkData* chunkData = go2->GetComponent<ChunkCollider>()->GetChunk();
+			float halfPlayerSize = go1->GetComponent<TransformComponent>()->GetScale().x;
+			Vector3 posInChunk = go1->GetComponent<TransformComponent>()->GetPosition() - go2->GetComponent<TransformComponent>()->GetPosition();
+			Vector3 posOfChunk = go2->GetComponent<TransformComponent>()->GetPosition();
+			float halfPlayerHeight = go1->GetComponent<TransformComponent>()->GetScale().y;
+			float shortestMagnitude = 10;
+			Vector3 shortestDirection = Vector3(0, 0, 0);
+			if (posInChunk.x < -halfPlayerSize || posInChunk.x > chunkData->GetSize().x + halfPlayerSize ||
+				posInChunk.z < -halfPlayerSize || posInChunk.z > chunkData->GetSize().z + halfPlayerSize)
+			{
+				return Rigidbody::ePhysicsTypes::NONE;
+			}
+			for (int i = 0; i < 27; ++i)
+			{
+				if (i == 13) continue;
+				Vector3 vertices[] = { posInChunk + Vector3(halfPlayerSize, halfPlayerHeight, halfPlayerSize),
+										posInChunk + Vector3(halfPlayerSize, halfPlayerHeight, -halfPlayerSize),
+										posInChunk + Vector3(-halfPlayerSize, halfPlayerHeight, halfPlayerSize),
+										posInChunk + Vector3(-halfPlayerSize, halfPlayerHeight, -halfPlayerSize),
+										posInChunk + Vector3(halfPlayerSize, -halfPlayerHeight, halfPlayerSize),
+										posInChunk + Vector3(halfPlayerSize, -halfPlayerHeight, -halfPlayerSize),
+										posInChunk + Vector3(-halfPlayerSize, -halfPlayerHeight, halfPlayerSize),
+										posInChunk + Vector3(-halfPlayerSize, -halfPlayerHeight, -halfPlayerSize) };
+				int baVertices = 0;
+				for (int i = 0; i < 8; ++i)
+				{
+					if (chunkData->IsSolid(vertices[i])) baVertices++;
+				}
+				float forceMagnitudePos = 0;
+				Vector3 forceDirection;
+				forceDirection.x = (i % 3 == 0 ? -1 : (i % 3 == 1 ? 0 : 1));
+				forceDirection.z = ((i % 9) / 3 == 0 ? -1 : ((i % 9) / 3 == 1 ? 0 : 1));
+				forceDirection.y = (i / 9 == 0 ? -1 : (i / 9 == 1 ? 0 : 1));
+				forceDirection.Normalize();
+				if (baVertices >= 1)
+					for (float increment = 1; increment > 0.00002; increment /= 2)
+					{
+						while ((
+							chunkData->IsSolid(vertices[0] + forceDirection * (forceMagnitudePos + increment)) ||
+							chunkData->IsSolid(vertices[1] + forceDirection * (forceMagnitudePos + increment)) ||
+							chunkData->IsSolid(vertices[2] + forceDirection * (forceMagnitudePos + increment)) ||
+							chunkData->IsSolid(vertices[3] + forceDirection * (forceMagnitudePos + increment)) ||
+							chunkData->IsSolid(vertices[4] + forceDirection * (forceMagnitudePos + increment)) ||
+							chunkData->IsSolid(vertices[5] + forceDirection * (forceMagnitudePos + increment)) ||
+							chunkData->IsSolid(vertices[6] + forceDirection * (forceMagnitudePos + increment)) ||
+							chunkData->IsSolid(vertices[7] + forceDirection * (forceMagnitudePos + increment))))
+							forceMagnitudePos += increment;
+					}
+				if (shortestMagnitude > forceMagnitudePos)
+				{
+					shortestMagnitude = forceMagnitudePos;
+					shortestDirection = forceDirection;
+				}
+			}
+			if (shortestDirection.IsZero() || shortestMagnitude < 0.0003) return Rigidbody::ePhysicsTypes::NONE;
+			go1->GetComponent<Rigidbody>()->QueueMapForce(shortestDirection * shortestMagnitude * 800);
+			//Vector3 vel = go1->RIGID->GetVel();
+			//go1->GetComponent<Rigidbody>()->SetVel(vel);
+		}
+#endif
+		// DEFAULT_LOG("Collision!");
 		return Rigidbody::ePhysicsTypes::CHUNK;
 	}
 
@@ -570,7 +677,8 @@ void CollisionManager::CheckCollision(GameObject* go1, std::vector<GameObject*>*
 		Rigidbody::ePhysicsTypes eCollideType = CheckCollision(goA, goB);
 		if (eCollideType != Rigidbody::NONE)
 		{
-			CollisionResponse(goA, goB, eCollideType);
+			if(goA->RIGID->GetResponseActive() && goB->RIGID->GetResponseActive())
+				CollisionResponse(goA, goB, eCollideType);
 			ScriptComponent* Script1 = goA->GetComponent<ScriptComponent>(true);
 			if (Script1)
 				Script1->Collide(goB);

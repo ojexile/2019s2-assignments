@@ -121,15 +121,15 @@ float calcFlareVal()
 float getShadowEffect(){ 
 	float visibility = 1.0;
 	float bias = 0.005;
-	for(int i = 0; i < 32; ++i)
+	for(int i = 0; i < 16; ++i)
 	{ 
 		int index = int(16.0 * random(gl_FragCoord.xyy, i)) % 16;
-		if(texture2D(shadowMap, shadowCoord.xy + poissonDisk[index] / 1000.0).x < shadowCoord.z - bias)
+		if(texture2D(shadowMap, shadowCoord.xy + poissonDisk[index] / 10000.0).x < shadowCoord.z - bias)
 		{ 
 			visibility -= 0.0625;
 		}
 	} 
-	return max(0.25, visibility);
+	return max(0.5, visibility);
 } 
 
 void main(){

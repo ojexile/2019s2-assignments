@@ -3,13 +3,13 @@
 #include "PlayerScript.h"
 #include "KeyboardManager.h"
 #include "InputManager.h"
-
+#include "PlayerStatsScript.h"
 #include "TopDownState.h"
-
+#include "CameraScript.h"
 StandingState::StandingState()
 {
 	m_fBaseAccel = 300;
-	m_fSprintMultiplier = 4.0f;
+	m_fSprintMultiplier = 2.0f;
 	m_fBaseMovementSpeed = 40;
 
 	m_fDodgeForce = 4000;
@@ -24,7 +24,12 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 	// Sprint
 	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint"))
 	{
-		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
+		float fDrain = 100;
+		if (com->GetComponent<PlayerStatsScript>()->GetStamina() >= dt * fDrain)
+		{
+			com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
+			com->GetComponent<PlayerStatsScript>()->DrainStamina((float)dt * fDrain);
+		}
 	}
 	// Crouch
 	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
@@ -37,18 +42,16 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 	}
 	// Dodge
-	static bool bDodge = false;
-
-	if (!InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
+	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
 	{
-		bDodge = false;
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge") && !bDodge)
-	{
-		// Add force in direction of reticle
-		Vector3 vTempDir = { 0,0,-1 };
-		com->RIGID->AddForce(vTempDir * m_fDodgeForce);
-		bDodge = true;
+		float fDrain = 25;
+		if (com->GetComponent<PlayerStatsScript>()->GetStamina() >= fDrain)
+		{
+			// Add force in direction of reticle
+			com->GetComponent<PlayerScript>()->Dash();
+			// bDodge = true;
+			com->GetComponent<PlayerStatsScript>()->DrainStamina(fDrain);
+		}
 	}
 	// Top Down
 	if (InputManager::GetInstance()->GetInputStrength("SwitchCam"))
@@ -56,14 +59,14 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 		return new TopDownState;
 	}
 	// Jump
-	// TODO: 
+	// TODO:
 
 	//SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 100,100,100 });
 	return nullptr;
 }
 void StandingState::OnEnter(ComponentBase* com)
 {
-	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 1,1,1 } * 100);
-	// SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir({-1, -1, -1});
+	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetPosition(0,100,0);
+	CameraScript::SetTopDown(false);
 	com->GetComponent<PlayerScript>()->SetMovementSpeed(m_fBaseMovementSpeed, m_fBaseAccel);
 }

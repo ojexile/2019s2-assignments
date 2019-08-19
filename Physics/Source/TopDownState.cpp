@@ -4,7 +4,7 @@
 #include "KeyboardManager.h"
 #include "InputManager.h"
 #include "StandingState.h"
-
+#include "CameraScript.h"
 TopDownState::TopDownState()
 {
 }
@@ -23,7 +23,7 @@ PlayerState* TopDownState::HandleInput(ComponentBase* com, double dt)
 }
 void TopDownState::OnEnter(ComponentBase* com)
 {
-	SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 0,1,0 } * 100);
-	SceneManager::GetInstance()->GetScene()->GetCamera()->SetDir({ 0, -1, 0});
-	com->GetComponent<PlayerScript>()->SetMovementSpeed(0, 0);
+	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetPosition(0, 20, 0);
+	CameraScript::SetTopDown(true);
+	// com->GetComponent<PlayerScript>()->SetMovementSpeed(0, 0);
 }

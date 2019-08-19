@@ -6,11 +6,13 @@ class TransformComponent :
 {
 private:
 	Vector3 m_vPosition;
+	Vector3 m_vQueuedTranslation;
 	Vector3 m_vRelativePosition;
 	Vector3 m_vScale;
 	Vector3 m_vRelativeScale;
 	Vector3 m_vRotateAxis;
 	Vector3 m_vRelativeRotateAxis;
+	int m_iQueuedTranslationCount;
 	float m_fDegrees;
 	float m_fRelativeDegrees;
 
@@ -23,7 +25,7 @@ public:
 		return new TransformComponent(*this);
 	}
 
-	virtual void Update(double dt) override;
+	virtual void Update(double dt);
 
 	void SetScale(float, float, float);
 	void SetScale(Vector3);
@@ -32,6 +34,7 @@ public:
 	void SetRelativeScale(float);
 	void ScaleBy(Vector3);
 	void SetRotation(float, int, int, int);
+	void SetRotation(float, float, float, float);
 	void SetRotation(float, Vector3);
 	void RotateBy(float, Vector3);
 	void SetPosition(float translateX = 0, float translateY = 0, float translateZ = 0);
@@ -41,6 +44,7 @@ public:
 
 	void Translate(float translateX = 0, float translateY = 0, float translateZ = 0);
 	void Translate(Vector3);
+	void QueueTranslate(Vector3);
 	void TranslateRelative(float translateX = 0, float translateY = 0, float translateZ = 0);
 	void TranslateRelative(Vector3);
 

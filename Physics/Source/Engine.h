@@ -30,5 +30,6 @@ private:
 	void Exit();
 	static Renderer* m_Renderer;
 	CollisionManager m_CollisionManager;
+	void CheckGOForObserver(GameObject* go, std::vector<GameObject*>* GOList);
 public:
 };

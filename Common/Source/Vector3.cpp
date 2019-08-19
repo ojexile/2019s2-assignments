@@ -43,7 +43,7 @@ Vector3::Vector3(const Vector3 &rhs) : x(rhs.x), y(rhs.y), z(rhs.z)
 {
 }
 
-/******************************************************************************/
+/***************w v ***************************************************************/
 /*!
 \brief	Vector3 destructor
 */
@@ -241,6 +241,13 @@ operator!= overload for inequality check, using Math::EPSILON
 bool Vector3::operator!= (const Vector3& rhs) const
 {
 	return !IsEqual(x, rhs.x) || !IsEqual(y, rhs.y) || !IsEqual(z, rhs.z);
+}
+
+bool Vector3::operator<(const Vector3& rhs) const
+{
+	if (rhs.x != this->x) return (this->x < rhs.x);
+	if (rhs.y != this->y) return (this->y < rhs.y);
+	return (this->z < rhs.z);
 }
 
 /******************************************************************************/

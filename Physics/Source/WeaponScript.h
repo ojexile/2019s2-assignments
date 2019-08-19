@@ -3,14 +3,16 @@
 #include "GameObject.h"
 #include "PartScript.h"
 
-#include <queue>
+#include <vector>
 
-/********************************************************************************
-Author: Ryan Tan Zheng Rong
-Brief: Script to handle weapon behaviours such as Firing, Shooting, Reloading
+/********************************************************************************/
+/*!
+\author Ryan Tan Zheng Rong
+\brief
+ Script to handle weapon behaviours such as Firing, Shooting, Reloading
 	   etc.
-********************************************************************************/
-
+/*!
+/********************************************************************************/
 class WeaponScript : public ScriptComponent
 {
 public:
@@ -21,7 +23,7 @@ public:
 		AUTO
 	};
 
-	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 0.333f, float fBulletSpread = 1.f, float fBulletForce = 100.f, FIRING_MODE FiringMode = AUTO);
+	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 1.0f, float fBulletSpread = 1.f, float fBulletForce = 10.f, FIRING_MODE FiringMode = AUTO);
 	~WeaponScript();
 
 	//Interface Functions
@@ -29,20 +31,29 @@ public:
 	void ReleaseTrigger();
 
 	void Update(double deltaTime) override;
-	void UpdateStats();
+	void UpdateStats(GameObject* go, bool Multiply);
 
-	virtual WeaponScript* Clone() { return new WeaponScript(*this); }
+	void AddPart(GameObject* part);
+
+	int GetAmmo();
+	int GetMaxAmmo();
+
+	int GetMagazineRounds();
+	int GetMaxMagazineRounds();
+
+	virtual Component* Clone() { return new WeaponScript(*this); }
 
 private:
 
 	void FireWeapon(const Vector3& dir, const double deltaTime);
 	void ReloadWeapon(void);
 
-	void AddPart(GameObject* part);
-	void RemovePart();
+	void DestroyPart(std::vector<GameObject*>& m_Updatedvector, GameObject* go);
+
+	void DamageEquippedParts(std::vector<GameObject*>& m_vector, const double deltaTime);
 
 	int m_iBulletsFiredCount;
-	
+
 	int m_iMagazineRounds;
 	int m_iMagazineRounds_Max;
 
@@ -61,10 +72,8 @@ private:
 
 	GameObject* m_Projectile;
 
-	std::queue<PartScript*>	m_ScopeParts;
-	std::queue<PartScript*> m_MuzzleParts;
-	std::queue<PartScript*> m_GripParts;
-	std::queue<PartScript*> m_StockParts;
-
+	std::vector<GameObject*> m_ScopeParts;
+	std::vector<GameObject*> m_MuzzleParts;
+	std::vector<GameObject*> m_GripParts;
+	std::vector<GameObject*> m_StockParts;
 };
-

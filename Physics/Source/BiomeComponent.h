@@ -1,22 +1,24 @@
 #pragma once
-#include "ComponentBase.h"
-#include <string> 
+#include "Component.h"
+#include <string>
 //#include "MeshBiomed.h"
 
 /*
 author: lorenzo sayo yanga
-description: defines a biometype to a gameobject (e.g. terrain). 
+description: defines a biometype to a gameobject (e.g. terrain).
 			 when rendering, texture used will override the default texture
 			 if the biomecomponent exists.
 */
-class BiomeComponent : public ComponentBase
+class BiomeComponent : public Component
 {
 public:
 	enum eBiomeTypes
 	{
-		BIOME_DEFAULT,
-		BIOME_FLAT,
+		// BIOME_DEFAULT,
+		// BIOME_FLAT,
 		BIOME_PLAINS,
+		BIOME_SNOW,
+		BIOME_BEACHY,
 
 		BIOME_COUNT
 	};

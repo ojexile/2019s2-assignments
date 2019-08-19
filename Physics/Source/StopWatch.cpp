@@ -33,3 +33,7 @@ std::string StopWatch::GetSTime()
 	ss << m_fTime;
 	return ss.str();
 }
+void StopWatch::Reset()
+{
+	m_fTime = -1;
+}

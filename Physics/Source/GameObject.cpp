@@ -1,16 +1,20 @@
 #include "GameObject.h"
+#include "SceneManager.h"
+#include "Mtx44.h"
 
 GameObject::GameObject()
 	: m_bActive{ true }
 	, m_bStatic{ false }
 {
 	AddComponent(new TransformComponent);
+	m_fDisableDistance = 2000000;
 }
 // Copy
 GameObject::GameObject(const GameObject& go)
 {
 	this->m_bActive = go.m_bActive;
 	this->m_bStatic = go.m_bStatic;
+	m_fDisableDistance = 2000000;
 	for (unsigned i = 0; i < go.m_vec_ComponentList.size(); ++i)
 	{
 		ComponentBase* cb = (go.m_vec_ComponentList[i]->Clone());
@@ -40,6 +44,7 @@ GameObject::~GameObject()
 	// m_vec_ComponentList.clear();
 	// m_vec_ChildList.clear();
 }
+
 ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 {
 	// TODO check if component already exists?
@@ -54,8 +59,20 @@ bool GameObject::IsActive()
 	return m_bActive;
 }
 
+void GameObject::SetDisableDistance(float f)
+{
+	m_fDisableDistance = f;
+}
+
+float GameObject::GetDisableDistance()
+{
+	return m_fDisableDistance;
+}
+
 void GameObject::Update(double dt)
 {
+	if (m_fDisableDistance < (SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition() - TRANS->GetPosition()).Length())
+		return;
 	// Update components
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
@@ -70,33 +87,35 @@ void GameObject::Update(double dt)
 	}
 	for (unsigned i = 0; i < m_vec_ChildList.size(); ++i)
 	{
-		if (!m_vec_ChildList[i]->IsActive())
+		GameObject* go2 = m_vec_ChildList[i];
+		if (!go2->IsActive())
 			continue;
 		// Update world transform from relative trans
 		// Update pos
-		TransformComponent* trans = this->GetComponent<TransformComponent>();
-		TransformComponent* childTrans = m_vec_ChildList[i]->GetComponent<TransformComponent>();
+		TransformComponent* rootTrans = this->GetComponent<TransformComponent>();
+		TransformComponent* childTrans = go2->GetComponent<TransformComponent>();
 
-		Vector3 newPos = trans->GetPosition()
+		Vector3 newPos = rootTrans->GetPosition()
 			+ childTrans->GetRelativePosition();
 		// update rot pos
-		if (trans->GetDegrees() != 0)
+		if (rootTrans->GetDegrees() != 0)
 		{
 			Mtx44 rot;
-			rot.SetToRotation(trans->GetDegrees(), trans->GetRotation().x, trans->GetRotation().y, trans->GetRotation().z);
-			newPos = trans->GetPosition() + rot * childTrans->GetRelativePosition();
+			rot.SetToRotation(rootTrans->GetDegrees(), rootTrans->GetRotation().x, rootTrans->GetRotation().y, rootTrans->GetRotation().z);
+			newPos = rootTrans->GetPosition() + rot * childTrans->GetRelativePosition();
+			// update rot
+			childTrans->SetRotation(rootTrans->GetDegrees(), rootTrans->GetRotation().x, rootTrans->GetRotation().y, rootTrans->GetRotation().z);
 		}
-		m_vec_ChildList[i]->GetComponent<TransformComponent>()->SetPosition(newPos);
-		// TODO update rot
+		go2->GetComponent<TransformComponent>()->SetPosition(newPos);
 		// Update scale
-		Vector3 scale = trans->GetScale();
+		Vector3 scale = rootTrans->GetScale();
 		Vector3 childScale = childTrans->GetRelativeScale();
 		childTrans->SetScale({ scale.x * childScale.x, scale.y * childScale.y, scale.z * childScale.z });
-		for (unsigned j = 0; j < m_vec_ChildList[i]->m_vec_ComponentList.size(); ++j)
+		for (unsigned j = 0; j < go2->m_vec_ComponentList.size(); ++j)
 		{
-			if (!m_vec_ChildList[i]->m_vec_ComponentList[j]->IsActive())
+			if (!go2->m_vec_ComponentList[j]->IsActive())
 				continue;
-			ComponentBase* childcomp = m_vec_ChildList[i]->m_vec_ComponentList[j];
+			ComponentBase* childcomp = go2->m_vec_ComponentList[j];
 			if (childcomp->IsActive())
 			{
 				childcomp->CheckStarted();
@@ -105,6 +124,47 @@ void GameObject::Update(double dt)
 			// Break if child destroys gameobject
 			if (m_vec_ChildList.size() <= 0)
 				return;
+		}
+		for (unsigned k = 0; k < go2->m_vec_ChildList.size(); ++k)
+		{
+			GameObject* go3 = go2->m_vec_ChildList[k];
+			if (!go3->IsActive())
+				continue;
+			// Update world transform from relative trans
+			// Update pos
+			TransformComponent* trans = go2->GetComponent<TransformComponent>();
+			TransformComponent* childTrans = go3->GetComponent<TransformComponent>();
+
+			Vector3 newPos = trans->GetPosition()
+				+ childTrans->GetRelativePosition();
+			// update rot pos
+			if (trans->GetDegrees() != 0)
+			{
+				Mtx44 rot;
+				rot.SetToRotation(trans->GetDegrees(), trans->GetRotation().x, trans->GetRotation().y, trans->GetRotation().z);
+				newPos = trans->GetPosition() + rot * childTrans->GetRelativePosition();
+				// update rot
+				childTrans->SetRotation(trans->GetDegrees(), trans->GetRotation().x, trans->GetRotation().y, trans->GetRotation().z);
+			}
+			go3->GetComponent<TransformComponent>()->SetPosition(newPos);
+			// Update scale
+			Vector3 scale = trans->GetScale();
+			Vector3 childScale = childTrans->GetRelativeScale();
+			childTrans->SetScale({ scale.x * childScale.x, scale.y * childScale.y, scale.z * childScale.z });
+			for (unsigned l = 0; l < go3->m_vec_ComponentList.size(); ++l)
+			{
+				if (!go3->m_vec_ComponentList[l]->IsActive())
+					continue;
+				ComponentBase* childcomp = go3->m_vec_ComponentList[l];
+				if (childcomp->IsActive())
+				{
+					childcomp->CheckStarted();
+					childcomp->Update(dt);
+				}
+				// Break if child destroys gameobject
+				if (go2->m_vec_ChildList.size() <= 0)
+					return;
+			}
 		}
 	}
 }

@@ -1,5 +1,6 @@
 #include "Utility.h"
 #include <string>
+#include "Time.h"
 Position operator*(const Mtx44& lhs, const Position& rhs)
 {
 	float b[4];
@@ -17,19 +18,7 @@ Vector3 StringToVector(std::string s)
 }
 float Lerp(float start, float end, float rate)
 {
-	float dir = end - start;
-	float out = start + dir * rate;
-	if (dir < 0)
-	{
-		if (out <= end)
-			return end;
-	}
-	if (dir > 0)
-	{
-		if (out >= end)
-			return end;
-	}
-	return out;
+	return start + (1 - pow(rate, Time::GetInstance()->GetDeltaTimeF())) * (end - start);
 }
 Vector3 Lerp(Vector3 start, Vector3 end, float rate)
 {
@@ -74,11 +63,31 @@ bool IsClose(Vector3 a, Vector3 b, float buffer)
 	{
 		if (fabs(a.y - b.y) < buffer)
 		{
-			if ( fabs(a.z - b.z) < buffer)
+			if (fabs(a.z - b.z) < buffer)
 			{
 				return true;
 			}
 		}
 	}
 	return false;
+}
+std::string vtos(Vector3& v)
+{
+	std::string out;
+	out += "{";
+	out += std::to_string(v.x);
+	out += ", ";
+	out += std::to_string(v.y);
+	out += ", ";
+	out += std::to_string(v.z);
+	out += " }";
+	return out;
+}
+float AngleBetween(const Vector3 &a, const Vector3 &b)
+{
+	double num = a.Dot(b);
+	double den = a.Length() * b.Length();
+	float RAngle = acos(num / den);
+	float DAngle = Math::RadianToDegree(RAngle);
+	return DAngle;
 }

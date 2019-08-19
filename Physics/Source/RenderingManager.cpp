@@ -2,10 +2,10 @@
 #include "Application.h"
 #include "RenderComponent.h"
 #define VIEW_AS_LIGHT false
-#define SHADOW_VIEW_SIZE_X 300
-#define SHADOW_VIEW_SIZE_Y 300
-#define SHADOW_VIEW_SIZE_Z 800
-#define SHADOW_RES 1024*1
+#define SHADOW_VIEW_SIZE_X 110
+#define SHADOW_VIEW_SIZE_Y 110
+#define SHADOW_VIEW_SIZE_Z 100
+#define SHADOW_RES 1024*4
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
@@ -221,13 +221,6 @@ void RenderingManager::RenderWorld(Scene* scene)
 				continue;
 			Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
 			RenderGameObject(go, vCamPos, false);
-			for (unsigned i = 0; i < go->GetChildList()->size(); ++i)
-			{
-				GameObject* goChild = go->GetChildList()->at(i);
-				if (!goChild->IsActive())
-					continue;
-				RenderGameObject(goChild, vCamPos, false);
-			}
 		}
 	}
 	// Render Particle
@@ -272,75 +265,98 @@ void RenderingManager::RenderWorld(Scene* scene)
 			continue;
 
 		RenderGameObject(go, vCamPos, true);
-		for (unsigned i = 0; i < GOListUI->at(i)->GetChildList()->size(); ++i)
-		{
-			GameObject* goChild = GOListUI->at(i);
-			if (!go->IsActive())
-				continue;
-			RenderGameObject(goChild, vCamPos, true);
-		}
 	}
 }
 void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI)
 {
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
-	if (renderComponent == nullptr)
-		return;
-	bool isActive = renderComponent->IsActive();
-	if (!isActive)
-		return;
-	Mesh* CurrentMesh = renderComponent->GetMesh();
-	Mesh* MeshBiomed = renderComponent->GetMeshBiomed();
-	AnimatedMesh* AnimatedMesh = renderComponent->GetAnimatedMesh();
-
-	if (!CurrentMesh && !AnimatedMesh && !MeshBiomed)
+	if (renderComponent)
 	{
-		DEFAULT_LOG("Mesh not initialised");
-		return;
-	}
-	modelStack.PushMatrix();
-	TransformComponent* trans = go->GetComponent<TransformComponent>();
-	Vector3 vGameObjectPosition = trans->GetPosition();
-	Vector3 vGameObjectRotation = trans->GetRotation();
-	float fGameObjectRotationDegrees = trans->GetDegrees();
-	Vector3 vGameObjectScale = trans->GetScale();
+		if ((go->TRANS->GetPosition() - vCamPos).Length() > go->RENDER->GetRenderDistance()) return;
+		bool isActive = renderComponent->IsActive();
+		if (!isActive)
+			return;
+		Mesh* CurrentMesh = renderComponent->GetMesh();
+		Mesh* MeshBiomed = renderComponent->GetMeshBiomed();
+		AnimatedMesh* AnimatedMesh = renderComponent->GetAnimatedMesh();
 
-	modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
+		if (!CurrentMesh && !AnimatedMesh && !MeshBiomed)
+		{
+			DEFAULT_LOG("Mesh not initialised");
+			return;
+		}
+		modelStack.PushMatrix();
+		TransformComponent* trans = go->GetComponent<TransformComponent>();
+		Vector3 vGameObjectPosition = trans->GetPosition();
+		Vector3 vGameObjectRotation = trans->GetRotation();
+		float fGameObjectRotationDegrees = trans->GetDegrees();
+		Vector3 vGameObjectScale = trans->GetScale();
 
-	if (renderComponent->IsBillboard())
-	{
-		float rAngle = atan2((vCamPos.x - trans->GetPosition().x), (vCamPos.z - trans->GetPosition().z));
-		float dAngle = Math::RadianToDegree(rAngle);
+		modelStack.Translate(vGameObjectPosition.x, vGameObjectPosition.y, vGameObjectPosition.z);
 
-		modelStack.Rotate(dAngle, 0.f, 1.f, 0.f);
-	}
-	if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero())
-		modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-	if (!vGameObjectScale.IsZero())
+		if (renderComponent->IsBillboard())
+		{
+			float rAngle = atan2((vCamPos.x - trans->GetPosition().x), (vCamPos.z - trans->GetPosition().z));
+			float dAngle = Math::RadianToDegree(rAngle);
+
+			modelStack.Rotate(dAngle, 0.f, 1.f, 0.f);
+		}
+		if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero())
+			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
+		if (vGameObjectScale.x <= 0 || vGameObjectScale.y <= 0 || vGameObjectScale.z <= 0)
+		{
+			return;
+		}
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
-	if (!bIsUI)
-	{
-		if (CurrentMesh)
-			RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+		if (!bIsUI)
+		{
+			if (CurrentMesh)
+				RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 
-		else if (AnimatedMesh)
-			RenderAnimatedMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+			else if (AnimatedMesh)
+				RenderAnimatedMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
 
-		else if (MeshBiomed)
-			RenderBiomedMesh(renderComponent, go->GetComponent<BiomeComponent>(), go->GetComponent<RenderComponent>()->GetLightEnabled());
-	}
-	else
-	{
-		if (!renderComponent->IsText())
-			RenderUI(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+			else if (MeshBiomed)
+				RenderBiomedMesh(renderComponent, go->GetComponent<BiomeComponent>(), go->GetComponent<RenderComponent>()->GetLightEnabled());
+		}
 		else
-			RenderTextOnScreen(renderComponent, renderComponent->GetText(), { renderComponent->GetMaterial().kAmbient.r,renderComponent->GetMaterial().kAmbient.g,renderComponent->GetMaterial().kAmbient.b },
-				vGameObjectPosition.z, vGameObjectPosition.x, vGameObjectPosition.y);
-	}
+		{
+			if (!renderComponent->IsText())
+				RenderUI(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+			else
+				RenderTextOnScreen(renderComponent, renderComponent->GetText(), { renderComponent->GetMaterial().kAmbient.r,renderComponent->GetMaterial().kAmbient.g,renderComponent->GetMaterial().kAmbient.b },
+					vGameObjectPosition.z, vGameObjectPosition.x, vGameObjectPosition.y);
+		}
 
-	modelStack.PopMatrix();
+		modelStack.PopMatrix();
+	}
+	for (unsigned i = 0; i < go->GetChildList()->size(); ++i)
+	{
+		GameObject* goChild = go->GetChildList()->at(i);
+		if (!goChild->IsActive())
+			continue;
+		RenderGameObject(goChild, vCamPos, false);
+	}
 }
 void RenderingManager::Exit()
 {
 	RenderingManagerBase::Exit();
+}
+Vector3 RenderingManager::MouseWorldDir()
+{
+	double x, y;
+	Application::GetCursorPosRelative(&x, &y);
+	Vector3 MousePosDevice(x * 2 - 1, -(y * 2 - 1));
+	CHENG_LOG("MOUSE Dev: ", vtos(MousePosDevice));
+	// MousePosDevice = { 0,0,1 };
+	Vector3 ClipCoord(MousePosDevice.x, MousePosDevice.y, -1.f);
+
+	Mtx44 InvertProjection = projectionStack.Top().GetInverse();
+	Vector3 EyeCoords = InvertProjection.Multi(ClipCoord, 1);
+	EyeCoords.z = -1;
+	Mtx44 InvertView = viewStack.Top().GetInverse();
+	Vector3 WorldSpace = InvertView.Multi(EyeCoords, 0);
+	WorldSpace.Normalize();
+	CHENG_LOG("MOUSE DIR: ", vtos(WorldSpace));
+	return WorldSpace;
 }

@@ -1,8 +1,8 @@
 #pragma once
-#include "ComponentBase.h"
+#include "Component.h"
 #include "PhysicsMaterial.h"
 class Rigidbody :
-	public ComponentBase
+	public Component
 {
 public:
 	enum ePhysicsTypes
@@ -23,6 +23,8 @@ private:
 
 	Vector3 m_vVel;
 	Vector3 m_vForce;
+	Vector3 m_vMapForce;
+	int m_iMapForceCount;
 
 	Vector3 m_vGravityExponent;
 	// PhysicsMat m_PhysicsMat
@@ -35,6 +37,8 @@ private:
 	bool m_bGravityAffected;
 	ePhysicsTypes m_eType;
 	PhysicsMaterial m_PhyMat;
+
+	bool m_bResponseActive;
 public:
 	Rigidbody(ePhysicsTypes e, bool Grav = true);
 	virtual ~Rigidbody();
@@ -66,4 +70,7 @@ public:
 	void SetAffectedByGravity(bool);
 	void ClampVel(float max);
 	void ClampVelXZ(float max);
+	void QueueMapForce(Vector3);
+	void SetResponseActive(bool);
+	bool GetResponseActive();
 };

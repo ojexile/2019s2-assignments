@@ -33,7 +33,7 @@ public:
 	static Mesh* GenerateSkyPlane(const std::string &meshName, Color color, int slices, float PlanetRadius, float AtmosphereRadius, float hTilehTile, float vTile);
 	static AnimatedMesh* GenerateAnimatedMesh(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop);
 	//static AnimatedMesh* GenerateAnimatedMeshDetailed(std::string sMeshName, int numRow, int numCol, int start, int end, float time, bool loop, const std::string &file_path = "Objects/plane.obj");
-	static Mesh* GenerateChunk(const std::string &meshName, int xSize, int ySize, int zSize, std::vector<unsigned short>* chunk);
+	static Mesh* GenerateChunk(const std::string &meshName, int xSize, int ySize, int zSize, std::vector<unsigned short>* chunk, bool biomed = false);
 };
 
 #endif

@@ -18,6 +18,7 @@ public:
 	static bool IsKeyPressed(unsigned short key);
 	static bool IsMousePressed(unsigned short key);
 	static void GetCursorPos(double *xpos, double *ypos);
+	static void GetCursorPosRelative(double *xpos, double *ypos);
 	static int GetWindowWidth();
 	static int GetWindowHeight();
 	static void GetScrollWheelPos(double* xpos, double* ypos);

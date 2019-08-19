@@ -1,7 +1,10 @@
 #include "WeaponScript.h"
 #include "Rigidbody.h"
 #include "InputManager.h"
+#include "GameObjectManager.h"
 #include "TransformComponent.h"
+//Temporary
+#include "DataContainer.h"
 
 WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, int iAmmo, int iAmmo_Max, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
 	: m_iBulletsFiredCount(iBulletsFiredCount),
@@ -19,47 +22,12 @@ WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int i
 {
 }
 
-
 WeaponScript::~WeaponScript()
 {
-	if (m_Projectile)
-	{
-		delete m_Projectile;
-		m_Projectile = nullptr;
-	}
+
 }
 
 void WeaponScript::PullTrigger(const Vector3& dir, const double deltaTime)
-{
-
-}
-
-void WeaponScript::ReleaseTrigger()
-{
-
-}
-
-void WeaponScript::Update(double deltaTime)
-{
-	m_fBufferTime += (float)deltaTime;
-	if (InputManager::GetInstance()->GetInputStrength("Fire"))
-	{
-		//Note: use the direct function for now
-		FireWeapon(Vector3(1,0,0), deltaTime);
-	}
-	if (!InputManager::GetInstance()->GetInputStrength("Fire") && m_bSingleFired)
-		m_bSingleFired = false;
-
-	if (InputManager::GetInstance()->GetInputStrength("Reload"))
-		ReloadWeapon();
-}
-
-void WeaponScript::UpdateStats()
-{
-
-}
-
-void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	if (!m_Projectile)
 		return;
@@ -74,28 +42,114 @@ void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 		{
 			if (!m_bSingleFired)
 			{
-				GameObject* bullet = Instantiate(m_Projectile, Vector3(0, 10, 0));
-				bullet->RIGID->SetAffectedByGravity(false);
-				bullet->RIGID->AddForce(m_fBulletForce * dir);
-				--m_iMagazineRounds;
+				FireWeapon(dir, deltaTime);
 				m_bSingleFired = true;
 			}
 			break;
 		}
 		case AUTO:
 		{
-			GameObject* bullet = Instantiate(m_Projectile, Vector3 (0,10,0));
-			bullet->RIGID->SetAffectedByGravity(false);
-			bullet->RIGID->AddForce(m_fBulletForce * dir);
-			--m_iMagazineRounds;
+			FireWeapon(dir, deltaTime);
 			break;
 		}
 		default:
 		{
 			break;
-		} 
+		}
 		}
 	}
+}
+
+void WeaponScript::ReleaseTrigger()
+{
+	m_bSingleFired = false;
+}
+
+void WeaponScript::Update(double deltaTime)
+{
+	m_fBufferTime += (float)deltaTime;
+
+	if (InputManager::GetInstance()->GetInputStrength("Reload"))
+		ReloadWeapon();
+}
+
+void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
+{
+	if (Multiply)
+	{
+		switch (go->PART->GetSlotType())
+		{
+		case PartScript::SCOPE:
+		{
+			m_fBulletSpread = m_fBulletSpread * go->PART->GetMultiplier();
+			break;
+		}
+		case PartScript::MUZZLE:
+		{
+			m_fFirerate = m_fFirerate * go->PART->GetMultiplier();
+			break;
+		}
+		case PartScript::CLIP:
+		{
+			m_iMagazineRounds_Max = m_iMagazineRounds_Max + go->PART->GetMultiplier();
+			break;
+		}
+		case PartScript::GRIP:
+		{
+			//Need another variable to edit, temporarily bullet spread
+			m_fBulletSpread = m_fBulletSpread * go->PART->GetMultiplier();
+			break;
+		}
+		default:
+			break;
+		}
+	}
+	else
+	{
+		switch (go->PART->GetSlotType())
+		{
+		case PartScript::SCOPE:
+		{
+			m_fBulletSpread = m_fBulletSpread / go->PART->GetMultiplier();
+			break;
+		}
+		case PartScript::MUZZLE:
+		{
+			m_fFirerate = m_fFirerate / go->PART->GetMultiplier();
+			break;
+		}
+		case PartScript::CLIP:
+		{
+			m_iMagazineRounds_Max = m_iMagazineRounds_Max - go->PART->GetMultiplier();
+			Math::Clamp(m_iMagazineRounds, m_iMagazineRounds, m_iMagazineRounds_Max);
+
+			break;
+		}
+		case PartScript::GRIP:
+		{
+			//Need another variable to edit, temporarily bullet spread
+			m_fBulletSpread = m_fBulletSpread / go->PART->GetMultiplier();
+			break;
+		}
+		default:
+			break;
+		}
+	}
+}
+
+void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
+{
+	Vector3 SpawnPos = GetPosition();
+
+	GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
+	bullet->RIGID->SetAffectedByGravity(false);
+	bullet->RIGID->AddForce(m_fBulletForce * dir);
+
+	DamageEquippedParts(m_ScopeParts, deltaTime);
+	DamageEquippedParts(m_MuzzleParts, deltaTime);
+	DamageEquippedParts(m_GripParts, deltaTime);
+	DamageEquippedParts(m_StockParts, deltaTime);
+	--m_iMagazineRounds;
 }
 
 void WeaponScript::ReloadWeapon(void)
@@ -111,10 +165,109 @@ void WeaponScript::ReloadWeapon(void)
 
 void WeaponScript::AddPart(GameObject* part)
 {
+	if (!part->PART)
+		return;
+	part->RIGID->SetAffectedByGravity(false);
+	if (part->PART->GetPartType() == PartScript::WEAPON)
+	{
+		switch (part->PART->GetSlotType())
+		{
+		case PartScript::SCOPE:
+		{
+			m_ScopeParts.push_back(part);
+			part->TRANS->SetRelativePosition(0.5 * m_ScopeParts.size(), 0.5, 0);
+			break;
+		}
+		case PartScript::MUZZLE:
+		{
+			m_MuzzleParts.push_back(part);
+			part->TRANS->SetRelativePosition(1 * m_MuzzleParts.size(), 0, 0);
 
+			break;
+		}
+		case PartScript::CLIP:
+		{
+			m_StockParts.push_back(part);
+			part->TRANS->SetRelativePosition(0, -0.5 * m_StockParts.size(), 0);
+			break;
+		}
+		case PartScript::GRIP:
+		{
+			m_GripParts.push_back(part);
+			part->TRANS->SetRelativePosition((-1.0 * m_GripParts.size()), 0, 0);
+			break;
+		}
+		default:
+			break;
+		}
+		//Update parts after attaching a part
+		UpdateStats(part, true);
+	}
 }
 
-void WeaponScript::RemovePart()
+void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* target)
 {
+	std::vector<GameObject*>::iterator it = m_vector.end() - 1;
+	while (m_vector.size() > 0)
+	{
+		GameObject* go = static_cast<GameObject*>(*it);
 
+		if (target == go)
+		{
+			UpdateStats(go, false);
+
+			//Temporary fix, Destroy function does not destroy child of gun
+			go->RENDER->SetActive(false);
+
+			Destroy(go);
+			m_vector.pop_back();
+			break;
+		}
+		else
+		{
+			--it;
+			UpdateStats(go, false);
+
+			//Temporary fix, Destroy function does not destroy child of gun
+			go->RENDER->SetActive(false);
+
+			Destroy(go);
+			m_vector.pop_back();
+		}
+	}
+}
+
+void WeaponScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const double deltaTime)
+{
+	if (m_vector.size() > 0)
+	{
+		for (auto it = m_vector.begin(); it != m_vector.end(); ++it)
+		{
+			GameObject* go = static_cast<GameObject*>(*it);
+			if (go->PART->DecreaseDurability(deltaTime))
+				DestroyPart(m_vector, go);
+			if (m_vector.size() == 0)
+				break;
+		}
+	}
+}
+
+int WeaponScript::GetAmmo()
+{
+	return m_iAmmo;
+}
+
+int WeaponScript::GetMaxAmmo()
+{
+	return m_iAmmo_Max;
+}
+
+int WeaponScript::GetMagazineRounds()
+{
+	return m_iMagazineRounds;
+}
+
+int WeaponScript::GetMaxMagazineRounds()
+{
+	return m_iMagazineRounds_Max;
 }

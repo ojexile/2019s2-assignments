@@ -1,20 +1,27 @@
 #pragma once
 #include "ScriptComponent.h"
+/********************************************************************************/
+/*!
+\author Ryan Tan Zheng Rong
+\brief
+Script to handle general Projectile Behaviour.
+/*!
+/********************************************************************************/
 class ProjectileScript : public ScriptComponent
 {
 public:
-	ProjectileScript();
+	ProjectileScript(float Lifespan = 1.0, float Damage = 10.);
 	virtual ~ProjectileScript();
 
 	void Update(double deltaTime) override;
 
-	virtual ProjectileScript* Clone() { return new ProjectileScript(*this); }
+	virtual Component* Clone() { return new ProjectileScript(*this); }
+	virtual void Collide(GameObject*) override;
 
-	double getDamage();
-	double getLifespan();
+	float getDamage();
+	float getLifespan();
 
-private:
-	double m_fDamage;
-	double m_fLifespan;
+protected:
+	float m_fDamage;
+	float m_fLifespan;
 };
-

@@ -1,8 +1,9 @@
 #pragma once
+#include "Vector3.h"
 #include <vector>
-#include "Locator.h"
 #include <string>
-
+#include "Locator.h"
+#include "ComponentMacros.h"
 class ComponentBase
 {
 private:
@@ -40,4 +41,7 @@ public:
 	void SetActive(bool b);
 	bool IsStarted();
 	void SetStarted(bool);
+
+	// Function accessors
+	void Notify(ComponentBase* com, std::string msg);
 };

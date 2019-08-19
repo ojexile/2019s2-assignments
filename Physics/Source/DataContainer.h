@@ -45,6 +45,7 @@ public:
 	std::vector<unsigned char> heightMap;
 	void Init();
 	Mesh* GetMesh(std::string name);
+	MeshBiomed* GetMeshBiomed(std::string name);
 	AnimatedMesh* GetAnimation(std::string name);
 	GameObject* GetGameObject(std::string name);
 	unsigned GetShader(std::string key);

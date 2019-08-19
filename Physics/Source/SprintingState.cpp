@@ -6,7 +6,6 @@
 
 SprintingState::SprintingState()
 {
-
 }
 
 SprintingState::~SprintingState()
@@ -20,5 +19,4 @@ PlayerState* SprintingState::HandleInput(ComponentBase* com, double dt)
 }
 void SprintingState::OnEnter(ComponentBase* com)
 {
-
 }

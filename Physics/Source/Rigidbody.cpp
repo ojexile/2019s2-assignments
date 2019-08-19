@@ -12,6 +12,7 @@ Rigidbody::Rigidbody(ePhysicsTypes e, bool Grav)
 
 	m_bGravityAffected = Grav;
 	this->SetActive(true);
+	m_bResponseActive = true;
 }
 
 Rigidbody::~Rigidbody()
@@ -20,6 +21,9 @@ Rigidbody::~Rigidbody()
 void Rigidbody::Update(double dt)
 {
 	dt *= WorldValues::TimeScale;
+	if(m_iMapForceCount != 0) m_vForce += m_vMapForce * (1.f / m_iMapForceCount);
+	m_vMapForce.SetZero();
+	m_iMapForceCount = 0;
 	Vector3 vAccel = m_vForce * (1 / m_fMass);
 	m_vForce.SetZero();
 	Vector3 CurrentGrav = WorldValues::DefaultGravity;
@@ -32,11 +36,16 @@ void Rigidbody::Update(double dt)
 	CurrentGrav.z *= m_vGravityExponent.z;
 	if (m_bGravityAffected)
 		vAccel += CurrentGrav;
-	// Friction
-	float coeff = m_PhyMat.GetFriction();
-
 	this->m_vVel += vAccel * (float)dt ;
-	m_vVel = m_vVel * this->m_PhyMat.GetFriction();
+	// Air Resistance
+	float fric = m_PhyMat.GetFriction();
+	Vector3 vScale = TRANS->GetScale();
+	// Set volume as cuboid
+	float volume = vScale.x * vScale.y * vScale.z;
+	float density = m_fMass / volume;
+	float area = volume; // ignore cross section area, use raw volume
+	Vector3 fDrag = 0.5f * density * m_vVel * area * fric * WorldValues::DragCoeff * dt;
+	m_vVel -= fDrag;
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
 	if (m_bLockYAxis)
@@ -140,8 +149,23 @@ void Rigidbody::ClampVelXZ(float max)
 	m_vVel.z = vTemp.z;
 }
 
+void Rigidbody::QueueMapForce(Vector3 in)
+{
+	m_vMapForce += in;
+	m_iMapForceCount++;
+}
+
 
 void Rigidbody::SetAffectedByGravity(bool AffectedByGrav)
 {
 	m_bGravityAffected = AffectedByGrav;
+}
+
+void Rigidbody::SetResponseActive(bool b)
+{
+	m_bResponseActive = b;
+}
+bool Rigidbody::GetResponseActive()
+{
+	return m_bResponseActive;
 }

@@ -2,7 +2,7 @@
 
 
 
-BiomeComponent::BiomeComponent(eBiomeTypes biomeType = BIOME_FLAT)
+BiomeComponent::BiomeComponent(eBiomeTypes biomeType)
 	:
 	m_biomeType(biomeType)
 {

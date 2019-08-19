@@ -13,6 +13,7 @@
 #include "Utility.h"
 #include "Resources.h"
 
+
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
@@ -59,6 +60,13 @@ bool Application::IsMousePressed(unsigned short key) //0 - Left, 1 - Right, 2 - 
 void Application::GetCursorPos(double* xpos, double* ypos)
 {
 	glfwGetCursorPos(m_window, xpos, ypos);
+}
+void Application::GetCursorPosRelative(double* xpos, double* ypos)
+{
+	double x, y;
+	GetCursorPos(&x, &y);
+	*xpos = x / Application::GetWindowWidth();
+	*ypos = y / Application::GetWindowHeight();
 }
 void Application::GetScrollWheelPos(double* x, double* y)
 {

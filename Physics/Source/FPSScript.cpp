@@ -1,6 +1,7 @@
 #include "FPSScript.h"
 #include "Time.h"
 #include <sstream>
+#include "RenderComponent.h"
 #define UPDATE_RATE 0.5f
 FPSScript::FPSScript()
 {

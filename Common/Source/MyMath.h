@@ -32,7 +32,7 @@ namespace Math
 
 	inline float FAbs(float value)
 	{
-		return (value < 0) ? -value : value;
+		return (value < 0.f) ? -value : value;
 	}
 
 /******************************************************************************/
