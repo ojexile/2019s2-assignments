@@ -70,7 +70,6 @@ void GrenadeScript::ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRe
 	if (!m_bIsGrenadeCooking)
 		return;
 
-	float scalarForce = 20.f;
 	Vector3 arcDir = dir.Normalized();
 	arcDir.y = arcDir.y + 4;
 	Vector3 SpawnPos = GetPosition();

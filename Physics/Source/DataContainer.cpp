@@ -56,6 +56,20 @@ void DataContainer::InitChunks()
 	m_map_Chunks["archway"] = new ChunkData("Content/chunks/1x1_archway.chunk");
 	m_map_Chunks["goldmine"] = new ChunkData("Content/chunks/1x2_goldmine.chunk");
 	m_map_Chunks["smallhouse"] = new ChunkData("Content/chunks/1x1_smallhouse.chunk");
+	m_map_Chunks["bazaar1"] = new ChunkData("Content/chunks/1x1_bazaar1.chunk");
+	m_map_Chunks["bazaar1_1"] = new ChunkData("Content/chunks/1x1_bazaar1.chunk", 1);
+	m_map_Chunks["bazaar1_2"] = new ChunkData("Content/chunks/1x1_bazaar1.chunk", 2);
+	m_map_Chunks["bazaar1_3"] = new ChunkData("Content/chunks/1x1_bazaar1.chunk", 3);
+	m_map_Chunks["wellspring"] = new ChunkData("Content/chunks/1x1_wellspring.chunk");
+	m_map_Chunks["wellspring_1"] = new ChunkData("Content/chunks/1x1_wellspring.chunk", 1);
+	m_map_Chunks["walledoff"] = new ChunkData("Content/chunks/1x1_walledoff.chunk");
+	m_map_Chunks["walledoff_1"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 1);
+	m_map_Chunks["walledoff_2"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 2);
+	m_map_Chunks["walledoff_3"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 3);
+	m_map_Chunks["barline"] = new ChunkData("Content/chunks/1x2_barline.chunk");
+	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["barline_3"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 }
 
 void DataContainer::InitTextures()
@@ -72,6 +86,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Ball"] = LoadTGA("Ball");
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
+	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
@@ -91,7 +106,7 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
-	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Ball");
+	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Muzzle");
 
 	m_map_Meshes["Clip"] = MeshBuilder::GenerateOBJ("Clip")->AddTexture("Revolver");
 
@@ -109,7 +124,7 @@ void DataContainer::InitMeshes()
 		->AddTexture("plaintree", BiomeComponent::BIOME_PLAINS)
 		->AddTexture("snowtree", BiomeComponent::BIOME_SNOW);
 
-	m_map_Meshes["Revolver"] = MeshBuilder::GenerateOBJ("revolver")->AddTexture("Revolver");
+	m_map_Meshes["Gun"] = MeshBuilder::GenerateOBJ("gun")->AddTexture("Revolver");
 
 	m_map_Meshes["Grenade"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
@@ -188,7 +203,7 @@ void  DataContainer::InitGO()
 	// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Gun"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Revolver")));
+	go->AddComponent(new RenderComponent(GetMesh("Gun")));
 	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
 	// Grenade----------------------------------------------------------------------------
 	go = new GameObject;
@@ -196,7 +211,7 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(0.5);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	go->RIGID->SetMass(0.25f);
+	go->RIGID->SetMass(0.15f);
 	go->RIGID->SetMat(0.9f, 0.f);
 	go->AddComponent(new GrenadeScript(3.0, 10.0, 2));
 	// Loot------------------------------------------------------------------------------------

@@ -154,6 +154,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Content\chunks\1x1_archway.chunk" />
+    <None Include="Content\chunks\1x1_bazaar1.chunk" />
+    <None Include="Content\chunks\1x1_smallhouse.chunk" />
+    <None Include="Content\chunks\1x1_walledoff.chunk" />
+    <None Include="Content\chunks\1x1_wellspring.chunk" />
+    <None Include="Content\chunks\1x2_goldmine.chunk" />
     <None Include="Content\keybinds.cfg" />
     <None Include="Content\Map.chunk" />
     <None Include="Content\preferences.ini" />
@@ -174,6 +180,7 @@
     <ClCompile Include="Source\CameraScript.cpp" />
     <ClCompile Include="Source\ChunkCollider.cpp" />
     <ClCompile Include="Source\ChunkData.cpp" />
+    <ClCompile Include="Source\ChunkEvent.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
     <ClCompile Include="Source\Command.cpp" />
     <ClCompile Include="Source\Component.cpp" />
@@ -273,6 +280,7 @@
     <ClInclude Include="Source\CameraScript.h" />
     <ClInclude Include="Source\ChunkCollider.h" />
     <ClInclude Include="Source\ChunkData.h" />
+    <ClInclude Include="Source\ChunkEvent.h" />
     <ClInclude Include="Source\CollisionManager.h" />
     <ClInclude Include="Source\Command.h" />
     <ClInclude Include="Source\Component.h" />

@@ -12,6 +12,24 @@
     <None Include="Content\Map.chunk">
       <Filter>Resources</Filter>
     </None>
+    <None Include="Content\chunks\1x1_archway.chunk">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\chunks\1x1_smallhouse.chunk">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\chunks\1x2_goldmine.chunk">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\chunks\1x1_bazaar1.chunk">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\chunks\1x1_wellspring.chunk">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Content\chunks\1x1_walledoff.chunk">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AnimatedMesh.cpp" />
@@ -103,6 +121,8 @@
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\Stats.cpp" />
+    <ClCompile Include="EntityValues.cpp" />
+    <ClCompile Include="Source\ChunkEvent.cpp" />
     <ClCompile Include="Source\State.cpp" />
     <ClCompile Include="Source\Behaviour.cpp" />
     <ClCompile Include="Source\EntityValues.cpp" />
@@ -209,6 +229,7 @@
     <ClInclude Include="Source\ConcreteMiscParts\StaminaRegenPart.h" />
     <ClInclude Include="Source\Stats.h" />
     <ClInclude Include="Source\EntityValues.h" />
+    <ClInclude Include="Source\ChunkEvent.h" />
     <ClInclude Include="Source\State.h" />
     <ClInclude Include="Source\Behaviour.h" />
     <ClInclude Include="Source\Command.h" />

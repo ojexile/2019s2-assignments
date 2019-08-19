@@ -31,9 +31,19 @@ void DefaultScene::Init()
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
 	GenericSubject::GetInstance()->AddObserver(new ParticleObserver);
+
+
+	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg", "low_synth");
+	AudioManager::GetInstance()->SetBGMVolume(0, "low_synth");
+	AudioManager::GetInstance()->QueueFade(1, 0.05, "low_synth");
+	AudioManager::GetInstance()->PlayBGM("bgm_02.ogg", "low_pad");
+	AudioManager::GetInstance()->PlayBGM("bgm_03.ogg", "low_piano");
+	AudioManager::GetInstance()->PlayBGM("bgm_04.ogg", "high_piano");
+	AudioManager::GetInstance()->SetBGMVolume(0, "high_piano");
 	/// Layers================================================================================
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
+
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	go->TRANS->SetPosition(1920 - 40, 1080 - 20, 25);
 	/// Inventory--------------------------------------------------------------------------------
@@ -102,7 +112,7 @@ void DefaultScene::Init()
 	ret->AddComponent(new ReticleScript());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
-	Gun->TRANS->SetRelativePosition(1, 1, 0);
+	Gun->TRANS->SetRelativePosition(1, 1, 1);
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
@@ -143,20 +153,21 @@ void DefaultScene::Init()
 	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
 	go->TRANS->SetPosition(20, 18.5, 26);
-	//go = dataContainer->GetGameObject("Scope");
-	//go->TRANS->SetScale(3);
-	//Gun->AddChild(go);
-	//Gun->GUN->AddPart(go);
-	go = dataContainer->GetGameObject("Stamina");
 
-	go->MISCPART->SetPlayerReference(Player->GetComponent<PlayerStatsScript>());
-	go->MISCPART->SetGunReference(Gun);
-
+	go = dataContainer->GetGameObject("Clip");
 	go->TRANS->SetScale(3);
-	go->PART->SetSlotType(PartScript::SLOT_TYPE::CLIP);
-
 	Gun->AddChild(go);
 	Gun->GUN->EquipPart(go);
+	//go = dataContainer->GetGameObject("Stamina");
+
+	//go->MISCPART->SetPlayerReference(Player->GetComponent<PlayerStatsScript>());
+	//go->MISCPART->SetGunReference(Gun);
+	//
+	//go->TRANS->SetScale(3);
+	//go->PART->SetSlotType(PartScript::SLOT_TYPE::CLIP);
+	//
+	//Gun->AddChild(go);
+	//Gun->GUN->EquipPart(go);
 	/// WORLD================================================================================
 	BiomeComponent::eBiomeTypes type = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
@@ -194,6 +205,4 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
 	go->RENDER->Set3DBillboard(true);
 	go->RENDER->SetColor(0, 1, 1);
-
-	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg");
 }

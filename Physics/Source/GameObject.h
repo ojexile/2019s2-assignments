@@ -25,6 +25,7 @@ public:
 
 	ComponentBase* AddComponent(ComponentBase* comp);
 	bool IsActive();
+	bool IsDisabled();
 	void SetDisableDistance(float f);
 	float GetDisableDistance();
 	void Update(double dt);

@@ -1,19 +1,75 @@
 #include "ChunkData.h"
 #include "MeshBuilder.h"
+#include "ChunkEvent.h"
 
-ChunkData::ChunkData(const std::string fileName)
+ChunkData::ChunkData(const std::string fileName, int rotate)
 {
+	m_event = new ChunkEvent(this);
 	FILE* file = fopen(fileName.c_str(), "r");
 	m_iXSize = fgetc(file);
 	m_iYSize = fgetc(file);
 	m_iZSize = fgetc(file);
 	unsigned int xSizeInBlocks = m_iXSize << 4;
 	unsigned int zSizeInBlocks = m_iZSize << 4;
+	for (int i = 0; i < m_iXSize * m_iZSize; ++i)
+	{
+		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][0] = 0;
+		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][1] = 0;
+		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][2] = 0;
+		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][3] = 0;
+	}
+	std::vector<unsigned short> blocks_2;
 	for (int i = 0; i < xSizeInBlocks * zSizeInBlocks * m_iYSize; ++i)
 	{
 		int k = fgetc(file);
 		int l = fgetc(file);
-		m_blocks.push_back(k << 8 | l);
+		blocks_2.push_back(k << 8 | l);
+	}
+	if (rotate == 0) m_blocks = blocks_2;
+	else if (rotate == 3)
+	{
+		for (int y = 0; y < m_iYSize; ++y)
+		{
+			for (int x = 0; x < xSizeInBlocks; ++x)
+			{
+				for (int z = zSizeInBlocks - 1; z >= 0; --z)
+				{
+					m_blocks.push_back(blocks_2[x + z * xSizeInBlocks + y * xSizeInBlocks * zSizeInBlocks]);
+				}
+			}
+		}
+		int k = m_iXSize;
+		m_iXSize = m_iZSize;
+		m_iZSize = k;
+	}
+	else if (rotate == 2)
+	{
+		for (int y = 0; y < m_iYSize; ++y)
+		{
+			for (int z = zSizeInBlocks - 1; z >= 0; --z)
+			{
+				for (int x = xSizeInBlocks - 1; x >= 0; --x)
+				{
+					m_blocks.push_back(blocks_2[x + z * xSizeInBlocks + y * xSizeInBlocks * zSizeInBlocks]);
+				}
+			}
+		}
+	}
+	else if (rotate == 1)
+	{
+		for (int y = 0; y < m_iYSize; ++y)
+		{
+			for (int x = xSizeInBlocks - 1; x >= 0; --x)
+			{
+				for (int z = 0; z < zSizeInBlocks; ++z)
+				{
+					m_blocks.push_back(blocks_2[x + z * xSizeInBlocks + y * xSizeInBlocks * zSizeInBlocks]);
+				}
+			}
+		}
+		int k = m_iXSize;
+		m_iXSize = m_iZSize;
+		m_iZSize = k;
 	}
 	int j = fgetc(file);
 	if (j == EOF) return;
@@ -21,14 +77,14 @@ ChunkData::ChunkData(const std::string fileName)
 	for (int i = 0; i < j; ++i)
 	{
 		int x = fgetc(file);
-		int y = fgetc(file);
 		int z = fgetc(file);
 		int dir = fgetc(file);
 		int k = fgetc(file);
 		int l = fgetc(file);
-		m_chunkConnections[Vector3(x, y, z)][dir] = k << 8 | l;
+		m_chunkConnections[Vector3(x, z)][(dir + rotate) % 4] = k << 8 | l;
 	}
 	j = fgetc(file);
+	if (j == EOF) return;
 	for (int i = 0; i < BiomeComponent::BIOME_COUNT; ++i)
 	{
 		m_validBiomes[static_cast<BiomeComponent::eBiomeTypes>(i)] = false;
@@ -37,17 +93,11 @@ ChunkData::ChunkData(const std::string fileName)
 	{
 		m_validBiomes[static_cast<BiomeComponent::eBiomeTypes>(fgetc(file))] = true;
 	}
-	j = fgetc(file);
-	for (int i = 0; i < j; ++i)
-	{
-		int k = fgetc(file);
-		int l = fgetc(file);
-		m_events.push_back(k << 8 | l);
-	}
 }
 
 ChunkData::~ChunkData()
 {
+
 }
 
 bool ChunkData::IsSolid(Vector3 pos)
@@ -118,4 +168,9 @@ Vector3 ChunkData::GetGroundPosition(Vector3 in)
 	{
 		if (!IsSolid(Vector3(in.x, i, in.z))) return Vector3(in.x, i, in.z);
 	}
+}
+
+ChunkEvent* ChunkData::GetEvent()
+{
+	return m_event;
 }
