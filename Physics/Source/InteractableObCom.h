@@ -1,8 +1,12 @@
 #pragma once
 #include "ObserverComponent.h"
+#include <string>
+
 class InteractableObCom :
 	public ObserverComponent
 {
+private:
+	//std::string m_sNotifyMessage;
 public:
 	InteractableObCom();
 	virtual ~InteractableObCom();

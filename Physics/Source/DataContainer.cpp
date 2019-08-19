@@ -16,6 +16,8 @@
 #include "GrenadeScript.h"
 #include "LootScript.h"
 #include "DestructibleEntityScript.h"
+#include "FlipEntityScript.h"
+#include "InteractableObCom.h"
 #include "ConcreteMiscParts/StaminaRegenPart.h"
 //
 #include "PartScript.h"
@@ -141,6 +143,9 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", { 1,1,1 }, 1.f);
+
+	//m_map_Meshes["fliprock"] = MeshBuilder::GenerateCube("fliprock", { 1,1,1 }, 1.f);
+	
 }
 void  DataContainer::InitTerrain()
 {
@@ -266,7 +271,9 @@ void  DataContainer::InitGO()
 	m_map_GO["ItemInfo"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
-	// Interactabes--------------------------------------------------------------------------------
+
+
+	// Interactabes/Foilage--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
@@ -283,6 +290,24 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
+	go->AddComponent(new InteractableObCom());
+	static_cast<FlipEntityScript*>(
+		go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(1.f);
+
+	go = new GameObject();
+	m_map_GO["fliprock"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	//go->TRANS->SetScale(10.f);
+	// go->GetComponent<RenderComponent>()->SetBillboard(true);
+
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->TRANS->SetScale(3.f, 1.f, 3.f);
+	go->RIGID->SetMat(0.9f, 0);
+	go->AddComponent(new InteractableObCom());
+	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
+	static_cast<FlipEntityScript*>(
+	go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
+	
 }
 void  DataContainer::InitShaders()
 {
