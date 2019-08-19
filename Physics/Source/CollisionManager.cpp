@@ -473,6 +473,8 @@ void CollisionManager::Update(GameObjectManager* GOM)
 			GameObject* go1 = GOList->at(i);
 			if (!go1->IsActive())
 				continue;
+			if (go1->IsDisabled())
+				continue;
 			if (go1->GetComponent<Rigidbody>(true) && go1->GetComponent<Rigidbody>(true)->IsActive())
 			{
 				if (go1->GetComponent<ChunkCollider>(true) == nullptr)
