@@ -7,13 +7,6 @@
 #define DEFAULT_SPECULAR  Resources::Defaults::fSpecular
 #define DEFAULT_SHININESS Resources::Defaults::fShininess
 
-struct Component
-{
-	float r, g, b;
-	Component() {};
-	Component(float r, float g, float b) { Set(r, g, b); }
-	void Set(float r, float g, float b) { this->r = r; this->g = g; this->b = b; }
-};
 struct Material
 {
 	Color kAmbient;
