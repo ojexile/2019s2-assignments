@@ -20,6 +20,9 @@
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
+//States
+#include "StandingState.h"
+#include "WanderState.h"
 #include <time.h>
 DataContainer::DataContainer()
 {
@@ -37,6 +40,7 @@ void DataContainer::Init()
 	InitTextures();
 	InitMeshes();
 	InitTerrain();
+	InitBehaviour();
 	InitGO();
 	InitChunks();
 	InitShaders();
@@ -157,8 +161,8 @@ void  DataContainer::InitGO()
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->RIGID->SetMass(0.01f);
-	go->RIGID->SetMat(1, 1);
+	go->RIGID->SetMass(0.005f);
+	go->RIGID->SetMat(0.9f, 1);
 	go->AddComponent(new ProjectileScript(1.0, 100.0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
@@ -215,16 +219,13 @@ void  DataContainer::InitGO()
 	m_map_GO["Loot"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	//go->RENDER->SetActive(false);
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
-	go->TRANS->SetScale(1.f);
-	go->AddComponent(new RenderComponent(GetMesh("Ball")));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetMat(0.9f, 0);
-	go->AddComponent(new EntityScript());
-	go->AddComponent(new LootScript());
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new Rigidbody(Rigidbody::SQUARE));
+	go->AddComponent(new EntityScript(GetBehaviour("Wander")));
+	//go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -275,13 +276,17 @@ void  DataContainer::InitGO()
 	m_map_GO["plaintree"] = go;
 	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
 }
 void  DataContainer::InitShaders()
 {
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
+}
+void DataContainer::InitBehaviour()
+{
+	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
+	m_map_Behaviour["Wander"] = new Behaviour(new WanderState);
 }
 DataContainer::~DataContainer()
 {
@@ -372,6 +377,13 @@ ChunkData* DataContainer::GetChunk(std::string key)
 		return nullptr;
 	}
 	return m_map_Chunks[key];
+}
+Behaviour * DataContainer::GetBehaviour(std::string key)
+{
+	if (m_map_Behaviour.count(key) <= 0)
+		DEFAULT_LOG("ERROR: Behaviour not found of name: " + key);
+	Behaviour* beheviour = new Behaviour(*m_map_Behaviour[key]);
+	return beheviour;
 }
 unsigned DataContainer::GetTexture(std::string key)
 {

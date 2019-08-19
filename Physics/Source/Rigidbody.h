@@ -12,7 +12,7 @@ public:
 		PILLAR,
 		WALL,
 		SQUARE,
-		BOX,
+		BOX_NOT_IMPLEMENTED,
 		PADDLE,
 		CHUNK,
 		TOTAL,

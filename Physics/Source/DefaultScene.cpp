@@ -119,7 +119,7 @@ void DefaultScene::Init()
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
-	Player->AddComponent(new PlayerScript(ret, Gun, grenade));
+	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
@@ -145,7 +145,12 @@ void DefaultScene::Init()
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
-	go->TRANS->SetPosition(10, 18.5, 5);
+	go->TRANS->SetPosition(5, 18.5, 0);
+	go = m_GOM.AddGameObject();
+	go->TRANS->SetPosition(-5, 18, 0);
+	go->AddComponent(new EntityScript(dataContainer->GetBehaviour("Wander")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Cube")));
 	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
 	go->TRANS->SetPosition(20, 18.5, 26);
