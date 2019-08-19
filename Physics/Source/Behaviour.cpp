@@ -11,7 +11,7 @@ Behaviour::Behaviour(State* InitialState)
 Behaviour::Behaviour(Behaviour & ref)
 {
 	m_Com = nullptr;
-	m_CurrentState = ref.m_CurrentState;
+	m_CurrentState = ref.m_CurrentState->Clone();
 	m_bStarted = false;
 }
 

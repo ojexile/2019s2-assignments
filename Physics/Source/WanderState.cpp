@@ -23,7 +23,7 @@ State * WanderState::HandleState(ComponentBase * com)
 		return this;
 	}
 	else
-		return new WanderState;
+		return new IdleState;
 }
 
 void WanderState::OnEnter(ComponentBase * com)
