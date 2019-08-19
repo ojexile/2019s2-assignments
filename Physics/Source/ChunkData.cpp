@@ -28,22 +28,25 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 	{
 		for (int y = 0; y < m_iYSize; ++y)
 		{
-			for (int z = zSizeInBlocks - 1; z >= 0; --z)
+			for (int x = 0; x < xSizeInBlocks; ++x)
 			{
-				for (int x = 0; x < xSizeInBlocks; ++x)
+				for (int z = zSizeInBlocks - 1; z >= 0; --z)
 				{
 					m_blocks.push_back(blocks_2[x + z * xSizeInBlocks + y * xSizeInBlocks * zSizeInBlocks]);
 				}
 			}
 		}
+		int k = m_iXSize;
+		m_iXSize = m_iZSize;
+		m_iZSize = k;
 	}
 	else if (rotate == 2)
 	{
 		for (int y = 0; y < m_iYSize; ++y)
 		{
-			for (int x = xSizeInBlocks - 1; x >= 0; --x)
+			for (int z = zSizeInBlocks - 1; z >= 0; --z)
 			{
-				for (int z = zSizeInBlocks - 1; z >= 0; --z)
+				for (int x = xSizeInBlocks - 1; x >= 0; --x)
 				{
 					m_blocks.push_back(blocks_2[x + z * xSizeInBlocks + y * xSizeInBlocks * zSizeInBlocks]);
 				}
@@ -54,14 +57,17 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 	{
 		for (int y = 0; y < m_iYSize; ++y)
 		{
-			for (int z = 0; z < zSizeInBlocks; ++z)
+			for (int x = xSizeInBlocks - 1; x >= 0; --x)
 			{
-				for (int x = xSizeInBlocks - 1; x >= 0; --x)
+				for (int z = 0; z < zSizeInBlocks; ++z)
 				{
 					m_blocks.push_back(blocks_2[x + z * xSizeInBlocks + y * xSizeInBlocks * zSizeInBlocks]);
 				}
 			}
 		}
+		int k = m_iXSize;
+		m_iXSize = m_iZSize;
+		m_iZSize = k;
 	}
 	int j = fgetc(file);
 	if (j == EOF) return;

@@ -2,7 +2,7 @@
 #include "SceneManager.h"
 #include "DataContainer.h"
 #include "ChunkCollider.h"
-#define NCHUNKS 12
+#define NCHUNKS 17
 MapSpawningScript::MapSpawningScript()
 {
 }
@@ -42,6 +42,14 @@ const char* GetChunkByID(int id)
 		return "walledoff_2";
 	case 12:
 		return "walledoff_3";
+	case 13:
+		return "barline";
+	case 14:
+		return "barline_1";
+	case 15:
+		return "barline_2";
+	case 16:
+		return "barline_3";
 	default:
 		return "archway";
 	}
@@ -50,7 +58,7 @@ const char* GetChunkByID(int id)
 
 const char* RandomChunk()
 {
-	return GetChunkByID(Math::RandIntMinMax(3, 12));
+	return GetChunkByID(Math::RandIntMinMax(0, 16));
 }
 
 bool IsCompatible(unsigned short k, unsigned short l)
@@ -91,28 +99,30 @@ void MapSpawningScript::Update(double dt)
 	Vector3 v = GetComponent<TransformComponent>()->GetPosition();
 	for (int x = 0; x <= 3; x = (x > 0? -x : -x + 1))
 	{
-		for (int z = 0; z <= 3; z = (z > 0? -z : -z + 1))
+		for (int z = 0; z <= 3; z = (z > 0 ? -z : -z + 1))
 		{
 			int offsetX = floor(v.x / 16.f) + x;
 			int offsetZ = floor(v.z / 16.f) + z;
 			if (m_spawnedLocations.count(Vector3(offsetX, 0, offsetZ))) continue;
 			std::vector<ChunkData*> validChunks;
 			ChunkData* chunk;
-			for (int nChunksTried = 0; nChunksTried < NCHUNKS; nChunksTried++)
+			for (int nChunksTried = 13; nChunksTried < NCHUNKS; nChunksTried++)
 			{
 				bool fits = true;
 				chunk = dataContainer->GetChunk(GetChunkByID(nChunksTried));
 				for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 					for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
 						if (m_spawnedLocations.count(Vector3(offsetX + xDiff, 0, offsetZ + zDiff)) || (
-							((IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][0], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 0))) &&
-							(IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][1], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 1))) &&
-								(IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][2], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 2))) &&
-								(IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][3], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 3))))))
+							(
+								(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)].count(0) != 0 && !IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][0], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 0))) ||
+								(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)].count(1) != 0 && !IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][1], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 1))) ||
+								(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)].count(2) != 0 && !IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][2], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 2))) ||
+								(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)].count(3) != 0 && !IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][3], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 3)))
+							)))
 						{
 							fits = false;
 						}
-				if(fits)
+				if (fits)
 					validChunks.push_back(chunk);
 			}
 			if (validChunks.size() == 0)
@@ -134,18 +144,29 @@ void MapSpawningScript::Update(double dt)
 			if (validChunks.size() == 0) return;
 			chunk = validChunks[Math::RandIntMinMax(0, validChunks.size() - 1)];
 			GameObject* go = GOM->AddGameObject();
-			go->TRANS->SetPosition(Vector3(offsetX * 16, 0, offsetZ * 16));
+			Vector3 goPos = Vector3(offsetX * 16, 0, offsetZ * 16);
+			go->TRANS->SetPosition(goPos);
 			RenderComponent* render = new RenderComponent(chunk->GenerateMeshBiomed());
 			render->SetRenderDistance(100);
 			go->AddComponent(render);
 			go->AddComponent(new BiomeComponent(static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT)));
 			go->AddComponent(new ChunkCollider(chunk));
-			GameObject* s0 = GOM->AddGameObject();
-			s0->TRANS->SetRelativePosition(Vector3(8, 32, 16));
-			go->AddChild(s0);
-			std::stringstream numbers;
-			numbers << chunk->GetChunkConnection(Vector3(0, 0, 0), 0);
-			s0->AddComponent(new RenderComponent(DataContainer::GetInstance()->GetMesh("Text"), numbers.str()));
+			
+#ifdef DEBUG_NUMBERS
+			for (int i = 0; i < 4; ++i) {
+				GameObject* s0 = GOM->AddGameObject("UI");
+				Vector3 ks = Vector3(-6, 0, 0);
+				Mtx44 mr; mr.SetToRotation(i * 90, 0, -1, 0);
+				s0->TRANS->SetPosition(goPos + Vector3(8, 22, 8) + mr * ks);
+				s0->TRANS->SetScale(Vector3(3,3,3));
+				std::stringstream numbers;
+				numbers << chunk->GetChunkConnection(Vector3(0, 0, 0), i);
+				RenderComponent* rc0 = new RenderComponent(DataContainer::GetInstance()->GetMesh("Text"), numbers.str(), false);
+				s0->AddComponent(rc0);
+				rc0->Set3DBillboard(true);
+				rc0->SetColor(0, 1, 0);
+			}
+#endif
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 				for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
 				{
