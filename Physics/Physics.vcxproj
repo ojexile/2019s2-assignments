@@ -203,7 +203,6 @@
     <ClCompile Include="Source\HeightMapData.cpp" />
     <ClCompile Include="Source\InputBinding.cpp" />
     <ClCompile Include="Source\InputManager.cpp" />
-    <ClCompile Include="Source\InstantiateOnDeathScript.cpp" />
     <ClCompile Include="Source\InteractableObCom.cpp" />
     <ClCompile Include="Source\InteractablesObserver.cpp" />
     <ClCompile Include="Source\InteractionBaseScript.cpp" />
@@ -249,7 +248,6 @@
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\ScriptComponent.cpp" />
     <ClCompile Include="Source\shader.cpp" />
-    <ClCompile Include="Source\SpawnLootScript.cpp" />
     <ClCompile Include="Source\SprintingState.cpp" />
     <ClCompile Include="Source\StandingState.cpp" />
     <ClCompile Include="Source\Stats.cpp" />
@@ -302,7 +300,6 @@
     <ClInclude Include="Source\InputBinding.h" />
     <ClInclude Include="Source\InputDeviceManager.h" />
     <ClInclude Include="Source\InputManager.h" />
-    <ClInclude Include="Source\InstantiateOnDeathScript.h" />
     <ClInclude Include="Source\InteractableObCom.h" />
     <ClInclude Include="Source\InteractablesObserver.h" />
     <ClInclude Include="Source\InteractionBaseScript.h" />
@@ -352,7 +349,6 @@
     <ClInclude Include="Source\ScriptComponent.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Singleton.h" />
-    <ClInclude Include="Source\SpawnLootScript.h" />
     <ClInclude Include="Source\SprintingState.h" />
     <ClInclude Include="Source\StandingState.h" />
     <ClInclude Include="Source\Stats.h" />

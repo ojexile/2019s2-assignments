@@ -1,9 +1,8 @@
 #include "LootScript.h"
 #include "DataContainer.h"
 #include "Rigidbody.h"
-#include "ChunkCollider.h"
+
 #include "ConcreteMiscParts/StaminaRegenPart.h"
-#include "SceneManager.h"
 
 LootScript::LootScript()
 {
@@ -13,19 +12,6 @@ LootScript::LootScript()
 
 LootScript::~LootScript()
 {
-}
-
-void LootScript::Collide(GameObject * go)
-{
-
-	if (go->GetComponent<ChunkCollider>() != nullptr)
-		return;
-
-	//Vector3 chunkspacepos = TRANS->GetPosition() - go->TRANS->GetPosition();
-	DropLoot();
-	//DestroySelf();
-	SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
-	
 }
 
 WeaponPartScript* LootScript::GenerateWeaponPart(void)
@@ -114,6 +100,5 @@ void LootScript::DropLoot(void)
 	Loot->RIGID->SetAffectedByGravity(true);
 
 	RYAN_LOG("LOOT_DROP");
-
 
 }
