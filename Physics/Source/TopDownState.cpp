@@ -19,6 +19,7 @@ State* TopDownState::HandleState(ComponentBase* com)
 	{
 		return new StandingState;
 	}
+	m_MovementCommand.HandleCommand(com);
 	return nullptr;
 }
 void TopDownState::OnEnter(ComponentBase* com)

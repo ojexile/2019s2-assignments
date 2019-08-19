@@ -1,9 +1,11 @@
 #pragma once
 #include "PlayerState.h"
+#include "MovementCommand.h"
 
 class TopDownState : public PlayerState
 {
 private:
+	MovementCommand m_MovementCommand;
 public:
 	TopDownState();
 	virtual ~TopDownState();

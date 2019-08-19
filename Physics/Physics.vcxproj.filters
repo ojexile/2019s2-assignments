@@ -106,6 +106,8 @@
     <ClCompile Include="Source\State.cpp" />
     <ClCompile Include="Source\Behaviour.cpp" />
     <ClCompile Include="Source\EntityValues.cpp" />
+    <ClCompile Include="Source\Command.cpp" />
+    <ClCompile Include="Source\MovementCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -206,6 +208,8 @@
     <ClInclude Include="Source\EntityValues.h" />
     <ClInclude Include="Source\State.h" />
     <ClInclude Include="Source\Behaviour.h" />
+    <ClInclude Include="Source\Command.h" />
+    <ClInclude Include="Source\MovementCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

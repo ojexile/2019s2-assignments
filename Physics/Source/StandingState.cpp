@@ -9,11 +9,6 @@
 #include "Time.h"
 StandingState::StandingState()
 {
-	m_fBaseAccel = 300;
-	m_fSprintMultiplier = 0.5f;
-	m_fBaseMovementSpeed = 40;
-
-	m_fDodgeForce = 4000;
 }
 
 StandingState::~StandingState()
@@ -30,8 +25,7 @@ State* StandingState::HandleState(ComponentBase* com)
 		float fDrain = 100;
 		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= dt * fDrain)
 		{
-			com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed * m_fSprintMultiplier, m_fBaseAccel * m_fSprintMultiplier);
-			// com->GetComponent<PlayerStatsScript>()->DrainStamina((float)dt * fDrain);
+			com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fMovementBoost, m_fForrceBoost);
 			com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(dt * fDrain);
 		}
 		else
@@ -42,7 +36,7 @@ State* StandingState::HandleState(ComponentBase* com)
 	// Crouch
 	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
-		com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
+		// com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
 	}
 	if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint") && !InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
@@ -54,9 +48,7 @@ State* StandingState::HandleState(ComponentBase* com)
 		float fDrain = 25;
 		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= fDrain)
 		{
-			// Add force in direction of reticle
 			com->GetComponent<PlayerScript>()->Dash();
-			// com->GetComponent<PlayerStatsScript>()->DrainStamina(fDrain);
 			com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(fDrain);
 		}
 	}
@@ -65,36 +57,8 @@ State* StandingState::HandleState(ComponentBase* com)
 	{
 		return new TopDownState;
 	}
-	Rigidbody* rb = com->GetComponent<Rigidbody>();
-	// Movement
-	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
-	{
+	m_MovementCommand.HandleCommand(com);
 
-		com->GetComponent<EntityScript>()->Move(CameraScript::GetFront());
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
-	{
-		com->GetComponent<EntityScript>()->Move(-CameraScript::GetFront());
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
-	{
-		com->GetComponent<EntityScript>()->Move(-CameraScript::GetRight());
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
-	{
-		com->GetComponent<EntityScript>()->Move(CameraScript::GetRight());
-	}
-
-	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
-	{
-		com->GetComponent<EntityScript>()->Jump();
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerInteract") != 0)
-	{
-		com->Notify(com, "Interact");
-	}
-
-	//SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 100,100,100 });
 	return nullptr;
 }
 void StandingState::OnEnter(ComponentBase* com)
