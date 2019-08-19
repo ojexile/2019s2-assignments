@@ -7,8 +7,8 @@
 #define MAX_TIME 5
 
 WanderState::WanderState(State* Combat)
+	: AIState(Combat)
 {
-	m_Combat = Combat;
 	m_fTime = 0;
 }
 
@@ -20,15 +20,23 @@ State * WanderState::HandleState(ComponentBase * com)
 {
 	// Check for player
 	if (PlayerInRange(com))
+	{
+		m_Combat->OnEnter(com);
 		return m_Combat;
+	}
 	if (m_SW.Stop()->GetTime() < m_fTime)
 	{
 		com->GetComponent<EntityScript>()->RotateTowards(m_vDir);
 		com->GetComponent<EntityScript>()->MoveForwards();
+		this->OnEnter(com);
 		return this;
 	}
 	else
-		return new IdleState(m_Combat);
+	{
+		State* s = new IdleState(m_Combat);
+		s->OnEnter(com);
+		return s;
+	}
 }
 
 void WanderState::OnEnter(ComponentBase * com)

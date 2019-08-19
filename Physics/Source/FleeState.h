@@ -1,17 +1,14 @@
 #pragma once
 #include "AIState.h"
-#include "GameObject.h"
-
-class MeleeCombatState :
+class FleeState :
 	public AIState
 {
-private:
 public:
-	MeleeCombatState(State* Combat);
-	virtual ~MeleeCombatState();
+	FleeState(State* Combat);
+	virtual ~FleeState();
 
 	virtual State* HandleState(ComponentBase* com) override;
 	virtual void OnEnter(ComponentBase* com) override;
 	virtual void OnExit(ComponentBase* com) override;
-	virtual State* Clone() { return new MeleeCombatState(*this); };
+	virtual State* Clone() { return new FleeState(*this); };
 };

@@ -39,7 +39,8 @@ void AIState::DamagePlayer(int damage, float force, Vector3 Dir)
 	Player->GetComponent<Rigidbody>()->AddForce(Dir * 500);
 }
 
-AIState::AIState()
+AIState::AIState(State* Combat)
+	:m_Combat(Combat)
 {
 }
 

@@ -196,6 +196,7 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
     <ClCompile Include="Source\EntityValues.cpp" />
+    <ClCompile Include="Source\FleeState.cpp" />
     <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
     <ClCompile Include="Source\FPSScript.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
@@ -298,6 +299,7 @@
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\EntityScript.h" />
     <ClInclude Include="Source\EntityValues.h" />
+    <ClInclude Include="Source\FleeState.h" />
     <ClInclude Include="Source\FoilageGeneratorComponent.h" />
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />

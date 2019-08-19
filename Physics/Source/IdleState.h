@@ -7,11 +7,9 @@ class IdleState :
 private:
 	StopWatch m_SW;
 	float m_fTime;
-	State* m_Combat;
 public:
 	IdleState(State* Combat);
 	virtual ~IdleState();
-
 
 	virtual State* HandleState(ComponentBase* com) override;
 	virtual void OnEnter(ComponentBase* com) override;

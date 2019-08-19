@@ -8,7 +8,6 @@ private:
 	StopWatch m_SW;
 	float m_fTime;
 	Vector3 m_vDir;
-	State* m_Combat;
 public:
 	WanderState(State* Combat);
 	virtual ~WanderState();
@@ -18,4 +17,3 @@ public:
 	virtual void OnExit(ComponentBase* com) override;
 	virtual State* Clone() { return new WanderState(*this); };
 };
-

@@ -2,7 +2,9 @@
 #include "EntityScript.h"
 #include "SceneManager.h"
 #include "Rigidbody.h"
-MeleeCombatState::MeleeCombatState()
+#include "IdleState.h"
+MeleeCombatState::MeleeCombatState(State* Combat)
+	: AIState(Combat)
 {
 }
 
@@ -15,12 +17,16 @@ State * MeleeCombatState::HandleState(ComponentBase * com)
 	Vector3 Dir = DirToPlayer(com);
 	com->GetComponent<EntityScript>()->RotateTowards(Dir);
 	com->GetComponent<EntityScript>()->MoveForwards();
-	float meleeRange = 2;
-	if (PlayerInRange(com, meleeRange))
+	if (PlayerInRange(com))
 	{
-		DamagePlayer(5, 300, Dir);
+		float meleeRange = 2;
+		if (PlayerInRange(com, meleeRange))
+		{
+			DamagePlayer(5, 300, Dir);
+		}
 	}
-	CHENG_LOG("Melee");
+	else
+		return new IdleState(this);
 	return this;
 }
 

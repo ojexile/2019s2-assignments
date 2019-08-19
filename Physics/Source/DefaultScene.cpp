@@ -32,10 +32,9 @@ void DefaultScene::Init()
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
 	GenericSubject::GetInstance()->AddObserver(new ParticleObserver);
 
-
 	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg", "low_synth");
 	AudioManager::GetInstance()->SetBGMVolume(0, "low_synth");
-	AudioManager::GetInstance()->QueueFade(1, 0.05, "low_synth");
+	AudioManager::GetInstance()->QueueFade(1, 0.05f, "low_synth");
 	AudioManager::GetInstance()->PlayBGM("bgm_02.ogg", "low_pad");
 	AudioManager::GetInstance()->PlayBGM("bgm_03.ogg", "low_piano");
 	AudioManager::GetInstance()->PlayBGM("bgm_04.ogg", "high_piano");
@@ -144,41 +143,11 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
-	go->TRANS->SetPosition(5, 18.5, 0);
-	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
-	go->TRANS->SetPosition(20, 18.5, 26);
-
-	go = dataContainer->GetGameObject("Clip");
-	go->TRANS->SetScale(3);
-	Gun->AddChild(go);
-	Gun->GUN->EquipPart(go);
-	//go = dataContainer->GetGameObject("Stamina");
-
-	//go->MISCPART->SetPlayerReference(Player->GetComponent<PlayerStatsScript>());
-	//go->MISCPART->SetGunReference(Gun);
-	//
-	//go->TRANS->SetScale(3);
-	//go->PART->SetSlotType(PartScript::SLOT_TYPE::CLIP);
-	//
-	//Gun->AddChild(go);
-	//Gun->GUN->EquipPart(go);
-	/// WORLD================================================================================
-	BiomeComponent::eBiomeTypes type = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
-	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
-	BiomeComponent::eBiomeTypes type3 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
-	// Terrain================================================================================
-
-	// Parts
-	go = m_GOM.AddGameObject(GetGO("Muzzle"));
-	go->TRANS->SetPosition(0, 18, 0);
-	go = m_GOM.AddGameObject(GetGO("Clip"));
-	go->TRANS->SetPosition(1, 16, 0);
-	go = m_GOM.AddGameObject(GetGO("Clip"));
-	go->TRANS->SetPosition(2, 16, 0);
-	go->TRANS->SetPosition(28, 20, 26);
-
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Cow"));
+	go->TRANS->SetPosition(5, 18.5f, 0);
+	// --
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Cow"));
+	go->TRANS->SetPosition(20, 18.5f, 26);
 	///interactable test
 
 	go = m_GOM.AddGameObject();
