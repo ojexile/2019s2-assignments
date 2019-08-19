@@ -59,6 +59,11 @@ bool GameObject::IsActive()
 	return m_bActive;
 }
 
+bool GameObject::IsDisabled()
+{
+	return (m_fDisableDistance < (SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition() - TRANS->GetPosition()).Length());
+}
+
 void GameObject::SetDisableDistance(float f)
 {
 	m_fDisableDistance = f;
