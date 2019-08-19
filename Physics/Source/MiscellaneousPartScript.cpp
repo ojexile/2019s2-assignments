@@ -21,14 +21,16 @@ MiscellaneousPartScript::~MiscellaneousPartScript()
 
 void MiscellaneousPartScript::SetGunReference(GameObject* ref)
 {
-	m_GunRef = ref;
-	RYAN_LOG("Gun Set");
+	this->m_GunRef = ref;
+	if(m_GunRef == ref)
+		RYAN_LOG("Gun Set");
 }
 
 void MiscellaneousPartScript::SetPlayerReference(ComponentBase* ref)
 {
-	m_PlayerRef = ref;
-	RYAN_LOG("Player Set");
+	this->m_PlayerRef = ref;
+	if(m_PlayerRef == ref)
+		RYAN_LOG("Player Set");
 }
 
 std::string MiscellaneousPartScript::getName()

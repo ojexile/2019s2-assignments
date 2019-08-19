@@ -156,7 +156,7 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(20, 18.5, 26);
 
 
-	//go = dataContainer->GetGameObject("Stamina");
+	/*go = m_GOM.AddGameObject(dataContainer->GetGameObject("Stamina"));*/
 
 	//go->MISCPART->SetPlayerReference(Player->GetComponent<PlayerStatsScript>());
 	//go->MISCPART->SetGunReference(Gun);
