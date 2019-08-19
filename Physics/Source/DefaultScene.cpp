@@ -200,7 +200,4 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
 	go->RENDER->Set3DBillboard(true);
 	go->RENDER->SetColor(0, 1, 1);
-=========
-	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg");
->>>>>>>>> Temporary merge branch 2
 }

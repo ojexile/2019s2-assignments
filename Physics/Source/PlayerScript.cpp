@@ -146,7 +146,7 @@ void PlayerScript::UpdateMovement(double dt)
 		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
 	}
 	// CHENG_LOG("Player pos: ", vtos(GetPosition()));
-	if (GetHealth() < 30)
+	if (GetValues()->GetHealth() < 30)
 	{
 		AudioManager::GetInstance()->QueueFade(0, 0.3, "low_piano");
 		AudioManager::GetInstance()->QueueFade(1, 0.3, "high_piano");
