@@ -1,8 +1,10 @@
 #include "ChunkData.h"
 #include "MeshBuilder.h"
+#include "ChunkEvent.h"
 
 ChunkData::ChunkData(const std::string fileName)
 {
+	m_event = new ChunkEvent(this);
 	FILE* file = fopen(fileName.c_str(), "r");
 	m_iXSize = fgetc(file);
 	m_iYSize = fgetc(file);
@@ -37,7 +39,6 @@ ChunkData::ChunkData(const std::string fileName)
 	{
 		m_validBiomes[static_cast<BiomeComponent::eBiomeTypes>(fgetc(file))] = true;
 	}
-	m_event = new ChunkEvent(this);
 }
 
 ChunkData::~ChunkData()

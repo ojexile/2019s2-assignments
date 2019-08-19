@@ -4,7 +4,9 @@
 #include "Constrain.h"
 #include "RenderComponent.h"
 #include "BiomeComponent.h"
-#include "ChunkEvent.h"
+
+class ChunkEvent;
+
 class ChunkData
 {
 	unsigned char m_iXSize, m_iYSize, m_iZSize; // size in units of 16 blocks. y is implicit in size of vector
