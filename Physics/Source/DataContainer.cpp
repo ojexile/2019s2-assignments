@@ -225,7 +225,7 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->AddComponent(new Rigidbody(Rigidbody::SQUARE));
 	go->AddComponent(new EntityScript(GetBehaviour("Wander")));
-	//go->AddComponent(new LootScript());
+	go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;

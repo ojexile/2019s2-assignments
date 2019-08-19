@@ -33,7 +33,7 @@ public:
 	void Update(double deltaTime) override;
 	void UpdateStats(GameObject* go, bool Multiply);
 
-	void EquipPart(GameObject* part);
+	void EquipPart(GameObject* part, PartScript::SLOT_TYPE slot);
 
 	void SetAmmo(int Ammo);
 	void SetMaxAmmo(int Ammo_Max);

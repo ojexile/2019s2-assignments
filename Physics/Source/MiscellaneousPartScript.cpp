@@ -25,7 +25,7 @@ void MiscellaneousPartScript::SetGunReference(GameObject* ref)
 	RYAN_LOG("Gun Set");
 }
 
-void MiscellaneousPartScript::SetPlayerReference(PlayerStatsScript* ref)
+void MiscellaneousPartScript::SetPlayerReference(ComponentBase* ref)
 {
 	m_PlayerRef = ref;
 	RYAN_LOG("Player Set");

@@ -40,17 +40,19 @@ void StaminaRegenPart::Buff(bool reverse)
 		case PartScript::SCOPE:
 		{
 			// m_PlayerRef->AdjustMaxStamina(20.f, true);
-			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectMaxStamina(0.5f);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectMaxStamina(1.5f);
 			break;
 		}
 		case PartScript::MUZZLE:
 		{
 			// m_PlayerRef->AdjustMaxStamina(50.f, true);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectMaxStamina(1.2f);
 			break;
 		}
 		case PartScript::CLIP:
 		{
 			// m_PlayerRef->AdjustStaminaRegenRate(10.f, true);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectStaminaRegenRate(0.5f);
 			break;
 		}
 		case PartScript::GRIP:
@@ -71,22 +73,26 @@ void StaminaRegenPart::Buff(bool reverse)
 		{
 		case PartScript::SCOPE:
 		{
-			// m_PlayerRef->AdjustMaxStamina(20.f, false);
+			// m_PlayerRef->AdjustMaxStamina(20.f, true);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectMaxStamina(1.f / 1.5f);
 			break;
 		}
 		case PartScript::MUZZLE:
 		{
-			// m_PlayerRef->AdjustMaxStamina(50.f, false);
+			// m_PlayerRef->AdjustMaxStamina(50.f, true);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectMaxStamina(1.f / 1.2f);
 			break;
 		}
 		case PartScript::CLIP:
 		{
-			// ->AdjustStaminaRegenRate(10.f, false);
+			// m_PlayerRef->AdjustStaminaRegenRate(10.f, true);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectStaminaRegenRate(1.f / 0.5f);
 			break;
 		}
 		case PartScript::GRIP:
 		{
-			// m_PlayerRef->AdjustStaminaRegenRate(20.f, false);
+			// m_PlayerRef->AdjustStaminaRegenRate(20.f, true);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectStaminaRegenRate(1.f / 2.5f);
 			break;
 		}
 		default:
