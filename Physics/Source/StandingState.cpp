@@ -25,12 +25,12 @@ State* StandingState::HandleState(ComponentBase* com)
 		float fDrain = 100;
 		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= dt * fDrain)
 		{
-			com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fMovementBoost, m_fForrceBoost);
-			com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(dt * fDrain);
+			com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(m_fMovementBoost, m_fForrceBoost);
+			com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(dt * fDrain);
 		}
 		else
 		{
-			com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(0, 0);
+			com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
 		}
 	}
 	// Crouch
@@ -40,7 +40,7 @@ State* StandingState::HandleState(ComponentBase* com)
 	}
 	if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint") && !InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
-		com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(0, 0);
+		com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
 	}
 	// Dodge
 	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
@@ -49,7 +49,7 @@ State* StandingState::HandleState(ComponentBase* com)
 		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= fDrain)
 		{
 			com->GetComponent<PlayerScript>()->Dash();
-			com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(fDrain);
+			com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(fDrain);
 		}
 	}
 	// Top Down
@@ -63,9 +63,8 @@ State* StandingState::HandleState(ComponentBase* com)
 }
 void StandingState::OnEnter(ComponentBase* com)
 {
-	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetPosition(0,100,0);
 	CameraScript::SetTopDown(false);
-	com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(0, 0);
+	com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
 }
 
 void StandingState::OnExit(ComponentBase * com)

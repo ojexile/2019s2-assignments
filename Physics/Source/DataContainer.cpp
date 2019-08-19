@@ -22,6 +22,7 @@
 #include "WeaponPartScript.h"
 //States
 #include "StandingState.h"
+#include "WanderState.h"
 #include <time.h>
 DataContainer::DataContainer()
 {
@@ -203,16 +204,13 @@ void  DataContainer::InitGO()
 	m_map_GO["Loot"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	//go->RENDER->SetActive(false);
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
-	go->TRANS->SetScale(1.f);
-	go->AddComponent(new RenderComponent(GetMesh("Ball")));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetMat(0.9f, 0);
-	go->AddComponent(new EntityScript());
-	go->AddComponent(new LootScript());
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new EntityScript(GetBehaviour("Wander")));
+	//go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -274,6 +272,7 @@ void  DataContainer::InitShaders()
 void DataContainer::InitBehaviour()
 {
 	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
+	m_map_Behaviour["Wander"] = new Behaviour(new WanderState);
 }
 DataContainer::~DataContainer()
 {

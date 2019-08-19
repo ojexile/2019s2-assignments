@@ -108,6 +108,8 @@
     <ClCompile Include="Source\EntityValues.cpp" />
     <ClCompile Include="Source\Command.cpp" />
     <ClCompile Include="Source\MovementCommand.cpp" />
+    <ClCompile Include="Source\AIState.cpp" />
+    <ClCompile Include="Source\WanderState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -210,6 +212,8 @@
     <ClInclude Include="Source\Behaviour.h" />
     <ClInclude Include="Source\Command.h" />
     <ClInclude Include="Source\MovementCommand.h" />
+    <ClInclude Include="Source\AIState.h" />
+    <ClInclude Include="Source\WanderState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

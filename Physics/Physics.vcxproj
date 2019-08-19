@@ -161,6 +161,7 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AIState.cpp" />
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
@@ -252,11 +253,13 @@
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\UIButtonComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\WanderState.cpp" />
     <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\WeaponScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AIState.h" />
     <ClInclude Include="Source\AnimatedMesh.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
@@ -355,6 +358,7 @@
     <ClInclude Include="Source\UIButtonComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\WanderState.h" />
     <ClInclude Include="Source\WeaponPartScript.h" />
     <ClInclude Include="Source\WeaponScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
