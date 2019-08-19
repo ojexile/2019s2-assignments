@@ -1,7 +1,7 @@
 #include "MeleeCombatState.h"
 #include "EntityScript.h"
 #include "SceneManager.h"
-
+#include "Rigidbody.h"
 MeleeCombatState::MeleeCombatState()
 {
 }
@@ -17,7 +17,12 @@ State * MeleeCombatState::HandleState(ComponentBase * com)
 	Vector3 Dir = m_Player->TRANS->GetPosition() - com->TRANS->GetPosition();
 	com->GetComponent<EntityScript>()->RotateTowards(Dir);
 	com->GetComponent<EntityScript>()->MoveForwards();
-	// com->GetComponent<EntityScript>()->Move(Dir);
+	Vector3 PlayerPos = SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition();
+	if ((PlayerPos - com->TRANS->GetPosition()).Length() < 3)
+	{
+		m_Player->GetComponent<EntityScript>()->Damage(10);
+		m_Player->GetComponent<Rigidbody>()->AddForce(Dir * 500);
+	}
 	CHENG_LOG("Melee");
 	return this;
 }
