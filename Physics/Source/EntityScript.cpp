@@ -4,8 +4,9 @@
 #include "RenderComponent.h"
 #include "Utility.h"
 
-EntityScript::EntityScript(Behaviour* Behaviour)
-	:m_Behaviour(Behaviour)
+EntityScript::EntityScript(Behaviour* Behaviour, AIState* CombatState)
+	: m_Behaviour(Behaviour)
+	, m_CombatState(CombatState)
 {
 	if (m_Behaviour)
 		m_Behaviour->Init(this);
@@ -30,11 +31,10 @@ EntityScript::EntityScript(EntityScript & ref)
 		m_Behaviour = nullptr;
 	m_bInitialised = false;
 	m_fAnimStartTime = 0;
-
+	m_CombatState = ref.m_CombatState;
 }
 EntityScript::~EntityScript()
 {
-	
 }
 void EntityScript::Init()
 {
@@ -49,7 +49,7 @@ void EntityScript::CheckInit()
 }
 void EntityScript::Update(double dt)
 {
-	if(m_Behaviour)
+	if (m_Behaviour)
 		m_Behaviour->Update();
 	// Check death
 	if (CheckDeath())
@@ -95,7 +95,6 @@ void EntityScript::UpdateValues()
 	// Update Values
 	m_Values.m_fStamina += m_BaseStats.m_fStaminaRegenRate * m_AdditionalStats.m_fStaminaRegenRate * Time::GetInstance()->GetDeltaTimeF();
 	m_Values.m_fStamina = Math::Clamp(m_Values.m_fStamina, 0.f, m_BaseStats.m_fStaminaMax * m_AdditionalStats.m_fStaminaMax);
-
 }
 void EntityScript::Log()
 {
@@ -136,7 +135,7 @@ void EntityScript::RotateTowards(Vector3 vDir)
 	float CurrentAngle = TRANS->GetDegrees();
 
 	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.f);
-	TRANS->SetRotation(newAngle, 0,1,0);
+	TRANS->SetRotation(newAngle, 0, 1, 0);
 }
 void EntityScript::Jump()
 {
@@ -160,4 +159,9 @@ void EntityScript::Damage(int iDamage)
 	RENDER->SetColor(50, 50, 50);
 	m_SW.Start();
 	m_Values.m_iHealth -= iDamage;
+}
+
+AIState * EntityScript::GetCombatState()
+{
+	return m_CombatState;
 }

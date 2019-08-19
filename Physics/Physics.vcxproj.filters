@@ -131,6 +131,8 @@
     <ClCompile Include="Source\WanderState.cpp" />
     <ClCompile Include="Source\IdleState.cpp" />
     <ClCompile Include="Source\MeleeCombatState.cpp" />
+    <ClCompile Include="Source\FleeState.cpp" />
+    <ClCompile Include="Source\AIStatesList.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\InteractionBaseScript.cpp" />
@@ -242,6 +244,8 @@
     <ClInclude Include="Source\WanderState.h" />
     <ClInclude Include="Source\IdleState.h" />
     <ClInclude Include="Source\MeleeCombatState.h" />
+    <ClInclude Include="Source\FleeState.h" />
+    <ClInclude Include="Source\AIStatesList.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\FlipEntityScript.h" />

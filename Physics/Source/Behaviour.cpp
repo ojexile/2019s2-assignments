@@ -1,7 +1,5 @@
 #include "Behaviour.h"
 
-
-
 Behaviour::Behaviour(State* InitialState)
 {
 	m_CurrentState = InitialState;
@@ -14,7 +12,6 @@ Behaviour::Behaviour(Behaviour & ref)
 	m_CurrentState = ref.m_CurrentState->Clone();
 	m_bStarted = false;
 }
-
 
 void Behaviour::Init(ComponentBase * com)
 {
@@ -37,8 +34,8 @@ void Behaviour::Update()
 	State* state = m_CurrentState->HandleState(m_Com);
 	if (state && state != m_CurrentState)
 	{
+		state->OnEnter(m_Com);
 		m_CurrentState->OnExit(m_Com);
-		delete m_CurrentState;
 		m_CurrentState = state;
 		m_CurrentState->OnEnter(m_Com);
 	}
