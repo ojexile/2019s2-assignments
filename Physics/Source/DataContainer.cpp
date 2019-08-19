@@ -158,7 +158,7 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
 
-	//m_map_Meshes["fliprock"] = MeshBuilder::GenerateCube("fliprock", { 1,1,1 }, 1.f);
+	m_map_Meshes["boulder"] = MeshBuilder::GenerateOBJ("Cube");
 	
 }
 void DataContainer::InitTerrain()
@@ -318,9 +318,6 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["fliprock"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
-	//go->TRANS->SetScale(10.f);
-	// go->GetComponent<RenderComponent>()->SetBillboard(true);
-
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->TRANS->SetScale(3.f, 1.f, 3.f);
 	go->RIGID->SetMat(0.9f, 0);
@@ -328,7 +325,31 @@ void DataContainer::InitGO()
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
 	static_cast<FlipEntityScript*>(
 	go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
-	
+
+	go = new GameObject();
+	m_map_GO["treasurebox"] = go;
+	go->AddComponent(new InteractableObCom());
+	go->AddComponent(new RenderComponent(GetMesh("chest")));
+	go->AddComponent(new SpawnLootScript());
+	go->TRANS->SetScale(1, 1, 1);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+
+
+	go = new GameObject();
+	m_map_GO["treasureball"] = go;
+	go->AddComponent(new LootScript());
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetMat(0.9f, 0);
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->TRANS->SetScale(1.f);
+	go = new GameObject();
+	m_map_GO["boulder"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->RENDER->SetColor(0.5, 0.5, 0.5);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetMass(1000.f);
+	go->TRANS->SetScale(3.f);
+
 }
 void  DataContainer::InitShaders()
 {
