@@ -97,6 +97,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
 	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
+	m_map_Textures["CustomiseSlot"] = LoadTGA("inventorySlot1");
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
 	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
@@ -137,7 +138,13 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Grenade"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
-	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
+	m_map_Meshes["UIInventory"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
+
+	m_map_Meshes["UICustomise"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CustomiseSlot");
+
+	m_map_Meshes["UICustomise"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CustomiseSlot");
+
+	m_map_Meshes["UIBullet"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("UIBullet");
 
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
 
@@ -258,21 +265,21 @@ void DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["InventorySlot"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->AddComponent(new RenderComponent(GetMesh("UIInventory")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
 	// CustomiseSlot--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["CustomiseSlot"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->AddComponent(new RenderComponent(GetMesh("UICustomise")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
 	// BulletUI--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BulletUI"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->AddComponent(new RenderComponent(GetMesh("UIBullet")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(50, 20, 1);
 	// ItemInfo--------------------------------------------------------------------------------

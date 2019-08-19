@@ -49,17 +49,31 @@ void DefaultScene::Init()
 	// slots--------------------------------------------------------------------------------
 	GameObject** InventorySlots;
 	InventorySlots = new GameObject*[INVENTORY_SIZE];
+	float height0 = 100;
+	float height1 = 220;
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
-	go->TRANS->SetPosition(1920 - 100, 100);
+	go->TRANS->SetPosition(1920 - 100, height0);
 	InventorySlots[0] = go;
 	//
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
-	go->TRANS->SetPosition(1920 - 100 - 110, 100);
+	go->TRANS->SetPosition(1920 - 100 - 110, height0);
 	InventorySlots[1] = go;
 	//
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
-	go->TRANS->SetPosition(1920 - 100 - 110 - 110, 100);
+	go->TRANS->SetPosition(1920 - 100 - 110 - 110, height0);
 	InventorySlots[2] = go;
+	//
+	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
+	go->TRANS->SetPosition(1920 - 100, height1);
+	InventorySlots[3] = go;
+	//
+	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
+	go->TRANS->SetPosition(1920 - 100 - 110, height1);
+	InventorySlots[4] = go;
+	//
+	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
+	go->TRANS->SetPosition(1920 - 100 - 110 - 110, height1);
+	InventorySlots[5] = go;
 	// customise--------------------------------------------------------------------------------
 	std::vector<GameObject*> CustoSlots;
 	Vector3 CustoPos(1920 - 200, 600);
