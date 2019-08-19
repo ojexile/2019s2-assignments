@@ -22,14 +22,16 @@ private:
 	};
 	float m_fRotationAmount;
 	eFlipDirection m_flipDirection;
+	Vector3 m_vflipDirection;
 public:
 
 	FlipEntityScript();
 	~FlipEntityScript();
 
-	void Update(double dt) override;
-	void Trigger(GameObject* go, GameObject* go2) override;
+	virtual void Update(double dt) override;
+	virtual void Trigger(GameObject* go, GameObject* go2) override;
 
+	virtual Component* Clone() { return new FlipEntityScript(*this); };
 	/*
 	when the interact triggers 
 	pass the positions of player and interactable

@@ -10,5 +10,9 @@ InteractionBaseScript::InteractionBaseScript()
 
 InteractionBaseScript::~InteractionBaseScript()
 {
+}
 
+void InteractionBaseScript::SetMaxElapsedTime(float maxtime)
+{
+	m_fMaximumTimeElapsed = maxtime;
 }

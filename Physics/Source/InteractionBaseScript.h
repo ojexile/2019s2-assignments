@@ -11,8 +11,10 @@ desc: interaction base class. abstract.
 
 class InteractionBaseScript : public ScriptComponent
 {
-private:
+protected:
 	bool m_bIsTriggered;
+
+	// use these values if you need them.
 	float m_fTimeElapsed; // counting from trigger
 	float m_fMaximumTimeElapsed; // counting from trigger
 public:
@@ -22,4 +24,6 @@ public:
 	virtual void Update(double dt) = 0;
 	virtual void Trigger(GameObject* go1, GameObject * go2) = 0;
 	virtual Component* Clone() = 0;
+
+	void SetMaxElapsedTime(float maxtime);
 };

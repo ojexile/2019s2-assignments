@@ -16,6 +16,8 @@
 #include "GrenadeScript.h"
 #include "LootScript.h"
 #include "DestructibleEntityScript.h"
+#include "FlipEntityScript.h"
+#include "InteractableObCom.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -113,6 +115,8 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
 	
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", { 1,1,1 }, 1.f);
+
+	m_map_Meshes["fliprock"] = MeshBuilder::GenerateCube("fliprock", { 0.5f, 0.5f, 0.5f });
 }
 void  DataContainer::InitTerrain()
 {
@@ -224,7 +228,7 @@ void  DataContainer::InitGO()
 	go->TRANS->SetScale(50, 20, 1);
 
 
-	// Interactabes--------------------------------------------------------------------------------
+	// Interactabes/Foilage--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
@@ -242,7 +246,20 @@ void  DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
+	go->AddComponent(new InteractableObCom());
+	static_cast<FlipEntityScript*>(
+		go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(1.f);
 
+	go = new GameObject();
+	m_map_GO["fliprock"] = go;
+	go->AddComponent(new RenderComponent(GetMeshBiomed("fliprock")));
+	go->TRANS->SetScale(2.f);
+	go->AddComponent(new Rigidbody(Rigidbody::BOX, true));
+	go->RIGID->SetMat(0.9f, 0);
+	go->AddComponent(new InteractableObCom());
+	/*static_cast<FlipEntityScript*>(
+		go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(1.f);
+	*/
 }
 void  DataContainer::InitShaders()
 {
