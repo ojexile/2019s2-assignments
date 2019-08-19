@@ -276,7 +276,6 @@ void  DataContainer::InitGO()
 	m_map_GO["plaintree"] = go;
 	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
 }
 void  DataContainer::InitShaders()

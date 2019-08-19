@@ -2,6 +2,7 @@
 #include "PlayerScript.h"
 #include "LootScript.h"
 #include "RenderComponent.h"
+#include "Utility.h"
 
 EntityScript::EntityScript(Behaviour* Behaviour)
 	:m_Behaviour(Behaviour)
@@ -116,6 +117,24 @@ void EntityScript::Move(Vector3 vDir)
 		return;
 	m_RB->AddForce(vDir * m_BaseStats.m_fMovementForce + vDir * m_AdditionalStats.m_fMovementForce);
 	m_RB->ClampVelXZ(m_BaseStats.m_fMaxMovementSpeed + m_AdditionalStats.m_fMaxMovementSpeed);
+}
+void EntityScript::MoveForwards()
+{
+	float CurrentAngle = TRANS->GetDegrees();
+
+	float CurrentRad = Math::DegreeToRadian(CurrentAngle);
+	Vector3 Front = { sin(CurrentRad), 0, cos(CurrentRad) };
+	Move(Front);
+}
+void EntityScript::RotateTowards(Vector3 vDir)
+{
+	vDir.y = 0;
+	float TargetAngle = AngleBetween({ 1,0,1 }, vDir);
+	// current angle
+	float CurrentAngle = TRANS->GetDegrees();
+
+	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.3f);
+	TRANS->SetRotation(newAngle, 0,1,0);
 }
 void EntityScript::Jump()
 {

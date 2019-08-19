@@ -19,7 +19,8 @@ State * WanderState::HandleState(ComponentBase * com)
 {
 	if (m_SW.Stop()->GetTime() < m_fTime)
 	{
-		com->GetComponent<EntityScript>()->Move(m_vDir);
+		com->GetComponent<EntityScript>()->RotateTowards(m_vDir);
+		com->GetComponent<EntityScript>()->MoveForwards();
 		return this;
 	}
 	else
@@ -31,8 +32,11 @@ void WanderState::OnEnter(ComponentBase * com)
 	m_SW.Start();
 	m_fTime = Math::RandFloatMinMax(MIN_TIME, MAX_TIME);
 	// Rand dir
-	m_vDir.x = Math::RandFloatMinMax(0.1f, 1);
-	m_vDir.z = Math::RandFloatMinMax(0.1f, 1);
+	while (m_vDir.IsZero())
+	{
+		m_vDir.x = Math::RandFloatMinMax(-1, 1);
+		m_vDir.z = Math::RandFloatMinMax(-1, 1);
+	}
 	m_vDir.Normalize();
 }
 

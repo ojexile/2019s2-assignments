@@ -52,6 +52,8 @@ public:
 	EntityValues* GetValues();
 
 	void Move(Vector3 vDir);
+	void MoveForwards();
+	void RotateTowards(Vector3 vDir);
 	void Jump();
 	bool IsDamageAnim();
 	void SetDamageAnim(bool);
