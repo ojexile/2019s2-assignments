@@ -19,6 +19,7 @@
 #include "FlipEntityScript.h"
 #include "InteractableObCom.h"
 #include "ConcreteMiscParts/StaminaRegenPart.h"
+#include "SpawnLootScript.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -160,6 +161,9 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["boulder"] = MeshBuilder::GenerateOBJ("Cube");
 	
+	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube");
+
+	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
 }
 void DataContainer::InitTerrain()
 {

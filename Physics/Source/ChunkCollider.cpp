@@ -9,3 +9,4 @@ ChunkData* ChunkCollider::GetChunk()
 {
 	return m_chunk;
 }
+
