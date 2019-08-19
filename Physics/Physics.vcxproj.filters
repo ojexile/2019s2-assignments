@@ -132,7 +132,7 @@
     <ClCompile Include="Source\IdleState.cpp" />
     <ClCompile Include="Source\MeleeCombatState.cpp" />
     <ClCompile Include="Source\FleeState.cpp" />
-    <ClCompile Include="AIStatesList.cpp" />
+    <ClCompile Include="Source\AIStatesList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
