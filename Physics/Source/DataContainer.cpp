@@ -140,7 +140,7 @@ void  DataContainer::InitGO()
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
-	go->TRANS->SetScale(0.1f);
+	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
