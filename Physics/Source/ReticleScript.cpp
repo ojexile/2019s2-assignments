@@ -38,7 +38,7 @@ void ReticleScript::Update(double dt)
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	// get chunks
 	std::vector<GameObject*> ChunkList;
-	float fDist = 10;
+	float fDist = 64 * 64;
 	std::vector<GameObject*>* GOList = GOM->GetLayerList()->at("Default")->GetGOList();
 	for (unsigned i = 0; i < GOList->size(); ++i)
 	{
@@ -51,7 +51,7 @@ void ReticleScript::Update(double dt)
 			Vector3 PosXZ = GetPosition();
 			PosXZ.y = 0;
 			// dist check
-			if ((ChunkXZ - PosXZ).Length() < fDist)
+			if ((ChunkXZ - PosXZ).LengthSquared() < fDist)
 			{
 				ChunkList.push_back(go);
 			}

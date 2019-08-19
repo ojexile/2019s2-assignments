@@ -156,7 +156,7 @@ void PlayerScript::Collide(GameObject* go)
 	if (ps)
 	{
 		GetComponent<InventoryScript>()->AddItem(go);
-		if (go->MISCPART)
+		if (go->GetComponent<MiscellaneousPartScript>(true))
 		{
 			go->MISCPART->SetPlayerReference(GetComponent<PlayerStatsScript>());
 			go->MISCPART->SetGunReference(m_Gun);

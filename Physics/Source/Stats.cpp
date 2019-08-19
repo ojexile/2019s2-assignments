@@ -9,7 +9,7 @@ Stats::Stats()
 	m_fMovementForce = 40;
 	m_fJumpForce = 3000;
 
-	m_fDetectionRadius = 4;
+	m_fDetectionRadius = 8;
 }
 
 Stats::~Stats()

@@ -23,7 +23,7 @@ public:
 		AUTO
 	};
 
-	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 0.250f, float fBulletSpread = 0.15f, float fBulletForce = 10.f, FIRING_MODE FiringMode = AUTO);
+	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 0.250f, float fBulletSpread = 0.01f, float fBulletForce = 10.f, FIRING_MODE FiringMode = AUTO);
 	~WeaponScript();
 
 	//Interface Functions
