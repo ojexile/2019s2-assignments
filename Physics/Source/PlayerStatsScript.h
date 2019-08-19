@@ -11,9 +11,6 @@ class PlayerStatsScript :
 	public ScriptComponent
 {
 private:
-	float m_fStamina;
-	float m_fTime;
-
 	int m_iMaxMag;
 	int m_iMag;
 	//
@@ -35,6 +32,4 @@ public:
 	virtual Component* Clone() { return new PlayerStatsScript(*this); };
 	virtual void Update(double dt) override;
 	virtual void Start() override;
-	void DrainStamina(float f);
-	float GetStamina();
 };

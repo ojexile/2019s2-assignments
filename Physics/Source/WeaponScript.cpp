@@ -3,8 +3,8 @@
 #include "InputManager.h"
 #include "GameObjectManager.h"
 #include "TransformComponent.h"
-//Temporary
-#include "DataContainer.h"
+#include "MiscellaneousPartScript.h"
+
 
 WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, int iAmmo, int iAmmo_Max, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
 	: m_iBulletsFiredCount(iBulletsFiredCount),
@@ -91,7 +91,7 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 		}
 		case PartScript::CLIP:
 		{
-			m_iMagazineRounds_Max = m_iMagazineRounds_Max + go->PART->GetMultiplier();
+			m_iMagazineRounds_Max = m_iMagazineRounds_Max + static_cast<int>(go->PART->GetMultiplier());
 			break;
 		}
 		case PartScript::GRIP:
@@ -120,9 +120,8 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 		}
 		case PartScript::CLIP:
 		{
-			m_iMagazineRounds_Max = m_iMagazineRounds_Max - go->PART->GetMultiplier();
+			m_iMagazineRounds_Max = m_iMagazineRounds_Max - static_cast<int>(go->PART->GetMultiplier());
 			Math::Clamp(m_iMagazineRounds, m_iMagazineRounds, m_iMagazineRounds_Max);
-
 			break;
 		}
 		case PartScript::GRIP:
@@ -154,7 +153,7 @@ void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 
 void WeaponScript::ReloadWeapon(void)
 {
-	if (m_iMagazineRounds == m_iMagazineRounds_Max)
+	if (m_iMagazineRounds == m_iMagazineRounds_Max || m_iMagazineRounds > m_iMagazineRounds_Max)
 		return;
 
 	int refillAmt = m_iMagazineRounds_Max - m_iMagazineRounds;
@@ -163,11 +162,13 @@ void WeaponScript::ReloadWeapon(void)
 	m_iMagazineRounds = m_iMagazineRounds + refillAmt;
 }
 
-void WeaponScript::AddPart(GameObject* part)
+void WeaponScript::EquipPart(GameObject* part)
 {
 	if (!part->PART)
 		return;
+	
 	part->RIGID->SetAffectedByGravity(false);
+
 	if (part->PART->GetPartType() == PartScript::WEAPON)
 	{
 		switch (part->PART->GetSlotType())
@@ -175,26 +176,26 @@ void WeaponScript::AddPart(GameObject* part)
 		case PartScript::SCOPE:
 		{
 			m_ScopeParts.push_back(part);
-			part->TRANS->SetRelativePosition(0.5 * m_ScopeParts.size(), 0.5, 0);
+			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.2f, 0.f);
 			break;
 		}
 		case PartScript::MUZZLE:
 		{
 			m_MuzzleParts.push_back(part);
-			part->TRANS->SetRelativePosition(1 * m_MuzzleParts.size(), 0, 0);
+			part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
 
 			break;
 		}
 		case PartScript::CLIP:
 		{
 			m_StockParts.push_back(part);
-			part->TRANS->SetRelativePosition(0, -0.5 * m_StockParts.size(), 0);
+			part->TRANS->SetRelativePosition(-0.45f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
 			break;
 		}
 		case PartScript::GRIP:
 		{
 			m_GripParts.push_back(part);
-			part->TRANS->SetRelativePosition((-1.0 * m_GripParts.size()), 0, 0);
+			part->TRANS->SetRelativePosition((-1.0f * m_GripParts.size()), 0, 0);
 			break;
 		}
 		default:
@@ -203,7 +204,42 @@ void WeaponScript::AddPart(GameObject* part)
 		//Update parts after attaching a part
 		UpdateStats(part, true);
 	}
+	else if(part->PART->GetPartType() == PartScript::MISC)
+	{
+		switch (part->PART->GetSlotType())
+		{
+		case PartScript::SCOPE:
+		{
+			m_ScopeParts.push_back(part);
+			part->TRANS->SetRelativePosition(0.5f * m_ScopeParts.size(), 0.5f, 0.f);
+			break;
+		}
+		case PartScript::MUZZLE:
+		{
+			m_MuzzleParts.push_back(part);
+			part->TRANS->SetRelativePosition(1.f * m_MuzzleParts.size(), 0, 0);
+
+			break;
+		}
+		case PartScript::CLIP:
+		{
+			m_StockParts.push_back(part);
+			part->TRANS->SetRelativePosition(-0.35f + (0.15f * m_StockParts.size()), -0.5f * m_StockParts.size(), 0);
+			break;
+		}
+		case PartScript::GRIP:
+		{
+			m_GripParts.push_back(part);
+			part->TRANS->SetRelativePosition((-1.0f * m_GripParts.size()), 0, 0);
+			break;
+		}
+		default:
+			break;
+		}
+		part->MISCPART->Effect();
+	}
 }
+
 
 void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* target)
 {
@@ -211,13 +247,15 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 	while (m_vector.size() > 0)
 	{
 		GameObject* go = static_cast<GameObject*>(*it);
-
+		PartScript::PART_TYPE type = go->PART->GetPartType();
+		
 		if (target == go)
 		{
-			UpdateStats(go, false);
 
-			//Temporary fix, Destroy function does not destroy child of gun
-			go->RENDER->SetActive(false);
+			if (type == PartScript::PART_TYPE::WEAPON)
+				UpdateStats(go, false);
+			else
+				go->MISCPART->RevertEffect();
 
 			Destroy(go);
 			m_vector.pop_back();
@@ -226,10 +264,11 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 		else
 		{
 			--it;
-			UpdateStats(go, false);
-
-			//Temporary fix, Destroy function does not destroy child of gun
-			go->RENDER->SetActive(false);
+			
+			if (type == PartScript::PART_TYPE::WEAPON)
+				UpdateStats(go, false);
+			else
+				go->MISCPART->RevertEffect();
 
 			Destroy(go);
 			m_vector.pop_back();
@@ -252,6 +291,42 @@ void WeaponScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const
 	}
 }
 
+
+void WeaponScript::SetAmmo(int Ammo)
+{
+	m_iAmmo = Ammo;
+}
+
+void WeaponScript::SetMaxAmmo(int Ammo_Max)
+{
+	m_iAmmo_Max = Ammo_Max;
+}
+
+void WeaponScript::SetBulletsFired(int BulletsFired)
+{
+	m_iBulletsFiredCount = BulletsFired;
+}
+
+void WeaponScript::SetMagazineRounds(int MagRounds)
+{
+	m_iMagazineRounds = MagRounds;
+}
+
+void WeaponScript::SetMaxMagazineRounds(int MagRounds_Max)
+{
+	m_iMagazineRounds_Max = MagRounds_Max;
+}
+
+void WeaponScript::SetFireRate(float FireRate)
+{
+	m_fFirerate = FireRate;
+}
+
+void WeaponScript::SetBulletSpread(float BulletSpread)
+{
+	m_fBulletSpread = BulletSpread;
+}
+
 int WeaponScript::GetAmmo()
 {
 	return m_iAmmo;
@@ -262,6 +337,11 @@ int WeaponScript::GetMaxAmmo()
 	return m_iAmmo_Max;
 }
 
+int WeaponScript::GetBulletsFired()
+{
+	return m_iBulletsFiredCount;
+}
+
 int WeaponScript::GetMagazineRounds()
 {
 	return m_iMagazineRounds;
@@ -270,4 +350,14 @@ int WeaponScript::GetMagazineRounds()
 int WeaponScript::GetMaxMagazineRounds()
 {
 	return m_iMagazineRounds_Max;
+}
+
+float WeaponScript::GetFireRate()
+{
+	return m_fFirerate;
+}
+
+float WeaponScript::GetBulletSpread()
+{
+	return m_fBulletSpread;
 }

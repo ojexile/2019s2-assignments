@@ -167,6 +167,7 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EntityValues.cpp" />
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
@@ -181,6 +182,8 @@
     <ClCompile Include="Source\CollisionManager.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
+    <ClCompile Include="Source\ConcreteMiscParts\HealthRegenPart.cpp" />
+    <ClCompile Include="Source\ConcreteMiscParts\StaminaRegenPart.cpp" />
     <ClCompile Include="Source\Constrain.cpp" />
     <ClCompile Include="Source\CrouchingState.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
@@ -218,6 +221,7 @@
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
     <ClCompile Include="Source\Message.cpp" />
+    <ClCompile Include="Source\MiscellaneousPartScript.cpp" />
     <ClCompile Include="Source\MouseManager.cpp" />
     <ClCompile Include="Source\ObserverBase.cpp" />
     <ClCompile Include="Source\ObserverComponent.cpp" />
@@ -243,6 +247,7 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SprintingState.cpp" />
     <ClCompile Include="Source\StandingState.cpp" />
+    <ClCompile Include="Source\Stats.cpp" />
     <ClCompile Include="Source\StopWatch.cpp" />
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TopDownState.cpp" />
@@ -269,6 +274,8 @@
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
+    <ClInclude Include="Source\ConcreteMiscParts\HealthRegenPart.h" />
+    <ClInclude Include="Source\ConcreteMiscParts\StaminaRegenPart.h" />
     <ClInclude Include="Source\Constrain.h" />
     <ClInclude Include="Source\CrouchingState.h" />
     <ClInclude Include="Source\DataContainer.h" />
@@ -277,6 +284,7 @@
     <ClInclude Include="Source\DestructibleEntityScript.h" />
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\EntityScript.h" />
+    <ClInclude Include="Source\EntityValues.h" />
     <ClInclude Include="Source\FoilageGeneratorComponent.h" />
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />
@@ -308,6 +316,7 @@
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MeshController.h" />
     <ClInclude Include="Source\Message.h" />
+    <ClInclude Include="Source\MiscellaneousPartScript.h" />
     <ClInclude Include="Source\MouseManager.h" />
     <ClInclude Include="Source\ObserverBase.h" />
     <ClInclude Include="Source\ObserverComponent.h" />
@@ -336,6 +345,7 @@
     <ClInclude Include="Source\Singleton.h" />
     <ClInclude Include="Source\SprintingState.h" />
     <ClInclude Include="Source\StandingState.h" />
+    <ClInclude Include="Source\Stats.h" />
     <ClInclude Include="Source\StopWatch.h" />
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\TopDownState.h" />

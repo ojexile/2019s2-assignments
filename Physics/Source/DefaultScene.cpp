@@ -12,6 +12,7 @@
 #include "InventoryScript.h"
 #include "WeaponScript.h"
 #include "PlayerStatsScript.h"
+#include "MiscellaneousPartScript.h"
 #include "ReticleScript.h"
 #include "ParticleObserver.h"
 DefaultScene::DefaultScene()
@@ -111,7 +112,7 @@ void DefaultScene::Init()
 	ret->AddComponent(new ReticleScript());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
-	Gun->TRANS->SetRelativePosition(1, 1, 0);
+	Gun->TRANS->SetRelativePosition(1, 1, 1);
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
@@ -147,10 +148,21 @@ void DefaultScene::Init()
 	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
 	go->TRANS->SetPosition(20, 18.5, 26);
-	go = dataContainer->GetGameObject("Grip");
+
+	go = dataContainer->GetGameObject("Clip");
 	go->TRANS->SetScale(3);
 	Gun->AddChild(go);
-	Gun->GUN->AddPart(go);
+	Gun->GUN->EquipPart(go);
+	//go = dataContainer->GetGameObject("Stamina");
+
+	//go->MISCPART->SetPlayerReference(Player->GetComponent<PlayerStatsScript>());
+	//go->MISCPART->SetGunReference(Gun);
+	//
+	//go->TRANS->SetScale(3);
+	//go->PART->SetSlotType(PartScript::SLOT_TYPE::CLIP);
+	//
+	//Gun->AddChild(go);
+	//Gun->GUN->EquipPart(go);
 	/// WORLD================================================================================
 	BiomeComponent::eBiomeTypes type = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
@@ -174,7 +186,7 @@ void DefaultScene::Init()
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
-	go->GetComponent<EntityScript>()->SetHealth(1.f);
+	go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	go->TRANS->SetPosition(20, 18.5, 20);
 
@@ -188,5 +200,7 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
 	go->RENDER->Set3DBillboard(true);
 	go->RENDER->SetColor(0, 1, 1);
-
+=========
+	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg");
+>>>>>>>>> Temporary merge branch 2
 }

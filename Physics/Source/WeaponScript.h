@@ -23,7 +23,7 @@ public:
 		AUTO
 	};
 
-	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 1.0f, float fBulletSpread = 1.f, float fBulletForce = 10.f, FIRING_MODE FiringMode = AUTO);
+	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 1.0f, float fBulletSpread = 1.f, float fBulletForce = 40.f, FIRING_MODE FiringMode = AUTO);
 	~WeaponScript();
 
 	//Interface Functions
@@ -33,13 +33,23 @@ public:
 	void Update(double deltaTime) override;
 	void UpdateStats(GameObject* go, bool Multiply);
 
-	void AddPart(GameObject* part);
+	void EquipPart(GameObject* part);
+
+	void SetAmmo(int Ammo);
+	void SetMaxAmmo(int Ammo_Max);
+	void SetBulletsFired(int BulletsFired);
+	void SetMagazineRounds(int MagRounds);
+	void SetMaxMagazineRounds(int MagRounds_Max);
+	void SetFireRate(float FireRate);
+	void SetBulletSpread(float BulletSpread);
 
 	int GetAmmo();
 	int GetMaxAmmo();
-
+	int GetBulletsFired();
 	int GetMagazineRounds();
 	int GetMaxMagazineRounds();
+	float GetFireRate();
+	float GetBulletSpread();
 
 	virtual Component* Clone() { return new WeaponScript(*this); }
 

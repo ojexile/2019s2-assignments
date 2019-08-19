@@ -1,5 +1,6 @@
 #pragma once
 #include "PartScript.h"
+
 class WeaponPartScript : public PartScript
 {
 public:
