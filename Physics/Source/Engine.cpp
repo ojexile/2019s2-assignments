@@ -28,6 +28,7 @@ void Engine::Init()
 {
 	DataContainer::GetInstance()->Init();
 	AudioManager* audio = AudioManager::GetInstance();
+	audio->Play3D("pop.wav", {});
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
@@ -77,10 +78,13 @@ void Engine::Update(double dt)
 	Scene* CurrentScene = SceneManager->GetScene();
 	// Update time
 	Time::GetInstance()->Update(dt);
+	StopWatch sMain(true);
+	StopWatch s(true);
 	// Update gameobject here
 	GameObjectManager* GOM = CurrentScene->GetGameObjectManager();
 	std::vector<GameObject*> GOObserverList;
 	std::map<std::string, LayerData*>::iterator it;
+	int counter = 0;
 	for (it = GOM->GetLayerList()->begin(); it != GOM->GetLayerList()->end(); it++)
 	{
 		// it->first == key
@@ -96,22 +100,29 @@ void Engine::Update(double dt)
 			}
 			if (!go->IsActive())
 				continue;
+			StopWatch s(true);
 			go->Update(dt);
+			if (s.Stop()->GetTime() > 0.01f)
+				CHENG_LOG("GO update longer than 0.01s: ", STOP_S);
 			CheckGOForObserver(go, &GOObserverList);
+			counter++;
 		}
 	}
-	//Update coll-------------------------------------------------------------------------------
-	StopWatch sw(true);
+	CHENG_LOG("Time to update: ", STOP_S);
+	//Update coll--------------------------------------------------------------------------------
+	s.Reset();
 	m_CollisionManager.Update(CurrentScene->GetGameObjectManager());
-	sw.Stop();
-	KZ_LOG("[Collision_Time_2]", " CollisionManager.Update() took " + sw.GetSTime() + "s");
+	CHENG_LOG("Time to check collision: ", STOP_S);
 	// Update Observers
 	GenericSubject::GetInstance()->NotifyObservers(&GOObserverList);
 	// Remove to be destroyed--------------------------------------------------------------------------------
 	GOM->DestroyQueued();
 	//--------------------------------------------------------------------------------
+	s.Reset();
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
+	CHENG_LOG("Time to render: ", STOP_S);
+	CHENG_LOG("Time for loop: ", sMain.Stop()->GetSTime());
 	// Log================================================================================
 	m_fLogUpdateTimer += (float)dt;
 	float fLogUpdateRate = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));

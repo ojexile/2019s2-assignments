@@ -195,12 +195,13 @@ void RenderingManagerBase::Update(double dt)
 	m_fElapsedTime += (float)dt;
 }
 
-void RenderingManagerBase::RenderText(RenderComponent* rc, std::string text, Color color)
+void RenderingManagerBase::RenderText(RenderComponent* rc)
 {
 	Mesh* mesh = rc->GetMesh();
 	if (!mesh || mesh->m_uTextureArray[0] <= 0)
 		return;
-
+	std::string text = rc->GetText();
+	Color color = rc->GetMaterial().kAmbient;
 	glDisable(GL_DEPTH_TEST);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);

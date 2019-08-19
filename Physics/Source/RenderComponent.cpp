@@ -8,7 +8,9 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 	m_MeshBiomed = nullptr;
 	m_bLightEnabled = true;
 	m_bBillboard = false;
+	m_b3DBillboard = false;
 	m_bIsText = false;
+	m_bTextOnScreen = false;
 }
 RenderComponent::RenderComponent(MeshBiomed * meshBiomed)
 	:m_MeshBiomed(meshBiomed)
@@ -18,10 +20,11 @@ RenderComponent::RenderComponent(MeshBiomed * meshBiomed)
 	m_AnimatedMesh = nullptr;
 	m_bLightEnabled = true;
 	m_bBillboard = false;
+	m_b3DBillboard = false;
 	m_bIsText = false;
-
+	m_bTextOnScreen = false;
 }
-RenderComponent::RenderComponent(Mesh* Mesh, std::string sText)
+RenderComponent::RenderComponent(Mesh* Mesh, std::string sText, bool OnScreen)
 	:m_Mesh(Mesh)
 {
 	m_fRenderDistance = 1000000;
@@ -30,7 +33,9 @@ RenderComponent::RenderComponent(Mesh* Mesh, std::string sText)
 	m_MeshBiomed = nullptr;
 	m_bLightEnabled = false;
 	m_bBillboard = false;
+	m_b3DBillboard = false;
 	m_bIsText = true;
+	m_bTextOnScreen = OnScreen;
 }
 RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 	: m_AnimatedMesh(Mesh)
@@ -41,7 +46,9 @@ RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 
 	m_bLightEnabled = false;	// Transparency doesn't work with light enabled
 	m_bBillboard = false;
+	m_b3DBillboard = false;
 	m_bIsText = false;
+	m_bTextOnScreen = false;
 }
 RenderComponent::RenderComponent(RenderComponent& ref)
 {
@@ -64,7 +71,9 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 	m_bBillboard = ref.m_bBillboard;
 	m_bIsText = ref.m_bIsText;
 	m_sText = ref.m_sText;
+	m_b3DBillboard = ref.m_b3DBillboard;
 	this->m_Material = ref.m_Material;
+	m_bTextOnScreen = ref.m_bTextOnScreen;
 }
 
 float RenderComponent::GetRenderDistance()
@@ -119,6 +128,14 @@ bool RenderComponent::IsBillboard()
 {
 	return m_bBillboard;
 }
+void RenderComponent::Set3DBillboard(bool b)
+{
+	m_b3DBillboard = b;
+}
+bool RenderComponent::Is3DBillboard()
+{
+	return m_b3DBillboard;
+}
 void RenderComponent::SetColor(Vector3 color)
 {
 	if (m_Mesh)
@@ -165,4 +182,8 @@ std::string RenderComponent::GetText()
 void RenderComponent::SetText(std::string s)
 {
 	m_sText = s;
+}
+bool RenderComponent::IsTextOnScreen()
+{
+	return m_bTextOnScreen;
 }
