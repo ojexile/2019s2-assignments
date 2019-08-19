@@ -147,7 +147,7 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
 }
-void  DataContainer::InitTerrain()
+void DataContainer::InitTerrain()
 {
 	/// Terrain================================================================================
 	// Plains--------------------------------------------------------------------------------
@@ -155,7 +155,7 @@ void  DataContainer::InitTerrain()
 		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS);
 	//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 }
-void  DataContainer::InitGO()
+void DataContainer::InitGO()
 {
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
