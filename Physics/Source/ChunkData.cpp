@@ -37,17 +37,12 @@ ChunkData::ChunkData(const std::string fileName)
 	{
 		m_validBiomes[static_cast<BiomeComponent::eBiomeTypes>(fgetc(file))] = true;
 	}
-	j = fgetc(file);
-	for (int i = 0; i < j; ++i)
-	{
-		int k = fgetc(file);
-		int l = fgetc(file);
-		m_events.push_back(k << 8 | l);
-	}
+	m_event = new ChunkEvent(this);
 }
 
 ChunkData::~ChunkData()
 {
+
 }
 
 bool ChunkData::IsSolid(Vector3 pos)
@@ -118,4 +113,9 @@ Vector3 ChunkData::GetGroundPosition(Vector3 in)
 	{
 		if (!IsSolid(Vector3(in.x, i, in.z))) return Vector3(in.x, i, in.z);
 	}
+}
+
+ChunkEvent* ChunkData::GetEvent()
+{
+	return m_event;
 }

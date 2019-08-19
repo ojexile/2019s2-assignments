@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "DataContainer.h"
 #include "ChunkCollider.h"
+#include "ChunkEvent.h"
 
 MapSpawningScript::MapSpawningScript()
 {
@@ -67,7 +68,7 @@ void MapSpawningScript::Update(double dt)
 					m_connections[Vector3(offsetX + xDiff - 1, 0, offsetZ + zDiff)][2] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 0);
 					m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff - 1)][3] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 1);
 				}
-			
+			chunk->GetEvent()->GenerateEvent();
 		}
 	}
 }

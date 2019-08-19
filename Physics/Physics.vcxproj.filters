@@ -104,6 +104,7 @@
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\Stats.cpp" />
     <ClCompile Include="EntityValues.cpp" />
+    <ClCompile Include="Source\ChunkEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Source\ConcreteMiscParts\StaminaRegenPart.h" />
     <ClInclude Include="Source\Stats.h" />
     <ClInclude Include="Source\EntityValues.h" />
+    <ClInclude Include="Source\ChunkEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

@@ -1,0 +1,39 @@
+#pragma once
+
+/********************************************************************************/
+/*!
+\author Ryan Tan Zheng Rong
+\brief
+ Objects associated with chunks to generate random events & entities on the world
+/*!
+/********************************************************************************/
+
+class ChunkData;
+
+class ChunkEvent
+{
+public:
+
+	enum EVENT_TYPE
+	{
+		NIL = 0,
+		ENEMIES,
+		LOOT_CHEST,
+		LOOT_AND_ENEMIES,
+	};
+
+	ChunkEvent(ChunkData* chunk);
+	~ChunkEvent();
+
+	void SetChunkRef(ChunkData* chunk);
+	void SetEntityRef(GameObject* go);
+
+	void GenerateEvent();
+	//void GenerateEntities();
+
+private:
+	EVENT_TYPE m_eventType;
+	ChunkData* m_chunkRef;
+	GameObject* m_BaseEntityRef;
+};
+

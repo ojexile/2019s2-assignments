@@ -173,6 +173,7 @@
     <ClCompile Include="Source\CameraScript.cpp" />
     <ClCompile Include="Source\ChunkCollider.cpp" />
     <ClCompile Include="Source\ChunkData.cpp" />
+    <ClCompile Include="Source\ChunkEvent.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
@@ -264,6 +265,7 @@
     <ClInclude Include="Source\CameraScript.h" />
     <ClInclude Include="Source\ChunkCollider.h" />
     <ClInclude Include="Source\ChunkData.h" />
+    <ClInclude Include="Source\ChunkEvent.h" />
     <ClInclude Include="Source\CollisionManager.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentBase.h" />
