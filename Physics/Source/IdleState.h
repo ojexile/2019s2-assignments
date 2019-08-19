@@ -1,16 +1,16 @@
 #pragma once
 #include "AIState.h"
 #include "StopWatch.h"
-class WanderState :
+class IdleState :
 	public AIState
 {
 private:
 	StopWatch m_SW;
 	float m_fTime;
-	Vector3 m_vDir;
 public:
-	WanderState();
-	virtual ~WanderState();
+	IdleState();
+	virtual ~IdleState();
+
 
 	virtual State* HandleState(ComponentBase* com) override;
 	virtual void OnEnter(ComponentBase* com) override;

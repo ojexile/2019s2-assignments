@@ -196,6 +196,7 @@
     <ClCompile Include="Source\GenericSubject.cpp" />
     <ClCompile Include="Source\GrenadeScript.cpp" />
     <ClCompile Include="Source\HeightMapData.cpp" />
+    <ClCompile Include="Source\IdleState.cpp" />
     <ClCompile Include="Source\InputBinding.cpp" />
     <ClCompile Include="Source\InputManager.cpp" />
     <ClCompile Include="Source\InteractableObCom.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="Source\GenericSubject.h" />
     <ClInclude Include="Source\GrenadeScript.h" />
     <ClInclude Include="Source\HeightMapData.h" />
+    <ClInclude Include="Source\IdleState.h" />
     <ClInclude Include="Source\InputBinding.h" />
     <ClInclude Include="Source\InputDeviceManager.h" />
     <ClInclude Include="Source\InputManager.h" />

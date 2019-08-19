@@ -110,6 +110,7 @@
     <ClCompile Include="Source\MovementCommand.cpp" />
     <ClCompile Include="Source\AIState.cpp" />
     <ClCompile Include="Source\WanderState.cpp" />
+    <ClCompile Include="Source\IdleState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Source\MovementCommand.h" />
     <ClInclude Include="Source\AIState.h" />
     <ClInclude Include="Source\WanderState.h" />
+    <ClInclude Include="Source\IdleState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
