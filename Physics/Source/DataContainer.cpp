@@ -141,6 +141,8 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", { 1,1,1 }, 1.f);
+
+	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
 }
 void  DataContainer::InitTerrain()
 {
@@ -228,7 +230,7 @@ void  DataContainer::InitGO()
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy")));
 	go->AddComponent(new LootScript());
