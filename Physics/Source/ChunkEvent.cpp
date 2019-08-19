@@ -30,7 +30,7 @@ void ChunkEvent::SetEntityRef(GameObject* go)
 
 void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, Vector3 Chunk_Pos)
 {
-	m_eventType = ENEMIES/*static_cast<EVENT_TYPE>(Math::RandIntMinMax(NIL, LOOT_AND_ENEMIES))*/;
+	m_eventType =static_cast<EVENT_TYPE>(Math::RandIntMinMax(NIL, LOOT_AND_ENEMIES));
 	
 	Vector3 size = m_chunkRef->GetSize();
 
@@ -68,11 +68,11 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, Vector3 Chunk_Pos)
 	}
 	case LOOT_AND_ENEMIES:
 	{
-		unsigned int spawnCount = 5;
-		for (unsigned int i = 0; i < spawnCount; ++i)
-		{
-			GameObject* newEntity = m_BaseEntityRef->Clone();
-		}
+		//unsigned int spawnCount = 5;
+		//for (unsigned int i = 0; i < spawnCount; ++i)
+		//{
+		//	GameObject* newEntity = m_BaseEntityRef->Clone();
+		//}
 		break;
 	}
 	}
