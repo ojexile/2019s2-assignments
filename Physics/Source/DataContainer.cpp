@@ -105,7 +105,7 @@ void DataContainer::InitMeshes()
 		->AddTexture("plaintree", BiomeComponent::BIOME_PLAINS)
 		->AddTexture("snowtree", BiomeComponent::BIOME_SNOW);
 
-	m_map_Meshes["Revolver"] = MeshBuilder::GenerateOBJ("revolver")->AddTexture("Revolver");
+	m_map_Meshes["Gun"] = MeshBuilder::GenerateOBJ("gun")->AddTexture("Revolver");
 
 	m_map_Meshes["Grenade"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
@@ -137,7 +137,7 @@ void  DataContainer::InitGO()
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
-	go->TRANS->SetScale(0.5f);
+	go->TRANS->SetScale(0.1f);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.01f);
@@ -182,7 +182,7 @@ void  DataContainer::InitGO()
 	// Gun--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Gun"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Revolver")));
+	go->AddComponent(new RenderComponent(GetMesh("Gun")));
 	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
 	// Grenade----------------------------------------------------------------------------
 	go = new GameObject;

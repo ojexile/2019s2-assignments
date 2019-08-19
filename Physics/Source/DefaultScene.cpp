@@ -102,7 +102,7 @@ void DefaultScene::Init()
 	ret->AddComponent(new ReticleScript());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
-	Gun->TRANS->SetRelativePosition(1, 1, 0);
+	Gun->TRANS->SetRelativePosition(1, 1, 1);
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
@@ -142,16 +142,16 @@ void DefaultScene::Init()
 	//go->TRANS->SetScale(3);
 	//Gun->AddChild(go);
 	//Gun->GUN->AddPart(go);
-	go = dataContainer->GetGameObject("Stamina");
+	//go = dataContainer->GetGameObject("Stamina");
 
-	go->MISCPART->SetPlayerReference(Player->GetComponent<PlayerStatsScript>());
-	go->MISCPART->SetGunReference(Gun);
-	
-	go->TRANS->SetScale(3);
-	go->PART->SetSlotType(PartScript::SLOT_TYPE::CLIP);
-	
-	Gun->AddChild(go);
-	Gun->GUN->EquipPart(go);
+	//go->MISCPART->SetPlayerReference(Player->GetComponent<PlayerStatsScript>());
+	//go->MISCPART->SetGunReference(Gun);
+	//
+	//go->TRANS->SetScale(3);
+	//go->PART->SetSlotType(PartScript::SLOT_TYPE::CLIP);
+	//
+	//Gun->AddChild(go);
+	//Gun->GUN->EquipPart(go);
 	/// WORLD================================================================================
 	BiomeComponent::eBiomeTypes type = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
 	BiomeComponent::eBiomeTypes type2 = static_cast<BiomeComponent::eBiomeTypes>(Math::RandInt() % BiomeComponent::BIOME_COUNT);
