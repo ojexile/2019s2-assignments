@@ -7,6 +7,9 @@ Stats::Stats()
 	m_fStaminaMax = 100;
 	m_fMaxMovementSpeed = 30;
 	m_fMovementForce = 40;
+	m_fJumpForce = 3000;
+
+	m_fDetectionRadius = 20;
 }
 
 Stats::~Stats()
@@ -20,6 +23,7 @@ void Stats::SetZero()
 	m_fStaminaMax = 0;
 	m_fMaxMovementSpeed = 0;
 	m_fMovementForce = 0;
+	m_fJumpForce = 0;
 }
 void Stats::SetOne()
 {
@@ -28,6 +32,7 @@ void Stats::SetOne()
 	m_fStaminaMax = 1;
 	m_fMaxMovementSpeed = 1;
 	m_fMovementForce = 1;
+	m_fJumpForce = 1;
 }
 
 void Stats::SetMaxHealth(int i)

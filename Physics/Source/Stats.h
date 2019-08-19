@@ -11,6 +11,9 @@ private:
 	// movement
 	float m_fMaxMovementSpeed;
 	float m_fMovementForce;
+	float m_fJumpForce;
+
+	float m_fDetectionRadius;
 public:
 	Stats();
 	~Stats();

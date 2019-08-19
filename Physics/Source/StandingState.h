@@ -15,6 +15,7 @@ public:
 	StandingState();
 	virtual ~StandingState();
 
-	virtual PlayerState* HandleInput(ComponentBase* com, double dt) override;
+	virtual State* HandleState(ComponentBase* com) override;
 	virtual void OnEnter(ComponentBase* com) override;
+	virtual void OnExit(ComponentBase* com) override;
 };

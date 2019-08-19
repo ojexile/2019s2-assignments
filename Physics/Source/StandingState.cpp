@@ -6,6 +6,7 @@
 #include "PlayerStatsScript.h"
 #include "TopDownState.h"
 #include "CameraScript.h"
+#include "Time.h"
 StandingState::StandingState()
 {
 	m_fBaseAccel = 300;
@@ -19,8 +20,10 @@ StandingState::~StandingState()
 {
 }
 
-PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
+State* StandingState::HandleState(ComponentBase* com)
 {
+	float dt = Time::GetInstance()->GetDeltaTimeF();
+
 	// Sprint
 	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint"))
 	{
@@ -39,7 +42,6 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 	// Crouch
 	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
 	{
-		// return new CrouchingState; /// Disabled until key trigger is added
 		com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
 	}
 	if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint") && !InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
@@ -63,8 +65,34 @@ PlayerState* StandingState::HandleInput(ComponentBase* com, double dt)
 	{
 		return new TopDownState;
 	}
-	// Jump
-	// TODO:
+	Rigidbody* rb = com->GetComponent<Rigidbody>();
+	// Movement
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
+	{
+
+		com->GetComponent<EntityScript>()->Move(CameraScript::GetFront());
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
+	{
+		com->GetComponent<EntityScript>()->Move(-CameraScript::GetFront());
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
+	{
+		com->GetComponent<EntityScript>()->Move(-CameraScript::GetRight());
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
+	{
+		com->GetComponent<EntityScript>()->Move(CameraScript::GetRight());
+	}
+
+	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
+	{
+		com->GetComponent<EntityScript>()->Jump();
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerInteract") != 0)
+	{
+		com->Notify(com, "Interact");
+	}
 
 	//SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetRelativePosition(Vector3{ 100,100,100 });
 	return nullptr;
@@ -74,4 +102,8 @@ void StandingState::OnEnter(ComponentBase* com)
 	// SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->TRANS->SetPosition(0,100,0);
 	CameraScript::SetTopDown(false);
 	com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(0, 0);
+}
+
+void StandingState::OnExit(ComponentBase * com)
+{
 }

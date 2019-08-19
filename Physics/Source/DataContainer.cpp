@@ -20,6 +20,8 @@
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
+//States
+#include "StandingState.h"
 #include <time.h>
 DataContainer::DataContainer()
 {
@@ -37,6 +39,7 @@ void DataContainer::Init()
 	InitTextures();
 	InitMeshes();
 	InitTerrain();
+	InitBehaviour();
 	InitGO();
 	InitChunks();
 	InitShaders();
@@ -268,6 +271,10 @@ void  DataContainer::InitShaders()
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 }
+void DataContainer::InitBehaviour()
+{
+	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
+}
 DataContainer::~DataContainer()
 {
 	std::map<std::string, Mesh*>::iterator it;
@@ -357,6 +364,13 @@ ChunkData* DataContainer::GetChunk(std::string key)
 		return nullptr;
 	}
 	return m_map_Chunks[key];
+}
+Behaviour * DataContainer::GetBehaviour(std::string key)
+{
+	if (m_map_Behaviour.count(key) <= 0)
+		DEFAULT_LOG("ERROR: Behaviour not found of name: " + key);
+	Behaviour* beheviour = new Behaviour(*m_map_Behaviour[key]);
+	return beheviour;
 }
 unsigned DataContainer::GetTexture(std::string key)
 {
