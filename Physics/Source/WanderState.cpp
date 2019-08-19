@@ -3,7 +3,6 @@
 #include "IdleState.h"
 #include "SceneManager.h"
 
-
 #define MIN_TIME 1
 #define MAX_TIME 5
 
@@ -13,7 +12,6 @@ WanderState::WanderState(State* Combat)
 	m_fTime = 0;
 }
 
-
 WanderState::~WanderState()
 {
 }
@@ -21,8 +19,7 @@ WanderState::~WanderState()
 State * WanderState::HandleState(ComponentBase * com)
 {
 	// Check for player
-	Vector3 PlayerPos = SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition();
-	if ((PlayerPos - com->TRANS->GetPosition()).Length() < 16)
+	if (PlayerInRange(com))
 		return m_Combat;
 	if (m_SW.Stop()->GetTime() < m_fTime)
 	{

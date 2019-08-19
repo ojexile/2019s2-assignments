@@ -6,22 +6,19 @@ MeleeCombatState::MeleeCombatState()
 {
 }
 
-
 MeleeCombatState::~MeleeCombatState()
 {
 }
 
 State * MeleeCombatState::HandleState(ComponentBase * com)
 {
-	m_Player = SceneManager::GetInstance()->GetScene()->GetPlayer();
-	Vector3 Dir = m_Player->TRANS->GetPosition() - com->TRANS->GetPosition();
+	Vector3 Dir = DirToPlayer(com);
 	com->GetComponent<EntityScript>()->RotateTowards(Dir);
 	com->GetComponent<EntityScript>()->MoveForwards();
-	Vector3 PlayerPos = SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition();
-	if ((PlayerPos - com->TRANS->GetPosition()).Length() < 3)
+	float meleeRange = 2;
+	if (PlayerInRange(com, meleeRange))
 	{
-		m_Player->GetComponent<EntityScript>()->Damage(10);
-		m_Player->GetComponent<Rigidbody>()->AddForce(Dir * 500);
+		DamagePlayer(5, 300, Dir);
 	}
 	CHENG_LOG("Melee");
 	return this;

@@ -38,7 +38,7 @@ void ReticleScript::Update(double dt)
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	// get chunks
 	std::vector<GameObject*> ChunkList;
-	float fDist = 100;
+	float fDist = 10;
 	std::vector<GameObject*>* GOList = GOM->GetLayerList()->at("Default")->GetGOList();
 	for (unsigned i = 0; i < GOList->size(); ++i)
 	{

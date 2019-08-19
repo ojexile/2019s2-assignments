@@ -9,7 +9,7 @@ Stats::Stats()
 	m_fMovementForce = 40;
 	m_fJumpForce = 3000;
 
-	m_fDetectionRadius = 20;
+	m_fDetectionRadius = 4;
 }
 
 Stats::~Stats()
@@ -69,6 +69,11 @@ void Stats::SetMovement(float max, float force)
 void Stats::AffectStaminaRegenRate(float f)
 {
 	m_fStaminaRegenRate *= f;
+}
+
+float Stats::GetDetectionRadius() const
+{
+	return m_fDetectionRadius;
 }
 
 void Stats::AffectMaxStamina(float f)
