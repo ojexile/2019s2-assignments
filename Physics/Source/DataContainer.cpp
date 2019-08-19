@@ -23,7 +23,11 @@
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
-#include <time.h>
+//States
+#include "StandingState.h"
+#include "IdleState.h"
+#include "MeleeCombatState.h"
+
 DataContainer::DataContainer()
 {
 	m_bInitialsed = false;
@@ -40,6 +44,7 @@ void DataContainer::Init()
 	InitTextures();
 	InitMeshes();
 	InitTerrain();
+	InitBehaviour();
 	InitGO();
 	InitChunks();
 	InitShaders();
@@ -82,6 +87,11 @@ void DataContainer::InitTextures()
 	m_map_Textures["Colors"] = LoadTGA("colors");
 	m_map_Textures["snow"] = LoadTGA("snow");
 	m_map_Textures["beachy"] = LoadTGA("beachy");
+	m_map_Textures["gb"] = LoadTGA("gameboy");
+	m_map_Textures["crimson"] = LoadTGA("crimson");
+	m_map_Textures["void"] = LoadTGA("void");
+	m_map_Textures["gray"] = LoadTGA("gray");
+	m_map_Textures["mesa"] = LoadTGA("mesa");
 	m_map_Textures["Ball"] = LoadTGA("Ball");
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
@@ -164,8 +174,8 @@ void  DataContainer::InitGO()
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->RIGID->SetMass(0.01f);
-	go->RIGID->SetMat(1, 1);
+	go->RIGID->SetMass(0.005f);
+	go->RIGID->SetMat(0.9f, 1);
 	go->AddComponent(new ProjectileScript(1.0, 100.0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
@@ -222,15 +232,12 @@ void  DataContainer::InitGO()
 	m_map_GO["Loot"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	//go->RENDER->SetActive(false);
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
-	go->TRANS->SetScale(1.f);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetMat(0.9f, 0);
-	go->AddComponent(new EntityScript());
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy")));
 	go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
@@ -284,7 +291,6 @@ void  DataContainer::InitGO()
 	m_map_GO["plaintree"] = go;
 	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
 	go->AddComponent(new InteractableObCom());
 	static_cast<FlipEntityScript*>(
@@ -326,6 +332,11 @@ void  DataContainer::InitShaders()
 {
 	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
+}
+void DataContainer::InitBehaviour()
+{
+	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
+	m_map_Behaviour["MeleeEnemy"] = new Behaviour(new IdleState(new MeleeCombatState));
 }
 DataContainer::~DataContainer()
 {
@@ -416,6 +427,13 @@ ChunkData* DataContainer::GetChunk(std::string key)
 		return nullptr;
 	}
 	return m_map_Chunks[key];
+}
+Behaviour * DataContainer::GetBehaviour(std::string key)
+{
+	if (m_map_Behaviour.count(key) <= 0)
+		DEFAULT_LOG("ERROR: Behaviour not found of name: " + key);
+	Behaviour* beheviour = new Behaviour(*m_map_Behaviour[key]);
+	return beheviour;
 }
 unsigned DataContainer::GetTexture(std::string key)
 {

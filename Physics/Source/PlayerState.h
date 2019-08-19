@@ -1,12 +1,14 @@
 #pragma once
 #include "GameObject.h"
-class PlayerState
+#include "State.h"
+class PlayerState : public State
 {
 private:
 public:
 	PlayerState();
 	virtual ~PlayerState();
 
-	virtual PlayerState* HandleInput(ComponentBase* com, double dt) = 0;
+	virtual State* HandleState(ComponentBase* com) = 0;
 	virtual void OnEnter(ComponentBase* com) = 0;
+	virtual void OnExit(ComponentBase* com) = 0;
 };

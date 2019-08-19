@@ -33,6 +33,10 @@ GameObject* Scene::GetGO(std::string s)
 {
 	return DataContainer::GetInstance()->GetGameObject(s);
 }
+GameObject * Scene::GetPlayer()
+{
+	return m_Player;
+}
 bool Scene::GetCursorEnabled()
 {
 	return m_bCursorEnabled;

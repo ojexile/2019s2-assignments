@@ -167,11 +167,12 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EntityValues.cpp" />
+    <ClCompile Include="Source\AIState.cpp" />
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
     <ClCompile Include="Source\AudioObserver.cpp" />
+    <ClCompile Include="Source\Behaviour.cpp" />
     <ClCompile Include="Source\BiomeComponent.cpp" />
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Source\ChunkData.cpp" />
     <ClCompile Include="Source\ChunkEvent.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
+    <ClCompile Include="Source\Command.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\ConcreteMiscParts\HealthRegenPart.cpp" />
@@ -193,6 +195,7 @@
     <ClCompile Include="Source\DestructibleEntityScript.cpp" />
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
+    <ClCompile Include="Source\EntityValues.cpp" />
     <ClCompile Include="Source\FlipEntityScript.cpp" />
     <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
     <ClCompile Include="Source\FPSScript.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="Source\GenericSubject.cpp" />
     <ClCompile Include="Source\GrenadeScript.cpp" />
     <ClCompile Include="Source\HeightMapData.cpp" />
+    <ClCompile Include="Source\IdleState.cpp" />
     <ClCompile Include="Source\InputBinding.cpp" />
     <ClCompile Include="Source\InputManager.cpp" />
     <ClCompile Include="Source\InstantiateOnDeathScript.cpp" />
@@ -220,6 +224,7 @@
     <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MapSpawningScript.cpp" />
+    <ClCompile Include="Source\MeleeCombatState.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBiomed.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
@@ -227,6 +232,7 @@
     <ClCompile Include="Source\Message.cpp" />
     <ClCompile Include="Source\MiscellaneousPartScript.cpp" />
     <ClCompile Include="Source\MouseManager.cpp" />
+    <ClCompile Include="Source\MovementCommand.cpp" />
     <ClCompile Include="Source\ObserverBase.cpp" />
     <ClCompile Include="Source\ObserverComponent.cpp" />
     <ClCompile Include="Source\ParticleObserver.cpp" />
@@ -252,6 +258,7 @@
     <ClCompile Include="Source\SpawnLootScript.cpp" />
     <ClCompile Include="Source\SprintingState.cpp" />
     <ClCompile Include="Source\StandingState.cpp" />
+    <ClCompile Include="Source\State.cpp" />
     <ClCompile Include="Source\Stats.cpp" />
     <ClCompile Include="Source\StopWatch.cpp" />
     <ClCompile Include="Source\Time.cpp" />
@@ -259,16 +266,19 @@
     <ClCompile Include="Source\TransformComponent.cpp" />
     <ClCompile Include="Source\UIButtonComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\WanderState.cpp" />
     <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\WeaponScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AIState.h" />
     <ClInclude Include="Source\AnimatedMesh.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\AudioManager.h" />
     <ClInclude Include="Source\AudioObserver.h" />
+    <ClInclude Include="Source\Behaviour.h" />
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
@@ -277,6 +287,7 @@
     <ClInclude Include="Source\ChunkData.h" />
     <ClInclude Include="Source\ChunkEvent.h" />
     <ClInclude Include="Source\CollisionManager.h" />
+    <ClInclude Include="Source\Command.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
@@ -299,6 +310,7 @@
     <ClInclude Include="Source\GenericSubject.h" />
     <ClInclude Include="Source\GrenadeScript.h" />
     <ClInclude Include="Source\HeightMapData.h" />
+    <ClInclude Include="Source\IdleState.h" />
     <ClInclude Include="Source\InputBinding.h" />
     <ClInclude Include="Source\InputDeviceManager.h" />
     <ClInclude Include="Source\InputManager.h" />
@@ -320,6 +332,7 @@
     <ClInclude Include="Source\LootScript.h" />
     <ClInclude Include="Source\MapSpawningScript.h" />
     <ClInclude Include="Source\Material.h" />
+    <ClInclude Include="Source\MeleeCombatState.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
@@ -327,6 +340,7 @@
     <ClInclude Include="Source\Message.h" />
     <ClInclude Include="Source\MiscellaneousPartScript.h" />
     <ClInclude Include="Source\MouseManager.h" />
+    <ClInclude Include="Source\MovementCommand.h" />
     <ClInclude Include="Source\ObserverBase.h" />
     <ClInclude Include="Source\ObserverComponent.h" />
     <ClInclude Include="Source\ParticleObserver.h" />
@@ -355,6 +369,7 @@
     <ClInclude Include="Source\SpawnLootScript.h" />
     <ClInclude Include="Source\SprintingState.h" />
     <ClInclude Include="Source\StandingState.h" />
+    <ClInclude Include="Source\State.h" />
     <ClInclude Include="Source\Stats.h" />
     <ClInclude Include="Source\StopWatch.h" />
     <ClInclude Include="Source\Time.h" />
@@ -363,6 +378,7 @@
     <ClInclude Include="Source\UIButtonComponent.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\WanderState.h" />
     <ClInclude Include="Source\WeaponPartScript.h" />
     <ClInclude Include="Source\WeaponScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
