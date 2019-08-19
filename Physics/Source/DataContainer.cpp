@@ -226,7 +226,7 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy")));
-	//go->AddComponent(new LootScript());
+	go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;
