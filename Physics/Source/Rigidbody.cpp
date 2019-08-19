@@ -50,8 +50,8 @@ void Rigidbody::Update(double dt)
 	float density = m_fMass / volume;
 	float area = volume; // ignore cross section area, use raw volume
 	Vector3 fDrag = 0.5f * density * m_vVel * area * fric * WorldValues::DragCoeff * (float)dt;
-	m_vVel -= fDrag;
-	float val = (pow(0.1f, dt));
+	// m_vVel -= fDrag;
+	float val = (pow(0.001f, dt));
 	CHENG_LOG("Val:", std::to_string(val));
 	m_vVel *= val;
 	if (m_bLockXAxis)
