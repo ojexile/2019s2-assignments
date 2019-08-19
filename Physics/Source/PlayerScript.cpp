@@ -23,6 +23,10 @@ void PlayerScript::Start()
 {
 	GetCameraGO()->GetComponent<CameraComponent>()->SetMouseUseFloatYaw(false);
 }
+void PlayerScript::SetCanJump(bool b)
+{
+	m_bCanJump = b;
+}
 void PlayerScript::Update(double dt)
 {
 	EntityScript::Update(dt);
@@ -43,7 +47,46 @@ void PlayerScript::UpdateMovement(double dt)
 	TransformComponent* trans = GetComponent<TransformComponent>();
 	Vector3 pos = trans->GetPosition();
 
-	
+	Rigidbody* rb = GetComponent<Rigidbody>();
+	// Movement
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
+	{
+		//rb->AddForce(vPlayerFront  *m_fAccel);
+		bMoved = true;
+		Move(CameraScript::GetFront());
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
+	{
+		//rb->AddForce(vPlayerFront  * -m_fAccel);
+		bMoved = true;
+		Move(-CameraScript::GetFront());
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
+	{
+		//rb->AddForce(vRight  * -m_fAccel);
+		bMoved = true;
+		Move(-CameraScript::GetRight());
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
+	{
+		//rb->AddForce(vRight  * m_fAccel);
+		bMoved = true;
+		Move(CameraScript::GetRight());
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
+	{
+		if (m_bCanJump)
+		{
+			rb->AddForce({ 0,m_fJumpForce,0 });
+			rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
+			Notify("Jump");
+			m_bCanJump = false;
+		}
+	}
+	if (InputManager::GetInstance()->GetInputStrength("PlayerInteract") != 0)
+	{
+		Notify("Interact");
+	}
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
 	if (!vDir.IsZero())
 		vDir.Normalize();

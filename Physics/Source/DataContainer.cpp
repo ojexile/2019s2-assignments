@@ -22,8 +22,9 @@
 #include "WeaponPartScript.h"
 //States
 #include "StandingState.h"
-#include "WanderState.h"
-#include <time.h>
+#include "IdleState.h"
+#include "MeleeCombatState.h"
+
 DataContainer::DataContainer()
 {
 	m_bInitialsed = false;
@@ -83,6 +84,11 @@ void DataContainer::InitTextures()
 	m_map_Textures["Colors"] = LoadTGA("colors");
 	m_map_Textures["snow"] = LoadTGA("snow");
 	m_map_Textures["beachy"] = LoadTGA("beachy");
+	m_map_Textures["gb"] = LoadTGA("gameboy");
+	m_map_Textures["crimson"] = LoadTGA("crimson");
+	m_map_Textures["void"] = LoadTGA("void");
+	m_map_Textures["gray"] = LoadTGA("gray");
+	m_map_Textures["mesa"] = LoadTGA("mesa");
 	m_map_Textures["Ball"] = LoadTGA("Ball");
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
@@ -222,10 +228,10 @@ void  DataContainer::InitGO()
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Cube")));
-	go->AddComponent(new Rigidbody(Rigidbody::SQUARE));
-	go->AddComponent(new EntityScript(GetBehaviour("Wander")));
-	//go->AddComponent(new LootScript());
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy")));
+	go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -286,7 +292,7 @@ void  DataContainer::InitShaders()
 void DataContainer::InitBehaviour()
 {
 	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
-	m_map_Behaviour["Wander"] = new Behaviour(new WanderState);
+	m_map_Behaviour["MeleeEnemy"] = new Behaviour(new IdleState(new MeleeCombatState));
 }
 DataContainer::~DataContainer()
 {
