@@ -18,7 +18,8 @@ public:
 	{
 		STAMINA,
 	};
-
+	
+	virtual Collide 
 
 private:
 
