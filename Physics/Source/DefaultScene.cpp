@@ -170,9 +170,12 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
 	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
-	go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
+	//go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);
+	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
+	//go->TRANS->SetPosition(20, 18.5, 20);
+
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("treasurebox"));
 	go->TRANS->SetPosition(20, 18.5, 20);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("treasurebox"));
