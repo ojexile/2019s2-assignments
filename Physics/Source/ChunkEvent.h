@@ -27,7 +27,7 @@ public:
 	void SetChunkRef(ChunkData* chunk);
 	void SetEntityRef(GameObject* go);
 
-	void GenerateEvent();
+	void GenerateEvent(GameObjectManager* GOM_ref, Vector3 Chunk_Pos);
 	//void GenerateEntities();
 
 private:
