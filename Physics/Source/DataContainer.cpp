@@ -223,7 +223,7 @@ void  DataContainer::InitGO()
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy")));
 	//go->AddComponent(new LootScript());
