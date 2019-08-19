@@ -3,6 +3,7 @@
 #include "Rigidbody.h"
 #include "ChunkCollider.h"
 #include "ConcreteMiscParts/StaminaRegenPart.h"
+#include "SceneManager.h"
 
 LootScript::LootScript()
 {
@@ -17,12 +18,13 @@ LootScript::~LootScript()
 void LootScript::Collide(GameObject * go)
 {
 
-	if (go->GetComponent<ChunkCollider>() == nullptr)
+	if (go->GetComponent<ChunkCollider>() != nullptr)
 		return;
 
 	//Vector3 chunkspacepos = TRANS->GetPosition() - go->TRANS->GetPosition();
 	DropLoot();
-	DestroySelf();
+	//DestroySelf();
+	SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
 	
 }
 

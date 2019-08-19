@@ -127,6 +127,8 @@
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\InteractionBaseScript.cpp" />
     <ClCompile Include="Source\FlipEntityScript.cpp" />
+    <ClCompile Include="Source\InstantiateOnDeathScript.cpp" />
+    <ClCompile Include="Source\SpawnLootScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -230,6 +232,8 @@
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\FlipEntityScript.h" />
     <ClInclude Include="Source\InteractionBaseScript.h" />
+    <ClInclude Include="Source\InstantiateOnDeathScript.h" />
+    <ClInclude Include="Source\SpawnLootScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

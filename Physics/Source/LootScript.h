@@ -19,7 +19,7 @@ public:
 		STAMINA,
 	};
 	
-	virtual Collide 
+	virtual void Collide(GameObject* go);
 
 private:
 
