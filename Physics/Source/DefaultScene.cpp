@@ -155,10 +155,7 @@ void DefaultScene::Init()
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("BaseEnemy"));
 	go->TRANS->SetPosition(20, 18.5, 26);
 
-	go = dataContainer->GetGameObject("Clip");
-	go->TRANS->SetScale(3);
-	Gun->AddChild(go);
-	Gun->GUN->EquipPart(go);
+
 	//go = dataContainer->GetGameObject("Stamina");
 
 	//go->MISCPART->SetPlayerReference(Player->GetComponent<PlayerStatsScript>());

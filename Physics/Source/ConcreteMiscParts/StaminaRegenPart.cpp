@@ -40,7 +40,7 @@ void StaminaRegenPart::Buff(bool reverse)
 		case PartScript::SCOPE:
 		{
 			// m_PlayerRef->AdjustMaxStamina(20.f, true);
-			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectMaxStamina(1.5f);
+			m_PlayerRef->GetComponent<PlayerScript>()->GetAdditionalStats()->AffectMaxStamina(5.5f);
 			break;
 		}
 		case PartScript::MUZZLE:
