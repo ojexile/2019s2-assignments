@@ -20,7 +20,7 @@
 #include "InteractableObCom.h"
 #include "ConcreteMiscParts/StaminaRegenPart.h"
 #include "SpawnLootScript.h"
-#include "InstantiateOnDeathScript.h"
+#include "DebrisSpawningScript.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -317,7 +317,7 @@ void DataContainer::InitGO()
 	m_map_GO["plaintree"] = go;
 	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
+	go->AddComponent(new DestructibleEntityScript());
 	go->AddComponent(new InteractableObCom());
 	static_cast<FlipEntityScript*>(go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(1.f);
 
@@ -328,7 +328,7 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(1.f, 0.5f, 1.f);
 	//go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new InteractableObCom());
-	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
+	go->AddComponent(new DestructibleEntityScript("RockDied"));
 	static_cast<FlipEntityScript*>(
 	go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
 
@@ -351,21 +351,22 @@ void DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["boulder"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("boulder")));
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->RENDER->SetColor({ 0.1,0.1,0.1 });
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMass(1000.f);
 	go->TRANS->SetScale(2.f);
-	go->AddComponent(new EntityScript());
-	go->AddComponent(new InstantiateOnDeathScript());
+	go->AddComponent(new DestructibleEntityScript("RockDied"));
+	go->AddComponent(new DebrisSpawningScript("boulder2", 2,2));
 
 	go = new GameObject();
 	m_map_GO["boulder2"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("boulder")));
 	go->RENDER->SetColor(0.1,0.1,0.1);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	//go->RIGID->SetMass(10.f);
+	go->RIGID->SetMass(2.5f);
 	go->TRANS->SetScale(1.f);
+	go->AddComponent(new EntityScript());
 }
 void  DataContainer::InitShaders()
 {
