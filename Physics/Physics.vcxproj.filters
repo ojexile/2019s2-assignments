@@ -254,6 +254,7 @@
     <ClInclude Include="Source\InteractionBaseScript.h" />
     <ClInclude Include="Source\SpawnLootScript.h" />
     <ClInclude Include="Source\DebrisSpawningScript.h" />
+    <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

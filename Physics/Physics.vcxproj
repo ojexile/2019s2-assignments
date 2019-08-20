@@ -274,6 +274,7 @@
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
     <ClInclude Include="Source\AIState.h" />
     <ClInclude Include="Source\AIStatesList.h" />
     <ClInclude Include="Source\AnimatedMesh.h" />
