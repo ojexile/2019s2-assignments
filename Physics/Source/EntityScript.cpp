@@ -4,9 +4,8 @@
 #include "RenderComponent.h"
 #include "Utility.h"
 
-EntityScript::EntityScript(Behaviour* Behaviour, AIState* CombatState)
+EntityScript::EntityScript(Behaviour* Behaviour)
 	: m_Behaviour(Behaviour)
-	, m_CombatState(CombatState)
 {
 	if (m_Behaviour)
 		m_Behaviour->Init(this);
@@ -16,9 +15,8 @@ EntityScript::EntityScript(Behaviour* Behaviour, AIState* CombatState)
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
 }
-EntityScript::EntityScript(Behaviour * Behaviour, AIState * CombatState, Stats & Stats)
+EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	: m_Behaviour(Behaviour)
-	, m_CombatState(CombatState)
 	, m_BaseStats(Stats)
 {
 	if (m_Behaviour)
@@ -44,7 +42,6 @@ EntityScript::EntityScript(EntityScript & ref)
 		m_Behaviour = nullptr;
 	m_bInitialised = false;
 	m_fAnimStartTime = 0;
-	m_CombatState = ref.m_CombatState;
 }
 EntityScript::~EntityScript()
 {
@@ -172,9 +169,4 @@ void EntityScript::Damage(int iDamage)
 	RENDER->SetColor(50, 50, 50);
 	m_SW.Start();
 	m_Values.m_iHealth -= iDamage;
-}
-
-AIState * EntityScript::GetCombatState()
-{
-	return m_CombatState;
 }

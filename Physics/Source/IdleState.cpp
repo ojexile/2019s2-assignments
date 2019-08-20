@@ -2,6 +2,7 @@
 #include "WanderState.h"
 #include "EntityScript.h"
 #include "AIStatesList.h"
+#include "AIEntityScript.h"
 
 #define MIN_TIME 1
 #define MAX_TIME 5
@@ -18,7 +19,7 @@ IdleState::~IdleState()
 State * IdleState::HandleState(ComponentBase * com)
 {
 	if (PlayerInRange(com))
-		return com->GetComponent<EntityScript>()->GetCombatState();
+		return com->GetComponent<AIEntityScript>()->GetCombatState();
 	if (m_SW.Stop()->GetTime() < m_fTime)
 		return this;
 	else

@@ -1,19 +1,7 @@
 #include "Stats.h"
 
-Stats::Stats()
-{
-	m_iHealthMax = 100;
-	m_fStaminaRegenRate = 20;
-	m_fStaminaMax = 100;
-	m_fMaxMovementSpeed = 30;
-	m_fMovementForce = 40;
-	m_fJumpForce = 3000;
 
-	m_fDetectionRadius = 8;
-}
-
-Stats::Stats(int iHealthMax, int iHealthRegenRate, float StaminaMax, float fStaminaRegenRate, 
-	float MovementMax, float MovementForece, float DetectionRatius)
+Stats::Stats(int iHealthMax, int iHealthRegenRate, float StaminaMax, float fStaminaRegenRate, float MovementMax, float MovementForece, float fJumpForce, float DetectionRatius)
 {
 	m_iHealthMax = iHealthMax;
 	m_iHealthRegenRate = iHealthRegenRate;
@@ -22,7 +10,7 @@ Stats::Stats(int iHealthMax, int iHealthRegenRate, float StaminaMax, float fStam
 	m_fMaxMovementSpeed = MovementMax;
 	m_fMovementForce = MovementForece;
 	m_fDetectionRadius = DetectionRatius;
-
+	m_fJumpForce = fJumpForce;
 }
 
 Stats::~Stats()

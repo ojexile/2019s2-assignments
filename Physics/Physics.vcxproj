@@ -167,6 +167,7 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AIEntityScript.cpp" />
     <ClCompile Include="Source\AIState.cpp" />
     <ClCompile Include="Source\AIStatesList.cpp" />
     <ClCompile Include="Source\AnimatedMesh.cpp" />
@@ -274,6 +275,7 @@
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AIEntityScript.h" />
     <ClInclude Include="Source\AIState.h" />
     <ClInclude Include="Source\AIStatesList.h" />
     <ClInclude Include="Source\AnimatedMesh.h" />
