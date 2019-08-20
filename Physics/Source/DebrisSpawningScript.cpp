@@ -35,7 +35,7 @@ void DebrisSpawningScript::Trigger()
 	int spawncount = Math::RandIntMinMax(m_iMin, m_iMax);
 	
 	LZ_LOG("rokspawned");
-	for (int i = 0; i <= spawncount; i++)
+	for (int i = 0; i <	 spawncount; i++)
 	{
 		auto go = Instantiate(DataContainer::GetInstance()->GetGameObject(m_sDebrisName));
 		go->RIGID->AddForce(Vector3(Math::RandFloatMinMax(-1000, 1000), Math::RandFloatMinMax(100, 1000), Math::RandFloatMinMax(-1000, 1000)));
