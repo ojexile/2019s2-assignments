@@ -139,7 +139,6 @@ void DefaultScene::Init()
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(0, 18, 0);
-	Player->TRANS->SetScale(0.5f);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
@@ -176,7 +175,7 @@ void DefaultScene::Init()
 	//go->TRANS->SetPosition(20, 18.5, 20);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("treasurebox"));
-	go->TRANS->SetPosition(20, 18.5, 20);
+	go->TRANS->SetPosition(10, 18, 3);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("boulder"));
 	go->TRANS->SetPosition(10, 19, 20);

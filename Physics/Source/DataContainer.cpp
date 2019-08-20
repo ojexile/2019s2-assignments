@@ -240,8 +240,8 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(0.5);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	go->RIGID->SetMass(0.15f);
-	go->RIGID->SetMat(0.9f, 0.f);
+	go->RIGID->SetMass(0.25f);
+	go->RIGID->SetMat(0.95f, 0.f);
 	go->AddComponent(new GrenadeScript(3.0, 10.0, 2));
 	// Loot------------------------------------------------------------------------------------
 	go = new GameObject;
@@ -337,6 +337,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new SpawnLootScript());
 	go->TRANS->SetScale(1, 1, 1);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetMass(10);
 
 
 	go = new GameObject();

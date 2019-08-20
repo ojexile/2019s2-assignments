@@ -88,6 +88,7 @@ void PlayerScript::UpdateMovement(double dt)
 		Notify("Interact");
 	}
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
+	Vector3 vDir2 = m_Reticle->TRANS->GetPosition() - GetPosition();
 	if (!vDir.IsZero())
 		vDir.Normalize();
 	// Rotate to dir
@@ -124,7 +125,7 @@ void PlayerScript::UpdateMovement(double dt)
 	}
 	else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
 	{
-		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, (float)dt);
+		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir2, m_Grenade, (float)dt);
 	}
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
