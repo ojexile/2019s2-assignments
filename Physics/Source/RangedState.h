@@ -6,6 +6,7 @@ class RangedState :
 	public AIState
 {
 private:
+	void FireGun(Component* com, const Vector3 &vDir);
 public:
 	RangedState();
 	virtual ~RangedState();

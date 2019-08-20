@@ -8,6 +8,14 @@
 #include "WeaponScript.h"
 #include "Time.h"
 #include "GameObject.h"
+void RangedState::FireGun(Component * com, const Vector3& vDir)
+{
+	GameObject* Gun = com->GetChild(0);
+	WeaponScript* ws = Gun->GetComponent<WeaponScript>();
+	ws->PullTrigger(vDir, Time::GetInstance()->GetDeltaTimeF());
+	/*if (ws->GetMagazineRounds() <= 0)
+		ws->*/
+}
 RangedState::RangedState()
 {
 }
@@ -25,8 +33,7 @@ State * RangedState::HandleState(ComponentBase * com)
 		Vector3 Dir = DirToPlayer(com);
 		AI->RotateTowards(Dir);
 		Component* comp = dynamic_cast<Component*>(com);
-		GameObject* Gun = comp->GetChild(0);
-		Gun->GetComponent<WeaponScript>()->PullTrigger(Dir, Time::GetInstance()->GetDeltaTimeF());
+		FireGun(comp, );
 	}
 	else if (PlayerInRange(com))
 	{
