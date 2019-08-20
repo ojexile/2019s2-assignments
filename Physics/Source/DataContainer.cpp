@@ -323,8 +323,8 @@ void DataContainer::InitGO()
 	m_map_GO["fliprock"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->TRANS->SetScale(1.f, 1.f, 1.f);
-	go->RIGID->SetMat(0.9f, 0);
+	go->TRANS->SetScale(1.f, 0.5f, 1.f);
+	//go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new InteractableObCom());
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
 	static_cast<FlipEntityScript*>(
