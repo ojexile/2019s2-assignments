@@ -42,8 +42,12 @@ void DestructibleEntityScript::Update(double dt)
 	}
 }
 
-DestructibleEntityScript * DestructibleEntityScript::AttachGameObject(GameObject * go)
+void DestructibleEntityScript::Collide(GameObject *)
 {
-	m_particleSpawnerRef = go;
-	return this;
+	Notify(m_sMessage);
+}
+
+void DestructibleEntityScript::SetMessage(std::string s)
+{
+	m_sMessage = s;
 }
