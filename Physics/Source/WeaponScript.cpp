@@ -383,3 +383,13 @@ float WeaponScript::GetBulletSpread()
 {
 	return m_fBulletSpread;
 }
+
+float WeaponScript::GetReloadElapsedTime()
+{
+	return m_fReloadElapsedTime;
+}
+
+float WeaponScript::GetReloadTime()
+{
+	return m_fReloadTime;
+}
