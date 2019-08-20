@@ -11,7 +11,7 @@ class InstantiateOnDeathScript : public ScriptComponent
 private:
 
 	bool m_bHasTriggered;
-	std::vector<GameObject> m_vGOtoSpawn;
+	std::vector<GameObject*> m_vGOtoSpawn;
 
 public:
 	InstantiateOnDeathScript();
@@ -23,6 +23,7 @@ public:
 
 	void Update(double dt);
 	void Collide(GameObject* go);
+	void Trigger();
 
 
 	
