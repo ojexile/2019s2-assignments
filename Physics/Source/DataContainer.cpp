@@ -102,6 +102,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
 	m_map_Textures["CustomiseSlot"] = LoadTGA("inventorySlot1");
+	m_map_Textures["UIBullet"] = LoadTGA("UIBullet");
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
 	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
