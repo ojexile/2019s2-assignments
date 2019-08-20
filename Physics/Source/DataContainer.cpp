@@ -100,8 +100,13 @@ void DataContainer::InitTextures()
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
 	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
-	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
-	m_map_Textures["CustomiseSlot"] = LoadTGA("inventorySlot1");
+
+	m_map_Textures["CraftingSlotMuzzle"] = LoadTGA("CraftingSlotMuzzle");
+	m_map_Textures["CraftingSlotScope"] = LoadTGA("CraftingSlotScope");
+	m_map_Textures["CraftingSlotStock"] = LoadTGA("CraftingSlotStock");
+	m_map_Textures["CraftingSlotClip"] = LoadTGA("CraftingSlotClip");
+	m_map_Textures["InventorySlot"] = LoadTGA("InventorySlot");
+
 	m_map_Textures["UIBullet"] = LoadTGA("UIBullet");
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
@@ -141,15 +146,17 @@ void DataContainer::InitMeshes()
 		->AddTexture("plaintree", BiomeComponent::BIOME_PLAINS)
 		->AddTexture("snowtree", BiomeComponent::BIOME_SNOW);
 
-	m_map_Meshes["Gun"] = MeshBuilder::GenerateOBJ("gun")->AddTexture("Gun");
+	m_map_Meshes["Gun"] = MeshBuilder::GenerateOBJ("gun")->AddTexture("Revolver");
 
 	m_map_Meshes["Grenade"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
 	m_map_Meshes["UIInventory"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
 
-	m_map_Meshes["UICustomise"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CustomiseSlot");
-
-	m_map_Meshes["UICustomise"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CustomiseSlot");
+	m_map_Meshes["CraftingSlotMuzzle"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CraftingSlotMuzzle");
+	m_map_Meshes["CraftingSlotScope"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CraftingSlotScope");
+	m_map_Meshes["CraftingSlotStock"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CraftingSlotStock");
+	m_map_Meshes["CraftingSlotClip"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CraftingSlotClip");
+	m_map_Meshes["InventorySlot"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
 
 	m_map_Meshes["UIBullet"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("UIBullet");
 
@@ -163,7 +170,7 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
 
-	m_map_Meshes["boulder"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("CustomiseSlot");
+	m_map_Meshes["boulder"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("UIBullet");
 
 	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube");
 
@@ -307,7 +314,7 @@ void DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["CustomiseSlot"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("UICustomise")));
+	go->AddComponent(new RenderComponent());
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
 	go->SetDisableDistance(10000);
