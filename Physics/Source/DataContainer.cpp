@@ -293,6 +293,7 @@ void DataContainer::InitGO()
 	go->TRANS->SetPosition(50, 10, 25);
 	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
+	go->SetDisableDistance(10000);
 	// InventorySlot--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["InventorySlot"] = go;
@@ -300,6 +301,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIInventory")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
+	go->SetDisableDistance(10000);
 	// CustomiseSlot--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["CustomiseSlot"] = go;
@@ -307,6 +309,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UICustomise")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
+	go->SetDisableDistance(10000);
 	// BulletUI--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BulletUI"] = go;
@@ -314,6 +317,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIBullet")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(50, 20, 1);
+	go->SetDisableDistance(10000);
 	// ItemInfo--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["ItemInfo"] = go;
