@@ -347,6 +347,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(1.f);
 	go = new GameObject();
+
 	m_map_GO["boulder"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->RENDER->SetColor(0.5, 0.5, 0.5);
