@@ -120,6 +120,9 @@ void PlayerScript::UpdateMovement(double dt)
 		m_Gun->GUN->ReleaseTrigger();
 	}
 
+	if (InputManager::GetInstance()->GetInputStrength("Reload"))
+		m_Gun->GUN->ReloadWeapon();
+
 	if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
 	{
 		m_Grenade->GetComponent<GrenadeScript>()->PullPin();

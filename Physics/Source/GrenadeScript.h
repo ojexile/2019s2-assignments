@@ -12,7 +12,7 @@
 class GrenadeScript : public ProjectileScript
 {
 public:
-	GrenadeScript(float Lifespan = 1.0, float Damage = 10., float ExplosionRadius = 5.);
+	GrenadeScript(float Lifespan = 1.0, float Damage = 5., float ExplosionRadius = 5.);
 	virtual ~GrenadeScript();
 
 	void Update(double deltaTime) override;
