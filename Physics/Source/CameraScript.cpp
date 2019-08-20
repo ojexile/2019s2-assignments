@@ -103,7 +103,7 @@ void CameraScript::Update(double d)
 		Vector3 Pos = m_vTarget->TRANS->GetPosition();
 		Pos.x += m_vRotateOffset.x / 100;
 		Pos.z += m_vRotateOffset.z / 100;
-		Pos.y += 100;
+		Pos.y += 50;
 		GetTransform()->SetPosition(Pos);
 		GetCamera()->SetDir(m_vTarget->TRANS->GetPosition() - Pos);
 	}

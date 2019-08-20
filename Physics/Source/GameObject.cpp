@@ -7,7 +7,7 @@ GameObject::GameObject()
 	, m_bStatic{ false }
 {
 	AddComponent(new TransformComponent);
-	m_fDisableDistance = 10000;
+	m_fDisableDistance = 100;
 }
 // Copy
 GameObject::GameObject(const GameObject& go)
@@ -50,6 +50,9 @@ ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 	// TODO check if component already exists?
 	// Should there be duplicate components?
 	comp->Init(&m_vec_ComponentList);
+	Component* comp1 = dynamic_cast<Component*>(comp);
+	if (comp1)
+		comp1->Init(&m_vec_ChildList);
 	m_vec_ComponentList.push_back(comp);
 	return comp;
 }

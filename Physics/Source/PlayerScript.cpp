@@ -30,6 +30,7 @@ void PlayerScript::SetCanJump(bool b)
 void PlayerScript::Update(double dt)
 {
 	EntityScript::Update(dt);
+	UpdateBehaviour();
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	AudioManager::GetInstance()->UpdateFading(dt);
 	// Movement================================================================================
@@ -118,6 +119,9 @@ void PlayerScript::UpdateMovement(double dt)
 	{
 		m_Gun->GUN->ReleaseTrigger();
 	}
+
+	if (InputManager::GetInstance()->GetInputStrength("Reload"))
+		m_Gun->GUN->ReloadWeapon();
 
 	if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
 	{

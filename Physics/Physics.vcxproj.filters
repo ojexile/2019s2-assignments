@@ -139,6 +139,8 @@
     <ClCompile Include="Source\FlipEntityScript.cpp" />
     <ClCompile Include="Source\SpawnLootScript.cpp" />
     <ClCompile Include="Source\DebrisSpawningScript.cpp" />
+    <ClCompile Include="Source\AIEntityScript.cpp" />
+    <ClCompile Include="Source\RangedState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -254,6 +256,8 @@
     <ClInclude Include="Source\InteractionBaseScript.h" />
     <ClInclude Include="Source\SpawnLootScript.h" />
     <ClInclude Include="Source\DebrisSpawningScript.h" />
+    <ClInclude Include="Source\AIEntityScript.h" />
+    <ClInclude Include="Source\RangedState.h" />
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
   </ItemGroup>
   <ItemGroup>

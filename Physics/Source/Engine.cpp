@@ -31,6 +31,7 @@ void Engine::Init()
 	DataContainer::GetInstance()->Init();
 	AudioManager* audio = AudioManager::GetInstance();
 	audio->Play3D("pop.wav", {});
+	m_frameCount = 0;
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
@@ -74,6 +75,7 @@ void Engine::SetMouseCallback(GLFWwindow* window)
 void Engine::Update(double dt)
 {
 	dt = min(dt, 0.05);
+	m_frameCount ++;
 	SceneManager* SceneManager = SceneManager::GetInstance();
 	if (SceneManager->IsSceneChanged())
 		SceneManager->SwapScene();
@@ -115,7 +117,7 @@ void Engine::Update(double dt)
 	s.Reset();
 	//Update coll-------------------------------------------------------------------------------
 	StopWatch sw(true);
-	m_CollisionManager.Update(CurrentScene->GetGameObjectManager());
+	if(m_frameCount & 1) m_CollisionManager.Update(CurrentScene->GetGameObjectManager());
 	CHENG_LOG("Time to check collision: ", STOP_S);
 	sw.Stop();
 	KZ_LOG("[Collision_Time_2]", " CollisionManager.Update() took " + sw.GetSTime() + "s");
