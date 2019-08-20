@@ -9,6 +9,7 @@
 #include "ObserverComponent.h"
 #include "GenericSubject.h"
 #include "StopWatch.h"
+#include "MyMath.h"
 // Start Scene
 #include "DefaultScene.h"
 Renderer* Engine::m_Renderer;
@@ -26,6 +27,7 @@ Engine::~Engine()
 
 void Engine::Init()
 {
+	Math::InitRNG();
 	DataContainer::GetInstance()->Init();
 	AudioManager* audio = AudioManager::GetInstance();
 	audio->Play3D("pop.wav", {});
