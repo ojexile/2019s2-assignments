@@ -109,7 +109,7 @@ void GameObject::Update(double dt)
 			rot.SetToRotation(rootTrans->GetDegrees(), rootTrans->GetRotation().x, rootTrans->GetRotation().y, rootTrans->GetRotation().z);
 			newPos = rootTrans->GetPosition() + rot * childTrans->GetRelativePosition();
 			// update rot
-			childTrans->SetRotation(rootTrans->GetDegrees(), rootTrans->GetRotation().x, rootTrans->GetRotation().y, rootTrans->GetRotation().z);
+			childTrans->SetRotation(rootTrans->GetDegrees() + childTrans->GetRelativeDegrees(), rootTrans->GetRotation().x, rootTrans->GetRotation().y, rootTrans->GetRotation().z);
 		}
 		go2->GetComponent<TransformComponent>()->SetPosition(newPos);
 		// Update scale
@@ -149,7 +149,7 @@ void GameObject::Update(double dt)
 				rot.SetToRotation(trans->GetDegrees(), trans->GetRotation().x, trans->GetRotation().y, trans->GetRotation().z);
 				newPos = trans->GetPosition() + rot * childTrans->GetRelativePosition();
 				// update rot
-				childTrans->SetRotation(trans->GetDegrees(), trans->GetRotation().x, trans->GetRotation().y, trans->GetRotation().z);
+				childTrans->SetRotation(trans->GetDegrees() + childTrans->GetRelativeDegrees(), trans->GetRotation().x, trans->GetRotation().y, trans->GetRotation().z);
 			}
 			go3->GetComponent<TransformComponent>()->SetPosition(newPos);
 			// Update scale

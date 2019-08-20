@@ -88,6 +88,7 @@ void PlayerScript::UpdateMovement(double dt)
 		Notify("Interact");
 	}
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
+	Vector3 vDir2 = m_Reticle->TRANS->GetPosition() - GetPosition();
 	if (!vDir.IsZero())
 		vDir.Normalize();
 	// Rotate to dir
@@ -101,10 +102,17 @@ void PlayerScript::UpdateMovement(double dt)
 	{
 		GetTransform()->SetRotation(-angle, 0, 1, 0);
 	}
+
 	//
+	Vector3 vGunDir = m_Reticle->TRANS->GetPosition() - m_Gun->TRANS->GetPosition();
+	if (!vGunDir.IsZero())
+	{
+		vGunDir.Normalize();
+		m_Gun->TRANS->SetRelativeRotation(AngleBetween(vGunDir, vDir), 0, 1, 0);
+	}
 	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && m_Reticle->IsActive())
 	{
-		m_Gun->GUN->PullTrigger(vDir, dt);
+		m_Gun->GUN->PullTrigger(vGunDir, dt);
 	}
 	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && m_Reticle->IsActive())
 	{
@@ -117,7 +125,7 @@ void PlayerScript::UpdateMovement(double dt)
 	}
 	else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
 	{
-		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir, m_Grenade, (float)dt);
+		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir2, m_Grenade, (float)dt);
 	}
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
@@ -155,12 +163,13 @@ void PlayerScript::Collide(GameObject* go)
 	PartScript* ps = go->GetComponent<PartScript>(true);
 	if (ps)
 	{
-		GetComponent<InventoryScript>()->AddItem(go);
-		if (go->GetComponent<MiscellaneousPartScript>(true))
+		if (go->MISCPART)
 		{
-			go->MISCPART->SetPlayerReference(GetComponent<PlayerStatsScript>());
+			 go->MISCPART->SetPlayerReference(this);
 			go->MISCPART->SetGunReference(m_Gun);
 		}
+		GetComponent<InventoryScript>()->AddItem(go);
+
 		// CHENG_LOG("Part Taken");
 	}
 }

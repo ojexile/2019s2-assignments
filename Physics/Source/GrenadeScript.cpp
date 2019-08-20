@@ -70,12 +70,14 @@ void GrenadeScript::ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRe
 	if (!m_bIsGrenadeCooking)
 		return;
 
-	Vector3 arcDir = dir.Normalized();
-	arcDir.y = arcDir.y + 4;
+	Vector3 arcDir = dir;
+	arcDir.y = arcDir.y + 8;
+	arcDir.Normalized();
+	arcDir = arcDir * pow(dir.Length(),1.2f) * 2;
 	Vector3 SpawnPos = GetPosition();
 
 	GameObject* Grenade = Instantiate(GrenadeRef, SpawnPos);
-	Grenade->RIGID->AddForce(500 * dir);
+	Grenade->RIGID->AddForce(arcDir);
 	Grenade->RIGID->SetAffectedByGravity(true);
 
 	--m_iGrenadeCount;

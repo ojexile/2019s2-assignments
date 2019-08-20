@@ -23,7 +23,7 @@ public:
 		AUTO
 	};
 
-	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 0.250f, float fBulletSpread = 0.01f, float fBulletForce = 10.f, FIRING_MODE FiringMode = AUTO);
+	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, int iAmmo = 100, int iAmmo_Max = 100, float fFirerate = 0.333f, float fBulletSpread = 0.333f, float fBulletForce = 10.f, FIRING_MODE FiringMode = AUTO);
 	~WeaponScript();
 
 	//Interface Functions
@@ -33,7 +33,7 @@ public:
 	void Update(double deltaTime) override;
 	void UpdateStats(GameObject* go, bool Multiply);
 
-	void EquipPart(GameObject* part);
+	void EquipPart(GameObject* part, PartScript::SLOT_TYPE slot);
 
 	void SetAmmo(int Ammo);
 	void SetMaxAmmo(int Ammo_Max);

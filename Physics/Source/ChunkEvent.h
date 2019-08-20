@@ -1,5 +1,6 @@
 #pragma once
 #include "ChunkData.h"
+#include <vector>
 /********************************************************************************/
 /*!
 \author Ryan Tan Zheng Rong
@@ -33,6 +34,6 @@ public:
 private:
 	EVENT_TYPE m_eventType;
 	ChunkData* m_chunkRef;
-	GameObject* m_BaseEntityRef;
+	std::vector<GameObject*> m_vBaseEntityRef;
 };
 

@@ -139,10 +139,10 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	Vector3 SpawnPos = GetPosition();
-	Vector3 direction = dir.Normalized();
-	
+	Vector3 direction = dir;
+
 	direction.x = direction.x + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread);
-	direction.y = direction.y + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread) / 10;
+	direction.y = direction.y + Math::RandFloatMinMax(0, m_fBulletSpread) / 5;
 	direction.z = direction.z + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread);
 	
 	direction.Normalize();
@@ -169,12 +169,13 @@ void WeaponScript::ReloadWeapon(void)
 	m_iMagazineRounds = m_iMagazineRounds + refillAmt;
 }
 
-void WeaponScript::EquipPart(GameObject* part)
+void WeaponScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 {
 	if (!part->PART)
 		return;
 	
 	part->RIGID->SetAffectedByGravity(false);
+	part->PART->SetSlotType(slot);
 
 	if (part->PART->GetPartType() == PartScript::WEAPON)
 	{
@@ -218,20 +219,20 @@ void WeaponScript::EquipPart(GameObject* part)
 		case PartScript::SCOPE:
 		{
 			m_ScopeParts.push_back(part);
-			part->TRANS->SetRelativePosition(0.5f * m_ScopeParts.size(), 0.5f, 0.f);
+			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.2f, 0.f);
 			break;
 		}
 		case PartScript::MUZZLE:
 		{
 			m_MuzzleParts.push_back(part);
-			part->TRANS->SetRelativePosition(1.f * m_MuzzleParts.size(), 0, 0);
+			part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
 
 			break;
 		}
 		case PartScript::CLIP:
 		{
 			m_StockParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.35f + (0.15f * m_StockParts.size()), -0.5f * m_StockParts.size(), 0);
+			part->TRANS->SetRelativePosition(-0.45f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
 			break;
 		}
 		case PartScript::GRIP:

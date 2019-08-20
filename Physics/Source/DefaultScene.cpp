@@ -126,6 +126,7 @@ void DefaultScene::Init()
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 1, 1);
+	Gun->TRANS->SetRelativeRotation(25, Vector3(0,1,0));
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
@@ -138,7 +139,6 @@ void DefaultScene::Init()
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(0, 18, 0);
-	Player->TRANS->SetScale(0.5f);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
