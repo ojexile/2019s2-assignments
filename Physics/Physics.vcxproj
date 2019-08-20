@@ -167,6 +167,7 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\AIEntityScript.cpp" />
     <ClCompile Include="Source\AIState.cpp" />
     <ClCompile Include="Source\AIStatesList.cpp" />

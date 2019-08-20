@@ -141,6 +141,7 @@
     <ClCompile Include="Source\DebrisSpawningScript.cpp" />
     <ClCompile Include="Source\AIEntityScript.cpp" />
     <ClCompile Include="Source\RangedState.cpp" />
+    <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
