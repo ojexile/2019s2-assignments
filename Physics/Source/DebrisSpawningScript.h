@@ -1,31 +1,26 @@
 #pragma once
-#include "ScriptComponent.h"
+#include "InteractionBaseScript.h"
 #include <vector>
 /*
 author: lorenzo yanga
-desc: script that destroys self when its boolean is flipped OR collide. will spawn objects is m_vGOtoSpawn and trigger DestroySelf on update.
+desc: trigger script, debris spawning around it will spawn objects is m_vGOtoSpawn and trigger DestroySelf on update.
 */
 
-class InstantiateOnDeathScript : public ScriptComponent
+class DebrisSpawningScript : public ScriptComponent
 {
 private:
-
-	bool m_bHasTriggered;
-	std::vector<GameObject*> m_vGOtoSpawn;
-
+	std::string m_sDebrisName;  
+	int m_iMin;
+	int m_iMax;
 public:
-	InstantiateOnDeathScript();
-	~InstantiateOnDeathScript();
+	DebrisSpawningScript();
+	DebrisSpawningScript(std::string name, int, int );
 
-	virtual Component* Clone() { return new InstantiateOnDeathScript(*this); }
+	~DebrisSpawningScript();
+	virtual Component* Clone() { return new DebrisSpawningScript(*this); }
 
-	GameObject* AddGOToList(GameObject * go);
-
-	void Update(double dt);
-	void Collide(GameObject* go);
+	void SetDebrisName(std::string name);
+	void SetMinMax(int, int);
 	void Trigger();
-
-
-	
 };
 
