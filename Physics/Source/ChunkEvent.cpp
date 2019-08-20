@@ -43,7 +43,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, Vector3 Chunk_Pos)
 	{
 		break;
 	}
-	case ENEMIES:
+	case ENEMIES_LEVEL_1:
 	{
 		unsigned int spawnCount = 1;
 		unsigned int VectorSize = m_vBaseEntityRef.size();
