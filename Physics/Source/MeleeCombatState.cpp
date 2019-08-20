@@ -15,13 +15,12 @@ MeleeCombatState::~MeleeCombatState()
 
 State * MeleeCombatState::HandleState(ComponentBase * com)
 {
-	com->RENDER->SetColor(1, 0.5f, 0);
-	Vector3 Dir = DirToPlayer(com);
-	com->GetComponent<AIEntityScript>()->SetTarget(Dir);
 
 	if (PlayerInRange(com))
 	{
-		float meleeRange = 2;
+		Vector3 Dir = DirToPlayer(com);
+		AI->SetTarget(Dir);
+		float meleeRange = 3;
 		if (PlayerInRange(com, meleeRange))
 		{
 			DamagePlayer(5, 300, Dir);
@@ -34,6 +33,9 @@ State * MeleeCombatState::HandleState(ComponentBase * com)
 
 void MeleeCombatState::OnEnter(ComponentBase * com)
 {
+	com->RENDER->SetColor(1, 0.5f, 0);
+	Vector3 Dir = DirToPlayer(com);
+	AI->SetTarget(Dir);
 }
 
 void MeleeCombatState::OnExit(ComponentBase * com)
