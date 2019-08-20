@@ -2,15 +2,15 @@
 #include "RenderComponent.h"
 
 DestructibleEntityScript::DestructibleEntityScript()
-	: EntityScript()
+	: EntityScript(),
+	m_sMessage("")
 {
-	m_particleSpawnerRef = nullptr;
 }
 
-DestructibleEntityScript::DestructibleEntityScript(GameObject * m_particleSpawnerRef)
-	: EntityScript()
+DestructibleEntityScript::DestructibleEntityScript(std::string s)
+	: EntityScript(),
+	m_sMessage(s)
 {
-	this->m_particleSpawnerRef = m_particleSpawnerRef;
 }
 
 DestructibleEntityScript::~DestructibleEntityScript()
@@ -23,19 +23,18 @@ void DestructibleEntityScript::Update(double dt)
 	// Check death
 	if (GetValues()->GetHealth() <= 0)
 	{
-		if (m_particleSpawnerRef != nullptr)
+		if (m_sMessage == "")
 		{
-			TransformComponent* Trans = GetComponent<TransformComponent>();
-			Vector3 trans = Trans->GetPosition();
-			Instantiate(m_particleSpawnerRef, trans, "Default");
+			Notify("DestructibleEntityDied");
 		}
-		DestroySelf(); // should switch to play death anim
+		else
+			Notify(m_sMessage);
+
+		//destroy self
 		return;
 	}
 	if (m_SW.Stop()->GetTime() >= DAMAGE_TIME)
 	{
-		SetDamageAnim(false);
-		RENDER->ResetColor();
 	}
 	if (IsDamageAnim())
 	{
@@ -44,7 +43,6 @@ void DestructibleEntityScript::Update(double dt)
 
 void DestructibleEntityScript::Collide(GameObject *)
 {
-	Notify(m_sMessage);
 }
 
 void DestructibleEntityScript::SetMessage(std::string s)

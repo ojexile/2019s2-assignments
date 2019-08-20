@@ -13,7 +13,7 @@ private:
 
 public:
 	DestructibleEntityScript();
-	DestructibleEntityScript(GameObject* m_particleSpawnerRef);
+	DestructibleEntityScript(std::string s);
 	virtual ~DestructibleEntityScript();
 	virtual Component* Clone() {
 		return new DestructibleEntityScript(*this);
