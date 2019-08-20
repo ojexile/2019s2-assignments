@@ -161,7 +161,7 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
 
 	m_map_Meshes["boulder"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("CustomiseSlot");
-	
+
 	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube");
 
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
@@ -258,10 +258,17 @@ void DataContainer::InitGO()
 	go->AddComponent(new LootScript());
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
+	m_map_GO["Ranged"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Ranged, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new LootScript());
+	//Enemies-----------------------------------------------------------------------------
+	go = new GameObject;
 	m_map_GO["Cow"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee, Stats(100,0,100,0,80,20,2000,12)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
 	go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
@@ -298,7 +305,6 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
 
-
 	// Interactabes/Foilage--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
@@ -328,7 +334,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new InteractableObCom());
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
 	static_cast<FlipEntityScript*>(
-	go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
+		go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
 
 	go = new GameObject();
 	m_map_GO["treasurebox"] = go;
@@ -360,7 +366,7 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["boulder2"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("boulder")));
-	go->RENDER->SetColor(0.1,0.1,0.1);
+	go->RENDER->SetColor(0.1, 0.1, 0.1);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	//go->RIGID->SetMass(10.f);
 	go->TRANS->SetScale(1.f);

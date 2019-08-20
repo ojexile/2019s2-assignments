@@ -248,6 +248,7 @@
     <ClCompile Include="Source\PlayerStatsScript.cpp" />
     <ClCompile Include="Source\Preferences.cpp" />
     <ClCompile Include="Source\ProjectileScript.cpp" />
+    <ClCompile Include="Source\RangedState.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
@@ -360,6 +361,7 @@
     <ClInclude Include="Source\Preferences.h" />
     <ClInclude Include="Source\BiomeComponent.h" />
     <ClInclude Include="Source\ProjectileScript.h" />
+    <ClInclude Include="Source\RangedState.h" />
     <ClInclude Include="Source\RenderComponent.h" />
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />

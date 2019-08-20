@@ -140,6 +140,7 @@
     <ClCompile Include="Source\InstantiateOnDeathScript.cpp" />
     <ClCompile Include="Source\SpawnLootScript.cpp" />
     <ClCompile Include="Source\AIEntityScript.cpp" />
+    <ClCompile Include="Source\RangedState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -256,6 +257,7 @@
     <ClInclude Include="Source\InstantiateOnDeathScript.h" />
     <ClInclude Include="Source\SpawnLootScript.h" />
     <ClInclude Include="Source\AIEntityScript.h" />
+    <ClInclude Include="Source\RangedState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
