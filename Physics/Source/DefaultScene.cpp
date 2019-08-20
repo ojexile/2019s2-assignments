@@ -83,9 +83,8 @@ void DefaultScene::Init()
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotMuzzle"));
 	CustoSlots.push_back(go);
 	go = m_GOM.AddGameObject("UI");
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Muzzltttte", true));
-	go->TRANS->SetPosition(100, 100);
-	go->TRANS->SetScale(100);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Muzzle", true));
+	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0) + Vector3(-50, 20, 16));
 	//
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos + Vector3(0, fCustoDist, 0));

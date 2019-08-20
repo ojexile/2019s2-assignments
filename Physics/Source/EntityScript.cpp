@@ -86,7 +86,9 @@ void EntityScript::DamageAnim()
 }
 bool EntityScript::CheckDeath()
 {
-	if (m_Values.m_iHealth <= 0 && !this->GetComponent<PlayerScript>())
+	if (this->GetComponent<PlayerScript>())
+		return false;
+	if (m_Values.m_iHealth <= 0)
 	{
 		if (this->LOOT)
 		{
@@ -135,7 +137,7 @@ void EntityScript::MoveForwards()
 }
 void EntityScript::RotateTowards(Vector3 vDir)
 {
-	if(vDir.IsZero())
+	if (vDir.IsZero())
 		return;
 	vDir.y = 0;
 	float TargetAngle = AngleBetween({ 1,0,1 }, vDir);
