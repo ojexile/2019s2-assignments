@@ -3,21 +3,23 @@
 
 /*
 author: lorenzo yanga
-desc: EntityScript child with a reference to a gameobject(particle spawner) that is created when the entity dies
+desc: EntityScript child with a reference that is created when the entity dies.
+		to be used with destructible foilage/interactable objects
 */
 class DestructibleEntityScript : public EntityScript
 {
 private:
-	GameObject* m_particleSpawnerRef;
+	std::string m_sMessage;
 
 public:
 	DestructibleEntityScript();
-	DestructibleEntityScript(GameObject* m_particleSpawnerRef);
+	DestructibleEntityScript(std::string s);
 	virtual ~DestructibleEntityScript();
 	virtual Component* Clone() {
 		return new DestructibleEntityScript(*this);
 	};
 	virtual void Update(double dt) override;
-
-	DestructibleEntityScript* AttachGameObject(GameObject*);
+	virtual void Collide(GameObject* );
+	void SetMessage(std::string s);
+	
 };
