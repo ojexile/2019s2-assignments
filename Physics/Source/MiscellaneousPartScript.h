@@ -17,7 +17,7 @@ public:
 	virtual ~MiscellaneousPartScript();
 
 	void SetGunReference(GameObject* ref);
-	void SetPlayerReference(PlayerStatsScript* ref);
+	void SetPlayerReference(ComponentBase* ref);
 
 	std::string getName();
 
@@ -30,7 +30,7 @@ public:
 
 protected:
 
-	PlayerStatsScript* m_PlayerRef;
+	ComponentBase* m_PlayerRef;
 	GameObject* m_GunRef;
 
 	float m_fSpreadDebuff;

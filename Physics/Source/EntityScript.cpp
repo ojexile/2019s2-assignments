@@ -67,7 +67,7 @@ void EntityScript::Update(double dt)
 	// Check death
 	if (CheckDeath())
 		return;
-	if (m_SW.Stop()->GetTime() >= DAMAGE_TIME)
+	if (m_SW.Stop()->GetTime() >= DAMAGE_TIME && m_bDamageAnim)
 	{
 		m_bDamageAnim = false;
 		RENDER->ResetColor();

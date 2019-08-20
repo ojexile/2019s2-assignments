@@ -163,12 +163,13 @@ void PlayerScript::Collide(GameObject* go)
 	PartScript* ps = go->GetComponent<PartScript>(true);
 	if (ps)
 	{
-		GetComponent<InventoryScript>()->AddItem(go);
-		if (go->GetComponent<MiscellaneousPartScript>(true))
+		if (go->MISCPART)
 		{
-			go->MISCPART->SetPlayerReference(GetComponent<PlayerStatsScript>());
+			 go->MISCPART->SetPlayerReference(this);
 			go->MISCPART->SetGunReference(m_Gun);
 		}
+		GetComponent<InventoryScript>()->AddItem(go);
+
 		// CHENG_LOG("Part Taken");
 	}
 }
