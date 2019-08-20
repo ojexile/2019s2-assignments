@@ -130,10 +130,12 @@ void EntityScript::RotateTowards(Vector3 vDir)
 {
 	vDir.y = 0;
 	float TargetAngle = AngleBetween({ 1,0,1 }, vDir);
+	if (vDir.Cross({ 1,0,1 }).y > 0)
+		TargetAngle = -TargetAngle;
 	// current angle
 	float CurrentAngle = TRANS->GetDegrees();
 
-	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.3f);
+	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.f);
 	TRANS->SetRotation(newAngle, 0,1,0);
 }
 void EntityScript::Jump()

@@ -7,8 +7,9 @@ class IdleState :
 private:
 	StopWatch m_SW;
 	float m_fTime;
+	State* m_Combat;
 public:
-	IdleState();
+	IdleState(State* Combat);
 	virtual ~IdleState();
 
 
@@ -17,4 +18,3 @@ public:
 	virtual void OnExit(ComponentBase* com) override;
 	virtual State* Clone() { return new IdleState(*this); };
 };
-

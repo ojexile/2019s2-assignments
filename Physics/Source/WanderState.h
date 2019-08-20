@@ -8,8 +8,9 @@ private:
 	StopWatch m_SW;
 	float m_fTime;
 	Vector3 m_vDir;
+	State* m_Combat;
 public:
-	WanderState();
+	WanderState(State* Combat);
 	virtual ~WanderState();
 
 	virtual State* HandleState(ComponentBase* com) override;
