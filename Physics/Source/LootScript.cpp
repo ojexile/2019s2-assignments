@@ -95,7 +95,7 @@ MiscellaneousPartScript* LootScript::GenerateMiscPart(void)
 void LootScript::DropLoot(void)
 {
 
-	PartScript::PART_TYPE type = PartScript::PART_TYPE::MISC/*static_cast<PartScript::PART_TYPE>(Math::RandIntMinMax(PartScript::PART_TYPE::WEAPON, PartScript::PART_TYPE::MISC))*/;
+	PartScript::PART_TYPE type = static_cast<PartScript::PART_TYPE>(Math::RandIntMinMax(PartScript::PART_TYPE::WEAPON, PartScript::PART_TYPE::MISC));
 	PartScript* NewPartScript = nullptr;
 	
 	if (type == PartScript::PART_TYPE::WEAPON)
