@@ -139,12 +139,12 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	Vector3 SpawnPos = GetPosition();
-	Vector3 direction = dir.Normalized();
-	
-	direction.x = direction.x + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread);
-	direction.y = direction.y + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread) / 10;
-	direction.z = direction.z + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread);
-	
+	Vector3 direction = dir;
+
+	//direction.x = direction.x + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread);
+	//direction.y = direction.y + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread) / 10;
+	//direction.z = direction.z + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread);
+	//
 	direction.Normalize();
 
 	GameObject* bullet = Instantiate(m_Projectile, SpawnPos);

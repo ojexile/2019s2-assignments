@@ -86,6 +86,21 @@ void TransformComponent::SetRotation(float degrees, Vector3 v)
 	this->m_vRotateAxis.Set(v.x, v.y, v.z);
 	this->m_fDegrees = degrees;
 }
+void TransformComponent::SetRelativeRotation(float degrees, int xAxis, int yAxis, int zAxis)
+{
+	this->m_vRelativeRotateAxis.Set((float)xAxis, (float)yAxis, (float)zAxis);
+	this->m_fRelativeDegrees = degrees;
+}
+void TransformComponent::SetRelativeRotation(float degrees, float xAxis, float yAxis, float zAxis)
+{
+	this->m_vRelativeRotateAxis.Set((float)xAxis, (float)yAxis, (float)zAxis);
+	this->m_fRelativeDegrees = degrees;
+}
+void TransformComponent::SetRelativeRotation(float degrees, Vector3 v)
+{
+	this->m_vRelativeRotateAxis.Set(v.x, v.y, v.z);
+	this->m_fRelativeDegrees = degrees;
+}
 void TransformComponent::RotateBy(float degrees, Vector3 v)
 {
 	this->m_vRotateAxis = { v.x, v.y, v.z };
