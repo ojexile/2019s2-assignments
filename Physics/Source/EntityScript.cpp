@@ -59,8 +59,6 @@ void EntityScript::CheckInit()
 }
 void EntityScript::Update(double dt)
 {
-	if (m_Behaviour)
-		m_Behaviour->Update();
 	// Check death
 	if (CheckDeath())
 		return;
@@ -137,6 +135,8 @@ void EntityScript::MoveForwards()
 }
 void EntityScript::RotateTowards(Vector3 vDir)
 {
+	if(vDir.IsZero())
+		return;
 	vDir.y = 0;
 	float TargetAngle = AngleBetween({ 1,0,1 }, vDir);
 	if (vDir.Cross({ 1,0,1 }).y > 0)
@@ -169,4 +169,10 @@ void EntityScript::Damage(int iDamage)
 	RENDER->SetColor(50, 50, 50);
 	m_SW.Start();
 	m_Values.m_iHealth -= iDamage;
+}
+
+void EntityScript::UpdateBehaviour()
+{
+	if (m_Behaviour)
+		m_Behaviour->Update();
 }

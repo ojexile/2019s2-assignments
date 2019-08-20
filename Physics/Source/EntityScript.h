@@ -57,4 +57,5 @@ public:
 	bool IsDamageAnim();
 	void SetDamageAnim(bool);
 	void Damage(int iDamage);
+	void UpdateBehaviour();
 };

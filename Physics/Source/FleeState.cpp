@@ -13,6 +13,7 @@ FleeState::~FleeState()
 
 State * FleeState::HandleState(ComponentBase * com)
 {
+	com->RENDER->SetColor(0.2f, 1.f, 0.2f);
 	Vector3 Dir = DirToPlayer(com);
 	com->GetComponent<EntityScript>()->RotateTowards(-Dir);
 	com->GetComponent<EntityScript>()->MoveForwards();

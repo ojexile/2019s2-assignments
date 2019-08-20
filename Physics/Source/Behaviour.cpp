@@ -34,7 +34,6 @@ void Behaviour::Update()
 	State* state = m_CurrentState->HandleState(m_Com);
 	if (state && state != m_CurrentState)
 	{
-		state->OnEnter(m_Com);
 		m_CurrentState->OnExit(m_Com);
 		m_CurrentState = state;
 		m_CurrentState->OnEnter(m_Com);

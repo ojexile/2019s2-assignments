@@ -7,7 +7,7 @@ GameObject::GameObject()
 	, m_bStatic{ false }
 {
 	AddComponent(new TransformComponent);
-	m_fDisableDistance = 80;
+	m_fDisableDistance = 100;
 }
 // Copy
 GameObject::GameObject(const GameObject& go)

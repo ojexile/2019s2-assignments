@@ -4,6 +4,7 @@
 #include "Rigidbody.h"
 #include "IdleState.h"
 #include "AIStatesList.h"
+#include "AIEntityScript.h"
 MeleeCombatState::MeleeCombatState()
 {
 }
@@ -14,9 +15,10 @@ MeleeCombatState::~MeleeCombatState()
 
 State * MeleeCombatState::HandleState(ComponentBase * com)
 {
+	com->RENDER->SetColor(1, 0.5f, 0);
 	Vector3 Dir = DirToPlayer(com);
-	com->GetComponent<EntityScript>()->RotateTowards(Dir);
-	com->GetComponent<EntityScript>()->MoveForwards();
+	com->GetComponent<AIEntityScript>()->SetTarget(Dir);
+
 	if (PlayerInRange(com))
 	{
 		float meleeRange = 2;

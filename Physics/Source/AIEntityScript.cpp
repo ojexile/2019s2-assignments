@@ -30,6 +30,18 @@ AIState * AIEntityScript::GetCombatState()
 {
 	return m_CombatState;
 }
+void AIEntityScript::SetTarget(Vector3 v)
+{
+	m_vTarget = v;
+}
+void AIEntityScript::MoveToTarget()
+{
+	// Move towards dir
+	if (m_vTarget.IsZero())
+		return;
+	RotateTowards(m_vTarget);
+	MoveForwards();
+}
 AIEntityScript::AIEntityScript(AIEntityScript & ref)
 	: EntityScript(ref.m_Behaviour, ref.m_BaseStats)
 	, m_CombatState(ref.m_CombatState)
@@ -55,4 +67,7 @@ AIEntityScript::~AIEntityScript()
 void AIEntityScript::Update(double dt)
 {
 	EntityScript::Update(dt);
+	++m_iCounter;
+		UpdateBehaviour();
+	MoveToTarget();
 }

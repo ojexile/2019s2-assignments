@@ -30,6 +30,7 @@ void PlayerScript::SetCanJump(bool b)
 void PlayerScript::Update(double dt)
 {
 	EntityScript::Update(dt);
+	UpdateBehaviour();
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	AudioManager::GetInstance()->UpdateFading(dt);
 	// Movement================================================================================
