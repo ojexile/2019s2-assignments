@@ -31,7 +31,7 @@
 #include "FleeState.h"
 //
 #include "AIStatesList.h"
-
+#include "AIEntityScript.h"
 DataContainer::DataContainer()
 {
 	m_bInitialsed = false;
@@ -163,7 +163,7 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
 
 	m_map_Meshes["boulder"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("CustomiseSlot");
-	
+
 	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube");
 
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
@@ -251,19 +251,39 @@ void DataContainer::InitGO()
 	m_map_GO["Loot"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	//Enemies-----------------------------------------------------------------------------
+	///Enemies-----------------------------------------------------------------------------
+	// Base--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy"), &AIStatesList::Melee));
+	go->AddComponent(new AIEntityScript(GetBehaviour("MeleeEnemy"), &AIStatesList::Melee));
 	go->AddComponent(new LootScript());
-	//Enemies-----------------------------------------------------------------------------
+	// Melee--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Melee"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Fish")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new AIEntityScript(GetBehaviour("MeleeEnemy"), &AIStatesList::Melee));
+	go->AddComponent(new LootScript());
+	// Range-----------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Ranged"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Ranged, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new LootScript());
+	// Gun
+	GameObject* Gun = GetGameObject("Gun");
+	Gun->TRANS->SetRelativePosition(1, 0.5f, 1);
+	Gun->TRANS->SetRelativeRotation(-45, Vector3(0, 1, 0));
+	go->AddChild(Gun);
+	// Cow-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Cow"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new EntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee));
+	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
 	go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
@@ -273,6 +293,7 @@ void DataContainer::InitGO()
 	go->TRANS->SetPosition(50, 10, 25);
 	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
+	go->SetDisableDistance(10000);
 	// InventorySlot--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["InventorySlot"] = go;
@@ -280,6 +301,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIInventory")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
+	go->SetDisableDistance(10000);
 	// CustomiseSlot--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["CustomiseSlot"] = go;
@@ -287,6 +309,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UICustomise")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
+	go->SetDisableDistance(10000);
 	// BulletUI--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BulletUI"] = go;
@@ -294,14 +317,13 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIBullet")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(50, 20, 1);
+	go->SetDisableDistance(10000);
 	// ItemInfo--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["ItemInfo"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
-
-
-	// Interactabes/Foilage--------------------------------------------------------------------------------
+	/// Interactabes/Foilage================================================================================
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
@@ -330,7 +352,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new InteractableObCom());
 	go->AddComponent(new DestructibleEntityScript("RockDied"));
 	static_cast<FlipEntityScript*>(
-	go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
+		go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
 
 	go = new GameObject();
 	m_map_GO["treasurebox"] = go;
@@ -352,17 +374,17 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["boulder"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
-	go->RENDER->SetColor({ 0.1,0.1,0.1 });
+	go->RENDER->SetColor({ 0.1f,0.1f,0.1f });
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMass(1000.f);
 	go->TRANS->SetScale(2.f);
 	go->AddComponent(new DestructibleEntityScript("RockDied"));
-	go->AddComponent(new DebrisSpawningScript("boulder2", 2,2));
+	go->AddComponent(new DebrisSpawningScript("boulder2", 2, 2));
 
 	go = new GameObject();
 	m_map_GO["boulder2"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("boulder")));
-	go->RENDER->SetColor(0.1,0.1,0.1);
+	go->RENDER->SetColor(0.1f, 0.1f, 0.1f);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMass(2.5f);
 	go->TRANS->SetScale(1.f);

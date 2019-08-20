@@ -167,6 +167,7 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AIEntityScript.cpp" />
     <ClCompile Include="Source\AIState.cpp" />
     <ClCompile Include="Source\AIStatesList.cpp" />
     <ClCompile Include="Source\AnimatedMesh.cpp" />
@@ -247,6 +248,7 @@
     <ClCompile Include="Source\PlayerStatsScript.cpp" />
     <ClCompile Include="Source\Preferences.cpp" />
     <ClCompile Include="Source\ProjectileScript.cpp" />
+    <ClCompile Include="Source\RangedState.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
@@ -274,6 +276,7 @@
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AIEntityScript.h" />
     <ClInclude Include="Source\AIState.h" />
     <ClInclude Include="Source\AIStatesList.h" />
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -358,6 +361,7 @@
     <ClInclude Include="Source\Preferences.h" />
     <ClInclude Include="Source\BiomeComponent.h" />
     <ClInclude Include="Source\ProjectileScript.h" />
+    <ClInclude Include="Source\RangedState.h" />
     <ClInclude Include="Source\RenderComponent.h" />
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />

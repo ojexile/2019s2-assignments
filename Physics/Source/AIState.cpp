@@ -19,7 +19,7 @@ bool AIState::PlayerInRange(ComponentBase * com, float dist)
 {
 	GameObject* Player = SceneManager::GetInstance()->GetScene()->GetPlayer();
 	Vector3 PlayerPos = Player->TRANS->GetPosition();
-	float Range = 2;
+	float Range = dist;
 	if ((PlayerPos - com->TRANS->GetPosition()).Length() < Range)
 		return true;
 	return false;
@@ -35,8 +35,8 @@ Vector3 AIState::DirToPlayer(ComponentBase * com)
 void AIState::DamagePlayer(int damage, float force, Vector3 Dir)
 {
 	GameObject* Player = SceneManager::GetInstance()->GetScene()->GetPlayer();
-	Player->GetComponent<EntityScript>()->Damage(10);
-	Player->GetComponent<Rigidbody>()->AddForce(Dir * 500);
+	Player->GetComponent<EntityScript>()->Damage(damage);
+	Player->GetComponent<Rigidbody>()->AddForce(Dir * force);
 }
 
 AIState::AIState()
