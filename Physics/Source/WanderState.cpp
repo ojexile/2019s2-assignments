@@ -37,6 +37,7 @@ void WanderState::OnEnter(ComponentBase * com)
 {
 	m_SW.Start();
 	m_fTime = Math::RandFloatMinMax(MIN_TIME, MAX_TIME);
+	m_vDir.SetZero();
 	// Rand dir
 	while (m_vDir.IsZero())
 	{

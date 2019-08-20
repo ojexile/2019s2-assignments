@@ -68,6 +68,7 @@ void AIEntityScript::Update(double dt)
 {
 	EntityScript::Update(dt);
 	++m_iCounter;
+	if(m_iCounter % 30 == 0)
 		UpdateBehaviour();
 	MoveToTarget();
 }

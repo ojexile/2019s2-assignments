@@ -26,6 +26,7 @@ Engine::~Engine()
 
 void Engine::Init()
 {
+	Math::InitRNG();
 	DataContainer::GetInstance()->Init();
 	AudioManager* audio = AudioManager::GetInstance();
 	audio->Play3D("pop.wav", {});
