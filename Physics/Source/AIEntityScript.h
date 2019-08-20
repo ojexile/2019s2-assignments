@@ -3,7 +3,7 @@
 #include "Behaviour.h"
 #include "AIState.h"
 #include "ComponentMacros.h"
-
+#include "RenderComponent.h"
 class AIEntityScript : public EntityScript
 {
 public:
@@ -28,4 +28,3 @@ public:
 	void SetTarget(Vector3 v);
 	void MoveToTarget();
 };
-

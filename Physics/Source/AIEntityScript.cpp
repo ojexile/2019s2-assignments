@@ -1,7 +1,5 @@
 #include "AIEntityScript.h"
 
-
-
 AIEntityScript::AIEntityScript(Behaviour* Behaviour, AIState* CombatState)
 	: EntityScript(Behaviour)
 	, m_CombatState(CombatState)
@@ -68,7 +66,7 @@ void AIEntityScript::Update(double dt)
 {
 	EntityScript::Update(dt);
 	++m_iCounter;
-	if(m_iCounter % 3 == 0)
+	if (m_iCounter % 3 == 0)
 		UpdateBehaviour();
 	MoveToTarget();
 }

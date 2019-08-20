@@ -249,21 +249,27 @@ void DataContainer::InitGO()
 	m_map_GO["Loot"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	//Enemies-----------------------------------------------------------------------------
+	///Enemies-----------------------------------------------------------------------------
+	// Base--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("MeleeEnemy"), &AIStatesList::Melee));
 	go->AddComponent(new LootScript());
-	//Enemies-----------------------------------------------------------------------------
+	// Range-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Ranged"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Ranged, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
 	go->AddComponent(new LootScript());
-	//Enemies-----------------------------------------------------------------------------
+	// Gun
+	GameObject* Gun = GetGameObject("Gun");
+	Gun->TRANS->SetRelativePosition(1, 1, 1);
+	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
+	go->AddChild(Gun);
+	// Cow-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Cow"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
@@ -304,8 +310,7 @@ void DataContainer::InitGO()
 	m_map_GO["ItemInfo"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
-
-	// Interactabes/Foilage--------------------------------------------------------------------------------
+	/// Interactabes/Foilage================================================================================
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
