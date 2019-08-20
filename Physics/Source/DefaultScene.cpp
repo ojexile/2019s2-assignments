@@ -175,7 +175,7 @@ void DefaultScene::Init()
 	//go->TRANS->SetPosition(20, 18.5, 20);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("treasurebox"));
-	go->TRANS->SetPosition(10, 18, 3);
+	go->TRANS->SetPosition(20, 18.5, 20);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("boulder"));
 	go->TRANS->SetPosition(10, 19, 20);
