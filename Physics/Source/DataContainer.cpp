@@ -338,7 +338,6 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(1, 1, 1);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 
-
 	go = new GameObject();
 	m_map_GO["treasureball"] = go;
 	go->AddComponent(new LootScript());
@@ -346,14 +345,22 @@ void DataContainer::InitGO()
 	go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(1.f);
+
 	go = new GameObject();
 	m_map_GO["boulder"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new RenderComponent(GetMesh("ball")));
 	go->RENDER->SetColor(0.5, 0.5, 0.5);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMass(1000.f);
 	go->TRANS->SetScale(3.f);
 
+	go = new GameObject();
+	m_map_GO["boulder2"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("boulder")));
+	go->RENDER->SetColor(0.5, 0.5, 0.5);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetMass(1000.f);
+	go->TRANS->SetScale(1.f);
 }
 void  DataContainer::InitShaders()
 {
