@@ -119,6 +119,8 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
+	m_map_Meshes["Stamina"] = MeshBuilder::GenerateOBJ("Stamina")->AddTexture("InventorySlot");
+
 	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Muzzle");
 
 	m_map_Meshes["Clip"] = MeshBuilder::GenerateOBJ("Clip")->AddTexture("Revolver");
@@ -225,7 +227,7 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["Stamina"] = go;
 	go->TRANS->SetScale(0.5f);
-	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new RenderComponent(GetMesh("Stamina")));
 	go->AddComponent(new StaminaRegenPart(1, 1.5, 5, 1, 50));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
