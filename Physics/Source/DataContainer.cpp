@@ -266,7 +266,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new LootScript());
 	// Gun
 	GameObject* Gun = GetGameObject("Gun");
-	Gun->TRANS->SetRelativePosition(1, 1, 1);
+	Gun->TRANS->SetRelativePosition(1, 0.5f, 1);
 	Gun->TRANS->SetRelativeRotation(-45, Vector3(0, 1, 0));
 	go->AddChild(Gun);
 	// Cow-----------------------------------------------------------------------------

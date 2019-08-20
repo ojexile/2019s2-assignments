@@ -23,6 +23,7 @@ State * RangedState::HandleState(ComponentBase * com)
 	{
 		AI->SetTarget({});
 		Vector3 Dir = DirToPlayer(com);
+		AI->RotateTowards(Dir);
 		Component* comp = dynamic_cast<Component*>(com);
 		GameObject* Gun = comp->GetChild(0);
 		Gun->GetComponent<WeaponScript>()->PullTrigger(Dir, Time::GetInstance()->GetDeltaTimeF());
