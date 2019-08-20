@@ -16,6 +16,8 @@ private:
 	int m_iCounter;
 	AIState* m_CombatState; ///<	active state when ai is near player
 	Vector3 m_vTarget;
+	Vector3 m_vPrevPos;
+	bool m_bFirstMove;
 public:
 	AIEntityScript(Behaviour* Behaviour = nullptr, AIState* CombatState = nullptr);
 	AIEntityScript(Behaviour* Behaviour, AIState* CombatState, Stats &Stats);

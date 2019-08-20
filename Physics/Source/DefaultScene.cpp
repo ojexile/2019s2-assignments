@@ -157,10 +157,10 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Ranged"));
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
 	go->TRANS->SetPosition(5, 18.5f, 0);
 	// --
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Ranged"));
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
 	go->TRANS->SetPosition(20, 18.5f, 26);
 	///interactable test
 

@@ -11,6 +11,7 @@ AIEntityScript::AIEntityScript(Behaviour* Behaviour, AIState* CombatState)
 	m_fAnimStartTime = -1;
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
+	m_bFirstMove = true;
 }
 AIEntityScript::AIEntityScript(Behaviour* Behaviour, AIState* CombatState, Stats & Stats)
 	: EntityScript(Behaviour, Stats)
@@ -23,6 +24,7 @@ AIEntityScript::AIEntityScript(Behaviour* Behaviour, AIState* CombatState, Stats
 	m_fAnimStartTime = -1;
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
+	m_bFirstMove = true;
 }
 AIState * AIEntityScript::GetCombatState()
 {
@@ -37,6 +39,15 @@ void AIEntityScript::MoveToTarget()
 	// Move towards dir
 	if (m_vTarget.IsZero())
 		return;
+	if (!m_bFirstMove)
+	{
+		float fBuffer = 1.1f * Time::GetInstance()->GetDeltaTimeF();
+		if ((m_vPrevPos - GetPosition()).LengthSquared() < fBuffer * fBuffer)
+			Jump();
+	}
+	else
+		m_bFirstMove = false;
+	m_vPrevPos = GetPosition();
 	RotateTowards(m_vTarget);
 	MoveForwards();
 }
@@ -56,6 +67,7 @@ AIEntityScript::AIEntityScript(AIEntityScript & ref)
 		m_Behaviour = nullptr;
 	m_bInitialised = false;
 	m_fAnimStartTime = 0;
+	m_bFirstMove = true;
 }
 
 AIEntityScript::~AIEntityScript()
