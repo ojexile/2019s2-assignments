@@ -171,14 +171,16 @@ void WeaponScript::ReloadWeapon(void)
 	if (!m_bIsReloading)
 	{
 		m_bIsReloading = true;
+		RYAN_LOG("IS RELOADING");
 	}
-	else
+	else if (m_fReloadElapsedTime >= m_fReloadTime && m_bIsReloading)
 	{
 		int refillAmt = m_iMagazineRounds_Max - m_iMagazineRounds;
 		m_iMagazineRounds = m_iMagazineRounds + refillAmt;
 
 		m_bIsReloading = false;
 		m_fReloadElapsedTime = 0.f;
+		RYAN_LOG("RELOADED");
 	}
 }
 
