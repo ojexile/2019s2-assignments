@@ -164,10 +164,10 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(20, 18.5f, 26);
 	///interactable test
 
-	go = m_GOM.AddGameObject();
-	go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200, 0, 0));
-	go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
-	go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
+	//go = m_GOM.AddGameObject();
+	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200, 0, 0));
+	//go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
+	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 
 	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
 	//go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);
@@ -175,7 +175,7 @@ void DefaultScene::Init()
 	//go->TRANS->SetPosition(20, 18.5, 20);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("treasurebox"));
-	go->TRANS->SetPosition(10, 18, 3);
+	go->TRANS->SetPosition(20, 18.5, 20);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("boulder"));
 	go->TRANS->SetPosition(10, 19, 20);
