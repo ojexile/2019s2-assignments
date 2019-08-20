@@ -312,17 +312,15 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
 	go->AddComponent(new InteractableObCom());
-	static_cast<FlipEntityScript*>(
-		go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(1.f);
+	static_cast<FlipEntityScript*>(go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(1.f);
 
 	go = new GameObject();
 	m_map_GO["fliprock"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
-	//go->TRANS->SetScale(10.f);
 	// go->GetComponent<RenderComponent>()->SetBillboard(true);
 
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->TRANS->SetScale(3.f, 1.f, 3.f);
+	go->TRANS->SetScale(1.f, 1.f, 1.f);
 	go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new InteractableObCom());
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
