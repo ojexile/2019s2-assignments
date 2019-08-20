@@ -10,7 +10,7 @@ Script to handle general Projectile Behaviour.
 class ProjectileScript : public ScriptComponent
 {
 public:
-	ProjectileScript(float Lifespan = 2.0, float Damage = 10.);
+	ProjectileScript(float Lifespan = 3.0, float Damage = 10.);
 	virtual ~ProjectileScript();
 
 	void Update(double deltaTime) override;
