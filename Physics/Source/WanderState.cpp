@@ -2,17 +2,15 @@
 #include "EntityScript.h"
 #include "IdleState.h"
 #include "SceneManager.h"
-
+#include "AIStatesList.h"
 
 #define MIN_TIME 1
 #define MAX_TIME 5
 
-WanderState::WanderState(State* Combat)
+WanderState::WanderState()
 {
-	m_Combat = Combat;
 	m_fTime = 0;
 }
-
 
 WanderState::~WanderState()
 {
@@ -21,17 +19,19 @@ WanderState::~WanderState()
 State * WanderState::HandleState(ComponentBase * com)
 {
 	// Check for player
-	Vector3 PlayerPos = SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition();
-	if ((PlayerPos - com->TRANS->GetPosition()).Length() < 16)
-		return m_Combat;
+	if (PlayerInRange(com))
+	{
+		return com->GetComponent<EntityScript>()->GetCombatState();
+	}
 	if (m_SW.Stop()->GetTime() < m_fTime)
 	{
 		com->GetComponent<EntityScript>()->RotateTowards(m_vDir);
 		com->GetComponent<EntityScript>()->MoveForwards();
+		this->OnEnter(com);
 		return this;
 	}
 	else
-		return new IdleState(m_Combat);
+		return &AIStatesList::Idle;
 }
 
 void WanderState::OnEnter(ComponentBase * com)

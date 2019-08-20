@@ -6,7 +6,6 @@ class MeleeCombatState :
 	public AIState
 {
 private:
-	GameObject* m_Player;
 public:
 	MeleeCombatState();
 	virtual ~MeleeCombatState();
@@ -16,4 +15,3 @@ public:
 	virtual void OnExit(ComponentBase* com) override;
 	virtual State* Clone() { return new MeleeCombatState(*this); };
 };
-

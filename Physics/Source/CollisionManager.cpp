@@ -594,7 +594,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 	go1->GetComponent<Rigidbody>()->QueueVel(-2 * shortestDirection * (vel.Dot(shortestDirection)));
 	if(go1->GetComponent<ScriptComponent>() != nullptr)
 		go1->GetComponent<ScriptComponent>()->Collide(GOList->front());
-	if (go1->GetComponent<PlayerScript>() && shortestDirection.y > 0)
+	if (go1->GetComponent<PlayerScript>(true) && shortestDirection.y > 0)
 	{
 		go1->GetComponent<PlayerScript>()->SetCanJump(true);
 	}
@@ -614,7 +614,7 @@ void CollisionManager::CheckCollision(GameObject* go1, std::vector<GameObject*>*
 		if (!go2->GetComponent<Rigidbody>(true)->IsActive())
 			continue;
 
-		if (go2->GetComponent<ChunkCollider>()) continue;
+		if (go2->GetComponent<ChunkCollider>(true)) continue;
 		GameObject* goA = go1;
 		GameObject* goB = go2;
 		// force go1 to be a ball

@@ -29,4 +29,6 @@ public:
 	void SetMovement(float max, float force);
 	void AffectMaxStamina(float f);
 	void AffectStaminaRegenRate(float f);
+
+	float GetDetectionRadius() const;
 };
