@@ -12,12 +12,16 @@ Stats::Stats()
 	m_fDetectionRadius = 8;
 }
 
-Stats::Stats(int iHealthMax, int iHealthRegenRate, float StaminaMax, float fStaminaRegenRate, float MovementMax, float MovementForece, float DetectionRatius)
+Stats::Stats(int iHealthMax, int iHealthRegenRate, float StaminaMax, float fStaminaRegenRate, 
+	float MovementMax, float MovementForece, float DetectionRatius)
 {
 	m_iHealthMax = iHealthMax;
 	m_iHealthRegenRate = iHealthRegenRate;
-	m_fStaminaMax = m_fStaminaMax;
-	m_fStaminaRegenRate = m_fStaminaRegenRate;
+	m_fStaminaMax = StaminaMax;
+	m_fStaminaRegenRate = fStaminaRegenRate;
+	m_fMaxMovementSpeed = MovementMax;
+	m_fMovementForce = MovementForece;
+	m_fDetectionRadius = DetectionRatius;
 
 }
 

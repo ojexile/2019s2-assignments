@@ -16,6 +16,19 @@ EntityScript::EntityScript(Behaviour* Behaviour, AIState* CombatState)
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
 }
+EntityScript::EntityScript(Behaviour * Behaviour, AIState * CombatState, Stats & Stats)
+	: m_Behaviour(Behaviour)
+	, m_CombatState(CombatState)
+	, m_BaseStats(Stats)
+{
+	if (m_Behaviour)
+		m_Behaviour->Init(this);
+	m_bInitialised = false;
+	m_bDamageAnim = false;
+	m_fAnimStartTime = -1;
+	m_AdditionalStats.SetZero();
+	m_AdditionalStats.SetOne();
+}
 EntityScript::EntityScript(EntityScript & ref)
 	: m_BaseStats(ref.m_BaseStats)
 {

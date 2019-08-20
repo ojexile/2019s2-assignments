@@ -43,6 +43,7 @@ protected:
 	//--------------------------------------------------------------------------------
 public:
 	EntityScript(Behaviour* Behaviour = nullptr, AIState* CombatState = nullptr);
+	EntityScript(Behaviour* Behaviour, AIState* CombatState, Stats &Stats);
 	EntityScript(EntityScript& ref);
 	virtual ~EntityScript();
 	virtual Component* Clone() { return new EntityScript(*this); };

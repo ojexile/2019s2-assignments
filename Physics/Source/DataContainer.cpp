@@ -260,7 +260,7 @@ void DataContainer::InitGO()
 	m_map_GO["Cow"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new EntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee));
+	go->AddComponent(new EntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee, Stats(100,0,100,0,50,5,6)));
 	go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
