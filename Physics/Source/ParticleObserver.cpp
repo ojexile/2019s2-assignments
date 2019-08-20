@@ -2,7 +2,7 @@
 #include "SceneManager.h"
 #include "ComponentMacros.h"
 #include "EntityScript.h"
-#include "InstantiateOnDeathScript.h"
+#include "DebrisSpawningScript.h"
 
 ParticleObserver::ParticleObserver()
 {
@@ -22,11 +22,11 @@ void ParticleObserver::Notify(ComponentBase * com, std::string msg, std::vector<
 		scene->GetGameObjectManager()->AddGameObject(scene->GetGO("particlespawnerdestroy")
 		));*/
 
-		auto asdf = com->GetComponent<InstantiateOnDeathScript>();
-		if (asdf)
+		//auto asdf = com->GetComponent<DebrisSpawningScript>();
+	/*	if (asdf)
 		{
 			asdf->Trigger();
-		}
+		}*/
 
 	}
 }

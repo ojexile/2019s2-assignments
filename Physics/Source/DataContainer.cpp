@@ -20,7 +20,7 @@
 #include "InteractableObCom.h"
 #include "ConcreteMiscParts/StaminaRegenPart.h"
 #include "SpawnLootScript.h"
-#include "InstantiateOnDeathScript.h"
+#include "DebrisSpawningScript.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -355,7 +355,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(1000.f);
 	go->TRANS->SetScale(2.f);
 	go->AddComponent(new EntityScript());
-	go->AddComponent(new InstantiateOnDeathScript());
+	go->AddComponent(new DebrisSpawningScript("boulder2", 3,4));
 
 	go = new GameObject();
 	m_map_GO["boulder2"] = go;
