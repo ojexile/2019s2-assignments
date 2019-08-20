@@ -5,6 +5,9 @@
 #include "IdleState.h"
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
+#include "WeaponScript.h"
+#include "Time.h"
+#include "GameObject.h"
 RangedState::RangedState()
 {
 }
@@ -20,7 +23,9 @@ State * RangedState::HandleState(ComponentBase * com)
 	{
 		AI->SetTarget({});
 		Vector3 Dir = DirToPlayer(com);
-		DamagePlayer(0.1f, 1, Dir);
+		Component* comp = dynamic_cast<Component*>(com);
+		GameObject* Gun = comp->GetChild(0);
+		Gun->GetComponent<WeaponScript>()->PullTrigger(Dir, Time::GetInstance()->GetDeltaTimeF());
 	}
 	else if (PlayerInRange(com))
 	{

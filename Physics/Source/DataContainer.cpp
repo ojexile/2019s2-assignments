@@ -267,7 +267,7 @@ void DataContainer::InitGO()
 	// Gun
 	GameObject* Gun = GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 1, 1);
-	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
+	Gun->TRANS->SetRelativeRotation(-45, Vector3(0, 1, 0));
 	go->AddChild(Gun);
 	// Cow-----------------------------------------------------------------------------
 	go = new GameObject;

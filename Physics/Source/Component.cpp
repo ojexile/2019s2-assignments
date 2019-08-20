@@ -52,7 +52,7 @@ Vector3 Component::GetPosition()
 
 GameObject * Component::GetChild(int i)
 {
-	if (m_vec_RefChildList->size() <= i)
+	if (m_vec_RefChildList->size() > i)
 		return m_vec_RefChildList->at(i);
 	return nullptr;
 }
