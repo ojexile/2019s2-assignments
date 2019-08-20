@@ -2,7 +2,7 @@
 #include "ScriptComponent.h"
 #include "PartScript.h"
 #include <vector>
-#define INVENTORY_SIZE 3
+#define INVENTORY_SIZE 6
 class InventoryScript :
 	public ScriptComponent
 {

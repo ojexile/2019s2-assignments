@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\AIState.cpp" />
+    <ClCompile Include="Source\AIStatesList.cpp" />
     <ClCompile Include="Source\AnimatedMesh.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\AudioManager.cpp" />
@@ -196,6 +197,8 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
     <ClCompile Include="Source\EntityValues.cpp" />
+    <ClCompile Include="Source\FleeState.cpp" />
+    <ClCompile Include="Source\FlipEntityScript.cpp" />
     <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
     <ClCompile Include="Source\FPSScript.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
@@ -208,6 +211,7 @@
     <ClCompile Include="Source\InputManager.cpp" />
     <ClCompile Include="Source\InteractableObCom.cpp" />
     <ClCompile Include="Source\InteractablesObserver.cpp" />
+    <ClCompile Include="Source\InteractionBaseScript.cpp" />
     <ClCompile Include="Source\InventoryScript.cpp" />
     <ClCompile Include="Source\KeyboardManager.cpp" />
     <ClCompile Include="Source\LayerData.cpp" />
@@ -269,6 +273,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIState.h" />
+    <ClInclude Include="Source\AIStatesList.h" />
     <ClInclude Include="Source\AnimatedMesh.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Application.h" />
@@ -298,6 +303,8 @@
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\EntityScript.h" />
     <ClInclude Include="Source\EntityValues.h" />
+    <ClInclude Include="Source\FleeState.h" />
+    <ClInclude Include="Source\FlipEntityScript.h" />
     <ClInclude Include="Source\FoilageGeneratorComponent.h" />
     <ClInclude Include="Source\FPSScript.h" />
     <ClInclude Include="Source\GameObject.h" />
@@ -311,6 +318,7 @@
     <ClInclude Include="Source\InputManager.h" />
     <ClInclude Include="Source\InteractableObCom.h" />
     <ClInclude Include="Source\InteractablesObserver.h" />
+    <ClInclude Include="Source\InteractionBaseScript.h" />
     <ClInclude Include="Source\InventoryScript.h" />
     <ClInclude Include="Source\KeyboardManager.h" />
     <ClInclude Include="Source\LayerData.h" />

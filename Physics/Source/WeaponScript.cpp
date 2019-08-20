@@ -290,11 +290,13 @@ void WeaponScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const
 	{
 		for (auto it = m_vector.begin(); it != m_vector.end(); ++it)
 		{
+			if (m_vector.size() == 0)
+				break;
+
 			GameObject* go = static_cast<GameObject*>(*it);
 			if (go->PART->DecreaseDurability(deltaTime))
 				DestroyPart(m_vector, go);
-			if (m_vector.size() == 0)
-				break;
+			
 		}
 	}
 }

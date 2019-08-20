@@ -1,4 +1,7 @@
 #include "ParticleObserver.h"
+#include "SceneManager.h"
+#include "ComponentMacros.h"
+#include "EntityScript.h"
 
 ParticleObserver::ParticleObserver()
 {
@@ -13,5 +16,10 @@ void ParticleObserver::Notify(ComponentBase * com, std::string msg, std::vector<
 	if (msg == "EntityDied")
 	{
 		LZ_LOG("EntityDied");
+		/*auto scene = SceneManager::GetInstance()->GetScene();
+		com->GetComponent<EntityScript>()->Instantiate(
+		scene->GetGameObjectManager()->AddGameObject(scene->GetGO("particlespawnerdestroy")
+		));*/
+
 	}
 }

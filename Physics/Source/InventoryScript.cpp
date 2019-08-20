@@ -119,7 +119,7 @@ void InventoryScript::AddItem(GameObject* go)
 			}
 		}
 		Vector3 pos = m_SlotList[iSlot]->TRANS->GetPosition();
-		Vector3 scal = { 20,20,1 };
+		Vector3 scal = { 40,40,1 };
 		GameObject* go2 = Instantiate(go, pos, scal, "UI");
 		go2->RIGID->SetAffectedByGravity(false);
 		m_InventoryItems[iSlot] = go2;

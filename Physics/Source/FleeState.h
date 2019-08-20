@@ -1,19 +1,14 @@
 #pragma once
 #include "AIState.h"
-#include "StopWatch.h"
-class WanderState :
+class FleeState :
 	public AIState
 {
-private:
-	StopWatch m_SW;
-	float m_fTime;
-	Vector3 m_vDir;
 public:
-	WanderState();
-	virtual ~WanderState();
+	FleeState();
+	virtual ~FleeState();
 
 	virtual State* HandleState(ComponentBase* com) override;
 	virtual void OnEnter(ComponentBase* com) override;
 	virtual void OnExit(ComponentBase* com) override;
-	virtual State* Clone() { return new WanderState(*this); };
+	virtual State* Clone() { return new FleeState(*this); };
 };

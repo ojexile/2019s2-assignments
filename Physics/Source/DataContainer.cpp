@@ -16,6 +16,8 @@
 #include "GrenadeScript.h"
 #include "LootScript.h"
 #include "DestructibleEntityScript.h"
+#include "FlipEntityScript.h"
+#include "InteractableObCom.h"
 #include "ConcreteMiscParts/StaminaRegenPart.h"
 //
 #include "PartScript.h"
@@ -24,6 +26,9 @@
 #include "StandingState.h"
 #include "IdleState.h"
 #include "MeleeCombatState.h"
+#include "FleeState.h"
+//
+#include "AIStatesList.h"
 
 DataContainer::DataContainer()
 {
@@ -94,6 +99,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
 	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
 	m_map_Textures["InventorySlot"] = LoadTGA("inventorySlot");
+	m_map_Textures["CustomiseSlot"] = LoadTGA("inventorySlot1");
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
 	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
@@ -134,15 +140,28 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Grenade"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
-	m_map_Meshes["UIButton"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
+	m_map_Meshes["UIInventory"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
+
+	m_map_Meshes["UICustomise"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CustomiseSlot");
+
+	m_map_Meshes["UICustomise"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CustomiseSlot");
+
+	m_map_Meshes["UIBullet"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("UIBullet");
 
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
 
 	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", { 1,1,1 }, 1.f);
+
+	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
+
+	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
+
+	//m_map_Meshes["fliprock"] = MeshBuilder::GenerateCube("fliprock", { 1,1,1 }, 1.f);
+	
 }
-void  DataContainer::InitTerrain()
+void DataContainer::InitTerrain()
 {
 	/// Terrain================================================================================
 	// Plains--------------------------------------------------------------------------------
@@ -150,7 +169,7 @@ void  DataContainer::InitTerrain()
 		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS);
 	//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 }
-void  DataContainer::InitGO()
+void DataContainer::InitGO()
 {
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
@@ -228,9 +247,16 @@ void  DataContainer::InitGO()
 	//Enemies-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy")));
+	go->AddComponent(new EntityScript(GetBehaviour("MeleeEnemy"), &AIStatesList::Melee));
+	go->AddComponent(new LootScript());
+	//Enemies-----------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Cow"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new EntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee));
 	go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
@@ -244,21 +270,21 @@ void  DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["InventorySlot"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->AddComponent(new RenderComponent(GetMesh("UIInventory")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
 	// CustomiseSlot--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["CustomiseSlot"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->AddComponent(new RenderComponent(GetMesh("UICustomise")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
 	// BulletUI--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BulletUI"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("UIButton")));
+	go->AddComponent(new RenderComponent(GetMesh("UIBullet")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(50, 20, 1);
 	// ItemInfo--------------------------------------------------------------------------------
@@ -266,7 +292,9 @@ void  DataContainer::InitGO()
 	m_map_GO["ItemInfo"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
-	// Interactabes--------------------------------------------------------------------------------
+
+
+	// Interactabes/Foilage--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
@@ -283,6 +311,24 @@ void  DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
+	go->AddComponent(new InteractableObCom());
+	static_cast<FlipEntityScript*>(
+		go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(1.f);
+
+	go = new GameObject();
+	m_map_GO["fliprock"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	//go->TRANS->SetScale(10.f);
+	// go->GetComponent<RenderComponent>()->SetBillboard(true);
+
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->TRANS->SetScale(3.f, 1.f, 3.f);
+	go->RIGID->SetMat(0.9f, 0);
+	go->AddComponent(new InteractableObCom());
+	go->AddComponent(new DestructibleEntityScript(m_map_GO["particlespawnerdestroy"]));
+	static_cast<FlipEntityScript*>(
+	go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
+	
 }
 void  DataContainer::InitShaders()
 {
@@ -292,7 +338,8 @@ void  DataContainer::InitShaders()
 void DataContainer::InitBehaviour()
 {
 	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
-	m_map_Behaviour["MeleeEnemy"] = new Behaviour(new IdleState(new MeleeCombatState));
+	m_map_Behaviour["MeleeEnemy"] = new Behaviour(&AIStatesList::Idle);
+	m_map_Behaviour["FleeEnemy"] = new Behaviour(&AIStatesList::Idle);
 }
 DataContainer::~DataContainer()
 {
