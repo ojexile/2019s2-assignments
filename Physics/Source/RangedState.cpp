@@ -42,12 +42,12 @@ State * RangedState::HandleState(ComponentBase * com)
 	}
 	else
 		return &AIStatesList::Idle;
+	com->RENDER->SetColor(1, 0.2f, 0.1f);
 	return this;
 }
 
 void RangedState::OnEnter(ComponentBase * com)
 {
-	com->RENDER->SetColor(1, 0.2f, 0.1f);
 }
 
 void RangedState::OnExit(ComponentBase * com)

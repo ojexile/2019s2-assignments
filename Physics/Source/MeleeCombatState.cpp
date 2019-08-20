@@ -15,7 +15,6 @@ MeleeCombatState::~MeleeCombatState()
 
 State * MeleeCombatState::HandleState(ComponentBase * com)
 {
-
 	if (PlayerInRange(com))
 	{
 		Vector3 Dir = DirToPlayer(com);
@@ -28,12 +27,12 @@ State * MeleeCombatState::HandleState(ComponentBase * com)
 	}
 	else
 		return &AIStatesList::Idle;
+	com->RENDER->SetColor(1, 0.5f, 0);
 	return this;
 }
 
 void MeleeCombatState::OnEnter(ComponentBase * com)
 {
-	com->RENDER->SetColor(1, 0.5f, 0);
 	Vector3 Dir = DirToPlayer(com);
 	AI->SetTarget(Dir);
 }
