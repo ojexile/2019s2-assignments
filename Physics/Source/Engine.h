@@ -31,5 +31,6 @@ private:
 	static Renderer* m_Renderer;
 	CollisionManager m_CollisionManager;
 	void CheckGOForObserver(GameObject* go, std::vector<GameObject*>* GOList);
+	unsigned int m_frameCount;
 public:
 };
