@@ -12,7 +12,7 @@ BirdWingScript::~BirdWingScript()
 
 void BirdWingScript::Update(double dt)
 {
-	float rate = 20 * (float)dt;
+	float rate = 800 * (float)dt;
 	if (!m_bUp)
 		rate = -rate;
 	m_fAngle += rate;
@@ -20,8 +20,8 @@ void BirdWingScript::Update(double dt)
 	GameObject* l = GetChild(1);
 	GameObject* r = GetChild(2);
 
-	l->TRANS->SetRelativeRotation(m_fAngle, 0, 1, 0);
-	r->TRANS->SetRelativeRotation(m_fAngle, 0, 1, 0);
+	l->TRANS->SetRelativeRotation(m_fAngle, 0, 0, 1);
+	r->TRANS->SetRelativeRotation(-m_fAngle, 0, 0, 1);
 
 	float max = 50;
 	if (m_fAngle > max)

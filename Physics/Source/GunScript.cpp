@@ -69,7 +69,12 @@ void GunScript::Update(double deltaTime)
 	m_fBufferTime += (float)deltaTime;
 
 	if (m_bIsReloading)
+	{
+		GetChild(0)->SetActive(true);
 		m_fReloadElapsedTime += (float)deltaTime;
+	}
+	else
+		GetChild(0)->SetActive(false);
 
 	if (m_fReloadElapsedTime >= m_fReloadTime && m_bIsReloading)
 		ReloadWeapon();
