@@ -12,4 +12,5 @@ namespace AIStatesList
 	extern WanderState BirdWander = WanderState(&BirdIdle);
 	extern RangedState Ranged = RangedState();
 	extern BossCombat Boss = BossCombat();
+	extern BossShockwaveState ShockWave = BossShockwaveState();
 }

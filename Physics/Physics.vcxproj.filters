@@ -112,6 +112,7 @@
     <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
     <ClCompile Include="Source\BossCombat.cpp" />
+    <ClCompile Include="Source\BossShockwaveState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -232,6 +233,7 @@
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
     <ClInclude Include="Source\BossCombat.h" />
+    <ClInclude Include="Source\BossShockwaveState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />

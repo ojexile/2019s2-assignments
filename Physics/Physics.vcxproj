@@ -179,6 +179,7 @@
     <ClCompile Include="Source\BiomeComponent.cpp" />
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\BossCombat.cpp" />
+    <ClCompile Include="Source\BossShockwaveState.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\CameraScript.cpp" />
@@ -292,6 +293,7 @@
     <ClInclude Include="Source\Behaviour.h" />
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\BossCombat.h" />
+    <ClInclude Include="Source\BossShockwaveState.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\CameraScript.h" />

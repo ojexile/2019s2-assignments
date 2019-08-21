@@ -6,6 +6,7 @@
 #include "IdleState.h"
 #include "RangedState.h"
 #include "BossCombat.h"
+#include "BossShockwaveState.h"
 
 namespace AIStatesList
 {
@@ -15,4 +16,5 @@ namespace AIStatesList
 	extern IdleState Idle;
 	extern RangedState Ranged;
 	extern BossCombat Boss;
+	extern BossShockwaveState ShockWave;
 }

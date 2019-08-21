@@ -30,25 +30,17 @@ State * BossCombat::HandleState(ComponentBase * com)
 		float meleeRange = 10;
 		if (PlayerInRange(com, meleeRange))
 		{
-			// Create shockwave effect
-			GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
-			GameObject* go = GOM->AddGameObject(DataContainer::GetInstance()->
-				GetGameObject("Shockwave"));
-			go->TRANS->SetPosition(com->TRANS->GetPosition());
-			std::vector<GameObject*> list;
-			Component* comp = dynamic_cast<Component*>(com);
-			list.push_back(comp->GetGO());
-			go->GetComponent<BlackholeScript>()->SetIgnoreList(list);
+			return &AIStatesList::ShockWave;
 		}
 	}
 	else
 		return &AIStatesList::Idle;
-	com->RENDER->SetColor(1, 0.5f, 0);
 	return this;
 }
 
 void BossCombat::OnEnter(ComponentBase * com)
 {
+	com->RENDER->SetColor(1, 0.5f, 0);
 	Vector3 Dir = DirToPlayer(com);
 	AI->SetTarget(Dir);
 }
