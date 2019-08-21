@@ -192,6 +192,8 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["WingRight"] = MeshBuilder::GenerateOBJ("Bird/WingRight");
 
 	m_map_Meshes["EnemyReticle"] = MeshBuilder::GenerateOBJ("EnemyReticle");
+	m_map_Meshes["Fox"] = MeshBuilder::GenerateOBJ("Fox");
+	m_map_Meshes["Chick"] = MeshBuilder::GenerateOBJ("Chick");
 }
 void DataContainer::InitTerrain()
 {
