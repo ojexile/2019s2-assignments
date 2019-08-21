@@ -22,7 +22,6 @@
 #include "DebrisSpawningScript.h"
 #include "AdvancedParticleSpawnerScript.h"
 //
-#include "PartScript.h"
 #include "WeaponPartScript.h"
 //States
 #include "StandingState.h"
@@ -212,28 +211,28 @@ void DataContainer::InitGO()
 	m_map_GO["Muzzle"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Muzzle")));
-	go->AddComponent(new WeaponPartScript(PartScript::MUZZLE, 0.5, 1));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::MUZZLE, 0.5, 1));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
 	m_map_GO["Clip"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Clip")));
-	go->AddComponent(new WeaponPartScript(PartScript::CLIP, 2.0, 50));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::CLIP, 2.0, 50));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
 	m_map_GO["Scope"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Scope")));
-	go->AddComponent(new WeaponPartScript(PartScript::SCOPE, 0.5, 1));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::SCOPE, 0.5, 1));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
 	m_map_GO["Grip"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Grip")));
-	go->AddComponent(new WeaponPartScript(PartScript::GRIP, 2.0, 50));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::GRIP, 2.0, 50));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------

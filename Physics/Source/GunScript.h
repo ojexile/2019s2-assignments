@@ -1,7 +1,7 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "GameObject.h"
-#include "PartScript.h"
+#include "WeaponPartScript.h"
 
 #include <vector>
 
@@ -34,7 +34,7 @@ public:
 	void Update(double deltaTime) override;
 	void UpdateStats(GameObject* go, bool Multiply);
 
-	void EquipPart(GameObject* part, PartScript::SLOT_TYPE slot);
+	void EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot);
 	void SetBulletsFired(int BulletsFired);
 	void SetMagazineRounds(int MagRounds);
 	void SetMaxMagazineRounds(int MagRounds_Max);

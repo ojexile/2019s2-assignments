@@ -1,6 +1,5 @@
 #pragma once
 #include "ScriptComponent.h"
-#include "PartScript.h"
 #include "WeaponPartScript.h"
 
 class LootScript : public ScriptComponent

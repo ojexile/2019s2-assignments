@@ -82,22 +82,22 @@ void GunScript::UpdateStats(GameObject* go, bool Multiply)
 	{
 		switch (go->PART->GetSlotType())
 		{
-		case PartScript::SCOPE:
+		case WeaponPartScript::SCOPE:
 		{
 			m_fBulletSpread = m_fBulletSpread * go->PART->GetMultiplier();
 			break;
 		}
-		case PartScript::MUZZLE:
+		case WeaponPartScript::MUZZLE:
 		{
 			m_fFirerate = m_fFirerate * go->PART->GetMultiplier();
 			break;
 		}
-		case PartScript::CLIP:
+		case WeaponPartScript::CLIP:
 		{
 			m_iMagazineRounds_Max = m_iMagazineRounds_Max + static_cast<int>(go->PART->GetMultiplier());
 			break;
 		}
-		case PartScript::GRIP:
+		case WeaponPartScript::GRIP:
 		{
 			//Need another variable to edit, temporarily bullet spread
 			m_fBulletSpread = m_fBulletSpread * go->PART->GetMultiplier();
@@ -111,23 +111,23 @@ void GunScript::UpdateStats(GameObject* go, bool Multiply)
 	{
 		switch (go->PART->GetSlotType())
 		{
-		case PartScript::SCOPE:
+		case WeaponPartScript::SCOPE:
 		{
 			m_fBulletSpread = m_fBulletSpread / go->PART->GetMultiplier();
 			break;
 		}
-		case PartScript::MUZZLE:
+		case WeaponPartScript::MUZZLE:
 		{
 			m_fFirerate = m_fFirerate / go->PART->GetMultiplier();
 			break;
 		}
-		case PartScript::CLIP:
+		case WeaponPartScript::CLIP:
 		{
 			m_iMagazineRounds_Max = m_iMagazineRounds_Max - static_cast<int>(go->PART->GetMultiplier());
 			Math::Clamp(m_iMagazineRounds, m_iMagazineRounds, m_iMagazineRounds_Max);
 			break;
 		}
-		case PartScript::GRIP:
+		case WeaponPartScript::GRIP:
 		{
 			//Need another variable to edit, temporarily bullet spread
 			m_fBulletSpread = m_fBulletSpread / go->PART->GetMultiplier();
@@ -183,7 +183,7 @@ void GunScript::ReloadWeapon(void)
 	}
 }
 
-void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
+void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 {
 	if (!part->PART)
 		return;
@@ -193,7 +193,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 
 	switch (part->PART->GetSlotType())
 	{
-	case PartScript::SCOPE:
+	case WeaponPartScript::SCOPE:
 	{
 		m_ScopeParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.5f, 0.f);
@@ -201,7 +201,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		UpdateStats(part, true);
 		return;
 	}
-	case PartScript::MUZZLE:
+	case WeaponPartScript::MUZZLE:
 	{
 		m_MuzzleParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
@@ -209,7 +209,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		UpdateStats(part, true);
 		return;
 	}
-	case PartScript::CLIP:
+	case WeaponPartScript::CLIP:
 	{
 		m_StockParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.55f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
@@ -217,7 +217,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		UpdateStats(part, true);
 		return;
 	}
-	case PartScript::GRIP:
+	case WeaponPartScript::GRIP:
 	{
 		m_GripParts.push_back(part);
 		part->TRANS->SetRelativePosition(-1.2f + (-1.0f * m_GripParts.size()), 0, 0);

@@ -29,15 +29,15 @@ void LootScript::Collide(GameObject * go)
 
 WeaponPartScript* LootScript::GenerateWeaponPart(void)
 {
-	PartScript::SLOT_TYPE SlotType = static_cast<PartScript::SLOT_TYPE>(Math::RandIntMinMax(1, PartScript::SLOT_TYPE::MUZZLE));
+	WeaponPartScript::SLOT_TYPE SlotType = static_cast<WeaponPartScript::SLOT_TYPE>(Math::RandIntMinMax(1, WeaponPartScript::SLOT_TYPE::MUZZLE));
 	float Durability = Math::RandFloatMinMax(5, 15);
 	float Multiplier;
 
-	if (SlotType == PartScript::SLOT_TYPE::MUZZLE || SlotType == PartScript::SLOT_TYPE::SCOPE)
+	if (SlotType == WeaponPartScript::SLOT_TYPE::MUZZLE || SlotType == WeaponPartScript::SLOT_TYPE::SCOPE)
 	{
 		Multiplier = Math::RandFloatMinMax(0.5f, 0.9f);
 		
-		if (SlotType == PartScript::SLOT_TYPE::MUZZLE)
+		if (SlotType == WeaponPartScript::SLOT_TYPE::MUZZLE)
 		{
 			m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Muzzle"));
 		}
@@ -47,10 +47,10 @@ WeaponPartScript* LootScript::GenerateWeaponPart(void)
 		}
 
 	}
-	else if (SlotType == PartScript::SLOT_TYPE::CLIP || SlotType == PartScript::SLOT_TYPE::GRIP)
+	else if (SlotType == WeaponPartScript::SLOT_TYPE::CLIP || SlotType == WeaponPartScript::SLOT_TYPE::GRIP)
 	{
 		Multiplier = Math::RandFloatMinMax(1.2f, 2.f);
-		if (SlotType == PartScript::SLOT_TYPE::CLIP)
+		if (SlotType == WeaponPartScript::SLOT_TYPE::CLIP)
 		{
 			m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Clip"));
 		}
@@ -68,13 +68,13 @@ WeaponPartScript* LootScript::GenerateWeaponPart(void)
 void LootScript::DropLoot(void)
 {
 
-	PartScript* NewPartScript = nullptr;
+	WeaponPartScript* NewWeaponPartScript = nullptr;
 	
-	NewPartScript = GenerateWeaponPart();
+	NewWeaponPartScript = GenerateWeaponPart();
 
 	GameObject* Loot = Instantiate(m_LootDrop, this->GetPosition());
 
-	Loot->AddComponent(NewPartScript);
+	Loot->AddComponent(NewWeaponPartScript);
 	Loot->RENDER->SetActive(true);
 	Loot->RIGID->SetAffectedByGravity(true);
 

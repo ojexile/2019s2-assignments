@@ -167,7 +167,7 @@ void PlayerScript::UpdateMovement(double dt)
 }
 void PlayerScript::Collide(GameObject* go)
 {
-	PartScript* ps = go->GetComponent<PartScript>(true);
+	WeaponPartScript* ps = go->GetComponent<WeaponPartScript>(true);
 	if (ps)
 	{
 		GetComponent<InventoryScript>()->AddItem(go);

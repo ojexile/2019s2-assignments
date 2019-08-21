@@ -1,12 +1,43 @@
 #pragma once
-#include "PartScript.h"
+#include "ScriptComponent.h"
 
-class WeaponPartScript : public PartScript
+/********************************************************************************
+Author: Ryan Tan Zheng Rong
+Brief: Base Script for weapon parts that can be attached to the weapon
+	   etc.
+********************************************************************************/
+
+class WeaponPartScript : public ScriptComponent
 {
 public:
-	WeaponPartScript(SLOT_TYPE slot, float Multiplier, float durability, bool isAttached = false);
-	virtual ~WeaponPartScript();
+
+	enum SLOT_TYPE
+	{
+		SCOPE = 1,
+		CLIP,
+		GRIP,
+		MUZZLE,
+	};
+
+	WeaponPartScript(SLOT_TYPE slot, float Multiplier, float Durability = 5.f);
+	~WeaponPartScript();
+
+	bool DecreaseDurability(double deltaTime);
+
+	SLOT_TYPE GetSlotType();
+
+	float GetMultiplier();
+
+	//This is for Miscellaneous Parts, initially their slot type will be ALL
+	void SetSlotType(SLOT_TYPE slot);
+
+	void SetDurability(float durability);
+	void SetMultiplier(float multiplier);
 
 	virtual Component* Clone() { return new WeaponPartScript(*this); }
-	void Effect() override;
+
+private:
+	float m_fDurability;
+	float m_fStatMultiplier;
+	SLOT_TYPE m_SlotType;
 };

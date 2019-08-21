@@ -1,6 +1,6 @@
 #pragma once
 #include "ScriptComponent.h"
-#include "PartScript.h"
+#include "WeaponPartScript.h"
 #include <vector>
 #define INVENTORY_SIZE 6
 class InventoryScript :
@@ -23,5 +23,5 @@ public:
 	virtual void Update(double dt) override;
 
 	void AddItem(GameObject* go);
-	void Attach(PartScript::SLOT_TYPE e);
+	void Attach(WeaponPartScript::SLOT_TYPE e);
 };
