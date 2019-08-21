@@ -15,6 +15,7 @@
 #include "MiscellaneousPartScript.h"
 #include "ReticleScript.h"
 #include "ParticleObserver.h"
+#include "AdvancedParticleSpawnerScript.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -147,6 +148,8 @@ void DefaultScene::Init()
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
+	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR,36, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
+
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));

@@ -9,6 +9,7 @@
 #include "ObserverComponent.h"
 #include "GenericSubject.h"
 #include "StopWatch.h"
+#include "MyMath.h"
 // Start Scene
 #include "DefaultScene.h"
 Renderer* Engine::m_Renderer;
