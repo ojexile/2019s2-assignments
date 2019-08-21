@@ -152,6 +152,9 @@ void EntityScript::RotateTowards(Vector3 vDir)
 void EntityScript::Jump()
 {
 	Rigidbody* rb = GetComponent<Rigidbody>();
+	if (!GetComponent<PlayerScript>())
+		return;
+
 	if (GetComponent<PlayerScript>()->GetCanJump())
 	{
 		rb->AddForce({ 0,m_BaseStats.m_fJumpForce,0 });

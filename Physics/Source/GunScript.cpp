@@ -325,7 +325,10 @@ void GunScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const do
 
 			GameObject* go = static_cast<GameObject*>(*it);
 			if (go->PART->DecreaseDurability(deltaTime))
+			{
 				DestroyPart(m_vector, go);
+				break;
+			}
 			
 		}
 	}
@@ -390,4 +393,9 @@ float GunScript::GetReloadElapsedTime()
 float GunScript::GetReloadTime()
 {
 	return m_fReloadTime;
+}
+
+bool GunScript::IsReloading()
+{
+	return IsReloading;
 }

@@ -50,6 +50,8 @@ public:
 	float GetReloadTime();
 	float GetReloadElapsedTime();
 
+	bool IsReloading();
+
 	virtual Component* Clone() { return new GunScript(*this); }
 
 private:

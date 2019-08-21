@@ -41,6 +41,8 @@ public:
 	//This is for Miscellaneous Parts, initially their slot type will be ALL
 	void SetSlotType(SLOT_TYPE slot);
 
+	void SetDurability(float durability);
+	void SetMultiplier(float multiplier);
 protected:
 	//Allows for reading in subclasses
 	PART_TYPE m_PartType;
