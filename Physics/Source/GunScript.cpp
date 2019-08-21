@@ -196,6 +196,29 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 	
 	part->RIGID->SetAffectedByGravity(false);
 	
+	if (part->PART->GetAugment())
+	{
+		switch (part->PART->GetAugment()->GetAugmentType())
+		{
+		case Augment::eAugmentType::BULLET:
+		{
+		
+		}
+		case Augment::eAugmentType::PLAYER:
+		{
+
+		}
+		case Augment::eAugmentType::WEAPON:
+		{
+
+		}
+		default:
+		{
+			break;
+		}
+		}
+	}
+
 
 	switch (part->PART->GetSlotType())
 	{
