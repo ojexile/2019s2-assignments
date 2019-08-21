@@ -301,7 +301,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->TRANS->SetScale(4);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(200, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(200, 0, 100, 0, 80, 20, 2000, 16)));
 	go->AddComponent(new LootScript());
 	// Gun
 	GameObject* Gun = GetGameObject("Gun");
