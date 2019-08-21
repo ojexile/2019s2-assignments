@@ -17,6 +17,7 @@
 #include "AdvancedParticleSpawnerScript.h"
 //TMP
 #include "ExplodeAugment.h"
+#include "BlackHoleAugment.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -138,7 +139,7 @@ void DefaultScene::Init()
 	//TMP
 	GameObject* muz = dataContainer->GetGameObject("Muzzle");
 	muz->PART->SetDurability(10000.f);
-	muz->PART->SetAugment(new ExplodeAugment);
+	muz->PART->SetAugment(new BlackHoleAugment);
 	Gun->AddChild(muz);
 	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
 

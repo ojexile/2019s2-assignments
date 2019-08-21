@@ -203,7 +203,6 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 	{
 		m_ScopeParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.5f, 0.f);
-		
 		UpdateStats(part, true);
 		return;
 	}

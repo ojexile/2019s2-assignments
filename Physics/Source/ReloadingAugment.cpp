@@ -4,6 +4,7 @@
 
 ReloadingAugment::ReloadingAugment()
 {
+	m_AugmentType = WEAPON;
 }
 
 

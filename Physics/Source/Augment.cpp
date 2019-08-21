@@ -18,3 +18,8 @@ void Augment::SetPlayerReference(ComponentBase* ref)
 {
 	m_EntityRef = ref;
 }
+
+Augment::eAugmentType Augment::GetAugmentType()
+{
+	return m_AugmentType;
+}

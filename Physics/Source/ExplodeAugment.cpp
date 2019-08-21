@@ -7,6 +7,7 @@
 
 ExplodeAugment::ExplodeAugment()
 {
+	m_AugmentType = BULLET;
 }
 
 

@@ -4,6 +4,7 @@
 
 HealthAugment::HealthAugment()
 {
+	m_AugmentType = WEAPON;
 }
 
 

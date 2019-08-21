@@ -12,14 +12,25 @@ public:
 	Augment();
 	~Augment();
 
+	enum eAugmentType
+	{
+		NIL,
+		WEAPON,
+		BULLET,
+		PLAYER
+	};
+
 	virtual void ActiveEffect(Component* proj, GameObject* go) = 0;
 	virtual void PassiveEffect(GameObject* go) = 0;
 
 	void SetGunReference(GameObject* ref);
 	void SetPlayerReference(ComponentBase* ref);
 
+	eAugmentType GetAugmentType();
+
 protected:
 	ComponentBase* m_EntityRef;
 	GameObject* m_GunRef;
+	eAugmentType m_AugmentType;
 };
 
