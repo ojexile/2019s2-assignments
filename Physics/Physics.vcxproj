@@ -270,6 +270,7 @@
     <ClCompile Include="Source\State.cpp" />
     <ClCompile Include="Source\Stats.cpp" />
     <ClCompile Include="Source\StopWatch.cpp" />
+    <ClCompile Include="Source\SuicideNoteScript.cpp" />
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TopDownState.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
@@ -390,6 +391,7 @@
     <ClInclude Include="Source\State.h" />
     <ClInclude Include="Source\Stats.h" />
     <ClInclude Include="Source\StopWatch.h" />
+    <ClInclude Include="Source\SuicideNoteScript.h" />
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\TopDownState.h" />
     <ClInclude Include="Source\TransformComponent.h" />
