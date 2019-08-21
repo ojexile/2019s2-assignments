@@ -22,10 +22,11 @@ void Component::DestroySelf()
 	SceneManager* sceneManager = SceneManager::GetInstance();
 	sceneManager->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
 }
-void Component::Init(std::vector<GameObject*>* ChildRef, GameObject* Parent)
+void Component::Init(std::vector<GameObject*>* ChildRef, GameObject* Parent, GameObject* GO)
 {
 	m_vec_RefChildList = ChildRef;
 	m_ParentGO = Parent;
+	m_GO = GO;
 }
 GameObject* Component::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer) const
 {
@@ -52,9 +53,14 @@ Vector3 Component::GetPosition()
 	return GetComponent<TransformComponent>()->GetPosition();
 }
 
-GameObject * Component::GetChild(int i)
+GameObject * Component::GetChild(unsigned i)
 {
 	if (m_vec_RefChildList->size() > i)
 		return m_vec_RefChildList->at(i);
 	return nullptr;
+}
+
+GameObject * Component::GetGO()
+{
+	return m_GO;
 }

@@ -8,6 +8,7 @@ class Component : public ComponentBase
 protected:
 	std::vector<GameObject*>* m_vec_RefChildList;
 	GameObject* m_ParentGO;
+	GameObject* m_GO;
 public:
 	Component();
 	virtual ~Component();
@@ -18,7 +19,8 @@ public:
 	GameObject* Instantiate(const GameObject* goRef, std::string sLayer = "Default") const;
 	void Destroy(GameObject* go);
 	void DestroySelf();
-	void Init(std::vector<GameObject*>* ChildRef, GameObject* Parent);
+	void Init(std::vector<GameObject*>* ChildRef, GameObject* Parent, GameObject* GO);
 	Vector3 GetPosition();
-	GameObject* GetChild(int i);
+	GameObject* GetChild(unsigned i);
+	GameObject* GetGO();
 };

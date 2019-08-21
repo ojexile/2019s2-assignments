@@ -55,7 +55,7 @@ ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 	comp->Init(&m_vec_ComponentList);
 	Component* comp1 = dynamic_cast<Component*>(comp);
 	if (comp1)
-		comp1->Init(&m_vec_ChildList, m_Parent);
+		comp1->Init(&m_vec_ChildList, m_Parent, this);
 	m_vec_ComponentList.push_back(comp);
 	return comp;
 }

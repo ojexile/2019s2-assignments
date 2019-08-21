@@ -21,6 +21,17 @@ void BlackholeScript::Update(double dt)
 	for (unsigned i = 0; i < GOList->size(); ++i)
 	{
 		GameObject* go = GOList->at(i);
+		bool bSkip = false;
+		for (GameObject* ig : m_List)
+		{
+			if (go == ig)
+			{
+				bSkip = true;
+				break;
+			}
+		}
+		if (bSkip)
+			continue;
 		// only affects rigid bodies
 		Rigidbody* rigid = go->GetComponent<Rigidbody>();
 		if (!rigid)
@@ -45,4 +56,9 @@ void BlackholeScript::Update(double dt)
 		{
 		}
 	}
+}
+
+void BlackholeScript::SetIgnoreList(std::vector<GameObject*> list)
+{
+	m_List = list;
 }

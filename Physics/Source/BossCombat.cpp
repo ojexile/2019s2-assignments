@@ -10,6 +10,8 @@
 #include "GameObjectManager.h"
 #include "SceneManager.h"
 #include "DataContainer.h"
+#include "BlackholeScript.h"
+#include <vector>
 
 BossCombat::BossCombat()
 {
@@ -33,6 +35,10 @@ State * BossCombat::HandleState(ComponentBase * com)
 			GameObject* go = GOM->AddGameObject(DataContainer::GetInstance()->
 				GetGameObject("Shockwave"));
 			go->TRANS->SetPosition(com->TRANS->GetPosition());
+			std::vector<GameObject*> list;
+			Component* comp = dynamic_cast<Component*>(com);
+			list.push_back(comp->GetGO());
+			go->GetComponent<BlackholeScript>()->SetIgnoreList(list);
 		}
 	}
 	else
