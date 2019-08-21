@@ -26,6 +26,10 @@ public:
 
 	void SetMaxHealth(int i);
 	int GetMaxHealth() const;
+	void SetHealthRegen(int i);
+	void AffectMaxHealth(float f);
+	void AffectHealthRegenRate(float f);
+
 	void SetMaxStamina(float f);
 	float GetMaxStamina() const;
 	void SetStaminaRegen(float f);

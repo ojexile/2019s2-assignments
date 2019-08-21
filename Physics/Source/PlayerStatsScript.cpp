@@ -1,5 +1,5 @@
 #include "PlayerStatsScript.h"
-#include "WeaponScript.h"
+#include "GunScript.h"
 #include "PlayerScript.h"
 
 PlayerStatsScript::PlayerStatsScript(GameObject* Player, GameObject* Stamina,
@@ -16,8 +16,8 @@ PlayerStatsScript::PlayerStatsScript(GameObject* Player, GameObject* Stamina,
 
 void PlayerStatsScript::Start()
 {
-	m_iMaxMag = m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds();
-	m_iMag = m_Gun->GetComponent<WeaponScript>()->GetMagazineRounds();
+	m_iMaxMag = m_Gun->GetComponent<GunScript>()->GetMaxMagazineRounds();
+	m_iMag = m_Gun->GetComponent<GunScript>()->GetMagazineRounds();
 	InitBulletUI();
 }
 void PlayerStatsScript::InitBulletUI()
@@ -32,7 +32,7 @@ void PlayerStatsScript::InitBulletUI()
 		}
 	}
 	m_BulletList.clear();
-	for (int i = 0; i < m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds(); ++i)
+	for (int i = 0; i < m_Gun->GetComponent<GunScript>()->GetMaxMagazineRounds(); ++i)
 	{
 		Vector3 Pos = vStartPos + Vector3{ 0, i * fOffset, 0 };
 		m_BulletList.push_back(Instantiate(m_BulletUIRef, Pos, "UI"));
@@ -40,13 +40,13 @@ void PlayerStatsScript::InitBulletUI()
 }
 void PlayerStatsScript::UpdateBulletUI()
 {
-	int iNewMaxMag = m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds();
+	int iNewMaxMag = m_Gun->GetComponent<GunScript>()->GetMaxMagazineRounds();
 	if (iNewMaxMag != m_iMaxMag)
 	{
 		InitBulletUI();
 	}
-	m_iMaxMag = m_Gun->GetComponent<WeaponScript>()->GetMaxMagazineRounds();
-	m_iMag = m_Gun->GetComponent<WeaponScript>()->GetMagazineRounds();
+	m_iMaxMag = m_Gun->GetComponent<GunScript>()->GetMaxMagazineRounds();
+	m_iMag = m_Gun->GetComponent<GunScript>()->GetMagazineRounds();
 	for (int i = 0; i < m_iMaxMag; ++i)
 	{
 		if (i < m_iMag)

@@ -127,6 +127,14 @@ void ParticleScript::Update(double dt)
 		DestroySelf();
 	}
 }
+Vector3 ParticleScript::GetVel()
+{
+	return m_vSpeed;
+}
+void ParticleScript::SetVel(Vector3 v)
+{
+	m_vSpeed = v;
+}
 void ParticleScript::SetCos(Vector3 a, Vector3 f)
 {
 	m_vCos = a;

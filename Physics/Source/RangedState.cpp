@@ -5,13 +5,13 @@
 #include "IdleState.h"
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
-#include "WeaponScript.h"
+#include "GunScript.h"
 #include "Time.h"
 #include "GameObject.h"
 void RangedState::FireGun(Component * com, const Vector3& vDir)
 {
 	GameObject* Gun = com->GetChild(0);
-	WeaponScript* ws = Gun->GetComponent<WeaponScript>();
+	GunScript* ws = Gun->GetComponent<GunScript>();
 	ws->PullTrigger(vDir, Time::GetInstance()->GetDeltaTimeF());
 	if (ws->GetMagazineRounds() <= 0)
 		ws->ReloadWeapon();

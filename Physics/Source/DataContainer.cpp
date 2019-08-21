@@ -12,7 +12,7 @@
 #include "ProjectileScript.h"
 #include "ReticleScript.h"
 #include "PlayerScript.h"
-#include "WeaponScript.h"
+#include "GunScript.h"
 #include "GrenadeScript.h"
 #include "LootScript.h"
 #include "DestructibleEntityScript.h"
@@ -22,6 +22,7 @@
 #include "SpawnLootScript.h"
 #include "DebrisSpawningScript.h"
 #include "ReloadUIScript.h"
+#include "AdvancedParticleSpawnerScript.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -33,6 +34,8 @@
 //
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
+//Entity Library
+#include "Entity_Library.h"
 DataContainer::DataContainer()
 {
 	m_bInitialsed = false;
@@ -53,6 +56,7 @@ void DataContainer::Init()
 	InitGO();
 	InitChunks();
 	InitShaders();
+	Entity_Library::GetInstance()->Init();
 	m_bInitialsed = true;
 
 	clock_t end = clock();
@@ -206,7 +210,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.005f);
 	go->RIGID->SetMat(0.9f, 1);
-	go->AddComponent(new ProjectileScript(1.0, 10.0));
+	go->AddComponent(new ProjectileScript(1.0, 1000.0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
@@ -310,6 +314,13 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 2)));
 	// go->AddComponent(new LootScript());
+	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee, Stats(50, 0, 100, 0, 80, 20, 2000, 12)));
+	// Fish-----------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Fish"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Fish")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee, Stats(50, 0, 100, 0, 80, 20, 2000, 12)));
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -354,11 +365,21 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
 	go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
 	go->GetComponent<RenderComponent>()->SetBillboard(true);
-	go->AddComponent(new ParticleScript(1.f, Vector3(0.f, 1.f, 0.f), Vector3(0.f, 100.f, 0.f), Vector3(), Vector3(), Vector3(1.f, 1.f, 1.f)));
+	go->TRANS->SetScale(0.5f);
+	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	
+	go = new GameObject();
+	m_map_GO["particledestroyv2"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
+	go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
+	go->GetComponent<RenderComponent>()->SetBillboard(true);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetVel({1.f, 0.f, 0.f});
 
 	go = new GameObject();
 	m_map_GO["particlespawnerdestroy"] = go;
-	go->AddComponent(new ParticleSpawnerScript(m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
 
 	go = new GameObject();
 	m_map_GO["plaintree"] = go;
@@ -405,6 +426,7 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(2.f);
 	go->AddComponent(new DestructibleEntityScript("RockDied"));
 	go->AddComponent(new DebrisSpawningScript("boulder2", 2, 2));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
 
 	go = new GameObject();
 	m_map_GO["boulder2"] = go;

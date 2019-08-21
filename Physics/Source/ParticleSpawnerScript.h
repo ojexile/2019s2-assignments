@@ -3,7 +3,7 @@
 class ParticleSpawnerScript :
 	public ScriptComponent
 {
-private:
+protected:
 	GameObject* m_ParticleRef;
 	const float m_fSpawnRate;
 	const Vector3 m_vSpawnRadius;

@@ -42,3 +42,13 @@ float PartScript::GetMultiplier()
 {
 	return m_fStatMultiplier;
 }
+
+void PartScript::SetDurability(float durability)
+{
+	m_fDurability = durability;
+}
+
+void PartScript::SetMultiplier(float multiplier)
+{
+	m_fStatMultiplier = multiplier;
+}
