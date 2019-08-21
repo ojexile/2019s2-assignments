@@ -72,7 +72,6 @@ void Engine::SetMouseCallback(GLFWwindow* window)
 }
 void Engine::Update(double dt)
 {
-	dt = min(dt, 0.05);
 	m_frameCount ++;
 	SceneManager* SceneManager = SceneManager::GetInstance();
 	if (SceneManager->IsSceneChanged())
@@ -115,7 +114,7 @@ void Engine::Update(double dt)
 	s.Reset();
 	//Update coll-------------------------------------------------------------------------------
 	StopWatch sw(true);
-	if(m_frameCount & 1) m_CollisionManager.Update(CurrentScene->GetGameObjectManager());
+	m_CollisionManager.Update(CurrentScene->GetGameObjectManager(), (m_frameCount & 255));
 	CHENG_LOG("Time to check collision: ", STOP_S);
 	sw.Stop();
 	KZ_LOG("[Collision_Time_2]", " CollisionManager.Update() took " + sw.GetSTime() + "s");

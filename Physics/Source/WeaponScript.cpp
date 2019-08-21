@@ -251,15 +251,13 @@ void WeaponScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 
 void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* target)
 {
-	std::vector<GameObject*>::iterator it = m_vector.end() - 1;
 	while (m_vector.size() > 0)
 	{
-		GameObject* go = static_cast<GameObject*>(*it);
+		GameObject* go = static_cast<GameObject*>(*(m_vector.rbegin()));
 		PartScript::PART_TYPE type = go->PART->GetPartType();
 		
 		if (target == go)
 		{
-
 			if (type == PartScript::PART_TYPE::WEAPON)
 				UpdateStats(go, false);
 			else
@@ -271,7 +269,7 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 		}
 		else
 		{
-			--it;
+			
 			
 			if (type == PartScript::PART_TYPE::WEAPON)
 				UpdateStats(go, false);

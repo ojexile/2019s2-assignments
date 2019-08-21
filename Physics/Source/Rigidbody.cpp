@@ -42,6 +42,7 @@ void Rigidbody::Update(double dt)
 	if (m_iVelChangeCount != 0) this->m_vVel += m_vVelChange * (1.f / m_iVelChangeCount);
 	m_vVelChange.SetZero();
 	m_iVelChangeCount = 0;
+	if (m_vVel.LengthSquared() > 2500) m_vVel = m_vVel.Normalized() * 50;
 	// Air Resistance
 	float fric = m_PhyMat.GetFriction();
 	Vector3 vScale = TRANS->GetScale();
