@@ -397,5 +397,5 @@ float GunScript::GetReloadTime()
 
 bool GunScript::IsReloading()
 {
-	return IsReloading;
+	return m_bIsReloading;
 }
