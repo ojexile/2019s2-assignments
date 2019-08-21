@@ -48,6 +48,7 @@ public:
 	float GetFireRate();
 	float GetBulletSpread();
 	float GetReloadTime();
+	float GetReloadElapsedTime();
 
 	virtual Component* Clone() { return new WeaponScript(*this); }
 

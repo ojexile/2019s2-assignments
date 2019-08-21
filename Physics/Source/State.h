@@ -1,5 +1,6 @@
 #pragma once
 #include "ComponentBase.h"
+#include "RenderComponent.h"
 class State
 {
 public:

@@ -42,7 +42,6 @@ void DefaultScene::Init()
 	/// Layers================================================================================
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
-
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	go->TRANS->SetPosition(1920 - 40, 1080 - 20, 25);
 	/// Inventory--------------------------------------------------------------------------------
@@ -80,19 +79,26 @@ void DefaultScene::Init()
 	float fCustoDist = 100;
 	//
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
-	go->TRANS->SetPosition(CustoPos - Vector3(-fCustoDist, 0, 0));
+	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0));
+	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotMuzzle"));
+	CustoSlots.push_back(go);
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Muzzle", true));
+	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0) + Vector3(-50, 20, 16));
+	//
+	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
+	go->TRANS->SetPosition(CustoPos + Vector3(0, fCustoDist, 0));
+	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotScope"));
+	CustoSlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
+	go->TRANS->SetPosition(CustoPos + Vector3(fCustoDist, 0, 0));
+	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotStock"));
 	CustoSlots.push_back(go);
 	//
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos - Vector3(0, fCustoDist, 0));
-	CustoSlots.push_back(go);
-	//
-	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
-	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0));
-	CustoSlots.push_back(go);
-	//
-	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
-	go->TRANS->SetPosition(CustoPos - Vector3(0, -fCustoDist, 0));
+	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotClip"));
 	CustoSlots.push_back(go);
 	// Stamina--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
@@ -100,23 +106,22 @@ void DefaultScene::Init()
 	go->TRANS->SetScale(200, 50, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
-
+	//
 	GameObject* StaminaBar = m_GOM.AddGameObject("UI");
 	StaminaBar->TRANS->SetPosition(50, 50, 0);
 	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	StaminaBar->RENDER->SetColor(1, 1, 0);
-
+	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 1030, 0);
 	go->TRANS->SetScale(200, 50, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
-
+	//
 	GameObject* HealthBar = m_GOM.AddGameObject("UI");
 	HealthBar->TRANS->SetPosition(50, 1030, 0);
 	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
-
 	/// Player================================================================================
 	// Reticle
 	GameObject* ret = m_GOM.AddGameObject();
@@ -126,7 +131,7 @@ void DefaultScene::Init()
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 1, 1);
-	Gun->TRANS->SetRelativeRotation(25, Vector3(0,1,0));
+	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
@@ -157,10 +162,10 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Cow"));
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
 	go->TRANS->SetPosition(5, 18.5f, 0);
 	// --
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Cow"));
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
 	go->TRANS->SetPosition(20, 18.5f, 26);
 	///interactable test
 
