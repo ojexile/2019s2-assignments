@@ -9,7 +9,7 @@ namespace AIStatesList
 	extern IdleState Idle = IdleState();
 	extern IdleState BirdIdle = IdleState(0, 0);
 	extern WanderState Wander = WanderState(&Idle);
-	extern WanderState BirdWander = WanderState(&BirdIdle);
+	extern WanderState BirdWander = WanderState(&BirdIdle, 2, 5);
 	extern RangedState Ranged = RangedState();
 	extern BossCombat Boss = BossCombat();
 	extern BossShockwaveState ShockWave = BossShockwaveState();

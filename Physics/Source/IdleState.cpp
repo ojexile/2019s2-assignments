@@ -28,6 +28,7 @@ State * IdleState::HandleState(ComponentBase * com)
 
 void IdleState::OnEnter(ComponentBase * com)
 {
+	com->GetComponent<AIEntityScript>()->SetTarget({ 0, 0, 0 });
 	m_SW.Start();
 	m_fTime = Math::RandFloatMinMax(m_fMinTime, m_fMaxTime);
 }

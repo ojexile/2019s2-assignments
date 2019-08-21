@@ -34,7 +34,7 @@ void BlackholeScript::Update(double dt)
 		if (bSkip)
 			continue;
 		// only affects rigid bodies
-		Rigidbody* rigid = go->GetComponent<Rigidbody>();
+		Rigidbody* rigid = go->GetComponent<Rigidbody>(true);
 		if (!rigid)
 			continue;
 		// only affects balls

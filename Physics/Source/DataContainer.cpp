@@ -185,6 +185,10 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube");
 
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
+
+	m_map_Meshes["BirdBody"] = MeshBuilder::GenerateOBJ("Bird/Body");
+	m_map_Meshes["WingLeft"] = MeshBuilder::GenerateOBJ("Bird/WingLeft");
+	m_map_Meshes["WingRight"] = MeshBuilder::GenerateOBJ("Bird/WingRight");
 }
 void DataContainer::InitTerrain()
 {
@@ -327,9 +331,9 @@ void DataContainer::InitGO()
 	// go->AddComponent(new LootScript());
 	go = new GameObject;
 	m_map_GO["Bird"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->AddComponent(new RenderComponent(GetMesh("BirdBody")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 2)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Bird"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 2)));
 	// Fish-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Fish"] = go;
@@ -460,6 +464,7 @@ void DataContainer::InitBehaviour()
 {
 	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
 	m_map_Behaviour["Default"] = new Behaviour(&AIStatesList::Idle);
+	m_map_Behaviour["Bird"] = new Behaviour(&AIStatesList::BirdIdle);
 }
 DataContainer::~DataContainer()
 {

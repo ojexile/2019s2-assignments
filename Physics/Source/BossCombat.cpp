@@ -27,10 +27,14 @@ State * BossCombat::HandleState(ComponentBase * com)
 	{
 		Vector3 Dir = DirToPlayer(com);
 		AI->SetTarget(Dir);
-		float meleeRange = 10;
+		float meleeRange = 5;
+
 		if (PlayerInRange(com, meleeRange))
 		{
-			return &AIStatesList::ShockWave;
+			if (!Math::RandIntMinMax(0, 5))
+				return &AIStatesList::ShockWave;
+			else
+				DamagePlayer(10, 1000, Dir);
 		}
 	}
 	else

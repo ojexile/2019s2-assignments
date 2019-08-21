@@ -167,10 +167,13 @@ void DefaultScene::Init()
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Boss"));
-	go->TRANS->SetPosition(5, 20.5f, 0);
+	go->TRANS->SetPosition(10, 20.5f, 0);
 	// --
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(20, 20.5f, 26);
+	go->TRANS->SetPosition(5, 10.f, 3);
+	//--
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
+	go->TRANS->SetPosition(0, 8.5f, 0);
 	///interactable test
 
 	//go = m_GOM.AddGameObject();
