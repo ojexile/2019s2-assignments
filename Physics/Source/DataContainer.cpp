@@ -312,7 +312,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(0.5f);
 	go->RENDER->SetColor(1, 0, 0);
-	go->AddComponent(new BlackholeScript(-0.03f, 4));
+	go->AddComponent(new BlackholeScript(-0.01f, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->LockYAxis(true);
 	go->RIGID->SetMat(0.25f, 0);

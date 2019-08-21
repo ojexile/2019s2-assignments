@@ -55,9 +55,9 @@ void BlackholeScript::Update(double dt)
 			{
 				go->GetComponent<EntityScript>()->Damage(dmg);
 				Vector3 Up(0, 1, 0);
-				rigid->AddForce(Up * fForceAttract);
+				rigid->AddForce(Up * -fForceAttract * 400);
 				Vector3 force = (fForceAttract) * (pos1 - pos2).Normalize();
-				rigid->AddForce(force);
+				rigid->AddForce(force * 100);
 			}
 		}
 		try
