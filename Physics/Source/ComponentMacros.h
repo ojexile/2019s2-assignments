@@ -10,5 +10,6 @@
 #define MISCPART GetComponent<MiscellaneousPartScript>()
 #define GUN GetComponent<GunScript>()
 #define LOOT GetComponent<LootScript>()
+#define PARTICLE GetComponent<ParticleScript>()
 
 typedef std::vector<unsigned char> _heightmap;

@@ -5,7 +5,7 @@
 #include "ChunkEvent.h"
 
 #include "Utility.h"
-#define NCHUNKS 17
+#define NCHUNKS 13
 MapSpawningScript::MapSpawningScript()
 {
 	for (int i = 0; i < 4096; ++i)
@@ -43,7 +43,7 @@ const char* GetChunkByID(int id)
 	case 4:
 		return "wellspring";
 	case 5:
-		return "walledoff";
+		return "barline_3";
 	case 6:
 		return "bazaar1_1";
 	case 7:
@@ -53,19 +53,11 @@ const char* GetChunkByID(int id)
 	case 9:
 		return "wellspring_1";
 	case 10:
-		return "walledoff_1";
-	case 11:
-		return "walledoff_2";
-	case 12:
-		return "walledoff_3";
-	case 13:
 		return "barline";
-	case 14:
+	case 11:
 		return "barline_1";
-	case 15:
+	case 12:
 		return "barline_2";
-	case 16:
-		return "barline_3";
 	default:
 		return "archway";
 	}

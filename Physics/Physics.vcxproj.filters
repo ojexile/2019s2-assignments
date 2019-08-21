@@ -140,6 +140,7 @@
     <ClCompile Include="Source\DebrisSpawningScript.cpp" />
     <ClCompile Include="Source\AIEntityScript.cpp" />
     <ClCompile Include="Source\RangedState.cpp" />
+    <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\Entity_Library.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
   </ItemGroup>
@@ -258,6 +259,7 @@
     <ClInclude Include="Source\DebrisSpawningScript.h" />
     <ClInclude Include="Source\AIEntityScript.h" />
     <ClInclude Include="Source\RangedState.h" />
+    <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
     <ClInclude Include="Source\Entity_Library.h" />
     <ClInclude Include="Source\GunScript.h" />
   </ItemGroup>

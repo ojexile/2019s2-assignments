@@ -31,6 +31,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 	Vector3 size = chunk_ref->GetSize();
 	Entity_Library* EL = Entity_Library::GetInstance();
 
+	/*
 	switch (m_eventType)
 	{
 	case NIL:
@@ -159,6 +160,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 	//	break;
 	//}
 	}
+	*/
 }
 
 void ChunkEvent::GenerateEntities(ChunkData* chunk_ref, BiomeComponent::eBiomeTypes type)
