@@ -11,12 +11,18 @@ ReloadUIScript::~ReloadUIScript()
 
 void ReloadUIScript::Update(double dt)
 {
-	TRANS->SetRelativeScale({ MAX_SCALE, 1,1 });
-	// TRANS->SetRelativeRotation(-GetTransform()->GetRelativeDegrees(), TRANS->GetRelativeRotation());
+	//if (!m_ParentGO->GUN->IsReloading())
+	//	SetActive(false);
+	float fYScale = 0.5f;
+	float fXScale = m_ParentGO->GUN->GetReloadElapsedTime() / m_ParentGO->GUN->GetReloadTime() * MAX_SCALE;
+	if (fXScale > 0.1f)
+		TRANS->SetRelativeScale({ fXScale, fYScale,1 });
+	else
+		TRANS->SetRelativeScale({ 0.1f, fYScale,1 });
 }
 
 void ReloadUIScript::Start()
 {
 	Vector3 Pos = m_ParentGO->TRANS->GetRelativePosition();
-	TRANS->SetRelativePosition(0, 1, -MAX_SCALE / 2);
+	TRANS->SetRelativePosition(0, 1, -Pos.z);
 }
