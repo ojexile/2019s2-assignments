@@ -19,7 +19,7 @@ public:
 	void SetPlayerReference(ComponentBase* ref);
 
 protected:
-	//ComponentBase* m_EntityRef;
-	//GameObject* m_GunRef;
+	ComponentBase* m_EntityRef;
+	GameObject* m_GunRef;
 };
 

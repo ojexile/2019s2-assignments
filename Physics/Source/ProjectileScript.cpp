@@ -36,8 +36,9 @@ void ProjectileScript::Collide(GameObject* go)
 	{
 		es->Damage(m_fDamage);
 		ActivateEffects(this, go);
+
+		m_fLifespan = 0.005f;
 	}
-	DestroySelf();
 }
 
 void ProjectileScript::AddAugment(Component* augment)

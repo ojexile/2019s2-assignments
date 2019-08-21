@@ -132,7 +132,7 @@ void DefaultScene::Init()
 	ret->AddComponent(new ReticleScript());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
-	Gun->TRANS->SetRelativePosition(1, 1, 1);
+	Gun->TRANS->SetRelativePosition(1, 0, 1);
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
 
 	//TMP
