@@ -11,29 +11,20 @@ class PartScript : public ScriptComponent
 {
 public:
 
-	enum PART_TYPE
-	{
-		WEAPON = 1,
-		MISC,
-		NUM_TYPES
-	};
-
 	enum SLOT_TYPE
 	{
 		SCOPE = 1,
 		CLIP,
 		GRIP,
 		MUZZLE,
-		ALL
 	};
 
-	PartScript(PART_TYPE type, SLOT_TYPE slot, float Multiplier, float Durability = 5.f);
+	PartScript(SLOT_TYPE slot, float Multiplier, float Durability = 5.f);
 	~PartScript();
 
 	virtual void Effect() = 0;
 	virtual bool DecreaseDurability(double deltaTime);
 
-	PART_TYPE GetPartType();
 	SLOT_TYPE GetSlotType();
 
 	float GetMultiplier();
@@ -43,9 +34,8 @@ public:
 
 	void SetDurability(float durability);
 	void SetMultiplier(float multiplier);
+
 protected:
-	//Allows for reading in subclasses
-	PART_TYPE m_PartType;
 	SLOT_TYPE m_SlotType;
 
 private:

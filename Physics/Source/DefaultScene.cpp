@@ -12,7 +12,6 @@
 #include "InventoryScript.h"
 #include "GunScript.h"
 #include "PlayerStatsScript.h"
-#include "MiscellaneousPartScript.h"
 #include "ReticleScript.h"
 #include "ParticleObserver.h"
 #include "AdvancedParticleSpawnerScript.h"

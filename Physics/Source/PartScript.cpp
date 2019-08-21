@@ -2,9 +2,8 @@
 
 
 
-PartScript::PartScript(PART_TYPE type, SLOT_TYPE slot, float Multiplier, float durability) 
-	:m_PartType (type),
-	 m_SlotType (slot),
+PartScript::PartScript(SLOT_TYPE slot, float Multiplier, float durability) 
+	:m_SlotType (slot),
 	 m_fStatMultiplier(Multiplier),
 	 m_fDurability(durability)
 {
@@ -28,10 +27,6 @@ void PartScript::SetSlotType(PartScript::SLOT_TYPE slot)
 	m_SlotType = slot;
 }
 
-PartScript::PART_TYPE PartScript::GetPartType()
-{
-	return m_PartType;
-}
 
 PartScript::SLOT_TYPE PartScript::GetSlotType()
 {

@@ -188,8 +188,6 @@
     <ClCompile Include="Source\Command.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
-    <ClCompile Include="Source\ConcreteMiscParts\HealthRegenPart.cpp" />
-    <ClCompile Include="Source\ConcreteMiscParts\StaminaRegenPart.cpp" />
     <ClCompile Include="Source\Constrain.cpp" />
     <ClCompile Include="Source\CrouchingState.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
@@ -235,7 +233,6 @@
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
     <ClCompile Include="Source\Message.cpp" />
-    <ClCompile Include="Source\MiscellaneousPartScript.cpp" />
     <ClCompile Include="Source\MouseManager.cpp" />
     <ClCompile Include="Source\MovementCommand.cpp" />
     <ClCompile Include="Source\ObserverBase.cpp" />
@@ -273,6 +270,7 @@
     <ClCompile Include="Source\UIButtonComponent.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WanderState.cpp" />
+    <ClCompile Include="Source\WeaponAugment.cpp" />
     <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
@@ -300,8 +298,6 @@
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
-    <ClInclude Include="Source\ConcreteMiscParts\HealthRegenPart.h" />
-    <ClInclude Include="Source\ConcreteMiscParts\StaminaRegenPart.h" />
     <ClInclude Include="Source\Constrain.h" />
     <ClInclude Include="Source\CrouchingState.h" />
     <ClInclude Include="Source\DataContainer.h" />
@@ -349,7 +345,6 @@
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MeshController.h" />
     <ClInclude Include="Source\Message.h" />
-    <ClInclude Include="Source\MiscellaneousPartScript.h" />
     <ClInclude Include="Source\MouseManager.h" />
     <ClInclude Include="Source\MovementCommand.h" />
     <ClInclude Include="Source\ObserverBase.h" />
@@ -391,6 +386,7 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WanderState.h" />
+    <ClInclude Include="Source\WeaponAugment.h" />
     <ClInclude Include="Source\WeaponPartScript.h" />
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\WorldValues.h" />

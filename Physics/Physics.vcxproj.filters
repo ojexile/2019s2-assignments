@@ -114,9 +114,6 @@
     <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\ParticleObserver.cpp" />
     <ClCompile Include="Source\DestructibleEntityScript.cpp" />
-    <ClCompile Include="Source\MiscellaneousPartScript.cpp" />
-    <ClCompile Include="Source\ConcreteMiscParts\HealthRegenPart.cpp" />
-    <ClCompile Include="Source\ConcreteMiscParts\StaminaRegenPart.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
     <ClCompile Include="Source\Stats.cpp" />
@@ -143,6 +140,7 @@
     <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\Entity_Library.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
+    <ClCompile Include="Source\WeaponAugment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -235,9 +233,6 @@
     <ClInclude Include="Source\ParticleObserver.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentBase.h" />
-    <ClInclude Include="Source\MiscellaneousPartScript.h" />
-    <ClInclude Include="Source\ConcreteMiscParts\HealthRegenPart.h" />
-    <ClInclude Include="Source\ConcreteMiscParts\StaminaRegenPart.h" />
     <ClInclude Include="Source\Stats.h" />
     <ClInclude Include="Source\EntityValues.h" />
     <ClInclude Include="Source\ChunkEvent.h" />
@@ -262,6 +257,7 @@
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
     <ClInclude Include="Source\Entity_Library.h" />
     <ClInclude Include="Source\GunScript.h" />
+    <ClInclude Include="Source\WeaponAugment.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

@@ -18,7 +18,6 @@
 #include "DestructibleEntityScript.h"
 #include "FlipEntityScript.h"
 #include "InteractableObCom.h"
-#include "ConcreteMiscParts/StaminaRegenPart.h"
 #include "SpawnLootScript.h"
 #include "DebrisSpawningScript.h"
 #include "AdvancedParticleSpawnerScript.h"
@@ -235,13 +234,6 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Grip")));
 	go->AddComponent(new WeaponPartScript(PartScript::GRIP, 2.0, 50));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetResponseActive(false);
-	go = new GameObject();
-	m_map_GO["Stamina"] = go;
-	go->TRANS->SetScale(0.5f);
-	go->AddComponent(new RenderComponent(GetMesh("Stamina")));
-	go->AddComponent(new StaminaRegenPart(1, 1.5, 5, 1, 50));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------

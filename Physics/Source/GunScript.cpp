@@ -3,7 +3,6 @@
 #include "InputManager.h"
 #include "GameObjectManager.h"
 #include "TransformComponent.h"
-#include "MiscellaneousPartScript.h"
 
 
 GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, float fReloadTime, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
@@ -191,89 +190,43 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 	
 	part->RIGID->SetAffectedByGravity(false);
 	
-	if(part->PART->GetSlotType() == PartScript::ALL)
-		part->PART->SetSlotType(slot);
 
-	if (part->PART->GetPartType() == PartScript::WEAPON)
+	switch (part->PART->GetSlotType())
 	{
-		switch (part->PART->GetSlotType())
-		{
-		case PartScript::SCOPE:
-		{
-			m_ScopeParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.5f, 0.f);
+	case PartScript::SCOPE:
+	{
+		m_ScopeParts.push_back(part);
+		part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.5f, 0.f);
 
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::MUZZLE:
-		{
-			m_MuzzleParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::CLIP:
-		{
-			m_StockParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.55f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::GRIP:
-		{
-			m_GripParts.push_back(part);
-			part->TRANS->SetRelativePosition(-1.2f + (-1.0f * m_GripParts.size()), 0, 0);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		default:
-			break;
-		}
+		UpdateStats(part, true);
+		return;
 	}
-	else if(part->PART->GetPartType() == PartScript::MISC)
+	case PartScript::MUZZLE:
 	{
-		switch (part->PART->GetSlotType())
-		{
-		case PartScript::SCOPE:
-		{
-			m_ScopeParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.2f, 0.f);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::MUZZLE:
-		{
-			m_MuzzleParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
+		m_MuzzleParts.push_back(part);
+		part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
 
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::CLIP:
-		{
-			m_StockParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.45f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::GRIP:
-		{
-			m_GripParts.push_back(part);
-			part->TRANS->SetRelativePosition((-1.0f * m_GripParts.size()), 0, 0);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		default:
-			break;
-		}
-		part->MISCPART->Effect();
+		UpdateStats(part, true);
+		return;
+	}
+	case PartScript::CLIP:
+	{
+		m_StockParts.push_back(part);
+		part->TRANS->SetRelativePosition(-0.55f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
+
+		UpdateStats(part, true);
+		return;
+	}
+	case PartScript::GRIP:
+	{
+		m_GripParts.push_back(part);
+		part->TRANS->SetRelativePosition(-1.2f + (-1.0f * m_GripParts.size()), 0, 0);
+
+		UpdateStats(part, true);
+		return;
+	}
+	default:
+		break;
 	}
 
 	RYAN_LOG("Part Not equipped");
@@ -286,14 +239,10 @@ void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* targ
 	while (m_vector.size() > 0)
 	{
 		GameObject* go = static_cast<GameObject*>(*(m_vector.rbegin()));
-		PartScript::PART_TYPE type = go->PART->GetPartType();
 		
 		if (target == go)
 		{
-			if (type == PartScript::PART_TYPE::WEAPON)
-				UpdateStats(go, false);
-			else
-				go->MISCPART->RevertEffect();
+			UpdateStats(go, false);
 
 			Destroy(go);
 			m_vector.pop_back();
@@ -301,12 +250,7 @@ void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* targ
 		}
 		else
 		{
-			
-			
-			if (type == PartScript::PART_TYPE::WEAPON)
-				UpdateStats(go, false);
-			else
-				go->MISCPART->RevertEffect();
+			UpdateStats(go, false);
 
 			Destroy(go);
 			m_vector.pop_back();
@@ -397,5 +341,5 @@ float GunScript::GetReloadTime()
 
 bool GunScript::IsReloading()
 {
-	return IsReloading;
+	return m_bIsReloading;
 }
