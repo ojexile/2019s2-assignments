@@ -1,13 +1,12 @@
 #pragma once
 #include "AIState.h"
-#include "GameObject.h"
 
-class BossCombat :
-	public AIState
+class BossCombat : public AIState
 {
 private:
+	GameObject* m_ShockWave;
 public:
-	BossCombat();
+	BossCombat(GameObject* Shockwave);
 	virtual ~BossCombat();
 
 	virtual State* HandleState(ComponentBase* com) override;

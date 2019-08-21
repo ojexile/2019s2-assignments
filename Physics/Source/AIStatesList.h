@@ -5,6 +5,8 @@
 #include "FleeState.h"
 #include "IdleState.h"
 #include "RangedState.h"
+#include "BossCombat.h"
+
 namespace AIStatesList
 {
 	extern MeleeCombatState Melee;
@@ -12,4 +14,5 @@ namespace AIStatesList
 	extern WanderState Wander;
 	extern IdleState Idle;
 	extern RangedState Ranged;
+	extern BossCombat Boss;
 }

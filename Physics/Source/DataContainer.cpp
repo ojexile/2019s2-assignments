@@ -39,6 +39,10 @@
 DataContainer::DataContainer()
 {
 	m_bInitialsed = false;
+	if (!m_bInitialsed)
+	{
+		Init();
+	}
 }
 void DataContainer::Init()
 {
@@ -295,19 +299,20 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
 	go->AddComponent(new LootScript());
-	//
+	// Boss================================================================================
 	go = new GameObject;
 	m_map_GO["Boss"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->TRANS->SetScale(4);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(200, 0, 100, 0, 80, 20, 2000, 16)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(200, 0, 100, 0, 80, 20, 2000, 16)));
 	go->AddComponent(new LootScript());
-	// Gun
-	GameObject* Gun = GetGameObject("Gun");
-	Gun->TRANS->SetRelativePosition(0.f, .5f, 0);
-	Gun->TRANS->SetRelativeRotation(-45, Vector3(0, 1, 0));
-	go->AddChild(Gun);
+	// Shockwave--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Shockwave"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Fish")));
+	go->TRANS->SetScale(2);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	// Animals--------------------------------------------------------------------------------
 	// Cow-----------------------------------------------------------------------------
 	go = new GameObject;

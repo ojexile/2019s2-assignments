@@ -1,4 +1,6 @@
 #include "AIStatesList.h"
+#include "DataContainer.h"
+#include "Resources.h"
 
 namespace AIStatesList
 {
@@ -9,4 +11,5 @@ namespace AIStatesList
 	extern WanderState Wander = WanderState(&Idle);
 	extern WanderState BirdWander = WanderState(&BirdIdle);
 	extern RangedState Ranged = RangedState();
+	extern BossCombat Boss = BossCombat(DataContainer::GetInstance()->GetGameObject("Shockwave"));
 }

@@ -5,7 +5,13 @@
 #include "IdleState.h"
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
-BossCombat::BossCombat()
+
+#include "GameObject.h"
+#include "GameObjectManager.h"
+#include "SceneManager.h"
+
+BossCombat::BossCombat(GameObject* ShockWave)
+	:m_ShockWave(ShockWave)
 {
 }
 
@@ -23,6 +29,10 @@ State * BossCombat::HandleState(ComponentBase * com)
 		if (PlayerInRange(com, meleeRange))
 		{
 			// Create shockwave effect
+			DamagePlayer(0, 600, Dir);
+			GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
+			GameObject* go = GOM->AddGameObject(m_ShockWave);
+			go->TRANS->SetPosition(com->TRANS->GetPosition());
 		}
 	}
 	else
