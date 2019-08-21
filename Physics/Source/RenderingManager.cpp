@@ -312,7 +312,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 			modelStack.Rotate(fYaw, 0, 1, 0);
 			modelStack.Rotate(-fPitch, 1, 0, 0);
 		}
-		if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero())
+		if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero() && !renderComponent->Is3DBillboard())
 			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 		if (vGameObjectScale.x <= 0 || vGameObjectScale.y <= 0 || vGameObjectScale.z <= 0)
 		{
