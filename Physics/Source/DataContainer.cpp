@@ -209,7 +209,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.005f);
 	go->RIGID->SetMat(0.9f, 1);
-	go->AddComponent(new ProjectileScript(1.0, 10.0));
+	go->AddComponent(new ProjectileScript(1.0, 1000.0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
@@ -410,6 +410,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(1000.f);
 	go->TRANS->SetScale(2.f);
 	go->AddComponent(new DestructibleEntityScript("RockDied"));
+	//go->GetComponent<DestructibleEntityScript>()->GetBaseStats()->SetMaxHealth(1);
 	go->AddComponent(new DebrisSpawningScript("boulder2", 2, 2));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
 
@@ -418,7 +419,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("boulder")));
 	go->RENDER->SetColor(0.1f, 0.1f, 0.1f);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetMass(2.5f);
+	go->RIGID->SetMass(10.f);
 	go->TRANS->SetScale(1.f);
 	go->AddComponent(new EntityScript());
 }

@@ -30,7 +30,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameO
 	case Rigidbody::BALL:
 	{
 		Vector3 dis = (go2->GetComponent<TransformComponent>()->GetPosition() - go1->GetComponent<TransformComponent>()->GetPosition());
-		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x + go2->GetComponent<TransformComponent>()->GetScale().x;
+		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x + go1->GetComponent<TransformComponent>()->GetScale().x;
 		Vector3 u = go1->GetComponent<Rigidbody>()->GetVel() - go2->GetComponent<Rigidbody>()->GetVel();
 		if (dis.Length() < combRadius && u.Dot(dis) > 0.0f)
 		{

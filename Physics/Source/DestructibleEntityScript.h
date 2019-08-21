@@ -3,13 +3,13 @@
 
 /*
 author: lorenzo yanga
-desc: EntityScript child with a reference that is created when the entity dies.
-		to be used with destructible foilage/interactable objects
+desc: entity script (not a child class anymore though) for foilage.
 */
 class DestructibleEntityScript : public EntityScript
 {
 private:
 	std::string m_sMessage;
+	int m_iHealth;
 
 public:
 	DestructibleEntityScript();
@@ -21,5 +21,7 @@ public:
 	virtual void Update(double dt) override;
 	virtual void Collide(GameObject* );
 	void SetMessage(std::string s);
-	
+	void SetHealth(int i);
+	int GetHealth();
+	void Damage(int damage) ;
 };

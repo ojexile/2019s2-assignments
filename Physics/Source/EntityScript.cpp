@@ -45,6 +45,9 @@ EntityScript::EntityScript(EntityScript & ref)
 }
 EntityScript::~EntityScript()
 {
+	m_bInitialised = false;
+	m_bDamageAnim = false;
+	m_fAnimStartTime = -1;
 }
 void EntityScript::Init()
 {
