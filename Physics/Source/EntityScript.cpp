@@ -156,7 +156,7 @@ void EntityScript::Jump()
 	{
 		rb->AddForce({ 0,m_BaseStats.m_fJumpForce,0 });
 		rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
-		GetComponent<PlayerScript>()->SetCanJump(false);
+		if(GetComponent<PlayerScript>() != nullptr) GetComponent<PlayerScript>()->SetCanJump(false);
 	}
 	Notify("Jump");
 }
