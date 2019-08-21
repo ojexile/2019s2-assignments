@@ -24,9 +24,7 @@ MapSpawningScript::MapSpawningScript()
 
 MapSpawningScript::~MapSpawningScript()
 {
-
 }
-
 
 const char* GetChunkByID(int id)
 {
@@ -63,7 +61,6 @@ const char* GetChunkByID(int id)
 	}
 }
 
-
 const char* RandomChunk()
 {
 	return GetChunkByID(Math::RandIntMinMax(0, 16));
@@ -77,7 +74,7 @@ bool IsCompatible(unsigned short k, unsigned short l)
 		k = l;
 		l = m;
 	}
-	
+
 	switch (k)
 	{
 	case 0:
@@ -105,7 +102,7 @@ void MapSpawningScript::Update(double dt)
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	Vector3 v = GetComponent<TransformComponent>()->GetPosition();
-	for (int x = 0; x <= 6; x = (x > 0? -x : -x + 1))
+	for (int x = 0; x <= 6; x = (x > 0 ? -x : -x + 1))
 	{
 		for (int z = 0; z <= 6; z = (z > 0 ? -z : -z + 1))
 		{
@@ -122,11 +119,11 @@ void MapSpawningScript::Update(double dt)
 					for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
 						if (m_spawnedLocations.count(Vector3(offsetX + xDiff, 0, offsetZ + zDiff)) || (
 							(
-								(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)].count(0) != 0 && !IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][0], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 0))) ||
+							(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)].count(0) != 0 && !IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][0], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 0))) ||
 								(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)].count(1) != 0 && !IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][1], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 1))) ||
 								(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)].count(2) != 0 && !IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][2], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 2))) ||
 								(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)].count(3) != 0 && !IsCompatible(m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff)][3], chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 3)))
-							)))
+								)))
 						{
 							fits = false;
 						}
@@ -155,18 +152,18 @@ void MapSpawningScript::Update(double dt)
 			Vector3 goPos = Vector3(offsetX * 16, 0, offsetZ * 16);
 			go->TRANS->SetPosition(goPos);
 			RenderComponent* render = new RenderComponent(chunk->GenerateMeshBiomed());
-			render->SetRenderDistance(200);
+			render->SetRenderDistance(100);
 			go->AddComponent(render);
 			go->AddComponent(new BiomeComponent(GetBiomeFromNoise(GetNoiseAt(Vector3(offsetX, 0, offsetZ)))));
 			go->AddComponent(new ChunkCollider(chunk));
-			
+
 #ifdef DEBUG_NUMBERS
 			for (int i = 0; i < 4; ++i) {
 				GameObject* s0 = GOM->AddGameObject("UI");
 				Vector3 ks = Vector3(-6, 0, 0);
 				Mtx44 mr; mr.SetToRotation(i * 90, 0, -1, 0);
 				s0->TRANS->SetPosition(goPos + Vector3(8, 22, 8) + mr * ks);
-				s0->TRANS->SetScale(Vector3(3,3,3));
+				s0->TRANS->SetScale(Vector3(3, 3, 3));
 				std::stringstream numbers;
 				numbers << chunk->GetChunkConnection(Vector3(0, 0, 0), i);
 				RenderComponent* rc0 = new RenderComponent(DataContainer::GetInstance()->GetMesh("Text"), numbers.str(), false);
@@ -222,7 +219,7 @@ Vector3 MapSpawningScript::GetNoiseAt(Vector3 v)
 		int xLow = floor(x);
 		int zLow = floor(z);
 		int offset = (((i * 351863) % 49231 + 1077) * 9221 + 829) % 4096; //bad prng
-		for (BiomeComponent::eBiomeTypes b = (BiomeComponent::eBiomeTypes) 0; b < BiomeComponent::BIOME_COUNT; b = (BiomeComponent::eBiomeTypes) (b+1))
+		for (BiomeComponent::eBiomeTypes b = (BiomeComponent::eBiomeTypes) 0; b < BiomeComponent::BIOME_COUNT; b = (BiomeComponent::eBiomeTypes) (b + 1))
 		{
 			biomeWeights.x += BiLerp2D(m_biomeNoise[(offset + xLow * 64 + zLow) % 4096].x,
 				m_biomeNoise[(offset + xLow * 64 + Mod(zLow + 1, 64)) % 4096].x,
@@ -274,7 +271,4 @@ BiomeComponent::eBiomeTypes MapSpawningScript::GetBiomeFromNoise(Vector3 vec)
 	if (oneW - twoW < 0.0003f)
 		return (Math::RandFloatMinMax(0, oneW + twoW) > oneW ? two : one);
 	else return one;
-	
-
 }
-

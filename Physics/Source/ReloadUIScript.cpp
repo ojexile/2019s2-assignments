@@ -1,5 +1,5 @@
 #include "ReloadUIScript.h"
-#include "WeaponScript.h"
+#include "GunScript.h"
 #define MAX_SCALE 3.f
 ReloadUIScript::ReloadUIScript()
 {

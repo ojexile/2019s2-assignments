@@ -148,7 +148,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
-	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR,36, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
+	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 36, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
 
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
@@ -165,7 +165,7 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Ranged"));
 	go->TRANS->SetPosition(5, 20.5f, 0);
 	// --
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
