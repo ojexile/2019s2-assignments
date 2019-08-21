@@ -8,7 +8,7 @@
 #define CONSTRAIN GetComponent<Constrain>()
 #define PART GetComponent<PartScript>()
 #define MISCPART GetComponent<MiscellaneousPartScript>()
-#define GUN GetComponent<WeaponScript>()
+#define GUN GetComponent<GunScript>()
 #define LOOT GetComponent<LootScript>()
 #define PARTICLE GetComponent<ParticleScript>()
 

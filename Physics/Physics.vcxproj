@@ -274,7 +274,7 @@
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WanderState.cpp" />
     <ClCompile Include="Source\WeaponPartScript.cpp" />
-    <ClCompile Include="Source\WeaponScript.cpp" />
+    <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -392,7 +392,7 @@
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WanderState.h" />
     <ClInclude Include="Source\WeaponPartScript.h" />
-    <ClInclude Include="Source\WeaponScript.h" />
+    <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

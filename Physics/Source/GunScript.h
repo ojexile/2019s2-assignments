@@ -13,7 +13,7 @@
 	   etc.
 /*!
 /********************************************************************************/
-class WeaponScript : public ScriptComponent
+class GunScript : public ScriptComponent
 {
 public:
 
@@ -23,8 +23,8 @@ public:
 		AUTO
 	};
 
-	WeaponScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, float fReloadTimeBuffer = 1.2f, float fFirerate = 1.5f, float fBulletSpread = 0.5f, float fBulletForce = 10.f, FIRING_MODE FiringMode = AUTO);
-	~WeaponScript();
+	GunScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, float fReloadTimeBuffer = 1.2f, float fFirerate = 1.5f, float fBulletSpread = 0.5f, float fBulletForce = 10.f, FIRING_MODE FiringMode = AUTO);
+	~GunScript();
 
 	//Interface Functions
 	void PullTrigger(const Vector3& dir, const double deltaTime);
@@ -50,7 +50,9 @@ public:
 	float GetReloadTime();
 	float GetReloadElapsedTime();
 
-	virtual Component* Clone() { return new WeaponScript(*this); }
+	bool IsReloading();
+
+	virtual Component* Clone() { return new GunScript(*this); }
 
 private:
 

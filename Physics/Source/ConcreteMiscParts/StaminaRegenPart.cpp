@@ -1,6 +1,6 @@
 #include "StaminaRegenPart.h"
 #include "../PlayerScript.h"
-#include "../WeaponScript.h"
+#include "../GunScript.h"
 #include "../Stats.h"
 
 StaminaRegenPart::StaminaRegenPart(float SpreadDebuff, float FireRateDebuff, int MaxMagazineDebuff, int MaxAmmoDebuff, float durability)

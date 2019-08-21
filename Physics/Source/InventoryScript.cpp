@@ -1,7 +1,7 @@
 #include "InventoryScript.h"
 #include "InputManager.h"
 #include "UIButtonComponent.h"
-#include "WeaponScript.h"
+#include "GunScript.h"
 #include "Application.h"
 #include "PartScript.h"
 InventoryScript::InventoryScript(GameObject* weapon, GameObject** list, std::vector<GameObject*> wlist, GameObject* reticle)
@@ -134,7 +134,7 @@ void InventoryScript::Attach(PartScript::SLOT_TYPE e)
 	GameObject* cpy = Instantiate(go, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }, "Default", true);
 	cpy->RIGID->SetAffectedByGravity(false);
 	m_Weapon->AddChild(cpy);
-	m_Weapon->GetComponent<WeaponScript>()->EquipPart(cpy, e);
+	m_Weapon->GetComponent<GunScript>()->EquipPart(cpy, e);
 	Destroy(go);
 	m_InventoryItems[m_iHoldingIndex] = nullptr;
 	--m_iNumInventory;
