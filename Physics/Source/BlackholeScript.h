@@ -1,17 +1,17 @@
 #pragma once
 #include "ScriptComponent.h"
-class Blackhole :
+class BlackholeScript :
 	public ScriptComponent
 {
 private:
 	float m_fMass;
 	float m_fMinDist;
 public:
-	Blackhole(float fMass, float fMinDist);
-	virtual ~Blackhole();
+	BlackholeScript(float fMass, float fMinDist);
+	virtual ~BlackholeScript();
 	virtual Component* Clone()
 	{
-		return new Blackhole(*this);
+		return new BlackholeScript(*this);
 	}
 
 	void Update(double dt) override;

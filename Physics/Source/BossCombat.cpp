@@ -25,14 +25,13 @@ State * BossCombat::HandleState(ComponentBase * com)
 	{
 		Vector3 Dir = DirToPlayer(com);
 		AI->SetTarget(Dir);
-		float meleeRange = 4;
+		float meleeRange = 10;
 		if (PlayerInRange(com, meleeRange))
 		{
 			// Create shockwave effect
-			DamagePlayer(0, 600, Dir);
 			GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 			GameObject* go = GOM->AddGameObject(DataContainer::GetInstance()->
-				GetGameObject("ShockWave"));
+				GetGameObject("Shockwave"));
 			go->TRANS->SetPosition(com->TRANS->GetPosition());
 		}
 	}

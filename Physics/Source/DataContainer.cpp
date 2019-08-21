@@ -23,6 +23,7 @@
 #include "DebrisSpawningScript.h"
 #include "ReloadUIScript.h"
 #include "AdvancedParticleSpawnerScript.h"
+#include "BlackholeScript.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -304,11 +305,13 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(200, 0, 100, 0, 80, 20, 2000, 16)));
 	go->AddComponent(new LootScript());
-	// Shockwave--------------------------------------------------------------------------------
+	// Shockwave
 	go = new GameObject;
 	m_map_GO["Shockwave"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Fish")));
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(2);
+	go->RENDER->SetColor(1, 0, 0);
+	go->AddComponent(new BlackholeScript(-50, 60));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	// Animals--------------------------------------------------------------------------------
 	// Cow-----------------------------------------------------------------------------

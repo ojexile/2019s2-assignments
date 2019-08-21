@@ -4,16 +4,16 @@
 #include "GameObject.h"
 #include "Rigidbody.h"
 #define G_CONSTANT 200.f
-Blackhole::Blackhole(float fMass, float fMinDist)
+BlackholeScript::BlackholeScript(float fMass, float fMinDist)
 	: m_fMass(fMass)
 	, m_fMinDist(fMinDist)
 {
 }
 
-Blackhole::~Blackhole()
+BlackholeScript::~BlackholeScript()
 {
 }
-void Blackhole::Update(double dt)
+void BlackholeScript::Update(double dt)
 {
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	std::vector<GameObject*>* GOList = GOM->GetLayerList()->at("Default")->GetGOList();
