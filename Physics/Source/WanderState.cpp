@@ -19,7 +19,6 @@ WanderState::~WanderState()
 
 State * WanderState::HandleState(ComponentBase * com)
 {
-	com->RENDER->SetColor(0, 0.5f, 1);
 	// Check for player
 	if (PlayerInRange(com))
 	{
@@ -35,6 +34,9 @@ State * WanderState::HandleState(ComponentBase * com)
 
 void WanderState::OnEnter(ComponentBase * com)
 {
+	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
+	if (ret)
+		ret->RENDER->SetColor(0, 0.5f, 1);
 	m_SW.Start();
 	m_fTime = Math::RandFloatMinMax(m_fMinTime, m_fMaxTime);
 	m_vDir.SetZero();

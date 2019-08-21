@@ -105,15 +105,20 @@ void GameObject::Update(double dt)
 		// Update pos
 		TransformComponent* rootTrans = this->GetComponent<TransformComponent>();
 		TransformComponent* childTrans = go2->GetComponent<TransformComponent>();
+		Vector3 vs = rootTrans->GetScale();
+		Vector3 a = childTrans->GetRelativePosition();
+		Vector3 b;
+		b.x = a.x * vs.x;
+		b.y = a.y * vs.y;
+		b.z = a.z * vs.z;
 
-		Vector3 newPos = rootTrans->GetPosition()
-			+ childTrans->GetRelativePosition();
+		Vector3 newPos = rootTrans->GetPosition() + b;
 		// update rot pos
 		if (rootTrans->GetDegrees() != 0)
 		{
 			Mtx44 rot;
 			rot.SetToRotation(rootTrans->GetDegrees(), rootTrans->GetRotation().x, rootTrans->GetRotation().y, rootTrans->GetRotation().z);
-			newPos = rootTrans->GetPosition() + rot * childTrans->GetRelativePosition();
+			newPos = rootTrans->GetPosition() + rot * b;
 			// update rot
 			childTrans->SetRotation(rootTrans->GetDegrees() + childTrans->GetRelativeDegrees(), rootTrans->GetRotation().x, rootTrans->GetRotation().y, rootTrans->GetRotation().z);
 		}

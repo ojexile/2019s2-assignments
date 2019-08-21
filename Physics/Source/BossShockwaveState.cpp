@@ -33,7 +33,9 @@ State * BossShockwaveState::HandleState(ComponentBase * com)
 void BossShockwaveState::OnEnter(ComponentBase * com)
 {
 	com->GetComponent<AIEntityScript>()->SetTarget({ 0, 0, 0 });
-	com->RENDER->SetColor(1, 0.1f, 0);
+	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
+	if (ret)
+		ret->RENDER->SetColor(1, 0.1f, 1);
 	// Create shockwave effect
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	float num = 48;

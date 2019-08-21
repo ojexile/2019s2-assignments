@@ -17,7 +17,9 @@ IdleState::~IdleState()
 
 State * IdleState::HandleState(ComponentBase * com)
 {
-	com->RENDER->ResetColor();
+	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
+	if (ret)
+		ret->RENDER->ResetColor();
 	if (PlayerInRange(com))
 		return com->GetComponent<AIEntityScript>()->GetCombatState();
 	if (m_SW.Stop()->GetTime() < m_fTime)

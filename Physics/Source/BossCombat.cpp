@@ -27,14 +27,14 @@ State * BossCombat::HandleState(ComponentBase * com)
 	{
 		Vector3 Dir = DirToPlayer(com);
 		AI->SetTarget(Dir);
-		float meleeRange = 5;
+		float meleeRange = 7;
 
 		if (PlayerInRange(com, meleeRange))
 		{
-			if (!Math::RandIntMinMax(0, 5))
+			if (!Math::RandIntMinMax(0, 2))
 				return &AIStatesList::ShockWave;
 			else
-				DamagePlayer(10, 1000, Dir);
+				DamagePlayer(10, 600, Dir);
 		}
 	}
 	else
@@ -44,7 +44,9 @@ State * BossCombat::HandleState(ComponentBase * com)
 
 void BossCombat::OnEnter(ComponentBase * com)
 {
-	com->RENDER->SetColor(1, 0.5f, 0);
+	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
+	if (ret)
+		ret->RENDER->SetColor(1, 0.5f, 0);
 	Vector3 Dir = DirToPlayer(com);
 	AI->SetTarget(Dir);
 }

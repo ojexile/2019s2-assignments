@@ -189,6 +189,8 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["BirdBody"] = MeshBuilder::GenerateOBJ("Bird/Body");
 	m_map_Meshes["WingLeft"] = MeshBuilder::GenerateOBJ("Bird/WingLeft");
 	m_map_Meshes["WingRight"] = MeshBuilder::GenerateOBJ("Bird/WingRight");
+
+	m_map_Meshes["EnemyReticle"] = MeshBuilder::GenerateOBJ("EnemyReticle");
 }
 void DataContainer::InitTerrain()
 {
@@ -281,6 +283,10 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	///Enemies-----------------------------------------------------------------------------
+	go = new GameObject();
+	m_map_GO["EnemyReticle"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("EnemyReticle")));
+	go->TRANS->SetRelativePosition(0.f, 1.f, 0.f);
 	// Base--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BaseEnemy"] = go;
@@ -305,8 +311,9 @@ void DataContainer::InitGO()
 	// Boss================================================================================
 	go = new GameObject;
 	m_map_GO["Boss"] = go;
+	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
-	go->TRANS->SetScale(4);
+	go->TRANS->SetScale(3);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(200, 0, 100, 0, 80, 20, 2000, 16)));
 	go->AddComponent(new LootScript());
@@ -335,6 +342,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->RIGID->LockYAxis(true);
 	go->AddComponent(new AIEntityScript(GetBehaviour("Bird"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 2)));
+	go->AddChild(GetGameObject("EnemyReticle"));
 	go2 = new GameObject;
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("WingLeft")));
@@ -343,6 +351,7 @@ void DataContainer::InitGO()
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("WingRight")));
 	go2->TRANS->SetRelativePosition(-0.378f, 0.458f, 0.082f);
+
 	// Fish-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Fish"] = go;
