@@ -18,4 +18,5 @@ public:
 	virtual Component* Clone() { return new MapSpawningScript(*this); };
 	Vector3 GetNoiseAt(Vector3 v);
 	BiomeComponent::eBiomeTypes GetBiomeFromNoise(Vector3 noise);
+	BiomeComponent::eBiomeTypes GetBiomeAt(Vector3 vec);
 };
