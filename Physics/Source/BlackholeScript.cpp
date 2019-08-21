@@ -18,6 +18,7 @@ void Blackhole::Update(double dt)
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	std::vector<GameObject*>* GOList = GOM->GetLayerList()->at("Default")->GetGOList();
 	Vector3 pos1 = GetComponent<TransformComponent>()->GetPosition();
+
 	for (unsigned i = 0; i < GOList->size(); ++i)
 	{
 		GameObject* go = GOList->at(i);

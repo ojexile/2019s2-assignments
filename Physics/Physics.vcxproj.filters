@@ -141,6 +141,9 @@
     <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\Augment.cpp" />
     <ClCompile Include="Source\ExplodeAugment.cpp" />
+    <ClCompile Include="Source\HealthAugment.cpp" />
+    <ClCompile Include="Source\ReloadingAugment.cpp" />
+    <ClCompile Include="Source\BlackHoleAugment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -258,6 +261,9 @@
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\Augment.h" />
     <ClInclude Include="Source\ExplodeAugment.h" />
+    <ClInclude Include="HealthAugment.h" />
+    <ClInclude Include="Source\ReloadingAugment.h" />
+    <ClInclude Include="Source\BlackHoleAugment.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

@@ -26,8 +26,11 @@ public:
 
 	bool ActivateEffects(ProjectileScript* proj, GameObject* go);
 
-	float getDamage();
-	float getLifespan();
+	float GetDamage();
+	float GetLifespan();
+
+	void SetDamage(float Damage);
+	void SetLifespan(float Lifespan);
 
 protected:
 	float m_fDamage;

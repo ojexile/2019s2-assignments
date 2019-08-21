@@ -19,14 +19,24 @@ void ProjectileScript::Update(double deltaTime)
 		DestroySelf();
 }
 
-float ProjectileScript::getDamage()
+float ProjectileScript::GetDamage()
 {
 	return m_fDamage;
 }
 
-float ProjectileScript::getLifespan()
+float ProjectileScript::GetLifespan()
 {
 	return m_fLifespan;
+}
+
+void ProjectileScript::SetDamage(float damage)
+{
+	this->m_fDamage = damage;
+}
+
+void ProjectileScript::SetLifespan(float lifespan)
+{
+	this->m_fLifespan = lifespan;
 }
 
 void ProjectileScript::Collide(GameObject* go)
