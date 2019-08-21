@@ -332,8 +332,14 @@ void DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Bird"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("BirdBody")));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Bird"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 2)));
+	go2 = new GameObject;
+	go->AddChild(go2);
+	go2->AddComponent(new RenderComponent(GetMesh("WingLeft")));
+	go2->TRANS->SetRelativePosition(0.378f, 0.458f, 0.082f);
+	go2 = new GameObject;
+	go2->AddComponent(new RenderComponent(GetMesh("WingRight")));
+	go2->TRANS->SetRelativePosition(-0.378f, 0.458f, 0.082f);
 	// Fish-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Fish"] = go;
