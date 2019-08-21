@@ -170,10 +170,10 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(10, 20.5f, 0);
 	// --
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(5, 10.f, 3);
+	go->TRANS->SetPosition(3, 24.f, 0);
 	//--
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(0, 8.5f, 0);
+	go->TRANS->SetPosition(0, 23.5f, 0);
 	///interactable test
 
 	//go = m_GOM.AddGameObject();

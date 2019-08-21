@@ -56,7 +56,7 @@ void Rigidbody::Update(double dt)
 	// m_vVel -= fDrag;
 	float val = (pow(0.1f, dt)) / fric;
 	val = min(val, 1);
-	CHENG_LOG("Val:", std::to_string(val));
+	// CHENG_LOG("Val:", std::to_string(val));
 	m_vVel = m_vVel * val;
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
