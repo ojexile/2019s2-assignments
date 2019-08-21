@@ -39,10 +39,6 @@
 DataContainer::DataContainer()
 {
 	m_bInitialsed = false;
-	if (!m_bInitialsed)
-	{
-		Init();
-	}
 }
 void DataContainer::Init()
 {
@@ -52,6 +48,7 @@ void DataContainer::Init()
 		DEFAULT_LOG("Attempted re-init of datacontainer");
 		return;
 	}
+	m_bInitialsed = true;
 
 	InitTextures();
 	InitMeshes();

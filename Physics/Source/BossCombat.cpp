@@ -9,9 +9,9 @@
 #include "GameObject.h"
 #include "GameObjectManager.h"
 #include "SceneManager.h"
+#include "DataContainer.h"
 
-BossCombat::BossCombat(GameObject* ShockWave)
-	:m_ShockWave(ShockWave)
+BossCombat::BossCombat()
 {
 }
 
@@ -31,7 +31,8 @@ State * BossCombat::HandleState(ComponentBase * com)
 			// Create shockwave effect
 			DamagePlayer(0, 600, Dir);
 			GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
-			GameObject* go = GOM->AddGameObject(m_ShockWave);
+			GameObject* go = GOM->AddGameObject(DataContainer::GetInstance()->
+				GetGameObject("ShockWave"));
 			go->TRANS->SetPosition(com->TRANS->GetPosition());
 		}
 	}

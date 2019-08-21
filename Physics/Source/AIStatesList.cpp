@@ -11,5 +11,5 @@ namespace AIStatesList
 	extern WanderState Wander = WanderState(&Idle);
 	extern WanderState BirdWander = WanderState(&BirdIdle);
 	extern RangedState Ranged = RangedState();
-	extern BossCombat Boss = BossCombat(DataContainer::GetInstance()->GetGameObject("Shockwave"));
+	extern BossCombat Boss = BossCombat();
 }

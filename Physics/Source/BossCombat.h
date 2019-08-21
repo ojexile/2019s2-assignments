@@ -4,9 +4,8 @@
 class BossCombat : public AIState
 {
 private:
-	GameObject* m_ShockWave;
 public:
-	BossCombat(GameObject* Shockwave);
+	BossCombat();
 	virtual ~BossCombat();
 
 	virtual State* HandleState(ComponentBase* com) override;
