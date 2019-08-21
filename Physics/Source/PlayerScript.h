@@ -24,6 +24,7 @@ public:
 		return new PlayerScript(*this);
 	}
 	void SetCanJump(bool b);
+	bool GetCanJump();
 	void Update(double dt) override;
 	virtual void Start() override;
 	virtual void Collide(GameObject*) override;

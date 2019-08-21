@@ -15,5 +15,5 @@ public:
 	CollisionManager();
 	~CollisionManager();
 
-	void Update(GameObjectManager* GOM);
+	void Update(GameObjectManager* GOM, int frameCycle);
 };
