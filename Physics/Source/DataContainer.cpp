@@ -348,7 +348,7 @@ void DataContainer::InitGO()
 	go->GetComponent<RenderComponent>()->SetBillboard(true);
 	go->TRANS->SetScale(0.5f);
 	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->AddComponent(new ParticleScript(0.3f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->AddComponent(new ParticleScript(1.f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
 	
 	go = new GameObject();
 	m_map_GO["particledestroyv2"] = go;
