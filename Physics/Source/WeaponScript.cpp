@@ -6,18 +6,19 @@
 #include "MiscellaneousPartScript.h"
 
 
-WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, int iAmmo, int iAmmo_Max, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
+WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, float fReloadTime, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
 	: m_iBulletsFiredCount(iBulletsFiredCount),
 	m_iMagazineRounds(iMagazineRounds),
 	m_iMagazineRounds_Max(iMagazineRounds_Max),
-	m_iAmmo(iAmmo),
-	m_iAmmo_Max(iAmmo_Max),
+	m_fReloadTime(fReloadTime),
+	m_fReloadElapsedTime(0.f),
 	m_fFirerate(fFirerate),
 	m_fBulletSpread(fBulletSpread),
 	m_fBulletForce(fBulletForce),
 	m_Projectile(Projectile),
 	m_FiringMode(FiringMode),
 	m_fBufferTime(fFirerate),
+	m_bIsReloading(false),
 	m_bSingleFired(false)
 {
 }
@@ -69,7 +70,10 @@ void WeaponScript::Update(double deltaTime)
 {
 	m_fBufferTime += (float)deltaTime;
 
-	if (InputManager::GetInstance()->GetInputStrength("Reload"))
+	if (m_bIsReloading)
+		m_fReloadElapsedTime += (float)deltaTime;
+
+	if (m_fReloadElapsedTime >= m_fReloadTime && m_bIsReloading)
 		ReloadWeapon();
 }
 
@@ -140,10 +144,11 @@ void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	Vector3 SpawnPos = GetPosition();
 	Vector3 direction = dir;
+	
+	Mtx44 recoil;
+	recoil.SetToRotation(Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread), 0, 1, 0);
 
-	direction.x = direction.x + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread);
-	direction.y = direction.y + Math::RandFloatMinMax(0, m_fBulletSpread) / 5;
-	direction.z = direction.z + Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread);
+	direction = recoil * direction;
 	
 	direction.Normalize();
 
@@ -163,10 +168,20 @@ void WeaponScript::ReloadWeapon(void)
 	if (m_iMagazineRounds == m_iMagazineRounds_Max || m_iMagazineRounds > m_iMagazineRounds_Max)
 		return;
 
-	int refillAmt = m_iMagazineRounds_Max - m_iMagazineRounds;
+	if (!m_bIsReloading)
+	{
+		m_bIsReloading = true;
+		RYAN_LOG("IS RELOADING");
+	}
+	else if (m_fReloadElapsedTime >= m_fReloadTime && m_bIsReloading)
+	{
+		int refillAmt = m_iMagazineRounds_Max - m_iMagazineRounds;
+		m_iMagazineRounds = m_iMagazineRounds + refillAmt;
 
-	m_iAmmo = m_iAmmo - refillAmt;
-	m_iMagazineRounds = m_iMagazineRounds + refillAmt;
+		m_bIsReloading = false;
+		m_fReloadElapsedTime = 0.f;
+		RYAN_LOG("RELOADED");
+	}
 }
 
 void WeaponScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
@@ -175,7 +190,9 @@ void WeaponScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		return;
 	
 	part->RIGID->SetAffectedByGravity(false);
-	part->PART->SetSlotType(slot);
+	
+	if(part->PART->GetSlotType() == PartScript::ALL)
+		part->PART->SetSlotType(slot);
 
 	if (part->PART->GetPartType() == PartScript::WEAPON)
 	{
@@ -184,33 +201,38 @@ void WeaponScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		case PartScript::SCOPE:
 		{
 			m_ScopeParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.2f, 0.f);
-			break;
+			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.5f, 0.f);
+
+			UpdateStats(part, true);
+			return;
 		}
 		case PartScript::MUZZLE:
 		{
 			m_MuzzleParts.push_back(part);
 			part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
-
-			break;
+			
+			UpdateStats(part, true);
+			return;
 		}
 		case PartScript::CLIP:
 		{
 			m_StockParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.45f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
-			break;
+			part->TRANS->SetRelativePosition(-0.55f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
+			
+			UpdateStats(part, true);
+			return;
 		}
 		case PartScript::GRIP:
 		{
 			m_GripParts.push_back(part);
-			part->TRANS->SetRelativePosition((-1.0f * m_GripParts.size()), 0, 0);
-			break;
+			part->TRANS->SetRelativePosition(-1.2f + (-1.0f * m_GripParts.size()), 0, 0);
+			
+			UpdateStats(part, true);
+			return;
 		}
 		default:
 			break;
 		}
-		//Update parts after attaching a part
-		UpdateStats(part, true);
 	}
 	else if(part->PART->GetPartType() == PartScript::MISC)
 	{
@@ -220,32 +242,42 @@ void WeaponScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		{
 			m_ScopeParts.push_back(part);
 			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.2f, 0.f);
-			break;
+			
+			UpdateStats(part, true);
+			return;
 		}
 		case PartScript::MUZZLE:
 		{
 			m_MuzzleParts.push_back(part);
 			part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
 
-			break;
+			UpdateStats(part, true);
+			return;
 		}
 		case PartScript::CLIP:
 		{
 			m_StockParts.push_back(part);
 			part->TRANS->SetRelativePosition(-0.45f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
-			break;
+			
+			UpdateStats(part, true);
+			return;
 		}
 		case PartScript::GRIP:
 		{
 			m_GripParts.push_back(part);
 			part->TRANS->SetRelativePosition((-1.0f * m_GripParts.size()), 0, 0);
-			break;
+			
+			UpdateStats(part, true);
+			return;
 		}
 		default:
 			break;
 		}
 		part->MISCPART->Effect();
 	}
+
+	RYAN_LOG("Part Not equipped");
+	Destroy(part);
 }
 
 
@@ -300,16 +332,6 @@ void WeaponScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const
 }
 
 
-void WeaponScript::SetAmmo(int Ammo)
-{
-	m_iAmmo = Ammo;
-}
-
-void WeaponScript::SetMaxAmmo(int Ammo_Max)
-{
-	m_iAmmo_Max = Ammo_Max;
-}
-
 void WeaponScript::SetBulletsFired(int BulletsFired)
 {
 	m_iBulletsFiredCount = BulletsFired;
@@ -335,16 +357,6 @@ void WeaponScript::SetBulletSpread(float BulletSpread)
 	m_fBulletSpread = BulletSpread;
 }
 
-int WeaponScript::GetAmmo()
-{
-	return m_iAmmo;
-}
-
-int WeaponScript::GetMaxAmmo()
-{
-	return m_iAmmo_Max;
-}
-
 int WeaponScript::GetBulletsFired()
 {
 	return m_iBulletsFiredCount;
@@ -368,4 +380,14 @@ float WeaponScript::GetFireRate()
 float WeaponScript::GetBulletSpread()
 {
 	return m_fBulletSpread;
+}
+
+float WeaponScript::GetReloadElapsedTime()
+{
+	return m_fReloadElapsedTime;
+}
+
+float WeaponScript::GetReloadTime()
+{
+	return m_fReloadTime;
 }

@@ -21,6 +21,7 @@ private:
 	bool m_bIsText;
 	bool m_bTextOnScreen;
 public:
+	RenderComponent();
 	RenderComponent(Mesh* mesh);
 	RenderComponent(MeshBiomed* mesh);
 	RenderComponent(Mesh* mesh, std::string sText, bool onScreen = true);

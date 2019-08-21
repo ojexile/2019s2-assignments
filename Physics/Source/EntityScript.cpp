@@ -4,9 +4,20 @@
 #include "RenderComponent.h"
 #include "Utility.h"
 
-EntityScript::EntityScript(Behaviour* Behaviour, AIState* CombatState)
+EntityScript::EntityScript(Behaviour* Behaviour)
 	: m_Behaviour(Behaviour)
-	, m_CombatState(CombatState)
+{
+	if (m_Behaviour)
+		m_Behaviour->Init(this);
+	m_bInitialised = false;
+	m_bDamageAnim = false;
+	m_fAnimStartTime = -1;
+	m_AdditionalStats.SetZero();
+	m_AdditionalStats.SetOne();
+}
+EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
+	: m_Behaviour(Behaviour)
+	, m_BaseStats(Stats)
 {
 	if (m_Behaviour)
 		m_Behaviour->Init(this);
@@ -31,7 +42,6 @@ EntityScript::EntityScript(EntityScript & ref)
 		m_Behaviour = nullptr;
 	m_bInitialised = false;
 	m_fAnimStartTime = 0;
-	m_CombatState = ref.m_CombatState;
 }
 EntityScript::~EntityScript()
 {
@@ -49,8 +59,6 @@ void EntityScript::CheckInit()
 }
 void EntityScript::Update(double dt)
 {
-	if (m_Behaviour)
-		m_Behaviour->Update();
 	// Check death
 	if (CheckDeath())
 		return;
@@ -78,7 +86,9 @@ void EntityScript::DamageAnim()
 }
 bool EntityScript::CheckDeath()
 {
-	if (m_Values.m_iHealth <= 0 && !this->GetComponent<PlayerScript>())
+	if (this->GetComponent<PlayerScript>())
+		return false;
+	if (m_Values.m_iHealth <= 0)
 	{
 		if (this->LOOT)
 		{
@@ -127,6 +137,8 @@ void EntityScript::MoveForwards()
 }
 void EntityScript::RotateTowards(Vector3 vDir)
 {
+	if (vDir.IsZero())
+		return;
 	vDir.y = 0;
 	float TargetAngle = AngleBetween({ 1,0,1 }, vDir);
 	if (vDir.Cross({ 1,0,1 }).y > 0)
@@ -134,7 +146,7 @@ void EntityScript::RotateTowards(Vector3 vDir)
 	// current angle
 	float CurrentAngle = TRANS->GetDegrees();
 
-	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.f);
+	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.0f);
 	TRANS->SetRotation(newAngle, 0, 1, 0);
 }
 void EntityScript::Jump()
@@ -165,7 +177,8 @@ void EntityScript::Damage(int iDamage)
 	m_Values.m_iHealth -= iDamage;
 }
 
-AIState * EntityScript::GetCombatState()
+void EntityScript::UpdateBehaviour()
 {
-	return m_CombatState;
+	if (m_Behaviour)
+		m_Behaviour->Update();
 }

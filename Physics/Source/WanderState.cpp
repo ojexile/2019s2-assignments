@@ -3,9 +3,10 @@
 #include "IdleState.h"
 #include "SceneManager.h"
 #include "AIStatesList.h"
+#include "AIEntityScript.h"
 
 #define MIN_TIME 1
-#define MAX_TIME 5
+#define MAX_TIME 2
 
 WanderState::WanderState()
 {
@@ -18,16 +19,14 @@ WanderState::~WanderState()
 
 State * WanderState::HandleState(ComponentBase * com)
 {
+	com->RENDER->SetColor(0, 0.5f, 1);
 	// Check for player
 	if (PlayerInRange(com))
 	{
-		return com->GetComponent<EntityScript>()->GetCombatState();
+		return com->GetComponent<AIEntityScript>()->GetCombatState();
 	}
 	if (m_SW.Stop()->GetTime() < m_fTime)
 	{
-		com->GetComponent<EntityScript>()->RotateTowards(m_vDir);
-		com->GetComponent<EntityScript>()->MoveForwards();
-		this->OnEnter(com);
 		return this;
 	}
 	else
@@ -38,6 +37,7 @@ void WanderState::OnEnter(ComponentBase * com)
 {
 	m_SW.Start();
 	m_fTime = Math::RandFloatMinMax(MIN_TIME, MAX_TIME);
+	m_vDir.SetZero();
 	// Rand dir
 	while (m_vDir.IsZero())
 	{
@@ -45,8 +45,10 @@ void WanderState::OnEnter(ComponentBase * com)
 		m_vDir.z = Math::RandFloatMinMax(-1, 1);
 	}
 	m_vDir.Normalize();
+	com->GetComponent<AIEntityScript>()->SetTarget(m_vDir);
 }
 
 void WanderState::OnExit(ComponentBase * com)
 {
+	com->GetComponent<AIEntityScript>()->SetTarget({0,0,0});
 }

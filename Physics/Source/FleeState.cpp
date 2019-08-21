@@ -2,6 +2,7 @@
 #include "EntityScript.h"
 #include "IdleState.h"
 #include "AIStatesList.h"
+#include "AIEntityScript.h"
 
 FleeState::FleeState()
 {
@@ -13,9 +14,9 @@ FleeState::~FleeState()
 
 State * FleeState::HandleState(ComponentBase * com)
 {
+	com->RENDER->SetColor(0.2f, 1.f, 0.2f);
 	Vector3 Dir = DirToPlayer(com);
-	com->GetComponent<EntityScript>()->RotateTowards(-Dir);
-	com->GetComponent<EntityScript>()->MoveForwards();
+	AI->SetTarget(-Dir);
 	if (PlayerInRange(com))
 	{
 		float meleeRange = 2;
