@@ -128,6 +128,7 @@ void DefaultScene::Init()
 	GameObject* ret = m_GOM.AddGameObject();
 	ret->AddComponent(new RenderComponent(dataContainer->GetMesh("Reticle")));
 	ret->RENDER->SetColor(0, 1, 1);
+	ret->SetDisableDistance(300000000000000.f);
 	ret->AddComponent(new ReticleScript());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
