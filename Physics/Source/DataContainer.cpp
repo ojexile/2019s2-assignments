@@ -21,6 +21,7 @@
 #include "ConcreteMiscParts/StaminaRegenPart.h"
 #include "SpawnLootScript.h"
 #include "DebrisSpawningScript.h"
+#include "ReloadUIScript.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -245,6 +246,13 @@ void DataContainer::InitGO()
 	m_map_GO["Gun"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Gun")));
 	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
+	go2 = new GameObject;
+	go->AddChild(go2);
+	go2->AddComponent(new RenderComponent(GetMesh("Quad")));
+	go2->TRANS->SetRelativePosition(0, 2, 0);
+	go2->RENDER->SetColor(1, 1, 1);
+	go2->RENDER->Set3DBillboard(true);
+	go2->AddComponent(new ReloadUIScript());
 	// Grenade----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Grenade"] = go;

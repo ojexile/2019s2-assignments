@@ -5,6 +5,7 @@
 #include "TransformComponent.h"
 Component::Component()
 {
+	m_ParentGO = nullptr;
 }
 Component::~Component()
 {
@@ -21,9 +22,10 @@ void Component::DestroySelf()
 	SceneManager* sceneManager = SceneManager::GetInstance();
 	sceneManager->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
 }
-void Component::Init(std::vector<GameObject*>* ChildRef)
+void Component::Init(std::vector<GameObject*>* ChildRef, GameObject* Parent)
 {
 	m_vec_RefChildList = ChildRef;
+	m_ParentGO = Parent;
 }
 GameObject* Component::Instantiate(const GameObject* goRef, Vector3 pos, Vector3 vScal, Vector3 vRot, float fAngle, std::string sLayer) const
 {

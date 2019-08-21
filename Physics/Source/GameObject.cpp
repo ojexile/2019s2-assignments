@@ -8,10 +8,12 @@ GameObject::GameObject()
 {
 	AddComponent(new TransformComponent);
 	m_fDisableDistance = 100;
+	m_Parent = nullptr;
 }
 // Copy
-GameObject::GameObject(const GameObject& go)
+GameObject::GameObject(const GameObject& go, GameObject* parent)
 {
+	this->m_Parent = parent;
 	this->m_bActive = go.m_bActive;
 	this->m_bStatic = go.m_bStatic;
 	m_fDisableDistance = go.m_fDisableDistance;
@@ -24,7 +26,8 @@ GameObject::GameObject(const GameObject& go)
 	}
 	for (unsigned i = 0; i < go.m_vec_ChildList.size(); ++i)
 	{
-		GameObject* child = go.m_vec_ChildList[i]->Clone();
+		GameObject* child = go.m_vec_ChildList[i]->Clone(this);
+		child->m_Parent = this;
 		m_vec_ChildList.push_back(child);
 	}
 }
@@ -52,7 +55,7 @@ ComponentBase* GameObject::AddComponent(ComponentBase* comp)
 	comp->Init(&m_vec_ComponentList);
 	Component* comp1 = dynamic_cast<Component*>(comp);
 	if (comp1)
-		comp1->Init(&m_vec_ChildList);
+		comp1->Init(&m_vec_ChildList, m_Parent);
 	m_vec_ComponentList.push_back(comp);
 	return comp;
 }
@@ -178,6 +181,7 @@ void GameObject::Update(double dt)
 }
 void GameObject::AddChild(GameObject* go)
 {
+	go->m_Parent = this;
 	m_vec_ChildList.push_back(go);
 }
 std::vector<GameObject*>* GameObject::GetChildList()
@@ -188,8 +192,8 @@ void GameObject::SetActive(bool b)
 {
 	m_bActive = b;
 }
-GameObject* GameObject::Clone() const
+GameObject* GameObject::Clone(GameObject* parent) const
 {
-	GameObject* go = new GameObject(*this);
+	GameObject* go = new GameObject(*this, parent);
 	return go;
 }
