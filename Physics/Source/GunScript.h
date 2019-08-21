@@ -49,17 +49,16 @@ public:
 	float GetBulletSpread();
 	float GetReloadTime();
 	float GetReloadElapsedTime();
-
 	bool IsReloading();
+	GameObject* GetBullet();
 
 	virtual Component* Clone() { return new GunScript(*this); }
 
 private:
 
 	void FireWeapon(const Vector3& dir, const double deltaTime);
-
+	void ApplyAugmentOnBullet(std::vector<GameObject*>& m_vector, GameObject* go);
 	void DestroyPart(std::vector<GameObject*>& m_Updatedvector, GameObject* go);
-
 	void DamageEquippedParts(std::vector<GameObject*>& m_vector, const double deltaTime);
 
 	int m_iBulletsFiredCount;

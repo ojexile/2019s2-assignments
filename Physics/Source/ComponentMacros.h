@@ -6,6 +6,7 @@
 #define CAMERA GetComponent<CameraComponent>()
 #define RIGID GetComponent<Rigidbody>()
 #define CONSTRAIN GetComponent<Constrain>()
+#define AUGMENT GetComponent<Augment>()
 #define PART GetComponent<WeaponPartScript>()
 #define GUN GetComponent<GunScript>()
 #define LOOT GetComponent<LootScript>()

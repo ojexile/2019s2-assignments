@@ -3,6 +3,8 @@
 #include "InputManager.h"
 #include "GameObjectManager.h"
 #include "TransformComponent.h"
+#include "ProjectileScript.h"
+#include "ExplodeAugment.h"
 
 
 GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, float fReloadTime, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
@@ -144,16 +146,20 @@ void GunScript::FireWeapon(const Vector3& dir, const double deltaTime)
 	Vector3 SpawnPos = GetPosition();
 	Vector3 direction = dir;
 	
-	Mtx44 recoil;
-	recoil.SetToRotation(Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread), 0, 1, 0);
+	//Mtx44 recoil;
+	//recoil.SetToRotation(Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread), 0, 1, 0);
 
-	direction = recoil * direction;
-	
+	//direction = recoil * direction;
 	direction.Normalize();
 
 	GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
 	bullet->RIGID->SetAffectedByGravity(false);
 	bullet->RIGID->AddForce(m_fBulletForce * direction);
+
+	ApplyAugmentOnBullet(m_ScopeParts, bullet);
+	ApplyAugmentOnBullet(m_MuzzleParts, bullet);
+	ApplyAugmentOnBullet(m_GripParts, bullet);
+	ApplyAugmentOnBullet(m_StockParts, bullet);
 
 	DamageEquippedParts(m_ScopeParts, deltaTime);
 	DamageEquippedParts(m_MuzzleParts, deltaTime);
@@ -197,7 +203,7 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 	{
 		m_ScopeParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.5f, 0.f);
-
+		
 		UpdateStats(part, true);
 		return;
 	}
@@ -206,6 +212,7 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 		m_MuzzleParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
 
+
 		UpdateStats(part, true);
 		return;
 	}
@@ -213,6 +220,7 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 	{
 		m_StockParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.55f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
+
 
 		UpdateStats(part, true);
 		return;
@@ -278,6 +286,19 @@ void GunScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const do
 	}
 }
 
+void GunScript::ApplyAugmentOnBullet(std::vector<GameObject*>& m_vector, GameObject* go)
+{
+	if (m_vector.size() == 0)
+		return;
+
+	for (auto it = m_vector.begin(); it != m_vector.end(); ++it)
+	{
+		GameObject* wp = static_cast<GameObject*>(*it);
+		if (wp->PART->GetAugment())
+			go->GetComponent<ProjectileScript>()->AddAugment(wp->PART->GetAugment()->Clone());
+		
+	}
+}
 
 void GunScript::SetBulletsFired(int BulletsFired)
 {
@@ -337,6 +358,11 @@ float GunScript::GetReloadElapsedTime()
 float GunScript::GetReloadTime()
 {
 	return m_fReloadTime;
+}
+
+GameObject* GunScript::GetBullet()
+{
+	return m_Projectile;
 }
 
 bool GunScript::IsReloading()

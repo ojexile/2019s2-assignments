@@ -139,7 +139,8 @@
     <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\Entity_Library.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
-    <ClCompile Include="Source\WeaponAugment.cpp" />
+    <ClCompile Include="Source\Augment.cpp" />
+    <ClCompile Include="Source\ExplodeAugment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -255,7 +256,8 @@
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
     <ClInclude Include="Source\Entity_Library.h" />
     <ClInclude Include="Source\GunScript.h" />
-    <ClInclude Include="Source\WeaponAugment.h" />
+    <ClInclude Include="Source\Augment.h" />
+    <ClInclude Include="Source\ExplodeAugment.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

@@ -15,6 +15,8 @@
 #include "ReticleScript.h"
 #include "ParticleObserver.h"
 #include "AdvancedParticleSpawnerScript.h"
+//TMP
+#include "ExplodeAugment.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -133,21 +135,22 @@ void DefaultScene::Init()
 	Gun->TRANS->SetRelativePosition(1, 1, 1);
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
 
-	////TMP
-	//GameObject* muz = dataContainer->GetGameObject("Muzzle");
-	//muz->PART->SetDurability(10000.f);
-	//Gun->AddChild(muz);
-	//Gun->GUN->EquipPart(muz, PartScript::SLOT_TYPE::MUZZLE);
+	//TMP
+	GameObject* muz = dataContainer->GetGameObject("Muzzle");
+	muz->PART->SetDurability(10000.f);
+	muz->PART->SetAugment(new ExplodeAugment);
+	Gun->AddChild(muz);
+	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
-	//muz = dataContainer->GetGameObject("Muzzle");
-	//muz->PART->SetDurability(1.f);
-	//Gun->AddChild(muz);
-	//Gun->GUN->EquipPart(muz, PartScript::SLOT_TYPE::MUZZLE);
+	muz = dataContainer->GetGameObject("Muzzle");
+	muz->PART->SetDurability(1.f);
+	Gun->AddChild(muz);
+	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
-	//muz = dataContainer->GetGameObject("Muzzle");
-	//muz->PART->SetDurability(5.f);
-	//Gun->AddChild(muz);
-	//Gun->GUN->EquipPart(muz, PartScript::SLOT_TYPE::MUZZLE);
+	muz = dataContainer->GetGameObject("Muzzle");
+	muz->PART->SetDurability(5.f);
+	Gun->AddChild(muz);
+	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);

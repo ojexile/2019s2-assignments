@@ -1,5 +1,8 @@
 #pragma once
-#include "ScriptComponent.h"
+#include "Augment.h"
+#include "GameObject.h"
+
+#include <vector>
 /********************************************************************************/
 /*!
 \author Ryan Tan Zheng Rong
@@ -7,6 +10,7 @@
 Script to handle general Projectile Behaviour.
 /*!
 /********************************************************************************/
+
 class ProjectileScript : public ScriptComponent
 {
 public:
@@ -18,10 +22,15 @@ public:
 	virtual Component* Clone() { return new ProjectileScript(*this); }
 	virtual void Collide(GameObject*) override;
 
+	void AddAugment(Component* aug);
+
+	bool ActivateEffects(ProjectileScript* proj, GameObject* go);
+
 	float getDamage();
 	float getLifespan();
 
 protected:
 	float m_fDamage;
 	float m_fLifespan;
+	std::vector<Component*> m_AugmentList;
 };
