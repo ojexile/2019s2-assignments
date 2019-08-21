@@ -204,6 +204,9 @@ void DefaultScene::Init()
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("boulder"));
 	go->TRANS->SetPosition(10, 19, 20);
 
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("fliprock"));
+	go->TRANS->SetPosition(0, 19, 20);
+
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("ItemInfo"));
 	go->TRANS->SetPosition(0, 16, 0);
 	go->SetActive(false);

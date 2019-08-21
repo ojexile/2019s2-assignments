@@ -178,7 +178,7 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["boulder"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("UIBullet");
 
-	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube");
+	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("fliprock");
 
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
 }
@@ -375,15 +375,23 @@ void DataContainer::InitGO()
 	static_cast<FlipEntityScript*>(go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(1.f);
 
 	go = new GameObject();
-	m_map_GO["fliprock"] = go;
+	m_map_GO["fliprockrender"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cube")));
-	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	//go->AddComponent(new InteractableObCom());
+	go = new GameObject();
+	m_map_GO["fliprock"] = go;
 	go->TRANS->SetScale(1.f, 0.5f, 1.f);
+
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	//go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new InteractableObCom());
 	go->AddComponent(new DestructibleEntityScript("RockDied"));
 	static_cast<FlipEntityScript*>(
 		go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
+
+	go->AddChild(GetGameObject("fliprockrender"));
+
 
 	go = new GameObject();
 	m_map_GO["treasurebox"] = go;

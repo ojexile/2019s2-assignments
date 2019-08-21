@@ -5,7 +5,8 @@
 #include "Utility.h"
 
 EntityScript::EntityScript(Behaviour* Behaviour)
-	: m_Behaviour(Behaviour)
+	: m_Behaviour(Behaviour),
+	m_SW()
 {
 	if (m_Behaviour)
 		m_Behaviour->Init(this);
@@ -45,9 +46,6 @@ EntityScript::EntityScript(EntityScript & ref)
 }
 EntityScript::~EntityScript()
 {
-	m_bInitialised = false;
-	m_bDamageAnim = false;
-	m_fAnimStartTime = -1;
 }
 void EntityScript::Init()
 {

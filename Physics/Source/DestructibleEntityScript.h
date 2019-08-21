@@ -23,5 +23,5 @@ public:
 	void SetMessage(std::string s);
 	void SetHealth(int i);
 	int GetHealth();
-	void Damage(int damage) ;
+	void Damage(int damage);
 };
