@@ -114,6 +114,7 @@
     <ClCompile Include="Source\BossCombat.cpp" />
     <ClCompile Include="Source\BossShockwaveState.cpp" />
     <ClCompile Include="Source\SuicideNoteScript.cpp" />
+    <ClCompile Include="Source\BirdWingScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -236,6 +237,7 @@
     <ClInclude Include="Source\BossCombat.h" />
     <ClInclude Include="Source\BossShockwaveState.h" />
     <ClInclude Include="Source\SuicideNoteScript.h" />
+    <ClInclude Include="Source\BirdWingScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />

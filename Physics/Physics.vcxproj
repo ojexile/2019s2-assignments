@@ -177,6 +177,7 @@
     <ClCompile Include="Source\AudioObserver.cpp" />
     <ClCompile Include="Source\Behaviour.cpp" />
     <ClCompile Include="Source\BiomeComponent.cpp" />
+    <ClCompile Include="Source\BirdWingScript.cpp" />
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\BossCombat.cpp" />
     <ClCompile Include="Source\BossShockwaveState.cpp" />
@@ -292,6 +293,7 @@
     <ClInclude Include="Source\AudioManager.h" />
     <ClInclude Include="Source\AudioObserver.h" />
     <ClInclude Include="Source\Behaviour.h" />
+    <ClInclude Include="Source\BirdWingScript.h" />
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\BossCombat.h" />
     <ClInclude Include="Source\BossShockwaveState.h" />

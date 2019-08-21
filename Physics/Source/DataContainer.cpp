@@ -25,6 +25,7 @@
 #include "AdvancedParticleSpawnerScript.h"
 #include "BlackholeScript.h"
 #include "SuicideNoteScript.h"
+#include "BirdWingScript.h"
 //
 #include "PartScript.h"
 #include "WeaponPartScript.h"
@@ -343,6 +344,7 @@ void DataContainer::InitGO()
 	go->RIGID->LockYAxis(true);
 	go->AddComponent(new AIEntityScript(GetBehaviour("Bird"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 2)));
 	go->AddChild(GetGameObject("EnemyReticle"));
+	go->AddComponent(new BirdWingScript);
 	go2 = new GameObject;
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("WingLeft")));
