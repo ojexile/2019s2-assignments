@@ -117,6 +117,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
 	
 	m_map_Textures["particleSquareBorder"] = LoadTGA("particleSquareBorder");
+	m_map_Textures["particleHexagon"] = LoadTGA("particleHexagon");
 }
 void DataContainer::InitMeshes()
 {
@@ -351,7 +352,8 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(0.5f);
 	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
-	
+	go->PARTICLE->SetRot({80.f, 80.f, 80.f});
+
 	go = new GameObject();
 	m_map_GO["particledestroyv2"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
