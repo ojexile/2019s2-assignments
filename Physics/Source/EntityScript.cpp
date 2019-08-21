@@ -156,8 +156,9 @@ void EntityScript::Jump()
 	{
 		rb->SetVel(Vector3(rb->GetVel().x, 40 / rb->GetMass(), rb->GetVel().z));
 		if(GetComponent<PlayerScript>() != nullptr) GetComponent<PlayerScript>()->SetCanJump(false);
+		Notify("Jump");
+
 	}
-	Notify("Jump");
 }
 bool EntityScript::IsDamageAnim()
 {
