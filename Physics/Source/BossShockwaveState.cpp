@@ -13,7 +13,7 @@
 #include "BlackholeScript.h"
 #include <vector>
 
-#define SHOCKWAVE_TIME 2.f
+#define SHOCKWAVE_TIME 3.f
 BossShockwaveState::BossShockwaveState()
 {
 }
@@ -35,14 +35,26 @@ void BossShockwaveState::OnEnter(ComponentBase * com)
 	com->RENDER->SetColor(1, 0.1f, 0);
 	// Create shockwave effect
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
-	GameObject* go = GOM->AddGameObject(DataContainer::GetInstance()->
-		GetGameObject("Shockwave"));
-	go->TRANS->SetPosition(com->TRANS->GetPosition());
-	std::vector<GameObject*> list;
-	Component* comp = dynamic_cast<Component*>(com);
-	list.push_back(comp->GetGO());
-	go->GetComponent<BlackholeScript>()->SetIgnoreList(list);
+	float num = 48;
+	float angleOffset = 360 / num;
+	Vector3 Pos = com->TRANS->GetPosition();
+	Pos.y = 17;
+	for (int i = 0; i < num; ++i)
+	{
+		float angle = angleOffset * i;
+		GameObject* go = GOM->AddGameObject(DataContainer::GetInstance()->
+			GetGameObject("Shockwave"), "Birds");
+		Vector3 vForce = { cos(angle), 0, sin(angle) };
+		vForce *= 130.f;
+		go->RIGID->AddForce(vForce);
+		go->TRANS->SetPosition(Pos);
+		std::vector<GameObject*> list;
+		Component* comp = dynamic_cast<Component*>(com);
+		list.push_back(comp->GetGO());
+		go->GetComponent<BlackholeScript>()->SetIgnoreList(list);
+	}
 	//
+	com->GetComponent<EntityScript>()->Jump();
 	s.Start();
 }
 

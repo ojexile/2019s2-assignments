@@ -309,10 +309,12 @@ void DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Shockwave"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
-	go->TRANS->SetScale(2);
+	go->TRANS->SetScale(0.5f);
 	go->RENDER->SetColor(1, 0, 0);
-	go->AddComponent(new BlackholeScript(-50, 60));
+	go->AddComponent(new BlackholeScript(-0.01f, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->RIGID->LockYAxis(true);
+	go->RIGID->SetMat(0.2f, 0);
 	// Animals--------------------------------------------------------------------------------
 	// Cow-----------------------------------------------------------------------------
 	go = new GameObject;
