@@ -25,21 +25,27 @@ void AdvancedParticleSpawnerScript::Update(double dt)
 		return;
 
 	GameObject* go = Instantiate(m_ParticleRef, m_sLayer);
+	float scalar = go->RIGID->GetVel().Length();
+	if (scalar < Math::EPSILON)
+		scalar = 1.f;
+	float q1x, q1z;
 
-	switch (m_spawnerType)
+	if (m_spawnerType == SPEW)
 	{
-	default:
-		//static_cast<ParticleSpawnerScript*>(this)->Update(dt);
-		break;
-	case SPEW:
-		break;
-	case CIRCULAR:
+		q1x = Math::RandFloatMinMax(-1.f, 1.f);
+		q1z = Math::RandFloatMinMax(-1.f, 1.f);
+
+		go->RIGID->AddForce(scalar * Vector3(q1x, 0, q1z));
+	}
+
+	else if (m_spawnerType == CIRCULAR)
+	{
 		float spaceperdegree = 360.f / (float)m_iSpawnCount;
 
 		for (float i = 0.f; i < 360.f; i += spaceperdegree)
 		{
 			float scalar = go->RIGID->GetVel().Length();
-			float q1x, q1z;
+			
 			if ((int)i >= 270)
 			{
 				if ((int)i == 270)
@@ -93,7 +99,7 @@ void AdvancedParticleSpawnerScript::Update(double dt)
 				go->TRANS->SetPosition(TRANS->GetPosition());
 			}
 		}
-		break;
+	
 	
 	}
 }
