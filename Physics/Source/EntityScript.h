@@ -37,6 +37,7 @@ protected:
 	bool m_bInitialised;
 	bool m_bDamageAnim;
 	float m_fAnimStartTime;
+	bool m_bCanJump;
 	//--------------------------------------------------------------------------------
 public:
 	EntityScript(Behaviour* Behaviour = nullptr);
@@ -58,4 +59,6 @@ public:
 	void SetDamageAnim(bool);
 	void Damage(int iDamage);
 	void UpdateBehaviour();
+	void SetCanJump(bool b);
+	bool GetCanJump();
 };

@@ -18,6 +18,7 @@ private:
 	Vector3 m_vTarget;
 	Vector3 m_vPrevPos;
 	bool m_bFirstMove;
+	bool m_bAgainstWall;
 public:
 	AIEntityScript(Behaviour* Behaviour = nullptr, AIState* CombatState = nullptr);
 	AIEntityScript(Behaviour* Behaviour, AIState* CombatState, Stats &Stats);
@@ -25,6 +26,7 @@ public:
 	virtual ~AIEntityScript();
 	virtual Component* Clone() { return new AIEntityScript(*this); };
 	virtual void Update(double dt) override;
+	void SetAgainstWall(bool b);
 
 	AIState* GetCombatState();
 	void SetTarget(Vector3 v);

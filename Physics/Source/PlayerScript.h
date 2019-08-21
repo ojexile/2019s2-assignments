@@ -10,7 +10,6 @@ private:
 	GameObject* m_Gun;
 	GameObject* m_Grenade;
 	float m_fJumpForce;
-	bool m_bCanJump;
 	int m_iNumberOfGrenades;
 
 	// Functions
@@ -23,8 +22,6 @@ public:
 	{
 		return new PlayerScript(*this);
 	}
-	void SetCanJump(bool b);
-	bool GetCanJump();
 	void Update(double dt) override;
 	virtual void Start() override;
 	virtual void Collide(GameObject*) override;

@@ -69,6 +69,14 @@ void EntityScript::Update(double dt)
 	}
 	UpdateValues();
 }
+void EntityScript::SetCanJump(bool b)
+{
+	m_bCanJump = b;
+}
+bool EntityScript::GetCanJump()
+{
+	return m_bCanJump;
+}
 const Stats * EntityScript::GetBaseStats()
 {
 	return &m_BaseStats;
@@ -152,11 +160,14 @@ void EntityScript::RotateTowards(Vector3 vDir)
 void EntityScript::Jump()
 {
 	Rigidbody* rb = GetComponent<Rigidbody>();
-	if (GetComponent<PlayerScript>() == nullptr || GetComponent<PlayerScript>()->GetCanJump())
+	if (m_bCanJump)
 	{
 		rb->SetVel(Vector3(rb->GetVel().x, 40 / rb->GetMass(), rb->GetVel().z));
-		if (GetComponent<PlayerScript>() != nullptr) GetComponent<PlayerScript>()->SetCanJump(false);
-		Notify("Jump");
+		m_bCanJump = false;
+		if (GetComponent<PlayerScript>() == nullptr)
+		{
+			Notify("Jump");
+		}
 	}
 }
 bool EntityScript::IsDamageAnim()
