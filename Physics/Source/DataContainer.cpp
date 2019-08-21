@@ -251,7 +251,7 @@ void DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Gun"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Gun")));
-	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
+	go->AddComponent(new GunScript(GetGameObject("Bullet")));
 	go2 = new GameObject;
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
@@ -368,14 +368,14 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(0.5f);
 	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
-	
+
 	go = new GameObject();
 	m_map_GO["particledestroyv2"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
 	go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
 	go->GetComponent<RenderComponent>()->SetBillboard(true);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetVel({1.f, 0.f, 0.f});
+	go->RIGID->SetVel({ 1.f, 0.f, 0.f });
 
 	go = new GameObject();
 	m_map_GO["particlespawnerdestroy"] = go;

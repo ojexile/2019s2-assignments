@@ -5,7 +5,6 @@
 #include "TransformComponent.h"
 #include "MiscellaneousPartScript.h"
 
-
 GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, float fReloadTime, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
 	: m_iBulletsFiredCount(iBulletsFiredCount),
 	m_iMagazineRounds(iMagazineRounds),
@@ -25,7 +24,6 @@ GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazi
 
 GunScript::~GunScript()
 {
-
 }
 
 void GunScript::PullTrigger(const Vector3& dir, const double deltaTime)
@@ -144,12 +142,12 @@ void GunScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	Vector3 SpawnPos = GetPosition();
 	Vector3 direction = dir;
-	
+
 	Mtx44 recoil;
 	recoil.SetToRotation(Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread), 0, 1, 0);
 
 	direction = recoil * direction;
-	
+
 	direction.Normalize();
 
 	GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
@@ -188,10 +186,10 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 {
 	if (!part->PART)
 		return;
-	
+
 	part->RIGID->SetAffectedByGravity(false);
-	
-	if(part->PART->GetSlotType() == PartScript::ALL)
+
+	if (part->PART->GetSlotType() == PartScript::ALL)
 		part->PART->SetSlotType(slot);
 
 	if (part->PART->GetPartType() == PartScript::WEAPON)
@@ -210,7 +208,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		{
 			m_MuzzleParts.push_back(part);
 			part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
-			
+
 			UpdateStats(part, true);
 			return;
 		}
@@ -218,7 +216,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		{
 			m_StockParts.push_back(part);
 			part->TRANS->SetRelativePosition(-0.55f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
-			
+
 			UpdateStats(part, true);
 			return;
 		}
@@ -226,7 +224,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		{
 			m_GripParts.push_back(part);
 			part->TRANS->SetRelativePosition(-1.2f + (-1.0f * m_GripParts.size()), 0, 0);
-			
+
 			UpdateStats(part, true);
 			return;
 		}
@@ -234,7 +232,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 			break;
 		}
 	}
-	else if(part->PART->GetPartType() == PartScript::MISC)
+	else if (part->PART->GetPartType() == PartScript::MISC)
 	{
 		switch (part->PART->GetSlotType())
 		{
@@ -242,7 +240,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		{
 			m_ScopeParts.push_back(part);
 			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.2f, 0.f);
-			
+
 			UpdateStats(part, true);
 			return;
 		}
@@ -258,7 +256,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		{
 			m_StockParts.push_back(part);
 			part->TRANS->SetRelativePosition(-0.45f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
-			
+
 			UpdateStats(part, true);
 			return;
 		}
@@ -266,7 +264,7 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 		{
 			m_GripParts.push_back(part);
 			part->TRANS->SetRelativePosition((-1.0f * m_GripParts.size()), 0, 0);
-			
+
 			UpdateStats(part, true);
 			return;
 		}
@@ -280,14 +278,13 @@ void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 	Destroy(part);
 }
 
-
 void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* target)
 {
 	while (m_vector.size() > 0)
 	{
 		GameObject* go = static_cast<GameObject*>(*(m_vector.rbegin()));
 		PartScript::PART_TYPE type = go->PART->GetPartType();
-		
+
 		if (target == go)
 		{
 			if (type == PartScript::PART_TYPE::WEAPON)
@@ -301,8 +298,6 @@ void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* targ
 		}
 		else
 		{
-			
-			
 			if (type == PartScript::PART_TYPE::WEAPON)
 				UpdateStats(go, false);
 			else
@@ -329,11 +324,9 @@ void GunScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const do
 				DestroyPart(m_vector, go);
 				break;
 			}
-			
 		}
 	}
 }
-
 
 void GunScript::SetBulletsFired(int BulletsFired)
 {
@@ -397,5 +390,5 @@ float GunScript::GetReloadTime()
 
 bool GunScript::IsReloading()
 {
-	return IsReloading;
+	return m_bIsReloading;
 }
