@@ -20,7 +20,7 @@ void ExplodeAugment::ActiveEffect(Component* proj, GameObject* go)
 	EntityScript* es = go->GetComponent<EntityScript>();
 	
 	//Entity gets damaged and pushed back
-	es->Damage(proj->GetComponent<ProjectileScript>()->getDamage() * 1.5);
+	es->Damage(proj->GetComponent<ProjectileScript>()->GetDamage() * 1.5);
 	go->RIGID->AddForce(relDir.Normalize() * 1000);
 
 	//Bullet expands

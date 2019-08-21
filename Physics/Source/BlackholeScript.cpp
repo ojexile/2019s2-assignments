@@ -15,6 +15,9 @@ Blackhole::~Blackhole()
 }
 void Blackhole::Update(double dt)
 {
+	if (!this->IsActive())
+		return;
+
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	std::vector<GameObject*>* GOList = GOM->GetLayerList()->at("Default")->GetGOList();
 	Vector3 pos1 = GetComponent<TransformComponent>()->GetPosition();
