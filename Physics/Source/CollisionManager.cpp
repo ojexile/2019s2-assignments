@@ -18,7 +18,7 @@ CollisionManager::~CollisionManager()
 
 Vector3 Truncate(Vector3 input)
 {
-	return Vector3((int)input.x, (int)input.y, (int)input.z) + Vector3(0.5, 0.5, 0.5);
+	return Vector3((int)floor(input.x), (int)floor(input.y), (int)floor(input.z)) + Vector3(0.5, 0.5, 0.5);
 }
 #define NEW_COLLISION
 Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameObject* go2)
@@ -517,12 +517,11 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 	std::vector<Vector3> vertices;
 	for (int x = 0; x <= ceilX; ++x)
 	{
-		for (int y = 1; y < ceilY; ++y)
+		for (int y = 0; y <= ceilY; ++y)
 		{
 			for (int z = 0; z <= ceilX; ++z)
 			{
-				vertices.push_back(trans1->GetPosition() + Vector3(xDiff * x - halfPlayerSize / 2, yDiff * y - halfPlayerHeight, xDiff * z - halfPlayerSize / 2));
-				vertices.push_back(trans1->GetPosition() + Vector3(xDiff * x - halfPlayerSize / 2, yDiff * y - halfPlayerHeight, xDiff * z - halfPlayerSize / 2));
+				vertices.push_back(k + Vector3(xDiff * x - halfPlayerSize / 2, yDiff * y - halfPlayerHeight, xDiff * z - halfPlayerSize / 2));
 			}
 		}
 	}
@@ -551,7 +550,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 	std::ostringstream ss;
 	ss << nCounts;
 	KZ_LOG("[NChunks]", "Total number of chunks: " + ss.str());
-	float shortestMagnitude = 10;
+	float shortestMagnitude = 0.1;
 	Vector3 shortestDirection = Vector3(0, 0, 0);
 	if(chunks.size() != 0)
 	for (int i = 0; i < 27; ++i)
@@ -579,7 +578,6 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 							k = false;
 							break;
 						}
-						if (!k) break;
 					}
 					if (!k) break;
 				}
@@ -587,26 +585,20 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 				forceMagnitudePos += increment;
 			}
 		}
-		if (shortestMagnitude > forceMagnitudePos)
+		if (i == 0 || shortestMagnitude > forceMagnitudePos)
 		{
 			shortestMagnitude = forceMagnitudePos;
 			shortestDirection = forceDirection;
 		}
-		if (shortestMagnitude < 0.001)
-		{
-			break;
-		}
 	}
-	if (shortestDirection.IsZero() || shortestMagnitude <= 0.008) return Rigidbody::ePhysicsTypes::NONE;
+	if (shortestDirection.IsZero()) return Rigidbody::ePhysicsTypes::NONE;
 	go1->GetComponent<TransformComponent>()->Translate(shortestDirection * shortestMagnitude);
 	Vector3 vel = go1->RIGID->GetVel();
-	if (shortestDirection.x < 0 && vel.x > 0) vel.x = 0;
+	if (shortestDirection.x != 0) vel.x *= -0.9;
 	if (shortestDirection.y < 0 && vel.y > 0) vel.y = 0;
-	if (shortestDirection.z < 0 && vel.z > 0) vel.z = 0;
-	if (shortestDirection.x > 0 && vel.x < 0) vel.x = 0;
-	if (shortestDirection.y > 0 && vel.y < 0) vel.y = 0;
-	if (shortestDirection.z > 0 && vel.z < 0) vel.z = 0;
-	go1->GetComponent<Rigidbody>()->SetVel(vel);
+	else if (shortestDirection.y > 0 && vel.y < 0) vel.y = 0;
+	if (shortestDirection.z != 0) vel.z *= -0.9;
+	go1->GetComponent<Rigidbody>()->QueueVel(vel - go1->RIGID->GetVel());
 	if(go1->GetComponent<ScriptComponent>() != nullptr)
 		go1->GetComponent<ScriptComponent>()->Collide(GOList->front());
 	if (go1->GetComponent<PlayerScript>(true) && shortestDirection.y == 1)
