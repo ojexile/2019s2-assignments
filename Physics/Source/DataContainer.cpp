@@ -12,7 +12,7 @@
 #include "ProjectileScript.h"
 #include "ReticleScript.h"
 #include "PlayerScript.h"
-#include "WeaponScript.h"
+#include "GunScript.h"
 #include "GrenadeScript.h"
 #include "LootScript.h"
 #include "DestructibleEntityScript.h"
@@ -246,7 +246,7 @@ void DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Gun"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Gun")));
-	go->AddComponent(new WeaponScript(GetGameObject("Bullet")));
+	go->AddComponent(new GunScript(GetGameObject("Bullet")));
 	// Grenade----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Grenade"] = go;

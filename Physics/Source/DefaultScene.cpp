@@ -10,7 +10,7 @@
 #include "CameraScript.h"
 #include "MapSpawningScript.h"
 #include "InventoryScript.h"
-#include "WeaponScript.h"
+#include "GunScript.h"
 #include "PlayerStatsScript.h"
 #include "MiscellaneousPartScript.h"
 #include "ReticleScript.h"

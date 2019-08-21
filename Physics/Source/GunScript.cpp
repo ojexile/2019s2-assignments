@@ -1,4 +1,4 @@
-#include "WeaponScript.h"
+#include "GunScript.h"
 #include "Rigidbody.h"
 #include "InputManager.h"
 #include "GameObjectManager.h"
@@ -6,7 +6,7 @@
 #include "MiscellaneousPartScript.h"
 
 
-WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, float fReloadTime, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
+GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, float fReloadTime, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
 	: m_iBulletsFiredCount(iBulletsFiredCount),
 	m_iMagazineRounds(iMagazineRounds),
 	m_iMagazineRounds_Max(iMagazineRounds_Max),
@@ -23,12 +23,12 @@ WeaponScript::WeaponScript(GameObject* Projectile, int iBulletsFiredCount, int i
 {
 }
 
-WeaponScript::~WeaponScript()
+GunScript::~GunScript()
 {
 
 }
 
-void WeaponScript::PullTrigger(const Vector3& dir, const double deltaTime)
+void GunScript::PullTrigger(const Vector3& dir, const double deltaTime)
 {
 	if (!m_Projectile)
 		return;
@@ -61,12 +61,12 @@ void WeaponScript::PullTrigger(const Vector3& dir, const double deltaTime)
 	}
 }
 
-void WeaponScript::ReleaseTrigger()
+void GunScript::ReleaseTrigger()
 {
 	m_bSingleFired = false;
 }
 
-void WeaponScript::Update(double deltaTime)
+void GunScript::Update(double deltaTime)
 {
 	m_fBufferTime += (float)deltaTime;
 
@@ -77,7 +77,7 @@ void WeaponScript::Update(double deltaTime)
 		ReloadWeapon();
 }
 
-void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
+void GunScript::UpdateStats(GameObject* go, bool Multiply)
 {
 	if (Multiply)
 	{
@@ -140,7 +140,7 @@ void WeaponScript::UpdateStats(GameObject* go, bool Multiply)
 	}
 }
 
-void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
+void GunScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	Vector3 SpawnPos = GetPosition();
 	Vector3 direction = dir;
@@ -163,7 +163,7 @@ void WeaponScript::FireWeapon(const Vector3& dir, const double deltaTime)
 	--m_iMagazineRounds;
 }
 
-void WeaponScript::ReloadWeapon(void)
+void GunScript::ReloadWeapon(void)
 {
 	if (m_iMagazineRounds == m_iMagazineRounds_Max || m_iMagazineRounds > m_iMagazineRounds_Max)
 		return;
@@ -184,7 +184,7 @@ void WeaponScript::ReloadWeapon(void)
 	}
 }
 
-void WeaponScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
+void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 {
 	if (!part->PART)
 		return;
@@ -281,7 +281,7 @@ void WeaponScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
 }
 
 
-void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* target)
+void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* target)
 {
 	while (m_vector.size() > 0)
 	{
@@ -314,7 +314,7 @@ void WeaponScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* t
 	}
 }
 
-void WeaponScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const double deltaTime)
+void GunScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const double deltaTime)
 {
 	if (m_vector.size() > 0)
 	{
@@ -332,62 +332,62 @@ void WeaponScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const
 }
 
 
-void WeaponScript::SetBulletsFired(int BulletsFired)
+void GunScript::SetBulletsFired(int BulletsFired)
 {
 	m_iBulletsFiredCount = BulletsFired;
 }
 
-void WeaponScript::SetMagazineRounds(int MagRounds)
+void GunScript::SetMagazineRounds(int MagRounds)
 {
 	m_iMagazineRounds = MagRounds;
 }
 
-void WeaponScript::SetMaxMagazineRounds(int MagRounds_Max)
+void GunScript::SetMaxMagazineRounds(int MagRounds_Max)
 {
 	m_iMagazineRounds_Max = MagRounds_Max;
 }
 
-void WeaponScript::SetFireRate(float FireRate)
+void GunScript::SetFireRate(float FireRate)
 {
 	m_fFirerate = FireRate;
 }
 
-void WeaponScript::SetBulletSpread(float BulletSpread)
+void GunScript::SetBulletSpread(float BulletSpread)
 {
 	m_fBulletSpread = BulletSpread;
 }
 
-int WeaponScript::GetBulletsFired()
+int GunScript::GetBulletsFired()
 {
 	return m_iBulletsFiredCount;
 }
 
-int WeaponScript::GetMagazineRounds()
+int GunScript::GetMagazineRounds()
 {
 	return m_iMagazineRounds;
 }
 
-int WeaponScript::GetMaxMagazineRounds()
+int GunScript::GetMaxMagazineRounds()
 {
 	return m_iMagazineRounds_Max;
 }
 
-float WeaponScript::GetFireRate()
+float GunScript::GetFireRate()
 {
 	return m_fFirerate;
 }
 
-float WeaponScript::GetBulletSpread()
+float GunScript::GetBulletSpread()
 {
 	return m_fBulletSpread;
 }
 
-float WeaponScript::GetReloadElapsedTime()
+float GunScript::GetReloadElapsedTime()
 {
 	return m_fReloadElapsedTime;
 }
 
-float WeaponScript::GetReloadTime()
+float GunScript::GetReloadTime()
 {
 	return m_fReloadTime;
 }

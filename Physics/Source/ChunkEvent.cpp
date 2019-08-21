@@ -33,7 +33,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 	{
 		break;
 	}
-	case ENEMIES_LEVEL_1:
+	/*case ENEMIES_LEVEL_1:
 	{
 		const unsigned int SPAWNCOUNT = 1;
 		for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
@@ -54,52 +54,52 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			GOM_ref->AddGameObject(newEntity);
 		}
 		break;
-	}
-	case ENEMIES_LEVEL_2:
-	{
-		const unsigned int SPAWNCOUNT = 3;
-		for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
-		{
-			float x = Math::RandFloatMinMax(0.f, size.x);
-			float z = Math::RandFloatMinMax(0.f, size.z);
-			Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+	}*/
+	//case ENEMIES_LEVEL_2:
+	//{
+	//	const unsigned int SPAWNCOUNT = 3;
+	//	for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
+	//	{
+	//		float x = Math::RandFloatMinMax(0.f, size.x);
+	//		float z = Math::RandFloatMinMax(0.f, size.z);
+	//		Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
-			int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+	//		int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
 
-			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
+	//		GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 
-			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(100.f);
-			newEntity->RENDER->SetRenderDistance(100.f);
-
-
-			GOM_ref->AddGameObject(newEntity);
-		}
-		break;
-	}
-	case ENEMIES_LEVEL_3:
-	{
-		const unsigned int SPAWNCOUNT = 5;
-		for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
-		{
-			float x = Math::RandFloatMinMax(0.f, size.x);
-			float z = Math::RandFloatMinMax(0.f, size.z);
-			Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
-
-			int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
-
-			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
-
-			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(100.f);
-			newEntity->RENDER->SetRenderDistance(100.f);
+	//		newEntity->TRANS->SetPosition(pos);
+	//		newEntity->SetDisableDistance(100.f);
+	//		newEntity->RENDER->SetRenderDistance(100.f);
 
 
-			GOM_ref->AddGameObject(newEntity);
-		}
+	//		GOM_ref->AddGameObject(newEntity);
+	//	}
+	//	break;
+	//}
+	//case ENEMIES_LEVEL_3:
+	//{
+	//	const unsigned int SPAWNCOUNT = 5;
+	//	for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
+	//	{
+	//		float x = Math::RandFloatMinMax(0.f, size.x);
+	//		float z = Math::RandFloatMinMax(0.f, size.z);
+	//		Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
-		break;
-	}
+	//		int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+
+	//		GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
+
+	//		newEntity->TRANS->SetPosition(pos);
+	//		newEntity->SetDisableDistance(100.f);
+	//		newEntity->RENDER->SetRenderDistance(100.f);
+
+
+	//		GOM_ref->AddGameObject(newEntity);
+	//	}
+
+	//	break;
+	//}
 	case LOOT_CHEST:
 	{
 		float x = Math::RandFloatMinMax(0.f, size.x);
@@ -119,41 +119,41 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 
 		break;
 	}
-	case LOOT_AND_ENEMIES:
-	{
-		//NOTE: Wait on chest interactable
-		const unsigned int SPAWNCOUNT = 4;
-		for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
-		{
-			float x = Math::RandFloatMinMax(0.f, size.x);
-			float z = Math::RandFloatMinMax(0.f, size.z);
-			Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
-			GameObject* newEntity;
+	//case LOOT_AND_ENEMIES:
+	//{
+	//	//NOTE: Wait on chest interactable
+	//	const unsigned int SPAWNCOUNT = 4;
+	//	for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
+	//	{
+	//		float x = Math::RandFloatMinMax(0.f, size.x);
+	//		float z = Math::RandFloatMinMax(0.f, size.z);
+	//		Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+	//		GameObject* newEntity;
 
-			if (i < 3)
-			{
-				int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+	//		if (i < 3)
+	//		{
+	//			int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
 
-				newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
+	//			newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 
-				newEntity->TRANS->SetPosition(pos);
-				newEntity->SetDisableDistance(100.f);
-				newEntity->RENDER->SetRenderDistance(100.f);
-			}
-			else
-			{
-				newEntity = EL->GetLoot(Entity_Library::LOOT_CHEST)->Clone();
+	//			newEntity->TRANS->SetPosition(pos);
+	//			newEntity->SetDisableDistance(100.f);
+	//			newEntity->RENDER->SetRenderDistance(100.f);
+	//		}
+	//		else
+	//		{
+	//			newEntity = EL->GetLoot(Entity_Library::LOOT_CHEST)->Clone();
 
-				newEntity->TRANS->SetPosition(pos);
-				newEntity->SetDisableDistance(100.f);
-				newEntity->RENDER->SetRenderDistance(100.f);
-			}
+	//			newEntity->TRANS->SetPosition(pos);
+	//			newEntity->SetDisableDistance(100.f);
+	//			newEntity->RENDER->SetRenderDistance(100.f);
+	//		}
 
 
-			GOM_ref->AddGameObject(newEntity);
-		}
-		break;
-	}
+	//		GOM_ref->AddGameObject(newEntity);
+	//	}
+	//	break;
+	//}
 	}
 }
 
