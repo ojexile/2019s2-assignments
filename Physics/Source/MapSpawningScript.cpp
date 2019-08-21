@@ -192,7 +192,8 @@ void MapSpawningScript::Update(double dt)
 					m_connections[Vector3(offsetX + xDiff - 1, 0, offsetZ + zDiff)][2] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 0); // 2 = +x
 					m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff - 1)][3] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 1); // 3 = +z (from centre of chunk)
 				}
-			chunk->GetEvent()->GenerateEvent(GOM, go->TRANS->GetPosition());
+			chunk->GetEvent()->GenerateEvent(GOM, chunk, go->TRANS->GetPosition());
+			chunk->GetEvent()->GenerateEntities(chunk, GetComponent<BiomeComponent>()->GetBiomeType());
 		}
 	}
 }

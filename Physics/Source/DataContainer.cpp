@@ -21,7 +21,6 @@
 #include "ConcreteMiscParts/StaminaRegenPart.h"
 #include "SpawnLootScript.h"
 #include "DebrisSpawningScript.h"
-//
 #include "PartScript.h"
 #include "WeaponPartScript.h"
 //States
@@ -32,6 +31,8 @@
 //
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
+//Entity Library
+#include "Entity_Library.h"
 DataContainer::DataContainer()
 {
 	m_bInitialsed = false;
@@ -52,6 +53,7 @@ void DataContainer::Init()
 	InitGO();
 	InitChunks();
 	InitShaders();
+	Entity_Library::GetInstance()->Init();
 	m_bInitialsed = true;
 
 	clock_t end = clock();
@@ -291,8 +293,13 @@ void DataContainer::InitGO()
 	m_map_GO["Cow"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
-	go->AddComponent(new LootScript());
+	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee, Stats(50, 0, 100, 0, 80, 20, 2000, 12)));
+	// Fish-----------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Fish"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Fish")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee, Stats(50, 0, 100, 0, 80, 20, 2000, 12)));
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;

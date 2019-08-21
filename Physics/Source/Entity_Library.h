@@ -22,13 +22,35 @@ public:
 		NUM_ENTITIES
 	};
 
+	enum eEnemies
+	{
+		MELEE,
+		RANGED,
+		NUM_ENEMIES
+	};
+
+	enum eLoot
+	{
+		LOOT_CHEST,
+		NUM_LOOT
+	};
+
 	Entity_Library();
 	~Entity_Library();
 
 	void Init();
-	GameObject* getEntity(eEntities type);
-	GameObject** getArray();
+	GameObject* GetEntity(eEntities type);
+	GameObject** GetEntityArray();
+
+	GameObject* GetEnemy(eEnemies type);
+	GameObject** GetEnemyArray();
+
+	GameObject* GetLoot(eLoot type);
+	GameObject** GetLootArray();
+
 private:
 	GameObject* m_EntityArray[NUM_ENTITIES];
+	GameObject* m_EnemyArray[NUM_ENEMIES];
+	GameObject* m_LootArray[NUM_LOOT];
 };
 

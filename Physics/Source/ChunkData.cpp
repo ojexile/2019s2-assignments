@@ -4,7 +4,7 @@
 
 ChunkData::ChunkData(const std::string fileName, int rotate)
 {
-	m_event = new ChunkEvent(this);
+	m_event = new ChunkEvent();
 	FILE* file = fopen(fileName.c_str(), "r");
 	m_iXSize = fgetc(file);
 	m_iYSize = fgetc(file);
@@ -97,7 +97,11 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 
 ChunkData::~ChunkData()
 {
-
+	if (m_event)
+	{
+		delete m_event;
+		m_event = nullptr;
+	}
 }
 
 bool ChunkData::IsSolid(Vector3 pos)

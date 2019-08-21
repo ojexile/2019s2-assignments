@@ -1,5 +1,6 @@
 #pragma once
 #include "ChunkData.h"
+#include "BiomeComponent.h"
 #include <vector>
 /********************************************************************************/
 /*!
@@ -21,22 +22,18 @@ public:
 		ENEMIES_LEVEL_2,
 		ENEMIES_LEVEL_3,
 		LOOT_CHEST,
-		CHEST,
 		LOOT_AND_ENEMIES,
 	};
 
-	ChunkEvent(ChunkData* chunk);
+	ChunkEvent();
 	~ChunkEvent();
 
-	void SetChunkRef(ChunkData* chunk);
 	void SetEntityRef(GameObject* go);
 
-	void GenerateEvent(GameObjectManager* GOM_ref, Vector3 Chunk_Pos);
-	//void GenerateEntities();
+	void GenerateEntities(ChunkData* chunk_ref, BiomeComponent::eBiomeTypes type);
+	void GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref, Vector3 Chunk_Pos);
 
 private:
 	EVENT_TYPE m_eventType;
-	ChunkData* m_chunkRef;
-	std::vector<GameObject*> m_vBaseEntityRef;
 };
 

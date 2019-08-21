@@ -3,17 +3,11 @@
 #include "LootScript.h"
 #include "GameObjectManager.h"
 //Temporary
-#include "DataContainer.h"
+#include "Entity_Library.h"
 
-ChunkEvent::ChunkEvent(ChunkData* chunk)
-	: m_eventType (NIL),
-	  m_chunkRef (chunk)
+ChunkEvent::ChunkEvent()
+	: m_eventType (NIL)
 {
-	m_vBaseEntityRef.push_back(DataContainer::GetInstance()->GetGameObject("BaseEnemy"));
-	m_vBaseEntityRef.push_back(DataContainer::GetInstance()->GetGameObject("Cow"));
-	m_vBaseEntityRef.push_back(DataContainer::GetInstance()->GetGameObject("BaseEnemy"));
-	m_vBaseEntityRef.push_back(DataContainer::GetInstance()->GetGameObject("fliprock"));
-	//m_vBaseEntityRef.push_back(DataContainer::GetInstance()->GetGameObject("BaseEnemy"));
 }
 
 
@@ -21,21 +15,17 @@ ChunkEvent::~ChunkEvent()
 {
 }
 
-void ChunkEvent::SetChunkRef(ChunkData* chunk)
-{
-	this->m_chunkRef = chunk;
-}
-
 void ChunkEvent::SetEntityRef(GameObject* go)
 {
 	//this->m_BaseEntityRef = go;
 }
 
-void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, Vector3 Chunk_Pos)
+void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref, Vector3 Chunk_Pos)
 {
 	m_eventType =static_cast<EVENT_TYPE>(Math::RandIntMinMax(NIL, LOOT_AND_ENEMIES));
 	
-	Vector3 size = m_chunkRef->GetSize();
+	Vector3 size = chunk_ref->GetSize();
+	Entity_Library* EL = Entity_Library::GetInstance();
 
 	switch (m_eventType)
 	{
@@ -45,17 +35,16 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, Vector3 Chunk_Pos)
 	}
 	case ENEMIES_LEVEL_1:
 	{
-		unsigned int spawnCount = 1;
-		unsigned int VectorSize = m_vBaseEntityRef.size();
-		for (unsigned int i = 0; i < spawnCount; ++i)
+		const unsigned int SPAWNCOUNT = 1;
+		for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
 		{
 			float x = Math::RandFloatMinMax(0.f, size.x);
 			float z = Math::RandFloatMinMax(0.f, size.z);
-			Vector3 pos = m_chunkRef->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+			Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
-			int selectedEntity = Math::RandIntMinMax(0, (VectorSize - 1));
+			int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
 
-			GameObject* newEntity = m_vBaseEntityRef[selectedEntity]->Clone();
+			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 			
 			newEntity->TRANS->SetPosition(pos);
 			newEntity->SetDisableDistance(100.f);
@@ -66,20 +55,113 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, Vector3 Chunk_Pos)
 		}
 		break;
 	}
+	case ENEMIES_LEVEL_2:
+	{
+		const unsigned int SPAWNCOUNT = 3;
+		for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
+		{
+			float x = Math::RandFloatMinMax(0.f, size.x);
+			float z = Math::RandFloatMinMax(0.f, size.z);
+			Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+
+			int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+
+			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
+
+			newEntity->TRANS->SetPosition(pos);
+			newEntity->SetDisableDistance(100.f);
+			newEntity->RENDER->SetRenderDistance(100.f);
+
+
+			GOM_ref->AddGameObject(newEntity);
+		}
+		break;
+	}
+	case ENEMIES_LEVEL_3:
+	{
+		const unsigned int SPAWNCOUNT = 5;
+		for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
+		{
+			float x = Math::RandFloatMinMax(0.f, size.x);
+			float z = Math::RandFloatMinMax(0.f, size.z);
+			Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+
+			int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+
+			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
+
+			newEntity->TRANS->SetPosition(pos);
+			newEntity->SetDisableDistance(100.f);
+			newEntity->RENDER->SetRenderDistance(100.f);
+
+
+			GOM_ref->AddGameObject(newEntity);
+		}
+
+		break;
+	}
 	case LOOT_CHEST:
 	{
-		//NOTE: Wait on chest interactable
+		float x = Math::RandFloatMinMax(0.f, size.x);
+		float z = Math::RandFloatMinMax(0.f, size.z);
+		Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+
+		int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+
+		GameObject* newEntity = EL->GetLoot(Entity_Library::LOOT_CHEST)->Clone();
+
+		newEntity->TRANS->SetPosition(pos);
+		newEntity->SetDisableDistance(100.f);
+		newEntity->RENDER->SetRenderDistance(100.f);
+
+
+		GOM_ref->AddGameObject(newEntity);
+
 		break;
 	}
 	case LOOT_AND_ENEMIES:
 	{
-		//unsigned int spawnCount = 5;
-		//for (unsigned int i = 0; i < spawnCount; ++i)
-		//{
-		//	GameObject* newEntity = m_BaseEntityRef->Clone();
-		//}
+		//NOTE: Wait on chest interactable
+		const unsigned int SPAWNCOUNT = 4;
+		for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
+		{
+			float x = Math::RandFloatMinMax(0.f, size.x);
+			float z = Math::RandFloatMinMax(0.f, size.z);
+			Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+			GameObject* newEntity;
+
+			if (i < 3)
+			{
+				int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+
+				newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
+
+				newEntity->TRANS->SetPosition(pos);
+				newEntity->SetDisableDistance(100.f);
+				newEntity->RENDER->SetRenderDistance(100.f);
+			}
+			else
+			{
+				newEntity = EL->GetLoot(Entity_Library::LOOT_CHEST)->Clone();
+
+				newEntity->TRANS->SetPosition(pos);
+				newEntity->SetDisableDistance(100.f);
+				newEntity->RENDER->SetRenderDistance(100.f);
+			}
+
+
+			GOM_ref->AddGameObject(newEntity);
+		}
 		break;
 	}
 	}
+}
 
+void ChunkEvent::GenerateEntities(ChunkData* chunk_ref, BiomeComponent::eBiomeTypes type)
+{
+	switch (type)
+	{
+	default:
+		break;
+	}
 }
