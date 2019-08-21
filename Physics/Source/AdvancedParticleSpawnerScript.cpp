@@ -23,7 +23,7 @@ void AdvancedParticleSpawnerScript::Update(double dt)
 
 	if (m_fCurrentTime <= m_fSpawnRate)
 		return;
-	
+
 	do
 	{
 		GameObject* go = Instantiate(m_ParticleRef, m_sLayer);
@@ -105,11 +105,12 @@ void AdvancedParticleSpawnerScript::Update(double dt)
 					go->TRANS->SetPosition(TRANS->GetPosition());
 				}
 			}
-			
+
 
 		}
 		m_fCurrentTime -= m_fSpawnRate;
 	} while (m_fCurrentTime >= m_fSpawnRate);
+}
 
 void AdvancedParticleSpawnerScript::Trigger()
 {
