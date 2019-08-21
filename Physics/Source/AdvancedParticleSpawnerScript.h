@@ -26,5 +26,6 @@ public:
 
 	virtual Component* Clone() { return new AdvancedParticleSpawnerScript(*this); }
 	virtual void Update(double dt);
-	virtual void Trigger();
+	void Trigger();
+	void ResetTrigger(); // if you want to use this multiple times
 };

@@ -3,6 +3,7 @@
 #include "ComponentMacros.h"
 #include "EntityScript.h"
 #include "DebrisSpawningScript.h"
+#include "AdvancedParticleSpawnerScript.h"
 
 ParticleObserver::ParticleObserver()
 {
@@ -32,7 +33,18 @@ void ParticleObserver::Notify(ComponentBase * com, std::string msg, std::vector<
 			debrisscript->Trigger();
 			//debrisscript->DestroySelf();
 		}
+
 		// spawn particle spawner here too
+	}
+	else if (msg == "Jump")
+	{
+		LZ_LOG(msg);
+		AdvancedParticleSpawnerScript * script = com->GetComponent<AdvancedParticleSpawnerScript>();
+		if (script)
+		{
+			script->Trigger();
+			script->ResetTrigger();
+		}
 	}
 	
 }
