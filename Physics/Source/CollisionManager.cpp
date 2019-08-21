@@ -473,7 +473,7 @@ void CollisionManager::Update(GameObjectManager* GOM, int frameCycle)
 			continue;
 		if (go1->IsDisabled())
 			continue;
-		if (go1->GetComponent<PlayerScript>() != nullptr || frameCycle % 2 == 0)
+		if (go1->GetComponent<PlayerScript>(true) != nullptr || frameCycle % 2 == 0)
 		{
 			if (go1->GetComponent<Rigidbody>(true) && go1->GetComponent<Rigidbody>(true)->IsActive())
 			{

@@ -295,6 +295,14 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
 	go->AddComponent(new LootScript());
+	//
+	go = new GameObject;
+	m_map_GO["Boss"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->TRANS->SetScale(4);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(200, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new LootScript());
 	// Gun
 	GameObject* Gun = GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(0.f, .5f, 0);
