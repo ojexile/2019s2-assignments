@@ -152,12 +152,12 @@ void EntityScript::RotateTowards(Vector3 vDir)
 void EntityScript::Jump()
 {
 	Rigidbody* rb = GetComponent<Rigidbody>();
-	if (GetComponent<PlayerScript>()->GetCanJump())
+ 	if (GetComponent<PlayerScript>() == nullptr || GetComponent<PlayerScript>()->GetCanJump())
 	{
 		rb->AddForce({ 0,m_BaseStats.m_fJumpForce,0 });
 		rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
+		GetComponent<PlayerScript>()->SetCanJump(false);
 	}
-	GetComponent<PlayerScript>()->SetCanJump(false);
 	Notify("Jump");
 }
 bool EntityScript::IsDamageAnim()
