@@ -4,12 +4,11 @@
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
 
-#define MIN_TIME 0.1f
-#define MAX_TIME 4
-
-IdleState::IdleState()
+IdleState::IdleState(float min, float max)
 {
 	m_fTime = 0;
+	m_fMinTime = min;
+	m_fMaxTime = max;
 }
 
 IdleState::~IdleState()
@@ -30,7 +29,7 @@ State * IdleState::HandleState(ComponentBase * com)
 void IdleState::OnEnter(ComponentBase * com)
 {
 	m_SW.Start();
-	m_fTime = Math::RandFloatMinMax(MIN_TIME, MAX_TIME);
+	m_fTime = Math::RandFloatMinMax(m_fMinTime, m_fMaxTime);
 }
 
 void IdleState::OnExit(ComponentBase * com)

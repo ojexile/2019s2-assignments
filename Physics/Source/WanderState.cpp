@@ -5,12 +5,12 @@
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
 
-#define MIN_TIME 1
-#define MAX_TIME 2
-
-WanderState::WanderState()
+WanderState::WanderState(AIState* idle, float min, float max)
 {
 	m_fTime = 0;
+	m_fMinTime = min;
+	m_fMaxTime = max;
+	m_Idle = idle;
 }
 
 WanderState::~WanderState()
@@ -30,13 +30,13 @@ State * WanderState::HandleState(ComponentBase * com)
 		return this;
 	}
 	else
-		return &AIStatesList::Idle;
+		return m_Idle;
 }
 
 void WanderState::OnEnter(ComponentBase * com)
 {
 	m_SW.Start();
-	m_fTime = Math::RandFloatMinMax(MIN_TIME, MAX_TIME);
+	m_fTime = Math::RandFloatMinMax(m_fMinTime, m_fMaxTime);
 	m_vDir.SetZero();
 	// Rand dir
 	while (m_vDir.IsZero())
@@ -50,5 +50,5 @@ void WanderState::OnEnter(ComponentBase * com)
 
 void WanderState::OnExit(ComponentBase * com)
 {
-	com->GetComponent<AIEntityScript>()->SetTarget({0,0,0});
+	com->GetComponent<AIEntityScript>()->SetTarget({ 0,0,0 });
 }

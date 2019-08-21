@@ -265,34 +265,41 @@ void DataContainer::InitGO()
 	m_map_GO["BaseEnemy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("MeleeEnemy"), &AIStatesList::Melee));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Melee));
 	go->AddComponent(new LootScript());
 	// Melee--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Melee"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("MeleeEnemy"), &AIStatesList::Melee));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Melee));
 	go->AddComponent(new LootScript());
 	// Range-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Ranged"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Ranged, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
 	go->AddComponent(new LootScript());
 	// Gun
 	GameObject* Gun = GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 0.5f, 1);
 	Gun->TRANS->SetRelativeRotation(-45, Vector3(0, 1, 0));
 	go->AddChild(Gun);
+	// Animals--------------------------------------------------------------------------------
 	// Cow-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Cow"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("FleeEnemy"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
-	go->AddComponent(new LootScript());
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
+	// go->AddComponent(new LootScript());
+	go = new GameObject;
+	m_map_GO["Bird"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 2)));
+	// go->AddComponent(new LootScript());
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -406,8 +413,7 @@ void  DataContainer::InitShaders()
 void DataContainer::InitBehaviour()
 {
 	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
-	m_map_Behaviour["MeleeEnemy"] = new Behaviour(&AIStatesList::Idle);
-	m_map_Behaviour["FleeEnemy"] = new Behaviour(&AIStatesList::Idle);
+	m_map_Behaviour["Default"] = new Behaviour(&AIStatesList::Idle);
 }
 DataContainer::~DataContainer()
 {

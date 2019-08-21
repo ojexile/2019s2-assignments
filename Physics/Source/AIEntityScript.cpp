@@ -41,7 +41,7 @@ void AIEntityScript::MoveToTarget()
 		return;
 	if (!m_bFirstMove)
 	{
-		float fBuffer = 1.f * Time::GetInstance()->GetDeltaTimeF();
+		float fBuffer = 0.95f * Time::GetInstance()->GetDeltaTimeF();
 		if ((m_vPrevPos - GetPosition()).LengthSquared() < fBuffer * fBuffer)
 			Jump();
 	}

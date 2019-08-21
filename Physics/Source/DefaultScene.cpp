@@ -25,6 +25,7 @@ DefaultScene::~DefaultScene()
 void DefaultScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
 	/// Observers================================================================================
@@ -162,11 +163,11 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
-	go->TRANS->SetPosition(5, 18.5f, 0);
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
+	go->TRANS->SetPosition(5, 20.5f, 0);
 	// --
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
-	go->TRANS->SetPosition(20, 18.5f, 26);
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
+	go->TRANS->SetPosition(20, 20.5f, 26);
 	///interactable test
 
 	//go = m_GOM.AddGameObject();

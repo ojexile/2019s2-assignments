@@ -7,8 +7,10 @@ class IdleState :
 private:
 	StopWatch m_SW;
 	float m_fTime;
+	float m_fMinTime;
+	float m_fMaxTime;
 public:
-	IdleState();
+	IdleState(float min = 0, float max = 2);
 	virtual ~IdleState();
 
 	virtual State* HandleState(ComponentBase* com) override;
