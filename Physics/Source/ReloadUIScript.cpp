@@ -18,5 +18,5 @@ void ReloadUIScript::Update(double dt)
 void ReloadUIScript::Start()
 {
 	Vector3 Pos = m_ParentGO->TRANS->GetRelativePosition();
-	TRANS->SetRelativePosition(-MAX_SCALE / 2, 1, 0);
+	TRANS->SetRelativePosition(0, 1, -MAX_SCALE / 2);
 }
