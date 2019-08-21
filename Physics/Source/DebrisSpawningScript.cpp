@@ -1,6 +1,8 @@
 #include "DebrisSpawningScript.h"
 #include "DataContainer.h"
 #include "Rigidbody.h"
+#include "AdvancedParticleSpawnerScript.h"
+
 DebrisSpawningScript::DebrisSpawningScript()
 	: m_sDebrisName(""),
 	m_iMax(3),
@@ -41,6 +43,12 @@ void DebrisSpawningScript::Trigger()
 		go->RIGID->AddForce(Vector3(Math::RandFloatMinMax(-1000, 1000), Math::RandFloatMinMax(100, 1000), Math::RandFloatMinMax(-1000, 1000)));
 		Vector3 pos = this->TRANS->GetPosition();
 		go->TRANS->SetPosition(pos);
+	}
+	
+	auto a_particle = GetComponent<AdvancedParticleSpawnerScript>();
+	if (a_particle)
+	{
+		a_particle->Trigger();
 	}
 
 	DestroySelf();

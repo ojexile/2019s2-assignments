@@ -167,6 +167,7 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\AIEntityScript.cpp" />
     <ClCompile Include="Source\AIState.cpp" />
     <ClCompile Include="Source\AIStatesList.cpp" />
@@ -273,11 +274,12 @@
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\WanderState.cpp" />
     <ClCompile Include="Source\WeaponPartScript.cpp" />
-    <ClCompile Include="Source\WeaponScript.cpp" />
+    <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
+    <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
     <ClInclude Include="Source\AIState.h" />
     <ClInclude Include="Source\AIStatesList.h" />
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -390,7 +392,7 @@
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\WanderState.h" />
     <ClInclude Include="Source\WeaponPartScript.h" />
-    <ClInclude Include="Source\WeaponScript.h" />
+    <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

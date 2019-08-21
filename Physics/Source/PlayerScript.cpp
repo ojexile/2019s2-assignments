@@ -4,7 +4,7 @@
 #include "Rigidbody.h"
 #include "InputManager.h"
 #include "CameraScript.h"
-#include "WeaponScript.h"
+#include "GunScript.h"
 #include "MiscellaneousPartScript.h"
 #include "GrenadeScript.h"
 #include "InventoryScript.h"

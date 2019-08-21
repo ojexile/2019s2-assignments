@@ -27,5 +27,6 @@ private:
 	WeaponPartScript* GenerateWeaponPart(void);
 	MiscellaneousPartScript* GenerateMiscPart(void);
 
+
 	GameObject* m_LootDrop;
 };
