@@ -12,7 +12,7 @@ DestructibleEntityScript::DestructibleEntityScript()
 DestructibleEntityScript::DestructibleEntityScript(std::string s)
 	: EntityScript(),
 	m_sMessage(s),
-	m_iHealth(50)
+	m_iHealth(200)
 {
 }
 
@@ -40,7 +40,7 @@ void DestructibleEntityScript::Update(double dt)
 	{
 		m_bDamageAnim = false;
 
-		auto childrenderer = TRANS;
+		auto childrenderer = RENDER;
 		if (!childrenderer)
 		{
 			if (GetChild(0) != nullptr)
@@ -78,7 +78,7 @@ void DestructibleEntityScript::Damage(int damage)
 {
 		m_bDamageAnim = true;
 
-		auto childrenderer = TRANS;
+		auto childrenderer = RENDER;
 		if (childrenderer == nullptr)
 		{
 			if (GetChild(0) != nullptr)

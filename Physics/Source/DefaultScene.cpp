@@ -181,11 +181,11 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
-	go->TRANS->SetPosition(5, 18.5f, 0);
-	// --
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
-	go->TRANS->SetPosition(20, 18.5f, 26);
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
+	//go->TRANS->SetPosition(5, 18.5f, 0);
+	//// --
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
+	//go->TRANS->SetPosition(20, 18.5f, 26);
 	///interactable test
 
 	//go = m_GOM.AddGameObject();
@@ -194,7 +194,7 @@ void DefaultScene::Init()
 	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 
 	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
-	//go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);
+	//go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);saaaaedwssssssssssss
 	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	//go->TRANS->SetPosition(20, 18.5, 20);
 
