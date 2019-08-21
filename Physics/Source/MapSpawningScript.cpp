@@ -25,9 +25,7 @@ MapSpawningScript::MapSpawningScript()
 
 MapSpawningScript::~MapSpawningScript()
 {
-
 }
-
 
 const char* GetChunkByID(int id)
 {
@@ -62,7 +60,6 @@ const char* GetChunkByID(int id)
 	}
 }
 
-
 const char* RandomChunk()
 {
 	return GetChunkByID(Math::RandIntMinMax(0, 16));
@@ -76,7 +73,7 @@ bool IsCompatible(unsigned short k, unsigned short l)
 		k = l;
 		l = m;
 	}
-	
+
 	switch (k)
 	{
 	case 0:
@@ -104,7 +101,7 @@ void MapSpawningScript::Update(double dt)
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	Vector3 v = GetComponent<TransformComponent>()->GetPosition();
-	for (int x = 0; x <= 6; x = (x > 0? -x : -x + 1))
+	for (int x = 0; x <= 6; x = (x > 0 ? -x : -x + 1))
 	{
 		for (int z = 0; z <= 6; z = (z > 0 ? -z : -z + 1))
 		{
@@ -132,19 +129,19 @@ void MapSpawningScript::Update(double dt)
 			Vector3 goPos = Vector3(offsetX * 16, 0, offsetZ * 16);
 			go->TRANS->SetPosition(goPos);
 			RenderComponent* render = new RenderComponent(chunk->GenerateMeshBiomed());
-			render->SetRenderDistance(200);
+			render->SetRenderDistance(100);
 			go->AddComponent(render);
 			go->AddComponent(new BiomeComponent(GetBiomeAt(Vector3(offsetX, 0, offsetZ))));
 			//
 			go->AddComponent(new ChunkCollider(chunk));
-			
+
 #ifdef DEBUG_NUMBERS
 			for (int i = 0; i < 4; ++i) {
 				GameObject* s0 = GOM->AddGameObject("UI");
 				Vector3 ks = Vector3(-6, 0, 0);
 				Mtx44 mr; mr.SetToRotation(i * 90, 0, -1, 0);
 				s0->TRANS->SetPosition(goPos + Vector3(8, 22, 8) + mr * ks);
-				s0->TRANS->SetScale(Vector3(3,3,3));
+				s0->TRANS->SetScale(Vector3(3, 3, 3));
 				std::stringstream numbers;
 				numbers << chunk->GetChunkConnection(Vector3(0, 0, 0), i);
 				RenderComponent* rc0 = new RenderComponent(DataContainer::GetInstance()->GetMesh("Text"), numbers.str(), false);

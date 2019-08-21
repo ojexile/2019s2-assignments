@@ -17,10 +17,11 @@ private:
 	float m_fDisableDistance;
 	std::vector<ComponentBase*> m_vec_ComponentList;
 	std::vector<GameObject*> m_vec_ChildList;
+	GameObject* m_Parent;
 	//Transform* m_Transform;
 public:
 	GameObject();
-	GameObject(const GameObject& go);
+	GameObject(const GameObject& go, GameObject* parent);
 	~GameObject();
 
 	ComponentBase* AddComponent(ComponentBase* comp);
@@ -51,7 +52,7 @@ public:
 	std::vector<GameObject*>* GetChildList();
 
 	void SetActive(bool b);
-	GameObject* Clone() const;
+	GameObject* Clone(GameObject* parent = nullptr) const;
 
 	friend class GameObjectManager;
 };

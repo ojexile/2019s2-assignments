@@ -1,6 +1,7 @@
 #include "Rigidbody.h"
 #include "TransformComponent.h"
 #include "WorldValues.h"
+#include "Utility.h"
 Rigidbody::Rigidbody(ePhysicsTypes e, bool Grav)
 	: m_bLockXAxis{ false }
 	, m_bLockYAxis{ false }
@@ -53,9 +54,10 @@ void Rigidbody::Update(double dt)
 	float area = volume; // ignore cross section area, use raw volume
 	Vector3 fDrag = 0.5f * density * m_vVel * area * fric * WorldValues::DragCoeff * (float)dt;
 	// m_vVel -= fDrag;
-	float val = (pow(0.001f, dt)) / fric;
+	float val = (pow(0.1f, dt)) / fric;
+	val = min(val, 1);
 	CHENG_LOG("Val:", std::to_string(val));
-	m_vVel *= val;
+	m_vVel = m_vVel * val;
 	if (m_bLockXAxis)
 		m_vVel.x = 0;
 	if (m_bLockYAxis)
