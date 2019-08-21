@@ -115,6 +115,8 @@ void DataContainer::InitTextures()
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
 	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
+	
+	m_map_Textures["particleSquareBorder"] = LoadTGA("particleSquareBorder");
 }
 void DataContainer::InitMeshes()
 {
@@ -168,8 +170,7 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
 
-	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", { 1,1,1 }, 1.f);
-
+	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", {}, 1.f)->AddTexture("particleSquareBorder");
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
 
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
@@ -344,8 +345,9 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
-	go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
+	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
 	go->GetComponent<RenderComponent>()->SetBillboard(true);
+	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(0.5f);
 	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
