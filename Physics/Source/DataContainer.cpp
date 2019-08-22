@@ -87,11 +87,12 @@ void DataContainer::InitChunks()
 	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["barline_3"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["flat"] = new ChunkData("Content/chunks/2x2_flatland.chunk");
 }
 
 void DataContainer::InitTextures()
 {
-	m_map_Textures["Text"] = LoadTGA("calibri");
+	m_map_Textures["Text"] = LoadTGA("monoid");
 	m_map_Textures["Sky"] = LoadTGA("sky");
 	m_map_Textures["Cube"] = LoadTGA("Cube");
 	m_map_Textures["Dirt"] = LoadTGA("dirt");
