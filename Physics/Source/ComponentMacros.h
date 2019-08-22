@@ -6,10 +6,11 @@
 #define CAMERA GetComponent<CameraComponent>()
 #define RIGID GetComponent<Rigidbody>()
 #define CONSTRAIN GetComponent<Constrain>()
-#define PART GetComponent<PartScript>()
-#define MISCPART GetComponent<MiscellaneousPartScript>()
+#define AUGMENT GetComponent<Augment>()
+#define PART GetComponent<WeaponPartScript>()
 #define GUN GetComponent<GunScript>()
 #define LOOT GetComponent<LootScript>()
+#define PROJECTILE GetComponent<ProjectileScript>()
 #define PARTICLE GetComponent<ParticleScript>()
 
 typedef std::vector<unsigned char> _heightmap;

@@ -23,22 +23,25 @@ void FlipEntityScript::Update(double dt)
 
 	m_fTimeElapsed += (float)dt;
 	m_fRotationAmount = m_fTimeElapsed / m_fMaximumTimeElapsed * 90;
+	auto rendered = GetChild(0);
 
 	switch (m_flipDirection)
 	{
 	case FLIP_NORTH:
-		TRANS->SetRotation(m_fRotationAmount, 1, 0, 0);
+		rendered->TRANS->SetRotation(m_fRotationAmount, 1, 0, 0);
 		break;
 	case FLIP_SOUTH:
-		TRANS->SetRotation(-m_fRotationAmount, 1, 0, 0);
+		rendered->TRANS->SetRotation(-m_fRotationAmount, 1, 0, 0);
 		break;
 	case FLIP_EAST:
-		TRANS->SetRotation(m_fRotationAmount, 0, 0, 1);
+		rendered->TRANS->SetRotation(m_fRotationAmount, 0, 0, 1);
 		break;
 	case FLIP_WEST:
-		TRANS->SetRotation(-m_fRotationAmount, 0, 0, 1);
+		rendered->TRANS->SetRotation(-m_fRotationAmount, 0, 0, 1);
 		break;
 	}
+	rendered->TRANS->SetRelativePosition(0, rendered->TRANS->GetScale().x * m_fTimeElapsed, 0);
+
 }
 
 void FlipEntityScript::Trigger(ComponentBase * player)
@@ -55,16 +58,24 @@ void FlipEntityScript::Trigger(ComponentBase * player)
 	if (Math::FAbs(dist.z) > Math::FAbs(dist.x))
 	{
 		if (dist.z > 0.f)
+		{
 			m_flipDirection = FLIP_NORTH;
+		}
 		else
+		{
 			m_flipDirection = FLIP_SOUTH;
+		}
 	}
 	else
 	{
 		if (dist.x > 0.f)
+		{
 			m_flipDirection = FLIP_WEST;
+		}
 		else
+		{
 			m_flipDirection = FLIP_EAST;
+		}
 	}
 
 	m_bIsTriggered = true;

@@ -3,7 +3,7 @@
 #include "UIButtonComponent.h"
 #include "GunScript.h"
 #include "Application.h"
-#include "PartScript.h"
+#include "WeaponPartScript.h"
 InventoryScript::InventoryScript(GameObject* weapon, GameObject** list, std::vector<GameObject*> wlist, GameObject* reticle)
 	: m_WeaponSlotList(wlist)
 	, m_Reticle(reticle)
@@ -45,19 +45,19 @@ void InventoryScript::Update(double dt)
 					switch (i)
 					{
 					case 0:
-						Attach(PartScript::MUZZLE);
+						Attach(WeaponPartScript::MUZZLE);
 						m_Holding = nullptr;
 						break;
 					case 1:
-						Attach(PartScript::SCOPE);
+						Attach(WeaponPartScript::SCOPE);
 						m_Holding = nullptr;
 						break;
 					case 2:
-						Attach(PartScript::CLIP);
+						Attach(WeaponPartScript::CLIP);
 						m_Holding = nullptr;
 						break;
 					case 3:
-						Attach(PartScript::GRIP);
+						Attach(WeaponPartScript::GRIP);
 						m_Holding = nullptr;
 						break;
 					default:
@@ -128,7 +128,7 @@ void InventoryScript::AddItem(GameObject* go)
 	}
 }
 
-void InventoryScript::Attach(PartScript::SLOT_TYPE e)
+void InventoryScript::Attach(WeaponPartScript::SLOT_TYPE e)
 {
 	GameObject* go = m_InventoryItems[m_iHoldingIndex];
 	GameObject* cpy = Instantiate(go, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }, "Default", true);

@@ -5,7 +5,8 @@
 #include "Utility.h"
 
 EntityScript::EntityScript(Behaviour* Behaviour)
-	: m_Behaviour(Behaviour)
+	: m_Behaviour(Behaviour),
+	m_SW()
 {
 	if (m_Behaviour)
 		m_Behaviour->Init(this);
@@ -94,7 +95,7 @@ void EntityScript::DamageAnim()
 }
 bool EntityScript::CheckDeath()
 {
-	if (this->GetComponent<PlayerScript>())
+	if (this->GetComponent<PlayerScript>(true))
 		return false;
 	if (m_Values.m_iHealth <= 0)
 	{
@@ -154,7 +155,7 @@ void EntityScript::RotateTowards(Vector3 vDir)
 	// current angle
 	float CurrentAngle = TRANS->GetDegrees();
 
-	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.0f);
+	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.1f);
 	TRANS->SetRotation(newAngle, 0, 1, 0);
 }
 void EntityScript::Jump()

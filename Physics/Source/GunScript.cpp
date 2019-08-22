@@ -3,8 +3,8 @@
 #include "InputManager.h"
 #include "GameObjectManager.h"
 #include "TransformComponent.h"
-#include "MiscellaneousPartScript.h"
-
+#include "ProjectileScript.h"
+#include "ExplodeAugment.h"
 
 GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, float fReloadTime, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
 	: m_iBulletsFiredCount(iBulletsFiredCount),
@@ -25,7 +25,6 @@ GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazi
 
 GunScript::~GunScript()
 {
-
 }
 
 void GunScript::PullTrigger(const Vector3& dir, const double deltaTime)
@@ -71,7 +70,12 @@ void GunScript::Update(double deltaTime)
 	m_fBufferTime += (float)deltaTime;
 
 	if (m_bIsReloading)
+	{
+		GetChild(0)->SetActive(true);
 		m_fReloadElapsedTime += (float)deltaTime;
+	}
+	else
+		GetChild(0)->SetActive(false);
 
 	if (m_fReloadElapsedTime >= m_fReloadTime && m_bIsReloading)
 		ReloadWeapon();
@@ -83,22 +87,22 @@ void GunScript::UpdateStats(GameObject* go, bool Multiply)
 	{
 		switch (go->PART->GetSlotType())
 		{
-		case PartScript::SCOPE:
+		case WeaponPartScript::SCOPE:
 		{
 			m_fBulletSpread = m_fBulletSpread * go->PART->GetMultiplier();
 			break;
 		}
-		case PartScript::MUZZLE:
+		case WeaponPartScript::MUZZLE:
 		{
 			m_fFirerate = m_fFirerate * go->PART->GetMultiplier();
 			break;
 		}
-		case PartScript::CLIP:
+		case WeaponPartScript::CLIP:
 		{
 			m_iMagazineRounds_Max = m_iMagazineRounds_Max + static_cast<int>(go->PART->GetMultiplier());
 			break;
 		}
-		case PartScript::GRIP:
+		case WeaponPartScript::GRIP:
 		{
 			//Need another variable to edit, temporarily bullet spread
 			m_fBulletSpread = m_fBulletSpread * go->PART->GetMultiplier();
@@ -112,23 +116,23 @@ void GunScript::UpdateStats(GameObject* go, bool Multiply)
 	{
 		switch (go->PART->GetSlotType())
 		{
-		case PartScript::SCOPE:
+		case WeaponPartScript::SCOPE:
 		{
 			m_fBulletSpread = m_fBulletSpread / go->PART->GetMultiplier();
 			break;
 		}
-		case PartScript::MUZZLE:
+		case WeaponPartScript::MUZZLE:
 		{
 			m_fFirerate = m_fFirerate / go->PART->GetMultiplier();
 			break;
 		}
-		case PartScript::CLIP:
+		case WeaponPartScript::CLIP:
 		{
 			m_iMagazineRounds_Max = m_iMagazineRounds_Max - static_cast<int>(go->PART->GetMultiplier());
 			Math::Clamp(m_iMagazineRounds, m_iMagazineRounds, m_iMagazineRounds_Max);
 			break;
 		}
-		case PartScript::GRIP:
+		case WeaponPartScript::GRIP:
 		{
 			//Need another variable to edit, temporarily bullet spread
 			m_fBulletSpread = m_fBulletSpread / go->PART->GetMultiplier();
@@ -144,17 +148,22 @@ void GunScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	Vector3 SpawnPos = GetPosition();
 	Vector3 direction = dir;
-	
+
 	Mtx44 recoil;
 	recoil.SetToRotation(Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread), 0, 1, 0);
 
 	direction = recoil * direction;
-	
+
 	direction.Normalize();
 
 	GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
 	bullet->RIGID->SetAffectedByGravity(false);
 	bullet->RIGID->AddForce(m_fBulletForce * direction);
+
+	ApplyAugmentOnBullet(m_ScopeParts, bullet);
+	ApplyAugmentOnBullet(m_MuzzleParts, bullet);
+	ApplyAugmentOnBullet(m_GripParts, bullet);
+	ApplyAugmentOnBullet(m_StockParts, bullet);
 
 	DamageEquippedParts(m_ScopeParts, deltaTime);
 	DamageEquippedParts(m_MuzzleParts, deltaTime);
@@ -184,116 +193,89 @@ void GunScript::ReloadWeapon(void)
 	}
 }
 
-void GunScript::EquipPart(GameObject* part, PartScript::SLOT_TYPE slot)
+void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 {
 	if (!part->PART)
 		return;
-	
+
 	part->RIGID->SetAffectedByGravity(false);
 	
-	if(part->PART->GetSlotType() == PartScript::ALL)
-		part->PART->SetSlotType(slot);
-
-	if (part->PART->GetPartType() == PartScript::WEAPON)
+	if (part->PART->GetAugment())
 	{
-		switch (part->PART->GetSlotType())
+		switch (part->PART->GetAugment()->GetAugmentType())
 		{
-		case PartScript::SCOPE:
+		case Augment::eAugmentType::BULLET:
 		{
-			m_ScopeParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.5f, 0.f);
+		
+		}
+		case Augment::eAugmentType::PLAYER:
+		{
 
-			UpdateStats(part, true);
-			return;
 		}
-		case PartScript::MUZZLE:
+		case Augment::eAugmentType::WEAPON:
 		{
-			m_MuzzleParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::CLIP:
-		{
-			m_StockParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.55f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::GRIP:
-		{
-			m_GripParts.push_back(part);
-			part->TRANS->SetRelativePosition(-1.2f + (-1.0f * m_GripParts.size()), 0, 0);
-			
-			UpdateStats(part, true);
-			return;
+
 		}
 		default:
+		{
 			break;
+		}
 		}
 	}
-	else if(part->PART->GetPartType() == PartScript::MISC)
-	{
-		switch (part->PART->GetSlotType())
-		{
-		case PartScript::SCOPE:
-		{
-			m_ScopeParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.2f, 0.f);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::MUZZLE:
-		{
-			m_MuzzleParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
 
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::CLIP:
-		{
-			m_StockParts.push_back(part);
-			part->TRANS->SetRelativePosition(-0.45f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		case PartScript::GRIP:
-		{
-			m_GripParts.push_back(part);
-			part->TRANS->SetRelativePosition((-1.0f * m_GripParts.size()), 0, 0);
-			
-			UpdateStats(part, true);
-			return;
-		}
-		default:
-			break;
-		}
-		part->MISCPART->Effect();
+
+	switch (part->PART->GetSlotType())
+	{
+	case WeaponPartScript::SCOPE:
+	{
+		m_ScopeParts.push_back(part);
+		part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.5f, 0.f);
+		UpdateStats(part, true);
+		return;
+	}
+	case WeaponPartScript::MUZZLE:
+	{
+		m_MuzzleParts.push_back(part);
+		part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
+
+
+		UpdateStats(part, true);
+		return;
+	}
+	case WeaponPartScript::CLIP:
+	{
+		m_StockParts.push_back(part);
+		part->TRANS->SetRelativePosition(-0.55f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
+
+
+		UpdateStats(part, true);
+		return;
+	}
+	case WeaponPartScript::GRIP:
+	{
+		m_GripParts.push_back(part);
+		part->TRANS->SetRelativePosition(-1.2f + (-1.0f * m_GripParts.size()), 0, 0);
+
+		UpdateStats(part, true);
+		return;
+	}
+	default:
+		break;
 	}
 
 	RYAN_LOG("Part Not equipped");
 	Destroy(part);
 }
 
-
 void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* target)
 {
 	while (m_vector.size() > 0)
 	{
 		GameObject* go = static_cast<GameObject*>(*(m_vector.rbegin()));
-		PartScript::PART_TYPE type = go->PART->GetPartType();
 		
 		if (target == go)
 		{
-			if (type == PartScript::PART_TYPE::WEAPON)
-				UpdateStats(go, false);
-			else
-				go->MISCPART->RevertEffect();
+			UpdateStats(go, false);
 
 			Destroy(go);
 			m_vector.pop_back();
@@ -301,12 +283,7 @@ void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* targ
 		}
 		else
 		{
-			
-			
-			if (type == PartScript::PART_TYPE::WEAPON)
-				UpdateStats(go, false);
-			else
-				go->MISCPART->RevertEffect();
+			UpdateStats(go, false);
 
 			Destroy(go);
 			m_vector.pop_back();
@@ -329,11 +306,23 @@ void GunScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const do
 				DestroyPart(m_vector, go);
 				break;
 			}
-			
 		}
 	}
 }
 
+void GunScript::ApplyAugmentOnBullet(std::vector<GameObject*>& m_vector, GameObject* go)
+{
+	if (m_vector.size() == 0)
+		return;
+
+	for (auto it = m_vector.begin(); it != m_vector.end(); ++it)
+	{
+		GameObject* wp = static_cast<GameObject*>(*it);
+		if (wp->PART->GetAugment())
+			go->GetComponent<ProjectileScript>()->AddAugment(wp->PART->GetAugment()->Clone());
+		
+	}
+}
 
 void GunScript::SetBulletsFired(int BulletsFired)
 {
@@ -393,6 +382,11 @@ float GunScript::GetReloadElapsedTime()
 float GunScript::GetReloadTime()
 {
 	return m_fReloadTime;
+}
+
+GameObject* GunScript::GetBullet()
+{
+	return m_Projectile;
 }
 
 bool GunScript::IsReloading()

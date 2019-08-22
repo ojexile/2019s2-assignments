@@ -57,7 +57,7 @@ public:
 	void Jump();
 	bool IsDamageAnim();
 	void SetDamageAnim(bool);
-	void Damage(int iDamage);
+	virtual void Damage(int iDamage);
 	void UpdateBehaviour();
 	void SetCanJump(bool b);
 	bool GetCanJump();
