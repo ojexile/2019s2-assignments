@@ -171,7 +171,7 @@ void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_r
 	{
 		float x = Math::RandFloatMinMax(0.f, size.x);
 		float z = Math::RandFloatMinMax(0.f, size.z);
-		Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+		Vector3 pos =  Vector3(x, 16.5, z)/*chunk_ref->GetGroundPosition(Vector3(x, 0.f, z))*/ + Chunk_Pos;
 
 		int selectedEntity = Math::RandIntMinMax(EntityLibrary::FISH, EntityLibrary::NUM_ENTITIES - 1);
 		GameObject* newEntity = EL->GetEntityArray()[selectedEntity]->Clone();
@@ -184,6 +184,8 @@ void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_r
 			newEntity->TRANS->SetPosition(pos);
 			newEntity->SetDisableDistance(100.f);
 			newEntity->RENDER->SetRenderDistance(100.f);
+
+			GOM_ref->AddGameObject(newEntity, "Birds");
 		}
 		else
 		{
@@ -191,9 +193,9 @@ void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_r
 			newEntity->TRANS->SetPosition(pos);
 			newEntity->SetDisableDistance(100.f);
 			newEntity->RENDER->SetRenderDistance(100.f);
+			GOM_ref->AddGameObject(newEntity);
 		}
 
-		GOM_ref->AddGameObject(newEntity);
 	}
 
 	//switch (type)
