@@ -114,8 +114,8 @@ void ReticleScript::Update(double dt)
 	Vector3 InsidePos = StartPos + Offset * Dir * (float)(SmallestDist - 1);
 	if (SmallestDist < 101)
 	{
-		float fOffset = 0.1f;
-		for (int i = 0; i < 50; ++i)
+		float fOffset = 0.2f;
+		for (int i = 0; i < 20; ++i)
 		{
 			Vector3 Pos = InsidePos + Offset * -Dir * (float)i;
 			if (!CollidedChunk->IsSolid(Pos - CollideGo->TRANS->GetPosition()))
