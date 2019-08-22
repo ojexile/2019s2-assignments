@@ -214,6 +214,29 @@ void DataContainer::InitGO()
 {
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
+
+	go = new GameObject();
+	m_map_GO["particledestroy"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
+	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
+	go->GetComponent<RenderComponent>()->SetBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	//go->TRANS->SetScale(0.5f);
+	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+
+	go = new GameObject();
+	m_map_GO["particlerockbreak"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particlerockbreak")));
+	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
+	go->GetComponent<RenderComponent>()->SetBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+
 	///================================================================================
 	// Reticle--------------------------------------------------------------------------------
 	//go = new GameObject();
@@ -326,15 +349,15 @@ void DataContainer::InitGO()
 	// Shockwave
 	go = new GameObject;
 	m_map_GO["Shockwave"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	//go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(0.5f);
-	go->RENDER->SetColor(1, 0, 0);
+	//go->RENDER->SetColor(1, 0, 0);
 	go->AddComponent(new BlackholeScript(-0.01f, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->LockYAxis(true);
 	go->RIGID->SetMat(0.25f, 0);
 	go->AddComponent(new SuicideNoteScript(5.f));
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, false, GetGameObject("particlerockbreak"), 10, Vector3(), 0));
+	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlerockbreak"), 10, Vector3(), 0));
 	//go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, go->TRANS->GetScale().x, 5.f));
 	// Animals--------------------------------------------------------------------------------
 	// Cow-----------------------------------------------------------------------------
@@ -407,27 +430,6 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
 	/// Interactabes/Foilage================================================================================
-	go = new GameObject();
-	m_map_GO["particledestroy"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
-	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
-	go->GetComponent<RenderComponent>()->SetBillboard(true);
-	go->RENDER->SetLightEnabled(false);
-	//go->TRANS->SetScale(0.5f);
-	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
-	go->PARTICLE->SetRot({80.f, 80.f, 80.f});
-	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
-
-	go = new GameObject();
-	m_map_GO["particlerockbreak"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("particlerockbreak")));
-	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
-	go->GetComponent<RenderComponent>()->SetBillboard(true);
-	go->RENDER->SetLightEnabled(false);
-	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
-	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
-	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
 
 
 	go = new GameObject();
