@@ -18,6 +18,8 @@ public:
 		FISH,
 		COW,
 		BIRD,
+		CHICK,
+		FOX,
 		BOULDER,
 		COVER,
 		NUM_ENTITIES

@@ -276,7 +276,6 @@ void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* targ
 		if (target == go)
 		{
 			UpdateStats(go, false);
-
 			Destroy(go);
 			m_vector.pop_back();
 			break;
@@ -284,7 +283,6 @@ void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* targ
 		else
 		{
 			UpdateStats(go, false);
-
 			Destroy(go);
 			m_vector.pop_back();
 		}

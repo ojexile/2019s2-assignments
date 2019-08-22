@@ -31,7 +31,7 @@ void LootScript::Collide(GameObject * go)
 WeaponPartScript* LootScript::GenerateWeaponPart(void)
 {
 	WeaponPartScript::SLOT_TYPE SlotType = static_cast<WeaponPartScript::SLOT_TYPE>(Math::RandIntMinMax(1, WeaponPartScript::SLOT_TYPE::MUZZLE));
-	float Durability = Math::RandFloatMinMax(5, 10);
+	float Durability = Math::RandFloatMinMax(5.f, 10.f);
 	float Multiplier;
 
 	if (SlotType == WeaponPartScript::SLOT_TYPE::MUZZLE || SlotType == WeaponPartScript::SLOT_TYPE::SCOPE)
@@ -75,10 +75,10 @@ Augment* LootScript::GenerateAugment(void)
 		{
 			return new ExplodeAugment();
 		}
-		else if (GenerateAugmentChance == 2)
-		{
-			return new BlackHoleAugment();
-		}
+		//else if (GenerateAugmentChance == 2)
+		//{
+		//	return new BlackHoleAugment();
+		//}
 	}
 
 	return nullptr;
@@ -106,7 +106,7 @@ void LootScript::DropLoot(void)
 			Loot->RIGID->SetAffectedByGravity(true);
 
 			//Augment Generation
-			Loot->PART->SetAugment(GenerateAugment());
+			//Loot->PART->SetAugment(GenerateAugment());
 		}
 		else
 		{
