@@ -105,11 +105,11 @@ void RenderingManagerBase::BindLightUniforms()
 void RenderingManagerBase::SetUniforms(Scene* scene)
 {
 	// Init fog================================================================================
-	Color fogColor{ 0.5f, 0.5f, 0.6f };
+	Color fogColor{ 0.4f, 0.4f, 0.5f };
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
 	glUniform1f(m_parameters[U_FOG_START], 40);
 	glUniform1f(m_parameters[U_FOG_END], 80);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 0.1f);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 10.1f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 
@@ -147,7 +147,7 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 void RenderingManagerBase::Init()
 {
 	// Black background
-	glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
+	glClearColor(0.4f, 0.4f, 0.5f, 0.0f);
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one

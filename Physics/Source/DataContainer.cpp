@@ -529,7 +529,7 @@ void DataContainer::InitGO()
 }
 void  DataContainer::InitShaders()
 {
-	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
+	m_map_Shaders["Default"] = LoadShaders("Default", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 }
 void DataContainer::InitBehaviour()

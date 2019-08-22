@@ -22,8 +22,6 @@
     <ClCompile Include="Source\Command.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
-    <ClCompile Include="Source\ConcreteMiscParts\HealthRegenPart.cpp" />
-    <ClCompile Include="Source\ConcreteMiscParts\StaminaRegenPart.cpp" />
     <ClCompile Include="Source\Constrain.cpp" />
     <ClCompile Include="Source\CrouchingState.cpp" />
     <ClCompile Include="Source\DataContainer.cpp" />
@@ -69,7 +67,6 @@
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\MeshController.cpp" />
     <ClCompile Include="Source\Message.cpp" />
-    <ClCompile Include="Source\MiscellaneousPartScript.cpp" />
     <ClCompile Include="Source\MouseManager.cpp" />
     <ClCompile Include="Source\MovementCommand.cpp" />
     <ClCompile Include="Source\ObserverBase.cpp" />
@@ -77,7 +74,6 @@
     <ClCompile Include="Source\ParticleObserver.cpp" />
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
-    <ClCompile Include="Source\PartScript.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
@@ -150,6 +146,7 @@
     <ClCompile Include="Source\ReloadingAugment.cpp" />
     <ClCompile Include="Source\BlackHoleAugment.cpp" />
     <ClCompile Include="Source\ScalePatternScript.cpp" />
+    <ClCompile Include="Source\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -174,8 +171,6 @@
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentBase.h" />
     <ClInclude Include="Source\ComponentMacros.h" />
-    <ClInclude Include="Source\ConcreteMiscParts\HealthRegenPart.h" />
-    <ClInclude Include="Source\ConcreteMiscParts\StaminaRegenPart.h" />
     <ClInclude Include="Source\Constrain.h" />
     <ClInclude Include="Source\CrouchingState.h" />
     <ClInclude Include="Source\DataContainer.h" />
@@ -223,7 +218,6 @@
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\MeshController.h" />
     <ClInclude Include="Source\Message.h" />
-    <ClInclude Include="Source\MiscellaneousPartScript.h" />
     <ClInclude Include="Source\MouseManager.h" />
     <ClInclude Include="Source\MovementCommand.h" />
     <ClInclude Include="Source\ObserverBase.h" />
@@ -231,7 +225,6 @@
     <ClInclude Include="Source\ParticleObserver.h" />
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
-    <ClInclude Include="Source\PartScript.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
@@ -343,5 +336,7 @@
     <None Include="Content\preferences.ini" />
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
+    <None Include="Content\shaders\FancyFog.fragmentshader" />
+    <None Include="Content\shaders\FancyFog.vertexshader" />
   </ItemGroup>
 </Project>

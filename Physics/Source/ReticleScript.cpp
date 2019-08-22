@@ -61,7 +61,7 @@ void ReticleScript::Update(double dt)
 			}
 			continue;
 		}
-		WeaponPartScript* wp = go->GetComponent<WeaponPartScript>();
+		WeaponPartScript* wp = go->GetComponent<WeaponPartScript>(true);
 		if (wp)
 		{
 			float maxPartDist = 1;
