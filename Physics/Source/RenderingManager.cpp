@@ -2,10 +2,10 @@
 #include "Application.h"
 #include "RenderComponent.h"
 #define VIEW_AS_LIGHT false
-#define SHADOW_VIEW_SIZE_X 110
-#define SHADOW_VIEW_SIZE_Y 110
+#define SHADOW_VIEW_SIZE_X 100
+#define SHADOW_VIEW_SIZE_Y 100/16*9
 #define SHADOW_VIEW_SIZE_Z 100
-#define SHADOW_RES 1024*0.5
+#define SHADOW_RES 128*20.f
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
@@ -78,13 +78,14 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	//These matrices should change when light position or direction changes
 	LightManager* lm = scene->GetLightManager();
 	if (lm->GetSceneLights()[0]->type == Light::LIGHT_DIRECTIONAL)
-		m_lightDepthProj.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_X / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
+		m_lightDepthProj.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_Y / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
 	else
 		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
 	Light* light = lm->GetSceneLights()[0];
+	Vector3 pos = scene->GetPlayer()->GetComponent<TransformComponent>()->GetPosition();
 	m_lightDepthView.SetToLookAt(
-		light->position.x, light->position.y, light->position.z,
-		0, 0, 0,
+		pos.x, light->position.y, pos.z,
+		-light->position.x, -light->position.y, -light->position.z,
 		0, 1, 0);
 	RenderWorld(scene);
 }

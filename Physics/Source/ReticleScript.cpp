@@ -93,6 +93,7 @@ void ReticleScript::Update(double dt)
 	int SmallestDist = 101;
 	ChunkData* CollidedChunk = nullptr;
 	GameObject* CollideGo = nullptr;
+	Vector3 CollidePos;
 	for (unsigned j = 0; j < ChunkList.size(); ++j)
 	{
 		GameObject* go = ChunkList.at(j);
@@ -104,6 +105,7 @@ void ReticleScript::Update(double dt)
 			{
 				if (i < SmallestDist)
 				{
+					CollidePos = Pos;
 					CollidedChunk = chunk;
 					SmallestDist = i;
 					CollideGo = go;
@@ -111,13 +113,12 @@ void ReticleScript::Update(double dt)
 			}
 		}
 	}
-	Vector3 InsidePos = StartPos + Offset * Dir * (float)(SmallestDist - 1);
 	if (SmallestDist < 101)
 	{
-		float fOffset = 0.2f;
+		float fOffset = 0.1f;
 		for (int i = 0; i < 20; ++i)
 		{
-			Vector3 Pos = InsidePos + Offset * -Dir * (float)i;
+			Vector3 Pos = CollidePos + fOffset * -Dir * (float)i;
 			if (!CollidedChunk->IsSolid(Pos - CollideGo->TRANS->GetPosition()))
 			{
 				TRANS->SetPosition(Pos);
