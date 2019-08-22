@@ -120,7 +120,7 @@ void DataContainer::InitTextures()
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
 	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
-	
+
 	m_map_Textures["particleSquareBorder"] = LoadTGA("particleSquareBorder");
 	m_map_Textures["particleHexagon"] = LoadTGA("particleHexagon");
 }
@@ -307,7 +307,9 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
-	go->AddChild(m_map_GO["Gun"]->Clone());
+	go2 = GetGameObject("Gun");
+	go2->TRANS->SetRelativeRotation(-90, 0, 1, 0);
+	go->AddChild(go2);
 	go->AddComponent(new LootScript());
 	// Boss================================================================================
 	go = new GameObject;
@@ -409,7 +411,7 @@ void DataContainer::InitGO()
 	//go->TRANS->SetScale(0.5f);
 	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
-	go->PARTICLE->SetRot({80.f, 80.f, 80.f});
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
 
 	go = new GameObject();
@@ -441,7 +443,6 @@ void DataContainer::InitGO()
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
 
 	go->AddChild(GetGameObject("fliprockrender"));
-
 
 	go = new GameObject();
 	m_map_GO["treasurebox"] = go;
