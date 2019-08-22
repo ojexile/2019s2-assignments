@@ -24,6 +24,10 @@ void ScalePatternScript::Update(double dt)
 
 	}
 	
+	if (m_scalePattern == BREATHE)
+	{
+		currentscalarfactor = m_fMaximumScale * sin(Math::PI * m_fTimeElapsed) + m_fScaleOffset;
+	}
 	TRANS->SetScale(currentscalarfactor);
 
 	m_fTimeElapsed += (float)dt;
