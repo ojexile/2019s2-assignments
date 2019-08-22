@@ -19,6 +19,7 @@ EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	: m_Behaviour(Behaviour)
 	, m_BaseStats(Stats)
 {
+	m_Values.SetHealth(Stats.GetMaxHealth());
 	if (m_Behaviour)
 		m_Behaviour->Init(this);
 	m_bInitialised = false;
