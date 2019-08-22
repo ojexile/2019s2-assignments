@@ -87,11 +87,13 @@ void DataContainer::InitChunks()
 	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["barline_3"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["flat"] = new ChunkData("Content/chunks/2x2_flatland.chunk");
 }
 
 void DataContainer::InitTextures()
 {
-	m_map_Textures["Text"] = LoadTGA("calibri");
+	m_map_Textures["Text"] = LoadTGA("monoid");
+	m_map_Textures["T7Seg"] = LoadTGA("7seg");
 	m_map_Textures["Sky"] = LoadTGA("sky");
 	m_map_Textures["Cube"] = LoadTGA("Cube");
 	m_map_Textures["Dirt"] = LoadTGA("dirt");
@@ -130,6 +132,7 @@ void DataContainer::InitMeshes()
 	/// Meshes================================================================================
 	/// DO NOT REMOVE--------------------------------------------------------------------------------
 	m_map_Meshes["Text"] = MeshBuilder::GenerateText("text", 16, 16)->AddTexture("Text");
+	m_map_Meshes["T7Seg"] = MeshBuilder::GenerateText("text", 16, 16)->AddTexture("T7Seg");
 	//--------------------------------------------------------------------------------
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
 
@@ -408,7 +411,7 @@ void DataContainer::InitGO()
 	m_map_GO["FPS"] = go;
 	go->AddComponent(new FPSScript);
 	go->TRANS->SetPosition(50, 10, 25);
-	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
+	go->AddComponent(new RenderComponent(GetMesh("T7Seg"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	go->SetDisableDistance(10000);
 	// InventorySlot--------------------------------------------------------------------------------
