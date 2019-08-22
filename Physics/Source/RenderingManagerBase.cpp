@@ -2,6 +2,8 @@
 #include "DataContainer.h"
 #include "Locator.h"
 #include "KeyboardManager.h"
+#include "Preferences.h"
+#include "Resources.h"
 
 #define FOG_ENABLED true
 
@@ -77,7 +79,8 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_SHADOW_COLOR_TEXTURE1] = glGetUniformLocation(m_gPassShaderID, "colorTexture[1]");
 	m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED2] = glGetUniformLocation(m_gPassShaderID, "colorTextureEnabled[2]");
 	m_parameters[U_SHADOW_COLOR_TEXTURE2] = glGetUniformLocation(m_gPassShaderID, "colorTexture[2]");
-
+	// extra--------------------------------------------------------------------------------
+	m_parameters[U_DIST_FROM_PLAYER] = glGetUniformLocation(m_programID, "distFromPlayer");
 	//--------------------------------------------------------------------------------
 	glUseProgram(m_programID);
 	BindLightUniforms();
@@ -142,6 +145,8 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 		glUniform1f(m_LightParameters[U_LIGHT_COSINNER + (U_LIGHT_TOTAL * index)], L->cosInner);
 		glUniform1f(m_LightParameters[U_LIGHT_EXPONENT + (U_LIGHT_TOTAL * index)], L->exponent);
 	}
+	// extra--------------------------------------------------------------------------------
+	glUniform1f(m_parameters[U_DIST_FROM_PLAYER], std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist)));
 }
 
 void RenderingManagerBase::Init()

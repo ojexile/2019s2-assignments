@@ -90,6 +90,7 @@ uniform vec3 textColor;
 uniform FogParam fogParam;
 uniform sampler2D shadowMap;
 uniform float frag_et;
+uniform float distFromPlayer;
 
 
 float random(vec3 seed, int i)
@@ -254,7 +255,7 @@ void main(){
 	if (color.a < .3f) discard;
 	if(fogParam.enabled && lightEnabled)
 	{
-		vec3 Player_CameraSpace = vec3(0,0,-30);
+		vec3 Player_CameraSpace = vec3(0,0,-distFromPlayer);
 		vec3 campos = vertexPosition_cameraspace;
 		vec3 PlayerToVertex = vertexPosition_cameraspace - Player_CameraSpace;
 		campos.y = 0;
