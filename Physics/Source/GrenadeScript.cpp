@@ -33,8 +33,8 @@ void GrenadeScript::Update(double deltaTime)
 void GrenadeScript::Explode(void)
 {
 	TRANS->SetScale(m_fExplosionRadius);
-
-	m_fLifespan = 0.005f;
+	RIGID->SetVel(Vector3(0, 0, 0));
+	m_fLifespan = 0.5f;
 	m_bHasExploded = true;
 }
 
@@ -47,8 +47,10 @@ void GrenadeScript::Collide(GameObject* go)
 		es->Damage(m_fDamage);
 		Vector3 relDir = go->TRANS->GetPosition() - GetPosition();
 
+		Explode();
+
 		es->Damage(m_fExplosionDamage);
-		go->RIGID->AddForce(relDir.Normalize() * 1000);
+		go->RIGID->AddForce(relDir.Normalize() * 50);
 	}
 }
 
@@ -67,9 +69,9 @@ void GrenadeScript::ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRe
 		return;
 
 	Vector3 arcDir = dir;
-	arcDir.y = arcDir.y + 8;
+	arcDir.y = arcDir.y + 10;
 	arcDir.Normalized();
-	arcDir = arcDir * pow(dir.Length(),1.2f) * 2;
+	arcDir = arcDir * Math::Max(pow(dir.Length(), 1.2f), 200.f);
 	Vector3 SpawnPos = GetPosition();
 
 	GameObject* Grenade = Instantiate(GrenadeRef, SpawnPos);
