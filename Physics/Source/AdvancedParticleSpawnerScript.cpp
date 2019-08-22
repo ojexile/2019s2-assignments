@@ -19,7 +19,7 @@ void AdvancedParticleSpawnerScript::Update(double dt)
 {
 	if (m_bOneTimeTrigger)
 		return;
-	particle
+	//particle
 	m_fCurrentTime += (float)dt;
 
 	if (m_fCurrentTime <= m_fSpawnRate)
