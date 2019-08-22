@@ -71,7 +71,7 @@ void GrenadeScript::ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRe
 	Vector3 arcDir = dir;
 	arcDir.y = arcDir.y + 10;
 	arcDir.Normalized();
-	arcDir = arcDir * Math::Max(pow(dir.Length(), 1.2f), 200.f);
+	arcDir = arcDir * Math::Max(pow(dir.Length(), 1.2f), 100.f);
 	Vector3 SpawnPos = GetPosition();
 
 	GameObject* Grenade = Instantiate(GrenadeRef, SpawnPos);

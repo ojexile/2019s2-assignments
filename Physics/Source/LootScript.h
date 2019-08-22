@@ -7,7 +7,7 @@
 /*!
 \author Ryan Tan Zheng Rong
 \brief
-Script to handle Dropping od loot such as weapon parts, augmented parts and
+Script to handle Dropping of loot such as weapon parts, augmented parts and
  other rewards
 /*!
 /********************************************************************************/

@@ -46,7 +46,6 @@ WeaponPartScript* LootScript::GenerateWeaponPart(void)
 		{
 			m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Scope"));
 		}
-
 	}
 	else if (SlotType == WeaponPartScript::SLOT_TYPE::CLIP || SlotType == WeaponPartScript::SLOT_TYPE::GRIP)
 	{
@@ -59,7 +58,6 @@ WeaponPartScript* LootScript::GenerateWeaponPart(void)
 		{
 			m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Grip"));
 		}
-	
 	}
 
 	return new WeaponPartScript(SlotType, Multiplier, Durability);
@@ -68,8 +66,8 @@ WeaponPartScript* LootScript::GenerateWeaponPart(void)
 
 Augment* LootScript::GenerateAugment(void)
 {
-
 	int GenerateAugmentChance = Math::RandIntMinMax(1, 10);
+
 	if (GenerateAugmentChance > 7)
 	{
 		GenerateAugmentChance = Math::RandIntMinMax(1, 10);
@@ -115,11 +113,6 @@ void LootScript::DropLoot(void)
 
 		}
 	}
-	else
-	{
-		return;
-	}
 
 	RYAN_LOG("LOOT_DROP");
-
 }
