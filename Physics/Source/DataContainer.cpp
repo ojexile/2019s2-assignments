@@ -232,7 +232,6 @@ void DataContainer::InitParticles()
 	go = new GameObject();
 	m_map_GO["particlerockbreak"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlerockbreak")));
-	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
 	go->GetComponent<RenderComponent>()->SetBillboard(true);
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
@@ -319,6 +318,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(0.25f);
 	go->RIGID->SetMat(2.f, 0.f);
 	go->AddComponent(new GrenadeScript(3.0, 10.0, 2));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 60, true, GetGameObject("particleexplosioncloud"), 1, {}, 0.f));
 	// Loot------------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Loot"] = go;
