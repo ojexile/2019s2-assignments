@@ -257,6 +257,7 @@
     <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\ReticleScript.cpp" />
     <ClCompile Include="Source\Rigidbody.cpp" />
+    <ClCompile Include="Source\ScalePatternScript.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\ScriptComponent.cpp" />
@@ -373,6 +374,7 @@
     <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\ReticleScript.h" />
     <ClInclude Include="Source\Rigidbody.h" />
+    <ClInclude Include="Source\ScalePatternScript.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\ScriptComponent.h" />
