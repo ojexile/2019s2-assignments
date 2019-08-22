@@ -241,10 +241,10 @@ void DataContainer::InitParticles()
 
 	go = new GameObject();
 	m_map_GO["particleexplosioncloud"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("particleexplosioncloud")));
+	go->AddComponent(new RenderComponent(GetMesh("particleExplosiveCloud")));
 	go->RENDER->Set3DBillboard(true);
 	go->RENDER->SetLightEnabled(false);
-	go->AddComponent(new ParticleScript(2.f, Vector3(2.f, 0.f, 0.f), {}, {}, {}, {}));
+	go->AddComponent(new ParticleScript(2.f, Vector3(-0.1f, 0.f, 0.f), {}, {}, {}, {}));
 	go->PARTICLE->SetRot({ -30.f, -30.f, -30.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 2.f));
 }
@@ -448,17 +448,6 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
 	/// Interactabes/Foilage================================================================================
-	go = new GameObject();
-	m_map_GO["particledestroy"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
-	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
-	go->GetComponent<RenderComponent>()->SetBillboard(true);
-	go->RENDER->SetLightEnabled(false);
-	//go->TRANS->SetScale(0.5f);
-	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
-	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
-	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
 
 	go = new GameObject();
 	m_map_GO["particlespawnerdestroy"] = go;
