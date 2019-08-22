@@ -15,9 +15,9 @@ private:
 
 	float m_fDetectionRadius;
 public:
-	Stats(int iHealthMax = 100, int iHealthRegenRate = 0, float StaminaMax = 100, 
-		float fStaminaRegenRate = 20, 
-		float MovementMax = 100, float MovementForece = 40, 
+	Stats(int iHealthMax = 200, int iHealthRegenRate = 0, float StaminaMax = 100,
+		float fStaminaRegenRate = 20,
+		float MovementMax = 100, float MovementForece = 40,
 		float fJumpForce = 2000, float DetectionRatius = 8);
 	~Stats();
 
