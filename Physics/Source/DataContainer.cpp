@@ -57,6 +57,7 @@ void DataContainer::Init()
 	InitMeshes();
 	InitTerrain();
 	InitBehaviour();
+	InitParticles();
 	InitGO();
 	InitChunks();
 	InitShaders();
@@ -124,7 +125,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["particleSquareBorder"] = LoadTGA("particleSquareBorder");
 	m_map_Textures["particleHexagon"] = LoadTGA("particleHexagon");
 	m_map_Textures["particleHexagonGrey"] = LoadTGA("particleHexagonGrey");
-
+	m_map_Textures["particleCloudGrey"] = LoadTGA("particleCloudGrey");
 }
 void DataContainer::InitMeshes()
 {
@@ -182,6 +183,8 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", {}, 1.f)->AddTexture("particleSquareBorder");
 	m_map_Meshes["particlerockbreak"] = MeshBuilder::GenerateQuad("rockbreak", {}, 1.f)->AddTexture("particleHexagonGrey");
+	m_map_Meshes["particleExplosiveCloud"] = MeshBuilder::GenerateQuad("particleexplosivecloud", {})->AddTexture("particleCloudGrey");
+
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
 
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
@@ -210,10 +213,9 @@ void DataContainer::InitTerrain()
 		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS);
 	//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 }
-void DataContainer::InitGO()
+void DataContainer::InitParticles()
 {
-	GameObject* go = nullptr;
-	GameObject* go2 = nullptr;
+	GameObject * go = nullptr;
 
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
@@ -237,6 +239,21 @@ void DataContainer::InitGO()
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
 
+	go = new GameObject();
+	m_map_GO["particleexplosioncloud"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleexplosioncloud")));
+	go->RENDER->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(2.f, Vector3(2.f, 0.f, 0.f), {}, {}, {}, {}));
+	go->PARTICLE->SetRot({ -30.f, -30.f, -30.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 2.f));
+}
+void DataContainer::InitGO()
+{
+	GameObject* go = nullptr;
+	GameObject* go2 = nullptr;
+
+	
 	///================================================================================
 	// Reticle--------------------------------------------------------------------------------
 	//go = new GameObject();

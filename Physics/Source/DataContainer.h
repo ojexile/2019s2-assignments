@@ -37,6 +37,7 @@ private:
 	void InitTextures();
 	void InitMeshes();
 	void InitTerrain();
+	void InitParticles();
 	void InitGO();
 	void InitChunks();
 	void InitShaders();
