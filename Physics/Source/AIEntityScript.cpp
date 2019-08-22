@@ -41,9 +41,10 @@ void AIEntityScript::MoveToTarget()
 		return;
 	if (!m_bFirstMove)
 	{
-		float fBuffer = 1.f * Time::GetInstance()->GetDeltaTimeF();
-		if ((m_vPrevPos - GetPosition()).LengthSquared() < fBuffer * fBuffer)
-			Jump();
+		float fBuffer = 3.f * Time::GetInstance()->GetDeltaTimeF();
+		if ((m_vPrevPos - GetPosition()).LengthSquared() < fBuffer * fBuffer || m_bAgainstWall)
+ 			Jump();
+		m_bAgainstWall = false;
 	}
 	else
 		m_bFirstMove = false;
@@ -81,4 +82,9 @@ void AIEntityScript::Update(double dt)
 	if (m_iCounter % 3 == 0)
 		UpdateBehaviour();
 	MoveToTarget();
+}
+
+void AIEntityScript::SetAgainstWall(bool b)
+{
+	m_bAgainstWall = b;
 }

@@ -28,6 +28,7 @@ DefaultScene::~DefaultScene()
 void DefaultScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
 	/// Observers================================================================================
@@ -85,9 +86,6 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotMuzzle"));
 	CustoSlots.push_back(go);
-	go = m_GOM.AddGameObject("UI");
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Muzzle", true));
-	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0) + Vector3(-50, 20, 16));
 	//
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos + Vector3(0, fCustoDist, 0));
@@ -130,6 +128,7 @@ void DefaultScene::Init()
 	GameObject* ret = m_GOM.AddGameObject();
 	ret->AddComponent(new RenderComponent(dataContainer->GetMesh("Reticle")));
 	ret->RENDER->SetColor(0, 1, 1);
+	ret->SetDisableDistance(300000000000000.f);
 	ret->AddComponent(new ReticleScript());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
@@ -167,7 +166,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
-	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR,36, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
+	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 36, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
 
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
@@ -184,11 +183,14 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
-	go->TRANS->SetPosition(5, 18.5f, 0);
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Boss"));
+	go->TRANS->SetPosition(10, 20.5f, 0);
 	// --
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
-	go->TRANS->SetPosition(20, 18.5f, 26);
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
+	go->TRANS->SetPosition(3, 24.f, 0);
+	//--
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
+	go->TRANS->SetPosition(0, 23.5f, 0);
 	///interactable test
 
 	//go = m_GOM.AddGameObject();

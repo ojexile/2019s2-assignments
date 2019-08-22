@@ -4,12 +4,11 @@
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
 
-#define MIN_TIME 0.1f
-#define MAX_TIME 4
-
-IdleState::IdleState()
+IdleState::IdleState(float min, float max)
 {
 	m_fTime = 0;
+	m_fMinTime = min;
+	m_fMaxTime = max;
 }
 
 IdleState::~IdleState()
@@ -18,10 +17,12 @@ IdleState::~IdleState()
 
 State * IdleState::HandleState(ComponentBase * com)
 {
-	com->RENDER->ResetColor();
+	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
+	if (ret)
+		ret->RENDER->ResetColor();
 	if (PlayerInRange(com))
 		return com->GetComponent<AIEntityScript>()->GetCombatState();
-	if (m_SW.Stop()->GetTime() < m_fTime)
+	if (m_SW.GetTime() < m_fTime)
 		return this;
 	else
 		return &AIStatesList::Wander;
@@ -29,8 +30,9 @@ State * IdleState::HandleState(ComponentBase * com)
 
 void IdleState::OnEnter(ComponentBase * com)
 {
+	com->GetComponent<AIEntityScript>()->SetTarget({ 0, 0, 0 });
 	m_SW.Start();
-	m_fTime = Math::RandFloatMinMax(MIN_TIME, MAX_TIME);
+	m_fTime = Math::RandFloatMinMax(m_fMinTime, m_fMaxTime);
 }
 
 void IdleState::OnExit(ComponentBase * com)

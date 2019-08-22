@@ -1,20 +1,16 @@
 #pragma once
 #include "AIState.h"
 #include "StopWatch.h"
-class IdleState :
-	public AIState
+class BossShockwaveState : public AIState
 {
 private:
-	StopWatch m_SW;
-	float m_fTime;
-	float m_fMinTime;
-	float m_fMaxTime;
+	StopWatch s;
 public:
-	IdleState(float min = 0, float max = 2);
-	virtual ~IdleState();
+	BossShockwaveState();
+	virtual ~BossShockwaveState();
 
 	virtual State* HandleState(ComponentBase* com) override;
 	virtual void OnEnter(ComponentBase* com) override;
 	virtual void OnExit(ComponentBase* com) override;
-	virtual State* Clone() { return new IdleState(*this); };
+	virtual State* Clone() { return new BossShockwaveState(*this); };
 };

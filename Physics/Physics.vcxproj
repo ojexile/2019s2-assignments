@@ -177,8 +177,11 @@
     <ClCompile Include="Source\AudioObserver.cpp" />
     <ClCompile Include="Source\Behaviour.cpp" />
     <ClCompile Include="Source\BiomeComponent.cpp" />
+    <ClCompile Include="Source\BirdWingScript.cpp" />
     <ClCompile Include="Source\BlackHoleAugment.cpp" />
     <ClCompile Include="Source\BlackholeScript.cpp" />
+    <ClCompile Include="Source\BossCombat.cpp" />
+    <ClCompile Include="Source\BossShockwaveState.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\CameraScript.cpp" />
@@ -250,6 +253,7 @@
     <ClCompile Include="Source\Preferences.cpp" />
     <ClCompile Include="Source\ProjectileScript.cpp" />
     <ClCompile Include="Source\RangedState.cpp" />
+    <ClCompile Include="Source\ReloadUIScript.cpp" />
     <ClCompile Include="Source\ReloadingAugment.cpp" />
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
@@ -267,6 +271,7 @@
     <ClCompile Include="Source\State.cpp" />
     <ClCompile Include="Source\Stats.cpp" />
     <ClCompile Include="Source\StopWatch.cpp" />
+    <ClCompile Include="Source\SuicideNoteScript.cpp" />
     <ClCompile Include="Source\Time.cpp" />
     <ClCompile Include="Source\TopDownState.cpp" />
     <ClCompile Include="Source\TransformComponent.cpp" />
@@ -290,8 +295,11 @@
     <ClInclude Include="Source\AudioManager.h" />
     <ClInclude Include="Source\AudioObserver.h" />
     <ClInclude Include="Source\Behaviour.h" />
+    <ClInclude Include="Source\BirdWingScript.h" />
     <ClInclude Include="Source\BlackHoleAugment.h" />
     <ClInclude Include="Source\BlackholeScript.h" />
+    <ClInclude Include="Source\BossCombat.h" />
+    <ClInclude Include="Source\BossShockwaveState.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\CameraScript.h" />
@@ -366,6 +374,7 @@
     <ClInclude Include="Source\BiomeComponent.h" />
     <ClInclude Include="Source\ProjectileScript.h" />
     <ClInclude Include="Source\RangedState.h" />
+    <ClInclude Include="Source\ReloadUIScript.h" />
     <ClInclude Include="Source\ReloadingAugment.h" />
     <ClInclude Include="Source\RenderComponent.h" />
     <ClInclude Include="Source\Renderer.h" />
@@ -385,6 +394,7 @@
     <ClInclude Include="Source\State.h" />
     <ClInclude Include="Source\Stats.h" />
     <ClInclude Include="Source\StopWatch.h" />
+    <ClInclude Include="Source\SuicideNoteScript.h" />
     <ClInclude Include="Source\Time.h" />
     <ClInclude Include="Source\TopDownState.h" />
     <ClInclude Include="Source\TransformComponent.h" />

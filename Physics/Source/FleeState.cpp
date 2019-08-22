@@ -14,7 +14,6 @@ FleeState::~FleeState()
 
 State * FleeState::HandleState(ComponentBase * com)
 {
-	com->RENDER->SetColor(0.2f, 1.f, 0.2f);
 	Vector3 Dir = DirToPlayer(com);
 	AI->SetTarget(-Dir);
 	if (PlayerInRange(com))
@@ -32,6 +31,9 @@ State * FleeState::HandleState(ComponentBase * com)
 
 void FleeState::OnEnter(ComponentBase * com)
 {
+	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
+	if (ret)
+		ret->RENDER->SetColor(0, 0.5f, 1);
 }
 
 void FleeState::OnExit(ComponentBase * com)

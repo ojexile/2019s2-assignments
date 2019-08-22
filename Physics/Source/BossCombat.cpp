@@ -1,28 +1,40 @@
-#include "MeleeCombatState.h"
+#include "BossCombat.h"
 #include "EntityScript.h"
 #include "SceneManager.h"
 #include "Rigidbody.h"
 #include "IdleState.h"
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
-MeleeCombatState::MeleeCombatState()
+
+#include "GameObject.h"
+#include "GameObjectManager.h"
+#include "SceneManager.h"
+#include "DataContainer.h"
+#include "BlackholeScript.h"
+#include <vector>
+
+BossCombat::BossCombat()
 {
 }
 
-MeleeCombatState::~MeleeCombatState()
+BossCombat::~BossCombat()
 {
 }
 
-State * MeleeCombatState::HandleState(ComponentBase * com)
+State * BossCombat::HandleState(ComponentBase * com)
 {
 	if (PlayerInRange(com))
 	{
 		Vector3 Dir = DirToPlayer(com);
 		AI->SetTarget(Dir);
-		float meleeRange = 3;
+		float meleeRange = 7;
+
 		if (PlayerInRange(com, meleeRange))
 		{
-			DamagePlayer(5, 300, Dir);
+			if (!Math::RandIntMinMax(0, 2))
+				return &AIStatesList::ShockWave;
+			else
+				DamagePlayer(10, 600, Dir);
 		}
 	}
 	else
@@ -30,7 +42,7 @@ State * MeleeCombatState::HandleState(ComponentBase * com)
 	return this;
 }
 
-void MeleeCombatState::OnEnter(ComponentBase * com)
+void BossCombat::OnEnter(ComponentBase * com)
 {
 	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
 	if (ret)
@@ -39,6 +51,6 @@ void MeleeCombatState::OnEnter(ComponentBase * com)
 	AI->SetTarget(Dir);
 }
 
-void MeleeCombatState::OnExit(ComponentBase * com)
+void BossCombat::OnExit(ComponentBase * com)
 {
 }

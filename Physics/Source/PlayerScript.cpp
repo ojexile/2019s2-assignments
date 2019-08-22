@@ -22,14 +22,6 @@ void PlayerScript::Start()
 {
 	GetCameraGO()->GetComponent<CameraComponent>()->SetMouseUseFloatYaw(false);
 }
-void PlayerScript::SetCanJump(bool b)
-{
-	m_bCanJump = b;
-}
-bool PlayerScript::GetCanJump()
-{
-	return m_bCanJump;
-}
 void PlayerScript::Update(double dt)
 {
 	EntityScript::Update(dt);

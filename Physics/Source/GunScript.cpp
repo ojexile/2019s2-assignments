@@ -6,7 +6,6 @@
 #include "ProjectileScript.h"
 #include "ExplodeAugment.h"
 
-
 GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, float fReloadTime, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
 	: m_iBulletsFiredCount(iBulletsFiredCount),
 	m_iMagazineRounds(iMagazineRounds),
@@ -26,7 +25,6 @@ GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazi
 
 GunScript::~GunScript()
 {
-
 }
 
 void GunScript::PullTrigger(const Vector3& dir, const double deltaTime)
@@ -72,7 +70,12 @@ void GunScript::Update(double deltaTime)
 	m_fBufferTime += (float)deltaTime;
 
 	if (m_bIsReloading)
+	{
+		GetChild(0)->SetActive(true);
 		m_fReloadElapsedTime += (float)deltaTime;
+	}
+	else
+		GetChild(0)->SetActive(false);
 
 	if (m_fReloadElapsedTime >= m_fReloadTime && m_bIsReloading)
 		ReloadWeapon();
@@ -145,11 +148,12 @@ void GunScript::FireWeapon(const Vector3& dir, const double deltaTime)
 {
 	Vector3 SpawnPos = GetPosition();
 	Vector3 direction = dir;
-	
-	//Mtx44 recoil;
-	//recoil.SetToRotation(Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread), 0, 1, 0);
 
-	//direction = recoil * direction;
+	Mtx44 recoil;
+	recoil.SetToRotation(Math::RandFloatMinMax(-m_fBulletSpread, m_fBulletSpread), 0, 1, 0);
+
+	direction = recoil * direction;
+
 	direction.Normalize();
 
 	GameObject* bullet = Instantiate(m_Projectile, SpawnPos);
@@ -193,10 +197,13 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 {
 	if (!part->PART)
 		return;
-	
+
 	part->RIGID->SetAffectedByGravity(false);
 	
-	if (part->PART->GetAugment())
+	if(part->PART->GetSlotType() == PartScript::ALL)
+		part->PART->SetSlotType(slot);
+
+	if (part->PART->GetPartType() == PartScript::WEAPON)
 	{
 		switch (part->PART->GetAugment()->GetAugmentType())
 		{
@@ -263,7 +270,6 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 	Destroy(part);
 }
 
-
 void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* target)
 {
 	while (m_vector.size() > 0)
@@ -303,7 +309,6 @@ void GunScript::DamageEquippedParts(std::vector<GameObject*>& m_vector, const do
 				DestroyPart(m_vector, go);
 				break;
 			}
-			
 		}
 	}
 }

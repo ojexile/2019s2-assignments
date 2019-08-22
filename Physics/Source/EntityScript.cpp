@@ -69,6 +69,14 @@ void EntityScript::Update(double dt)
 	}
 	UpdateValues();
 }
+void EntityScript::SetCanJump(bool b)
+{
+	m_bCanJump = b;
+}
+bool EntityScript::GetCanJump()
+{
+	return m_bCanJump;
+}
 const Stats * EntityScript::GetBaseStats()
 {
 	return &m_BaseStats;
@@ -86,7 +94,7 @@ void EntityScript::DamageAnim()
 }
 bool EntityScript::CheckDeath()
 {
-	if (this->GetComponent<PlayerScript>())
+	if (this->GetComponent<PlayerScript>(true))
 		return false;
 	if (m_Values.m_iHealth <= 0)
 	{
@@ -146,18 +154,20 @@ void EntityScript::RotateTowards(Vector3 vDir)
 	// current angle
 	float CurrentAngle = TRANS->GetDegrees();
 
-	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.0f);
+	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.1f);
 	TRANS->SetRotation(newAngle, 0, 1, 0);
 }
 void EntityScript::Jump()
 {
 	Rigidbody* rb = GetComponent<Rigidbody>();
- 	if (GetComponent<PlayerScript>() == nullptr || GetComponent<PlayerScript>()->GetCanJump())
+	if (m_bCanJump)
 	{
 		rb->SetVel(Vector3(rb->GetVel().x, 40 / rb->GetMass(), rb->GetVel().z));
-		if(GetComponent<PlayerScript>() != nullptr) GetComponent<PlayerScript>()->SetCanJump(false);
-		Notify("Jump");
-
+		m_bCanJump = false;
+		if (GetComponent<PlayerScript>() == nullptr)
+		{
+			Notify("Jump");
+		}
 	}
 }
 bool EntityScript::IsDamageAnim()

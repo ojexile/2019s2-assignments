@@ -5,6 +5,7 @@
 #include "WorldValues.h"
 #include "ChunkCollider.h"
 #include "PlayerScript.h"
+#include "AIEntityScript.h"
 
 static int nCollisionRuns = 0;
 
@@ -29,7 +30,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckCollision(GameObject* go1, GameO
 	case Rigidbody::BALL:
 	{
 		Vector3 dis = (go2->GetComponent<TransformComponent>()->GetPosition() - go1->GetComponent<TransformComponent>()->GetPosition());
-		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x + go2->GetComponent<TransformComponent>()->GetScale().x;
+		float combRadius = go2->GetComponent<TransformComponent>()->GetScale().x + go1->GetComponent<TransformComponent>()->GetScale().x;
 		Vector3 u = go1->GetComponent<Rigidbody>()->GetVel() - go2->GetComponent<Rigidbody>()->GetVel();
 		if (dis.Length() < combRadius && u.Dot(dis) > 0.0f)
 		{
@@ -473,7 +474,7 @@ void CollisionManager::Update(GameObjectManager* GOM, int frameCycle)
 			continue;
 		if (go1->IsDisabled())
 			continue;
-		if (go1->GetComponent<PlayerScript>() != nullptr || frameCycle % 2 == 0)
+		if (go1->GetComponent<PlayerScript>(true) != nullptr || frameCycle % 2 == 0)
 		{
 			if (go1->GetComponent<Rigidbody>(true) && go1->GetComponent<Rigidbody>(true)->IsActive())
 			{
@@ -601,11 +602,14 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 	go1->GetComponent<Rigidbody>()->QueueVel(vel - go1->RIGID->GetVel());
 	if(go1->GetComponent<ScriptComponent>() != nullptr)
 		go1->GetComponent<ScriptComponent>()->Collide(GOList->front());
-	if (go1->GetComponent<PlayerScript>(true) && shortestDirection.y == 1)
+	if (go1->GetComponent<EntityScript>(true) && shortestDirection.y == 1)
 	{
-      		go1->GetComponent<PlayerScript>()->SetCanJump(true);
+      	go1->GetComponent<EntityScript>()->SetCanJump(true);
 	}
-	
+	if (go1->GetComponent<AIEntityScript>(true) && (shortestDirection.x != 0 || shortestDirection.z != 0) && shortestDirection.y >= 0) 
+	{
+		go1->GetComponent<AIEntityScript>()->SetAgainstWall(true);
+	}
 	return Rigidbody::ePhysicsTypes::CHUNK;
 }
 
