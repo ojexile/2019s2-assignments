@@ -17,6 +17,7 @@ public:
 	{
 		FISH,
 		COW,
+		BIRD,
 		BOULDER,
 		COVER,
 		NUM_ENTITIES
