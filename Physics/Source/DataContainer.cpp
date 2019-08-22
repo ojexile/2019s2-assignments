@@ -238,11 +238,20 @@ void DataContainer::InitGO()
 
 	///================================================================================
 	// Reticle--------------------------------------------------------------------------------
-	//go = new GameObject();
-	//m_map_GO["Reticle"] = go;
-	//go->AddComponent(new RenderComponent(GetMesh("Reticle")));
-	//go->RENDER->SetColor(0, 1, 1);
-	//go->AddComponent(new ReticleScript);
+	go = new GameObject();
+	m_map_GO["Reticle"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Reticle")));
+	go->RENDER->SetColor(0, 1, 1);
+	go->AddComponent(new ReticleScript);
+	go->SetDisableDistance(1000);
+	go2 = new GameObject;
+	go->AddChild(go2);
+	go2->AddComponent(new RenderComponent(GetMesh("Text"), "Item Infomation", false));
+	go2 = new GameObject;
+	go2->AddComponent(new RenderComponent(GetMesh("Quad")));
+	go2->TRANS->SetScale(5, 5, 5);
+	go2->RENDER->Set3DBillboard(true);
+
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;

@@ -135,11 +135,7 @@ void DefaultScene::Init()
 	go->RENDER->SetColor(1, 1.f, 1.f);
 	/// Player================================================================================
 	// Reticle
-	GameObject* ret = m_GOM.AddGameObject();
-	ret->AddComponent(new RenderComponent(dataContainer->GetMesh("Reticle")));
-	ret->RENDER->SetColor(0, 1, 1);
-	ret->SetDisableDistance(300000000000000.f);
-	ret->AddComponent(new ReticleScript());
+	GameObject* ret = m_GOM.AddGameObject(GetGO("Reticle"));
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 0, 1);
