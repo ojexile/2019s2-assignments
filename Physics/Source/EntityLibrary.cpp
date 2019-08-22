@@ -1,17 +1,17 @@
-#include "Entity_Library.h"
+#include "EntityLibrary.h"
 
 
 
-Entity_Library::Entity_Library()
+EntityLibrary::EntityLibrary()
 {
 }
 
 
-Entity_Library::~Entity_Library()
+EntityLibrary::~EntityLibrary()
 {
 }
 
-void Entity_Library::Init()
+void EntityLibrary::Init()
 {
 	DataContainer* DO = DataContainer::GetInstance();
 	
@@ -31,32 +31,32 @@ void Entity_Library::Init()
 
 }
 
-GameObject* Entity_Library::GetEntity(eEntities type)
+GameObject* EntityLibrary::GetEntity(eEntities type)
 {
 	return m_EntityArray[type];
 }
 
-GameObject** Entity_Library::GetEntityArray()
+GameObject** EntityLibrary::GetEntityArray()
 {
 	return m_EntityArray;
 }
 
-GameObject* Entity_Library::GetEnemy(eEnemies type)
+GameObject* EntityLibrary::GetEnemy(eEnemies type)
 {
 	return m_EnemyArray[type];
 }
 
-GameObject** Entity_Library::GetEnemyArray()
+GameObject** EntityLibrary::GetEnemyArray()
 {
 	return m_EnemyArray;
 }
 
-GameObject* Entity_Library::GetLoot(eLoot type)
+GameObject* EntityLibrary::GetLoot(eLoot type)
 {
 	return m_LootArray[type];
 }
 
-GameObject** Entity_Library::GetLootArray()
+GameObject** EntityLibrary::GetLootArray()
 {
 	return m_LootArray;
 }

@@ -38,7 +38,7 @@
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
 //Entity Library
-#include "Entity_Library.h"
+#include "EntityLibrary.h"
 DataContainer::DataContainer()
 {
 	m_bInitialsed = false;
@@ -60,7 +60,7 @@ void DataContainer::Init()
 	InitGO();
 	InitChunks();
 	InitShaders();
-	Entity_Library::GetInstance()->Init();
+	EntityLibrary::GetInstance()->Init();
 	m_bInitialsed = true;
 
 	clock_t end = clock();

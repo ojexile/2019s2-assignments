@@ -9,7 +9,7 @@ Container that contains all entities in an array. Associated with Chunk events
 as the events require data on what kind of entities to spawn
 /*!
 /********************************************************************************/
-class Entity_Library: public Singleton<Entity_Library>
+class EntityLibrary: public Singleton<EntityLibrary>
 {
 public:
 
@@ -36,8 +36,8 @@ public:
 		NUM_LOOT
 	};
 
-	Entity_Library();
-	~Entity_Library();
+	EntityLibrary();
+	~EntityLibrary();
 
 	void Init();
 	GameObject* GetEntity(eEntities type);
