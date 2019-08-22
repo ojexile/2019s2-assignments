@@ -1,8 +1,7 @@
 #pragma once
 #include "ScriptComponent.h"
-#include "PartScript.h"
 #include "WeaponPartScript.h"
-#include "MiscellaneousPartScript.h"
+#include "Augment.h"
 
 class LootScript : public ScriptComponent
 {
@@ -13,20 +12,12 @@ public:
 	void DropLoot(void);
 
 	virtual Component* Clone() { return new LootScript(*this); }
-
-	enum MISC_PARTLIST
-	{
-		STAMINA,
-	};
-	
 	virtual void Collide(GameObject* go);
 
 private:
 
 	//Returns a partScript
 	WeaponPartScript* GenerateWeaponPart(void);
-	MiscellaneousPartScript* GenerateMiscPart(void);
-
-
+	/*Augment* GenerateAugment(void);*/
 	GameObject* m_LootDrop;
 };

@@ -34,7 +34,7 @@ void GrenadeScript::Explode(void)
 {
 	TRANS->SetScale(m_fExplosionRadius);
 
-	m_fLifespan = m_fLifespan + 0.005f;
+	m_fLifespan = 0.005f;
 	m_bHasExploded = true;
 }
 
@@ -44,15 +44,11 @@ void GrenadeScript::Collide(GameObject* go)
 	
 	if (es)
 	{
-		if (m_bHasExploded)
-		{
-			Vector3 relDir = go->TRANS->GetPosition() - GetPosition();
+		es->Damage(m_fDamage);
+		Vector3 relDir = go->TRANS->GetPosition() - GetPosition();
 
-			es->Damage(m_fExplosionDamage);
-			go->RIGID->AddForce(relDir.Normalize() * 1000);
-		}
-		else
-			es->Damage(m_fDamage);
+		es->Damage(m_fExplosionDamage);
+		go->RIGID->AddForce(relDir.Normalize() * 1000);
 	}
 }
 

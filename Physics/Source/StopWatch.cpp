@@ -24,6 +24,7 @@ StopWatch* StopWatch::Stop()
 }
 float StopWatch::GetTime()
 {
+	Stop();
 	return m_fTime;
 }
 std::string StopWatch::GetSTime()

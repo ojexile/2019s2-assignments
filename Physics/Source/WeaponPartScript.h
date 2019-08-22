@@ -1,12 +1,43 @@
 #pragma once
-#include "PartScript.h"
+#include "Augment.h"
+/********************************************************************************
+Author: Ryan Tan Zheng Rong
+Brief: Base Script for weapon parts that can be attached to the weapon
+	   etc.
+********************************************************************************/
 
-class WeaponPartScript : public PartScript
+class WeaponPartScript : public ScriptComponent
 {
 public:
-	WeaponPartScript(SLOT_TYPE slot, float Multiplier, float durability, bool isAttached = false);
-	virtual ~WeaponPartScript();
+
+	enum SLOT_TYPE
+	{
+		SCOPE = 1,
+		CLIP,
+		GRIP,
+		MUZZLE,
+	};
+
+	WeaponPartScript(SLOT_TYPE slot, float Multiplier, float Durability = 5.f, Augment* Augment = nullptr);
+	~WeaponPartScript();
+
+	bool DecreaseDurability(double deltaTime);
+
+	SLOT_TYPE GetSlotType();
+	float GetMultiplier();
+	Augment* GetAugment();
+
+	//This is for Miscellaneous Parts, initially their slot type will be ALL
+	void SetSlotType(SLOT_TYPE slot);
+	void SetAugment(Augment* Augment);
+	void SetDurability(float durability);
+	void SetMultiplier(float multiplier);
 
 	virtual Component* Clone() { return new WeaponPartScript(*this); }
-	void Effect() override;
+
+private:
+	float m_fDurability;
+	float m_fStatMultiplier;
+	Augment* m_Augment;
+	SLOT_TYPE m_SlotType;
 };

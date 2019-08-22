@@ -8,8 +8,11 @@ private:
 	StopWatch m_SW;
 	float m_fTime;
 	Vector3 m_vDir;
+	float m_fMinTime;
+	float m_fMaxTime;
+	AIState* m_Idle;
 public:
-	WanderState();
+	WanderState(AIState* idle, float min = 1, float max = 5);
 	virtual ~WanderState();
 
 	virtual State* HandleState(ComponentBase* com) override;

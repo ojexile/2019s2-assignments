@@ -5,7 +5,6 @@
 #include "InputManager.h"
 #include "CameraScript.h"
 #include "GunScript.h"
-#include "MiscellaneousPartScript.h"
 #include "GrenadeScript.h"
 #include "InventoryScript.h"
 PlayerScript::PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun, GameObject* grenade)
@@ -160,16 +159,10 @@ void PlayerScript::UpdateMovement(double dt)
 }
 void PlayerScript::Collide(GameObject* go)
 {
-	PartScript* ps = go->GetComponent<PartScript>(true);
+	WeaponPartScript* ps = go->GetComponent<WeaponPartScript>(true);
 	if (ps)
 	{
-		if (go->MISCPART)
-		{
-			 go->MISCPART->SetPlayerReference(this);
-			go->MISCPART->SetGunReference(m_Gun);
-		}
 		GetComponent<InventoryScript>()->AddItem(go);
-
 		// CHENG_LOG("Part Taken");
 	}
 }

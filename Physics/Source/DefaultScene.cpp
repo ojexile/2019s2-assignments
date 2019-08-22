@@ -12,10 +12,12 @@
 #include "InventoryScript.h"
 #include "GunScript.h"
 #include "PlayerStatsScript.h"
-#include "MiscellaneousPartScript.h"
 #include "ReticleScript.h"
 #include "ParticleObserver.h"
 #include "AdvancedParticleSpawnerScript.h"
+//TMP
+#include "ExplodeAugment.h"
+#include "BlackHoleAugment.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -26,6 +28,7 @@ DefaultScene::~DefaultScene()
 void DefaultScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
 	/// Observers================================================================================
@@ -83,9 +86,6 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotMuzzle"));
 	CustoSlots.push_back(go);
-	go = m_GOM.AddGameObject("UI");
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Muzzle", true));
-	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0) + Vector3(-50, 20, 16));
 	//
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos + Vector3(0, fCustoDist, 0));
@@ -128,27 +128,29 @@ void DefaultScene::Init()
 	GameObject* ret = m_GOM.AddGameObject();
 	ret->AddComponent(new RenderComponent(dataContainer->GetMesh("Reticle")));
 	ret->RENDER->SetColor(0, 1, 1);
+	ret->SetDisableDistance(300000000000000.f);
 	ret->AddComponent(new ReticleScript());
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
-	Gun->TRANS->SetRelativePosition(1, 1, 1);
+	Gun->TRANS->SetRelativePosition(1, 0, 1);
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
 
-	////TMP
-	//GameObject* muz = dataContainer->GetGameObject("Muzzle");
-	//muz->PART->SetDurability(10000.f);
-	//Gun->AddChild(muz);
-	//Gun->GUN->EquipPart(muz, PartScript::SLOT_TYPE::MUZZLE);
+	//TMP
+	GameObject* muz = dataContainer->GetGameObject("Muzzle");
+	muz->PART->SetDurability(10000.f);
+	muz->PART->SetAugment(new ExplodeAugment);
+	Gun->AddChild(muz);
+	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
-	//muz = dataContainer->GetGameObject("Muzzle");
-	//muz->PART->SetDurability(1.f);
-	//Gun->AddChild(muz);
-	//Gun->GUN->EquipPart(muz, PartScript::SLOT_TYPE::MUZZLE);
+	muz = dataContainer->GetGameObject("Muzzle");
+	muz->PART->SetDurability(1.f);
+	Gun->AddChild(muz);
+	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
-	//muz = dataContainer->GetGameObject("Muzzle");
-	//muz->PART->SetDurability(5.f);
-	//Gun->AddChild(muz);
-	//Gun->GUN->EquipPart(muz, PartScript::SLOT_TYPE::MUZZLE);
+	muz = dataContainer->GetGameObject("Muzzle");
+	muz->PART->SetDurability(5.f);
+	Gun->AddChild(muz);
+	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
@@ -181,11 +183,14 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
-	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
-	//go->TRANS->SetPosition(5, 18.5f, 0);
-	//// --
-	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
-	//go->TRANS->SetPosition(20, 18.5f, 26);
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Boss"));
+	go->TRANS->SetPosition(10, 20.5f, 0);
+	// --
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
+	go->TRANS->SetPosition(3, 24.f, 0);
+	//--
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
+	go->TRANS->SetPosition(0, 23.5f, 0);
 	///interactable test
 
 	//go = m_GOM.AddGameObject();

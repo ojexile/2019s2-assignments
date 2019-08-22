@@ -1,7 +1,7 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "GameObject.h"
-#include "PartScript.h"
+#include "WeaponPartScript.h"
 
 #include <vector>
 
@@ -23,7 +23,9 @@ public:
 		AUTO
 	};
 
-	GunScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8, int iMagazineRounds_Max = 8, float fReloadTimeBuffer = 1.2f, float fFirerate = 1.5f, float fBulletSpread = 0.5f, float fBulletForce = 10.f, FIRING_MODE FiringMode = AUTO);
+	GunScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8,
+		int iMagazineRounds_Max = 8, float fReloadTimeBuffer = 1.2f, float fFirerate = 0.75f,
+		float fBulletSpread = 0.5f, float fBulletForce = 20.f, FIRING_MODE FiringMode = AUTO);
 	~GunScript();
 
 	//Interface Functions
@@ -34,7 +36,7 @@ public:
 	void Update(double deltaTime) override;
 	void UpdateStats(GameObject* go, bool Multiply);
 
-	void EquipPart(GameObject* part, PartScript::SLOT_TYPE slot);
+	void EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot);
 	void SetBulletsFired(int BulletsFired);
 	void SetMagazineRounds(int MagRounds);
 	void SetMaxMagazineRounds(int MagRounds_Max);
@@ -49,17 +51,16 @@ public:
 	float GetBulletSpread();
 	float GetReloadTime();
 	float GetReloadElapsedTime();
-
 	bool IsReloading();
+	GameObject* GetBullet();
 
 	virtual Component* Clone() { return new GunScript(*this); }
 
 private:
 
 	void FireWeapon(const Vector3& dir, const double deltaTime);
-
+	void ApplyAugmentOnBullet(std::vector<GameObject*>& m_vector, GameObject* go);
 	void DestroyPart(std::vector<GameObject*>& m_Updatedvector, GameObject* go);
-
 	void DamageEquippedParts(std::vector<GameObject*>& m_vector, const double deltaTime);
 
 	int m_iBulletsFiredCount;
