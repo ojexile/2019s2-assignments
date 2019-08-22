@@ -5,6 +5,7 @@ class BossShockwaveState : public AIState
 {
 private:
 	StopWatch s;
+	bool m_bTriggered;
 public:
 	BossShockwaveState();
 	virtual ~BossShockwaveState();

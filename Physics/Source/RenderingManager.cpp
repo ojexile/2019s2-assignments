@@ -1,4 +1,4 @@
-\#include "RenderingManager.h"
+#include "RenderingManager.h"
 #include "Application.h"
 #include "RenderComponent.h"
 #define VIEW_AS_LIGHT false

@@ -34,7 +34,7 @@ State * BossCombat::HandleState(ComponentBase * com)
 			if (!Math::RandIntMinMax(0, 2))
 				return &AIStatesList::ShockWave;
 			else
-				DamagePlayer(10, 600, Dir);
+				DamagePlayer(10, 200, Dir);
 		}
 	}
 	else
