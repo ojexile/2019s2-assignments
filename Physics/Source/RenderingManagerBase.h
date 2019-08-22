@@ -117,7 +117,7 @@ public:
 
 protected:
 	void RenderText(RenderComponent* mesh);
-	void RenderTextOnScreen(RenderComponent* mesh, std::string text, Color color, float size, float x, float y);
+	void RenderTextOnScreen(RenderComponent* rc, std::string text, Color color, float size, float x, float y, int align = 0);
 	void RenderUI(RenderComponent* mesh, bool enableLight);
 	void RenderMesh(RenderComponent *mesh, bool enableLight);
 	void RenderBiomedMesh(RenderComponent*mesh, BiomeComponent *bc, bool enableLight);
