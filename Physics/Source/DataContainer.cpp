@@ -109,6 +109,7 @@ void DataContainer::InitTextures()
 
 	m_map_Textures["Revolver"] = LoadTGA("revolver");
 	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
+	m_map_Textures["Bullet"] = LoadTGA("bullet");
 
 	m_map_Textures["CraftingSlotMuzzle"] = LoadTGA("CraftingSlotMuzzle");
 	m_map_Textures["CraftingSlotScope"] = LoadTGA("CraftingSlotScope");
@@ -159,6 +160,8 @@ void DataContainer::InitMeshes()
 		->AddTexture("snowtree", BiomeComponent::BIOME_SNOW);
 
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateOBJ("gun")->AddTexture("Revolver");
+
+	m_map_Meshes["Bullet"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("Bullet");
 
 	m_map_Meshes["Grenade"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
@@ -219,8 +222,8 @@ void DataContainer::InitGO()
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
-	go->TRANS->SetScale(0.5f);
-	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->TRANS->SetScale(0.3f);
+	go->AddComponent(new RenderComponent(GetMesh("Bullet")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.005f);
 	go->RIGID->SetMat(0.9f, 1);
@@ -299,14 +302,14 @@ void DataContainer::InitGO()
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Melee));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Melee, Stats(150, 0, 100, 0, 80, 15, 2000, 10)));
 	go->AddComponent(new LootScript());
 	// Range-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Ranged"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(90, 0, 100, 0, 80, 25, 2000, 15)));
 	go2 = GetGameObject("Gun");
 	go2->TRANS->SetRelativeRotation(-90, 0, 1, 0);
 	go->AddChild(go2);
@@ -344,6 +347,7 @@ void DataContainer::InitGO()
 	m_map_GO["Bird"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("BirdBody")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
+	go->TRANS->SetScale(0.5f);
 	go->RIGID->LockYAxis(true);
 	go->AddComponent(new AIEntityScript(GetBehaviour("Bird"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 2)));
 	go->AddChild(GetGameObject("EnemyReticle"));
