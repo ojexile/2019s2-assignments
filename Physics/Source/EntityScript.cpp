@@ -5,7 +5,8 @@
 #include "Utility.h"
 
 EntityScript::EntityScript(Behaviour* Behaviour)
-	: m_Behaviour(Behaviour)
+	: m_Behaviour(Behaviour),
+	m_SW()
 {
 	if (m_Behaviour)
 		m_Behaviour->Init(this);
@@ -165,7 +166,7 @@ void EntityScript::Jump()
 	{
 		rb->SetVel(Vector3(rb->GetVel().x, 40 / rb->GetMass(), rb->GetVel().z));
 		m_bCanJump = false;
-		if (GetComponent<PlayerScript>() == nullptr)
+		if (GetComponent<PlayerScript>() != nullptr)
 		{
 			Notify("Jump");
 		}

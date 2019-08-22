@@ -166,7 +166,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
-	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 36, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
+	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR,12, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
 
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
@@ -199,7 +199,7 @@ void DefaultScene::Init()
 	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 
 	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
-	//go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);
+	//go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);saaaaedwssssssssssss
 	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	//go->TRANS->SetPosition(20, 18.5, 20);
 
@@ -208,6 +208,9 @@ void DefaultScene::Init()
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("boulder"));
 	go->TRANS->SetPosition(10, 19, 20);
+
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("fliprock"));
+	go->TRANS->SetPosition(0, 19, 20);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("ItemInfo"));
 	go->TRANS->SetPosition(0, 16, 0);

@@ -149,6 +149,7 @@
     <ClCompile Include="Source\HealthAugment.cpp" />
     <ClCompile Include="Source\ReloadingAugment.cpp" />
     <ClCompile Include="Source\BlackHoleAugment.cpp" />
+    <ClCompile Include="Source\ScalePatternScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -328,6 +329,7 @@
     <ClInclude Include="Source\BossShockwaveState.h" />
     <ClInclude Include="Source\SuicideNoteScript.h" />
     <ClInclude Include="Source\BirdWingScript.h" />
+    <ClInclude Include="Source\ScalePatternScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />
