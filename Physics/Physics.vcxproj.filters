@@ -309,7 +309,7 @@
     <ClInclude Include="Source\AIEntityScript.h" />
     <ClInclude Include="Source\RangedState.h" />
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
-    <ClInclude Include="Source\Entity_Library.h" />
+    <ClInclude Include="Source\EntityLibrary.h" />
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\Augment.h" />
     <ClInclude Include="Source\ExplodeAugment.h" />
@@ -322,7 +322,6 @@
     <ClInclude Include="Source\SuicideNoteScript.h" />
     <ClInclude Include="Source\BirdWingScript.h" />
     <ClInclude Include="Source\ScalePatternScript.h" />
-    <ClInclude Include="Source\EntityLibrary.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />
