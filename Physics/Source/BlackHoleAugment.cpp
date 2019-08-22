@@ -22,7 +22,7 @@ void BlackHoleAugment::ActiveEffect(Component* proj, GameObject* go)
 	proj->TRANS->SetScale(2.);
 	proj->RIGID->SetVel(Vector3(0, 0, 0));
 	
-	proj->GetComponent<Blackhole>()->SetActive(true);
+	proj->GetComponent<BlackholeScript>()->SetActive(true);
 
 	proj->PROJECTILE->SetLifespan(5.f);
 	proj->PROJECTILE->SetDamage(5.f);
@@ -30,6 +30,6 @@ void BlackHoleAugment::ActiveEffect(Component* proj, GameObject* go)
 
 void BlackHoleAugment::PassiveEffect(GameObject* go)
 {
-	go->AddComponent(new Blackhole(go->RIGID->GetMass(), 5));
-	go->GetComponent<Blackhole>()->SetActive(false);
+	go->AddComponent(new BlackholeScript(go->RIGID->GetMass(), 5));
+	go->GetComponent<BlackholeScript>()->SetActive(false);
 }
