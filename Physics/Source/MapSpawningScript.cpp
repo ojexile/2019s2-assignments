@@ -65,6 +65,22 @@ const char* RandomChunk()
 	return GetChunkByID(Math::RandIntMinMax(0, 16));
 }
 
+float PolyLerp1D(float x0, float fx0, float x1, float fx1, float k)
+{
+	return Lerp(fx0, fx1, (k - x0) / (x1 - x0));
+}
+float BiLerp2D(float x0y0, float x0y1, float x1y0, float x1y1, float x, float y)
+{
+	return Lerp(Lerp(x0y0, x0y1, y), Lerp(x1y0, x1y1, y), x);
+}
+float Mod(float x, float b)
+{
+	return x - floor(x / b) * b;
+}
+int Mod(int x, int b)
+{
+	return (x % b + b) % b;
+}
 bool IsCompatible(unsigned short k, unsigned short l)
 {
 	if (k < l)
@@ -159,28 +175,23 @@ void MapSpawningScript::Update(double dt)
 					m_connections[Vector3(offsetX + xDiff - 1, 0, offsetZ + zDiff)][2] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 0); // 2 = +x
 					m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff - 1)][3] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 1); // 3 = +z (from centre of chunk)
 				}
-			chunk->GetEvent()->GenerateEvent(GOM, chunk, go->TRANS->GetPosition());
-			chunk->GetEvent()->GenerateEntities(chunk, go->GetComponent<BiomeComponent>()->GetBiomeType());
+			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
+				for(int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
+				{
+					Vector3 noise = GetNoiseAt(Vector3((offsetX + xDiff)/4, 0, (offsetZ + zDiff)/4)) * 2;
+					noise.y = 0;
+					if (floor(noise.x) == Mod(offsetX + xDiff, 4))
+						if (floor(noise.z) == Mod(offsetZ + zDiff, 4))
+						{
+							chunk->GetEvent()->GenerateEvent(GOM, chunk, go->TRANS->GetPosition());
+							chunk->GetEvent()->GenerateEntities(chunk, go->GetComponent<BiomeComponent>()->GetBiomeType());
+						}
+
+				}
 		}
 	}
 }
 
-float PolyLerp1D(float x0, float fx0, float x1, float fx1, float k)
-{
-	return Lerp(fx0, fx1, (k - x0) / (x1 - x0));
-}
-float BiLerp2D(float x0y0, float x0y1, float x1y0, float x1y1, float x, float y)
-{
-	return Lerp(Lerp(x0y0, x0y1, y), Lerp(x1y0, x1y1, y), x);
-}
-float Mod(float x, float b)
-{
-	return x - floor(x / b) * b;
-}
-int Mod(int x, int b)
-{
-	return (x % b + b) % b;
-}
 Vector3 MapSpawningScript::GetNoiseAt(Vector3 v)
 {
 	Vector3 biomeWeights;
