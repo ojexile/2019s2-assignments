@@ -34,6 +34,14 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 	//Cam->UpdateYawPitchMouse((float)xpos, (float)ypos);
 }
+void RenderingManager::RenderQueued(Scene* scene)
+{
+	for (GameObject* go : RenderQueue)
+	{
+		RenderGameObject(go, scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition(), false, false);
+	}
+	RenderQueue.clear();
+}
 void RenderingManager::SetMouseCallback(GLFWwindow* window)
 {
 	glfwSetCursorPosCallback(window, mouse_callback);
@@ -57,6 +65,7 @@ void RenderingManager::Render(Scene* scene)
 	//******************************* MAIN RENDER PASS
 	//************************************
 	RenderPassMain(scene);
+	RenderQueued(scene);
 }
 void RenderingManager::RenderPassGPass(Scene* scene)
 {
@@ -267,7 +276,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 		RenderGameObject(go, vCamPos, true);
 	}
 }
-void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI)
+void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI, bool first)
 {
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent)
@@ -322,7 +331,26 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 		if (!bIsUI)
 		{
 			if (CurrentMesh)
-				RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+			{
+				if (!renderComponent->IsText())
+				{
+					RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+				}
+				else
+				{
+					if (!renderComponent->IsTextOnScreen())
+					{
+						if (first)
+							RenderQueue.push_back(go);
+						else
+							RenderText(renderComponent);
+					}
+					else
+					{
+						DEFAULT_LOG("Oof find haocheng plox");
+					}
+				}
+			}
 
 			else if (AnimatedMesh)
 				RenderAnimatedMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
@@ -337,7 +365,12 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 			else
 			{
 				if (!renderComponent->IsTextOnScreen())
-					RenderText(renderComponent);
+				{
+					if (first)
+						RenderQueue.push_back(go);
+					else
+						RenderText(renderComponent);
+				}
 				else
 					RenderTextOnScreen(renderComponent, renderComponent->GetText(), { renderComponent->GetMaterial().kAmbient.r,renderComponent->GetMaterial().kAmbient.g,renderComponent->GetMaterial().kAmbient.b },
 						vGameObjectPosition.z, vGameObjectPosition.x, vGameObjectPosition.y);

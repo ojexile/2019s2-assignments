@@ -232,7 +232,7 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["particlerockbreak"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlerockbreak")));
-	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
+	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);ic
 	go->GetComponent<RenderComponent>()->SetBillboard(true);
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
@@ -250,9 +250,11 @@ void DataContainer::InitGO()
 	go2 = new GameObject;
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("Text"), "Item Infomation", false));
+	go2->TRANS->SetRelativeScale(0.5f);
 	go2 = new GameObject;
+	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("Quad")));
-	go2->TRANS->SetScale(5, 5, 5);
+	go2->TRANS->SetRelativeScale({ 5, 10, 5 });
 	go2->RENDER->Set3DBillboard(true);
 
 	//Bullet--------------------------------------------------------------------------------
