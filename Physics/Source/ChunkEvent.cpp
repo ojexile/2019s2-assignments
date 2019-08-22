@@ -23,7 +23,7 @@ void ChunkEvent::SetEntityRef(GameObject* go)
 void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref, Vector3 Chunk_Pos)
 {
 	unsigned int chance = Math::RandIntMinMax(0, 9);
-	if (chance > 6)
+	if (chance > 5)
 		m_eventType = NIL;
 	else
 		m_eventType = static_cast<EVENT_TYPE>(Math::RandIntMinMax(NIL, LOOT_AND_ENEMIES));
@@ -161,11 +161,32 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 	}
 }
 
-void ChunkEvent::GenerateEntities(ChunkData* chunk_ref, BiomeComponent::eBiomeTypes type)
+void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_ref, Vector3 Chunk_Pos, BiomeComponent::eBiomeTypes type)
 {
-	switch (type)
+	const unsigned int SPAWNCOUNT = Math::RandIntMinMax(2, 4);
+	Vector3 size = chunk_ref->GetSize();
+	Entity_Library* EL = Entity_Library::GetInstance();
+
+	for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
 	{
-	default:
-		break;
+		float x = Math::RandFloatMinMax(0.f, size.x);
+		float z = Math::RandFloatMinMax(0.f, size.z);
+		Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+
+		int selectedEntity = Math::RandIntMinMax(Entity_Library::FISH, Entity_Library::NUM_ENTITIES - 1);
+
+		GameObject* newEntity = EL->GetEntityArray()[selectedEntity]->Clone();
+
+		newEntity->TRANS->SetPosition(pos);
+		newEntity->SetDisableDistance(100.f);
+		newEntity->RENDER->SetRenderDistance(100.f);
+
+		GOM_ref->AddGameObject(newEntity);
 	}
+
+	//switch (type)
+	//{
+	//default:
+	//	break;
+	//}
 }
