@@ -22,11 +22,7 @@ void ChunkEvent::SetEntityRef(GameObject* go)
 
 void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref, Vector3 Chunk_Pos)
 {
-	unsigned int chance = Math::RandIntMinMax(0, 9);
-	if (chance > 6)
-		m_eventType = NIL;
-	else
-		m_eventType = static_cast<EVENT_TYPE>(Math::RandIntMinMax(NIL, LOOT_AND_ENEMIES));
+	m_eventType = static_cast<EVENT_TYPE>(Math::RandIntMinMax(NIL, LOOT_AND_ENEMIES));
 	
 	Vector3 size = chunk_ref->GetSize();
 	Entity_Library* EL = Entity_Library::GetInstance();

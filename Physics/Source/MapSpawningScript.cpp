@@ -178,10 +178,10 @@ void MapSpawningScript::Update(double dt)
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 				for(int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
 				{
-					Vector3 noise = GetNoiseAt(Vector3((offsetX + xDiff)/4, 0, (offsetZ + zDiff)/4)) * 2;
+					Vector3 noise = GetNoiseAt(Vector3((offsetX + xDiff)/3, 0, (offsetZ + zDiff)/3)) * 1.5 + Vector3(1.5, 1.5, 1.5);
 					noise.y = 0;
-					if (floor(noise.x) == Mod(offsetX + xDiff, 4))
-						if (floor(noise.z) == Mod(offsetZ + zDiff, 4))
+					if (floor(noise.x) == Mod(offsetX + xDiff, 3))
+						if (floor(noise.z) == Mod(offsetZ + zDiff, 3))
 						{
 							chunk->GetEvent()->GenerateEvent(GOM, chunk, go->TRANS->GetPosition());
 							chunk->GetEvent()->GenerateEntities(chunk, go->GetComponent<BiomeComponent>()->GetBiomeType());
