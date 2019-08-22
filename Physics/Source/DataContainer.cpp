@@ -107,7 +107,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["mesa"] = LoadTGA("mesa");
 	m_map_Textures["Ball"] = LoadTGA("Ball");
 
-	m_map_Textures["Revolver"] = LoadTGA("revolver");
+	m_map_Textures["Rifle"] = LoadTGA("rifle");
 	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
 	m_map_Textures["Bullet"] = LoadTGA("bullet");
 
@@ -159,7 +159,7 @@ void DataContainer::InitMeshes()
 		->AddTexture("plaintree", BiomeComponent::BIOME_PLAINS)
 		->AddTexture("snowtree", BiomeComponent::BIOME_SNOW);
 
-	m_map_Meshes["Gun"] = MeshBuilder::GenerateOBJ("gun")->AddTexture("Revolver");
+	m_map_Meshes["Gun"] = MeshBuilder::GenerateOBJ("rifle")->AddTexture("Rifle");
 
 	m_map_Meshes["Bullet"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("Bullet");
 

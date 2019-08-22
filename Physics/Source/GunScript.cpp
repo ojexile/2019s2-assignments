@@ -29,7 +29,7 @@ GunScript::~GunScript()
 
 void GunScript::PullTrigger(const Vector3& dir, const double deltaTime)
 {
-	if (!m_Projectile)
+	if (!m_Projectile || m_bIsReloading)
 		return;
 
 	if (m_iMagazineRounds > 0 && m_fBufferTime > m_fFirerate)
