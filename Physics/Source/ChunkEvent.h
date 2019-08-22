@@ -30,7 +30,7 @@ public:
 
 	void SetEntityRef(GameObject* go);
 
-	void GenerateEntities(ChunkData* chunk_ref, BiomeComponent::eBiomeTypes type);
+	void GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_ref, Vector3 Chunk_Pos, BiomeComponent::eBiomeTypes type);
 	void GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref, Vector3 Chunk_Pos);
 
 private:

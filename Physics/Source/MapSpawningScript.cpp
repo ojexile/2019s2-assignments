@@ -175,6 +175,7 @@ void MapSpawningScript::Update(double dt)
 					m_connections[Vector3(offsetX + xDiff - 1, 0, offsetZ + zDiff)][2] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 0); // 2 = +x
 					m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff - 1)][3] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 1); // 3 = +z (from centre of chunk)
 				}
+
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 				for(int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
 				{
@@ -184,7 +185,7 @@ void MapSpawningScript::Update(double dt)
 						if (floor(noise.z) == Mod(offsetZ + zDiff, 4))
 						{
 							chunk->GetEvent()->GenerateEvent(GOM, chunk, go->TRANS->GetPosition());
-							chunk->GetEvent()->GenerateEntities(chunk, go->GetComponent<BiomeComponent>()->GetBiomeType());
+							chunk->GetEvent()->GenerateEntities(GOM, chunk, go->TRANS->GetPosition(), go->GetComponent<BiomeComponent>()->GetBiomeType());
 						}
 
 				}
