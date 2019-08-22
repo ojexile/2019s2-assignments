@@ -19,7 +19,7 @@ void Entity_Library::Init()
 	m_EntityArray[FISH] = DO->GetGameObject("Fish");
 	m_EntityArray[COW] = DO->GetGameObject("Cow");
 	m_EntityArray[BIRD] = DO->GetGameObject("Bird");
-	m_EntityArray[COVER] = DO->GetGameObject("fliprock");
+	m_EntityArray[COVER] = DO->GetGameObject("Bird");
 	m_EntityArray[BOULDER] = DO->GetGameObject("boulder");
 
 	//Enemy Initialisation----------------------------------------------------

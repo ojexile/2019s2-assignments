@@ -433,7 +433,6 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["fliprock"] = go;
 	go->TRANS->SetScale(2.f, 1.f, 2.f);
-
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	//go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new InteractableObCom());
