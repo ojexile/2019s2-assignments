@@ -10,7 +10,7 @@ private:
 	float m_fMinTime;
 	float m_fMaxTime;
 public:
-	IdleState(float min = 0, float max = 2);
+	IdleState(float min = 0, float max = 0.1f);
 	virtual ~IdleState();
 
 	virtual State* HandleState(ComponentBase* com) override;

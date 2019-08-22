@@ -318,7 +318,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->TRANS->SetScale(3);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(200, 0, 100, 0, 80, 20, 2000, 16)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(500, 0, 100, 0, 80, 20, 2000, 16)));
 	go->AddComponent(new LootScript());
 	// Shockwave
 	go = new GameObject;
