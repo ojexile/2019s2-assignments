@@ -68,14 +68,17 @@ void AudioManager::Play3D(std::string filePath, Vector3 position)
 	filePath = Resources::Path::Audio + filePath;
 	engine->play3D(filePath.c_str(), irrklang::vec3df(position.x, position.y, position.z), false, false, false, irrklang::ESM_AUTO_DETECT, true);
 }
-void AudioManager::Play3D(std::string filePath, Vector3 position, float fVol)
+void AudioManager::Play3DWithCooldown(std::string filePath, Vector3 position, float cooldown)
 {
 	if (!engine)
 		return;
-	filePath = Resources::Path::Audio + filePath;
-	float fVolume = std::stof(Preferences::GetPref(Resources::PreferencesTerm::AudioVolume));
-	engine->setSoundVolume(fVol * fVolume);
-	engine->play3D(filePath.c_str(), irrklang::vec3df(position.x, position.y, position.z), false, false, false, irrklang::ESM_AUTO_DETECT, true);
+	if (m_cooldowns.count(filePath) == 0 || m_cooldowns[filePath] < 0)
+	{
+		m_cooldowns[filePath] = cooldown;
+		filePath = Resources::Path::Audio + filePath;
+		float fVolume = std::stof(Preferences::GetPref(Resources::PreferencesTerm::AudioVolume));
+		engine->play3D(filePath.c_str(), irrklang::vec3df(position.x, position.y, position.z), false, false, false, irrklang::ESM_AUTO_DETECT, true);
+	}
 }
 void AudioManager::UpdateListener(Vector3 p, Vector3 l)
 {
@@ -104,4 +107,6 @@ void AudioManager::UpdateFading(double dt)
 			break;
 		}
 	}
+	for (auto it = m_cooldowns.begin(); it != m_cooldowns.end(); ++it)
+		it->second += dt;
 }

@@ -6,4 +6,5 @@ namespace AIStatesList
 	extern FleeState Flee = FleeState();
 	extern WanderState Wander = WanderState();
 	extern IdleState Idle = IdleState();
+	extern RangedState Ranged = RangedState();
 }

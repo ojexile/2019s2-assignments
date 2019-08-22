@@ -1,31 +1,31 @@
 #pragma once
 #include "ParticleSpawnerScript.h"
-
 /*
-author: lorenzo yanga
-desc: ParticleSpawnerScript with more variables passed to
+author; lorenzo sayo yanga
+desc; particlespawner child class to support 1) one-time triggers, 2) defined spawning patterns
 */
+
 class AdvancedParticleSpawnerScript : public ParticleSpawnerScript
 {
-private:
-	//GameObject* m_ParticleRef;
-	//const float m_fSpawnRate;
-	//const Vector3 m_vSpawnRadius;
-	//const float m_fSizeOffset;
-	const float m_fParticleLifetimeOffset;
+public:
+	enum eSpawnerType
+	{
+		SPEW, // spit out at random directions
+		CIRCULAR, // spawns multiple particles spawned all on the same y-plane, going outwards in all diff. directions
+	};
 
-	const Vector3 m_vSpawnDirection;
-	const Vector3 m_vSpawnDirectionOffset;
-	const float m_fSpawnSpeed;
-	const float m_vAccelOffset;
-	const float m_fSpawnSpeedOffset;
-	 
-	const Vector3 m_vSpeedOffset;
-	const float m_fRotateOffset;
-	
-	/// spawner parameters
-	//const float m_fLifeTime;
-	//float m_fCurrentTime;
-	//float m_fCurrentLifeTime;
-	//std::string m_sLayer;
+private:
+	int m_iSpawnCount;
+	eSpawnerType m_spawnerType;
+
+	bool m_bOneTimeTrigger;
+	bool m_Triggered;
+public:
+	AdvancedParticleSpawnerScript(eSpawnerType type, int spawncount, bool isonetimetrigger, GameObject* refobj, float spawnrate, Vector3 spawnradius, const float fsizeoffset,  std::string layer = "Default", float flifeftime = -1.f);
+	~AdvancedParticleSpawnerScript();
+
+	virtual Component* Clone() { return new AdvancedParticleSpawnerScript(*this); }
+	virtual void Update(double dt);
+	void Trigger();
+	void ResetTrigger(); // if you want to use this multiple times
 };

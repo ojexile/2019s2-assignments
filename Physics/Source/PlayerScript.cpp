@@ -4,7 +4,7 @@
 #include "Rigidbody.h"
 #include "InputManager.h"
 #include "CameraScript.h"
-#include "WeaponScript.h"
+#include "GunScript.h"
 #include "MiscellaneousPartScript.h"
 #include "GrenadeScript.h"
 #include "InventoryScript.h"
@@ -23,13 +23,10 @@ void PlayerScript::Start()
 {
 	GetCameraGO()->GetComponent<CameraComponent>()->SetMouseUseFloatYaw(false);
 }
-void PlayerScript::SetCanJump(bool b)
-{
-	m_bCanJump = b;
-}
 void PlayerScript::Update(double dt)
 {
 	EntityScript::Update(dt);
+	UpdateBehaviour();
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	AudioManager::GetInstance()->UpdateFading(dt);
 	// Movement================================================================================
@@ -48,41 +45,41 @@ void PlayerScript::UpdateMovement(double dt)
 	Vector3 pos = trans->GetPosition();
 
 	Rigidbody* rb = GetComponent<Rigidbody>();
-	// Movement
-	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
-	{
-		//rb->AddForce(vPlayerFront  *m_fAccel);
-		bMoved = true;
-		Move(CameraScript::GetFront());
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
-	{
-		//rb->AddForce(vPlayerFront  * -m_fAccel);
-		bMoved = true;
-		Move(-CameraScript::GetFront());
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
-	{
-		//rb->AddForce(vRight  * -m_fAccel);
-		bMoved = true;
-		Move(-CameraScript::GetRight());
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
-	{
-		//rb->AddForce(vRight  * m_fAccel);
-		bMoved = true;
-		Move(CameraScript::GetRight());
-	}
-	if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
-	{
-		if (m_bCanJump)
-		{
-			rb->AddForce({ 0,m_fJumpForce,0 });
-			rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
-			Notify("Jump");
-			m_bCanJump = false;
-		}
-	}
+	//// Movement
+	//if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
+	//{
+	//	//rb->AddForce(vPlayerFront  *m_fAccel);
+	//	bMoved = true;
+	//	Move(CameraScript::GetFront());
+	//}
+	//if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
+	//{
+	//	//rb->AddForce(vPlayerFront  * -m_fAccel);
+	//	bMoved = true;
+	//	Move(-CameraScript::GetFront());
+	//}
+	//if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
+	//{
+	//	//rb->AddForce(vRight  * -m_fAccel);
+	//	bMoved = true;
+	//	Move(-CameraScript::GetRight());
+	//}
+	//if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
+	//{
+	//	//rb->AddForce(vRight  * m_fAccel);
+	//	bMoved = true;
+	//	Move(CameraScript::GetRight());
+	//}
+	//if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
+	//{
+	//	//if (m_bCanJump)
+	//	//{
+	//	//	m_bCanJump = false;
+	//	//	rb->AddForce({ 0,m_fJumpForce,0 });
+	//	//	rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
+	//	//	Notify("Jump");
+	//	//}
+	//}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerInteract") != 0)
 	{
 		Notify("Interact");
@@ -118,6 +115,9 @@ void PlayerScript::UpdateMovement(double dt)
 	{
 		m_Gun->GUN->ReleaseTrigger();
 	}
+
+	if (InputManager::GetInstance()->GetInputStrength("Reload"))
+		m_Gun->GUN->ReloadWeapon();
 
 	if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
 	{

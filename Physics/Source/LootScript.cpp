@@ -82,7 +82,7 @@ MiscellaneousPartScript* LootScript::GenerateMiscPart(void)
 	{
 	case STAMINA:
 	{
-
+		m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Stamina"));
 		return new StaminaRegenPart(SpreadDebuff, FireRateDebuff, MaxMagazineDebuff, MaxAmmoDebuff, Durability);
 	}
 	default:

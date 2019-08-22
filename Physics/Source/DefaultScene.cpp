@@ -10,11 +10,12 @@
 #include "CameraScript.h"
 #include "MapSpawningScript.h"
 #include "InventoryScript.h"
-#include "WeaponScript.h"
+#include "GunScript.h"
 #include "PlayerStatsScript.h"
 #include "MiscellaneousPartScript.h"
 #include "ReticleScript.h"
 #include "ParticleObserver.h"
+#include "AdvancedParticleSpawnerScript.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -42,7 +43,6 @@ void DefaultScene::Init()
 	/// Layers================================================================================
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
-
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	go->TRANS->SetPosition(1920 - 40, 1080 - 20, 25);
 	/// Inventory--------------------------------------------------------------------------------
@@ -80,19 +80,26 @@ void DefaultScene::Init()
 	float fCustoDist = 100;
 	//
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
-	go->TRANS->SetPosition(CustoPos - Vector3(-fCustoDist, 0, 0));
+	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0));
+	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotMuzzle"));
+	CustoSlots.push_back(go);
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Muzzle", true));
+	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0) + Vector3(-50, 20, 16));
+	//
+	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
+	go->TRANS->SetPosition(CustoPos + Vector3(0, fCustoDist, 0));
+	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotScope"));
+	CustoSlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
+	go->TRANS->SetPosition(CustoPos + Vector3(fCustoDist, 0, 0));
+	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotStock"));
 	CustoSlots.push_back(go);
 	//
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos - Vector3(0, fCustoDist, 0));
-	CustoSlots.push_back(go);
-	//
-	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
-	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0));
-	CustoSlots.push_back(go);
-	//
-	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
-	go->TRANS->SetPosition(CustoPos - Vector3(0, -fCustoDist, 0));
+	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotClip"));
 	CustoSlots.push_back(go);
 	// Stamina--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
@@ -100,23 +107,22 @@ void DefaultScene::Init()
 	go->TRANS->SetScale(200, 50, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
-
+	//
 	GameObject* StaminaBar = m_GOM.AddGameObject("UI");
 	StaminaBar->TRANS->SetPosition(50, 50, 0);
 	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	StaminaBar->RENDER->SetColor(1, 1, 0);
-
+	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 1030, 0);
 	go->TRANS->SetScale(200, 50, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
-
+	//
 	GameObject* HealthBar = m_GOM.AddGameObject("UI");
 	HealthBar->TRANS->SetPosition(50, 1030, 0);
 	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
-
 	/// Player================================================================================
 	// Reticle
 	GameObject* ret = m_GOM.AddGameObject();
@@ -126,7 +132,23 @@ void DefaultScene::Init()
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 1, 1);
-	Gun->TRANS->SetRelativeRotation(25, Vector3(0,1,0));
+	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
+
+	////TMP
+	//GameObject* muz = dataContainer->GetGameObject("Muzzle");
+	//muz->PART->SetDurability(10000.f);
+	//Gun->AddChild(muz);
+	//Gun->GUN->EquipPart(muz, PartScript::SLOT_TYPE::MUZZLE);
+
+	//muz = dataContainer->GetGameObject("Muzzle");
+	//muz->PART->SetDurability(1.f);
+	//Gun->AddChild(muz);
+	//Gun->GUN->EquipPart(muz, PartScript::SLOT_TYPE::MUZZLE);
+
+	//muz = dataContainer->GetGameObject("Muzzle");
+	//muz->PART->SetDurability(5.f);
+	//Gun->AddChild(muz);
+	//Gun->GUN->EquipPart(muz, PartScript::SLOT_TYPE::MUZZLE);
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
@@ -142,6 +164,8 @@ void DefaultScene::Init()
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
 	Player->AddComponent(new MapSpawningScript());
+	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR,12, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
+
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
@@ -157,11 +181,11 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Cow"));
-	go->TRANS->SetPosition(5, 18.5f, 0);
-	// --
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Cow"));
-	go->TRANS->SetPosition(20, 18.5f, 26);
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
+	//go->TRANS->SetPosition(5, 18.5f, 0);
+	//// --
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Melee"));
+	//go->TRANS->SetPosition(20, 18.5f, 26);
 	///interactable test
 
 	//go = m_GOM.AddGameObject();
@@ -170,7 +194,7 @@ void DefaultScene::Init()
 	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 
 	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
-	//go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);
+	//go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);saaaaedwssssssssssss
 	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	//go->TRANS->SetPosition(20, 18.5, 20);
 
@@ -179,6 +203,9 @@ void DefaultScene::Init()
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("boulder"));
 	go->TRANS->SetPosition(10, 19, 20);
+
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("fliprock"));
+	go->TRANS->SetPosition(0, 19, 20);
 
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("ItemInfo"));
 	go->TRANS->SetPosition(0, 16, 0);

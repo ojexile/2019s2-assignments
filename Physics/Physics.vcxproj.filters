@@ -90,7 +90,6 @@
     <ClCompile Include="Source\BiomeComponent.cpp" />
     <ClCompile Include="Source\MeshBiomed.cpp" />
     <ClCompile Include="Source\PartScript.cpp" />
-    <ClCompile Include="Source\WeaponScript.cpp" />
     <ClCompile Include="Source\ProjectileScript.cpp" />
     <ClCompile Include="Source\SprintingState.cpp" />
     <ClCompile Include="Source\TopDownState.cpp" />
@@ -139,6 +138,12 @@
     <ClCompile Include="Source\FlipEntityScript.cpp" />
     <ClCompile Include="Source\SpawnLootScript.cpp" />
     <ClCompile Include="Source\DebrisSpawningScript.cpp" />
+    <ClCompile Include="Source\AIEntityScript.cpp" />
+    <ClCompile Include="Source\RangedState.cpp" />
+    <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
+    <ClCompile Include="Source\Entity_Library.cpp" />
+    <ClCompile Include="Source\GunScript.cpp" />
+    <ClCompile Include="Source\ScalePatternScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AnimatedMesh.h" />
@@ -204,7 +209,6 @@
     <ClInclude Include="Source\StopWatch.h" />
     <ClInclude Include="Source\EntityScript.h" />
     <ClInclude Include="Source\PartScript.h" />
-    <ClInclude Include="Source\WeaponScript.h" />
     <ClInclude Include="Source\ProjectileScript.h" />
     <ClInclude Include="Source\SprintingState.h" />
     <ClInclude Include="Source\TopDownState.h" />
@@ -254,7 +258,12 @@
     <ClInclude Include="Source\InteractionBaseScript.h" />
     <ClInclude Include="Source\SpawnLootScript.h" />
     <ClInclude Include="Source\DebrisSpawningScript.h" />
+    <ClInclude Include="Source\AIEntityScript.h" />
+    <ClInclude Include="Source\RangedState.h" />
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
+    <ClInclude Include="Source\Entity_Library.h" />
+    <ClInclude Include="Source\GunScript.h" />
+    <ClInclude Include="Source\ScalePatternScript.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

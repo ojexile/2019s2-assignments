@@ -2,6 +2,8 @@
 #include "State.h"
 #include "GameObject.h"
 
+#define AI com->GetComponent<AIEntityScript>()
+
 class AIState :
 	public State
 {

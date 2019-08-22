@@ -35,4 +35,8 @@ public:
 	void SetRot(Vector3);
 	// virtual void Start();
 	virtual void Update(double dt) override;
+
+	Vector3 GetVel();
+	void SetVel(Vector3);
+
 };
