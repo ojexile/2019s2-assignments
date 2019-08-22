@@ -9,6 +9,8 @@
 #include "ChunkData.h"
 #include  "ChunkCollider.h"
 #include "GameObjectManager.h"
+#include "WeaponPartScript.h"
+
 ReticleScript::ReticleScript()
 {
 }
@@ -40,6 +42,8 @@ void ReticleScript::Update(double dt)
 	std::vector<GameObject*> ChunkList;
 	float fDist = 64 * 64;
 	std::vector<GameObject*>* GOList = GOM->GetLayerList()->at("Default")->GetGOList();
+	GameObject* PartFound = nullptr;
+	float PartDistSqrd = -1;
 	for (unsigned i = 0; i < GOList->size(); ++i)
 	{
 		GameObject* go = GOList->at(i);
@@ -55,12 +59,40 @@ void ReticleScript::Update(double dt)
 			{
 				ChunkList.push_back(go);
 			}
+			continue;
+		}
+		WeaponPartScript* wp = go->GetComponent<WeaponPartScript>();
+		if (wp)
+		{
+			float maxPartDist = 1;
+			Vector3 PartPos = wp->TRANS->GetPosition();
+			Vector3 Pos = GetPosition();
+			// dist check
+			float fCurrentPartDistSqrd = (Pos - PartPos).LengthSquared();
+			if (fCurrentPartDistSqrd < maxPartDist)
+			{
+				if (!PartFound)
+				{
+					PartFound = go;
+					PartDistSqrd = fCurrentPartDistSqrd;
+				}
+				else if (fCurrentPartDistSqrd < PartDistSqrd)
+				{
+					PartFound = go;
+					PartDistSqrd = fCurrentPartDistSqrd;
+				}
+			}
+			continue;
 		}
 	}
+	GetChild(0)->SetActive(PartFound);
+	GetChild(1)->SetActive(PartFound);
 	Vector3 Dir = RenderingManager::MouseWorldDir();
 	Vector3 StartPos = GetCameraGO()->TRANS->GetPosition();
 	float Offset = 1.73205f; // diag of cube
 	int SmallestDist = 101;
+	ChunkData* CollidedChunk = nullptr;
+	GameObject* CollideGo = nullptr;
 	for (unsigned j = 0; j < ChunkList.size(); ++j)
 	{
 		GameObject* go = ChunkList.at(j);
@@ -71,13 +103,26 @@ void ReticleScript::Update(double dt)
 			if (chunk->IsSolid(Pos - go->TRANS->GetPosition()))
 			{
 				if (i < SmallestDist)
+				{
+					CollidedChunk = chunk;
 					SmallestDist = i;
+					CollideGo = go;
+				}
 			}
 		}
 	}
+	Vector3 InsidePos = StartPos + Offset * Dir * (float)(SmallestDist - 1);
 	if (SmallestDist < 101)
 	{
-		TRANS->SetPosition(StartPos + Offset * Dir * (float)(SmallestDist - 1));
-		// CHENG_LOG("Collide Chunk");
+		float fOffset = 0.1f;
+		for (int i = 0; i < 50; ++i)
+		{
+			Vector3 Pos = InsidePos + Offset * -Dir * (float)i;
+			if (!CollidedChunk->IsSolid(Pos - CollideGo->TRANS->GetPosition()))
+			{
+				TRANS->SetPosition(Pos);
+				break;
+			}
+		}
 	}
 }

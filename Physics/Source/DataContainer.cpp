@@ -250,6 +250,7 @@ void DataContainer::InitGO()
 	go2 = new GameObject;
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("Text"), "Item Infomation", false));
+	go2->TRANS->SetRelativePosition(0.5f, 4.5f, 0);
 	go2->TRANS->SetRelativeScale(0.5f);
 	go2 = new GameObject;
 	go->AddChild(go2);
