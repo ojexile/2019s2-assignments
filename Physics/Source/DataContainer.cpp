@@ -123,6 +123,8 @@ void DataContainer::InitTextures()
 
 	m_map_Textures["particleSquareBorder"] = LoadTGA("particleSquareBorder");
 	m_map_Textures["particleHexagon"] = LoadTGA("particleHexagon");
+	m_map_Textures["particleHexagonGrey"] = LoadTGA("particleHexagonGrey");
+
 }
 void DataContainer::InitMeshes()
 {
@@ -179,13 +181,16 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", {}, 1.f)->AddTexture("particleSquareBorder");
+	m_map_Meshes["particlerockbreak"] = MeshBuilder::GenerateQuad("rockbreak", {}, 1.f)->AddTexture("particleHexagonGrey");
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
 
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
 
-	m_map_Meshes["boulder"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("UIBullet");
+	m_map_Meshes["boulderball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("Boulder");
 
-	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("fliprock");
+	m_map_Meshes["boulder"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Boulder");
+
+	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Boulder");
 
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
 
@@ -209,6 +214,29 @@ void DataContainer::InitGO()
 {
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
+
+	go = new GameObject();
+	m_map_GO["particledestroy"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
+	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
+	go->GetComponent<RenderComponent>()->SetBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	//go->TRANS->SetScale(0.5f);
+	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+
+	go = new GameObject();
+	m_map_GO["particlerockbreak"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particlerockbreak")));
+	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
+	go->GetComponent<RenderComponent>()->SetBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+
 	///================================================================================
 	// Reticle--------------------------------------------------------------------------------
 	//go = new GameObject();
@@ -331,6 +359,8 @@ void DataContainer::InitGO()
 	go->RIGID->LockYAxis(true);
 	go->RIGID->SetMat(0.25f, 0);
 	go->AddComponent(new SuicideNoteScript(5.f));
+	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlerockbreak"), 10, Vector3(), 0));
+	//go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, go->TRANS->GetScale().x, 5.f));
 	// Animals--------------------------------------------------------------------------------
 	// Cow-----------------------------------------------------------------------------
 	go = new GameObject;
@@ -428,18 +458,19 @@ void DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["fliprockrender"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Cube")));
+	go->AddComponent(new RenderComponent(GetMesh("fliprock")));
 	//go->AddComponent(new InteractableObCom());
 	go = new GameObject();
 	m_map_GO["fliprock"] = go;
-	go->TRANS->SetScale(2.f, 1.f, 2.f);
+	go->TRANS->SetScale(1.f, 0.5f, 1.f);
+
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	//go->RIGID->SetMat(0.9f, 0);
 	go->AddComponent(new InteractableObCom());
 	go->AddComponent(new DestructibleEntityScript(""));
 	static_cast<FlipEntityScript*>(
 		go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particlerockbreak"], 100, Vector3(), 0.f, "Default", 10.f));
 
 	go->AddChild(GetGameObject("fliprockrender"));
 
@@ -462,7 +493,7 @@ void DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["boulder"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->AddComponent(new RenderComponent(GetMesh("boulderball")));
 	go->RENDER->SetColor({ 0.1f,0.1f,0.1f });
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMass(1000.f);
@@ -470,7 +501,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new DestructibleEntityScript("RockDied"));
 	//go->GetComponent<DestructibleEntityScript>()->GetBaseStats()->SetMaxHealth(1);
 	go->AddComponent(new DebrisSpawningScript("boulder2", 2, 2));
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particlerockbreak"], 100, Vector3(), 0.f, "Default", 10.f));
 
 	go = new GameObject();
 	m_map_GO["boulder2"] = go;
@@ -479,7 +510,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMass(10.f);
 	go->TRANS->SetScale(1.f);
-	go->AddComponent(new EntityScript());
+	go->AddComponent(new DestructibleEntityScript());
 }
 void  DataContainer::InitShaders()
 {
