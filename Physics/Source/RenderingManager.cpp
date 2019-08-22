@@ -1,4 +1,4 @@
-#include "RenderingManager.h"
+\#include "RenderingManager.h"
 #include "Application.h"
 #include "RenderComponent.h"
 #define VIEW_AS_LIGHT false
@@ -314,7 +314,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 		}
 		if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero() && !renderComponent->Is3DBillboard())
 			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-		if (vGameObjectScale.x <= 0 || vGameObjectScale.y <= 0 || vGameObjectScale.z <= 0)
+		if (vGameObjectScale.x <= 0.05f || vGameObjectScale.y <= 0.05 || vGameObjectScale.z <= 0.05)
 		{
 			return;
 		}
