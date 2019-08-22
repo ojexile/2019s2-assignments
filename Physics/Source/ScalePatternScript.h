@@ -28,7 +28,7 @@ private:
 
 public:
 	//ScalePatternScript();
-	ScalePatternScript(eScalePattern sp, float maxscale, float maxtime);
+	ScalePatternScript(eScalePattern sp, float maxscale, float maxtime, float offset = 0.f);
 	~ScalePatternScript();
 
 	virtual void Update(double dt);
