@@ -40,7 +40,7 @@ void DebrisSpawningScript::Trigger()
 	for (int i = 0; i <	 spawncount; i++)
 	{
 		auto go = Instantiate(DataContainer::GetInstance()->GetGameObject(m_sDebrisName));
-		go->RIGID->AddForce(Vector3(Math::RandFloatMinMax(-1000, 1000), Math::RandFloatMinMax(100, 1000), Math::RandFloatMinMax(-1000, 1000)));
+		go->RIGID->AddForce(Vector3(Math::RandFloatMinMax(2000,1000), Math::RandFloatMinMax(2000, 1000), Math::RandFloatMinMax(2000, 1000)));
 		Vector3 pos = this->TRANS->GetPosition();
 		go->TRANS->SetPosition(pos);
 	}

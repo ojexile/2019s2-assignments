@@ -5,7 +5,12 @@
 #include "ChunkEvent.h"
 
 #include "Utility.h"
-#define NCHUNKS 13
+
+#include <algorithm>
+#include <random>
+#include <array>
+
+#define NCHUNKS 16
 MapSpawningScript::MapSpawningScript()
 {
 	for (int i = 0; i < 4096; ++i)
@@ -29,6 +34,7 @@ MapSpawningScript::~MapSpawningScript()
 
 const char* GetChunkByID(int id)
 {
+	return "flat";
 	switch (id)
 	{
 	case 0:
@@ -40,6 +46,8 @@ const char* GetChunkByID(int id)
 		return "smallhouse";
 	case 4:
 		return "bazaar1";
+	case 13:
+		return "root";
 	case 5:
 		return "barline_3";
 	case 6:
@@ -117,10 +125,17 @@ void MapSpawningScript::Update(double dt)
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	Vector3 v = GetComponent<TransformComponent>()->GetPosition();
-	for (int x = 0; x <= 6; x = (x > 0 ? -x : -x + 1))
+	std::array<int, 7> orderX { -3, -2, -1, 0, 1, 2, 3 };
+	std::array<int, 7> orderZ { -3, -2, -1, 0, 1, 2, 3 };
+
+	std::shuffle(orderX.begin(), orderX.end(), std::default_random_engine(Math::RandIntMinMax(0, 100000)));
+	std::shuffle(orderZ.begin(), orderZ.end(), std::default_random_engine(Math::RandIntMinMax(0, 100000)));
+	for(auto it1 = orderX.begin(); it1 != orderX.end(); ++it1)
 	{
-		for (int z = 0; z <= 6; z = (z > 0 ? -z : -z + 1))
+		for (auto it2 = orderZ.begin(); it2 != orderZ.end(); ++it2)
 		{
+		int x = *it1;
+		int z = *it2;
 			int offsetX = floor(v.x / 16.f) + x;
 			int offsetZ = floor(v.z / 16.f) + z;
 			if (m_spawnedLocations.count(Vector3(offsetX, 0, offsetZ))) continue;

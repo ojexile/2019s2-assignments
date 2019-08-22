@@ -76,16 +76,16 @@ int DestructibleEntityScript::GetHealth()
 
 void DestructibleEntityScript::Damage(int damage)
 {
-		m_bDamageAnim = true;
+	m_SW.Start();
+	m_bDamageAnim = true;
 
-		auto childrenderer = RENDER;
-		if (childrenderer == nullptr)
-		{
-			if (GetChild(0) != nullptr)
-				GetChild(0)->RENDER->SetColor(50, 50, 50);
-		}
-		else
-			RENDER->SetColor(50, 50, 50);
-		m_SW.Start();
-		m_iHealth -= damage;
+	auto childrenderer = RENDER;
+	if (childrenderer == nullptr)
+	{
+		if (GetChild(0) != nullptr)
+			GetChild(0)->RENDER->SetColor(50, 50, 50);
+	}
+	else
+		RENDER->SetColor(50, 50, 50);
+	m_iHealth -= damage;
 }
