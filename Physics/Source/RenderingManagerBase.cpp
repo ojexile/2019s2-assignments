@@ -107,9 +107,9 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 	// Init fog================================================================================
 	Color fogColor{ 0.4f, 0.4f, 0.5f };
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
-	glUniform1f(m_parameters[U_FOG_START], 40);
+	glUniform1f(m_parameters[U_FOG_START], 12);
 	glUniform1f(m_parameters[U_FOG_END], 80);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 10.1f);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 0.07f);
 	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 

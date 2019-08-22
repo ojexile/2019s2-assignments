@@ -7,6 +7,8 @@ in vec3 vertexNormal_cameraspace;
 in vec2 texCoord;
 in vec2 blurVec;
 in vec4 shadowCoord;
+in vec4 clipCoord;
+in vec3 vertexPosition_modelspace_O;
 
 // Ouput data
 out vec4 color;
@@ -60,23 +62,7 @@ struct FogParam
 	bool enabled;	// Toggle fog
 };
 
-float getFogFactor(FogParam fog, float fogDistance)
-{
-	if(fog.enabled == false)
-		return 0.0;
 
-	float factor = 0.0;
-	if(fog.type == 0) 
-		factor = (fog.end - fogDistance) / (fog.end - fog.start); 
-	else if(fog.type == 1) 
-		factor = exp(- fog.density * fogDistance); 
-	else if(fog.type == 2) 
-		factor = exp(- pow(fog.density * fogDistance, 2.0) ); 
-       
-	factor = 1.0 - clamp(factor, 0.0, 1.0); 
-    
-	return factor;
-}
 float rand(float n){return fract(sin(n) * 43758.5453123);}
 
 float noise(float p){
@@ -103,6 +89,7 @@ uniform bool textEnabled;
 uniform vec3 textColor;
 uniform FogParam fogParam;
 uniform sampler2D shadowMap;
+uniform float frag_et;
 
 
 float random(vec3 seed, int i)
@@ -111,6 +98,7 @@ float random(vec3 seed, int i)
 	float dot_product = dot(seed4,vec4(12.9898,78.233,45.164,94.673));
 	return fract(sin(dot_product) * 43758.5453);
 }
+// old, used for first person
 float calcFlareVal()
 {
 	// Calc Flare Val
@@ -138,7 +126,32 @@ float getShadowEffect(){
 	} 
 	return max(0.5, visibility);
 } 
+float getFogFactor(FogParam fog, float fogDistance)
+{	
+	// factor info
+	// 0 FOG
+	// 1 NO FOG
+	if(fog.enabled == false)
+		return 0.0;
 
+	float factor = 0.0;
+	if(fog.type == 0) 
+		factor = (fog.end - fogDistance) / (fog.end - fog.start); 
+	else if(fog.type == 1) 
+		factor = exp(- fog.density * fogDistance); 
+	else if(fog.type == 2) 
+		factor = exp(- pow(fog.density * fogDistance, 2.0) ); 
+
+	// factor affected by height
+	factor = clamp(factor, 0.0, 1.0); 
+	factor += clamp((vertexPosition_modelspace_O.y - 16)/6,0,1.0);
+	factor += sin(0.8f * frag_et) / 8;
+
+	// inverse factor
+	factor = 1.0 - clamp(factor, 0.0, 1.0); 
+    
+	return factor;
+}
 void main(){
 	if(lightEnabled == true)
 	{
@@ -241,15 +254,17 @@ void main(){
 	if (color.a < .3f) discard;
 	if(fogParam.enabled && lightEnabled)
 	{
-		float fogAbDistance = abs(length(vertexPosition_cameraspace));
-		if(fogAbDistance >= fogParam.start + noise(vertexPosition_cameraspace.x) * 12)
+		vec3 Player_CameraSpace = vec3(0,0,-30);
+		vec3 campos = vertexPosition_cameraspace;
+		vec3 PlayerToVertex = vertexPosition_cameraspace - Player_CameraSpace;
+		campos.y = 0;
+		float fogAbDistance = length(PlayerToVertex);
+		float fStartNoise = noise(vertexPosition_modelspace_O.z + vertexPosition_modelspace_O.x) * 2 + sin(0.8f*frag_et + vertexPosition_modelspace_O.x);
+		if(fogAbDistance >= fogParam.start +fStartNoise )
 		{
 			float fogDistance = abs(fogAbDistance - fogParam.start);
 			float fogFactor = getFogFactor(fogParam, fogDistance);
 			color = mix(color, vec4(fogParam.color, 1), fogFactor);
 		}
 	}
-		vec3 lightColor = vec3(1,.9f,0.8f);
-		float flareVal = calcFlareVal();
-		color = mix(color, vec4(lightColor, 1), flareVal);
 }
