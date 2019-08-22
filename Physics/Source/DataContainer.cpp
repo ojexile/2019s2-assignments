@@ -351,9 +351,9 @@ void DataContainer::InitGO()
 	// Shockwave
 	go = new GameObject;
 	m_map_GO["Shockwave"] = go;
-	//go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(0.5f);
-	//go->RENDER->SetColor(1, 0, 0);
+	go->RENDER->SetColor(1, 0, 0);
 	go->AddComponent(new BlackholeScript(-0.01f, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->LockYAxis(true);
