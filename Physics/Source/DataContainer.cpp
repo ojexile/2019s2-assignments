@@ -88,11 +88,13 @@ void DataContainer::InitChunks()
 	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["barline_3"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["flat"] = new ChunkData("Content/chunks/2x2_flatland.chunk");
 }
 
 void DataContainer::InitTextures()
 {
-	m_map_Textures["Text"] = LoadTGA("calibri");
+	m_map_Textures["Text"] = LoadTGA("monoid");
+	m_map_Textures["T7Seg"] = LoadTGA("7seg");
 	m_map_Textures["Sky"] = LoadTGA("sky");
 	m_map_Textures["Cube"] = LoadTGA("Cube");
 	m_map_Textures["Dirt"] = LoadTGA("dirt");
@@ -134,6 +136,7 @@ void DataContainer::InitMeshes()
 	/// Meshes================================================================================
 	/// DO NOT REMOVE--------------------------------------------------------------------------------
 	m_map_Meshes["Text"] = MeshBuilder::GenerateText("text", 16, 16)->AddTexture("Text");
+	m_map_Meshes["T7Seg"] = MeshBuilder::GenerateText("text", 16, 16)->AddTexture("T7Seg");
 	//--------------------------------------------------------------------------------
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
 
@@ -298,11 +301,23 @@ void DataContainer::InitGO()
 
 	///================================================================================
 	// Reticle--------------------------------------------------------------------------------
-	//go = new GameObject();
-	//m_map_GO["Reticle"] = go;
-	//go->AddComponent(new RenderComponent(GetMesh("Reticle")));
-	//go->RENDER->SetColor(0, 1, 1);
-	//go->AddComponent(new ReticleScript);
+	go = new GameObject();
+	m_map_GO["Reticle"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Reticle")));
+	go->RENDER->SetColor(0, 1, 1);
+	go->AddComponent(new ReticleScript);
+	go->SetDisableDistance(1000);
+	go2 = new GameObject;
+	go->AddChild(go2);
+	go2->AddComponent(new RenderComponent(GetMesh("Text"), "Item Infomation", false));
+	go2->TRANS->SetRelativePosition(0.5f, 4.5f, 0);
+	go2->TRANS->SetRelativeScale(0.5f);
+	go2 = new GameObject;
+	go->AddChild(go2);
+	go2->AddComponent(new RenderComponent(GetMesh("Quad")));
+	go2->TRANS->SetRelativeScale({ 5, 10, 5 });
+	go2->RENDER->Set3DBillboard(true);
+
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
@@ -459,6 +474,7 @@ void DataContainer::InitGO()
 	// Fish-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Fish"] = go;
+	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(50, 0, 100, 0, 80, 20, 2000, 12)));
@@ -470,7 +486,7 @@ void DataContainer::InitGO()
 	m_map_GO["FPS"] = go;
 	go->AddComponent(new FPSScript);
 	go->TRANS->SetPosition(50, 10, 25);
-	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
+	go->AddComponent(new RenderComponent(GetMesh("T7Seg"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	go->SetDisableDistance(10000);
 	// InventorySlot--------------------------------------------------------------------------------
@@ -574,7 +590,7 @@ void DataContainer::InitGO()
 }
 void  DataContainer::InitShaders()
 {
-	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
+	m_map_Shaders["Default"] = LoadShaders("Flare", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 }
 void DataContainer::InitBehaviour()

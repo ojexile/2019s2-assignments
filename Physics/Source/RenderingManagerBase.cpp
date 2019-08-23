@@ -2,6 +2,8 @@
 #include "DataContainer.h"
 #include "Locator.h"
 #include "KeyboardManager.h"
+#include "Preferences.h"
+#include "Resources.h"
 
 #define FOG_ENABLED true
 
@@ -77,7 +79,8 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_SHADOW_COLOR_TEXTURE1] = glGetUniformLocation(m_gPassShaderID, "colorTexture[1]");
 	m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED2] = glGetUniformLocation(m_gPassShaderID, "colorTextureEnabled[2]");
 	m_parameters[U_SHADOW_COLOR_TEXTURE2] = glGetUniformLocation(m_gPassShaderID, "colorTexture[2]");
-
+	// extra--------------------------------------------------------------------------------
+	m_parameters[U_DIST_FROM_PLAYER] = glGetUniformLocation(m_programID, "distFromPlayer");
 	//--------------------------------------------------------------------------------
 	glUseProgram(m_programID);
 	BindLightUniforms();
@@ -105,12 +108,12 @@ void RenderingManagerBase::BindLightUniforms()
 void RenderingManagerBase::SetUniforms(Scene* scene)
 {
 	// Init fog================================================================================
-	Color fogColor{ 0.5f, 0.5f, 0.6f };
+	Color fogColor{ 0.4f, 0.4f, 0.5f };
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
-	glUniform1f(m_parameters[U_FOG_START], 30);
-	glUniform1f(m_parameters[U_FOG_END], 100000);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 0.01f);
-	glUniform1i(m_parameters[U_FOG_TYPE], 2);
+	glUniform1f(m_parameters[U_FOG_START], 12);
+	glUniform1f(m_parameters[U_FOG_END], 80);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 0.07f);
+	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 
 	// Shadows================================================================================
@@ -142,12 +145,14 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 		glUniform1f(m_LightParameters[U_LIGHT_COSINNER + (U_LIGHT_TOTAL * index)], L->cosInner);
 		glUniform1f(m_LightParameters[U_LIGHT_EXPONENT + (U_LIGHT_TOTAL * index)], L->exponent);
 	}
+	// extra--------------------------------------------------------------------------------
+	glUniform1f(m_parameters[U_DIST_FROM_PLAYER], std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist)));
 }
 
 void RenderingManagerBase::Init()
 {
 	// Black background
-	glClearColor(0.2f, 0.2f, 0.2f, 0.0f);
+	glClearColor(0.4f, 0.4f, 0.5f, 0.0f);
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
@@ -213,7 +218,7 @@ void RenderingManagerBase::RenderText(RenderComponent* rc)
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 1.0f, 0, 0); //1.0f is the spacing of each character, you may change this value
+		characterSpacing.SetToTranslation(i * 0.5f + 0.25f, 0.5f, 0);  //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 
@@ -224,7 +229,7 @@ void RenderingManagerBase::RenderText(RenderComponent* rc)
 	glEnable(GL_DEPTH_TEST);
 }
 
-void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string text, Color color, float size, float x, float y)
+void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string text, Color color, float size, float x, float y, int align)
 {
 	Mesh* mesh = rc->GetMesh();
 	if (!mesh || mesh->m_uTextureArray[0] <= 0)
@@ -239,7 +244,8 @@ void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string t
 	viewStack.LoadIdentity();
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity();
-	modelStack.Translate(x, y, 0);
+	modelStack.Translate(x - text.length() * 0.5f, y, 0);
+	modelStack.Translate(text.length() * 0.5f * align, 0, 0);
 	modelStack.Scale(size, size, size);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
@@ -251,7 +257,7 @@ void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string t
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 1.0f + 0.5f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
+		characterSpacing.SetToTranslation(i * 0.5f + 0.25f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 

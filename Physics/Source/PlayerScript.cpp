@@ -44,49 +44,16 @@ void PlayerScript::UpdateMovement(double dt)
 	Vector3 pos = trans->GetPosition();
 
 	Rigidbody* rb = GetComponent<Rigidbody>();
-	//// Movement
-	//if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") > 0)
-	//{
-	//	//rb->AddForce(vPlayerFront  *m_fAccel);
-	//	bMoved = true;
-	//	Move(CameraScript::GetFront());
-	//}
-	//if (InputManager::GetInstance()->GetInputStrength("PlayerMoveForwardBack") < 0)
-	//{
-	//	//rb->AddForce(vPlayerFront  * -m_fAccel);
-	//	bMoved = true;
-	//	Move(-CameraScript::GetFront());
-	//}
-	//if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") < 0)
-	//{
-	//	//rb->AddForce(vRight  * -m_fAccel);
-	//	bMoved = true;
-	//	Move(-CameraScript::GetRight());
-	//}
-	//if (InputManager::GetInstance()->GetInputStrength("PlayerMoveRightLeft") > 0)
-	//{
-	//	//rb->AddForce(vRight  * m_fAccel);
-	//	bMoved = true;
-	//	Move(CameraScript::GetRight());
-	//}
-	//if (InputManager::GetInstance()->GetInputStrength("PlayerJump") != 0)
-	//{
-	//	//if (m_bCanJump)
-	//	//{
-	//	//	m_bCanJump = false;
-	//	//	rb->AddForce({ 0,m_fJumpForce,0 });
-	//	//	rb->SetVel(Vector3(rb->GetVel().x, 0, rb->GetVel().z));
-	//	//	Notify("Jump");
-	//	//}
-	//}
 	if (InputManager::GetInstance()->GetInputStrength("PlayerInteract") != 0)
 	{
 		Notify("Interact");
 	}
 	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
-	Vector3 vDir2 = m_Reticle->TRANS->GetPosition() - GetPosition();
+	vDir.y += 1.f;
+	Vector3 vDirRaw = m_Reticle->TRANS->GetPosition() - GetPosition();
 	if (!vDir.IsZero())
 		vDir.Normalize();
+
 	// Rotate to dir
 	Vector3 PosDir = { 1,0,0 };
 	float angle = AngleBetween(vDir, PosDir); // player defaults to look at pos x
@@ -101,6 +68,8 @@ void PlayerScript::UpdateMovement(double dt)
 
 	//
 	Vector3 vGunDir = m_Reticle->TRANS->GetPosition() - m_Gun->TRANS->GetPosition();
+	vGunDir.y += 1.f;
+	CHENG_LOG("Dir: ", vtos(vGunDir));
 	if (!vGunDir.IsZero())
 	{
 		vGunDir.Normalize();
@@ -124,7 +93,7 @@ void PlayerScript::UpdateMovement(double dt)
 	}
 	else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
 	{
-		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDir2, m_Grenade, (float)dt);
+		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDirRaw, m_Grenade, (float)dt);
 	}
 
 	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
@@ -146,7 +115,7 @@ void PlayerScript::UpdateMovement(double dt)
 		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
 	}
 	// CHENG_LOG("Player pos: ", vtos(GetPosition()));
-	if (GetValues()->GetHealth() < 30)
+	if (GetValues()->GetHealth() < 120)
 	{
 		AudioManager::GetInstance()->QueueFade(0, 0.3, "low_piano");
 		AudioManager::GetInstance()->QueueFade(1, 0.3, "high_piano");

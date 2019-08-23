@@ -91,3 +91,13 @@ float AngleBetween(const Vector3 &a, const Vector3 &b)
 	float DAngle = Math::RadianToDegree(RAngle);
 	return DAngle;
 }
+
+float LerpAngle(float target, float current, float rate)
+{
+	float dtheta = target - current;
+	if (dtheta > 180)
+		current += 2 * 180;
+	else if (dtheta < -180) current -= 2 * 180;
+	current = Lerp(current, target, rate);
+	return current;
+}

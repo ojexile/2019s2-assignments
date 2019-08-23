@@ -104,7 +104,7 @@ void Engine::Update(double dt)
 			if (!go->IsActive())
 				continue;
 			StopWatch s(true);
-			go->Update(dt);
+			go->Update(min(dt, 0.1));
 			if (s.Stop()->GetTime() > 0.01f)
 				CHENG_LOG("GO update longer than 0.01s: ", STOP_S);
 			CheckGOForObserver(go, &GOObserverList);

@@ -5,7 +5,13 @@
 #include "ChunkEvent.h"
 
 #include "Utility.h"
-#define NCHUNKS 13
+
+#include <algorithm>
+#include <random>
+#include <array>
+
+#define NCHUNKS 16
+#define FLATMAP true
 MapSpawningScript::MapSpawningScript()
 {
 	for (int i = 0; i < 4096; ++i)
@@ -20,7 +26,6 @@ MapSpawningScript::MapSpawningScript()
 	m_biomeToVec3Mapping.emplace(Vector3(0, 1, 1), BiomeComponent::BIOME_VOID);
 	m_biomeToVec3Mapping.emplace(Vector3(-1, 0, 1), BiomeComponent::BIOME_CRIMSON);
 	m_biomeToVec3Mapping.emplace(Vector3(-1, -1, 1), BiomeComponent::BIOME_MONOCHROME);
-
 }
 
 MapSpawningScript::~MapSpawningScript()
@@ -29,6 +34,9 @@ MapSpawningScript::~MapSpawningScript()
 
 const char* GetChunkByID(int id)
 {
+#if FLATMAP
+	return "flat";
+#endif
 	switch (id)
 	{
 	case 0:
@@ -40,6 +48,8 @@ const char* GetChunkByID(int id)
 		return "smallhouse";
 	case 4:
 		return "bazaar1";
+	case 13:
+		return "flat";
 	case 5:
 		return "barline_3";
 	case 6:
@@ -117,10 +127,17 @@ void MapSpawningScript::Update(double dt)
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	Vector3 v = GetComponent<TransformComponent>()->GetPosition();
-	for (int x = 0; x <= 6; x = (x > 0 ? -x : -x + 1))
+	std::array<int, 31> orderX {-15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3 , 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+	std::array<int, 31> orderZ { -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3 , 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+
+	std::shuffle(orderX.begin(), orderX.end(), std::default_random_engine(Math::RandIntMinMax(0, 100000)));
+	std::shuffle(orderZ.begin(), orderZ.end(), std::default_random_engine(Math::RandIntMinMax(0, 100000)));
+	for (auto it1 = orderX.begin(); it1 != orderX.end(); ++it1)
 	{
-		for (int z = 0; z <= 6; z = (z > 0 ? -z : -z + 1))
+		for (auto it2 = orderZ.begin(); it2 != orderZ.end(); ++it2)
 		{
+			int x = *it1;
+			int z = *it2;
 			int offsetX = floor(v.x / 16.f) + x;
 			int offsetZ = floor(v.z / 16.f) + z;
 			if (m_spawnedLocations.count(Vector3(offsetX, 0, offsetZ))) continue;
@@ -145,7 +162,7 @@ void MapSpawningScript::Update(double dt)
 			Vector3 goPos = Vector3(offsetX * 16, 0, offsetZ * 16);
 			go->TRANS->SetPosition(goPos);
 			RenderComponent* render = new RenderComponent(chunk->GenerateMeshBiomed());
-			render->SetRenderDistance(100);
+			render->SetRenderDistance(240);
 			go->AddComponent(render);
 			go->AddComponent(new BiomeComponent(GetBiomeAt(Vector3(offsetX, 0, offsetZ))));
 			//
@@ -177,17 +194,16 @@ void MapSpawningScript::Update(double dt)
 				}
 
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
-				for(int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
+				for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
 				{
-					Vector3 noise = GetNoiseAt(Vector3((offsetX + xDiff)/4, 0, (offsetZ + zDiff)/4)) * 2;
+					Vector3 noise = GetNoiseAt(Vector3((offsetX + xDiff) / 3, 0, (offsetZ + zDiff) / 3)) * 1.5 + Vector3(1.5, 1.5, 1.5);
 					noise.y = 0;
-					if (floor(noise.x) == Mod(offsetX + xDiff, 4))
-						if (floor(noise.z) == Mod(offsetZ + zDiff, 4))
+					if (floor(noise.x) == Mod(offsetX + xDiff, 3))
+						if (floor(noise.z) == Mod(offsetZ + zDiff, 3))
 						{
 							chunk->GetEvent()->GenerateEvent(GOM, chunk, go->TRANS->GetPosition());
 							chunk->GetEvent()->GenerateEntities(GOM, chunk, go->TRANS->GetPosition(), go->GetComponent<BiomeComponent>()->GetBiomeType());
 						}
-
 				}
 		}
 	}
@@ -253,31 +269,27 @@ BiomeComponent::eBiomeTypes MapSpawningScript::GetBiomeFromNoise(Vector3 vec)
 	BiomeComponent::eBiomeTypes one = x->second;
 	float oneW = x->first;
 	return one;
-
 }
 
 BiomeComponent::eBiomeTypes MapSpawningScript::GetBiomeAt(Vector3 vec)
 {
 	int x = vec.x / 7;
 	int z = vec.z / 7;
-	
-	BiomeComponent::eBiomeTypes a00 = GetBiomeFromNoise(GetNoiseAt(Vector3(x,0,z)));
-	BiomeComponent::eBiomeTypes a01 = GetBiomeFromNoise(GetNoiseAt(Vector3(x,0,z + 1)));
-	BiomeComponent::eBiomeTypes a10 = GetBiomeFromNoise(GetNoiseAt(Vector3(x + 1,0,z)));
-	BiomeComponent::eBiomeTypes a11 = GetBiomeFromNoise(GetNoiseAt(Vector3(x+1,0,z+1)));
 
-	float f00 = ((Vector3(x, 0, z) - vec * (1 / 7.f)).IsZero()?1000000:1 / ((Vector3(x, 0, z) - vec * (1 / 7.f)).Length()));
+	BiomeComponent::eBiomeTypes a00 = GetBiomeFromNoise(GetNoiseAt(Vector3(x, 0, z)));
+	BiomeComponent::eBiomeTypes a01 = GetBiomeFromNoise(GetNoiseAt(Vector3(x, 0, z + 1)));
+	BiomeComponent::eBiomeTypes a10 = GetBiomeFromNoise(GetNoiseAt(Vector3(x + 1, 0, z)));
+	BiomeComponent::eBiomeTypes a11 = GetBiomeFromNoise(GetNoiseAt(Vector3(x + 1, 0, z + 1)));
+
+	float f00 = ((Vector3(x, 0, z) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3(x, 0, z) - vec * (1 / 7.f)).Length()));
 	float f01 = ((Vector3(x, 0, z + 1) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3(x, 0, z + 1) - vec * (1 / 7.f)).Length()));
 	float f10 = ((Vector3(x + 1, 0, z) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3(x + 1, 0, z) - vec * (1 / 7.f)).Length()));
 	float f11 = ((Vector3(x + 1, 0, z + 1) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3(x + 1, 0, z + 1) - vec * (1 / 7.f)).Length()));
 
 	float sum = f00 + f01 + f10 + f11;
-	float rand = Math:: RandFloatMinMax(0, sum);
+	float rand = Math::RandFloatMinMax(0, sum);
 	if (rand < f00) return a00;
 	if (rand < f00 + f01) return a01;
 	if (rand < f00 + f01 + f10) return a10;
 	return a11;
-
-
 }
-
