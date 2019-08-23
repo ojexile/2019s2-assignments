@@ -31,7 +31,6 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
     <ClCompile Include="Source\EntityValues.cpp" />
-    <ClCompile Include="Source\Entity_Library.cpp" />
     <ClCompile Include="Source\FleeState.cpp" />
     <ClCompile Include="Source\FlipEntityScript.cpp" />
     <ClCompile Include="Source\FoilageGeneratorComponent.cpp" />
@@ -147,6 +146,7 @@
     <ClCompile Include="Source\BlackHoleAugment.cpp" />
     <ClCompile Include="Source\ScalePatternScript.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\EntityLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -180,7 +180,6 @@
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\EntityScript.h" />
     <ClInclude Include="Source\EntityValues.h" />
-    <ClInclude Include="Source\Entity_Library.h" />
     <ClInclude Include="Source\FleeState.h" />
     <ClInclude Include="Source\FlipEntityScript.h" />
     <ClInclude Include="Source\FoilageGeneratorComponent.h" />
@@ -310,7 +309,7 @@
     <ClInclude Include="Source\AIEntityScript.h" />
     <ClInclude Include="Source\RangedState.h" />
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
-    <ClInclude Include="Source\Entity_Library.h" />
+    <ClInclude Include="Source\EntityLibrary.h" />
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\Augment.h" />
     <ClInclude Include="Source\ExplodeAugment.h" />

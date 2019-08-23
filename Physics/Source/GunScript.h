@@ -25,7 +25,7 @@ public:
 
 	GunScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8,
 		int iMagazineRounds_Max = 8, float fReloadTimeBuffer = 1.2f, float fFirerate = 0.75f,
-		float fBulletSpread = 0.5f, float fBulletForce = 5.f, FIRING_MODE FiringMode = AUTO);
+		float fBulletSpread = 12.5f, float fBulletForce = 8.f, FIRING_MODE FiringMode = AUTO);
 	~GunScript();
 
 	//Interface Functions
