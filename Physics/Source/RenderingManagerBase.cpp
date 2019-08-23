@@ -81,6 +81,7 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_SHADOW_COLOR_TEXTURE2] = glGetUniformLocation(m_gPassShaderID, "colorTexture[2]");
 	// extra--------------------------------------------------------------------------------
 	m_parameters[U_DIST_FROM_PLAYER] = glGetUniformLocation(m_programID, "distFromPlayer");
+	m_parameters[U_VIGINETTE_VAL] = glGetUniformLocation(m_programID, "vigenetteVal");
 	//--------------------------------------------------------------------------------
 	glUseProgram(m_programID);
 	BindLightUniforms();
@@ -147,6 +148,7 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 	}
 	// extra--------------------------------------------------------------------------------
 	glUniform1f(m_parameters[U_DIST_FROM_PLAYER], std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist)));
+	glUniform1f(m_parameters[U_VIGINETTE_VAL], 0);
 }
 
 void RenderingManagerBase::Init()

@@ -84,6 +84,7 @@ protected:
 
 		// extra
 		U_DIST_FROM_PLAYER,
+		U_VIGINETTE_VAL,
 
 		U_TOTAL,
 	};

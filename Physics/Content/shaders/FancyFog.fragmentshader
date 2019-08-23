@@ -91,6 +91,7 @@ uniform FogParam fogParam;
 uniform sampler2D shadowMap;
 uniform float frag_et;
 uniform float distFromPlayer;
+uniform float vigenetteVal;
 
 
 float random(vec3 seed, int i)
@@ -268,4 +269,7 @@ void main(){
 			color = mix(color, vec4(fogParam.color, 1), fogFactor);
 		}
 	}
+	vec3 ViginColor = vec3(0,0,0);
+	float vfactor = vigenetteVal * length(gl_FragCoord.xyz - vec3(1920/2,1080/2,0));
+	color = mix(color, vec4(ViginColor, 1), vfactor);
 }
