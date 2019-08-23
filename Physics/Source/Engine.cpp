@@ -13,6 +13,7 @@
 // Start Scene
 #include "DefaultScene.h"
 RenderingManager* Engine::m_Renderer;
+#define TIMINGS false
 
 Engine::Engine()
 {
@@ -106,18 +107,23 @@ void Engine::Update(double dt)
 			StopWatch s(true);
 			go->Update(min(dt, 0.1));
 			if (s.Stop()->GetTime() > 0.01f)
-				CHENG_LOG("GO update longer than 0.01s: ", STOP_S);
+			{
+				if (TIMINGS)
+					CHENG_LOG("GO update longer than 0.01s: ", STOP_S);
+			}
 			CheckGOForObserver(go, &GOObserverList);
 			counter++;
 		}
 	}
-	CHENG_LOG("Time to update: ", STOP_S);
+	if (TIMINGS)
+		CHENG_LOG("Time to update: ", STOP_S);
 	//Update coll--------------------------------------------------------------------------------
 	s.Reset();
 	//Update coll-------------------------------------------------------------------------------
 	StopWatch sw(true);
 	m_CollisionManager.Update(CurrentScene->GetGameObjectManager(), (m_frameCount & 255));
-	CHENG_LOG("Time to check collision: ", STOP_S);
+	if (TIMINGS)
+		CHENG_LOG("Time to check collision: ", STOP_S);
 	sw.Stop();
 	KZ_LOG("[Collision_Time_2]", " CollisionManager.Update() took " + sw.GetSTime() + "s");
 	// Update Observers
@@ -128,8 +134,10 @@ void Engine::Update(double dt)
 	s.Reset();
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
-	CHENG_LOG("Time to render: ", STOP_S);
-	CHENG_LOG("Time for loop: ", sMain.Stop()->GetSTime());
+	if (TIMINGS)
+		CHENG_LOG("Time to render: ", STOP_S);
+	if (TIMINGS)
+		CHENG_LOG("Time for loop: ", sMain.Stop()->GetSTime());
 	// Log================================================================================
 	m_fLogUpdateTimer += (float)dt;
 	float fLogUpdateRate = std::stof(Preferences::GetPref(Resources::PreferencesTerm::LogUpdateRate));
