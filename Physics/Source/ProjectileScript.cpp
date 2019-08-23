@@ -9,6 +9,13 @@ ProjectileScript::ProjectileScript(float lifespan, float Damage)
 
 ProjectileScript::~ProjectileScript()
 {
+	while (m_AugmentList.size() > 0)
+	{
+		Component* comp = static_cast<Component*>(*(m_AugmentList.rbegin()));
+		delete comp;
+		m_AugmentList.pop_back();
+
+	}
 }
 
 void ProjectileScript::Update(double deltaTime)
@@ -46,7 +53,7 @@ void ProjectileScript::Collide(GameObject* go)
 	{
 		es->Damage(m_fDamage);
 		ActivateEffects(this, go);
-
+		RIGID->SetVel(Vector3(0, 0, 0));
 		m_fLifespan = 0.01f;
 	}
 }

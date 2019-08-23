@@ -213,7 +213,7 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 		}
 		case Augment::eAugmentType::WEAPON:
 		{
-
+			part->PART->GetAugment()->PassiveEffect();
 		}
 		default:
 		{
@@ -271,7 +271,10 @@ void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* targ
 	while (m_vector.size() > 0)
 	{
 		GameObject* go = static_cast<GameObject*>(*(m_vector.rbegin()));
-		
+
+		if(go->PART->GetAugment())
+			go->PART->GetAugment()->RemovePassive();
+
 		if (target == go)
 		{
 			UpdateStats(go, false);
@@ -344,6 +347,16 @@ void GunScript::SetFireRate(float FireRate)
 void GunScript::SetBulletSpread(float BulletSpread)
 {
 	m_fBulletSpread = BulletSpread;
+}
+
+void GunScript::SetReloadTime(float ReloadTime)
+{
+	m_fReloadTime = ReloadTime;
+}
+
+void GunScript::AffectReloadTime(float Multiplier)
+{
+	m_fReloadTime = m_fReloadTime * Multiplier;
 }
 
 int GunScript::GetBulletsFired()

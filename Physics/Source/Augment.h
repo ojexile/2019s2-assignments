@@ -21,16 +21,19 @@ public:
 	};
 
 	virtual void ActiveEffect(Component* proj, GameObject* go) = 0;
-	virtual void PassiveEffect(GameObject* go) = 0;
+	virtual void PassiveEffect() = 0;
+	virtual void RemovePassive() = 0;
 
-	void SetGunReference(GameObject* ref);
-	void SetPlayerReference(ComponentBase* ref);
+	void SetGunReference(ScriptComponent* ref);
+	void SetEntityReference(ScriptComponent* ref);
 
 	eAugmentType GetAugmentType();
 
 protected:
-	ComponentBase* m_EntityRef;
-	GameObject* m_GunRef;
+	//Allows the augment to access the object's variables
+	ScriptComponent* m_EntityRef;
+	ScriptComponent* m_GunRef;
+
 	eAugmentType m_AugmentType;
 };
 

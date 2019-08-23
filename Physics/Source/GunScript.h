@@ -5,6 +5,7 @@
 
 #include <vector>
 
+
 /********************************************************************************/
 /*!
 \author Ryan Tan Zheng Rong
@@ -42,7 +43,8 @@ public:
 	void SetMaxMagazineRounds(int MagRounds_Max);
 	void SetFireRate(float FireRate);
 	void SetBulletSpread(float BulletSpread);
-	void SetReloadTime(float ReloadBufferTime);
+	void SetReloadTime(float ReloadTime);
+	void AffectReloadTime(float Multiplier);
 
 	int GetBulletsFired();
 	int GetMagazineRounds();

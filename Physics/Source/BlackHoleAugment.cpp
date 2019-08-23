@@ -28,8 +28,13 @@ void BlackHoleAugment::ActiveEffect(Component* proj, GameObject* go)
 	proj->PROJECTILE->SetDamage(5.f);
 }
 
-void BlackHoleAugment::PassiveEffect(GameObject* go)
+void BlackHoleAugment::PassiveEffect()
 {
-	go->AddComponent(new BlackholeScript(go->RIGID->GetMass(), 5));
-	go->GetComponent<BlackholeScript>()->SetActive(false);
+	//go->AddComponent(new BlackholeScript(go->RIGID->GetMass(), 5));
+	//go->GetComponent<BlackholeScript>()->SetActive(false);
+}
+
+void BlackHoleAugment::RemovePassive()
+{
+
 }
