@@ -101,20 +101,22 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(CustoPos - Vector3(0, fCustoDist, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotClip"));
 	CustoSlots.push_back(go);
+	/// End Inventor--------------------------------------------------------------------------------
+	/// Player Stats--------------------------------------------------------------------------------
 	// Stamina--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
-	go->TRANS->SetPosition(50, 50, 0);
+	go->TRANS->SetPosition(50, 920, 0);
 	go->TRANS->SetScale(200, 50, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
 	//
 	GameObject* StaminaBar = m_GOM.AddGameObject("UI");
-	StaminaBar->TRANS->SetPosition(50, 50, 0);
+	StaminaBar->TRANS->SetPosition(50, 920, 0);
 	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	StaminaBar->RENDER->SetColor(1, 1, 0);
 	//
 	go = m_GOM.AddGameObject("UI");
-	go->TRANS->SetPosition(50, 90, 20);
+	go->TRANS->SetPosition(50, 950, 20);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Stamina"));
 	go->RENDER->SetColor(1, 1, 1);
 	//
@@ -133,6 +135,21 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(50, 1060, 20);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "HEALTH"));
 	go->RENDER->SetColor(1, 1.f, 1.f);
+	//
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(1920 / 3, 1040, 0);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	go->RENDER->SetColor(0.1f);
+	go->TRANS->SetScale(1920 / 3, 12, 1);
+	//
+	GameObject* BossBar = m_GOM.AddGameObject("UI");
+	BossBar->TRANS->SetPosition(1920 / 3, 1040, 0);
+	BossBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	BossBar->RENDER->SetColor(0.1f, 0.2f, 0.8f);
+	/// Start Systems--------------------------------------------------------------------------------
+	GameObject* BossSpawner = m_GOM.AddGameObject(dataContainer->GetGameObject("BossSpawner"));
+	/// Ends Systems--------------------------------------------------------------------------------
+	/// End Player Stats--------------------------------------------------------------------------------
 	/// Player================================================================================
 	// Reticle
 	GameObject* ret = m_GOM.AddGameObject(GetGO("Reticle"));
@@ -167,10 +184,9 @@ void DefaultScene::Init()
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(0, 18, 0);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
-	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
+	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI"), BossSpawner, BossBar));
 	Player->AddComponent(new MapSpawningScript());
 	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
-
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
@@ -185,15 +201,10 @@ void DefaultScene::Init()
 	float size = 100;
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
-	// Enemy--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Boss"));
-	go->TRANS->SetPosition(10, 20.5f, 0);
-	// --
+	/// Entities--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(3, 30.f, 0);
-	//--
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(0, 30.5f, 0);
+	go->TRANS->SetPosition(3, 24.f, 0);
+	/// End Entities--------------------------------------------------------------------------------
 	///interactable test
 
 	//go = m_GOM.AddGameObject();

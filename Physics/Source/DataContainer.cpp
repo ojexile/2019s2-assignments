@@ -25,6 +25,7 @@
 #include "BlackholeScript.h"
 #include "SuicideNoteScript.h"
 #include "BirdWingScript.h"
+#include "BossSpawnerScript.h"
 //
 #include "ScalePatternScript.h"
 
@@ -423,17 +424,35 @@ void DataContainer::InitGO()
 	go2->TRANS->SetRelativeRotation(-90, 0, 1, 0);
 	go->AddChild(go2);
 	go->AddComponent(new LootScript());
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
-
-	// Boss================================================================================
+	/// Boss================================================================================
+	// A--------------------------------------------------------------------------------
 	go = new GameObject;
-	m_map_GO["Boss"] = go;
+	m_map_GO["Boss0"] = go;
+	go->AddChild(GetGameObject("EnemyReticle"));
+	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->TRANS->SetScale(3);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(500, 0, 100, 0, 80, 20, 2000, 500)));
+	go->AddComponent(new LootScript());
+	// B--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Boss1"] = go;
+	go->AddChild(GetGameObject("EnemyReticle"));
+	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->TRANS->SetScale(3);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(500, 0, 100, 0, 80, 20, 2000, 500)));
+	go->AddComponent(new LootScript());
+	// C--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Boss2"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->TRANS->SetScale(3);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(500, 0, 100, 0, 80, 20, 2000, 16)));
 	go->AddComponent(new LootScript());
+	// Attacks--------------------------------------------------------------------------------
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
 
 	// Shockwave
@@ -447,9 +466,9 @@ void DataContainer::InitGO()
 	go->RIGID->LockYAxis(true);
 	go->RIGID->SetMat(0.25f, 0);
 	go->AddComponent(new SuicideNoteScript(5.f));
-	// 	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlerockbreak"), 10, Vector3(), 0));
-	go->m_sName = "Shockwave";
-	//go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, go->TRANS->GetScale().x, 5.f));
+	go = new GameObject;
+	m_map_GO["BossSpawner"] = go;
+	go->AddComponent(new BossSpawnerScript(GetGameObject("Boss0"), GetGameObject("Boss1"), GetGameObject("Boss2")));
 	// Animals--------------------------------------------------------------------------------
 	// Cow-----------------------------------------------------------------------------
 	go = new GameObject;

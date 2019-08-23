@@ -11,7 +11,7 @@
 #include <array>
 
 #define NCHUNKS 16
-#define FLATMAP true
+#define FLATMAP false
 MapSpawningScript::MapSpawningScript()
 {
 	for (int i = 0; i < 4096; ++i)
