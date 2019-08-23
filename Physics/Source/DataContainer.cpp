@@ -377,7 +377,7 @@ void DataContainer::InitGO()
 	go->RIGID->LockYAxis(true);
 	go->RIGID->SetMat(0.25f, 0);
 	go->AddComponent(new SuicideNoteScript(5.f));
-	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlerockbreak"), 10, Vector3(), 0));
+	// 	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlerockbreak"), 10, Vector3(), 0));
 	go->m_sName = "Shockwave";
 	//go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, go->TRANS->GetScale().x, 5.f));
 	// Animals--------------------------------------------------------------------------------

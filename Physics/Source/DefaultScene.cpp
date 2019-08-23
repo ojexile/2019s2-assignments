@@ -189,8 +189,8 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	// Enemy--------------------------------------------------------------------------------
-	/*go = m_GOM.AddGameObject(dataContainer->GetGameObject("Boss"));
-	go->TRANS->SetPosition(10, 20.5f, 0);*/
+	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Boss"));
+	go->TRANS->SetPosition(10, 20.5f, 0);
 	// --
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
 	go->TRANS->SetPosition(3, 24.f, 0);
