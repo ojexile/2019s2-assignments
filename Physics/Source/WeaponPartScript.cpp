@@ -61,5 +61,7 @@ void WeaponPartScript::SetMultiplier(float multiplier)
 
 void WeaponPartScript::SetAugment(Augment* augment)
 {
+	if (augment == nullptr)
+		return;
 	m_Augment = augment;
 }

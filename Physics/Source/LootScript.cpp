@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "ExplodeAugment.h"
 #include "BlackHoleAugment.h"
+#include "ParticleSpawnerScript.h"
 
 LootScript::LootScript()
 {
@@ -73,7 +74,7 @@ Augment* LootScript::GenerateAugment(void)
 		GenerateAugmentChance = Math::RandIntMinMax(1, 10);
 		if (GenerateAugmentChance == 1)
 		{
-			return new ExplodeAugment();
+			//return new ExplodeAugment();
 		}
 		//else if (GenerateAugmentChance == 2)
 		//{
@@ -106,7 +107,14 @@ void LootScript::DropLoot(void)
 			Loot->RIGID->SetAffectedByGravity(true);
 
 			//Augment Generation
-			//Loot->PART->SetAugment(GenerateAugment());
+			auto part = GenerateAugment();
+			if (part != nullptr)
+			{
+				Loot->PART->SetAugment(GenerateAugment());
+				Loot->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObject("particleRareDrop"),
+					5, { 0.1f,0.1f,0.1f }, 0.1f
+					));
+			}
 		}
 		else
 		{
