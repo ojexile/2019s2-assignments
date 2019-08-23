@@ -246,6 +246,15 @@ void DataContainer::InitParticles()
 	go->AddComponent(new ParticleScript(2.f, Vector3(-0.1f, 0.f, 0.f), {}, {}, {}, {}));
 	go->PARTICLE->SetRot({ -30.f, -30.f, -30.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 2.f));
+
+	go = new GameObject();
+	m_map_GO["particlebullettrail"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particlerockbreak")));
+	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(0.5f, {}, {}, {}, {}, {}));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5F));
 }
 void DataContainer::InitGO()
 {
