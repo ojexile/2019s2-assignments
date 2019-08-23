@@ -20,6 +20,7 @@ EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	: m_Behaviour(Behaviour)
 	, m_BaseStats(Stats)
 {
+	m_Values.SetHealth(Stats.GetMaxHealth());
 	if (m_Behaviour)
 		m_Behaviour->Init(this);
 	m_bInitialised = false;
@@ -155,7 +156,7 @@ void EntityScript::RotateTowards(Vector3 vDir)
 	// current angle
 	float CurrentAngle = TRANS->GetDegrees();
 
-	float newAngle = Lerp(CurrentAngle, TargetAngle, 0.1f);
+	float newAngle = Lerp(TargetAngle, CurrentAngle, 0.9f);
 	TRANS->SetRotation(newAngle, 0, 1, 0);
 }
 void EntityScript::Jump()

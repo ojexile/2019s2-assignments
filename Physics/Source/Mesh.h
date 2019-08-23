@@ -9,7 +9,7 @@
 
 class Mesh
 {
-private:
+protected:
 	int m_iNumTextures;
 	unsigned m_uTextureArray[MAX_TEXTURES];
 public:
@@ -21,7 +21,7 @@ public:
 		DRAW_MODE_LAST,
 	};
 	Mesh(const std::string &meshName);
-	~Mesh();
+	virtual ~Mesh();
 	virtual void Render();
 	virtual void Render(unsigned offset, unsigned count);
 

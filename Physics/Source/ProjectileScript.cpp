@@ -47,7 +47,7 @@ void ProjectileScript::Collide(GameObject* go)
 		es->Damage(m_fDamage);
 		ActivateEffects(this, go);
 
-		m_fLifespan = 0.005f;
+		m_fLifespan = 0.01f;
 	}
 }
 

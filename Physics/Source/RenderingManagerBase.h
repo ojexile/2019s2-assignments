@@ -82,6 +82,9 @@ protected:
 		U_SHADOW_COLOR_TEXTURE_ENABLED2,
 		U_SHADOW_COLOR_TEXTURE2,
 
+		// extra
+		U_DIST_FROM_PLAYER,
+
 		U_TOTAL,
 	};
 	enum UNIFORM_LIGHT
@@ -117,7 +120,7 @@ public:
 
 protected:
 	void RenderText(RenderComponent* mesh);
-	void RenderTextOnScreen(RenderComponent* mesh, std::string text, Color color, float size, float x, float y);
+	void RenderTextOnScreen(RenderComponent* rc, std::string text, Color color, float size, float x, float y, int align = 0);
 	void RenderUI(RenderComponent* mesh, bool enableLight);
 	void RenderMesh(RenderComponent *mesh, bool enableLight);
 	void RenderBiomedMesh(RenderComponent*mesh, BiomeComponent *bc, bool enableLight);

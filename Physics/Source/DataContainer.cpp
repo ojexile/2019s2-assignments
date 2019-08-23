@@ -57,6 +57,7 @@ void DataContainer::Init()
 	InitMeshes();
 	InitTerrain();
 	InitBehaviour();
+	InitParticles();
 	InitGO();
 	InitChunks();
 	InitShaders();
@@ -87,11 +88,13 @@ void DataContainer::InitChunks()
 	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["barline_3"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["flat"] = new ChunkData("Content/chunks/2x2_flatland.chunk");
 }
 
 void DataContainer::InitTextures()
 {
-	m_map_Textures["Text"] = LoadTGA("calibri");
+	m_map_Textures["Text"] = LoadTGA("monoid");
+	m_map_Textures["T7Seg"] = LoadTGA("7seg");
 	m_map_Textures["Sky"] = LoadTGA("sky");
 	m_map_Textures["Cube"] = LoadTGA("Cube");
 	m_map_Textures["Dirt"] = LoadTGA("dirt");
@@ -120,17 +123,20 @@ void DataContainer::InitTextures()
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
 	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
-	
+
 	m_map_Textures["particleSquareBorder"] = LoadTGA("particleSquareBorder");
 	m_map_Textures["particleHexagon"] = LoadTGA("particleHexagon");
 	m_map_Textures["particleHexagonGrey"] = LoadTGA("particleHexagonGrey");
-
+	m_map_Textures["particleCloudGrey"] = LoadTGA("particleCloudGrey");
+	m_map_Textures["particleHexagonRed"] = LoadTGA("particleHexagonRed");
+	m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonBorderYellow");
 }
 void DataContainer::InitMeshes()
 {
 	/// Meshes================================================================================
 	/// DO NOT REMOVE--------------------------------------------------------------------------------
 	m_map_Meshes["Text"] = MeshBuilder::GenerateText("text", 16, 16)->AddTexture("Text");
+	m_map_Meshes["T7Seg"] = MeshBuilder::GenerateText("text", 16, 16)->AddTexture("T7Seg");
 	//--------------------------------------------------------------------------------
 	m_map_Meshes["SkyPlane"] = MeshBuilder::GenerateSkyPlane("SkyPlane", { 0,0,1 }, 24, 6, 400, 6, 6)->AddTexture("Sky");
 
@@ -182,6 +188,13 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", {}, 1.f)->AddTexture("particleSquareBorder");
 	m_map_Meshes["particlerockbreak"] = MeshBuilder::GenerateQuad("rockbreak", {}, 1.f)->AddTexture("particleHexagonGrey");
+	m_map_Meshes["particleExplosiveCloud"] = MeshBuilder::GenerateQuad("particleexplosivecloud", {})->AddTexture("particleCloudGrey");
+	m_map_Meshes["particleBulletTrail"] = MeshBuilder::GenerateQuad("particlebullettrail", {}, 1);
+	m_map_Meshes["particleHexagonRed"] = MeshBuilder::GenerateQuad("particleHexagonRed", {}, 1)->AddTexture("particleHexagonRed");
+	m_map_Meshes["particleRareDrop"] = MeshBuilder::GenerateQuad("particleRareDrop", {}, 1)->AddTexture("particleHexagonBorderYellow");
+
+	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 1);
+
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
 
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
@@ -210,10 +223,9 @@ void DataContainer::InitTerrain()
 		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS);
 	//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 }
-void DataContainer::InitGO()
+void DataContainer::InitParticles()
 {
-	GameObject* go = nullptr;
-	GameObject* go2 = nullptr;
+	GameObject * go = nullptr;
 
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
@@ -230,20 +242,82 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["particlerockbreak"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlerockbreak")));
-	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
 	go->GetComponent<RenderComponent>()->SetBillboard(true);
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
 
+	go = new GameObject();
+	m_map_GO["particleexplosioncloud"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleExplosiveCloud")));
+	go->RENDER->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(2.f, Vector3(-0.1f, 0.f, 0.f), {}, {}, {}, {}));
+	go->PARTICLE->SetRot({ -30.f, -30.f, -30.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 2.f));
+
+	go = new GameObject();
+	m_map_GO["particlestaticcloud"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleExplosiveCloud")));
+	go->RENDER->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(2.f, {}, {}, {}, {}, {}));
+	go->PARTICLE->SetRot({ -30.f, -30.f, -30.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 2.f));
+
+	go = new GameObject();
+	m_map_GO["particlebullettrail"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleBulletTrail")));
+	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(0.5f, {}, {}, {}, {}, {}));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 0.25f, 0.5F));
+
+	go = new GameObject();
+	m_map_GO["particleentityhit"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleHexagonRed")));
+	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(1.f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 1.f));
+
+	go = new GameObject();
+	m_map_GO["particleRareDrop"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleHexagonBorderYellow")));
+	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+
+}
+void DataContainer::InitGO()
+{
+	GameObject* go = nullptr;
+	GameObject* go2 = nullptr;
+
 	///================================================================================
 	// Reticle--------------------------------------------------------------------------------
-	//go = new GameObject();
-	//m_map_GO["Reticle"] = go;
-	//go->AddComponent(new RenderComponent(GetMesh("Reticle")));
-	//go->RENDER->SetColor(0, 1, 1);
-	//go->AddComponent(new ReticleScript);
+	go = new GameObject();
+	m_map_GO["Reticle"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Reticle")));
+	go->RENDER->SetColor(0, 1, 1);
+	go->AddComponent(new ReticleScript);
+	go->SetDisableDistance(1000);
+	go2 = new GameObject;
+	go->AddChild(go2);
+	go2->AddComponent(new RenderComponent(GetMesh("Text"), "Item Infomation", false));
+	go2->TRANS->SetRelativePosition(0.5f, 4.5f, 0);
+	go2->TRANS->SetRelativeScale(0.5f);
+	go2 = new GameObject;
+	go->AddChild(go2);
+	go2->AddComponent(new RenderComponent(GetMesh("Quad")));
+	go2->TRANS->SetRelativeScale({ 5, 10, 5 });
+	go2->RENDER->Set3DBillboard(true);
+
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
@@ -253,6 +327,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(0.005f);
 	go->RIGID->SetMat(0.9f, 1);
 	go->AddComponent(new ProjectileScript(1.0, 30.0));
+	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlebullettrail"), 30, Vector3(), 0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
@@ -303,6 +378,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(0.25f);
 	go->RIGID->SetMat(2.f, 0.f);
 	go->AddComponent(new GrenadeScript(3.0, 10.0, 2));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 60, true, GetGameObject("particleexplosioncloud"), 1, {}, 0.f));
 	// Loot------------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Loot"] = go;
@@ -335,8 +411,12 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
-	go->AddChild(m_map_GO["Gun"]->Clone());
+	go2 = GetGameObject("Gun");
+	go2->TRANS->SetRelativeRotation(-90, 0, 1, 0);
+	go->AddChild(go2);
 	go->AddComponent(new LootScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 	// Boss================================================================================
 	go = new GameObject;
 	m_map_GO["Boss"] = go;
@@ -344,14 +424,16 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->TRANS->SetScale(3);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(200, 0, 100, 0, 80, 20, 2000, 16)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(500, 0, 100, 0, 80, 20, 2000, 16)));
 	go->AddComponent(new LootScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 	// Shockwave
 	go = new GameObject;
 	m_map_GO["Shockwave"] = go;
-	//go->AddComponent(new RenderComponent(GetMesh("Ball")));
+	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(0.5f);
-	//go->RENDER->SetColor(1, 0, 0);
+	go->RENDER->SetColor(1, 0, 0);
 	go->AddComponent(new BlackholeScript(-0.01f, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->LockYAxis(true);
@@ -368,6 +450,8 @@ void DataContainer::InitGO()
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
 	// go->AddComponent(new LootScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 	go = new GameObject;
 	m_map_GO["Bird"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("BirdBody")));
@@ -384,20 +468,25 @@ void DataContainer::InitGO()
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("WingRight")));
 	go2->TRANS->SetRelativePosition(-0.378f, 0.458f, 0.082f);
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 
 	// Fish-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Fish"] = go;
+	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(50, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["FPS"] = go;
 	go->AddComponent(new FPSScript);
 	go->TRANS->SetPosition(50, 10, 25);
-	go->AddComponent(new RenderComponent(GetMesh("Text"), "0"));
+	go->AddComponent(new RenderComponent(GetMesh("T7Seg"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	go->SetDisableDistance(10000);
 	// InventorySlot--------------------------------------------------------------------------------
@@ -431,7 +520,6 @@ void DataContainer::InitGO()
 	go->RENDER->Set3DBillboard(true);
 	/// Interactabes/Foilage================================================================================
 
-
 	go = new GameObject();
 	m_map_GO["particlespawnerdestroy"] = go;
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
@@ -461,7 +549,6 @@ void DataContainer::InitGO()
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particlerockbreak"], 100, Vector3(), 0.f, "Default", 10.f));
 
 	go->AddChild(GetGameObject("fliprockrender"));
-
 
 	go = new GameObject();
 	m_map_GO["treasurebox"] = go;
@@ -503,7 +590,7 @@ void DataContainer::InitGO()
 }
 void  DataContainer::InitShaders()
 {
-	m_map_Shaders["Default"] = LoadShaders("Flare", "Flare");
+	m_map_Shaders["Default"] = LoadShaders("Flare", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 }
 void DataContainer::InitBehaviour()

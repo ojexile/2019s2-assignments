@@ -21,6 +21,11 @@ void ParticleObserver::Notify(ComponentBase * com, std::string msg, std::vector<
  	if (msg == "EntityDied")
 	{
 		LZ_LOG(msg);
+		AdvancedParticleSpawnerScript * script = com->GetComponent<AdvancedParticleSpawnerScript>();
+		if (script)
+		{
+			script->Trigger();
+		}
 	}
 	else if (msg == "DestructibleEntityDied")
 	{

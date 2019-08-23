@@ -2,10 +2,10 @@
 #include "Application.h"
 #include "RenderComponent.h"
 #define VIEW_AS_LIGHT false
-#define SHADOW_VIEW_SIZE_X 110
-#define SHADOW_VIEW_SIZE_Y 110
-#define SHADOW_VIEW_SIZE_Z 100
-#define SHADOW_RES 1024*0.5
+#define SHADOW_VIEW_SIZE_X 200
+#define SHADOW_VIEW_SIZE_Y 100/16*9
+#define SHADOW_VIEW_SIZE_Z 200
+#define SHADOW_RES 128*20.f
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
@@ -34,6 +34,14 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 	//Cam->UpdateYawPitchMouse((float)xpos, (float)ypos);
 }
+void RenderingManager::RenderQueued(Scene* scene)
+{
+	for (GameObject* go : RenderQueue)
+	{
+		RenderGameObject(go, scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition(), false, false);
+	}
+	RenderQueue.clear();
+}
 void RenderingManager::SetMouseCallback(GLFWwindow* window)
 {
 	glfwSetCursorPosCallback(window, mouse_callback);
@@ -57,6 +65,7 @@ void RenderingManager::Render(Scene* scene)
 	//******************************* MAIN RENDER PASS
 	//************************************
 	RenderPassMain(scene);
+	RenderQueued(scene);
 }
 void RenderingManager::RenderPassGPass(Scene* scene)
 {
@@ -69,13 +78,14 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	//These matrices should change when light position or direction changes
 	LightManager* lm = scene->GetLightManager();
 	if (lm->GetSceneLights()[0]->type == Light::LIGHT_DIRECTIONAL)
-		m_lightDepthProj.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_X / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
+		m_lightDepthProj.SetToOrtho(-SHADOW_VIEW_SIZE_X / 2, SHADOW_VIEW_SIZE_X / 2, -SHADOW_VIEW_SIZE_Y / 2, SHADOW_VIEW_SIZE_Y / 2, 0, SHADOW_VIEW_SIZE_Z / 2);
 	else
 		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
 	Light* light = lm->GetSceneLights()[0];
+	Vector3 pos = scene->GetPlayer()->GetComponent<TransformComponent>()->GetPosition();
 	m_lightDepthView.SetToLookAt(
-		light->position.x, light->position.y, light->position.z,
-		0, 0, 0,
+		pos.x, light->position.y, pos.z,
+		-light->position.x, -light->position.y, -light->position.z,
 		0, 1, 0);
 	RenderWorld(scene);
 }
@@ -267,12 +277,12 @@ void RenderingManager::RenderWorld(Scene* scene)
 		RenderGameObject(go, vCamPos, true);
 	}
 }
-void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI)
+void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI, bool first)
 {
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent)
 	{
-		if ((go->TRANS->GetPosition() - vCamPos).Length() > go->RENDER->GetRenderDistance()) return;
+		if ((go->TRANS->GetPosition() - SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition()).Length() > go->RENDER->GetRenderDistance()) return;
 		bool isActive = renderComponent->IsActive();
 		if (!isActive)
 			return;
@@ -314,7 +324,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 		}
 		if (fGameObjectRotationDegrees != 0 && !vGameObjectRotation.IsZero() && !renderComponent->Is3DBillboard())
 			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
-		if (vGameObjectScale.x <= 0 || vGameObjectScale.y <= 0 || vGameObjectScale.z <= 0)
+		if (vGameObjectScale.x <= 0.05f || vGameObjectScale.y <= 0.05 || vGameObjectScale.z <= 0.05)
 		{
 			return;
 		}
@@ -322,7 +332,26 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 		if (!bIsUI)
 		{
 			if (CurrentMesh)
-				RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+			{
+				if (!renderComponent->IsText())
+				{
+					RenderMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
+				}
+				else
+				{
+					if (!renderComponent->IsTextOnScreen())
+					{
+						if (first)
+							RenderQueue.push_back(go);
+						else
+							RenderText(renderComponent);
+					}
+					else
+					{
+						DEFAULT_LOG("Oof find haocheng plox");
+					}
+				}
+			}
 
 			else if (AnimatedMesh)
 				RenderAnimatedMesh(renderComponent, go->GetComponent<RenderComponent>()->GetLightEnabled());
@@ -337,7 +366,12 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 			else
 			{
 				if (!renderComponent->IsTextOnScreen())
-					RenderText(renderComponent);
+				{
+					if (first)
+						RenderQueue.push_back(go);
+					else
+						RenderText(renderComponent);
+				}
 				else
 					RenderTextOnScreen(renderComponent, renderComponent->GetText(), { renderComponent->GetMaterial().kAmbient.r,renderComponent->GetMaterial().kAmbient.g,renderComponent->GetMaterial().kAmbient.b },
 						vGameObjectPosition.z, vGameObjectPosition.x, vGameObjectPosition.y);
