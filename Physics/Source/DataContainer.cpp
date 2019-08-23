@@ -188,7 +188,8 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["particleExplosiveCloud"] = MeshBuilder::GenerateQuad("particleexplosivecloud", {})->AddTexture("particleCloudGrey");
 	m_map_Meshes["particleBulletTrail"] = MeshBuilder::GenerateQuad("particlebullettrail", {}, 1);
 	m_map_Meshes["particleHexagonRed"] = MeshBuilder::GenerateQuad("particleHexagonRed", {}, 1)->AddTexture("particleHexagonRed");
-	
+	m_map_Meshes["particleRareDrop"] = MeshBuilder::GenerateQuad("particleRareDrop", {}, 1)->AddTexture("particleHexagonBorderYellow");
+
 	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 1);
 
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
@@ -254,6 +255,15 @@ void DataContainer::InitParticles()
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 2.f));
 
 	go = new GameObject();
+	m_map_GO["particlestaticcloud"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleExplosiveCloud")));
+	go->RENDER->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(2.f, {}, {}, {}, {}, {}));
+	go->PARTICLE->SetRot({ -30.f, -30.f, -30.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 2.f));
+
+	go = new GameObject();
 	m_map_GO["particlebullettrail"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particleBulletTrail")));
 	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
@@ -270,6 +280,16 @@ void DataContainer::InitParticles()
 	go->AddComponent(new ParticleScript(1.f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 1.f));
+
+	go = new GameObject();
+	m_map_GO["particleRareDrop"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleHexagonBorderYellow")));
+	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+
 }
 void DataContainer::InitGO()
 {
