@@ -1,10 +1,12 @@
 #pragma once
 #include "PlayerState.h"
+#include "MovementCommand.h"
 
 class SprintingState :
 	public PlayerState
 {
 private:
+	MovementCommand m_MovementCommand;
 public:
 	SprintingState();
 	virtual ~SprintingState();
