@@ -57,6 +57,7 @@ void DataContainer::Init()
 	InitMeshes();
 	InitTerrain();
 	InitBehaviour();
+	InitParticles();
 	InitGO();
 	InitChunks();
 	InitShaders();
@@ -126,6 +127,7 @@ void DataContainer::InitTextures()
 	m_map_Textures["particleSquareBorder"] = LoadTGA("particleSquareBorder");
 	m_map_Textures["particleHexagon"] = LoadTGA("particleHexagon");
 	m_map_Textures["particleHexagonGrey"] = LoadTGA("particleHexagonGrey");
+	m_map_Textures["particleCloudGrey"] = LoadTGA("particleCloudGrey");
 }
 void DataContainer::InitMeshes()
 {
@@ -184,6 +186,11 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", {}, 1.f)->AddTexture("particleSquareBorder");
 	m_map_Meshes["particlerockbreak"] = MeshBuilder::GenerateQuad("rockbreak", {}, 1.f)->AddTexture("particleHexagonGrey");
+	m_map_Meshes["particleExplosiveCloud"] = MeshBuilder::GenerateQuad("particleexplosivecloud", {})->AddTexture("particleCloudGrey");
+	m_map_Meshes["particleBulletTrail"] = MeshBuilder::GenerateQuad("particlebullettrail", {}, 1);
+
+	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 1);
+
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
 
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");
@@ -212,10 +219,9 @@ void DataContainer::InitTerrain()
 		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS);
 	//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 }
-void DataContainer::InitGO()
+void DataContainer::InitParticles()
 {
-	GameObject* go = nullptr;
-	GameObject* go2 = nullptr;
+	GameObject * go = nullptr;
 
 	go = new GameObject();
 	m_map_GO["particledestroy"] = go;
@@ -232,12 +238,34 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["particlerockbreak"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particlerockbreak")));
-	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);ic
 	go->GetComponent<RenderComponent>()->SetBillboard(true);
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+
+	go = new GameObject();
+	m_map_GO["particleexplosioncloud"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleExplosiveCloud")));
+	go->RENDER->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(2.f, Vector3(-0.1f, 0.f, 0.f), {}, {}, {}, {}));
+	go->PARTICLE->SetRot({ -30.f, -30.f, -30.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 2.f));
+
+	go = new GameObject();
+	m_map_GO["particlebullettrail"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleBulletTrail")));
+	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(0.5f, {}, {}, {}, {}, {}));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 0.25f, 0.5F));
+}
+void DataContainer::InitGO()
+{
+	GameObject* go = nullptr;
+	GameObject* go2 = nullptr;
 
 	///================================================================================
 	// Reticle--------------------------------------------------------------------------------
@@ -267,6 +295,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(0.005f);
 	go->RIGID->SetMat(0.9f, 1);
 	go->AddComponent(new ProjectileScript(1.0, 30.0));
+	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlebullettrail"), 30, Vector3(), 0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
@@ -317,6 +346,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(0.25f);
 	go->RIGID->SetMat(2.f, 0.f);
 	go->AddComponent(new GrenadeScript(3.0, 10.0, 2));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 60, true, GetGameObject("particleexplosioncloud"), 1, {}, 0.f));
 	// Loot------------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Loot"] = go;
@@ -447,17 +477,6 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
 	/// Interactabes/Foilage================================================================================
-	go = new GameObject();
-	m_map_GO["particledestroy"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("particlequad")));
-	//go->GetComponent<RenderComponent>()->SetColor(1.f, 0.6f, 0.2f);
-	go->GetComponent<RenderComponent>()->SetBillboard(true);
-	go->RENDER->SetLightEnabled(false);
-	//go->TRANS->SetScale(0.5f);
-	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
-	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
-	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
 
 	go = new GameObject();
 	m_map_GO["particlespawnerdestroy"] = go;

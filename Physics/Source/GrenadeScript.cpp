@@ -1,5 +1,6 @@
 #include "GrenadeScript.h"
 #include "EntityScript.h"
+#include "AdvancedParticleSpawnerScript.h"
 
 
 GrenadeScript::GrenadeScript(float Lifespan, float Damage, float ExplosionRadius)
@@ -33,6 +34,11 @@ void GrenadeScript::Update(double deltaTime)
 void GrenadeScript::Explode(void)
 {
 	TRANS->SetScale(m_fExplosionRadius);
+	auto spawner = GetComponent<AdvancedParticleSpawnerScript>();
+	if (spawner)
+	{
+		spawner->Trigger();
+	}
 
 	m_fLifespan = 0.005f;
 	m_bHasExploded = true;
