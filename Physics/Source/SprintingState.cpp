@@ -8,6 +8,7 @@
 #include "CameraScript.h"
 #include "Time.h"
 #include "StandingState.h"
+#include "Engine.h"
 SprintingState::SprintingState()
 {
 }
@@ -43,6 +44,10 @@ State* SprintingState::HandleState(ComponentBase* com)
 			com->GetComponent<PlayerScript>()->Dash();
 			com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(fDrain);
 		}
+	}
+	if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() < 25)
+	{
+		Engine::GetInstance()->GetRenderManager()->SetUniform1f(RenderingManager::UNIFORM_TYPE::U_VIGINETTE_VAL, 0.001f);
 	}
 	// Top Down
 	if (InputManager::GetInstance()->GetInputStrength("SwitchCam"))

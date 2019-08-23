@@ -24,7 +24,7 @@
 
 class RenderingManagerBase : public Renderer
 {
-protected:
+public:
 	enum UNIFORM_TYPE
 	{
 		U_MVP = 0,
@@ -153,6 +153,8 @@ protected:
 	Mtx44 m_lightDepthMVP;
 	Mtx44 m_lightDepthMVPGPass;
 	RENDER_PASS m_renderPass;
+public:
+	void SetUniform1f(UNIFORM_TYPE, float f);
 };
 
 #endif

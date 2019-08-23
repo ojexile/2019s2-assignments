@@ -20,6 +20,7 @@
 class Engine : public Singleton<Engine>
 {
 	friend class Application;
+	friend class Singleton<Engine>;
 public:
 	void SetMouseCallback(GLFWwindow* window);
 private:
@@ -33,6 +34,6 @@ private:
 	CollisionManager m_CollisionManager;
 	void CheckGOForObserver(GameObject* go, std::vector<GameObject*>* GOList);
 	unsigned int m_frameCount;
-	RenderingManagerBase* GetRenderManager();
 public:
+	RenderingManagerBase* GetRenderManager();
 };

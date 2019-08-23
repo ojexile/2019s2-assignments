@@ -106,6 +106,10 @@ void RenderingManagerBase::BindLightUniforms()
 		m_LightParameters[U_LIGHT_EXPONENT + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, std::string(prefix + "exponent").c_str());
 	}
 }
+void RenderingManagerBase::SetUniform1f(UNIFORM_TYPE e, float f)
+{
+	glUniform1f(m_parameters[e], f);
+}
 void RenderingManagerBase::SetUniforms(Scene* scene)
 {
 	// Init fog================================================================================
