@@ -17,6 +17,7 @@
 
 #include <vector>
 #include <sstream>
+#include "ColorFBO.h"
 
 class RenderingManager : public RenderingManagerBase
 {
@@ -24,12 +25,17 @@ class RenderingManager : public RenderingManagerBase
 private:
 	std::vector<GameObject*> RenderQueue;
 	void RenderQueued(Scene* scene);
+	ColorFBO Post;
+	// unsigned m_RenderPass;
+	unsigned m_PostBO;
 public:
 	virtual void SetMouseCallback(GLFWwindow* window) override;
 
 	virtual void RenderPassGPass(Scene* scene);
+	virtual void RenderPassPost(Scene* scene);
 	virtual void RenderPassMain(Scene* scene);
 	virtual void RenderWorld(Scene* scene);
+	virtual void RenderPostQuad(Scene* scene);
 	static Vector3 MouseWorldDir();
 protected:
 	RenderingManager();

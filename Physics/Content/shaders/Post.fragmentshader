@@ -1,0 +1,14 @@
+#version 330 core
+
+uniform sampler2D SceneTexture;
+in vec2 texCoord;
+
+out vec4 color;
+
+void main()
+{
+	vec4 temp = texture(SceneTexture, texCoord);
+	temp.rgb = vec3((temp.r + temp.g + temp.b) / 3);
+	color = temp;
+
+}

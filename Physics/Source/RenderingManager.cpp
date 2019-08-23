@@ -24,7 +24,9 @@ void RenderingManager::Init()
 	RenderingManagerBase::Init();
 	// Shadows
 	m_lightDepthFBO.Init(SHADOW_RES, SHADOW_RES);
+	Post.Init(1920, 1080);
 	Math::InitRNG();
+	glGenRenderbuffers(1, &m_PostBO);
 }
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
@@ -54,6 +56,7 @@ void RenderingManager::Update(double dt)
 
 void RenderingManager::Render(Scene* scene)
 {
+	CHENG_LOG("Tex: ", std::to_string(Post.GetTexture()));
 	if (!scene->GetCameraGameObject()->GetComponent<TransformComponent>())
 	{
 		DEFAULT_LOG("ERROR: NO CAMERA GAMEOBJECT");
@@ -66,6 +69,7 @@ void RenderingManager::Render(Scene* scene)
 	//************************************
 	RenderPassMain(scene);
 	RenderQueued(scene);
+	RenderPassPost(scene);
 }
 void RenderingManager::RenderPassGPass(Scene* scene)
 {
@@ -89,11 +93,35 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 		0, 1, 0);
 	RenderWorld(scene);
 }
+void RenderingManager::RenderPassPost(Scene * scene)
+{
+	// glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	m_renderPass = RENDER_PASS_POST;
+	glViewport(0, 0, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
+
+	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 1280, 720);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_PostBO);
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//glDisable(GL_CULL_FACE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glUseProgram(m_PostProcessProgram);
+	Post.BindForReading(GL_TEXTURE8);
+	glUniform1i(m_parameters[U_POST_TEXTURE], 8);
+	glDisable(GL_DEPTH_TEST);
+	// meshList[GEO_POST_PROC_QUAD]->Render();
+	RenderPostQuad(scene);
+	glEnable(GL_DEPTH_TEST);
+}
 void RenderingManager::RenderPassMain(Scene* scene)
 {
 	m_renderPass = RENDER_PASS_MAIN;
-
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	Post.BindForWriting();
+	// glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, Application::GetWindowWidth(),
 		Application::GetWindowHeight());
 	glEnable(GL_CULL_FACE);
@@ -274,6 +302,29 @@ void RenderingManager::RenderWorld(Scene* scene)
 		if (!go->IsActive())
 			continue;
 
+		RenderGameObject(go, vCamPos, true);
+	}
+}
+void RenderingManager::RenderPostQuad(Scene * scene)
+{
+	Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
+	Vector3 vCamDir = scene->GetCameraGameObject()->GetComponent<CameraComponent>()->GetCamera()->GetDir();
+
+	GameObjectManager* GOM = scene->GetGameObjectManager();
+	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
+	std::vector<GameObject*>* GOListUI = map->at("Post")->GetGOList();
+	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
+	{
+		m_programID = (*map)["Render"]->GetShader();
+		BindUniforms();
+		SetUniforms(scene);
+	}
+	for (unsigned i = 0; i < GOListUI->size(); ++i)
+	{
+		GameObject* go = GOListUI->at(i);
+		if (!go->IsActive())
+			continue;
+		CHENG_LOG("", "Render");
 		RenderGameObject(go, vCamPos, true);
 	}
 }

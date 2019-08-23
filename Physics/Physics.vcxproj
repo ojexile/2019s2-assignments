@@ -191,6 +191,7 @@
     <ClCompile Include="Source\ChunkData.cpp" />
     <ClCompile Include="Source\ChunkEvent.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
+    <ClCompile Include="Source\ColorFBO.cpp" />
     <ClCompile Include="Source\Command.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
@@ -310,6 +311,7 @@
     <ClInclude Include="Source\ChunkData.h" />
     <ClInclude Include="Source\ChunkEvent.h" />
     <ClInclude Include="Source\CollisionManager.h" />
+    <ClInclude Include="Source\ColorFBO.h" />
     <ClInclude Include="Source\Command.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentBase.h" />

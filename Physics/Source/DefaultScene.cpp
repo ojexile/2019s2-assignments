@@ -29,8 +29,13 @@ void DefaultScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
+	m_GOM.CreateLayer(dataContainer->GetShader("Post"), "Post");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
+	///RENDER///
+	go = m_GOM.AddGameObject(GetGO("Render"), "Post");
+	////////////
 	/// Observers================================================================================
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);

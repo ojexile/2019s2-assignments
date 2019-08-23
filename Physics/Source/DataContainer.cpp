@@ -180,6 +180,8 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["QuadCentered"] = MeshBuilder::GenerateQuad("", {}, 1);
 
+	m_map_Meshes["Render"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture(2);
+
 	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", {}, 1.f)->AddTexture("particleSquareBorder");
@@ -526,11 +528,18 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(10.f);
 	go->TRANS->SetScale(1.f);
 	go->AddComponent(new DestructibleEntityScript());
+
+	go = new GameObject();
+	m_map_GO["Render"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Render")));
+	go->TRANS->SetScale(1920 / 2, 1080 / 2, 1);
+	go->TRANS->SetPosition(1920 / 2, 1080 / 2, 1);
 }
 void  DataContainer::InitShaders()
 {
 	m_map_Shaders["Default"] = LoadShaders("Flare", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
+	m_map_Shaders["Post"] = LoadShaders("Post", "Post");
 }
 void DataContainer::InitBehaviour()
 {
