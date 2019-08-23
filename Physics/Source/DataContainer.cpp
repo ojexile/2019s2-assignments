@@ -126,6 +126,8 @@ void DataContainer::InitTextures()
 	m_map_Textures["particleHexagon"] = LoadTGA("particleHexagon");
 	m_map_Textures["particleHexagonGrey"] = LoadTGA("particleHexagonGrey");
 	m_map_Textures["particleCloudGrey"] = LoadTGA("particleCloudGrey");
+	m_map_Textures["particleHexagonRed"] = LoadTGA("particleHexagonRed");
+	m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonBorderYellow");
 }
 void DataContainer::InitMeshes()
 {
@@ -185,7 +187,8 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["particlerockbreak"] = MeshBuilder::GenerateQuad("rockbreak", {}, 1.f)->AddTexture("particleHexagonGrey");
 	m_map_Meshes["particleExplosiveCloud"] = MeshBuilder::GenerateQuad("particleexplosivecloud", {})->AddTexture("particleCloudGrey");
 	m_map_Meshes["particleBulletTrail"] = MeshBuilder::GenerateQuad("particlebullettrail", {}, 1);
-
+	m_map_Meshes["particleHexagonRed"] = MeshBuilder::GenerateQuad("particleHexagonRed", {}, 1)->AddTexture("particleHexagonRed");
+	
 	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 1);
 
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
@@ -258,6 +261,15 @@ void DataContainer::InitParticles()
 	go->AddComponent(new ParticleScript(0.5f, {}, {}, {}, {}, {}));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 0.25f, 0.5F));
+
+	go = new GameObject();
+	m_map_GO["particleentityhit"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("particleHexagonRed")));
+	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
+	go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new ParticleScript(1.f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 1.f));
 }
 void DataContainer::InitGO()
 {
@@ -368,6 +380,8 @@ void DataContainer::InitGO()
 	go2->TRANS->SetRelativeRotation(-90, 0, 1, 0);
 	go->AddChild(go2);
 	go->AddComponent(new LootScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 	// Boss================================================================================
 	go = new GameObject;
 	m_map_GO["Boss"] = go;
@@ -377,6 +391,8 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(500, 0, 100, 0, 80, 20, 2000, 16)));
 	go->AddComponent(new LootScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 	// Shockwave
 	go = new GameObject;
 	m_map_GO["Shockwave"] = go;
@@ -399,6 +415,8 @@ void DataContainer::InitGO()
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
 	// go->AddComponent(new LootScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 	go = new GameObject;
 	m_map_GO["Bird"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("BirdBody")));
@@ -415,6 +433,8 @@ void DataContainer::InitGO()
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("WingRight")));
 	go2->TRANS->SetRelativePosition(-0.378f, 0.458f, 0.082f);
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 
 	// Fish-----------------------------------------------------------------------------
 	go = new GameObject;
@@ -422,6 +442,8 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(50, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;

@@ -33,7 +33,7 @@ void ScalePatternScript::Update(double dt)
 	m_fTimeElapsed += (float)dt;
 	if (m_fTimeElapsed > m_fMaximumTimeElapsed)
 	{
-		DestroySelf();
+		//DestroySelf();
 	}
 }
 
