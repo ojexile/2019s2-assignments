@@ -74,7 +74,7 @@ Augment* LootScript::GenerateAugment(void)
 		GenerateAugmentChance = Math::RandIntMinMax(1, 10);
 		if (GenerateAugmentChance == 1)
 		{
-			//return new ExplodeAugment();
+			return new ExplodeAugment();
 		}
 		//else if (GenerateAugmentChance == 2)
 		//{
