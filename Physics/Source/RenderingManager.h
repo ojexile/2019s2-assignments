@@ -28,6 +28,7 @@ private:
 	ColorFBO Post;
 	// unsigned m_RenderPass;
 	unsigned m_PostBO;
+	// unsigned m_FrameFBO;
 public:
 	virtual void SetMouseCallback(GLFWwindow* window) override;
 

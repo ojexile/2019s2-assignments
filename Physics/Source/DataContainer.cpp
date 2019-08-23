@@ -532,7 +532,7 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["Render"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Render")));
-	go->TRANS->SetScale(1920 / 2, 1080 / 2, 1);
+	go->TRANS->SetScale(1920, 1080, 1);
 	go->TRANS->SetPosition(1920 / 2, 1080 / 2, 1);
 }
 void  DataContainer::InitShaders()

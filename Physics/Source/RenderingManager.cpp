@@ -24,7 +24,7 @@ void RenderingManager::Init()
 	RenderingManagerBase::Init();
 	// Shadows
 	m_lightDepthFBO.Init(SHADOW_RES, SHADOW_RES);
-	Post.Init(1920, 1080);
+	Post.Init(1280, 720);
 	Math::InitRNG();
 	glGenRenderbuffers(1, &m_PostBO);
 }
@@ -56,7 +56,7 @@ void RenderingManager::Update(double dt)
 
 void RenderingManager::Render(Scene* scene)
 {
-	CHENG_LOG("Tex: ", std::to_string(Post.GetTexture()));
+	// CHENG_LOG("Tex: ", std::to_string(Post.GetTexture()));
 	if (!scene->GetCameraGameObject()->GetComponent<TransformComponent>())
 	{
 		DEFAULT_LOG("ERROR: NO CAMERA GAMEOBJECT");
@@ -105,6 +105,7 @@ void RenderingManager::RenderPassPost(Scene * scene)
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_PostBO);
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+	GLenum oof = glGetError();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//glDisable(GL_CULL_FACE);
@@ -245,6 +246,8 @@ void RenderingManager::RenderWorld(Scene* scene)
 			continue;
 		if (it->first == "Particle")
 			continue;
+		if (it->first == "Post")
+			continue;
 		if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 		{
 			m_programID = it->second->GetShader();
@@ -324,7 +327,7 @@ void RenderingManager::RenderPostQuad(Scene * scene)
 		GameObject* go = GOListUI->at(i);
 		if (!go->IsActive())
 			continue;
-		CHENG_LOG("", "Render");
+		// CHENG_LOG("", "Render");
 		RenderGameObject(go, vCamPos, true);
 	}
 }
