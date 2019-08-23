@@ -13,6 +13,7 @@ GameObject::GameObject()
 // Copy
 GameObject::GameObject(const GameObject& go, GameObject* parent)
 {
+	this->m_sName = go.m_sName;
 	this->m_Parent = parent;
 	this->m_bActive = go.m_bActive;
 	this->m_bStatic = go.m_bStatic;

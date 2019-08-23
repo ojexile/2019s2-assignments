@@ -228,6 +228,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+	go->m_sName = "particledestroy";
 
 	go = new GameObject();
 	m_map_GO["particlerockbreak"] = go;
@@ -238,6 +239,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+	go->m_sName = "particlerockbreak";
 
 	///================================================================================
 	// Reticle--------------------------------------------------------------------------------
@@ -267,6 +269,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(0.005f);
 	go->RIGID->SetMat(0.9f, 1);
 	go->AddComponent(new ProjectileScript(1.0, 30.0));
+	go->m_sName = "Bullet";
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
@@ -335,6 +338,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Melee));
 	go->AddComponent(new LootScript());
+	go->m_sName = "BaseEnemy";
 	// Melee--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Melee"] = go;
@@ -374,6 +378,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMat(0.25f, 0);
 	go->AddComponent(new SuicideNoteScript(5.f));
 	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlerockbreak"), 10, Vector3(), 0));
+	go->m_sName = "Shockwave";
 	//go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, go->TRANS->GetScale().x, 5.f));
 	// Animals--------------------------------------------------------------------------------
 	// Cow-----------------------------------------------------------------------------
@@ -458,10 +463,12 @@ void DataContainer::InitGO()
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+	go->m_sName = "particledestroy";
 
 	go = new GameObject();
 	m_map_GO["particlespawnerdestroy"] = go;
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
+	go->m_sName = "particlespawnerdestroy";
 
 	go = new GameObject();
 	m_map_GO["plaintree"] = go;
