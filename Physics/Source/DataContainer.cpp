@@ -173,21 +173,21 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Grenade"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
 
-	m_map_Meshes["UIInventory"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
+	m_map_Meshes["UIInventory"] = MeshBuilder::GenerateQuad("UIInventory", {}, 1)->AddTexture("InventorySlot");
 
-	m_map_Meshes["CraftingSlotMuzzle"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CraftingSlotMuzzle");
-	m_map_Meshes["CraftingSlotScope"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CraftingSlotScope");
-	m_map_Meshes["CraftingSlotStock"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CraftingSlotStock");
-	m_map_Meshes["CraftingSlotClip"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("CraftingSlotClip");
-	m_map_Meshes["InventorySlot"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("InventorySlot");
+	m_map_Meshes["CraftingSlotMuzzle"] = MeshBuilder::GenerateQuad("CraftingSlotMuzzle", {}, 1)->AddTexture("CraftingSlotMuzzle");
+	m_map_Meshes["CraftingSlotScope"] = MeshBuilder::GenerateQuad("CraftingSlotScope", {}, 1)->AddTexture("CraftingSlotScope");
+	m_map_Meshes["CraftingSlotStock"] = MeshBuilder::GenerateQuad("CraftingSlotStock", {}, 1)->AddTexture("CraftingSlotStock");
+	m_map_Meshes["CraftingSlotClip"] = MeshBuilder::GenerateQuad("CraftingSlotClip", {}, 1)->AddTexture("CraftingSlotClip");
+	m_map_Meshes["InventorySlot"] = MeshBuilder::GenerateQuad("InventorySlot", {}, 1)->AddTexture("InventorySlot");
 
-	m_map_Meshes["UIBullet"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture("UIBullet");
+	m_map_Meshes["UIBullet"] = MeshBuilder::GenerateQuad("UIBullet", {}, 1)->AddTexture("UIBullet");
 
 	m_map_Meshes["Quad"] = MeshBuilder::GenerateQuadLeftCentered({}, 1);
 
-	m_map_Meshes["QuadCentered"] = MeshBuilder::GenerateQuad("", {}, 1);
+	m_map_Meshes["QuadCentered"] = MeshBuilder::GenerateQuad("QuadCentered", {}, 1);
 
-	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
+	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("ItemInfo", { 1,1,1 }, 5);
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", {}, 1.f)->AddTexture("particleSquareBorder");
 	m_map_Meshes["particlerockbreak"] = MeshBuilder::GenerateQuad("rockbreak", {}, 1.f)->AddTexture("particleHexagonGrey");
@@ -238,9 +238,9 @@ void DataContainer::InitParticles()
 	go->RENDER->SetLightEnabled(false);
 	//go->TRANS->SetScale(0.5f);
 	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->AddComponent(new ParticleScript(10.f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, 0.f, 0.f), {}, Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
-	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 10.f));
 
 	go = new GameObject();
 	m_map_GO["particlerockbreak"] = go;
@@ -254,7 +254,7 @@ void DataContainer::InitParticles()
 	go = new GameObject();
 	m_map_GO["particleexplosioncloud"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particleExplosiveCloud")));
-	go->RENDER->Set3DBillboard(true);
+	go->RENDER->SetBillboard(true);
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(2.f, Vector3(-0.1f, 0.f, 0.f), {}, {}, {}, {}));
 	go->PARTICLE->SetRot({ -30.f, -30.f, -30.f });
@@ -263,7 +263,7 @@ void DataContainer::InitParticles()
 	go = new GameObject();
 	m_map_GO["particlestaticcloud"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particleExplosiveCloud")));
-	go->RENDER->Set3DBillboard(true);
+	go->RENDER->SetBillboard(true);
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(2.f, {}, {}, {}, {}, {}));
 	go->PARTICLE->SetRot({ -30.f, -30.f, -30.f });
@@ -271,9 +271,9 @@ void DataContainer::InitParticles()
 
 	go = new GameObject();
 	m_map_GO["particlebullettrail"] = go;
-	//go->AddComponent(new RenderComponent(GetMesh("particleBulletTrail")));
-	//go->GetComponent<RenderComponent>()->Set3DBillboard(true);
-	//go->RENDER->SetLightEnabled(false);
+	go->AddComponent(new RenderComponent(GetMesh("particleBulletTrail")));
+	go->GetComponent<RenderComponent>()->SetBillboard(true);
+	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(0.5f, {}, {}, {}, {}, {}));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 0.25f, 0.5F));
@@ -281,7 +281,7 @@ void DataContainer::InitParticles()
 	go = new GameObject();
 	m_map_GO["particleentityhit"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particleHexagonRed")));
-	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
+	go->GetComponent<RenderComponent>()->SetBillboard(true);
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(1.f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
@@ -290,7 +290,7 @@ void DataContainer::InitParticles()
 	go = new GameObject();
 	m_map_GO["particleRareDrop"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("particleRareDrop")));
-	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
+	go->GetComponent<RenderComponent>()->SetBillboard(true);
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, 0.1f, 0.f), Vector3(0, 1, 0), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
@@ -608,6 +608,9 @@ void  DataContainer::InitShaders()
 {
 	m_map_Shaders["Default"] = LoadShaders("Flare", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
+	m_map_Shaders["UI"] = LoadShaders("Flare", "Flare");
+	m_map_Shaders["Particles"] = LoadShaders("Flare", "Flare");
+
 }
 void DataContainer::InitBehaviour()
 {

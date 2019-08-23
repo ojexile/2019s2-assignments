@@ -110,7 +110,7 @@ void LootScript::DropLoot(void)
 			auto part = GenerateAugment();
 			if (part != nullptr)
 			{
-				Loot->PART->SetAugment(GenerateAugment());
+				Loot->PART->SetAugment(part);
 				Loot->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObject("particleRareDrop"),
 					5, { 0.1f,0.1f,0.1f }, 0.1f
 					));
