@@ -607,3 +607,7 @@ void RenderingManagerBase::Exit()
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_gPassShaderID);
 }
+
+void RenderingManagerBase::Resize(Vector3 size)
+{
+}

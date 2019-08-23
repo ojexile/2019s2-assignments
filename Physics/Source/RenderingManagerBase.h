@@ -121,6 +121,7 @@ public:
 	virtual void Update(double dt);
 	virtual void Render(Scene* scene);
 	virtual void Exit();
+	virtual void Resize(Vector3 size);
 
 protected:
 	void RenderText(RenderComponent* mesh);

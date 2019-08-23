@@ -40,6 +40,7 @@ void resize_callback(GLFWwindow* window, int w, int h)
 	m_width = w;
 	m_height = h;
 	glViewport(0, 0, w, h);
+	Engine::GetInstance()->GetRenderManager()->Resize(Vector3(w, h, 69));
 }
 
 void scroll_callback(GLFWwindow* window, double dx, double dy)

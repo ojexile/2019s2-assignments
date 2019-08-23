@@ -45,6 +45,7 @@ protected:
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render(Scene* scene);
+	virtual void Resize(Vector3 size);
 	void RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI, bool first = true);
 	virtual void Exit();
 	float m_speed;

@@ -340,5 +340,7 @@
     <None Include="Shader\water.vertexshader" />
     <None Include="Content\shaders\FancyFog.fragmentshader" />
     <None Include="Content\shaders\FancyFog.vertexshader" />
+    <None Include="Content\shaders\Post.fragmentshader" />
+    <None Include="Content\shaders\Post.vertexshader" />
   </ItemGroup>
 </Project>

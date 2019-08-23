@@ -24,7 +24,7 @@ void RenderingManager::Init()
 	RenderingManagerBase::Init();
 	// Shadows
 	m_lightDepthFBO.Init(SHADOW_RES, SHADOW_RES);
-	Post.Init(1280, 720);
+	Post.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
 	Math::InitRNG();
 	glGenRenderbuffers(1, &m_PostBO);
 }
@@ -71,6 +71,10 @@ void RenderingManager::Render(Scene* scene)
 	RenderQueued(scene);
 	RenderPassPost(scene);
 }
+void RenderingManager::Resize(Vector3 size)
+{
+	Post.Init(size.x, size.y);
+}
 void RenderingManager::RenderPassGPass(Scene* scene)
 {
 	m_renderPass = RENDER_PASS_PRE;
@@ -100,7 +104,7 @@ void RenderingManager::RenderPassPost(Scene * scene)
 	glViewport(0, 0, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
 
 	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 1280, 720);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_PostBO);
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)

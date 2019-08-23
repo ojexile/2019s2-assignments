@@ -165,6 +165,8 @@
     <None Include="Content\preferences.ini" />
     <None Include="Content\shaders\FancyFog.fragmentshader" />
     <None Include="Content\shaders\FancyFog.vertexshader" />
+    <None Include="Content\shaders\Post.fragmentshader" />
+    <None Include="Content\shaders\Post.vertexshader" />
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
