@@ -12,7 +12,7 @@
 #include "MyMath.h"
 // Start Scene
 #include "DefaultScene.h"
-Renderer* Engine::m_Renderer;
+RenderingManager* Engine::m_Renderer;
 
 Engine::Engine()
 {
@@ -74,7 +74,7 @@ void Engine::SetMouseCallback(GLFWwindow* window)
 }
 void Engine::Update(double dt)
 {
-	m_frameCount ++;
+	m_frameCount++;
 	SceneManager* SceneManager = SceneManager::GetInstance();
 	if (SceneManager->IsSceneChanged())
 		SceneManager->SwapScene();
@@ -179,6 +179,10 @@ void Engine::CheckGOForObserver(GameObject* go, std::vector<GameObject*>* GOList
 		GameObject* GOChild = go->GetChildList()->at(i);
 		CheckGOForObserver(GOChild, GOList);
 	}
+}
+RenderingManagerBase * Engine::GetRenderManager()
+{
+	return m_Renderer;
 }
 void Engine::Exit()
 {
