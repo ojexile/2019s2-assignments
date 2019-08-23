@@ -271,9 +271,9 @@ void DataContainer::InitParticles()
 
 	go = new GameObject();
 	m_map_GO["particlebullettrail"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("particleBulletTrail")));
-	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
-	go->RENDER->SetLightEnabled(false);
+	//go->AddComponent(new RenderComponent(GetMesh("particleBulletTrail")));
+	//go->GetComponent<RenderComponent>()->Set3DBillboard(true);
+	//go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(0.5f, {}, {}, {}, {}, {}));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 0.25f, 0.5F));
@@ -292,7 +292,7 @@ void DataContainer::InitParticles()
 	go->AddComponent(new RenderComponent(GetMesh("particleHexagonBorderYellow")));
 	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
 	go->RENDER->SetLightEnabled(false);
-	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
+	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, 0.1f, 0.f), Vector3(0, 1, 0), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
 
