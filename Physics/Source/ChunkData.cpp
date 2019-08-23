@@ -175,7 +175,8 @@ Vector3 ChunkData::GetGroundPosition(Vector3 in)
 {
 	for (int i = 0; i < m_iYSize; i++)
 	{
-		if (!IsSolid(Vector3(in.x, i, in.z))) return Vector3(in.x, i, in.z);
+		if (!IsSolid(Vector3(in.x, i, in.z)))
+			return Vector3(in.x, i, in.z);
 	}
 }
 

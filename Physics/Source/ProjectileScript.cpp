@@ -13,7 +13,7 @@ ProjectileScript::~ProjectileScript()
 
 void ProjectileScript::Update(double deltaTime)
 {
-	if (m_fLifespan >= 0.f)
+	if (m_fLifespan > 0.f)
 		m_fLifespan = m_fLifespan - static_cast<float>(deltaTime);
 	else
 		DestroySelf();

@@ -26,6 +26,7 @@ void ExplodeAugment::ActiveEffect(Component* proj, GameObject* go)
 
 	//Bullet expands
 	proj->TRANS->SetScale(1.5);
+
 }
 
 void ExplodeAugment::PassiveEffect(GameObject* go)

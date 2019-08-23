@@ -138,25 +138,22 @@ void DefaultScene::Init()
 	GameObject* ret = m_GOM.AddGameObject(GetGO("Reticle"));
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
-	Gun->TRANS->SetRelativePosition(1, 0, 1);
+	Gun->TRANS->SetRelativePosition(1, 0.75, 1);
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
 
-	//TMP
+	//TMP------------------------------------------------------------------------------------
 	GameObject* muz = dataContainer->GetGameObject("Muzzle");
-	muz->PART->SetDurability(10000.f);
-	muz->PART->SetAugment(new ExplodeAugment);
 	Gun->AddChild(muz);
 	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
 	muz = dataContainer->GetGameObject("Muzzle");
-	muz->PART->SetDurability(1.f);
 	Gun->AddChild(muz);
 	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
 	muz = dataContainer->GetGameObject("Muzzle");
-	muz->PART->SetDurability(5.f);
 	Gun->AddChild(muz);
 	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
@@ -193,10 +190,10 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(10, 20.5f, 0);
 	// --
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(3, 24.f, 0);
+	go->TRANS->SetPosition(3, 30.f, 0);
 	//--
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(0, 23.5f, 0);
+	go->TRANS->SetPosition(0, 30.5f, 0);
 	///interactable test
 
 	//go = m_GOM.AddGameObject();
