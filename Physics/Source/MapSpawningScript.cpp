@@ -11,6 +11,7 @@
 #include <array>
 
 #define NCHUNKS 16
+#define FLATMAP true
 MapSpawningScript::MapSpawningScript()
 {
 	for (int i = 0; i < 4096; ++i)
@@ -33,7 +34,9 @@ MapSpawningScript::~MapSpawningScript()
 
 const char* GetChunkByID(int id)
 {
+#if FLATMAP
 	return "flat";
+#endif
 	switch (id)
 	{
 	case 0:
@@ -46,7 +49,7 @@ const char* GetChunkByID(int id)
 	case 4:
 		return "bazaar1";
 	case 13:
-		return "root";
+		return "flat";
 	case 5:
 		return "barline_3";
 	case 6:
@@ -124,8 +127,8 @@ void MapSpawningScript::Update(double dt)
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	GameObjectManager* GOM = SceneManager::GetInstance()->GetScene()->GetGameObjectManager();
 	Vector3 v = GetComponent<TransformComponent>()->GetPosition();
-	std::array<int, 7> orderX{ -3, -2, -1, 0, 1, 2, 3 };
-	std::array<int, 7> orderZ{ -3, -2, -1, 0, 1, 2, 3 };
+	std::array<int, 31> orderX {-15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3 , 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+	std::array<int, 31> orderZ { -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3 , 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 
 	std::shuffle(orderX.begin(), orderX.end(), std::default_random_engine(Math::RandIntMinMax(0, 100000)));
 	std::shuffle(orderZ.begin(), orderZ.end(), std::default_random_engine(Math::RandIntMinMax(0, 100000)));
@@ -159,7 +162,7 @@ void MapSpawningScript::Update(double dt)
 			Vector3 goPos = Vector3(offsetX * 16, 0, offsetZ * 16);
 			go->TRANS->SetPosition(goPos);
 			RenderComponent* render = new RenderComponent(chunk->GenerateMeshBiomed());
-			render->SetRenderDistance(100);
+			render->SetRenderDistance(240);
 			go->AddComponent(render);
 			go->AddComponent(new BiomeComponent(GetBiomeAt(Vector3(offsetX, 0, offsetZ))));
 			//
