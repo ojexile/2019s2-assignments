@@ -289,7 +289,7 @@ void DataContainer::InitParticles()
 
 	go = new GameObject();
 	m_map_GO["particleRareDrop"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("particleHexagonBorderYellow")));
+	go->AddComponent(new RenderComponent(GetMesh("particleRareDrop")));
 	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, 0.1f, 0.f), Vector3(0, 1, 0), Vector3(), Vector3(), Vector3()));
