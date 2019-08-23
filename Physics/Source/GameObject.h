@@ -11,6 +11,8 @@
 
 class GameObject
 {
+public:
+	std::string m_sName;
 private:
 	bool m_bStatic;
 	bool m_bActive;

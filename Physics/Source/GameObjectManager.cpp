@@ -89,11 +89,11 @@ void GameObjectManager::Destroy(GameObject* go)
 		std::vector<GameObject*>* list = it->second->GetGOList();
 		for (unsigned i = 0; i < list->size(); ++i)
 		{
-			GameObject* curgo = (*list)[i];
+			GameObject* curgo = list->at(i);
 			if (curgo == go)
 			{
-				delete(*list)[i];
-				(*list).erase((*list).begin() + i);
+				delete curgo;
+				list->erase(list->begin() + i);
 				return;
 			}
 			// Search Child
@@ -187,7 +187,7 @@ void GameObjectManager::QueueDestroy(GameObject* go)
 			}
 		}
 	}
-	DEFAULT_LOG("Gameobject not deleted.");
+	DEFAULT_LOG("Gameobject not found.");
 }
 bool GameObjectManager::QueueSearchDestroyChild(GameObject* go, GameObject* curgo)
 {
