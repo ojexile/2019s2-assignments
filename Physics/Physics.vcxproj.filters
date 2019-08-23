@@ -147,6 +147,7 @@
     <ClCompile Include="Source\BlackHoleAugment.cpp" />
     <ClCompile Include="Source\ScalePatternScript.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\BossSpawnerScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -323,6 +324,7 @@
     <ClInclude Include="Source\SuicideNoteScript.h" />
     <ClInclude Include="Source\BirdWingScript.h" />
     <ClInclude Include="Source\ScalePatternScript.h" />
+    <ClInclude Include="Source\BossSpawnerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />

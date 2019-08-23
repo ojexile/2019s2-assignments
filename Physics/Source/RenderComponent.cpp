@@ -161,6 +161,11 @@ void RenderComponent::SetColor(float x, float y, float z)
 	m_Material.kAmbient.Set(x, y, z);
 	m_Material.kDiffuse.Set(x, y, z);
 }
+void RenderComponent::SetColor(float x)
+{
+	m_Material.kAmbient.Set(x, x, x);
+	m_Material.kDiffuse.Set(x, x, x);
+}
 void RenderComponent::ResetColor()
 {
 	if (m_Mesh)
