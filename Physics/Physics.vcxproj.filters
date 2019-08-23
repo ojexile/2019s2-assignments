@@ -335,5 +335,7 @@
     <None Include="Content\preferences.ini" />
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
+    <None Include="Content\shaders\FancyFog.fragmentshader" />
+    <None Include="Content\shaders\FancyFog.vertexshader" />
   </ItemGroup>
 </Project>

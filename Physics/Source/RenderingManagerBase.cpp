@@ -2,6 +2,8 @@
 #include "DataContainer.h"
 #include "Locator.h"
 #include "KeyboardManager.h"
+#include "Preferences.h"
+#include "Resources.h"
 
 #define FOG_ENABLED true
 
@@ -77,7 +79,8 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_SHADOW_COLOR_TEXTURE1] = glGetUniformLocation(m_gPassShaderID, "colorTexture[1]");
 	m_parameters[U_SHADOW_COLOR_TEXTURE_ENABLED2] = glGetUniformLocation(m_gPassShaderID, "colorTextureEnabled[2]");
 	m_parameters[U_SHADOW_COLOR_TEXTURE2] = glGetUniformLocation(m_gPassShaderID, "colorTexture[2]");
-
+	// extra--------------------------------------------------------------------------------
+	m_parameters[U_DIST_FROM_PLAYER] = glGetUniformLocation(m_programID, "distFromPlayer");
 	//--------------------------------------------------------------------------------
 	glUseProgram(m_programID);
 	BindLightUniforms();
@@ -105,12 +108,12 @@ void RenderingManagerBase::BindLightUniforms()
 void RenderingManagerBase::SetUniforms(Scene* scene)
 {
 	// Init fog================================================================================
-	Color fogColor{ 0.5f, 0.5f, 0.6f };
+	Color fogColor{ 0.4f, 0.4f, 0.5f };
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
-	glUniform1f(m_parameters[U_FOG_START], 30);
-	glUniform1f(m_parameters[U_FOG_END], 100000);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 0.01f);
-	glUniform1i(m_parameters[U_FOG_TYPE], 2);
+	glUniform1f(m_parameters[U_FOG_START], 12);
+	glUniform1f(m_parameters[U_FOG_END], 80);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 0.07f);
+	glUniform1i(m_parameters[U_FOG_TYPE], 1);
 	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 
 	// Shadows================================================================================
@@ -142,12 +145,14 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 		glUniform1f(m_LightParameters[U_LIGHT_COSINNER + (U_LIGHT_TOTAL * index)], L->cosInner);
 		glUniform1f(m_LightParameters[U_LIGHT_EXPONENT + (U_LIGHT_TOTAL * index)], L->exponent);
 	}
+	// extra--------------------------------------------------------------------------------
+	glUniform1f(m_parameters[U_DIST_FROM_PLAYER], std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist)));
 }
 
 void RenderingManagerBase::Init()
 {
 	// Black background
-	glClearColor(0.2f, 0.4f, 0.9f, 0.0f);
+	glClearColor(0.4f, 0.4f, 0.5f, 0.0f);
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one

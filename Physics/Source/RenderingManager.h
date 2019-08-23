@@ -21,6 +21,9 @@
 class RenderingManager : public RenderingManagerBase
 {
 	friend class Engine;
+private:
+	std::vector<GameObject*> RenderQueue;
+	void RenderQueued(Scene* scene);
 public:
 	virtual void SetMouseCallback(GLFWwindow* window) override;
 
@@ -35,7 +38,7 @@ protected:
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render(Scene* scene);
-	void RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI);
+	void RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI, bool first = true);
 	virtual void Exit();
 	float m_speed;
 	float m_worldWidth;

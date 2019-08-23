@@ -8,9 +8,14 @@ bool AIState::PlayerInRange(ComponentBase* com)
 {
 	GameObject* Player = SceneManager::GetInstance()->GetScene()->GetPlayer();
 	Vector3 PlayerPos = Player->TRANS->GetPosition();
+	Vector3 Pos = com->TRANS->GetPosition();
+	if (fabs(PlayerPos.y - Pos.y) > 4)
+		return false;
+	PlayerPos.y = 0;
+	Pos.y = 0;
 	float Range = Player->GetComponent<EntityScript>()->GetBaseStats()->GetDetectionRadius() +
 		com->GetComponent<EntityScript>()->GetBaseStats()->GetDetectionRadius();
-	if ((PlayerPos - com->TRANS->GetPosition()).Length() < Range)
+	if ((PlayerPos - Pos).Length() < Range)
 		return true;
 	return false;
 }
