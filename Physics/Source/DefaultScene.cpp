@@ -142,17 +142,34 @@ void DefaultScene::Init()
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
 
 	//TMP------------------------------------------------------------------------------------
-	GameObject* muz = dataContainer->GetGameObject("Muzzle");
-	Gun->AddChild(muz);
-	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
+	GameObject* tmp = dataContainer->GetGameObject("Muzzle");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
-	muz = dataContainer->GetGameObject("Muzzle");
-	Gun->AddChild(muz);
-	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
+	tmp = dataContainer->GetGameObject("Muzzle");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
-	muz = dataContainer->GetGameObject("Muzzle");
-	Gun->AddChild(muz);
-	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
+	tmp = dataContainer->GetGameObject("Grip");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::GRIP);
+
+	tmp = dataContainer->GetGameObject("Clip");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::CLIP);
+
+	tmp = dataContainer->GetGameObject("Clip");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::CLIP);
+
+	tmp = dataContainer->GetGameObject("Clip");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::CLIP);
+
+	tmp = dataContainer->GetGameObject("Clip");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::CLIP);
+
 
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObject("Grenade");

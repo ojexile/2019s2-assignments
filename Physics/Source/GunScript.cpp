@@ -79,6 +79,8 @@ void GunScript::Update(double deltaTime)
 
 	if (m_fReloadElapsedTime >= m_fReloadTime && m_bIsReloading)
 		ReloadWeapon();
+
+	m_iMagazineRounds = Math::Clamp(m_iMagazineRounds, 0, m_iMagazineRounds_Max);
 }
 
 void GunScript::UpdateStats(GameObject* go, bool Multiply)
@@ -199,15 +201,12 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 		return;
 
 	part->RIGID->SetAffectedByGravity(false);
-	
+
+	//Apply augment if present
 	if (part->PART->GetAugment())
 	{
 		switch (part->PART->GetAugment()->GetAugmentType())
 		{
-		case Augment::eAugmentType::BULLET:
-		{
-		
-		}
 		case Augment::eAugmentType::PLAYER:
 		{
 

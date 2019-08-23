@@ -31,33 +31,32 @@ void LootScript::Collide(GameObject * go)
 WeaponPartScript* LootScript::GenerateWeaponPart(void)
 {
 	WeaponPartScript::SLOT_TYPE SlotType = static_cast<WeaponPartScript::SLOT_TYPE>(Math::RandIntMinMax(1, WeaponPartScript::SLOT_TYPE::MUZZLE));
-	float Durability = Math::RandFloatMinMax(5.f, 10.f);
+	float Durability = Math::RandFloatMinMax(4.f, 6.f);
 	float Multiplier;
 
-	if (SlotType == WeaponPartScript::SLOT_TYPE::MUZZLE || SlotType == WeaponPartScript::SLOT_TYPE::SCOPE)
+	if (SlotType == WeaponPartScript::SLOT_TYPE::MUZZLE || SlotType == WeaponPartScript::SLOT_TYPE::SCOPE ||
+		SlotType == WeaponPartScript::SLOT_TYPE::GRIP)
 	{
-		Multiplier = Math::RandFloatMinMax(0.5f, 0.9f);
+		Multiplier = Math::RandFloatMinMax(0.5f, 0.65f);
 		
 		if (SlotType == WeaponPartScript::SLOT_TYPE::MUZZLE)
 		{
 			m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Muzzle"));
 		}
-		else
+		else if(SlotType == WeaponPartScript::SLOT_TYPE::SCOPE)
 		{
 			m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Scope"));
-		}
-	}
-	else if (SlotType == WeaponPartScript::SLOT_TYPE::CLIP || SlotType == WeaponPartScript::SLOT_TYPE::GRIP)
-	{
-		Multiplier = Math::RandFloatMinMax(1.2f, 2.f);
-		if (SlotType == WeaponPartScript::SLOT_TYPE::CLIP)
-		{
-			m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Clip"));
 		}
 		else
 		{
 			m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Grip"));
 		}
+	}
+	else if (SlotType == WeaponPartScript::SLOT_TYPE::CLIP)
+	{
+		Multiplier = 2;
+		m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Clip"));
+
 	}
 
 	return new WeaponPartScript(SlotType, Multiplier, Durability);
@@ -87,14 +86,18 @@ Augment* LootScript::GenerateAugment(void)
 void LootScript::DropLoot(void)
 {
 
-	//40% chance to drop loot
-	int DropChance = Math::RandIntMinMax(1, 10);
-	if (DropChance > 6)
+	//70% chance to drop loot
+	int DropChance = Math::RandIntMinMax(0, 100);
+	RYAN_LOG(std::to_string(DropChance));
+
+	if (DropChance >= 30)
 	{
-		DropChance = Math::RandIntMinMax(1, 10);
+		DropChance = Math::RandIntMinMax(0, 100);
 		//30% chance to drop a part
 		//70% chacne to drop other loot
-		if (DropChance > 7)
+
+		RYAN_LOG(std::to_string(DropChance));
+		if (DropChance >= 30)
 		{
 			//Generate the part
 			WeaponPartScript* NewWeaponPartScript = nullptr;
@@ -113,6 +116,4 @@ void LootScript::DropLoot(void)
 
 		}
 	}
-
-	RYAN_LOG("LOOT_DROP");
 }
