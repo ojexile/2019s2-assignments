@@ -184,6 +184,9 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", {}, 1.f)->AddTexture("particleSquareBorder");
 	m_map_Meshes["particlerockbreak"] = MeshBuilder::GenerateQuad("rockbreak", {}, 1.f)->AddTexture("particleHexagonGrey");
 	m_map_Meshes["particleExplosiveCloud"] = MeshBuilder::GenerateQuad("particleexplosivecloud", {})->AddTexture("particleCloudGrey");
+	m_map_Meshes["particleBulletTrail"] = MeshBuilder::GenerateQuad("particlebullettrail", {}, 1);
+
+	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 1);
 
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
 
@@ -249,12 +252,12 @@ void DataContainer::InitParticles()
 
 	go = new GameObject();
 	m_map_GO["particlebullettrail"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("particlerockbreak")));
+	go->AddComponent(new RenderComponent(GetMesh("particleBulletTrail")));
 	go->GetComponent<RenderComponent>()->Set3DBillboard(true);
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(0.5f, {}, {}, {}, {}, {}));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
-	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5F));
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 0.25f, 0.5F));
 }
 void DataContainer::InitGO()
 {
@@ -277,6 +280,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(0.005f);
 	go->RIGID->SetMat(0.9f, 1);
 	go->AddComponent(new ProjectileScript(1.0, 30.0));
+	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlebullettrail"), 30, Vector3(), 0));
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
