@@ -415,6 +415,9 @@
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Content\shaders\EffectCRT.fragmentshader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

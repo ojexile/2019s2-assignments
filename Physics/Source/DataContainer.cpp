@@ -181,6 +181,7 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["QuadCentered"] = MeshBuilder::GenerateQuad("", {}, 1);
 
 	m_map_Meshes["Render"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture(2);
+	m_map_Meshes["Render2"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture(3);
 
 	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
 
@@ -534,12 +535,19 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Render")));
 	go->TRANS->SetScale(1920, 1080, 1);
 	go->TRANS->SetPosition(0, 0, 1);
+
+	go = new GameObject();
+	m_map_GO["Render2"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Render2")));
+	go->TRANS->SetScale(1920, 1080, 1);
+	go->TRANS->SetPosition(0, 0, 1);
 }
 void  DataContainer::InitShaders()
 {
 	m_map_Shaders["Default"] = LoadShaders("Flare", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	m_map_Shaders["Post"] = LoadShaders("Post", "Post");
+	m_map_Shaders["EffectCRT"] = LoadShaders("Post", "EffectCRT");
 }
 void DataContainer::InitBehaviour()
 {

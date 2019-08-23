@@ -343,4 +343,7 @@
     <None Include="Content\shaders\Post.fragmentshader" />
     <None Include="Content\shaders\Post.vertexshader" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Content\shaders\EffectCRT.fragmentshader" />
+  </ItemGroup>
 </Project>

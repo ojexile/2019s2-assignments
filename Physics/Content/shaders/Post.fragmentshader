@@ -2,33 +2,8 @@
 
 uniform sampler2D SceneTexture;
 in vec2 texCoord;
-in float effect0Intensity;
-
 out vec4 color;
 
-vec3 rgbToHsv(float r, float g, float b)
-{
-	float max, min;
-	vec3 ret;
-
-	min = min(min(r,g),b);
-	max = max(max(r,g),b);
-
-	ret.z = max;
-
-	if(max != 0)
-	{
-		ret.y = (max - min)/max;
-	}
-	else
-	{
-		ret.y = 0;
-		ret.x = -1;
-		return ret;
-	}
-
-
-}
 
 void main()
 {
@@ -40,13 +15,7 @@ void main()
 	effect0.g = effect0.b = (val < 1? 0 : val - 1);
 	effect0.r = (val > 1? 1:val);
 	
-	if(effect0Intensity > 0)
-		vec4 effect0Color = mix(original, effect0, pow(tanh(length(texCoord - vec2(0.5, 0.5))), 1 / effect0Intensity));
+	vec4 effect0Color = mix(original, effect0, pow(tanh(length(texCoord - vec2(0.5, 0.5))), 1));
 	
-	// Effect 1: Screen Bump
-	vec2 effect1TexCoord
-	vec4 effect1 = texture(SceneTexture, texCoord);
-
-
 	color = effect0Color;
 }

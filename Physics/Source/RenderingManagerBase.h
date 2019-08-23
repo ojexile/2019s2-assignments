@@ -83,6 +83,7 @@ public:
 		U_SHADOW_COLOR_TEXTURE2,
 
 		U_POST_TEXTURE,
+		U_POST2_TEXTURE,
 
 		// extra
 		U_DIST_FROM_PLAYER,
@@ -111,6 +112,7 @@ public:
 		RENDER_PASS_PRE,
 		RENDER_PASS_MAIN,
 		RENDER_PASS_POST,
+		RENDER_PASS_POST_2,
 	};
 
 public:
@@ -137,6 +139,7 @@ protected:
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 	unsigned m_PostProcessProgram;
+	unsigned m_PostProcessProgram2;
 	int m_parameters[U_TOTAL];
 	int m_LightParameters[U_LIGHT_TOTAL * MAX_LIGHTS];
 
