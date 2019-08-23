@@ -33,7 +33,7 @@ MapSpawningScript::~MapSpawningScript()
 
 const char* GetChunkByID(int id)
 {
-	return "flat";
+	//return "flat";
 	switch (id)
 	{
 	case 0:
@@ -46,7 +46,7 @@ const char* GetChunkByID(int id)
 	case 4:
 		return "bazaar1";
 	case 13:
-		return "root";
+		return "flat";
 	case 5:
 		return "barline_3";
 	case 6:

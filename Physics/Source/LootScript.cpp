@@ -4,6 +4,7 @@
 #include "ChunkCollider.h"
 #include "SceneManager.h"
 #include "ExplodeAugment.h"
+#include "ReloadingAugment.h"
 #include "BlackHoleAugment.h"
 
 LootScript::LootScript()
@@ -74,10 +75,10 @@ Augment* LootScript::GenerateAugment(void)
 		{
 			return new ExplodeAugment();
 		}
-		//else if (GenerateAugmentChance == 2)
-		//{
-		//	return new BlackHoleAugment();
-		//}
+		else if (GenerateAugmentChance == 2)
+		{
+			return new ReloadingAugment();
+		}
 	}
 
 	return nullptr;
