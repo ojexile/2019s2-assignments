@@ -187,17 +187,17 @@ void MapSpawningScript::Update(double dt)
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 				for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
 				{
-					m_spawnedLocations.emplace(Vector3(offsetX + xDiff, 0, offsetZ + zDiff));
-					m_connections[Vector3(offsetX + xDiff + 1, 0, offsetZ + zDiff)][0] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 2); // 0 = -x
-					m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff + 1)][1] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 3); // 1 = -z
-					m_connections[Vector3(offsetX + xDiff - 1, 0, offsetZ + zDiff)][2] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 0); // 2 = +x
-					m_connections[Vector3(offsetX + xDiff, 0, offsetZ + zDiff - 1)][3] = chunk->GetChunkConnection(Vector3(xDiff, 0, zDiff), 1); // 3 = +z (from centre of chunk)
+					m_spawnedLocations.emplace(Vector3((float)offsetX + (float)xDiff, 0, (float)offsetZ + (float)zDiff));
+					m_connections[Vector3((float)offsetX + (float)xDiff + 1, 0, (float)offsetZ + (float)zDiff)][0] = chunk->GetChunkConnection(Vector3((float)xDiff, 0, (float)zDiff), 2); // 0 = -x
+					m_connections[Vector3((float)offsetX + (float)xDiff, 0, (float)offsetZ + (float)zDiff + 1)][1] = chunk->GetChunkConnection(Vector3((float)xDiff, 0, (float)zDiff), 3); // 1 = -z
+					m_connections[Vector3((float)offsetX + (float)xDiff - 1, 0, (float)offsetZ + (float)zDiff)][2] = chunk->GetChunkConnection(Vector3((float)xDiff, 0, (float)zDiff), 0); // 2 = +x
+					m_connections[Vector3((float)offsetX + (float)xDiff, 0, (float)offsetZ + (float)zDiff - 1)][3] = chunk->GetChunkConnection(Vector3((float)xDiff, 0, (float)zDiff), 1); // 3 = +z (from centre of chunk)
 				}
 
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 				for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
 				{
-					Vector3 noise = GetNoiseAt(Vector3((offsetX + xDiff) / 3, 0, (offsetZ + zDiff) / 3)) * 1.5 + Vector3(1.5, 1.5, 1.5);
+					Vector3 noise = GetNoiseAt(Vector3(((float)offsetX + (float)xDiff) / 3, 0, (float)((float)offsetZ + (float)zDiff) / 3)) * 1.5 + Vector3(1.5f, 1.5f, 1.5f);
 					noise.y = 0;
 					if (floor(noise.x) == Mod(offsetX + xDiff, 3))
 						if (floor(noise.z) == Mod(offsetZ + zDiff, 3))
@@ -222,8 +222,8 @@ Vector3 MapSpawningScript::GetNoiseAt(Vector3 v)
 		float z = Z * multiplier;
 		x = Mod(x + 14, 64.f);
 		z = Mod(z + 14, 64.f);
-		int xLow = floor(x);
-		int zLow = floor(z);
+		int xLow = (int)floor(x);
+		int zLow = (int)floor(z);
 		int offset = ((((i * 351863) % 49231 + 1077) * 9221 + 829) % 34 * 24177) % 4096; //bad set rng
 		biomeWeights.x += BiLerp2D(m_biomeNoise[(offset + xLow * 64 + zLow) % 4096].x,
 			m_biomeNoise[(offset + xLow * 64 + Mod(zLow + 1, 64)) % 4096].x,
@@ -255,7 +255,7 @@ BiomeComponent::eBiomeTypes MapSpawningScript::GetBiomeFromNoise(Vector3 vec)
 	{
 		neighbors.emplace(1 / (i->first - vec).Length(), i->second);
 	}
-	int i = 0;
+	unsigned i = 0;
 	std::map< BiomeComponent::eBiomeTypes, float> output;
 	for (auto m = neighbors.begin(); i < m_biomeToVec3Mapping.size() && m != neighbors.end(); ++i, ++m)
 	{
@@ -274,18 +274,18 @@ BiomeComponent::eBiomeTypes MapSpawningScript::GetBiomeFromNoise(Vector3 vec)
 
 BiomeComponent::eBiomeTypes MapSpawningScript::GetBiomeAt(Vector3 vec)
 {
-	int x = vec.x / 7;
-	int z = vec.z / 7;
+	int x = (int)(vec.x / 7);
+	int z = (int)(vec.z / 7);
 
-	BiomeComponent::eBiomeTypes a00 = GetBiomeFromNoise(GetNoiseAt(Vector3(x, 0, z)));
-	BiomeComponent::eBiomeTypes a01 = GetBiomeFromNoise(GetNoiseAt(Vector3(x, 0, z + 1)));
-	BiomeComponent::eBiomeTypes a10 = GetBiomeFromNoise(GetNoiseAt(Vector3(x + 1, 0, z)));
-	BiomeComponent::eBiomeTypes a11 = GetBiomeFromNoise(GetNoiseAt(Vector3(x + 1, 0, z + 1)));
+	BiomeComponent::eBiomeTypes a00 = GetBiomeFromNoise(GetNoiseAt(Vector3((float)x, 0, (float)z)));
+	BiomeComponent::eBiomeTypes a01 = GetBiomeFromNoise(GetNoiseAt(Vector3((float)x, 0, (float)z + 1)));
+	BiomeComponent::eBiomeTypes a10 = GetBiomeFromNoise(GetNoiseAt(Vector3((float)x + 1, 0, (float)z)));
+	BiomeComponent::eBiomeTypes a11 = GetBiomeFromNoise(GetNoiseAt(Vector3((float)x + 1, 0, (float)z + 1)));
 
-	float f00 = ((Vector3(x, 0, z) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3(x, 0, z) - vec * (1 / 7.f)).Length()));
-	float f01 = ((Vector3(x, 0, z + 1) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3(x, 0, z + 1) - vec * (1 / 7.f)).Length()));
-	float f10 = ((Vector3(x + 1, 0, z) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3(x + 1, 0, z) - vec * (1 / 7.f)).Length()));
-	float f11 = ((Vector3(x + 1, 0, z + 1) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3(x + 1, 0, z + 1) - vec * (1 / 7.f)).Length()));
+	float f00 = ((Vector3((float)x, 0, (float)z) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3((float)x, 0, (float)z) - vec * (1 / 7.f)).Length()));
+	float f01 = ((Vector3((float)x, 0, (float)z + 1) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3((float)x, 0, (float)z + 1) - vec * (1 / 7.f)).Length()));
+	float f10 = ((Vector3((float)x + 1, 0, (float)z) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3((float)x + 1, 0, (float)z) - vec * (1 / 7.f)).Length()));
+	float f11 = ((Vector3((float)x + 1, 0, (float)z + 1) - vec * (1 / 7.f)).IsZero() ? 1000000 : 1 / ((Vector3((float)x + 1, 0, (float)z + 1) - vec * (1 / 7.f)).Length()));
 
 	float sum = f00 + f01 + f10 + f11;
 	float rand = Math::RandFloatMinMax(0, sum);
