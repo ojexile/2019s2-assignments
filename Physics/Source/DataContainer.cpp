@@ -453,7 +453,6 @@ void DataContainer::InitGO()
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
 
 	// C---------------------------------------------
-	-----------------------------------
 	go = new GameObject;
 	m_map_GO["Boss2"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
