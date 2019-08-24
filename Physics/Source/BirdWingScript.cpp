@@ -1,4 +1,5 @@
 #include "BirdWingScript.h"
+#include "WorldValues.h"
 
 BirdWingScript::BirdWingScript()
 {

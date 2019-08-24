@@ -108,18 +108,17 @@ bool EntityScript::CheckDeath()
 			Notify("PlayerDied");
 			RENDER->ResetColor();
 			m_bIsDead = true;
-			return true;
+			return m_bIsDead;
 		}
-		if (this->LOOT)
+		else if (this->GetComponent<LootScript>(true))
 		{
 			this->LOOT->DropLoot();
 		}
 		Notify("EntityDied");
 		DestroySelf(); // should switch to play death anim
 		m_bIsDead = true;
-		return true;
 	}
-	return false;
+	return m_bIsDead;
 }
 void EntityScript::UpdateValues()
 {

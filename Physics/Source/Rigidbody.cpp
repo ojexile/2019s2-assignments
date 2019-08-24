@@ -22,7 +22,7 @@ Rigidbody::~Rigidbody()
 void Rigidbody::Update(double dt)
 {
 	if (this->m_eType == ePhysicsTypes::NONE) return;
-	dt *= WorldValues::TimeScale;
+	// dt *= WorldValues::TimeScale;
 	if (m_iMapForceCount != 0) m_vForce += m_vMapForce * (1.f / m_iMapForceCount);
 	m_vMapForce.SetZero();
 	m_iMapForceCount = 0;

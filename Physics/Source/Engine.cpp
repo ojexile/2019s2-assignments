@@ -10,6 +10,7 @@
 #include "GenericSubject.h"
 #include "StopWatch.h"
 #include "MyMath.h"
+#include "WorldValues.h"
 // Start Scene
 #include "DefaultScene.h"
 Renderer* Engine::m_Renderer;
@@ -105,7 +106,7 @@ void Engine::Update(double dt)
 			if (!go->IsActive())
 				continue;
 			StopWatch s(true);
-			go->Update(min(dt, 0.1));
+			go->Update(min(dt * WorldValues::TimeScale, 0.1));
 			if (TIMINGS)
 			{
 				if (s.Stop()->GetTime() > 0.01f)
