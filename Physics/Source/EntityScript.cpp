@@ -3,6 +3,7 @@
 #include "LootScript.h"
 #include "RenderComponent.h"
 #include "Utility.h"
+#include "PlayerDeathScript.h"
 
 EntityScript::EntityScript(Behaviour* Behaviour)
 	: m_Behaviour(Behaviour),
@@ -15,6 +16,7 @@ EntityScript::EntityScript(Behaviour* Behaviour)
 	m_fAnimStartTime = -1;
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
+	m_bIsDead = false;
 }
 EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	: m_Behaviour(Behaviour)
@@ -28,6 +30,7 @@ EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	m_fAnimStartTime = -1;
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
+	m_bIsDead = false;
 }
 EntityScript::EntityScript(EntityScript & ref)
 	: m_BaseStats(ref.m_BaseStats)
@@ -44,6 +47,7 @@ EntityScript::EntityScript(EntityScript & ref)
 		m_Behaviour = nullptr;
 	m_bInitialised = false;
 	m_fAnimStartTime = 0;
+	m_bIsDead = false;
 }
 EntityScript::~EntityScript()
 {
@@ -96,19 +100,25 @@ void EntityScript::DamageAnim()
 }
 bool EntityScript::CheckDeath()
 {
-	if (this->GetComponent<PlayerScript>(true))
-		return false;
-	if (m_Values.m_iHealth <= 0)
+	if (m_Values.m_iHealth <= 0 && !m_bIsDead)
 	{
-		if (this->LOOT)
+		if (this->GetComponent<PlayerScript>(true))
+		{
+			this->GetComponent<PlayerDeathScript>()->SetActive(true);
+			Notify("PlayerDied");
+			RENDER->ResetColor();
+			m_bIsDead = true;
+			return m_bIsDead;
+		}
+		else if (this->GetComponent<LootScript>(true))
 		{
 			this->LOOT->DropLoot();
 		}
 		Notify("EntityDied");
 		DestroySelf(); // should switch to play death anim
-		return true;
+		m_bIsDead = true;
 	}
-	return false;
+	return m_bIsDead;
 }
 void EntityScript::UpdateValues()
 {
@@ -166,7 +176,7 @@ void EntityScript::Jump()
 	{
 		rb->SetVel(Vector3(rb->GetVel().x, 40 / rb->GetMass(), rb->GetVel().z));
 		m_bCanJump = false;
-		if (GetComponent<PlayerScript>() != nullptr)
+		if (GetComponent<PlayerScript>(true) != nullptr)
 		{
 			Notify("Jump");
 		}

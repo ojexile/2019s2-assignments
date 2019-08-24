@@ -24,17 +24,15 @@ void PlayerScript::Start()
 }
 void PlayerScript::Update(double dt)
 {
+	if (CheckDeath())
+		return;
 	EntityScript::Update(dt);
 	UpdateBehaviour();
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
 	AudioManager::GetInstance()->UpdateFading(dt);
 	// Movement================================================================================
 	UpdateMovement(dt);
-
 	m_Grenade->TRANS->SetPosition(GetPosition());
-
-	// m_Gun->TRANS->SetPosition(GetPosition());
-	// m_Gun->Update(dt);
 }
 
 void PlayerScript::UpdateMovement(double dt)
@@ -69,7 +67,6 @@ void PlayerScript::UpdateMovement(double dt)
 	//
 	Vector3 vGunDir = m_Reticle->TRANS->GetPosition() - m_Gun->TRANS->GetPosition();
 	vGunDir.y += 1.f;
-	CHENG_LOG("Dir: ", vtos(vGunDir));
 	if (!vGunDir.IsZero())
 	{
 		vGunDir.Normalize();
@@ -117,13 +114,13 @@ void PlayerScript::UpdateMovement(double dt)
 	// CHENG_LOG("Player pos: ", vtos(GetPosition()));
 	if (GetValues()->GetHealth() < 120)
 	{
-		AudioManager::GetInstance()->QueueFade(0, 0.3, "low_piano");
-		AudioManager::GetInstance()->QueueFade(1, 0.3, "high_piano");
+		AudioManager::GetInstance()->QueueFade(0, 0.3f, "low_piano");
+		AudioManager::GetInstance()->QueueFade(1, 0.3f, "high_piano");
 	}
 	else
 	{
-		AudioManager::GetInstance()->QueueFade(1, 0.3, "low_piano");
-		AudioManager::GetInstance()->QueueFade(0, 0.3, "high_piano");
+		AudioManager::GetInstance()->QueueFade(1, 0.3f, "low_piano");
+		AudioManager::GetInstance()->QueueFade(0, 0.3f, "high_piano");
 	}
 }
 void PlayerScript::Collide(GameObject* go)

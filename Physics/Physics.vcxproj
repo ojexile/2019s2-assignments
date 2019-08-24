@@ -184,6 +184,7 @@
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\BossCombat.cpp" />
     <ClCompile Include="Source\BossShockwaveState.cpp" />
+    <ClCompile Include="Source\BossSpawnerScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\CameraScript.cpp" />
@@ -249,6 +250,7 @@
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
+    <ClCompile Include="Source\PlayerDeathScript.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
     <ClCompile Include="Source\PlayerStatsScript.cpp" />
@@ -303,6 +305,7 @@
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\BossCombat.h" />
     <ClInclude Include="Source\BossShockwaveState.h" />
+    <ClInclude Include="Source\BossSpawnerScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\CameraScript.h" />
@@ -370,6 +373,7 @@
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
+    <ClInclude Include="Source\PlayerDeathScript.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\PlayerStatsScript.h" />

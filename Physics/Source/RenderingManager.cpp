@@ -2,9 +2,9 @@
 #include "Application.h"
 #include "RenderComponent.h"
 #define VIEW_AS_LIGHT false
-#define SHADOW_VIEW_SIZE_X 100
+#define SHADOW_VIEW_SIZE_X 200
 #define SHADOW_VIEW_SIZE_Y 100/16*9
-#define SHADOW_VIEW_SIZE_Z 100
+#define SHADOW_VIEW_SIZE_Z 200
 #define SHADOW_RES 128*20.f
 
 #define SWITCH_SHADER true
@@ -23,7 +23,7 @@ void RenderingManager::Init()
 {
 	RenderingManagerBase::Init();
 	// Shadows
-	m_lightDepthFBO.Init(SHADOW_RES, SHADOW_RES);
+	m_lightDepthFBO.Init((unsigned)(SHADOW_RES), (unsigned)(SHADOW_RES));
 	Math::InitRNG();
 }
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -61,7 +61,7 @@ void RenderingManager::Render(Scene* scene)
 	}
 	//******************************* PRE RENDER PASS
 	//*************************************
-	RenderPassGPass(scene);
+	// RenderPassGPass(scene);
 	//******************************* MAIN RENDER PASS
 	//************************************
 	RenderPassMain(scene);
@@ -282,7 +282,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent)
 	{
-		if ((go->TRANS->GetPosition() - vCamPos).Length() > go->RENDER->GetRenderDistance()) return;
+		if ((go->TRANS->GetPosition() - SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition()).Length() > go->RENDER->GetRenderDistance()) return;
 		bool isActive = renderComponent->IsActive();
 		if (!isActive)
 			return;
@@ -326,6 +326,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 		if (vGameObjectScale.x <= 0.05f || vGameObjectScale.y <= 0.05 || vGameObjectScale.z <= 0.05)
 		{
+			modelStack.PopMatrix();
 			return;
 		}
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);

@@ -464,7 +464,7 @@ Mesh* MeshBuilder::GenerateOBJ(std::string name, bool isMeshBiomed)
 	std::vector<GLuint> index_buffer_data;
 
 	IndexVBO(vertices, uvs, normals, index_buffer_data, vertex_buffer_data, { 1,1,1 });
-	
+
 	Mesh *mesh;
 	if (!isMeshBiomed)
 		mesh = new Mesh(name);
@@ -1323,19 +1323,19 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 					{
 						Vertex v;
 						v.normal.Set(-1, 0, 0);
-						v.pos = Position(x, y, z);
+						v.pos = Position((float)x, (float)y, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(-1, 0, 0);
-						v.pos = Position(x, y + 1, z);
+						v.pos = Position((float)x, (float)y + 1, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(-1, 0, 0);
-						v.pos = Position(x, y, z + 1);
+						v.pos = Position((float)x, (float)y, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(-1, 0, 0);
-						v.pos = Position(x, y + 1, z + 1);
+						v.pos = Position((float)x, (float)y + 1, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
 						vertex_buffer_data.push_back(v);
 						index_buffer_data.push_back(index + 0);
@@ -1350,19 +1350,19 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 					{
 						Vertex v;
 						v.normal.Set(1, 0, 0);
-						v.pos = Position(x + 1, y, z);
+						v.pos = Position((float)x + 1, (float)y, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(1, 0, 0);
-						v.pos = Position(x + 1, y + 1, z);
+						v.pos = Position((float)x + 1, (float)y + 1, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(1, 0, 0);
-						v.pos = Position(x + 1, y, z + 1);
+						v.pos = Position((float)x + 1, (float)y, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(1, 0, 0);
-						v.pos = Position(x + 1, y + 1, z + 1);
+						v.pos = Position((float)x + 1, (float)y + 1, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
 						vertex_buffer_data.push_back(v);
 						index_buffer_data.push_back(index + 0);
@@ -1377,19 +1377,19 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 					{
 						Vertex v;
 						v.normal.Set(0, -1, 0);
-						v.pos = Position(x, y, z);
+						v.pos = Position((float)x, (float)y, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, -1, 0);
-						v.pos = Position(x + 1, y, z);
+						v.pos = Position((float)x + 1, (float)y, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, -1, 0);
-						v.pos = Position(x, y, z + 1);
+						v.pos = Position((float)x, (float)y, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, -1, 0);
-						v.pos = Position(x + 1, y, z + 1);
+						v.pos = Position((float)x + 1, (float)y, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
 						vertex_buffer_data.push_back(v);
 						index_buffer_data.push_back(index + 0);
@@ -1404,19 +1404,19 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 					{
 						Vertex v;
 						v.normal.Set(0, 1, 0);
-						v.pos = Position(x, y + 1, z);
+						v.pos = Position((float)x, (float)y + 1, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, 1, 0);
-						v.pos = Position(x + 1, y + 1, z);
+						v.pos = Position((float)x + 1, (float)y + 1, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, 1, 0);
-						v.pos = Position(x, y + 1, z + 1);
+						v.pos = Position((float)x, (float)y + 1, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, 1, 0);
-						v.pos = Position(x + 1, y + 1, z + 1);
+						v.pos = Position((float)x + 1, (float)y + 1, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
 						vertex_buffer_data.push_back(v);
 						index_buffer_data.push_back(index + 0);
@@ -1432,19 +1432,19 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 					{
 						Vertex v;
 						v.normal.Set(0, 0, -1);
-						v.pos = Position(x, y, z);
+						v.pos = Position((float)x, (float)y, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, 0, -1);
-						v.pos = Position(x + 1, y, z);
+						v.pos = Position((float)x + 1, (float)y, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, 0, -1);
-						v.pos = Position(x, y + 1, z);
+						v.pos = Position((float)x, (float)y + 1, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, 0, -1);
-						v.pos = Position(x + 1, y + 1, z);
+						v.pos = Position((float)x + 1, (float)y + 1, (float)z);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
 						vertex_buffer_data.push_back(v);
 						index_buffer_data.push_back(index + 0);
@@ -1459,19 +1459,19 @@ Mesh * MeshBuilder::GenerateChunk(const std::string & meshName, int xSize, int y
 					{
 						Vertex v;
 						v.normal.Set(0, 0, 1);
-						v.pos = Position(x, y, z + 1);
+						v.pos = Position((float)x, (float)y, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 1);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, 0, 1);
-						v.pos = Position(x + 1, y, z + 1);
+						v.pos = Position((float)x + 1, (float)y, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 1);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, 0, 1);
-						v.pos = Position(x, y + 1, z + 1);
+						v.pos = Position((float)x, (float)y + 1, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 0, 0);
 						vertex_buffer_data.push_back(v);
 						v.normal.Set(0, 0, 1);
-						v.pos = Position(x + 1, y + 1, z + 1);
+						v.pos = Position((float)x + 1, (float)y + 1, (float)z + 1);
 						v.texCoord = GenTexCoord((*chunk)[x + z * xSize + y * xSize*zSize], 16, 1, 0);
 						vertex_buffer_data.push_back(v);
 						index_buffer_data.push_back(index + 0);

@@ -6,6 +6,7 @@
 #include "ExplodeAugment.h"
 #include "ReloadingAugment.h"
 #include "BlackHoleAugment.h"
+#include "ParticleSpawnerScript.h"
 
 LootScript::LootScript()
 {
@@ -110,7 +111,14 @@ void LootScript::DropLoot(void)
 			Loot->RIGID->SetAffectedByGravity(true);
 
 			//Augment Generation
-			//Loot->PART->SetAugment(GenerateAugment());
+			auto part = GenerateAugment();
+			if (part != nullptr)
+			{
+				Loot->PART->SetAugment(part);
+				Loot->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObject("particleRareDrop"),
+					5, { 0.1f,0.1f,0.1f }, 0.1f
+					));
+			}
 		}
 		else
 		{

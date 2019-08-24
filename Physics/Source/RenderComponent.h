@@ -49,6 +49,7 @@ public:
 	bool Is3DBillboard();
 	void SetColor(Vector3 color);
 	void SetColor(float x, float y, float z);
+	void SetColor(float x);
 	void ResetColor();
 	Material GetMaterial();
 	void Update(double dt) override;

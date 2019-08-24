@@ -1,4 +1,5 @@
 #include "BirdWingScript.h"
+#include "WorldValues.h"
 
 BirdWingScript::BirdWingScript()
 {
@@ -34,6 +35,4 @@ void BirdWingScript::Update(double dt)
 		m_fAngle = -max;
 		m_bUp = !m_bUp;
 	}
-
-	CHENG_LOG("Wing: ", std::to_string(m_fAngle));
 }
