@@ -1,4 +1,4 @@
-#include "PlayerDeathScript.h"
+#include "WinLoseScript.h"
 #include "WorldValues.h"
 
 WinLoseScript::WinLoseScript()
