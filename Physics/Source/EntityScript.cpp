@@ -16,6 +16,7 @@ EntityScript::EntityScript(Behaviour* Behaviour)
 	m_fAnimStartTime = -1;
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
+	m_bIsDead = false;
 }
 EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	: m_Behaviour(Behaviour)
@@ -29,6 +30,7 @@ EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	m_fAnimStartTime = -1;
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
+	m_bIsDead = false;
 }
 EntityScript::EntityScript(EntityScript & ref)
 	: m_BaseStats(ref.m_BaseStats)
@@ -45,6 +47,7 @@ EntityScript::EntityScript(EntityScript & ref)
 		m_Behaviour = nullptr;
 	m_bInitialised = false;
 	m_fAnimStartTime = 0;
+	m_bIsDead = false;
 }
 EntityScript::~EntityScript()
 {
@@ -99,11 +102,12 @@ bool EntityScript::CheckDeath()
 {
 	if (m_Values.m_iHealth <= 0)
 	{
-		if (this->GetComponent<PlayerScript>(true))
+		if (this->GetComponent<PlayerScript>(true) && !m_bIsDead)
 		{
 			this->GetComponent<PlayerDeathScript>()->SetActive(true);
 			Notify("PlayerDied");
 			RENDER->ResetColor();
+			m_bIsDead = true;
 			return true;
 		}
 		if (this->LOOT)
@@ -112,6 +116,7 @@ bool EntityScript::CheckDeath()
 		}
 		Notify("EntityDied");
 		DestroySelf(); // should switch to play death anim
+		m_bIsDead = true;
 		return true;
 	}
 	return false;
