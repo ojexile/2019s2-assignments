@@ -218,6 +218,8 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["EnemyReticle"] = MeshBuilder::GenerateOBJ("EnemyReticle");
 	m_map_Meshes["Fox"] = MeshBuilder::GenerateOBJ("Fox");
 	m_map_Meshes["Chick"] = MeshBuilder::GenerateOBJ("Chick");
+
+	m_map_Meshes["Dino0"] = MeshBuilder::GenerateOBJ("Dino0");
 }
 void DataContainer::InitTerrain()
 {
@@ -298,7 +300,6 @@ void DataContainer::InitParticles()
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, 0.1f, 0.f), Vector3(0, 1, 0), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
-
 }
 void DataContainer::InitGO()
 {
@@ -429,7 +430,7 @@ void DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Boss0"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
-	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->AddComponent(new RenderComponent(GetMesh("Dino0")));
 	go->TRANS->SetScale(3);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(500, 0, 100, 0, 80, 20, 2000, 500)));
@@ -635,7 +636,6 @@ void  DataContainer::InitShaders()
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	m_map_Shaders["UI"] = LoadShaders("Flare", "Flare");
 	m_map_Shaders["Particles"] = LoadShaders("Flare", "Flare");
-
 }
 void DataContainer::InitBehaviour()
 {
