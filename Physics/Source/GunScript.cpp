@@ -206,13 +206,13 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 	if (part->PART->GetAugment())
 		part->PART->GetAugment()->PassiveEffect();
 
-
 	switch (part->PART->GetSlotType())
 	{
 	case WeaponPartScript::SCOPE:
 	{
 		m_ScopeParts.push_back(part);
 		part->TRANS->SetRelativePosition(-1.f + (0.25f * m_ScopeParts.size()), 0.35f, 0.f);
+
 		UpdateStats(part, true);
 		return;
 	}
@@ -221,7 +221,6 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 		m_MuzzleParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
 
-
 		UpdateStats(part, true);
 		return;
 	}
@@ -229,7 +228,6 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 	{
 		m_StockParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.55f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
-
 
 		UpdateStats(part, true);
 		return;

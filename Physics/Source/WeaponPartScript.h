@@ -22,12 +22,11 @@ public:
 	~WeaponPartScript();
 
 	bool DecreaseDurability(double deltaTime);
-
+	void RepairPart(float healingAmt);
 	SLOT_TYPE GetSlotType();
 	float GetMultiplier();
 	Augment* GetAugment();
 
-	//This is for Miscellaneous Parts, initially their slot type will be ALL
 	void SetSlotType(SLOT_TYPE slot);
 	void SetAugment(Augment* Augment);
 	void SetDurability(float durability);
