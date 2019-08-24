@@ -15,7 +15,7 @@
 #include "ReticleScript.h"
 #include "ParticleObserver.h"
 #include "AdvancedParticleSpawnerScript.h"
-#include "PlayerDeathScript.h"
+#include "WinLoseScript.h"
 //TMP
 #include "ExplodeAugment.h"
 #include "BlackHoleAugment.h"
