@@ -5,7 +5,15 @@
 ChunkData::ChunkData(const std::string fileName, int rotate)
 {
 	m_event = new ChunkEvent();
-	FILE* file = fopen(fileName.c_str(), "r");
+	errno_t err;
+	FILE* file;
+	// Open for read (will fail if file "crt_fopen_s.c" does not exist)
+	err = fopen_s(&file, fileName.c_str(), "r");
+	if (!err == 0)
+	{
+		printf("The file 'crt_fopen_s.c' was not opened\n");
+	}
+
 	m_iXSize = fgetc(file);
 	m_iYSize = fgetc(file);
 	m_iZSize = fgetc(file);
@@ -13,13 +21,13 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 	unsigned int zSizeInBlocks = m_iZSize << 4;
 	for (int i = 0; i < m_iXSize * m_iZSize; ++i)
 	{
-		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][0] = 0;
-		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][1] = 0;
-		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][2] = 0;
-		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][3] = 0;
+		m_chunkConnections[Vector3((float)(i % m_iXSize), (float)(i / m_iXSize))][0] = 0;
+		m_chunkConnections[Vector3((float)(i % m_iXSize), (float)(i / m_iXSize))][1] = 0;
+		m_chunkConnections[Vector3((float)(i % m_iXSize), (float)(i / m_iXSize))][2] = 0;
+		m_chunkConnections[Vector3((float)(i % m_iXSize), (float)(i / m_iXSize))][3] = 0;
 	}
 	std::vector<unsigned short> blocks_2;
-	for (int i = 0; i < xSizeInBlocks * zSizeInBlocks * m_iYSize; ++i)
+	for (unsigned i = 0; i < xSizeInBlocks * zSizeInBlocks * m_iYSize; ++i)
 	{
 		int k = fgetc(file);
 		int l = fgetc(file);
@@ -30,7 +38,7 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 	{
 		for (int y = 0; y < m_iYSize; ++y)
 		{
-			for (int x = 0; x < xSizeInBlocks; ++x)
+			for (unsigned x = 0; x < xSizeInBlocks; ++x)
 			{
 				for (int z = zSizeInBlocks - 1; z >= 0; --z)
 				{
@@ -131,7 +139,8 @@ void PutShort(FILE* f, unsigned short s)
 
 void ChunkData::WriteToFile(const std::string filename)
 {
-	FILE* file = fopen(filename.c_str(), "w");
+	FILE* file;
+	fopen_s(&file, filename.c_str(), "w");
 	fputc(m_iXSize, file);
 	fputc(m_iYSize, file);
 	fputc(m_iZSize, file);
