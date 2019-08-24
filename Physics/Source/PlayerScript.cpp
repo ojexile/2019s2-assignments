@@ -67,7 +67,6 @@ void PlayerScript::UpdateMovement(double dt)
 	//
 	Vector3 vGunDir = m_Reticle->TRANS->GetPosition() - m_Gun->TRANS->GetPosition();
 	vGunDir.y += 1.f;
-	CHENG_LOG("Dir: ", vtos(vGunDir));
 	if (!vGunDir.IsZero())
 	{
 		vGunDir.Normalize();

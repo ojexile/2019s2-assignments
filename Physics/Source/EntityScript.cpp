@@ -100,9 +100,9 @@ void EntityScript::DamageAnim()
 }
 bool EntityScript::CheckDeath()
 {
-	if (m_Values.m_iHealth <= 0)
+	if (m_Values.m_iHealth <= 0 && !m_bIsDead)
 	{
-		if (this->GetComponent<PlayerScript>(true) && !m_bIsDead)
+		if (this->GetComponent<PlayerScript>(true))
 		{
 			this->GetComponent<PlayerDeathScript>()->SetActive(true);
 			Notify("PlayerDied");
@@ -177,7 +177,7 @@ void EntityScript::Jump()
 	{
 		rb->SetVel(Vector3(rb->GetVel().x, 40 / rb->GetMass(), rb->GetVel().z));
 		m_bCanJump = false;
-		if (GetComponent<PlayerScript>() != nullptr)
+		if (GetComponent<PlayerScript>(true) != nullptr)
 		{
 			Notify("Jump");
 		}
