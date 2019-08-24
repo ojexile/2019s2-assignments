@@ -30,11 +30,7 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateFading(dt);
 	// Movement================================================================================
 	UpdateMovement(dt);
-
 	m_Grenade->TRANS->SetPosition(GetPosition());
-
-	// m_Gun->TRANS->SetPosition(GetPosition());
-	// m_Gun->Update(dt);
 }
 
 void PlayerScript::UpdateMovement(double dt)

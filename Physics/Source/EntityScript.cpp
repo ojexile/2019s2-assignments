@@ -3,6 +3,7 @@
 #include "LootScript.h"
 #include "RenderComponent.h"
 #include "Utility.h"
+#include "PlayerDeathScript.h"
 
 EntityScript::EntityScript(Behaviour* Behaviour)
 	: m_Behaviour(Behaviour),
@@ -96,10 +97,15 @@ void EntityScript::DamageAnim()
 }
 bool EntityScript::CheckDeath()
 {
-	if (this->GetComponent<PlayerScript>(true))
-		return false;
 	if (m_Values.m_iHealth <= 0)
 	{
+		if (this->GetComponent<PlayerScript>(true))
+		{
+			this->GetComponent<PlayerDeathScript>()->SetActive(true);
+			Notify("PlayerDied");
+			RENDER->ResetColor();
+			return true;
+		}
 		if (this->LOOT)
 		{
 			this->LOOT->DropLoot();
