@@ -1,6 +1,7 @@
 #version 330 core
 
 uniform sampler2D SceneTexture;
+uniform float effect0Intensity;
 in vec2 texCoord;
 out vec4 color;
 
@@ -15,7 +16,8 @@ void main()
 	effect0.g = effect0.b = (val < 1? 0 : val - 1);
 	effect0.r = (val > 1? 1:val);
 	
-	vec4 effect0Color = mix(original, effect0, pow(tanh(length(texCoord - vec2(0.5, 0.5))), 1));
-	
-	color = effect0Color;
+	if(effect0Intensity >= 0.01)
+		color = mix(original, effect0, pow(tanh(length(texCoord - vec2(0.5, 0.5))), 1 / atanh(1 - effect0Intensity)));
+	else
+		color = effect0;
 }

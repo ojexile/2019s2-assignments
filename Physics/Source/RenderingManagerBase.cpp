@@ -82,6 +82,8 @@ void RenderingManagerBase::BindUniforms()
 	// extra--------------------------------------------------------------------------------
 	m_parameters[U_DIST_FROM_PLAYER] = glGetUniformLocation(m_programID, "distFromPlayer");
 	m_parameters[U_VIGINETTE_VAL] = glGetUniformLocation(m_programID, "vigenetteVal");
+	
+	m_parameters[U_EFFECT0_INTENSITY] = glGetUniformLocation(m_PostProcessProgram, "effect0Intensity");
 	//--------------------------------------------------------------------------------
 	glUseProgram(m_programID);
 	BindLightUniforms();
@@ -112,6 +114,9 @@ void RenderingManagerBase::SetUniform1f(UNIFORM_TYPE e, float f)
 }
 void RenderingManagerBase::SetUniforms(Scene* scene)
 {
+	// Init vignette
+	glUniform1f(m_parameters[U_EFFECT0_INTENSITY], 0);
+
 	// Init fog================================================================================
 	Color fogColor{ 0.4f, 0.4f, 0.5f };
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
@@ -187,7 +192,7 @@ void RenderingManagerBase::Init()
 	m_lightDepthFBO.Init(2048, 2048);
 
 	bLightEnabled = true;
-	//BindUniforms();
+	BindUniforms();
 	//SetUniforms();
 }
 

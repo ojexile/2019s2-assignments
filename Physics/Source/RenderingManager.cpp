@@ -1,6 +1,7 @@
 #include "RenderingManager.h"
 #include "Application.h"
 #include "RenderComponent.h"
+#include "EntityScript.h"
 #define VIEW_AS_LIGHT false
 #define SHADOW_VIEW_SIZE_X 200
 #define SHADOW_VIEW_SIZE_Y 100/16*9
@@ -108,6 +109,10 @@ void RenderingManager::RenderPassPost(Scene * scene)
 	glViewport(0, 0, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
 
 	glUseProgram(m_PostProcessProgram);
+	glUniform1f(m_parameters[U_EFFECT0_INTENSITY], (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth()))));
+	std::stringstream k;
+	k << (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth())));
+	KZ_LOG("Intensity: ", k.str());
 	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
@@ -305,7 +310,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 	std::vector<GameObject*>* GOListPart = map->at("Particle")->GetGOList();
 	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 	{
-		m_programID = (*map)["Particle"]->GetShader();
+		m_programID = (*map)["Particle"]->GetShader(); 
 		BindUniforms();
 		SetUniforms(scene);
 	}
