@@ -250,7 +250,7 @@
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
-    <ClCompile Include="Source\PlayerDeathScript.cpp" />
+    <ClCompile Include="Source\WinLoseScript.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
     <ClCompile Include="Source\PlayerStatsScript.cpp" />
@@ -373,7 +373,7 @@
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
-    <ClInclude Include="Source\PlayerDeathScript.h" />
+    <ClInclude Include="Source\WinLoseScript.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\PlayerStatsScript.h" />

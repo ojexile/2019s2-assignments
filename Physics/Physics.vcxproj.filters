@@ -148,7 +148,7 @@
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\BossSpawnerScript.cpp" />
     <ClCompile Include="Source\EntityLibrary.cpp" />
-    <ClCompile Include="Source\PlayerDeathScript.cpp" />
+    <ClCompile Include="Source\WinLoseScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -325,7 +325,7 @@
     <ClInclude Include="Source\BirdWingScript.h" />
     <ClInclude Include="Source\ScalePatternScript.h" />
     <ClInclude Include="Source\BossSpawnerScript.h" />
-    <ClInclude Include="Source\PlayerDeathScript.h" />
+    <ClInclude Include="Source\WinLoseScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />

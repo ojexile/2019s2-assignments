@@ -3,7 +3,7 @@
 #include "LootScript.h"
 #include "RenderComponent.h"
 #include "Utility.h"
-#include "PlayerDeathScript.h"
+#include "WinLoseScript.h"
 
 EntityScript::EntityScript(Behaviour* Behaviour)
 	: m_Behaviour(Behaviour),
@@ -104,7 +104,7 @@ bool EntityScript::CheckDeath()
 	{
 		if (this->GetComponent<PlayerScript>(true))
 		{
-			this->GetComponent<PlayerDeathScript>()->SetActive(true);
+			this->GetComponent<WinLoseScript>()->SetActive(true);
 			Notify("PlayerDied");
 			RENDER->ResetColor();
 			m_bIsDead = true;
