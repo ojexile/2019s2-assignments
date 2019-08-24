@@ -109,7 +109,7 @@ bool ChunkData::IsSolid(Vector3 pos)
 	int x = (int)pos.x;
 	int y = (int)pos.y;
 	int z = (int)pos.z;
-	if (x < 0 || x >= m_iXSize * 16 || y < 0 || y >= m_iYSize || z < 0 || z >= m_iZSize* 16) return false;
+	if (x < 0 || x >= m_iXSize * 16 || y < 0 || y >= m_iYSize || z < 0 || z >= m_iZSize * 16) return false;
 	return m_blocks[x + z * m_iXSize * 16 + y * m_iXSize * m_iZSize * 256] != 0;
 }
 
@@ -137,10 +137,9 @@ void ChunkData::WriteToFile(const std::string filename)
 	fputc(m_iZSize, file);
 	for (auto bIt = m_blocks.begin(); bIt != m_blocks.end(); ++bIt)
 	{
-		  PutShort(file, *bIt);
+		PutShort(file, *bIt);
 	}
 }
-
 
 std::vector<unsigned short> * ChunkData::GetBlocks()
 {
@@ -166,7 +165,6 @@ MeshBiomed* ChunkData::GenerateMeshBiomed()
 	mesh->AddTexture("crimson", BiomeComponent::BIOME_CRIMSON);
 	mesh->AddTexture("void", BiomeComponent::BIOME_VOID);
 	mesh->AddTexture("gray", BiomeComponent::BIOME_MONOCHROME);
-
 
 	return mesh;
 }

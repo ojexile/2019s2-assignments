@@ -26,7 +26,6 @@ void AudioManager::PlayBGM(std::string filePath, std::string ref)
 	if (currentBGMTracks.count(ref) != 0)
 	{
 		currentBGMTracks[ref]->stop();
-
 	}
 	currentBGMTracks[ref] = sound;
 }
@@ -58,7 +57,6 @@ void AudioManager::Play2D(std::string filePath)
 		return;
 	filePath = Resources::Path::Audio + filePath;
 	engine->play2D(filePath.c_str(), false, false, false, irrklang::ESM_AUTO_DETECT, true);
-
 }
 
 void AudioManager::Play3D(std::string filePath, Vector3 position)
@@ -90,7 +88,7 @@ void AudioManager::UpdateFading(double dt)
 	for (auto it = fadeCommands.begin(); it != fadeCommands.end(); ++it)
 	{
 		float prevVol = currentBGMTracks[it->first]->getVolume();
-		float diff = it->second.second * dt;
+		float diff = it->second.second * (float)dt;
 		if (prevVol > it->second.first) diff *= -1;
 		if (signbit(prevVol - it->second.first) != signbit(prevVol + diff - it->second.first))
 		{
@@ -108,5 +106,5 @@ void AudioManager::UpdateFading(double dt)
 		}
 	}
 	for (auto it = m_cooldowns.begin(); it != m_cooldowns.end(); ++it)
-		it->second += dt;
+		it->second += (float)dt;
 }
