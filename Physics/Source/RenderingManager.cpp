@@ -23,7 +23,7 @@ void RenderingManager::Init()
 {
 	RenderingManagerBase::Init();
 	// Shadows
-	m_lightDepthFBO.Init(SHADOW_RES, SHADOW_RES);
+	m_lightDepthFBO.Init((unsigned)(SHADOW_RES), (unsigned)(SHADOW_RES));
 	Math::InitRNG();
 }
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)

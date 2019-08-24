@@ -114,13 +114,13 @@ void PlayerScript::UpdateMovement(double dt)
 	// CHENG_LOG("Player pos: ", vtos(GetPosition()));
 	if (GetValues()->GetHealth() < 120)
 	{
-		AudioManager::GetInstance()->QueueFade(0, 0.3, "low_piano");
-		AudioManager::GetInstance()->QueueFade(1, 0.3, "high_piano");
+		AudioManager::GetInstance()->QueueFade(0, 0.3f, "low_piano");
+		AudioManager::GetInstance()->QueueFade(1, 0.3f, "high_piano");
 	}
 	else
 	{
-		AudioManager::GetInstance()->QueueFade(1, 0.3, "low_piano");
-		AudioManager::GetInstance()->QueueFade(0, 0.3, "high_piano");
+		AudioManager::GetInstance()->QueueFade(1, 0.3f, "low_piano");
+		AudioManager::GetInstance()->QueueFade(0, 0.3f, "high_piano");
 	}
 }
 void PlayerScript::Collide(GameObject* go)

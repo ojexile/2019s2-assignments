@@ -138,9 +138,9 @@ void MapSpawningScript::Update(double dt)
 		{
 			int x = *it1;
 			int z = *it2;
-			int offsetX = floor(v.x / 16.f) + x;
-			int offsetZ = floor(v.z / 16.f) + z;
-			if (m_spawnedLocations.count(Vector3(offsetX, 0, offsetZ))) continue;
+			int offsetX = (int)floor(v.x / 16.f) + x;
+			int offsetZ = (int)floor(v.z / 16.f) + z;
+			if (m_spawnedLocations.count(Vector3((float)offsetX, 0, (float)offsetZ))) continue;
 			std::vector<ChunkData*> validChunks;
 			ChunkData* chunk;
 			for (int nChunksTried = 0; nChunksTried < NCHUNKS; nChunksTried++)
@@ -149,7 +149,7 @@ void MapSpawningScript::Update(double dt)
 				chunk = dataContainer->GetChunk(GetChunkByID(nChunksTried));
 				for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 					for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
-						if (m_spawnedLocations.count(Vector3(offsetX + xDiff, 0, offsetZ + zDiff)))
+						if (m_spawnedLocations.count(Vector3((float)offsetX + (float)xDiff, 0, (float)offsetZ + (float)zDiff)))
 						{
 							fits = false;
 						}
@@ -160,12 +160,12 @@ void MapSpawningScript::Update(double dt)
 			chunk = validChunks[Math::RandIntMinMax(0, validChunks.size() - 1)];
 			GameObject* go = GOM->AddGameObject();
 			go->m_sName = "Chunk";
-			Vector3 goPos = Vector3(offsetX * 16, 0, offsetZ * 16);
+			Vector3 goPos = Vector3((float)offsetX * 16, 0, (float)offsetZ * 16);
 			go->TRANS->SetPosition(goPos);
 			RenderComponent* render = new RenderComponent(chunk->GenerateMeshBiomed());
 			render->SetRenderDistance(240);
 			go->AddComponent(render);
-			go->AddComponent(new BiomeComponent(GetBiomeAt(Vector3(offsetX, 0, offsetZ))));
+			go->AddComponent(new BiomeComponent(GetBiomeAt(Vector3((float)offsetX, 0, (float)offsetZ))));
 			//
 			go->AddComponent(new ChunkCollider(chunk));
 
@@ -213,8 +213,8 @@ void MapSpawningScript::Update(double dt)
 Vector3 MapSpawningScript::GetNoiseAt(Vector3 v)
 {
 	Vector3 biomeWeights;
-	int X = v.x;
-	int Z = v.z;
+	int X = (int)v.x;
+	int Z = (int)v.z;
 	float multiplier = 1;
 	for (int i = 1; i < 12; ++i)
 	{

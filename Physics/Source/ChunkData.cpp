@@ -59,9 +59,9 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 	{
 		for (int y = 0; y < m_iYSize; ++y)
 		{
-			for (int x = xSizeInBlocks - 1; x >= 0; --x)
+			for (int x = (int)xSizeInBlocks - 1; x >= 0; --x)
 			{
-				for (int z = 0; z < zSizeInBlocks; ++z)
+				for (int z = 0; z < (int)zSizeInBlocks; ++z)
 				{
 					m_blocks.push_back(blocks_2[x + z * xSizeInBlocks + y * xSizeInBlocks * zSizeInBlocks]);
 				}
@@ -81,7 +81,7 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 		int dir = fgetc(file);
 		int k = fgetc(file);
 		int l = fgetc(file);
-		m_chunkConnections[Vector3(x, z)][(dir + rotate) % 4] = k << 8 | l;
+		m_chunkConnections[Vector3((float)x, (float)z)][(dir + rotate) % 4] = k << 8 | l;
 	}
 	j = fgetc(file);
 	if (j == EOF) return;
@@ -115,7 +115,7 @@ bool ChunkData::IsSolid(Vector3 pos)
 
 Vector3 ChunkData::GetSize()
 {
-	return Vector3(m_iXSize * 16, m_iYSize, m_iZSize * 16);
+	return Vector3((float)m_iXSize * 16, (float)m_iYSize, (float)m_iZSize * 16);
 }
 
 unsigned short ChunkData::GetChunkConnection(Vector3 coords, unsigned char dir)
@@ -173,9 +173,10 @@ Vector3 ChunkData::GetGroundPosition(Vector3 in)
 {
 	for (int i = 0; i < m_iYSize; i++)
 	{
-		if (!IsSolid(Vector3(in.x, i, in.z)))
-			return Vector3(in.x, i, in.z);
+		if (!IsSolid(Vector3(in.x, (float)i, in.z)))
+			return Vector3(in.x, (float)i, in.z);
 	}
+	return Vector3(-1, -1, -1);
 }
 
 ChunkEvent* ChunkData::GetEvent()

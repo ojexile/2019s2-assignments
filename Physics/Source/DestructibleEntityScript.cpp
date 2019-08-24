@@ -40,7 +40,7 @@ void DestructibleEntityScript::Update(double dt)
 	{
 		m_bDamageAnim = false;
 
-		auto childrenderer = RENDER;
+		auto childrenderer = GetComponent<RenderComponent>(true);
 		if (!childrenderer)
 		{
 			if (GetChild(0) != nullptr)

@@ -44,7 +44,7 @@ void ProjectileScript::Collide(GameObject* go)
 	EntityScript* es = go->GetComponent<EntityScript>(true);
 	if (es)
 	{
-		es->Damage(m_fDamage);
+		es->Damage((int)m_fDamage);
 		ActivateEffects(this, go);
 
 		m_fLifespan = 0.01f;
