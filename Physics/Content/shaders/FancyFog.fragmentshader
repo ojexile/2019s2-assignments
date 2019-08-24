@@ -32,6 +32,7 @@ struct Material {
 	vec3 kDiffuse;
 	vec3 kSpecular;
 	float kShininess;
+	float kAlpha;
 };
 
 float getAttenuation(Light light, float distance) {
@@ -251,7 +252,7 @@ void main(){
 		}
 		
 	}
-
+	color.a = clamp(color.a,0 ,1)* material.kAlpha;
 	if (color.a < .3f) discard;
 	if(fogParam.enabled && lightEnabled)
 	{
