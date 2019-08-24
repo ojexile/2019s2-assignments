@@ -146,16 +146,22 @@ void DefaultScene::Init()
 	GameObject* tmp = dataContainer->GetGameObject("Muzzle");
 	tmp->PART->SetAugment(new ReloadingAugment);
 	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
-	
 	GunScript* gs = Gun->GUN;
 	tmp->PART->GetAugment()->SetGunReference(gs);
-
 	Gun->AddChild(tmp);
 	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
-	tmp = dataContainer->GetGameObject("Muzzle");
+	tmp = dataContainer->GetGameObject("Clip");
 	Gun->AddChild(tmp);
-	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::CLIP);
+
+	tmp = dataContainer->GetGameObject("Scope");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::SCOPE);
+
+	tmp = dataContainer->GetGameObject("Grip");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::GRIP);
 
 
 	// Grenade-------------------------------------------------------------------------------

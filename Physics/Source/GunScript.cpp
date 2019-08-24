@@ -204,23 +204,7 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 
 	//Apply augment if present
 	if (part->PART->GetAugment())
-	{
-		switch (part->PART->GetAugment()->GetAugmentType())
-		{
-		case Augment::eAugmentType::PLAYER:
-		{
-
-		}
-		case Augment::eAugmentType::WEAPON:
-		{
-			part->PART->GetAugment()->PassiveEffect();
-		}
-		default:
-		{
-			break;
-		}
-		}
-	}
+		part->PART->GetAugment()->PassiveEffect();
 
 
 	switch (part->PART->GetSlotType())
@@ -228,7 +212,7 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 	case WeaponPartScript::SCOPE:
 	{
 		m_ScopeParts.push_back(part);
-		part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.5f, 0.f);
+		part->TRANS->SetRelativePosition(-1.f + (0.25f * m_ScopeParts.size()), 0.35f, 0.f);
 		UpdateStats(part, true);
 		return;
 	}

@@ -111,6 +111,9 @@ void DataContainer::InitTextures()
 
 	m_map_Textures["Rifle"] = LoadTGA("rifle");
 	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
+	m_map_Textures["Clip"] = LoadTGA("clip");
+	m_map_Textures["Scope"] = LoadTGA("scope");
+	m_map_Textures["Grip"] = LoadTGA("grip");
 	m_map_Textures["Bullet"] = LoadTGA("bullet");
 
 	m_map_Textures["CraftingSlotMuzzle"] = LoadTGA("CraftingSlotMuzzle");
@@ -147,11 +150,11 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Muzzle");
 
-	m_map_Meshes["Clip"] = MeshBuilder::GenerateOBJ("Clip")->AddTexture("Revolver");
+	m_map_Meshes["Clip"] = MeshBuilder::GenerateOBJ("Clip")->AddTexture("Clip");
 
-	m_map_Meshes["Grip"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Revolver");
+	m_map_Meshes["Grip"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Grip");
 
-	m_map_Meshes["Scope"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Revolver");
+	m_map_Meshes["Scope"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Scope");
 
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
