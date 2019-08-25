@@ -41,7 +41,7 @@ void MainMenu::Init()
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
-	Preferences::SetPref(Resources::PreferencesTerm::CamDist, "100");
+	Preferences::SetPref(Resources::PreferencesTerm::CamDist, "80");
 	/// Observers================================================================================
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
