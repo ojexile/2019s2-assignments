@@ -418,6 +418,7 @@ void DataContainer::InitGO()
 	// Range-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Ranged"] = go;
+	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Ranged"), Stats(90, 0, 100, 0, 80, 25, 2000, 15)));

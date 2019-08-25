@@ -17,9 +17,6 @@ IdleState::~IdleState()
 
 State * IdleState::HandleState(ComponentBase * com)
 {
-	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
-	if (ret)
-		ret->RENDER->ResetColor();
 	if (PlayerInRange(com))
 		return com->GetComponent<EntityScript>()->GetBehaviour()->GetCombatState();
 	if (m_SW.GetTime() < m_fTime)
@@ -30,6 +27,9 @@ State * IdleState::HandleState(ComponentBase * com)
 
 void IdleState::OnEnter(ComponentBase * com)
 {
+	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
+	if (ret)
+		ret->RENDER->ResetColor();
 	com->GetComponent<AIEntityScript>()->SetTarget({ 0, 0, 0 });
 	m_SW.Start();
 	m_fTime = Math::RandFloatMinMax(m_fMinTime, m_fMaxTime);

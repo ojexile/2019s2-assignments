@@ -33,7 +33,7 @@ void FleeState::OnEnter(ComponentBase * com)
 {
 	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
 	if (ret)
-		ret->RENDER->SetColor(0, 1.f, 0.4);
+		ret->RENDER->SetColor(0, 1.f, 0.4f);
 }
 
 void FleeState::OnExit(ComponentBase * com)
