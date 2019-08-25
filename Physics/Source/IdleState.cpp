@@ -21,11 +21,11 @@ State * IdleState::HandleState(ComponentBase * com)
 	if (ret)
 		ret->RENDER->ResetColor();
 	if (PlayerInRange(com))
-		return com->GetComponent<AIEntityScript>()->GetCombatState();
+		return com->GetComponent<EntityScript>()->GetBehaviour()->GetCombatState();
 	if (m_SW.GetTime() < m_fTime)
 		return this;
 	else
-		return &AIStatesList::Wander;
+		return com->GetComponent<EntityScript>()->GetBehaviour()->GetWanderState();
 }
 
 void IdleState::OnEnter(ComponentBase * com)

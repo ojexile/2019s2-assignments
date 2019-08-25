@@ -194,6 +194,7 @@ void DefaultScene::Init()
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
+	Player->RIGID->SetMat(1.05f, 0.f);
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(0, 18, 0);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));

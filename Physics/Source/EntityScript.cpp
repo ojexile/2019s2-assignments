@@ -88,6 +88,10 @@ bool EntityScript::GetCanJump()
 {
 	return m_bCanJump;
 }
+Behaviour * EntityScript::GetBehaviour()
+{
+	return m_Behaviour;
+}
 const Stats * EntityScript::GetBaseStats()
 {
 	return &m_BaseStats;

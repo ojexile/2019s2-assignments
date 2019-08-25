@@ -4,7 +4,7 @@
 #include "Light.h"
 #include "Behaviour.h"
 #define IDLE_DIST 16*16
-#define IDLE_TIME 3
+#define IDLE_TIME 12
 class PlayerScript : public EntityScript
 {
 private:

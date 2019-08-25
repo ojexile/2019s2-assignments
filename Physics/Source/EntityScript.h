@@ -63,4 +63,5 @@ public:
 	void UpdateBehaviour();
 	void SetCanJump(bool b);
 	bool GetCanJump();
+	Behaviour* GetBehaviour();
 };
