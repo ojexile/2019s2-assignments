@@ -32,11 +32,14 @@ DefaultScene::~DefaultScene()
 }
 void DefaultScene::Init()
 {
+	/// Layers================================================================================
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
+	///
+	Preferences::SetPref(Resources::PreferencesTerm::CamDist, "40");
 	/// Observers================================================================================
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
@@ -116,43 +119,51 @@ void DefaultScene::Init()
 	go->TRANS->SetScale(200, 50, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
+	go->SetDisableDistance(-1);
 	//
 	GameObject* StaminaBar = m_GOM.AddGameObject("UI");
 	StaminaBar->TRANS->SetPosition(50, 920, 0);
 	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	StaminaBar->RENDER->SetColor(1, 1, 0);
+	StaminaBar->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 950, 20);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Stamina"));
 	go->RENDER->SetColor(1, 1, 1);
+	go->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 1030, 0);
 	go->TRANS->SetScale(200, 50, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
+	go->SetDisableDistance(-1);
 	//
 	GameObject* HealthBar = m_GOM.AddGameObject("UI");
 	HealthBar->TRANS->SetPosition(50, 1030, 0);
 	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
+	HealthBar->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 1060, 20);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "HEALTH"));
 	go->RENDER->SetColor(1, 1.f, 1.f);
+	go->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(1920 / 3, 1040, 0);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.1f);
 	go->TRANS->SetScale(1920 / 3, 12, 1);
+	go->SetDisableDistance(-1);
 	//
 	GameObject* BossBarText = m_GOM.AddGameObject("UI");
 	BossBarText->TRANS->SetPosition(1920 / 2, 1000, 20);
 	BossBarText->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Unitialised"));
 	BossBarText->RENDER->SetColor(1, 1.f, 1.f);
+	BossBarText->SetDisableDistance(-1);
 	//
 	GameObject* BossBar = m_GOM.AddGameObject("UI");
 	BossBar->TRANS->SetPosition(1920 / 3, 1040, 0);
@@ -202,6 +213,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new MapSpawningScript());
 	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
 	Player->AddComponent(new WinLoseScript());
+	Player->GetComponent<EntityScript>()->SetCanDie(true);
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));

@@ -26,6 +26,7 @@ private:
 	void CheckInit();
 	void DamageAnim();
 	void UpdateValues();
+	bool m_bCanDie;
 protected:
 	bool m_bIsDead;
 	EntityValues m_Values;
@@ -64,4 +65,6 @@ public:
 	void SetCanJump(bool b);
 	bool GetCanJump();
 	Behaviour* GetBehaviour();
+	void SetCanDie(bool);
+	bool GetCanDie();
 };

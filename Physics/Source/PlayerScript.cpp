@@ -34,6 +34,7 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateFading(dt);
 	// Movement================================================================================
 	UpdateMovement(dt);
+	if(m_Grenade)
 	m_Grenade->TRANS->SetPosition(GetPosition());
 	// Idle====================================================
 	if (PlayerIdleTimer.GetTime() > IDLE_TIME)
@@ -54,72 +55,75 @@ void PlayerScript::UpdateMovement(double dt)
 	{
 		Notify("Interact");
 	}
-	Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
-	vDir.y += 1.f;
-	Vector3 vDirRaw = m_Reticle->TRANS->GetPosition() - GetPosition();
-	if (!vDir.IsZero())
-		vDir.Normalize();
+	if (m_Reticle)
+	{
+		Vector3 vDir = m_Reticle->TRANS->GetPosition() - GetPosition();
+		vDir.y += 1.f;
+		Vector3 vDirRaw = m_Reticle->TRANS->GetPosition() - GetPosition();
+		if (!vDir.IsZero())
+			vDir.Normalize();
 
-	// Rotate to dir
-	Vector3 PosDir = { 1,0,0 };
-	float angle = AngleBetween(vDir, PosDir); // player defaults to look at pos x
-	if (PosDir.Cross(vDir).y > 0)
-	{
-		GetTransform()->SetRotation(angle, 0, 1, 0);
-	}
-	else
-	{
-		GetTransform()->SetRotation(-angle, 0, 1, 0);
-	}
+		// Rotate to dir
+		Vector3 PosDir = { 1,0,0 };
+		float angle = AngleBetween(vDir, PosDir); // player defaults to look at pos x
+		if (PosDir.Cross(vDir).y > 0)
+		{
+			GetTransform()->SetRotation(angle, 0, 1, 0);
+		}
+		else
+		{
+			GetTransform()->SetRotation(-angle, 0, 1, 0);
+		}
 
-	//
-	Vector3 vGunDir = m_Reticle->TRANS->GetPosition() - m_Gun->TRANS->GetPosition();
-	vGunDir.y += 1.f;
-	if (!vGunDir.IsZero())
-	{
-		vGunDir.Normalize();
-		m_Gun->TRANS->SetRelativeRotation(AngleBetween(vGunDir, vDir), 0, 1, 0);
-	}
-	if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && m_Reticle->IsActive())
-	{
-		m_Gun->GUN->PullTrigger(vGunDir, dt);
-	}
-	if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && m_Reticle->IsActive())
-	{
-		m_Gun->GUN->ReleaseTrigger();
-	}
+		//
+		Vector3 vGunDir = m_Reticle->TRANS->GetPosition() - m_Gun->TRANS->GetPosition();
+		vGunDir.y += 1.f;
+		if (!vGunDir.IsZero())
+		{
+			vGunDir.Normalize();
+			m_Gun->TRANS->SetRelativeRotation(AngleBetween(vGunDir, vDir), 0, 1, 0);
+		}
+		if (InputManager::GetInstance()->GetInputStrength("Fire") != 0 && m_Reticle->IsActive())
+		{
+			m_Gun->GUN->PullTrigger(vGunDir, dt);
+		}
+		if (InputManager::GetInstance()->GetInputStrength("Fire") == 0 && m_Reticle->IsActive())
+		{
+			m_Gun->GUN->ReleaseTrigger();
+		}
 
-	if (InputManager::GetInstance()->GetInputStrength("Reload"))
-		m_Gun->GUN->ReloadWeapon();
+		if (InputManager::GetInstance()->GetInputStrength("Reload"))
+			m_Gun->GUN->ReloadWeapon();
 
-	if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
-	{
-		m_Grenade->GetComponent<GrenadeScript>()->PullPin();
-	}
-	else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
-	{
-		m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDirRaw, m_Grenade, (float)dt);
-	}
+		if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
+		{
+			m_Grenade->GetComponent<GrenadeScript>()->PullPin();
+		}
+		else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
+		{
+			m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDirRaw, m_Grenade, (float)dt);
+		}
 
-	if (InputManager::GetInstance()->GetInputStrength("Mouse"))
-	{
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
-		m_Reticle->SetActive(false);
+		if (InputManager::GetInstance()->GetInputStrength("Mouse"))
+		{
+			SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
+			m_Reticle->SetActive(false);
+		}
+		else
+		{
+			SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
+			m_Reticle->SetActive(true);
+		}
+		float fScroll = InputManager::GetInstance()->GetInputStrength("Zoom");
+		if (fScroll != 0)
+		{
+			float fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
+			fCamDist += fScroll;
+			fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
+			Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
+		}
 	}
-	else
-	{
-		SceneManager::GetInstance()->GetScene()->SetCursorEnabled(false);
-		m_Reticle->SetActive(true);
-	}
-	float fScroll = InputManager::GetInstance()->GetInputStrength("Zoom");
-	if (fScroll != 0)
-	{
-		float fCamDist = std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist));
-		fCamDist += fScroll;
-		fCamDist = Math::Clamp(fCamDist, 1.f, 100.f);
-		Preferences::SetPref(Resources::PreferencesTerm::CamDist, std::to_string(fCamDist));
-	}
-	// CHENG_LOG("Player pos: ", vtos(GetPosition()));
+	/// Audio================================================================================
 	if (GetValues()->GetHealth() < 120)
 	{
 		AudioManager::GetInstance()->QueueFade(0, 0.3f, "low_piano");

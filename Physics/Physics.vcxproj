@@ -237,8 +237,10 @@
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MapSpawningScript.cpp" />
     <ClCompile Include="Source\MeleeCombatState.cpp" />
+    <ClCompile Include="Source\MenuButtonsScript.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBiomed.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
@@ -361,9 +363,11 @@
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
     <ClInclude Include="Source\LootScript.h" />
+    <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MapSpawningScript.h" />
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\MeleeCombatState.h" />
+    <ClInclude Include="Source\MenuButtonsScript.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\MeshBuilder.h" />

@@ -147,7 +147,10 @@ float getFogFactor(FogParam fog, float fogDistance)
 	// factor affected by height
 	factor = clamp(factor, 0.0, 1.0); 
 	factor += clamp((vertexPosition_modelspace_O.y - 16)/6,0,1.0);
-	factor += sin(0.8f * frag_et) / 8;
+	factor += sin(0.8f * frag_et) * 0.05f;
+	// afect by position
+	factor += sin(0.1f * vertexPosition_modelspace_O.x + sin(frag_et * 1) ) * 0.1f + cos(0.2 * vertexPosition_modelspace_O.z + sin(frag_et * 1)) * 0.1f + cos(0.4 * vertexPosition_modelspace_O.z + sin(frag_et * 1)) * 0.04f;
+	// factor += sin(0.10f * vertexPosition_modelspace_O.x + frag_et) * 0.01f;
 
 	// inverse factor
 	factor = 1.0 - clamp(factor, 0.0, 1.0); 

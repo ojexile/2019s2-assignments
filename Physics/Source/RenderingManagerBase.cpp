@@ -114,7 +114,7 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 	glUniform1f(m_parameters[U_FOG_START], 12);
 	glUniform1f(m_parameters[U_FOG_END], 80);
 	glUniform1f(m_parameters[U_FOG_DENSITY], 0.07f);
-	glUniform1i(m_parameters[U_FOG_TYPE], 1);
+	glUniform1i(m_parameters[U_FOG_TYPE], 2);
 	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 
 	// Shadows================================================================================

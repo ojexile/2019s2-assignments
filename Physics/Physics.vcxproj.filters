@@ -151,6 +151,8 @@
     <ClCompile Include="Source\WinLoseScript.cpp" />
     <ClCompile Include="Source\BossObserverCom.cpp" />
     <ClCompile Include="Source\BossObserver.cpp" />
+    <ClCompile Include="Source\MainMenu.cpp" />
+    <ClCompile Include="Source\MenuButtonsScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -330,6 +332,8 @@
     <ClInclude Include="Source\WinLoseScript.h" />
     <ClInclude Include="Source\BossObserverCom.h" />
     <ClInclude Include="Source\BossObserver.h" />
+    <ClInclude Include="Source\MainMenu.h" />
+    <ClInclude Include="Source\MenuButtonsScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />

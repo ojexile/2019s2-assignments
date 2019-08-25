@@ -17,6 +17,7 @@ EntityScript::EntityScript(Behaviour* Behaviour)
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
 	m_bIsDead = false;
+	m_bCanDie = true;
 }
 EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	: m_Behaviour(Behaviour)
@@ -31,6 +32,7 @@ EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
 	m_bIsDead = false;
+	m_bCanDie = true;
 }
 EntityScript::EntityScript(EntityScript & ref)
 	: m_BaseStats(ref.m_BaseStats)
@@ -48,6 +50,7 @@ EntityScript::EntityScript(EntityScript & ref)
 	m_bInitialised = false;
 	m_fAnimStartTime = 0;
 	m_bIsDead = false;
+	m_bCanDie = ref.m_bCanDie;
 }
 EntityScript::~EntityScript()
 {
@@ -92,6 +95,14 @@ Behaviour * EntityScript::GetBehaviour()
 {
 	return m_Behaviour;
 }
+void EntityScript::SetCanDie(bool b)
+{
+	m_bCanDie = b;
+}
+bool EntityScript::GetCanDie()
+{
+	return m_bCanDie;
+}
 const Stats * EntityScript::GetBaseStats()
 {
 	return &m_BaseStats;
@@ -109,6 +120,9 @@ void EntityScript::DamageAnim()
 }
 bool EntityScript::CheckDeath()
 {
+	if (!m_bCanDie)
+		return false;
+
 	if (m_Values.m_iHealth <= 0 && !m_bIsDead)
 	{
 		if (this->GetComponent<PlayerScript>(true))
