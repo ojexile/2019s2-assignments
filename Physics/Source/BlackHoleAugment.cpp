@@ -19,19 +19,19 @@ BlackHoleAugment::~BlackHoleAugment()
 void BlackHoleAugment::ActiveEffect(Component* proj, GameObject* go)
 {
 	//Bullet expands & becomes a black hole
+	proj->GetGO()->AddComponent(new BlackholeScript(go->RIGID->GetMass(), 5));
+	
 	proj->TRANS->SetScale(2.);
 	proj->RIGID->SetVel(Vector3(0, 0, 0));
-	
-	proj->GetComponent<BlackholeScript>()->SetActive(true);
-
 	proj->PROJECTILE->SetLifespan(5.f);
 	proj->PROJECTILE->SetDamage(5.f);
+	
+	proj->GetComponent<BlackholeScript>()->SetActive(false);
 }
 
 void BlackHoleAugment::PassiveEffect()
 {
-	//go->AddComponent(new BlackholeScript(go->RIGID->GetMass(), 5));
-	//go->GetComponent<BlackholeScript>()->SetActive(false);
+
 }
 
 void BlackHoleAugment::RemovePassive()

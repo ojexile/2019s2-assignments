@@ -202,8 +202,8 @@ void MapSpawningScript::Update(double dt)
 					if (floor(noise.x) == Mod(offsetX + xDiff, 2))
 						if (floor(noise.z) == Mod(offsetZ + zDiff, 2))
 						{
-							//chunk->GetEvent()->GenerateEvent(GOM, chunk, go->TRANS->GetPosition());
-							//chunk->GetEvent()->GenerateEntities(GOM, chunk, go->TRANS->GetPosition(), go->GetComponent<BiomeComponent>()->GetBiomeType());
+							chunk->GetEvent()->GenerateEvent(GOM, chunk, go->TRANS->GetPosition());
+							chunk->GetEvent()->GenerateEntities(GOM, chunk, go->TRANS->GetPosition(), go->GetComponent<BiomeComponent>()->GetBiomeType());
 						}
 				}
 		}

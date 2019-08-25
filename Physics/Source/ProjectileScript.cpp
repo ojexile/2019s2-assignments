@@ -52,9 +52,11 @@ void ProjectileScript::Collide(GameObject* go)
 	if (es)
 	{
 		es->Damage((int)m_fDamage);
-		ActivateEffects(this, go);
 		RIGID->SetVel(Vector3(0, 0, 0));
-		m_fLifespan = 0.01f;
+		if (m_AugmentList.size() > 0)
+			ActivateEffects(this, go);
+		else
+			m_fLifespan = 0.01f;
 	}
 }
 
@@ -71,6 +73,7 @@ bool ProjectileScript::ActivateEffects(ProjectileScript* proj, GameObject* go)
 	{
 		Augment* augment = static_cast<Augment*>(*it);
 		augment->ActiveEffect(proj, go);
+		HasAugment = true;
 	}
 
 	return HasAugment;

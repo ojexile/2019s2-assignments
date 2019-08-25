@@ -299,6 +299,7 @@ void GunScript::ApplyAugmentOnBullet(std::vector<GameObject*>& m_vector, GameObj
 
 	for (auto it = m_vector.begin(); it != m_vector.end(); ++it)
 	{
+		//Give the bullet a copy of the augment
 		GameObject* wp = static_cast<GameObject*>(*it);
 		if (wp->PART->GetAugment())
 			go->GetComponent<ProjectileScript>()->AddAugment(wp->PART->GetAugment()->Clone());

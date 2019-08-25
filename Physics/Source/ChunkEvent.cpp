@@ -44,7 +44,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 		{
 			float x = Math::RandFloatMinMax(0.f, size.x);
 			float z = Math::RandFloatMinMax(0.f, size.z);
-			Vector3 pos = Vector3(x, 16.5, z)/*chunk_ref->GetGroundPosition(Vector3(x, 0.f, z))*/ + Chunk_Pos;
+			Vector3 pos = /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
 			int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 
@@ -66,7 +66,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 		{
 			float x = Math::RandFloatMinMax(0.f, size.x);
 			float z = Math::RandFloatMinMax(0.f, size.z);
-			Vector3 pos = Vector3(x, 16.5, z)/*chunk_ref->GetGroundPosition(Vector3(x, 0.f, z))*/ + Chunk_Pos;
+			Vector3 pos = /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
 			int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 
@@ -88,7 +88,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 		{
 			float x = Math::RandFloatMinMax(0.f, size.x);
 			float z = Math::RandFloatMinMax(0.f, size.z);
-			Vector3 pos = Vector3(x, 16.5, z)/*chunk_ref->GetGroundPosition(Vector3(x, 0.f, z))*/ + Chunk_Pos;
+			Vector3 pos = /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
 			int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 
@@ -108,7 +108,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 	{
 		float x = Math::RandFloatMinMax(0.f, size.x);
 		float z = Math::RandFloatMinMax(0.f, size.z);
-		Vector3 pos = Vector3(x, 16.5, z)/*chunk_ref->GetGroundPosition(Vector3(x, 0.f, z))*/ + Chunk_Pos;
+		Vector3 pos = /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
 		int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 
@@ -131,7 +131,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 		{
 			float x = Math::RandFloatMinMax(0.f, size.x);
 			float z = Math::RandFloatMinMax(0.f, size.z);
-			Vector3 pos = Vector3(x, 16.5, z)/*chunk_ref->GetGroundPosition(Vector3(x, 0.f, z))*/ + Chunk_Pos;
+			Vector3 pos = /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 			GameObject* newEntity;
 
 			if (i < 3)
@@ -171,7 +171,7 @@ void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_r
 	//{
 	//	float x = Math::RandFloatMinMax(0.f, size.x);
 	//	float z = Math::RandFloatMinMax(0.f, size.z);
-	//	Vector3 pos =  Vector3(x, 16.5, z)/*chunk_ref->GetGroundPosition(Vector3(x, 0.f, z))*/ + Chunk_Pos;
+	//	Vector3 pos =  /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
 	//	int selectedEntity = Math::RandIntMinMax(EntityLibrary::FISH, EntityLibrary::NUM_ENTITIES - 1);
 	//	GameObject* newEntity = EL->GetEntityArray()[selectedEntity]->Clone();
