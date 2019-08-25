@@ -4,6 +4,12 @@
 class BossSpawnerScript :
 	public ScriptComponent
 {
+public:
+	enum eSearchState
+	{
+		eSEARCHING,
+		eFOUND,
+	};
 private:
 	int m_iCurrentBoss;
 	float m_fCurrentInterval;
@@ -11,7 +17,7 @@ private:
 	float m_fSpawnIntervals[3];
 	float m_CurrentTime;
 	float m_fSpawnRate;
-	std::string BossState;
+	eSearchState m_eBossState;
 public:
 	BossSpawnerScript(GameObject* a, GameObject* b, GameObject* c);
 	virtual ~BossSpawnerScript();
@@ -21,6 +27,6 @@ public:
 	virtual void Update(double dt) override;
 	float GetPercentageDone();
 	void SetSpawnRate(float f);
-	void SetState(std::string state);
-	std::string GetState();
+	void SetState(eSearchState state);
+	eSearchState GetState();
 };

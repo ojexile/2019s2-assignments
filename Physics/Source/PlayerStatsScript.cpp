@@ -76,6 +76,20 @@ void PlayerStatsScript::Update(double dt)
 	m_Health->TRANS->SetScale((float)iHealth / (Base->GetMaxHealth() * Add->GetMaxHealth()) * 200, 50, 1);
 	float percen = m_BossSpawner->GetComp(BossSpawnerScript)->GetPercentageDone();
 	m_BossSpawnerUI->TRANS->SetScale(percen * 1920 / 3, 12, 1);
-	m_BossSpawnerUIText->RENDER->SetText(m_BossSpawner->GetComp(BossSpawnerScript)->GetState());
+
+	switch (m_BossSpawner->GetComp(BossSpawnerScript)->GetState())
+	{
+	case BossSpawnerScript::eSEARCHING:
+		m_BossSpawnerUIText->RENDER->SetText("Seaching for you...");
+		m_BossSpawnerUI->RENDER->SetColor(0.1f, 0.2f, 0.8f);
+		break;
+	case BossSpawnerScript::eFOUND:
+		m_BossSpawnerUIText->RENDER->SetText("Found you...DO NOT IDLE");
+		m_BossSpawnerUI->RENDER->SetColor(0.4f, 0.7f, 0.9f);
+		break;
+	default:
+		break;
+	}
+
 	UpdateBulletUI();
 }

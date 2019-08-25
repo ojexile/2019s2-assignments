@@ -23,7 +23,7 @@ BossSpawnerScript::~BossSpawnerScript()
 
 void BossSpawnerScript::Start()
 {
-	BossState = "Searching for player...";
+	m_eBossState = eSEARCHING;
 }
 
 void BossSpawnerScript::Update(double dt)
@@ -51,12 +51,12 @@ void BossSpawnerScript::SetSpawnRate(float f)
 	m_fSpawnRate = f;
 }
 
-void BossSpawnerScript::SetState(std::string state)
+void BossSpawnerScript::SetState(BossSpawnerScript::eSearchState e)
 {
-	BossState = state;
+	m_eBossState = e;
 }
 
-std::string BossSpawnerScript::GetState()
+BossSpawnerScript::eSearchState BossSpawnerScript::GetState()
 {
-	return BossState;
+	return m_eBossState;
 }
