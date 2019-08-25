@@ -16,6 +16,10 @@
 #include "ParticleObserver.h"
 #include "AdvancedParticleSpawnerScript.h"
 #include "WinLoseScript.h"
+//Ob
+#include "BossObserver.h"
+//Obcom
+#include "BossObserverCom.h"
 //TMP
 #include "ExplodeAugment.h"
 #include "BlackHoleAugment.h"
@@ -30,12 +34,14 @@ void DefaultScene::Init()
 {
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
 	/// Observers================================================================================
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
 	GenericSubject::GetInstance()->AddObserver(new ParticleObserver);
+	GenericSubject::GetInstance()->AddObserver(new BossObserver);
 
 	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg", "low_synth");
 	AudioManager::GetInstance()->SetBGMVolume(0, "low_synth");
@@ -143,12 +149,18 @@ void DefaultScene::Init()
 	go->RENDER->SetColor(0.1f);
 	go->TRANS->SetScale(1920 / 3, 12, 1);
 	//
+	GameObject* BossBarText = m_GOM.AddGameObject("UI");
+	BossBarText->TRANS->SetPosition(1920 / 2, 1000, 20);
+	BossBarText->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Unitialised"));
+	BossBarText->RENDER->SetColor(1, 1.f, 1.f);
+	//
 	GameObject* BossBar = m_GOM.AddGameObject("UI");
 	BossBar->TRANS->SetPosition(1920 / 3, 1040, 0);
 	BossBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	BossBar->RENDER->SetColor(0.1f, 0.2f, 0.8f);
 	/// Start Systems--------------------------------------------------------------------------------
 	GameObject* BossSpawner = m_GOM.AddGameObject(dataContainer->GetGameObject("BossSpawner"));
+	BossSpawner->AddComponent(new BossObserverCom);
 	/// Ends Systems--------------------------------------------------------------------------------
 	/// End Player Stats--------------------------------------------------------------------------------
 	/// Player================================================================================
@@ -185,7 +197,7 @@ void DefaultScene::Init()
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(0, 18, 0);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
-	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI"), BossSpawner, BossBar));
+	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI"), BossSpawner, BossBar, BossBarText));
 	Player->AddComponent(new MapSpawningScript());
 	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
 	Player->AddComponent(new WinLoseScript());
@@ -232,10 +244,10 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(0, 16, 0);
 	go->SetActive(false);
 
-	go = m_GOM.AddGameObject("UI");
-	go->TRANS->SetPosition(0, 16, 0);
-	go->TRANS->SetScale(1);
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
-	go->RENDER->Set3DBillboard(true);
-	go->RENDER->SetColor(0, 1, 1);
+	//go = m_GOM.AddGameObject("UI");
+	//go->TRANS->SetPosition(0, 16, 0);
+	//go->TRANS->SetScale(1);
+	//go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
+	//go->RENDER->Set3DBillboard(true);
+	//go->RENDER->SetColor(0, 1, 1);
 }

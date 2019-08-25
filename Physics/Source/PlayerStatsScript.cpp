@@ -5,7 +5,7 @@
 
 PlayerStatsScript::PlayerStatsScript(GameObject* Player, GameObject* Stamina,
 	GameObject* Health, GameObject* Gun, GameObject* BulletRef, GameObject* BossSpawner,
-	GameObject* BossSpawnerUI)
+	GameObject* BossSpawnerUI, GameObject* BossSpawnerUIText)
 	: m_Player(Player)
 	, m_Stamina(Stamina)
 	, m_Health(Health)
@@ -13,6 +13,7 @@ PlayerStatsScript::PlayerStatsScript(GameObject* Player, GameObject* Stamina,
 	, m_BulletUIRef(BulletRef)
 	, m_BossSpawner(BossSpawner)
 	, m_BossSpawnerUI(BossSpawnerUI)
+	, m_BossSpawnerUIText(BossSpawnerUIText)
 {
 	m_iMaxMag = 0;
 	m_iMag = 0;
@@ -75,6 +76,6 @@ void PlayerStatsScript::Update(double dt)
 	m_Health->TRANS->SetScale((float)iHealth / (Base->GetMaxHealth() * Add->GetMaxHealth()) * 200, 50, 1);
 	float percen = m_BossSpawner->GetComp(BossSpawnerScript)->GetPercentageDone();
 	m_BossSpawnerUI->TRANS->SetScale(percen * 1920 / 3, 12, 1);
-
+	m_BossSpawnerUIText->RENDER->SetText(m_BossSpawner->GetComp(BossSpawnerScript)->GetState());
 	UpdateBulletUI();
 }

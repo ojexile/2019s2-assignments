@@ -20,6 +20,8 @@ PlayerScript::~PlayerScript()
 }
 void PlayerScript::Start()
 {
+	PrevPos = GetPosition();
+	PlayerIdleTimer.Start();
 	GetCameraGO()->GetComponent<CameraComponent>()->SetMouseUseFloatYaw(false);
 }
 void PlayerScript::Update(double dt)
@@ -33,6 +35,12 @@ void PlayerScript::Update(double dt)
 	// Movement================================================================================
 	UpdateMovement(dt);
 	m_Grenade->TRANS->SetPosition(GetPosition());
+	// Idle====================================================
+	if (PlayerIdleTimer.GetTime() > IDLE_TIME)
+	{
+		UpdatePrevPos();
+		PlayerIdleTimer.Reset();
+	}
 }
 
 void PlayerScript::UpdateMovement(double dt)
@@ -122,6 +130,19 @@ void PlayerScript::UpdateMovement(double dt)
 		AudioManager::GetInstance()->QueueFade(1, 0.3f, "low_piano");
 		AudioManager::GetInstance()->QueueFade(0, 0.3f, "high_piano");
 	}
+}
+void PlayerScript::UpdatePrevPos()
+{
+	Vector3 Displacement = GetPosition() - PrevPos;
+	if (Displacement.LengthSquared() < IDLE_DIST)	// within idle range
+	{
+		Notify("PlayerIdle");
+	}
+	else
+	{
+		Notify("PlayerNotIdle");
+	}
+	PrevPos = GetPosition();
 }
 void PlayerScript::Collide(GameObject* go)
 {

@@ -5,11 +5,13 @@ class BossSpawnerScript :
 	public ScriptComponent
 {
 private:
-	StopWatch s;
 	int m_iCurrentBoss;
 	float m_fCurrentInterval;
 	GameObject* m_Boss[3];
 	float m_fSpawnIntervals[3];
+	float m_CurrentTime;
+	float m_fSpawnRate;
+	std::string BossState;
 public:
 	BossSpawnerScript(GameObject* a, GameObject* b, GameObject* c);
 	virtual ~BossSpawnerScript();
@@ -18,4 +20,7 @@ public:
 	virtual void Start();
 	virtual void Update(double dt) override;
 	float GetPercentageDone();
+	void SetSpawnRate(float f);
+	void SetState(std::string state);
+	std::string GetState();
 };

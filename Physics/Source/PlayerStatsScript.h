@@ -21,6 +21,7 @@ private:
 	GameObject* m_BulletUIRef;
 	GameObject* m_BossSpawner;
 	GameObject* m_BossSpawnerUI;
+	GameObject* m_BossSpawnerUIText;
 
 	std::vector<GameObject*> m_BulletList;
 	//
@@ -31,7 +32,8 @@ public:
 		GameObject* Health, GameObject* Gun,
 		GameObject* BulletRef,
 		GameObject* BossSpawner,
-		GameObject* BossSpawnerUI);
+		GameObject* BossSpawnerUI,
+		GameObject* BossSpawnerUIText);
 	virtual ~PlayerStatsScript();
 	virtual Component* Clone() { return new PlayerStatsScript(*this); };
 	virtual void Update(double dt) override;

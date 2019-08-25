@@ -75,6 +75,11 @@ void EntityScript::Update(double dt)
 	}
 	UpdateValues();
 }
+void EntityScript::Start()
+{
+	m_Values.m_iHealth = m_BaseStats.m_iHealthMax;
+	m_Values.m_fStamina = m_BaseStats.m_fStaminaMax;
+}
 void EntityScript::SetCanJump(bool b)
 {
 	m_bCanJump = b;

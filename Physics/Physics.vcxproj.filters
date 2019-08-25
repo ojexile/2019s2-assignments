@@ -149,6 +149,8 @@
     <ClCompile Include="Source\BossSpawnerScript.cpp" />
     <ClCompile Include="Source\EntityLibrary.cpp" />
     <ClCompile Include="Source\WinLoseScript.cpp" />
+    <ClCompile Include="Source\BossObserverCom.cpp" />
+    <ClCompile Include="Source\BossObserver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -326,6 +328,8 @@
     <ClInclude Include="Source\ScalePatternScript.h" />
     <ClInclude Include="Source\BossSpawnerScript.h" />
     <ClInclude Include="Source\WinLoseScript.h" />
+    <ClInclude Include="Source\BossObserverCom.h" />
+    <ClInclude Include="Source\BossObserver.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />

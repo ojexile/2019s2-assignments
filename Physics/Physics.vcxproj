@@ -183,6 +183,8 @@
     <ClCompile Include="Source\BlackHoleAugment.cpp" />
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\BossCombat.cpp" />
+    <ClCompile Include="Source\BossObserver.cpp" />
+    <ClCompile Include="Source\BossObserverCom.cpp" />
     <ClCompile Include="Source\BossShockwaveState.cpp" />
     <ClCompile Include="Source\BossSpawnerScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -304,6 +306,8 @@
     <ClInclude Include="Source\BlackHoleAugment.h" />
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\BossCombat.h" />
+    <ClInclude Include="Source\BossObserver.h" />
+    <ClInclude Include="Source\BossObserverCom.h" />
     <ClInclude Include="Source\BossShockwaveState.h" />
     <ClInclude Include="Source\BossSpawnerScript.h" />
     <ClInclude Include="Source\Camera.h" />
