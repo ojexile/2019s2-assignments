@@ -115,20 +115,20 @@ void DefaultScene::Init()
 	/// Player Stats--------------------------------------------------------------------------------
 	// Stamina--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
-	go->TRANS->SetPosition(50, 920, 0);
+	go->TRANS->SetPosition(50, 940, 0);
 	go->TRANS->SetScale(200, 50, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
 	go->SetDisableDistance(-1);
 	//
 	GameObject* StaminaBar = m_GOM.AddGameObject("UI");
-	StaminaBar->TRANS->SetPosition(50, 920, 0);
+	StaminaBar->TRANS->SetPosition(50, 940, 0);
 	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	StaminaBar->RENDER->SetColor(1, 1, 0);
 	StaminaBar->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
-	go->TRANS->SetPosition(50, 950, 20);
+	go->TRANS->SetPosition(50, 970, 20);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Stamina"));
 	go->RENDER->SetColor(1, 1, 1);
 	go->SetDisableDistance(-1);
@@ -201,7 +201,7 @@ void DefaultScene::Init()
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	m_Player = Player;
-	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade));
+	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(10000000)));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));

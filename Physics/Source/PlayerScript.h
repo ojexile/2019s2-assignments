@@ -21,7 +21,7 @@ private:
 	void UpdatePrevPos();
 public:
 	void Dash();
-	PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun, GameObject* grenade);
+	PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun, GameObject* grenade, Stats stats);
 	~PlayerScript();
 	virtual Component* Clone()
 	{

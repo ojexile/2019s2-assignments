@@ -7,8 +7,8 @@
 #include "GunScript.h"
 #include "GrenadeScript.h"
 #include "InventoryScript.h"
-PlayerScript::PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun, GameObject* grenade)
-	: EntityScript(beh)
+PlayerScript::PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun, GameObject* grenade, Stats stats)
+	: EntityScript(beh, stats)
 {
 	m_Reticle = Reticle;
 	m_Gun = gun;
@@ -34,8 +34,8 @@ void PlayerScript::Update(double dt)
 	AudioManager::GetInstance()->UpdateFading(dt);
 	// Movement================================================================================
 	UpdateMovement(dt);
-	if(m_Grenade)
-	m_Grenade->TRANS->SetPosition(GetPosition());
+	if (m_Grenade)
+		m_Grenade->TRANS->SetPosition(GetPosition());
 	// Idle====================================================
 	if (PlayerIdleTimer.GetTime() > IDLE_TIME)
 	{

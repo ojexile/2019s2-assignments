@@ -101,7 +101,7 @@ void MainMenu::Init()
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	m_Player = Player;
-	Player->AddComponent(new PlayerScript(nullptr, nullptr, Gun, nullptr));
+	Player->AddComponent(new PlayerScript(nullptr, nullptr, Gun, nullptr, Stats()));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
