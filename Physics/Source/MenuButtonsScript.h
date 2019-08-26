@@ -18,6 +18,7 @@ private:
 	GameObject* m_TutorialText;
 	GameObject* m_TutorialButt;
 	GameObject* m_TutorialBox;
+	GameObject* m_Ability0;
 
 	float m_fPlayFadeVal;
 	float m_fTutorialFadeVal;
@@ -26,7 +27,8 @@ public:
 	MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 		GameObject* QuitText, GameObject* QuitButt,
 		GameObject* TutorialText, GameObject* TutorialButt,
-		GameObject* TutorialBox);
+		GameObject* TutorialBox,
+		GameObject* Ability0);
 	virtual ~MenuButtonsScript();
 	virtual Component* Clone() { return new MenuButtonsScript(*this); };
 	virtual void Update(double dt) override;

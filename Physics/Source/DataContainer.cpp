@@ -574,7 +574,7 @@ void DataContainer::InitGO()
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
 	go->SetDisableDistance(-1);
-	// CustomiseSlot--------------------------------------------------------------------------------
+	// MenuButton--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["MenuButton"] = go;
 	go->AddComponent(new UIButtonComponent);
@@ -596,6 +596,15 @@ void DataContainer::InitGO()
 	m_map_GO["ItemInfo"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
+	// Ability0--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Ability0"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
+	go->RENDER->SetLightEnabled(false);
+	go->RENDER->SetColor(0, 1, 1);
+	go->TRANS->SetScale(100, 100, 1);
+	go->SetDisableDistance(-1);
 	/// Interactabes/Foilage================================================================================
 
 	go = new GameObject();
@@ -649,17 +658,17 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["stone1"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("stone1")));
-	go->RENDER->SetColor(0.6, 0.6, 0.6);
+	go->RENDER->SetColor(0.6f, 0.6f, 0.6f);
 
 	go = new GameObject();
 	m_map_GO["stone2"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("stone2")));
-	go->RENDER->SetColor(0.3, 0.3, 0.3);
+	go->RENDER->SetColor(0.3f, 0.3f, 0.3f);
 
 	go = new GameObject();
 	m_map_GO["grass1"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("grass1")));
-	go->RENDER->SetColor(0, 1.0, 0);
+	go->RENDER->SetColor(0, 1.0f, 0);
 
 	go = new GameObject();
 	m_map_GO["grass2"] = go;

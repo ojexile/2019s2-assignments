@@ -87,7 +87,7 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 	m_bIsText = ref.m_bIsText;
 	m_sText = ref.m_sText;
 	m_b3DBillboard = ref.m_b3DBillboard;
-	this->m_Material = ref.m_Material;
+	m_Material = ref.m_Material;
 	m_bTextOnScreen = ref.m_bTextOnScreen;
 }
 

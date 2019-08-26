@@ -74,6 +74,9 @@ void MainMenu::Init()
 	GameObject* PlayButt = m_GOM.AddGameObject(GetGO("MenuButton"), "UI");
 	PlayButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 6 + 40);
 	PlayButt->SetDisableDistance(-1);
+	GameObject* Ability0 = m_GOM.AddGameObject(GetGO("Ability0"), "UI");
+	Ability0->TRANS->SetPosition(50 + 50 + 150, 1080 - 1080 / 6 + 40);
+	Ability0->SetActive(false);
 	//
 	GameObject* PlayText = m_GOM.AddGameObject("UI");
 	PlayText->TRANS->SetPosition(50, 1080 - 1080 / 6, 80);
@@ -110,7 +113,7 @@ void MainMenu::Init()
 	// Init Menu Buttons================================================================================
 	go = m_GOM.AddGameObject();
 	go->AddComponent(new MenuButtonsScript(PlayText, PlayButt, QuitText, QuitButt,
-		TutorialText, TutorialButt, TutBox));
+		TutorialText, TutorialButt, TutBox, Ability0));
 	go->SetDisableDistance(-1);
 	//
 	/// End UI================================================================================
