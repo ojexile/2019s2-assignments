@@ -15,7 +15,7 @@ protected:
 	std::string m_sLayer;
 public:
 	ParticleSpawnerScript(GameObject* ParticleRef, const float fSpawnRate,
-		const Vector3 vSpawnRadius, const float fSizeOffset, std::string sLayer = "Particle", const float fLifeTime = -1);
+		const Vector3 vSpawnRadius, const float fSizeOffset, std::string sLayer = "Default", const float fLifeTime = -1);
 	virtual ~ParticleSpawnerScript();
 	virtual Component* Clone()
 	{

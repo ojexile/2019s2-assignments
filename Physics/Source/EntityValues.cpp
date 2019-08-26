@@ -28,3 +28,8 @@ void EntityValues::OffsetStamina(float f)
 {
 	m_fStamina -= f;
 }
+
+void EntityValues::HealHealth(int i)
+{
+	m_iHealth += i;
+}

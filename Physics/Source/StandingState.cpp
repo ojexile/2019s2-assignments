@@ -29,7 +29,7 @@ State* StandingState::HandleState(ComponentBase* com)
 		return &PlayerStateList::Sprinting;
 	}
 	// Dodge
-	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
+	/*if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
 	{
 		float fDrain = 25;
 		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= fDrain)
@@ -37,7 +37,7 @@ State* StandingState::HandleState(ComponentBase* com)
 			com->GetComponent<PlayerScript>()->Dash();
 			com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(fDrain);
 		}
-	}
+	}*/
 	// Top Down
 	if (InputManager::GetInstance()->GetInputStrength("SwitchCam"))
 	{

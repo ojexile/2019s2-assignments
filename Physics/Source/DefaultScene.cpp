@@ -17,6 +17,7 @@
 #include "AdvancedParticleSpawnerScript.h"
 #include "WinLoseScript.h"
 #include "CheatScript.h"
+#include "AbilityScript.h"
 //Ob
 #include "BossObserver.h"
 //Obcom
@@ -245,13 +246,14 @@ void DefaultScene::Init()
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RIGID->SetMat(1.05f, 0.f);
 	Player->RENDER->SetActive(true);
-	Player->TRANS->SetPosition(0, 18, 0);
+	Player->TRANS->SetPosition(8, 18, 8);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, dataContainer->GetGameObjectRaw("BulletUI"), BossSpawner, BossBar, BossBarText));
 	Player->AddComponent(new MapSpawningScript());
 	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObjectRaw("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
 	Player->AddComponent(new WinLoseScript());
 	Player->GetComponent<EntityScript>()->SetCanDie(true);
+	Player->AddComponent(new AbilityScript());
 	Player->AddComponent(new CheatScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
