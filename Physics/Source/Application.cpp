@@ -13,12 +13,12 @@
 #include "Utility.h"
 #include "Resources.h"
 
-
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 static double scrollX = 0;
 static double scrollY = 0;
+bool Application::bExit = false;
 int m_width, m_height;
 
 //Define an error callback
@@ -40,7 +40,7 @@ void resize_callback(GLFWwindow* window, int w, int h)
 	m_width = w;
 	m_height = h;
 	glViewport(0, 0, w, h);
-	Engine::GetInstance()->GetRenderManager()->Resize(Vector3(w, h, 69));
+	Engine::GetInstance()->GetRenderManager()->Resize(Vector3((float)w, (float)h, 69));
 }
 
 void scroll_callback(GLFWwindow* window, double dx, double dy)
@@ -92,6 +92,7 @@ void Application::SetCursorEnabled(bool b)
 }
 Application::Application()
 {
+	bExit = false;
 }
 
 Application::~Application()
@@ -160,7 +161,7 @@ void Application::Run()
 {
 	//Main Loop
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
-	while (!glfwWindowShouldClose(m_window) && !InputManager::GetInstance()->GetInputStrength("ApplicationEscape"))
+	while (!glfwWindowShouldClose(m_window) && !(InputManager::GetInstance()->GetInputStrength("ApplicationEscape") || bExit))
 	{
 		// Get delta time
 		double dt = m_timer.getElapsedTime();

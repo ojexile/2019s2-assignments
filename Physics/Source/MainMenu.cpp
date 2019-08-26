@@ -81,8 +81,9 @@ void MainMenu::Init()
 	PlayText->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	PlayText->SetDisableDistance(-1);
 	// Quit--------------------------------------------------------------------------------
-	GameObject* QuitButt = m_GOM.AddGameObject("UI");
-	QuitButt->AddComponent(new UIButtonComponent());
+	GameObject* QuitButt = m_GOM.AddGameObject(GetGO("MenuButton"), "UI");
+	QuitButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 4 * 2 + 40);
+	QuitButt->SetDisableDistance(-1);
 	GameObject* QuitText = m_GOM.AddGameObject("UI");
 	QuitText->TRANS->SetPosition(50, 1080 - 1080 / 4 * 2, 80);
 	QuitText->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Quit"));
@@ -90,7 +91,7 @@ void MainMenu::Init()
 	QuitText->SetDisableDistance(-1);
 	// Init Menu Buttons================================================================================
 	go = m_GOM.AddGameObject();
-	go->AddComponent(new MenuButtonsScript(PlayText, PlayButt));
+	go->AddComponent(new MenuButtonsScript(PlayText, PlayButt, QuitText, QuitButt));
 	go->SetDisableDistance(-1);
 	//
 	/// End UI================================================================================
