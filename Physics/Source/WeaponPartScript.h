@@ -32,6 +32,9 @@ public:
 	void SetDurability(float durability);
 	void SetMultiplier(float multiplier);
 
+	void SetName(std::string s);
+	std::string GetName(void);
+
 	virtual Component* Clone() { return new WeaponPartScript(*this); }
 
 private:
@@ -39,4 +42,5 @@ private:
 	float m_fStatMultiplier;
 	Augment* m_Augment;
 	SLOT_TYPE m_SlotType;
+	std::string m_Name;
 };
