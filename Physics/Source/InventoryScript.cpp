@@ -118,10 +118,6 @@ void InventoryScript::Update(double dt)
 	}
 	else
 		m_Reticle->SetActive(!hover);
-	if (hover)
-		CHENG_LOG("hov", "t");
-	else
-		CHENG_LOG("hov", "f");
 }
 void InventoryScript::AddItem(GameObject* go)
 {
