@@ -61,7 +61,7 @@ void RenderingManager::Render(Scene* scene)
 	}
 	//******************************* PRE RENDER PASS
 	//*************************************
-	// RenderPassGPass(scene);
+	RenderPassGPass(scene);
 	//******************************* MAIN RENDER PASS
 	//************************************
 	RenderPassMain(scene);
