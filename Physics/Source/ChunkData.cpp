@@ -166,18 +166,22 @@ Mesh* ChunkData::GenerateMesh()
 
 MeshBiomed* ChunkData::GenerateMeshBiomed()
 {
-	MeshBiomed* mesh = dynamic_cast<MeshBiomed*>(MeshBuilder::GenerateChunk("chunk", m_iXSize, m_iYSize, m_iZSize, &m_blocks, true));
-	// mesh->AddTexture("terrainflat", BiomeComponent::BIOME_FLAT);
-	mesh->AddTexture("Colors", BiomeComponent::BIOME_PLAINS);
-	mesh->AddTexture("snow", BiomeComponent::BIOME_SNOW);
-	mesh->AddTexture("beachy", BiomeComponent::BIOME_BEACHY);
-	mesh->AddTexture("gb", BiomeComponent::BIOME_GAMEBOY);
-	mesh->AddTexture("mesa", BiomeComponent::BIOME_MESA);
-	mesh->AddTexture("crimson", BiomeComponent::BIOME_CRIMSON);
-	mesh->AddTexture("void", BiomeComponent::BIOME_VOID);
-	mesh->AddTexture("gray", BiomeComponent::BIOME_MONOCHROME);
-
-	return mesh;
+	if (meshBiomed == nullptr)
+	{
+		MeshBiomed* mesh = dynamic_cast<MeshBiomed*>(MeshBuilder::GenerateChunk("chunk", m_iXSize, m_iYSize, m_iZSize, &m_blocks, true));
+		// mesh->AddTexture("terrainflat", BiomeComponent::BIOME_FLAT);
+		mesh->AddTexture("Colors", BiomeComponent::BIOME_PLAINS);
+		mesh->AddTexture("snow", BiomeComponent::BIOME_SNOW);
+		mesh->AddTexture("beachy", BiomeComponent::BIOME_BEACHY);
+		mesh->AddTexture("gb", BiomeComponent::BIOME_GAMEBOY);
+		mesh->AddTexture("mesa", BiomeComponent::BIOME_MESA);
+		mesh->AddTexture("crimson", BiomeComponent::BIOME_CRIMSON);
+		mesh->AddTexture("void", BiomeComponent::BIOME_VOID);
+		mesh->AddTexture("gray", BiomeComponent::BIOME_MONOCHROME);
+		meshBiomed = mesh;
+		return mesh;
+	}
+	else return meshBiomed;
 }
 
 Vector3 ChunkData::GetGroundPosition(Vector3 in)
