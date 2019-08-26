@@ -9,6 +9,7 @@
 #include "Time.h"
 #include "StandingState.h"
 #include "Engine.h"
+#include "PlayerStateList.h"
 SprintingState::SprintingState()
 {
 }
@@ -24,17 +25,8 @@ State* SprintingState::HandleState(ComponentBase* com)
 	// Sprint
 	if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint"))
 	{
-		return new StandingState;
+		return  &PlayerStateList::Standing;
 	}
-	//// Crouch
-	//if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
-	//{
-	//	// com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
-	//}
-	//if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint") && !InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
-	//{
-	//	com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
-	//}
 	// Dodge
 	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
 	{
@@ -47,12 +39,12 @@ State* SprintingState::HandleState(ComponentBase* com)
 	}
 	if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() < 25)
 	{
-		Engine::GetInstance()->GetRenderManager()->SetUniform1f(RenderingManager::UNIFORM_TYPE::U_VIGINETTE_VAL, 0.001f);
+		Engine::GetInstance()->GetRenderManager()->SetUniform1f(RenderingManager::UNIFORM_TYPE::U_VIGINETTE_VAL, 0.1f);
 	}
 	// Top Down
 	if (InputManager::GetInstance()->GetInputStrength("SwitchCam"))
 	{
-		return new TopDownState;
+		return  &PlayerStateList::TopDown;
 	}
 
 	m_MovementCommand.HandleCommand(com);

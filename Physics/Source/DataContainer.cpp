@@ -35,6 +35,7 @@
 #include "IdleState.h"
 #include "MeleeCombatState.h"
 #include "FleeState.h"
+#include "PlayerStateList.h"
 //
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
@@ -356,21 +357,21 @@ void DataContainer::InitGO()
 	m_map_GO["Clip"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Clip")));
-	go->AddComponent(new WeaponPartScript(WeaponPartScript::CLIP, 2.0, 4));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::CLIP, 2.0f, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
 	m_map_GO["Scope"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Scope")));
-	go->AddComponent(new WeaponPartScript(WeaponPartScript::SCOPE, 0.5, 4));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::SCOPE, 0.5f, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
 	m_map_GO["Grip"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Grip")));
-	go->AddComponent(new WeaponPartScript(WeaponPartScript::GRIP, 0.6, 4));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::GRIP, 0.6f, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------
@@ -679,7 +680,7 @@ void  DataContainer::InitShaders()
 }
 void DataContainer::InitBehaviour()
 {
-	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
+	m_map_Behaviour["Player"] = new Behaviour(&PlayerStateList::Standing);
 	m_map_Behaviour["Default"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Melee, &AIStatesList::Wander, &AIStatesList::Idle);
 	m_map_Behaviour["Bird"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Flee, &AIStatesList::BirdWander, &AIStatesList::BirdIdle);
 	m_map_Behaviour["Flee"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Flee, &AIStatesList::Wander, &AIStatesList::Idle);

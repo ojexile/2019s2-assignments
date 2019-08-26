@@ -8,6 +8,7 @@
 #include "CameraScript.h"
 #include "Time.h"
 #include "SprintingState.h"
+#include "PlayerStateList.h"
 StandingState::StandingState()
 {
 	m_fMovementBoost = 50;
@@ -25,17 +26,8 @@ State* StandingState::HandleState(ComponentBase* com)
 	// Sprint
 	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint") && com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= 25.f)
 	{
-		return new SprintingState;
+		return &PlayerStateList::Sprinting;
 	}
-	//// Crouch
-	//if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
-	//{
-	//	// com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
-	//}
-	//if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint") && !InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
-	//{
-	//	com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
-	//}
 	// Dodge
 	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
 	{
@@ -49,7 +41,7 @@ State* StandingState::HandleState(ComponentBase* com)
 	// Top Down
 	if (InputManager::GetInstance()->GetInputStrength("SwitchCam"))
 	{
-		return new TopDownState;
+		return  &PlayerStateList::TopDown;
 	}
 	m_MovementCommand.HandleCommand(com);
 
