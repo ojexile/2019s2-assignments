@@ -13,6 +13,7 @@
 #include "WorldValues.h"
 #include "InputManager.h"
 #include "MouseManager.h"
+#include "EntityLibrary.h"
 // Start Scene
 #include "DefaultScene.h"
 #include "MainMenu.h"
@@ -206,4 +207,5 @@ void Engine::Exit()
 	Preferences::Clear();
 	Time::DeleteInstance();
 	GenericSubject::DeleteInstance();
+	EntityLibrary::DeleteInstance();
 }

@@ -203,6 +203,8 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["particleHexagonRed"] = MeshBuilder::GenerateQuad("particleHexagonRed", {}, 1)->AddTexture("particleHexagonRed");
 	m_map_Meshes["particleRareDrop"] = MeshBuilder::GenerateQuad("particleRareDrop", {}, 1)->AddTexture("particleHexagonBorderYellow");
 
+	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 1);
+
 	m_map_Meshes["Fish"] = MeshBuilder::GenerateOBJ("Fish");
 
 	m_map_Meshes["Cow"] = MeshBuilder::GenerateOBJ("mccow");

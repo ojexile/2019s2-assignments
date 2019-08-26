@@ -191,7 +191,7 @@ void DefaultScene::Init()
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
 
 	//TMP------------------------------------------------------------------------------------
-	GameObject* tmp = dataContainer->GetGameObject("Muzzle");
+	GameObject* tmp;
 
 	//tmp->PART->SetAugment(new ReloadingAugment);
 	//tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
@@ -248,7 +248,7 @@ void DefaultScene::Init()
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(0, 18, 0);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
-	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI"), BossSpawner, BossBar, BossBarText));
+	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, dataContainer->GetGameObjectRaw("BulletUI"), BossSpawner, BossBar, BossBarText));
 	Player->AddComponent(new MapSpawningScript());
 	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObjectRaw("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
 	Player->AddComponent(new WinLoseScript());
