@@ -20,7 +20,7 @@ void EntityLibrary::Init()
 	m_EntityArray[FISH] = DC->GetGameObjectRaw("Fish");
 	m_EntityArray[COW] = DC->GetGameObjectRaw("Cow");
 	m_EntityArray[BIRD] = DC->GetGameObjectRaw("Bird");
-	m_EntityArray[COVER] = DC->GetGameObjectRaw("Bird");
+	m_EntityArray[COVER] = DC->GetGameObjectRaw("fliprock");
 	m_EntityArray[FOX] = DC->GetGameObjectRaw("Fox");
 	m_EntityArray[CHICK] = DC->GetGameObjectRaw("Chick");
 	m_EntityArray[BOULDER] = DC->GetGameObjectRaw("boulder");
