@@ -7,11 +7,12 @@
 #include "PlayerData.h"
 
 #include "AbilityGrenade.h"
+#include "AbilityDash.h"
 
 MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 	GameObject* QuitText, GameObject* QuitButt,
 	GameObject* TutorialText, GameObject* TutorialButt,
-	GameObject* TutorialBox, GameObject* Ability0)
+	GameObject* TutorialBox, GameObject* Ability0, GameObject* Ability1)
 	: m_PlayText(PlayText)
 	, m_PlayButt(PlayButt)
 	, m_QuitText(QuitText)
@@ -20,6 +21,7 @@ MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 	, m_TutorialButt(TutorialButt)
 	, m_TutorialBox(TutorialBox)
 	, m_Ability0(Ability0)
+	, m_Ability1(Ability1)
 {
 	m_fPlayFadeVal = 0.5f;
 	m_fQuitFadeVal = 0.5f;
@@ -40,6 +42,7 @@ void MenuButtonsScript::Update(double dt)
 		if (InputManager::GetInstance()->GetInputStrength("Click"))
 		{
 			m_Ability0->SetActive(!m_Ability0->IsActive());
+			m_Ability1->SetActive(!m_Ability1->IsActive());
 		}
 		m_fPlayFadeVal += UpRate + DownRate;
 	}
@@ -66,6 +69,19 @@ void MenuButtonsScript::Update(double dt)
 			{
 				// Set active ability
 				PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 20));
+				// Change scene
+				SceneManager::GetInstance()->ChangeScene(new DefaultScene());
+			}
+		}
+	}
+	if (m_Ability1, IsActive())
+	{
+		if (m_Ability1->GC(UIButtonComponent)->GetHover())
+		{
+			if (InputManager::GetInstance()->GetInputStrength("Click"))
+			{
+				// Set active ability
+				PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 50));
 				// Change scene
 				SceneManager::GetInstance()->ChangeScene(new DefaultScene());
 			}

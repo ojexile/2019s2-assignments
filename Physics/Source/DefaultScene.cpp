@@ -26,6 +26,8 @@
 #include "ExplodeAugment.h"
 #include "BlackHoleAugment.h"
 #include "ReloadingAugment.h"
+//systems
+#include "PlayerData.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -253,7 +255,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObjectRaw("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
 	Player->AddComponent(new WinLoseScript());
 	Player->GetComponent<EntityScript>()->SetCanDie(true);
-	Player->AddComponent(new AbilityScript(nullptr));
+	Player->AddComponent(new AbilityScript(PlayerData::GetInstance()->GetAbility()));
 	Player->AddComponent(new CheatScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();

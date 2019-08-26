@@ -601,8 +601,26 @@ void DataContainer::InitGO()
 	m_map_GO["Ability0"] = go;
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
-	go->RENDER->SetLightEnabled(false);
+	go->RENDER->SetLightEnabled(true);
 	go->RENDER->SetColor(0, 1, 1);
+	go->TRANS->SetScale(100, 100, 1);
+	go->SetDisableDistance(-1);
+	// Ability1--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Ability1"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
+	go->RENDER->SetLightEnabled(true);
+	go->RENDER->SetColor(0, 1, 0);
+	go->TRANS->SetScale(100, 100, 1);
+	go->SetDisableDistance(-1);
+	// Ability2--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Ability2"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
+	go->RENDER->SetLightEnabled(true);
+	go->RENDER->SetColor(1, 1, 0);
 	go->TRANS->SetScale(100, 100, 1);
 	go->SetDisableDistance(-1);
 	/// Interactabes/Foilage================================================================================
