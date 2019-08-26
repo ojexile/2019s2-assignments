@@ -58,6 +58,8 @@ void RenderingManager::SetMouseCallback(GLFWwindow* window)
 void RenderingManager::Update(double dt)
 {
 	RenderingManagerBase::Update(dt);
+	CHENG_LOG("Tex1: ", std::to_string(Post.GetTexture()));
+	CHENG_LOG("Tex2: ", std::to_string(Post2.GetTexture()));
 }
 
 void RenderingManager::Render(Scene* scene)
@@ -153,7 +155,7 @@ void RenderingManager::RenderPassPost2(Scene* scene)
 
 	glUseProgram(m_PostProcessProgram2);
 	glUniform1f(m_parameters[U_EFFECT2_TIME], Time::GetInstance()->GetElapsedTimeF());
-	glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead() );
+	glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead());
 
 	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO2);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
@@ -383,6 +385,7 @@ void RenderingManager::RenderPostQuad(Scene* scene)
 		if (!go->IsActive())
 			continue;
 		// CHENG_LOG("", "Render");
+		go->GetComponent<RenderComponent>()->GetMesh()->SetTexture(Post.GetTexture());
 		RenderGameObject(go, vCamPos, true);
 	}
 }
@@ -407,6 +410,7 @@ void RenderingManager::RenderPostQuad2(Scene* scene)
 		if (!go->IsActive())
 			continue;
 		// CHENG_LOG("", "Render");
+		go->GetComponent<RenderComponent>()->GetMesh()->SetTexture(Post2.GetTexture());
 		RenderGameObject(go, vCamPos, true);
 	}
 }
