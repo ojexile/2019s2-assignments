@@ -4,6 +4,7 @@
 
 ChunkData::ChunkData(const std::string fileName, int rotate)
 {
+	meshBiomed = nullptr;
 	m_event = new ChunkEvent();
 	errno_t err;
 	FILE* file;
