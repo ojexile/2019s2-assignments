@@ -13,7 +13,7 @@ private:
 	void ClearMessages();
 public:
 	GenericSubject();
-	~GenericSubject();
+	virtual ~GenericSubject();
 
 	void AddObserver(ObserverBase*);
 	void NotifySubject(ComponentBase* com, std::string msg);

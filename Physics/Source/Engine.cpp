@@ -201,4 +201,5 @@ void Engine::Exit()
 	AudioManager::DeleteInstance();
 	Preferences::Clear();
 	Time::DeleteInstance();
+	GenericSubject::DeleteInstance();
 }
