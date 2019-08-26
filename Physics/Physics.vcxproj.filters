@@ -156,6 +156,7 @@
     <ClCompile Include="Source\AbilityBase.cpp" />
     <ClCompile Include="Source\AbilityDash.cpp" />
     <ClCompile Include="Source\AbilityScript.cpp" />
+    <ClCompile Include="Source\AbilityGrenade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -340,6 +341,7 @@
     <ClInclude Include="Source\AbilityBase.h" />
     <ClInclude Include="Source\AbilityScript.h" />
     <ClInclude Include="Source\AbilityDash.h" />
+    <ClInclude Include="Source\AbilityGrenade.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />

@@ -23,7 +23,7 @@ void AbilityScript::Update(double dt)
 {
 	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
 	{
-		if (m_ability->CanUse())
+		if (!m_ability->IsInUse())
 			m_ability->Use(this);
 	}
 	if (m_ability->IsInUse())

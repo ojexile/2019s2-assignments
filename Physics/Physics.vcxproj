@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -22,19 +22,19 @@
     <ProjectGuid>{0A9B1DD2-76DC-427D-B5E8-D8CF2ADDA603}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Physics</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -171,6 +171,8 @@
   <ItemGroup>
     <ClCompile Include="Source\AbilityBase.cpp" />
     <ClCompile Include="Source\AbilityDash.cpp" />
+    <ClCompile Include="Source\AbilityGrenade.cpp" />
+    <ClCompile Include="Source\AbilityScript.cpp" />
     <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\AIEntityScript.cpp" />
     <ClCompile Include="Source\AIState.cpp" />
@@ -298,6 +300,7 @@
     <ClInclude Include="HealthAugment.h" />
     <ClInclude Include="Source\AbilityBase.h" />
     <ClInclude Include="Source\AbilityDash.h" />
+    <ClInclude Include="Source\AbilityGrenade.h" />
     <ClInclude Include="Source\AbilityScript.h" />
     <ClInclude Include="Source\AIEntityScript.h" />
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
