@@ -154,6 +154,7 @@
     <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MenuButtonsScript.cpp" />
     <ClCompile Include="Source\ColorFBO.cpp" />
+    <ClCompile Include="Source\CheatScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -336,6 +337,7 @@
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MenuButtonsScript.h" />
     <ClInclude Include="Source\ColorFBO.h" />
+    <ClInclude Include="Source\CheatScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />

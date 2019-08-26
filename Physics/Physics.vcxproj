@@ -192,6 +192,7 @@
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\CameraScript.cpp" />
+    <ClCompile Include="Source\CheatScript.cpp" />
     <ClCompile Include="Source\ChunkCollider.cpp" />
     <ClCompile Include="Source\ChunkData.cpp" />
     <ClCompile Include="Source\ChunkEvent.cpp" />
@@ -318,6 +319,7 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\CameraScript.h" />
+    <ClInclude Include="Source\CheatScript.h" />
     <ClInclude Include="Source\ChunkCollider.h" />
     <ClInclude Include="Source\ChunkData.h" />
     <ClInclude Include="Source\ChunkEvent.h" />

@@ -7,4 +7,5 @@ namespace WorldValues
 	extern Vector3 GravityExponent;
 	extern float TimeScale;
 	extern float DragCoeff;
+	extern float FogDensity;
 }

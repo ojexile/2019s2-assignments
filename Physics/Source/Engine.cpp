@@ -15,7 +15,7 @@
 #include "DefaultScene.h"
 #include "MainMenu.h"
 RenderingManager* Engine::m_Renderer;
-#define TIMINGS true
+#define TIMINGS false
 
 Engine::Engine()
 {
@@ -38,7 +38,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new MainMenu());
+	SceneManager->ChangeScene(new DefaultScene());
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
