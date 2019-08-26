@@ -663,6 +663,7 @@ void  DataContainer::InitShaders()
 	m_map_Shaders["EffectCRT"] = LoadShaders("Post", "EffectCRT");
 	m_map_Shaders["UI"] = LoadShaders("Default", "Default");
 	m_map_Shaders["Particles"] = LoadShaders("Default", "Default");
+	m_map_Shaders["PassThrough"] = LoadShaders("PassThrough", "PassThrough");
 }
 void DataContainer::InitBehaviour()
 {

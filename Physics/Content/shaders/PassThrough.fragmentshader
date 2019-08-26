@@ -1,0 +1,13 @@
+#version 330 core
+
+uniform sampler2D SceneTexture;
+in vec2 texCoord;
+in float effect0Intensity;
+
+out vec4 color;
+
+
+void main()
+{
+	color = texture(SceneTexture, texCoord);
+}

@@ -14,7 +14,7 @@
 // Start Scene
 #include "DefaultScene.h"
 #include "MainMenu.h"
-Renderer* Engine::m_Renderer;
+RenderingManager* Engine::m_Renderer;
 #define TIMINGS true
 
 Engine::Engine()

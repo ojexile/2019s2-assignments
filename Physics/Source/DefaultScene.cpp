@@ -34,10 +34,10 @@ void DefaultScene::Init()
 {
 	/// Layers================================================================================
 	DataContainer* dataContainer = DataContainer::GetInstance();
-	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
-	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	m_GOM.CreateLayer(dataContainer->GetShader("Post"), "Post");
 	m_GOM.CreateLayer(dataContainer->GetShader("EffectCRT"), "Post2");
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
 	///RENDER///

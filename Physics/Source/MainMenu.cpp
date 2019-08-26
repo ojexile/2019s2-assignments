@@ -39,7 +39,11 @@ void MainMenu::Init()
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
+	m_GOM.CreateLayer(dataContainer->GetShader("PassThrough"), "Post");
+	m_GOM.CreateLayer(dataContainer->GetShader("PassThrough"), "Post2");
 	GameObject* go = nullptr;
+	go = m_GOM.AddGameObject(GetGO("Render"), "Post");
+	go = m_GOM.AddGameObject(GetGO("Render2"), "Post2");
 	GameObject* go2 = nullptr;
 	Preferences::SetPref(Resources::PreferencesTerm::CamDist, "80");
 	/// Observers================================================================================
