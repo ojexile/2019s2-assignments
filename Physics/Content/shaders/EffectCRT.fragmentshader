@@ -16,5 +16,5 @@ void main()
 	if(effect1TexCoord.x > 1.01 || effect1TexCoord.x < -0.01 || effect1TexCoord.y > 1.01 || effect1TexCoord.y < -0.01) effect1 = vec4(0,0,0,1);
 
 	vec4 effect1Color = effect1;
-	color = effect1Color;
+	color = texture(SceneTexture, texCoord);
 }

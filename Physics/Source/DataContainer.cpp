@@ -84,8 +84,8 @@ void DataContainer::InitChunks()
 	m_map_Chunks["walledoff_2"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 2);
 	m_map_Chunks["walledoff_3"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 3);
 	m_map_Chunks["barline"] = new ChunkData("Content/chunks/1x2_barline.chunk");
-	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
-	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 1);
+	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 2);
 	m_map_Chunks["barline_3"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["flat"] = new ChunkData("Content/chunks/2x2_flatland.chunk");
 }
