@@ -372,7 +372,7 @@ void DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Gun"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Gun")));
-	go->AddComponent(new GunScript(GetGameObject("Bullet")));
+	go->AddComponent(new GunScript(GetGameObjectRaw("Bullet")));
 	go2 = new GameObject;
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
@@ -748,6 +748,16 @@ GameObject* DataContainer::GetGameObject(std::string name)
 		return nullptr;
 	}
 	return go->Clone();
+}
+GameObject* DataContainer::GetGameObjectRaw(std::string name)
+{
+	GameObject* go = m_map_GO[name];
+	if (!go)
+	{
+		DEFAULT_LOG("ERROR: GameObject not found of name: " + name);
+		return nullptr;
+	}
+	return go;
 }
 unsigned DataContainer::GetShader(std::string key)
 {

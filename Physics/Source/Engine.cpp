@@ -11,6 +11,8 @@
 #include "StopWatch.h"
 #include "MyMath.h"
 #include "WorldValues.h"
+#include "InputManager.h"
+#include "MouseManager.h"
 // Start Scene
 #include "DefaultScene.h"
 #include "MainMenu.h"
@@ -197,7 +199,9 @@ void Engine::Exit()
 	delete m_Renderer;
 	SceneManager::DeleteInstance();
 	DataContainer::DeleteInstance();
+	InputManager::DeleteInstance();
 	KeyboardManager::DeleteInstance();
+	MouseManager::DeleteInstance();
 	AudioManager::DeleteInstance();
 	Preferences::Clear();
 	Time::DeleteInstance();

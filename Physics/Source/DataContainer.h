@@ -52,10 +52,10 @@ public:
 	MeshBiomed* GetMeshBiomed(std::string name);
 	AnimatedMesh* GetAnimation(std::string name);
 	GameObject* GetGameObject(std::string name);
+	GameObject* GetGameObjectRaw(std::string name);
 	unsigned GetShader(std::string key);
 	unsigned GetTexture(std::string key);
 	HeightMapData* GetHeightMap(std::string key);
 	ChunkData* GetChunk(std::string key);
 	Behaviour* GetBehaviour(std::string key);
 };
-
