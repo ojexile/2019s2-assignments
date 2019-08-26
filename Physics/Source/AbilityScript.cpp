@@ -17,6 +17,8 @@ AbilityScript::~AbilityScript()
 
 void AbilityScript::Update(double dt)
 {
+	if (!m_ability)
+		return;
 	if (!m_ability->IsInUse())
 	{
 		if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
