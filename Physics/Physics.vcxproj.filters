@@ -155,6 +155,7 @@
     <ClCompile Include="Source\MenuButtonsScript.cpp" />
     <ClCompile Include="Source\AbilityBase.cpp" />
     <ClCompile Include="Source\AbilityDash.cpp" />
+    <ClCompile Include="Source\AbilityScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />

@@ -14,3 +14,28 @@ AbilityBase::AbilityBase(const float usetime, const float cooldowntime, const fl
 AbilityBase::~AbilityBase()
 {
 }
+
+void AbilityBase::Update(Component* com)
+{
+	if (m_SW.GetTime() > m_fCooldownTime + m_fUseTime)
+	{
+		m_bCanUse = true;
+		m_SW.Reset();
+	}
+
+	if (m_SW.GetTime() > m_fUseTime)
+	{
+		m_bInUse = false;
+		StopUse(com);
+	}
+}
+
+bool AbilityBase::CanUse()
+{
+	return m_bCanUse;
+}
+
+bool AbilityBase::IsInUse()
+{
+	return m_bInUse;
+}

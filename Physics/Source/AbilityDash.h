@@ -6,12 +6,12 @@ class AbilityDash :
 
 public:
 	AbilityDash(const float cooldowntime, const float cost);
-	~AbilityDash();
+	virtual ~AbilityDash();
 
 	virtual void Use(Component* com);
 	virtual void StopUse(Component* com);
 
-	virtual void Update(double dt);
+	//virtual void Update(Component com);
 
 
 };

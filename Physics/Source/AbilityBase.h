@@ -7,7 +7,7 @@ desc: ability base class.
 */
 class AbilityBase
 {
-private:
+protected:
 	const float m_fUseTime; // duration of ability (if any)
 	const float m_fCooldownTime; // cooldown time (after useTime)
 	StopWatch m_SW; // use this to keep track of the time
@@ -17,11 +17,14 @@ private:
 
 public:
 	AbilityBase(const float usetime, const float cooldowntime, const float cost);
-	~AbilityBase();
+	virtual ~AbilityBase();
 
 	virtual void Use(Component* com) = 0;
 	virtual void StopUse(Component* com) = 0;
 
-	virtual void Update(double dt) = 0;
+	virtual void Update(Component* com);
+
+	bool CanUse();
+	bool IsInUse();
 
 };
