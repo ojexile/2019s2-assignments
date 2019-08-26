@@ -7,13 +7,15 @@
 
 MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 	GameObject* QuitText, GameObject* QuitButt,
-	GameObject* TutorialText, GameObject* TutorialButt)
+	GameObject* TutorialText, GameObject* TutorialButt,
+	GameObject* TutorialBox)
 	: m_PlayText(PlayText)
 	, m_PlayButt(PlayButt)
 	, m_QuitText(QuitText)
 	, m_QuitButt(QuitButt)
 	, m_TutorialText(TutorialText)
 	, m_TutorialButt(TutorialButt)
+	, m_TutorialBox(TutorialBox)
 {
 	m_fPlayFadeVal = 0.5f;
 	m_fQuitFadeVal = 0.5f;
@@ -39,6 +41,7 @@ void MenuButtonsScript::Update(double dt)
 	{
 		if (InputManager::GetInstance()->GetInputStrength("Click"))
 		{
+			m_TutorialBox->SetActive(!m_TutorialBox->IsActive());
 		}
 		m_fTutorialFadeVal += UpRate + DownRate;
 	}
