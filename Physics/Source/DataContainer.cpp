@@ -731,6 +731,11 @@ DataContainer::~DataContainer()
 		delete x.second;
 	}
 	m_map_Behaviour.clear();
+	for (auto const& x : m_map_Chunks)
+	{
+		delete x.second;
+	}
+	m_map_Chunks.clear();
 }
 Mesh* DataContainer::GetMesh(std::string name)
 {
