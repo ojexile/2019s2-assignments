@@ -62,6 +62,8 @@ void EntityLibrary::Init()
 	//Environmental Initialisation--------------------------------------------
 	m_EnvironmentArray[STONE_1] = DC->GetGameObject("stone1");
 	m_EnvironmentArray[STONE_2] = DC->GetGameObject("stone2");
+	m_EnvironmentArray[GRASS_1] = DC->GetGameObject("grass1");
+	m_EnvironmentArray[GRASS_2] = DC->GetGameObject("grass2");
 }
 
 GameObject* EntityLibrary::GetEntity(eEntities type)

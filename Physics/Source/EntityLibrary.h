@@ -37,6 +37,8 @@ public:
 	{
 		STONE_1,
 		STONE_2,
+		GRASS_1,
+		GRASS_2,
 		NUM_ENVIRONMENT
 	};
 

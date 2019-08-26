@@ -245,7 +245,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
 	Player->RIGID->SetMat(1.05f, 0.f);
 	Player->RENDER->SetActive(true);
-	Player->TRANS->SetPosition(0, 18, 0);
+	Player->TRANS->SetPosition(8, 18, 8);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI"), BossSpawner, BossBar, BossBarText));
 	Player->AddComponent(new MapSpawningScript());

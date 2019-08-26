@@ -206,6 +206,8 @@ void MapSpawningScript::Update(double dt)
 							chunk->GetEvent()->GenerateEntities(GOM, chunk, go->TRANS->GetPosition(), go->GetComponent<BiomeComponent>()->GetBiomeType());
 						}
 				}
+			chunk->GetEvent()->GenerateEnvironment(GOM, chunk, go->TRANS->GetPosition());
+
 		}
 	}
 }

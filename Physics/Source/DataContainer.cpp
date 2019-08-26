@@ -219,6 +219,10 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["stone2"] = MeshBuilder::GenerateOBJ("stone2")->AddTexture("Boulder");
 
+	m_map_Meshes["grass1"] = MeshBuilder::GenerateOBJ("grass1")->AddTexture("Boulder");
+
+	m_map_Meshes["grass2"] = MeshBuilder::GenerateOBJ("grass2")->AddTexture("Boulder");
+
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
 
 	m_map_Meshes["BirdBody"] = MeshBuilder::GenerateOBJ("Bird/Body");
@@ -631,10 +635,22 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["stone1"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("stone1")));
+	go->RENDER->SetColor(0.6, 0.6, 0.6);
 
 	go = new GameObject();
 	m_map_GO["stone2"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("stone2")));
+	go->RENDER->SetColor(0.3, 0.3, 0.3);
+
+	go = new GameObject();
+	m_map_GO["grass1"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("grass1")));
+	go->RENDER->SetColor(0, 1.0, 0);
+
+	go = new GameObject();
+	m_map_GO["grass2"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("grass2")));
+	go->RENDER->SetColor(0, 1.0, 0);
 
 	go = new GameObject();
 	m_map_GO["boulder"] = go;
