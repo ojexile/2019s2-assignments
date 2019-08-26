@@ -11,9 +11,9 @@ class AbilityScript : public ScriptComponent
 {
 private:
 	AbilityBase* m_ability;
-
+	GameObject* m_UI;
 public:
-	AbilityScript(AbilityBase* Ability);
+	AbilityScript(AbilityBase* Ability, GameObject* UI);
 	~AbilityScript();
 
 	Component* Clone() { return new AbilityScript(*this); }

@@ -5,9 +5,10 @@
 #include "AbilityHeal.h"
 #include "InputManager.h"
 
-AbilityScript::AbilityScript(AbilityBase* ability)
+AbilityScript::AbilityScript(AbilityBase* ability, GameObject* UI)
 {
 	m_ability = ability;
+	m_UI = UI;
 }
 
 AbilityScript::~AbilityScript()
@@ -27,6 +28,18 @@ void AbilityScript::Update(double dt)
 	else/*if (m_ability->IsInUse())*/
 	{
 		m_ability->Update(this);
+	}
+
+	float p = GetPercentageCooldownDone();
+	if (p == 1)
+	{
+		m_UI->RENDER->SetAlpha(1.2f);
+		m_UI->RENDER->SetColor(1.7f);
+	}
+	else
+	{
+		m_UI->RENDER->SetAlpha(p);
+		m_UI->RENDER->SetColor(0.5f);
 	}
 }
 

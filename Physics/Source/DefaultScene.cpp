@@ -180,6 +180,12 @@ void DefaultScene::Init()
 	BossBar->TRANS->SetPosition(1920 / 3, 1040, 0);
 	BossBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	BossBar->RENDER->SetColor(0.1f, 0.2f, 0.8f);
+	//
+	GameObject* AbilityUI = m_GOM.AddGameObject("UI");
+	AbilityUI->TRANS->SetPosition(1920 - 100, 1040, 0);
+	AbilityUI->TRANS->SetScale(100);
+	AbilityUI->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
+	AbilityUI->RENDER->SetColor(0.1f, 0.2f, 0.8f);
 	/// Start Systems--------------------------------------------------------------------------------
 	GameObject* BossSpawner = m_GOM.AddGameObject(dataContainer->GetGameObject("BossSpawner"));
 	BossSpawner->AddComponent(new BossObserverCom);
@@ -255,7 +261,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObjectRaw("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
 	Player->AddComponent(new WinLoseScript());
 	Player->GetComponent<EntityScript>()->SetCanDie(true);
-	Player->AddComponent(new AbilityScript(PlayerData::GetInstance()->GetAbility()));
+	Player->AddComponent(new AbilityScript(PlayerData::GetInstance()->GetAbility(), AbilityUI));
 	Player->AddComponent(new CheatScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
