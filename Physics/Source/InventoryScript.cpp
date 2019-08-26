@@ -33,15 +33,16 @@ void InventoryScript::Update(double dt)
 		bClick = true;
 	}
 	bool hover = false;
-	if (m_Holding)
+
+	// check for hover
+	for (int i = 0; i < 4; ++i)
 	{
-		// check for hover
-		for (int i = 0; i < 4; ++i)
+		if (m_WeaponSlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
 		{
-			if (m_WeaponSlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
+			hover = true;
+			bool bSuccess = true;
+			if (m_Holding)
 			{
-				hover = true;
-				bool bSuccess = true;
 				if (bClick)
 				{
 					switch (i)
@@ -84,7 +85,7 @@ void InventoryScript::Update(double dt)
 		}
 	}
 
-	else
+	if (!m_Holding)
 	{
 		for (unsigned i = 0; i < INVENTORY_SIZE; ++i)
 		{
@@ -99,7 +100,7 @@ void InventoryScript::Update(double dt)
 					GameObject* Part = m_InventoryItems[i];
 					m_Holding = Part;
 					m_iHoldingIndex = i;
-					CHENG_LOG("Part added");
+					Notify("PartPicked");
 				}
 			}
 		}
@@ -117,6 +118,10 @@ void InventoryScript::Update(double dt)
 	}
 	else
 		m_Reticle->SetActive(!hover);
+	if (hover)
+		CHENG_LOG("hov", "t");
+	else
+		CHENG_LOG("hov", "f");
 }
 void InventoryScript::AddItem(GameObject* go)
 {
