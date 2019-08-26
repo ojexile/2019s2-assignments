@@ -4,10 +4,9 @@
 #include "PlayerScript.h"
 #include "WorldValues.h"
 
-AbilitySlowTime::AbilitySlowTime(const float usetime, const float cooldowntime, const float cost, float maxoffset, float timescale)
+AbilitySlowTime::AbilitySlowTime(const float usetime, const float cooldowntime, const float cost, float maxoffset, const float timescale)
 	: AbilityBase(usetime, cooldowntime, cost),
 	m_fMaxOffset(maxoffset),
-	m_fOffset(0.f),
 	m_fOverrideTimeScale(timescale)
 {
 }

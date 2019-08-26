@@ -202,7 +202,7 @@ void DefaultScene::Init()
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	m_Player = Player;
-	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(10000000)));
+	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(50)));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));

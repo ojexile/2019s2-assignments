@@ -17,7 +17,7 @@ AbilityBase::~AbilityBase()
 
 void AbilityBase::Update(Component* com)
 {
-
+	
 
 	if (m_SW.GetTime() > m_fUseTime)
 	{

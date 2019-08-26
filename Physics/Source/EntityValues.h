@@ -13,4 +13,5 @@ public:
 	void OffsetStamina(float f);
 	int GetHealth();
 	void SetHealth(int i);
+	void HealHealth(int i);
 };
