@@ -79,6 +79,7 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 		m_iXSize = m_iZSize;
 		m_iZSize = k;
 	}
+	blocks_2.clear();
 	int j = fgetc(file);
 	if (j == EOF) return;
 	j = fgetc(file);
@@ -105,6 +106,7 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 
 ChunkData::~ChunkData()
 {
+	m_blocks.clear();
 	if (m_event)
 	{
 		delete m_event;
