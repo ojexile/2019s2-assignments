@@ -1,11 +1,12 @@
 #include "ColorFBO.h"
 #include <iostream>
 
-ColorFBO::ColorFBO()
+ColorFBO::ColorFBO(unsigned width, unsigned height)
 {
 	//Allocate memory for frame buffer object and texture
 	glGenFramebuffers(1, &m_fbo);
 	glGenTextures(1, &m_texture);
+	this->Init(width, height);
 }
 
 ColorFBO::~ColorFBO()
@@ -41,13 +42,13 @@ bool ColorFBO::Init(unsigned width, unsigned height)
 	return true;
 }
 
-void ColorFBO::BindForWriting()
+void ColorFBO::BindForWriting() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 	glViewport(0, 0, m_width, m_height);
 }
 
-void ColorFBO::BindForReading(GLenum textureUnit)
+void ColorFBO::BindForReading(GLenum textureUnit) const
 {
 	glActiveTexture(textureUnit);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
