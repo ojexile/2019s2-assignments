@@ -586,7 +586,7 @@ void DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["plaintree"] = go;
-	go->AddComponent(new RenderComponent(GetMeshBiomed("plaintree")));
+	go->AddComponent(new RenderComponent(GetMesh("Cube")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->AddComponent(new DestructibleEntityScript());
 	go->AddComponent(new InteractableObCom());
