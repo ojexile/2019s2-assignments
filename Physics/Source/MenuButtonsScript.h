@@ -19,6 +19,8 @@ private:
 	GameObject* m_TutorialButt;
 
 	float m_fPlayFadeVal;
+	float m_fTutorialFadeVal;
+	float m_fQuitFadeVal;
 public:
 	MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 		GameObject* QuitText, GameObject* QuitButt,

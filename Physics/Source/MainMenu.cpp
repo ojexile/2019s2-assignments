@@ -72,31 +72,31 @@ void MainMenu::Init()
 	go->SetDisableDistance(-1);
 	// Play--------------------------------------------------------------------------------
 	GameObject* PlayButt = m_GOM.AddGameObject(GetGO("MenuButton"), "UI");
-	PlayButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 4 + 40);
+	PlayButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 6 + 40);
 	PlayButt->SetDisableDistance(-1);
 	//
 	GameObject* PlayText = m_GOM.AddGameObject("UI");
-	PlayText->TRANS->SetPosition(50, 1080 - 1080 / 4, 80);
+	PlayText->TRANS->SetPosition(50, 1080 - 1080 / 6, 80);
 	PlayText->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Play"));
 	PlayText->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	PlayText->SetDisableDistance(-1);
 	// Tutorial--------------------------------------------------------------------------------
 	GameObject* TutorialButt = m_GOM.AddGameObject(GetGO("MenuButton"), "UI");
-	TutorialButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 4 * 2 + 40);
+	TutorialButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 6 * 2 + 40);
 	TutorialButt->SetDisableDistance(-1);
 	//
 	GameObject* TutorialText = m_GOM.AddGameObject("UI");
-	TutorialText->TRANS->SetPosition(50, 1080 - 1080 / 4 * 2, 80);
+	TutorialText->TRANS->SetPosition(50, 1080 - 1080 / 6 * 2, 80);
 	TutorialText->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Tutorial"));
 	TutorialText->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	TutorialText->SetDisableDistance(-1);
 	// Quit--------------------------------------------------------------------------------
 	GameObject* QuitButt = m_GOM.AddGameObject(GetGO("MenuButton"), "UI");
-	QuitButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 4 * 3 + 40);
+	QuitButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 6 * 3 + 40);
 	QuitButt->SetDisableDistance(-1);
 	//
 	GameObject* QuitText = m_GOM.AddGameObject("UI");
-	QuitText->TRANS->SetPosition(50, 1080 - 1080 / 4 * 3, 80);
+	QuitText->TRANS->SetPosition(50, 1080 - 1080 / 6 * 3, 80);
 	QuitText->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Quit"));
 	QuitText->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	QuitText->SetDisableDistance(-1);
