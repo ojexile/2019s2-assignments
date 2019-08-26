@@ -13,7 +13,7 @@ private:
 	GameObject* m_Grenade;
 	float m_fJumpForce;
 	int m_iNumberOfGrenades;
-	Vector3 PrevPos;
+	Vector3 PrevPos; 
 	StopWatch PlayerIdleTimer;
 
 	// Functions
@@ -21,6 +21,9 @@ private:
 	void UpdatePrevPos();
 public:
 	void Dash();
+	
+	void PullPin();
+	void ThrowGrenade();
 	PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun, GameObject* grenade, Stats stats);
 	~PlayerScript();
 	virtual Component* Clone()

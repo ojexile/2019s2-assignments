@@ -165,3 +165,15 @@ void PlayerScript::Dash()
 		vDir.Normalize();
 	RIGID->AddForce(vDir * 3000);
 }
+
+void PlayerScript::PullPin()
+{
+	m_Grenade->GetComponent<GrenadeScript>()->PullPin();
+}
+
+void PlayerScript::ThrowGrenade()
+{
+	/*Vector3 vDirRaw = m_Reticle->TRANS->GetPosition() - GetPosition();
+
+	m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDirRaw, m_Grenade, (float)10.f);*/
+}

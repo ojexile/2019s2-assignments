@@ -83,7 +83,7 @@ void GrenadeScript::ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRe
 	Grenade->RIGID->AddForce(arcDir);
 	Grenade->RIGID->SetAffectedByGravity(true);
 
-	--m_iGrenadeCount;
+	//--m_iGrenadeCount;
 
 	m_bIsGrenadeCooking = false;
 }

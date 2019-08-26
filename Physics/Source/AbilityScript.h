@@ -2,6 +2,11 @@
 #include "ScriptComponent.h"
 #include "AbilityBase.h"
 
+/*
+author: lorenzo yanga
+desc; ability script class that acts as the bridge between the abilitybase class and the components
+*/
+
 class AbilityScript : public ScriptComponent
 {
 private:

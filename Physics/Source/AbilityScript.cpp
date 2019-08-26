@@ -1,11 +1,12 @@
 #include "AbilityScript.h"
 #include "AbilityDash.h"
+#include "AbilityGrenade.h"
 #include "InputManager.h"
 
 AbilityScript::AbilityScript()
 {
-	m_ability = new AbilityDash(3.f, 45.f);
-
+	//m_ability = new AbilityDash(3.f, 45.f);
+	m_ability = new AbilityGrenade(10.f, 75.f);
 
 }
 
