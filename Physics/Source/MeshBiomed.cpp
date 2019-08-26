@@ -6,7 +6,6 @@
 #include "DataContainer.h"
 
 MeshBiomed::MeshBiomed(const std::string & meshName) : Mesh(meshName)
-
 {
 	for (int i = 0; i < MAX_BIOMES; i++)
 	{
