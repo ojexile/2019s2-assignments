@@ -250,6 +250,7 @@ void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string t
 	Mesh* mesh = rc->GetMesh();
 	if (!mesh || mesh->m_uTextureArray[0] <= 0)
 		return;
+	Material mat = rc->GetMaterial();
 
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -270,6 +271,12 @@ void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string t
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, mesh->m_uTextureArray[0]);
 	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
+	//load material
+	glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
+	glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
+	glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
+	glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
+	glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;

@@ -197,6 +197,10 @@ void RenderComponent::SetText(std::string s)
 {
 	m_sText = s;
 }
+void RenderComponent::SetAlpha(float a)
+{
+	m_Material.kAlpha = a;
+}
 bool RenderComponent::IsTextOnScreen()
 {
 	return m_bTextOnScreen;
