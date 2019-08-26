@@ -11,7 +11,6 @@ protected:
 	const float m_fUseTime; // duration of ability (if any)
 	const float m_fCooldownTime; // cooldown time (after useTime)
 	StopWatch m_SW; // use this to keep track of the time
-	bool m_bCanUse;
 	bool m_bInUse;
 	const float m_fStaminaCost;
 
@@ -24,7 +23,6 @@ public:
 
 	virtual void Update(Component* com);
 
-	bool CanUse();
 	bool IsInUse();
 
 };

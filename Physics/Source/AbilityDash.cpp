@@ -16,8 +16,6 @@ void AbilityDash::Use(Component* com)
 	com->GetComponent<PlayerScript>()->Dash();
 	com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(-m_fStaminaCost);
 	m_bInUse = true;
-	m_bCanUse = false;
-	//m_SW.Reset();
 	m_SW.Start();
 }
 

@@ -5,7 +5,7 @@ AbilityBase::AbilityBase(const float usetime, const float cooldowntime, const fl
 	m_fCooldownTime(cooldowntime),
 	m_fStaminaCost(cost),
 	m_bInUse(false),
-	m_bCanUse(true),
+	//m_bCanUse(true),
 	m_SW()
 {
 
@@ -17,9 +17,9 @@ AbilityBase::~AbilityBase()
 
 void AbilityBase::Update(Component* com)
 {
-	if (m_SW.GetTime() > m_fCooldownTime)
+	if (m_SW.GetTime() > m_fCooldownTime + m_fUseTime)
 	{
-		m_bCanUse = true;
+	//	m_bCanUse = true;
 		m_bInUse = false;
 
 		m_SW.Reset();
@@ -28,15 +28,9 @@ void AbilityBase::Update(Component* com)
 	if (m_SW.GetTime() > m_fUseTime)
 	{
 		StopUse(com);
-		//m_SW.Start();
 	}
 
 
-}
-
-bool AbilityBase::CanUse()
-{
-	return m_bCanUse;
 }
 
 bool AbilityBase::IsInUse()
