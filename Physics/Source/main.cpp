@@ -5,10 +5,12 @@
 
 int main(void)
 {
-	srand((unsigned)time(NULL));
-	Application &app = Application::GetInstance();
-	app.Init();
-	app.Run();
-	app.Exit();
-	//_CrtDumpMemoryLeaks();
+	{
+		srand((unsigned)time(NULL));
+		Application &app = Application::GetInstance();
+		app.Init();
+		app.Run();
+		app.Exit();
+		//_CrtDumpMemoryLeaks();
+	}
 }

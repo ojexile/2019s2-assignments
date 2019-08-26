@@ -4,13 +4,17 @@
 #include "RenderComponent.h"
 #include "Utility.h"
 #include "WinLoseScript.h"
+#include "Behaviour.h"
 
-EntityScript::EntityScript(Behaviour* Behaviour)
-	: m_Behaviour(Behaviour),
-	m_SW()
+EntityScript::EntityScript(Behaviour* _Behaviour)
 {
-	if (m_Behaviour)
+	if (_Behaviour)
+	{
+		m_Behaviour = new Behaviour(*_Behaviour);
 		m_Behaviour->Init(this);
+	}
+	else
+		m_Behaviour = nullptr;
 	m_bInitialised = false;
 	m_bDamageAnim = false;
 	m_fAnimStartTime = -1;
@@ -19,13 +23,17 @@ EntityScript::EntityScript(Behaviour* Behaviour)
 	m_bIsDead = false;
 	m_bCanDie = true;
 }
-EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
-	: m_Behaviour(Behaviour)
-	, m_BaseStats(Stats)
+EntityScript::EntityScript(Behaviour * _Behaviour, const Stats & Stats)
+	: m_BaseStats(Stats)
 {
 	m_Values.SetHealth(Stats.GetMaxHealth());
-	if (m_Behaviour)
+	if (_Behaviour)
+	{
+		m_Behaviour = new Behaviour(*_Behaviour);
 		m_Behaviour->Init(this);
+	}
+	else
+		m_Behaviour = nullptr;
 	m_bInitialised = false;
 	m_bDamageAnim = false;
 	m_fAnimStartTime = -1;
@@ -54,6 +62,7 @@ EntityScript::EntityScript(EntityScript & ref)
 }
 EntityScript::~EntityScript()
 {
+	delete m_Behaviour;
 }
 void EntityScript::Init()
 {

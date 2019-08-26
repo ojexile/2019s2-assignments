@@ -22,6 +22,7 @@ InventoryScript::InventoryScript(GameObject* weapon, GameObject** list, std::vec
 
 InventoryScript::~InventoryScript()
 {
+	delete m_SlotList;
 }
 void InventoryScript::Update(double dt)
 {

@@ -171,6 +171,12 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AbilityBase.cpp" />
+    <ClCompile Include="Source\AbilityDash.cpp" />
+    <ClCompile Include="Source\AbilityGrenade.cpp" />
+    <ClCompile Include="Source\AbilityHeal.cpp" />
+    <ClCompile Include="Source\AbilityScript.cpp" />
+    <ClCompile Include="Source\AbilitySlowTime.cpp" />
     <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\AIEntityScript.cpp" />
     <ClCompile Include="Source\AIState.cpp" />
@@ -192,6 +198,7 @@
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\CameraScript.cpp" />
+    <ClCompile Include="Source\CheatScript.cpp" />
     <ClCompile Include="Source\ChunkCollider.cpp" />
     <ClCompile Include="Source\ChunkData.cpp" />
     <ClCompile Include="Source\ChunkEvent.cpp" />
@@ -258,6 +265,7 @@
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
+    <ClCompile Include="Source\PlayerStateList.cpp" />
     <ClCompile Include="Source\WinLoseScript.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
@@ -298,6 +306,13 @@
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HealthAugment.h" />
+    <ClInclude Include="Source\AbilityBase.h" />
+    <ClInclude Include="Source\AbilityDash.h" />
+    <ClInclude Include="Source\AbilityGrenade.h" />
+    <ClInclude Include="Source\AbilityHeal.h" />
+    <ClInclude Include="Source\AbilityScript.h" />
+    <ClInclude Include="Source\AbilitySlowTime.h" />
     <ClInclude Include="Source\AIEntityScript.h" />
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
     <ClInclude Include="Source\AIState.h" />
@@ -319,6 +334,7 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\CameraScript.h" />
+    <ClInclude Include="Source\CheatScript.h" />
     <ClInclude Include="Source\ChunkCollider.h" />
     <ClInclude Include="Source\ChunkData.h" />
     <ClInclude Include="Source\ChunkEvent.h" />
@@ -388,6 +404,7 @@
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
+    <ClInclude Include="Source\PlayerStateList.h" />
     <ClInclude Include="Source\WinLoseScript.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />

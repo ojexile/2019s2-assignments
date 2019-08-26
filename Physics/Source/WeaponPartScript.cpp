@@ -6,6 +6,21 @@ WeaponPartScript::WeaponPartScript(SLOT_TYPE slot, float Multiplier, float durab
 	m_fDurability(durability),
 	m_Augment(augment)
 {
+	switch (slot)
+	{
+	case SCOPE:
+		m_Name = "Scope";
+		break;
+	case CLIP:
+		m_Name = "Clip";
+		break;
+	case GRIP:
+		m_Name = "Grip";
+		break;
+	case MUZZLE:
+		m_Name = "Muzzle";
+		break;
+	}
 }
 
 WeaponPartScript::~WeaponPartScript()
@@ -57,4 +72,14 @@ void WeaponPartScript::SetMultiplier(float multiplier)
 void WeaponPartScript::SetAugment(Augment* augment)
 {
 	m_Augment = augment;
+}
+
+void WeaponPartScript::SetName(std::string s)
+{
+	m_Name = s;
+}
+
+std::string WeaponPartScript::GetName(void)
+{
+	return m_Name;
 }
