@@ -282,7 +282,10 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent)
 	{
-		if ((go->TRANS->GetPosition() - SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition()).Length() > go->RENDER->GetRenderDistance()) return;
+		if (go->RENDER->GetRenderDistance() > 0)
+		{
+			if ((go->TRANS->GetPosition() - SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition()).Length() > go->RENDER->GetRenderDistance()) return;
+		}
 		bool isActive = renderComponent->IsActive();
 		if (!isActive)
 			return;
@@ -402,7 +405,15 @@ Vector3 RenderingManager::MouseWorldDir()
 	// MousePosDevice = { 0,0,1 };
 	Vector3 ClipCoord(MousePosDevice.x, MousePosDevice.y, -1.f);
 
-	Mtx44 InvertProjection = projectionStack.Top().GetInverse();
+	Mtx44 InvertProjection;
+	try
+	{
+		InvertProjection = projectionStack.Top().GetInverse();
+	}
+	catch (const std::exception&)
+	{
+		return Vector3(0, 0, -1);
+	}
 	Vector3 EyeCoords = InvertProjection.Multi(ClipCoord, 1);
 	EyeCoords.z = -1;
 	Mtx44 InvertView = viewStack.Top().GetInverse();

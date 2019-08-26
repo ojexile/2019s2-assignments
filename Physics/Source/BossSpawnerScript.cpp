@@ -1,5 +1,6 @@
 #include "BossSpawnerScript.h"
 #include "SceneManager.h"
+#include "Time.h"
 BossSpawnerScript::BossSpawnerScript(GameObject * a, GameObject * b, GameObject * c)
 	: m_iCurrentBoss(0)
 {
@@ -7,11 +8,13 @@ BossSpawnerScript::BossSpawnerScript(GameObject * a, GameObject * b, GameObject 
 	m_Boss[1] = b;
 	m_Boss[2] = c;
 
-	m_fSpawnIntervals[0] = 5;
+	m_fSpawnIntervals[0] = 100;
 	m_fSpawnIntervals[1] = 1000000;
 	m_fSpawnIntervals[2] = 1000000;
 
 	m_fCurrentInterval = m_fSpawnIntervals[0];
+	m_fSpawnRate = 1;
+	m_CurrentTime = 0;
 }
 
 BossSpawnerScript::~BossSpawnerScript()
@@ -20,14 +23,16 @@ BossSpawnerScript::~BossSpawnerScript()
 
 void BossSpawnerScript::Start()
 {
-	s.Start();
+	m_eBossState = eSEARCHING;
 }
 
 void BossSpawnerScript::Update(double dt)
 {
-	if (s.GetTime() >= m_fCurrentInterval && m_iCurrentBoss < 2)
+	m_CurrentTime += Time::GetInstance()->GetDeltaTimeF() * m_fSpawnRate;
+
+	if (m_CurrentTime >= m_fCurrentInterval && m_iCurrentBoss < 2)
 	{
-		s.Reset();
+		m_CurrentTime = 0;
 		Vector3 Pos = SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition();
 		Pos.x += 25;
 		Instantiate(m_Boss[m_iCurrentBoss], Pos);
@@ -38,5 +43,20 @@ void BossSpawnerScript::Update(double dt)
 
 float BossSpawnerScript::GetPercentageDone()
 {
-	return (s.GetTime() / m_fCurrentInterval);
+	return (m_CurrentTime / m_fCurrentInterval);
+}
+
+void BossSpawnerScript::SetSpawnRate(float f)
+{
+	m_fSpawnRate = f;
+}
+
+void BossSpawnerScript::SetState(BossSpawnerScript::eSearchState e)
+{
+	m_eBossState = e;
+}
+
+BossSpawnerScript::eSearchState BossSpawnerScript::GetState()
+{
+	return m_eBossState;
 }

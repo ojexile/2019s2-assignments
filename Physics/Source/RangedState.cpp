@@ -10,7 +10,7 @@
 #include "GameObject.h"
 void RangedState::FireGun(Component * com, const Vector3& vDir)
 {
-	GameObject* Gun = com->GetChild(0);
+	GameObject* Gun = com->GetChild(1);
 	GunScript* ws = Gun->GetComponent<GunScript>();
 	ws->PullTrigger(vDir, Time::GetInstance()->GetDeltaTimeF());
 	if (ws->GetMagazineRounds() <= 0)
@@ -42,12 +42,14 @@ State * RangedState::HandleState(ComponentBase * com)
 	}
 	else
 		return &AIStatesList::Idle;
-	com->RENDER->SetColor(1, 0.2f, 0.1f);
 	return this;
 }
 
 void RangedState::OnEnter(ComponentBase * com)
 {
+	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
+	if (ret)
+		ret->RENDER->SetColor(1.f, 0.2f, 1);
 }
 
 void RangedState::OnExit(ComponentBase * com)

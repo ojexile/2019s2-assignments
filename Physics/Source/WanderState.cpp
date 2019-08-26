@@ -22,14 +22,14 @@ State * WanderState::HandleState(ComponentBase * com)
 	// Check for player
 	if (PlayerInRange(com))
 	{
-		return com->GetComponent<AIEntityScript>()->GetCombatState();
+		return com->GetComponent<AIEntityScript>()->GetBehaviour()->GetCombatState();
 	}
 	if (m_SW.Stop()->GetTime() < m_fTime)
 	{
 		return this;
 	}
 	else
-		return m_Idle;
+		return com->GetComponent<AIEntityScript>()->GetBehaviour()->GetIdleState();
 }
 
 void WanderState::OnEnter(ComponentBase * com)

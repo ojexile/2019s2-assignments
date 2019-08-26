@@ -3,7 +3,7 @@
 #include "LootScript.h"
 #include "RenderComponent.h"
 #include "Utility.h"
-#include "PlayerDeathScript.h"
+#include "WinLoseScript.h"
 
 EntityScript::EntityScript(Behaviour* Behaviour)
 	: m_Behaviour(Behaviour),
@@ -17,6 +17,7 @@ EntityScript::EntityScript(Behaviour* Behaviour)
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
 	m_bIsDead = false;
+	m_bCanDie = true;
 }
 EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	: m_Behaviour(Behaviour)
@@ -31,6 +32,7 @@ EntityScript::EntityScript(Behaviour * Behaviour, const Stats & Stats)
 	m_AdditionalStats.SetZero();
 	m_AdditionalStats.SetOne();
 	m_bIsDead = false;
+	m_bCanDie = true;
 }
 EntityScript::EntityScript(EntityScript & ref)
 	: m_BaseStats(ref.m_BaseStats)
@@ -48,6 +50,7 @@ EntityScript::EntityScript(EntityScript & ref)
 	m_bInitialised = false;
 	m_fAnimStartTime = 0;
 	m_bIsDead = false;
+	m_bCanDie = ref.m_bCanDie;
 }
 EntityScript::~EntityScript()
 {
@@ -75,6 +78,11 @@ void EntityScript::Update(double dt)
 	}
 	UpdateValues();
 }
+void EntityScript::Start()
+{
+	m_Values.m_iHealth = m_BaseStats.m_iHealthMax;
+	m_Values.m_fStamina = m_BaseStats.m_fStaminaMax;
+}
 void EntityScript::SetCanJump(bool b)
 {
 	m_bCanJump = b;
@@ -82,6 +90,18 @@ void EntityScript::SetCanJump(bool b)
 bool EntityScript::GetCanJump()
 {
 	return m_bCanJump;
+}
+Behaviour * EntityScript::GetBehaviour()
+{
+	return m_Behaviour;
+}
+void EntityScript::SetCanDie(bool b)
+{
+	m_bCanDie = b;
+}
+bool EntityScript::GetCanDie()
+{
+	return m_bCanDie;
 }
 const Stats * EntityScript::GetBaseStats()
 {
@@ -100,11 +120,14 @@ void EntityScript::DamageAnim()
 }
 bool EntityScript::CheckDeath()
 {
+	if (!m_bCanDie)
+		return false;
+
 	if (m_Values.m_iHealth <= 0 && !m_bIsDead)
 	{
 		if (this->GetComponent<PlayerScript>(true))
 		{
-			this->GetComponent<PlayerDeathScript>()->SetActive(true);
+			this->GetComponent<WinLoseScript>()->SetActive(true);
 			Notify("PlayerDied");
 			RENDER->ResetColor();
 			m_bIsDead = true;
@@ -166,7 +189,7 @@ void EntityScript::RotateTowards(Vector3 vDir)
 	// current angle
 	float CurrentAngle = TRANS->GetDegrees();
 
-	float newAngle = Lerp(TargetAngle, CurrentAngle, 0.9f);
+	float newAngle = LerpAngle(TargetAngle, CurrentAngle, 0.01f);
 	TRANS->SetRotation(newAngle, 0, 1, 0);
 }
 void EntityScript::Jump()

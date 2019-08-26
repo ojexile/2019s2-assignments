@@ -29,7 +29,7 @@ private:
 public:
 	//ScalePatternScript();
 	ScalePatternScript(eScalePattern sp, float maxscale, float maxtime, float offset = 0.f);
-	~ScalePatternScript();
+	virtual ~ScalePatternScript();
 
 	virtual void Update(double dt);
 	virtual Component* Clone() { return new ScalePatternScript(*this); }

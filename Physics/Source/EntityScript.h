@@ -26,6 +26,7 @@ private:
 	void CheckInit();
 	void DamageAnim();
 	void UpdateValues();
+	bool m_bCanDie;
 protected:
 	bool m_bIsDead;
 	EntityValues m_Values;
@@ -47,6 +48,7 @@ public:
 	virtual ~EntityScript();
 	virtual Component* Clone() { return new EntityScript(*this); };
 	virtual void Update(double dt) override;
+	virtual void Start() override;
 
 	const Stats* GetBaseStats();
 	Stats* GetAdditionalStats();
@@ -62,4 +64,7 @@ public:
 	void UpdateBehaviour();
 	void SetCanJump(bool b);
 	bool GetCanJump();
+	Behaviour* GetBehaviour();
+	void SetCanDie(bool);
+	bool GetCanDie();
 };
