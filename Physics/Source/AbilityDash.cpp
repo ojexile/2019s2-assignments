@@ -14,7 +14,7 @@ AbilityDash::~AbilityDash()
 void AbilityDash::Use(Component* com)
 {
 	com->GetComponent<PlayerScript>()->Dash();
-	com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(-m_fStaminaCost);
+	com->GetComponent<PlayerScript>()->GetValues()->OffsetStamina(m_fStaminaCost);
 	m_bInUse = true;
 	m_SW.Start();
 }
