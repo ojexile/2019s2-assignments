@@ -5,6 +5,7 @@
 
 #include <vector>
 
+
 /********************************************************************************/
 /*!
 \author Ryan Tan Zheng Rong
@@ -37,12 +38,14 @@ public:
 	void UpdateStats(GameObject* go, bool Multiply);
 
 	void EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot);
+
 	void SetBulletsFired(int BulletsFired);
 	void SetMagazineRounds(int MagRounds);
 	void SetMaxMagazineRounds(int MagRounds_Max);
 	void SetFireRate(float FireRate);
 	void SetBulletSpread(float BulletSpread);
-	void SetReloadTime(float ReloadBufferTime);
+	void SetReloadTime(float ReloadTime);
+	void AffectReloadTime(float Multiplier);
 
 	int GetBulletsFired();
 	int GetMagazineRounds();

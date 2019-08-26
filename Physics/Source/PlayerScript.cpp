@@ -39,8 +39,8 @@ float PlayerScript::GetTimeDead()
 
 void PlayerScript::Update(double dt)
 {
-	if (CheckDeath())
-		return;
+	//if (CheckDeath())
+	//	return;
 	EntityScript::Update(dt);
 	UpdateBehaviour();
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());
@@ -166,6 +166,11 @@ void PlayerScript::Collide(GameObject* go)
 	WeaponPartScript* ps = go->GetComponent<WeaponPartScript>(true);
 	if (ps)
 	{
+		if (ps->GetAugment())
+		{
+			ps->GetAugment()->SetEntityReference(this);
+			ps->GetAugment()->SetGunReference(m_Gun->GUN);
+		}
 		GetComponent<InventoryScript>()->AddItem(go);
 		// CHENG_LOG("Part Taken");
 	}
@@ -176,5 +181,9 @@ void PlayerScript::Dash()
 	vDir.y = 0;
 	if (!vDir.IsZero())
 		vDir.Normalize();
-	RIGID->AddForce(vDir * 3000);
+	RIGID->AddForce(vDir * 500);
+}
+void PlayerScript::AddGrenade(int count)
+{
+	m_iNumberOfGrenades = m_iNumberOfGrenades + count;
 }

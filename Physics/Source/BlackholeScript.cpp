@@ -37,22 +37,29 @@ void BlackholeScript::Update(double dt)
 		}
 		if (bSkip)
 			continue;
+
 		// only affects rigid bodies
 		Rigidbody* rigid = go->GetComponent<Rigidbody>(true);
 		if (!rigid)
 			continue;
+		
 		// only affects balls
 		if (rigid->GetType() != Rigidbody::BALL)
 			continue;
+
 		Vector3 pos2 = go->GetComponent<TransformComponent>()->GetPosition();
 		if ((pos1 - pos2).IsZero())
 			continue;
+		
 		float dist = (pos1 - pos2).Length();
+		
 		if (dist > m_fMinDist)
 			continue;
+		
 		float dmgDist = m_fMinDist / 2;
-		int dmg = 3;
+		int dmg = 10;
 		float fForceAttract = G_CONSTANT * (m_fMass * rigid->GetMass()) / (dist);
+		
 		if (go == SceneManager::GetInstance()->GetScene()->GetPlayer())
 		{
 			if (dist <= dmgDist)

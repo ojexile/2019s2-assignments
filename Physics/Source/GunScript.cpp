@@ -79,6 +79,8 @@ void GunScript::Update(double deltaTime)
 
 	if (m_fReloadElapsedTime >= m_fReloadTime && m_bIsReloading)
 		ReloadWeapon();
+
+	m_iMagazineRounds = Math::Clamp(m_iMagazineRounds, 0, m_iMagazineRounds_Max);
 }
 
 void GunScript::UpdateStats(GameObject* go, bool Multiply)
@@ -199,37 +201,18 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 		return;
 
 	part->RIGID->SetAffectedByGravity(false);
-	
+
+	//Apply augment if present
 	if (part->PART->GetAugment())
-	{
-		switch (part->PART->GetAugment()->GetAugmentType())
-		{
-		case Augment::eAugmentType::BULLET:
-		{
-		
-		}
-		case Augment::eAugmentType::PLAYER:
-		{
-
-		}
-		case Augment::eAugmentType::WEAPON:
-		{
-
-		}
-		default:
-		{
-			break;
-		}
-		}
-	}
-
+		part->PART->GetAugment()->PassiveEffect();
 
 	switch (part->PART->GetSlotType())
 	{
 	case WeaponPartScript::SCOPE:
 	{
 		m_ScopeParts.push_back(part);
-		part->TRANS->SetRelativePosition(-0.7f + (0.25f * m_ScopeParts.size()), 0.5f, 0.f);
+		part->TRANS->SetRelativePosition(-1.f + (0.25f * m_ScopeParts.size()), 0.35f, 0.f);
+
 		UpdateStats(part, true);
 		return;
 	}
@@ -238,7 +221,6 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 		m_MuzzleParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.2f + (0.7f * m_MuzzleParts.size()), 0, 0);
 
-
 		UpdateStats(part, true);
 		return;
 	}
@@ -246,7 +228,6 @@ void GunScript::EquipPart(GameObject* part, WeaponPartScript::SLOT_TYPE slot)
 	{
 		m_StockParts.push_back(part);
 		part->TRANS->SetRelativePosition(-0.55f + (0.05f * m_StockParts.size()), -0.5f* m_StockParts.size(), 0);
-
 
 		UpdateStats(part, true);
 		return;
@@ -272,7 +253,10 @@ void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* targ
 	while (m_vector.size() > 0)
 	{
 		GameObject* go = static_cast<GameObject*>(*(m_vector.rbegin()));
-		
+
+		if(go->PART->GetAugment())
+			go->PART->GetAugment()->RemovePassive();
+
 		if (target == go)
 		{
 			UpdateStats(go, false);
@@ -315,6 +299,7 @@ void GunScript::ApplyAugmentOnBullet(std::vector<GameObject*>& m_vector, GameObj
 
 	for (auto it = m_vector.begin(); it != m_vector.end(); ++it)
 	{
+		//Give the bullet a copy of the augment
 		GameObject* wp = static_cast<GameObject*>(*it);
 		if (wp->PART->GetAugment())
 			go->GetComponent<ProjectileScript>()->AddAugment(wp->PART->GetAugment()->Clone());
@@ -345,6 +330,16 @@ void GunScript::SetFireRate(float FireRate)
 void GunScript::SetBulletSpread(float BulletSpread)
 {
 	m_fBulletSpread = BulletSpread;
+}
+
+void GunScript::SetReloadTime(float ReloadTime)
+{
+	m_fReloadTime = ReloadTime;
+}
+
+void GunScript::AffectReloadTime(float Multiplier)
+{
+	m_fReloadTime = m_fReloadTime * Multiplier;
 }
 
 int GunScript::GetBulletsFired()

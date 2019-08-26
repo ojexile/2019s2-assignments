@@ -16,6 +16,9 @@ ExplodeAugment::~ExplodeAugment()
 
 void ExplodeAugment::ActiveEffect(Component* proj, GameObject* go)
 {
+	if (proj->TRANS->GetScale() == 1.5)
+		return;
+
 	Vector3 relDir = go->TRANS->GetPosition() - proj->TRANS->GetPosition();
 	EntityScript* es = go->GetComponent<EntityScript>();
 
@@ -27,6 +30,11 @@ void ExplodeAugment::ActiveEffect(Component* proj, GameObject* go)
 	proj->TRANS->SetScale(1.5);
 }
 
-void ExplodeAugment::PassiveEffect(GameObject* go)
+void ExplodeAugment::PassiveEffect()
+{
+	RYAN_LOG("EXPLODE");
+}
+
+void ExplodeAugment::RemovePassive()
 {
 }
