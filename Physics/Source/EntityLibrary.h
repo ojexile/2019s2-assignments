@@ -32,6 +32,15 @@ public:
 		NUM_ENEMIES
 	};
 
+	
+	enum eEnvironment
+	{
+		STONE_1,
+		STONE_2,
+		NUM_ENVIRONMENT
+	};
+
+
 	enum eLoot
 	{
 		LOOT_CHEST,
@@ -51,9 +60,13 @@ public:
 	GameObject* GetLoot(eLoot type);
 	GameObject** GetLootArray();
 
+	GameObject* GetEnvironment(eEnvironment type);
+	GameObject** GetEnvironmentArray();
+
 private:
 	GameObject* m_EntityArray[NUM_ENTITIES];
 	GameObject* m_EnemyArray[NUM_ENEMIES];
 	GameObject* m_LootArray[NUM_LOOT];
+	GameObject* m_EnvironmentArray[NUM_ENVIRONMENT];
 };
 

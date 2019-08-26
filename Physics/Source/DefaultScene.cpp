@@ -24,6 +24,7 @@
 //TMP
 #include "ExplodeAugment.h"
 #include "BlackHoleAugment.h"
+#include "ReloadingAugment.h"
 DefaultScene::DefaultScene()
 {
 }
@@ -190,17 +191,48 @@ void DefaultScene::Init()
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
 
 	//TMP------------------------------------------------------------------------------------
-	GameObject* muz = dataContainer->GetGameObject("Muzzle");
-	Gun->AddChild(muz);
-	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
+	GameObject* tmp = dataContainer->GetGameObject("Muzzle");
 
-	muz = dataContainer->GetGameObject("Muzzle");
-	Gun->AddChild(muz);
-	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
+	//tmp->PART->SetAugment(new ReloadingAugment);
+	//tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
+	//
+	//GunScript* gs = Gun->GUN;
+	//tmp->PART->GetAugment()->SetGunReference(gs);
+	//Gun->AddChild(tmp);
+	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
-	muz = dataContainer->GetGameObject("Muzzle");
-	Gun->AddChild(muz);
-	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
+	//tmp = dataContainer->GetGameObject("Muzzle");
+	//Gun->AddChild(tmp);
+	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
+	//tmp = dataContainer->GetGameObject("Muzzle");
+	//Gun->AddChild(tmp);
+	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
+	//tmp = dataContainer->GetGameObject("Muzzle");
+	//Gun->AddChild(tmp);
+	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
+	//tmp = dataContainer->GetGameObject("Muzzle");
+	//Gun->AddChild(tmp);
+	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
+	//tmp = dataContainer->GetGameObject("Muzzle");
+	//Gun->AddChild(tmp);
+	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
+	tmp = dataContainer->GetGameObject("Clip");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::CLIP);
+
+	tmp = dataContainer->GetGameObject("Scope");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::SCOPE);
+
+	tmp = dataContainer->GetGameObject("Grip");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::GRIP);
+
 
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObjectRaw("Grenade");
@@ -208,7 +240,7 @@ void DefaultScene::Init()
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	m_Player = Player;
-	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(10000000)));
+	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(100)));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));

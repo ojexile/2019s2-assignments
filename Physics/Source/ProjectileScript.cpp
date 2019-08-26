@@ -9,6 +9,13 @@ ProjectileScript::ProjectileScript(float lifespan, float Damage)
 
 ProjectileScript::~ProjectileScript()
 {
+	while (m_AugmentList.size() > 0)
+	{
+		Augment* aug = static_cast<Augment*>(*(m_AugmentList.rbegin()));
+		delete aug;
+		m_AugmentList.pop_back();
+
+	}
 }
 
 void ProjectileScript::Update(double deltaTime)
@@ -45,13 +52,15 @@ void ProjectileScript::Collide(GameObject* go)
 	if (es)
 	{
 		es->Damage((int)m_fDamage);
-		ActivateEffects(this, go);
-
-		m_fLifespan = 0.01f;
+		RIGID->SetVel(Vector3(0, 0, 0));
+		if (m_AugmentList.size() > 0)
+			ActivateEffects(this, go);
+		else
+			m_fLifespan = 0.01f;
 	}
 }
 
-void ProjectileScript::AddAugment(Component* augment)
+void ProjectileScript::AddAugment(Augment* augment)
 {
 	m_AugmentList.push_back(augment);
 }
@@ -64,6 +73,7 @@ bool ProjectileScript::ActivateEffects(ProjectileScript* proj, GameObject* go)
 	{
 		Augment* augment = static_cast<Augment*>(*it);
 		augment->ActiveEffect(proj, go);
+		HasAugment = true;
 	}
 
 	return HasAugment;

@@ -154,6 +154,9 @@
     <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MenuButtonsScript.cpp" />
     <ClCompile Include="Source\ColorFBO.cpp" />
+    <ClCompile Include="Source\PlayerDeathScript.cpp" />
+    <ClCompile Include="Source\GrenadePickupScript.cpp" />
+    <ClCompile Include="Source\RepairPickupScript.cpp" />
     <ClCompile Include="Source\CheatScript.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -321,7 +324,6 @@
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\Augment.h" />
     <ClInclude Include="Source\ExplodeAugment.h" />
-    <ClInclude Include="HealthAugment.h" />
     <ClInclude Include="Source\ReloadingAugment.h" />
     <ClInclude Include="Source\BlackHoleAugment.h" />
     <ClInclude Include="Source\WorldValues.h" />
@@ -337,6 +339,10 @@
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MenuButtonsScript.h" />
     <ClInclude Include="Source\ColorFBO.h" />
+    <ClInclude Include="Source\PlayerDeathScript.h" />
+    <ClInclude Include="Source\HealthAugment.h" />
+    <ClInclude Include="Source\GrenadePickupScript.h" />
+    <ClInclude Include="Source\RepairPickupScript.h" />
     <ClInclude Include="Source\CheatScript.h" />
   </ItemGroup>
   <ItemGroup>

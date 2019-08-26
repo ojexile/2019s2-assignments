@@ -22,7 +22,7 @@ public:
 	virtual Component* Clone() { return new ProjectileScript(*this); }
 	virtual void Collide(GameObject*) override;
 
-	void AddAugment(Component* aug);
+	void AddAugment(Augment* aug);
 
 	bool ActivateEffects(ProjectileScript* proj, GameObject* go);
 
@@ -35,5 +35,5 @@ public:
 protected:
 	float m_fDamage;
 	float m_fLifespan;
-	std::vector<Component*> m_AugmentList;
+	std::vector<Augment*> m_AugmentList;
 };

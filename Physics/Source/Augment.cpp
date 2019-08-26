@@ -1,7 +1,10 @@
 #include "Augment.h"
 
 Augment::Augment()
+	: m_EntityRef(nullptr),
+	  m_GunRef(nullptr)
 {
+	m_AugmentType = NIL;
 }
 
 
@@ -9,12 +12,12 @@ Augment::~Augment()
 {
 }
 
-void Augment::SetGunReference(GameObject* ref)
+void Augment::SetGunReference(ScriptComponent* ref)
 {
 	m_GunRef = ref;
 }
 
-void Augment::SetPlayerReference(ComponentBase* ref)
+void Augment::SetEntityReference(ScriptComponent* ref)
 {
 	m_EntityRef = ref;
 }

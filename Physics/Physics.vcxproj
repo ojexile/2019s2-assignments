@@ -219,6 +219,7 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
     <ClCompile Include="Source\GenericSubject.cpp" />
+    <ClCompile Include="Source\GrenadePickupScript.cpp" />
     <ClCompile Include="Source\GrenadeScript.cpp" />
     <ClCompile Include="Source\HealthAugment.cpp" />
     <ClCompile Include="Source\HeightMapData.cpp" />
@@ -270,6 +271,7 @@
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
+    <ClCompile Include="Source\RepairPickupScript.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\ReticleScript.cpp" />
     <ClCompile Include="Source\Rigidbody.cpp" />
@@ -297,7 +299,6 @@
     <ClCompile Include="Source\WorldValues.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HealthAugment.h" />
     <ClInclude Include="Source\AIEntityScript.h" />
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
     <ClInclude Include="Source\AIState.h" />
@@ -347,7 +348,9 @@
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
     <ClInclude Include="Source\GenericSubject.h" />
+    <ClInclude Include="Source\GrenadePickupScript.h" />
     <ClInclude Include="Source\GrenadeScript.h" />
+    <ClInclude Include="Source\HealthAugment.h" />
     <ClInclude Include="Source\HeightMapData.h" />
     <ClInclude Include="Source\IdleState.h" />
     <ClInclude Include="Source\InputBinding.h" />
@@ -401,6 +404,7 @@
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />
     <ClInclude Include="Source\RenderingManagerBase.h" />
+    <ClInclude Include="Source\RepairPickupScript.h" />
     <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\ReticleScript.h" />
     <ClInclude Include="Source\Rigidbody.h" />

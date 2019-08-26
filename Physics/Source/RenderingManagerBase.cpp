@@ -87,6 +87,10 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_VIGINETTE_VAL] = glGetUniformLocation(m_programID, "vigenetteVal");
 
 	m_parameters[U_EFFECT0_INTENSITY] = glGetUniformLocation(m_PostProcessProgram, "effect0Intensity");
+	m_parameters[U_EFFECT1_INTENSITY] = glGetUniformLocation(m_PostProcessProgram, "effect1Intensity");
+	m_parameters[U_EFFECT1_TIME] = glGetUniformLocation(m_PostProcessProgram, "time");
+	m_parameters[U_EFFECT2_TIME] = glGetUniformLocation(m_PostProcessProgram2, "time");
+	m_parameters[U_EFFECT2_INTENSITY] = glGetUniformLocation(m_PostProcessProgram2, "effect0Intensity");
 	//--------------------------------------------------------------------------------
 	glUseProgram(m_programID);
 	BindLightUniforms();
