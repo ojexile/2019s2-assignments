@@ -25,9 +25,10 @@ private:
 	void Init();
 	void CheckInit();
 	void DamageAnim();
-	bool CheckDeath();
 	void UpdateValues();
+	bool m_bCanDie;
 protected:
+	bool m_bIsDead;
 	EntityValues m_Values;
 	Behaviour* m_Behaviour;
 	const Stats m_BaseStats;
@@ -39,6 +40,7 @@ protected:
 	float m_fAnimStartTime;
 	bool m_bCanJump;
 	//--------------------------------------------------------------------------------
+	bool CheckDeath();
 public:
 	EntityScript(Behaviour* Behaviour = nullptr);
 	EntityScript(Behaviour* Behaviour, const Stats &Stats);
@@ -46,6 +48,7 @@ public:
 	virtual ~EntityScript();
 	virtual Component* Clone() { return new EntityScript(*this); };
 	virtual void Update(double dt) override;
+	virtual void Start() override;
 
 	const Stats* GetBaseStats();
 	Stats* GetAdditionalStats();
@@ -61,4 +64,7 @@ public:
 	void UpdateBehaviour();
 	void SetCanJump(bool b);
 	bool GetCanJump();
+	Behaviour* GetBehaviour();
+	void SetCanDie(bool);
+	bool GetCanDie();
 };

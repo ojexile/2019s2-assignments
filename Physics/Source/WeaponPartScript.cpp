@@ -1,7 +1,5 @@
 #include "WeaponPartScript.h"
 
-
-
 WeaponPartScript::WeaponPartScript(SLOT_TYPE slot, float Multiplier, float durability, Augment* augment)
 	:m_SlotType(slot),
 	m_fStatMultiplier(Multiplier),
@@ -9,7 +7,6 @@ WeaponPartScript::WeaponPartScript(SLOT_TYPE slot, float Multiplier, float durab
 	m_Augment(augment)
 {
 }
-
 
 WeaponPartScript::~WeaponPartScript()
 {
@@ -20,11 +17,10 @@ WeaponPartScript::~WeaponPartScript()
 	}
 }
 
-
 bool WeaponPartScript::DecreaseDurability(double deltaTime)
 {
 	double multiplier = 10.0;
-	m_fDurability = m_fDurability - deltaTime * multiplier;
+	m_fDurability = m_fDurability - (float)deltaTime * (float)multiplier;
 	return m_fDurability <= 0.f;
 }
 
@@ -32,7 +28,6 @@ void WeaponPartScript::SetSlotType(WeaponPartScript::SLOT_TYPE slot)
 {
 	m_SlotType = slot;
 }
-
 
 WeaponPartScript::SLOT_TYPE WeaponPartScript::GetSlotType()
 {
@@ -61,5 +56,7 @@ void WeaponPartScript::SetMultiplier(float multiplier)
 
 void WeaponPartScript::SetAugment(Augment* augment)
 {
+	if (augment == nullptr)
+		return;
 	m_Augment = augment;
 }

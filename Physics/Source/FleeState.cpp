@@ -21,11 +21,11 @@ State * FleeState::HandleState(ComponentBase * com)
 		float meleeRange = 2;
 		if (PlayerInRange(com, meleeRange))
 		{
-			DamagePlayer(5, 300, Dir);
+			DamagePlayer(2, 300, Dir);
 		}
 	}
 	else
-		return &AIStatesList::Idle;
+		return com->GetComponent<EntityScript>()->GetBehaviour()->GetIdleState();
 	return this;
 }
 
@@ -33,7 +33,7 @@ void FleeState::OnEnter(ComponentBase * com)
 {
 	GameObject* ret = dynamic_cast<Component*>(com)->GetChild(0);
 	if (ret)
-		ret->RENDER->SetColor(0, 0.5f, 1);
+		ret->RENDER->SetColor(0, 1.f, 0.4f);
 }
 
 void FleeState::OnExit(ComponentBase * com)

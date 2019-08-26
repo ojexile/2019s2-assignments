@@ -2,7 +2,6 @@
 #include "EntityScript.h"
 #include "AdvancedParticleSpawnerScript.h"
 
-
 GrenadeScript::GrenadeScript(float Lifespan, float Damage, float ExplosionRadius)
 	: ProjectileScript(Lifespan, Damage)
 	, m_fExplosionRadius(ExplosionRadius)
@@ -12,7 +11,6 @@ GrenadeScript::GrenadeScript(float Lifespan, float Damage, float ExplosionRadius
 	m_iGrenadeCount = 5;
 	m_fExplosionDamage = m_fDamage * 2;
 }
-
 
 GrenadeScript::~GrenadeScript()
 {
@@ -40,21 +38,24 @@ void GrenadeScript::Explode(void)
 		spawner->Trigger();
 	}
 
-	m_fLifespan = 0.005f;
+	RIGID->SetVel(Vector3(0, 0, 0));
+	m_fLifespan = 0.5f;
 	m_bHasExploded = true;
 }
 
 void GrenadeScript::Collide(GameObject* go)
 {
-	EntityScript* es = go->GetComponent<EntityScript>(true);	
-	
+	EntityScript* es = go->GetComponent<EntityScript>(true);
+
 	if (es)
 	{
-		es->Damage(m_fDamage);
+		es->Damage((int)m_fDamage);
 		Vector3 relDir = go->TRANS->GetPosition() - GetPosition();
 
-		es->Damage(m_fExplosionDamage);
-		go->RIGID->AddForce(relDir.Normalize() * 1000);
+		Explode();
+
+		es->Damage((int)m_fExplosionDamage);
+		go->RIGID->AddForce(relDir.Normalize() * 50);
 	}
 }
 
@@ -73,9 +74,9 @@ void GrenadeScript::ThrowGrenade(const Vector3& dir, const GameObject* GrenadeRe
 		return;
 
 	Vector3 arcDir = dir;
-	arcDir.y = arcDir.y + 8;
+	arcDir.y = arcDir.y + 10;
 	arcDir.Normalized();
-	arcDir = arcDir * pow(dir.Length(),1.2f) * 2;
+	arcDir = arcDir * Math::Max(pow(dir.Length(), 1.2f), 100.f);
 	Vector3 SpawnPos = GetPosition();
 
 	GameObject* Grenade = Instantiate(GrenadeRef, SpawnPos);

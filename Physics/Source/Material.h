@@ -13,14 +13,11 @@ struct Material
 	Color kDiffuse;
 	Color kSpecular;
 	float kShininess;
+	float kAlpha;
 
 	Material()
 	{
-		//some default values
-		kAmbient.Set(DEFAULT_AMBIENT, DEFAULT_AMBIENT, DEFAULT_AMBIENT);
-		kDiffuse.Set(DEFAULT_DIFFUSE, DEFAULT_DIFFUSE, DEFAULT_DIFFUSE);
-		kSpecular.Set(DEFAULT_SPECULAR, DEFAULT_SPECULAR, DEFAULT_SPECULAR);
-		kShininess = DEFAULT_SHININESS;
+		Reset();
 	}
 	void Reset()
 	{
@@ -28,6 +25,7 @@ struct Material
 		kDiffuse.Set(DEFAULT_DIFFUSE, DEFAULT_DIFFUSE, DEFAULT_DIFFUSE);
 		kSpecular.Set(DEFAULT_SPECULAR, DEFAULT_SPECULAR, DEFAULT_SPECULAR);
 		kShininess = DEFAULT_SHININESS;
+		kAlpha = 1.f;
 	}
 };
 

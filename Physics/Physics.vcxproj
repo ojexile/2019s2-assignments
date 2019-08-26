@@ -185,7 +185,10 @@
     <ClCompile Include="Source\BlackHoleAugment.cpp" />
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\BossCombat.cpp" />
+    <ClCompile Include="Source\BossObserver.cpp" />
+    <ClCompile Include="Source\BossObserverCom.cpp" />
     <ClCompile Include="Source\BossShockwaveState.cpp" />
+    <ClCompile Include="Source\BossSpawnerScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\CameraScript.cpp" />
@@ -206,7 +209,7 @@
     <ClCompile Include="Source\Engine.cpp" />
     <ClCompile Include="Source\EntityScript.cpp" />
     <ClCompile Include="Source\EntityValues.cpp" />
-    <ClCompile Include="Source\Entity_Library.cpp" />
+    <ClCompile Include="Source\EntityLibrary.cpp" />
     <ClCompile Include="Source\ExplodeAugment.cpp" />
     <ClCompile Include="Source\FleeState.cpp" />
     <ClCompile Include="Source\FlipEntityScript.cpp" />
@@ -237,8 +240,10 @@
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MapSpawningScript.cpp" />
     <ClCompile Include="Source\MeleeCombatState.cpp" />
+    <ClCompile Include="Source\MenuButtonsScript.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBiomed.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
@@ -252,6 +257,7 @@
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
+    <ClCompile Include="Source\WinLoseScript.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
     <ClCompile Include="Source\PlayerStatsScript.cpp" />
@@ -305,7 +311,10 @@
     <ClInclude Include="Source\BlackHoleAugment.h" />
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\BossCombat.h" />
+    <ClInclude Include="Source\BossObserver.h" />
+    <ClInclude Include="Source\BossObserverCom.h" />
     <ClInclude Include="Source\BossShockwaveState.h" />
+    <ClInclude Include="Source\BossSpawnerScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\CameraScript.h" />
@@ -327,7 +336,7 @@
     <ClInclude Include="Source\Engine.h" />
     <ClInclude Include="Source\EntityScript.h" />
     <ClInclude Include="Source\EntityValues.h" />
-    <ClInclude Include="Source\Entity_Library.h" />
+    <ClInclude Include="Source\EntityLibrary.h" />
     <ClInclude Include="Source\ExplodeAugment.h" />
     <ClInclude Include="Source\FleeState.h" />
     <ClInclude Include="Source\FlipEntityScript.h" />
@@ -358,9 +367,11 @@
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
     <ClInclude Include="Source\LootScript.h" />
+    <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MapSpawningScript.h" />
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\MeleeCombatState.h" />
+    <ClInclude Include="Source\MenuButtonsScript.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
@@ -374,6 +385,7 @@
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
+    <ClInclude Include="Source\WinLoseScript.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\PlayerStatsScript.h" />

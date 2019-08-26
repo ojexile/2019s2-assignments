@@ -24,6 +24,7 @@ void RenderingManager::Init()
 {
 	RenderingManagerBase::Init();
 	// Shadows
+	m_lightDepthFBO.Init((unsigned)(SHADOW_RES), (unsigned)(SHADOW_RES));
 	m_lightDepthFBO.Init(SHADOW_RES, SHADOW_RES);
 	Post.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
 	Post2.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
@@ -67,7 +68,7 @@ void RenderingManager::Render(Scene* scene)
 	}
 	//******************************* PRE RENDER PASS
 	//*************************************
-	RenderPassGPass(scene);
+	// RenderPassGPass(scene);
 	//******************************* MAIN RENDER PASS
 	//************************************
 	RenderPassMain(scene);
@@ -398,7 +399,10 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent)
 	{
-		if ((go->TRANS->GetPosition() - SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition()).Length() > go->RENDER->GetRenderDistance()) return;
+		if (go->RENDER->GetRenderDistance() > 0)
+		{
+			if ((go->TRANS->GetPosition() - SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition()).Length() > go->RENDER->GetRenderDistance()) return;
+		}
 		bool isActive = renderComponent->IsActive();
 		if (!isActive)
 			return;
@@ -442,6 +446,7 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 			modelStack.Rotate(fGameObjectRotationDegrees, vGameObjectRotation.x, vGameObjectRotation.y, vGameObjectRotation.z);
 		if (vGameObjectScale.x <= 0.05f || vGameObjectScale.y <= 0.05 || vGameObjectScale.z <= 0.05)
 		{
+			modelStack.PopMatrix();
 			return;
 		}
 		modelStack.Scale(vGameObjectScale.x, vGameObjectScale.y, vGameObjectScale.z);
@@ -517,7 +522,15 @@ Vector3 RenderingManager::MouseWorldDir()
 	// MousePosDevice = { 0,0,1 };
 	Vector3 ClipCoord(MousePosDevice.x, MousePosDevice.y, -1.f);
 
-	Mtx44 InvertProjection = projectionStack.Top().GetInverse();
+	Mtx44 InvertProjection;
+	try
+	{
+		InvertProjection = projectionStack.Top().GetInverse();
+	}
+	catch (const std::exception&)
+	{
+		return Vector3(0, 0, -1);
+	}
 	Vector3 EyeCoords = InvertProjection.Multi(ClipCoord, 1);
 	EyeCoords.z = -1;
 	Mtx44 InvertView = viewStack.Top().GetInverse();

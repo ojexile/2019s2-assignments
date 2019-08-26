@@ -18,7 +18,7 @@ public:
 	Stats(int iHealthMax = 100, int iHealthRegenRate = 0, float StaminaMax = 100,
 		float fStaminaRegenRate = 20,
 		float MovementMax = 100, float MovementForece = 40,
-		float fJumpForce = 2000, float DetectionRatius = 8);
+		float fJumpForce = 1400, float DetectionRatius = 8);
 	~Stats();
 
 	void SetZero();

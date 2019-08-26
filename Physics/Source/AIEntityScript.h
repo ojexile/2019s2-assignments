@@ -14,21 +14,19 @@ public:
 	};
 private:
 	int m_iCounter;
-	AIState* m_CombatState; ///<	active state when ai is near player
 	Vector3 m_vTarget;
 	Vector3 m_vPrevPos;
 	bool m_bFirstMove;
 	bool m_bAgainstWall;
 public:
-	AIEntityScript(Behaviour* Behaviour = nullptr, AIState* CombatState = nullptr);
-	AIEntityScript(Behaviour* Behaviour, AIState* CombatState, Stats &Stats);
+	AIEntityScript(Behaviour* Behaviour = nullptr);
+	AIEntityScript(Behaviour* Behaviour, Stats &Stats);
 	AIEntityScript(AIEntityScript& ref);
 	virtual ~AIEntityScript();
 	virtual Component* Clone() { return new AIEntityScript(*this); };
 	virtual void Update(double dt) override;
 	void SetAgainstWall(bool b);
 
-	AIState* GetCombatState();
 	void SetTarget(Vector3 v);
 	void MoveToTarget();
 };

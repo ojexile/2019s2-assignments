@@ -3,6 +3,16 @@
 #include "WeaponPartScript.h"
 #include "Augment.h"
 
+/********************************************************************************/
+/*!
+\author Ryan Tan Zheng Rong
+\brief
+Script to handle Dropping of loot such as weapon parts, augmented parts and
+ other rewards
+/*!
+/********************************************************************************/
+
+
 class LootScript : public ScriptComponent
 {
 public:
@@ -18,6 +28,7 @@ private:
 
 	//Returns a partScript
 	WeaponPartScript* GenerateWeaponPart(void);
-	/*Augment* GenerateAugment(void);*/
+	//Returns an Augment
+	Augment* GenerateAugment(void);
 	GameObject* m_LootDrop;
 };

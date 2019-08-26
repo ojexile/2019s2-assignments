@@ -7,6 +7,8 @@
 bool AIState::PlayerInRange(ComponentBase* com)
 {
 	GameObject* Player = SceneManager::GetInstance()->GetScene()->GetPlayer();
+	if (!Player->GetComponent<EntityScript>()->GetCanDie())
+		return false;
 	Vector3 PlayerPos = Player->TRANS->GetPosition();
 	Vector3 Pos = com->TRANS->GetPosition();
 	if (fabs(PlayerPos.y - Pos.y) > 4)
@@ -23,6 +25,8 @@ bool AIState::PlayerInRange(ComponentBase* com)
 bool AIState::PlayerInRange(ComponentBase * com, float dist)
 {
 	GameObject* Player = SceneManager::GetInstance()->GetScene()->GetPlayer();
+	if (!Player->GetComponent<EntityScript>()->GetCanDie())
+		return false;
 	Vector3 PlayerPos = Player->TRANS->GetPosition();
 	float Range = dist;
 	if ((PlayerPos - com->TRANS->GetPosition()).Length() < Range)

@@ -2,7 +2,7 @@
 #include "ScriptComponent.h"
 /*
 author: lorenzo yanga
-desc: script to override the scale vector in the transform component with 
+desc: script to override the scale vector in the transform component with
 linear and non-linear patterns. mostly applicable with particles, but should be able to be used in any gameobjects too.
 */
 
@@ -29,9 +29,8 @@ private:
 public:
 	//ScalePatternScript();
 	ScalePatternScript(eScalePattern sp, float maxscale, float maxtime, float offset = 0.f);
-	~ScalePatternScript();
+	virtual ~ScalePatternScript();
 
 	virtual void Update(double dt);
-	virtual Component* Clone(){ return new ScalePatternScript(*this); }
-
+	virtual Component* Clone() { return new ScalePatternScript(*this); }
 };

@@ -3,7 +3,7 @@
 #include "LootScript.h"
 #include "GameObjectManager.h"
 //Temporary
-#include "Entity_Library.h"
+#include "EntityLibrary.h"
 
 ChunkEvent::ChunkEvent()
 	: m_eventType (NIL)
@@ -29,7 +29,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 		m_eventType = static_cast<EVENT_TYPE>(Math::RandIntMinMax(NIL, LOOT_AND_ENEMIES));
 	
 	Vector3 size = chunk_ref->GetSize();
-	Entity_Library* EL = Entity_Library::GetInstance();
+	EntityLibrary* EL = EntityLibrary::GetInstance();
 
 	switch (m_eventType)
 	{
@@ -46,7 +46,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			float z = Math::RandFloatMinMax(0.f, size.z);
 			Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
-			int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+			int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 
 			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 			
@@ -68,7 +68,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			float z = Math::RandFloatMinMax(0.f, size.z);
 			Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
-			int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+			int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 
 			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 
@@ -90,7 +90,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			float z = Math::RandFloatMinMax(0.f, size.z);
 			Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
-			int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+			int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 
 			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 
@@ -110,9 +110,9 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 		float z = Math::RandFloatMinMax(0.f, size.z);
 		Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
-		int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+		int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 
-		GameObject* newEntity = EL->GetLoot(Entity_Library::LOOT_CHEST)->Clone();
+		GameObject* newEntity = EL->GetLoot(EntityLibrary::LOOT_CHEST)->Clone();
 
 		newEntity->TRANS->SetPosition(pos);
 		newEntity->SetDisableDistance(100.f);
@@ -136,7 +136,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 
 			if (i < 3)
 			{
-				int selectedEnemy = Math::RandIntMinMax(Entity_Library::MELEE, Entity_Library::NUM_ENEMIES - 1);
+				int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 
 				newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 
@@ -146,7 +146,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			}
 			else
 			{
-				newEntity = EL->GetLoot(Entity_Library::LOOT_CHEST)->Clone();
+				newEntity = EL->GetLoot(EntityLibrary::LOOT_CHEST)->Clone();
 
 				newEntity->TRANS->SetPosition(pos);
 				newEntity->SetDisableDistance(100.f);
@@ -165,24 +165,37 @@ void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_r
 {
 	const unsigned int SPAWNCOUNT = Math::RandIntMinMax(2, 4);
 	Vector3 size = chunk_ref->GetSize();
-	Entity_Library* EL = Entity_Library::GetInstance();
+	EntityLibrary* EL = EntityLibrary::GetInstance();
 
 	for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
 	{
 		float x = Math::RandFloatMinMax(0.f, size.x);
 		float z = Math::RandFloatMinMax(0.f, size.z);
-		Vector3 pos = chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+		Vector3 pos =  Vector3(x, 16.5, z)/*chunk_ref->GetGroundPosition(Vector3(x, 0.f, z))*/ + Chunk_Pos;
 
-		int selectedEntity = Math::RandIntMinMax(Entity_Library::FISH, Entity_Library::NUM_ENTITIES - 1);
-
+		int selectedEntity = Math::RandIntMinMax(EntityLibrary::FISH, EntityLibrary::NUM_ENTITIES - 1);
 		GameObject* newEntity = EL->GetEntityArray()[selectedEntity]->Clone();
 
-		newEntity->TRANS->SetPosition(pos);
-		newEntity->SetDisableDistance(100.f);
-		if (newEntity->RENDER != nullptr)
+		if (selectedEntity == EntityLibrary::BIRD)
+		{
+
+			pos.y = Math::RandFloatMinMax(25.f, 30.5f);
+
+			newEntity->TRANS->SetPosition(pos);
+			newEntity->SetDisableDistance(100.f);
 			newEntity->RENDER->SetRenderDistance(100.f);
 
-		GOM_ref->AddGameObject(newEntity);
+			GOM_ref->AddGameObject(newEntity, "Birds");
+		}
+		else
+		{
+
+			newEntity->TRANS->SetPosition(pos);
+			newEntity->SetDisableDistance(100.f);
+			newEntity->RENDER->SetRenderDistance(100.f);
+			GOM_ref->AddGameObject(newEntity);
+		}
+
 	}
 
 	//switch (type)

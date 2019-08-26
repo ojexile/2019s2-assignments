@@ -22,7 +22,7 @@ Rigidbody::~Rigidbody()
 void Rigidbody::Update(double dt)
 {
 	if (this->m_eType == ePhysicsTypes::NONE) return;
-	dt *= WorldValues::TimeScale;
+	// dt *= WorldValues::TimeScale;
 	if (m_iMapForceCount != 0) m_vForce += m_vMapForce * (1.f / m_iMapForceCount);
 	m_vMapForce.SetZero();
 	m_iMapForceCount = 0;
@@ -54,7 +54,7 @@ void Rigidbody::Update(double dt)
 	float area = volume; // ignore cross section area, use raw volume
 	Vector3 fDrag = 0.5f * density * m_vVel * area * fric * WorldValues::DragCoeff * (float)dt;
 	// m_vVel -= fDrag;
-	float val = (pow(0.1f, dt)) / fric;
+	float val = (pow(0.1f, (float)dt)) / fric;
 	val = min(val, 1);
 	// CHENG_LOG("Val:", std::to_string(val));
 	m_vVel = m_vVel * val;

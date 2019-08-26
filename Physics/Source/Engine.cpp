@@ -10,10 +10,12 @@
 #include "GenericSubject.h"
 #include "StopWatch.h"
 #include "MyMath.h"
+#include "WorldValues.h"
 // Start Scene
 #include "DefaultScene.h"
-RenderingManager* Engine::m_Renderer;
-#define TIMINGS false
+#include "MainMenu.h"
+Renderer* Engine::m_Renderer;
+#define TIMINGS true
 
 Engine::Engine()
 {
@@ -36,7 +38,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new DefaultScene());
+	SceneManager->ChangeScene(new MainMenu());
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
@@ -105,10 +107,10 @@ void Engine::Update(double dt)
 			if (!go->IsActive())
 				continue;
 			StopWatch s(true);
-			go->Update(min(dt, 0.1));
-			if (s.Stop()->GetTime() > 0.01f)
+			go->Update(min(dt * WorldValues::TimeScale, 0.1));
+			if (TIMINGS)
 			{
-				if (TIMINGS)
+				if (s.Stop()->GetTime() > 0.01f)
 					CHENG_LOG("GO update longer than 0.01s: ", STOP_S);
 			}
 			CheckGOForObserver(go, &GOObserverList);
@@ -117,13 +119,13 @@ void Engine::Update(double dt)
 	}
 	if (TIMINGS)
 		CHENG_LOG("Time to update: ", STOP_S);
-	//Update coll--------------------------------------------------------------------------------
 	s.Reset();
 	//Update coll-------------------------------------------------------------------------------
 	StopWatch sw(true);
 	m_CollisionManager.Update(CurrentScene->GetGameObjectManager(), (m_frameCount & 255));
 	if (TIMINGS)
 		CHENG_LOG("Time to check collision: ", STOP_S);
+	s.Reset();
 	sw.Stop();
 	KZ_LOG("[Collision_Time_2]", " CollisionManager.Update() took " + sw.GetSTime() + "s");
 	// Update Observers
@@ -131,7 +133,6 @@ void Engine::Update(double dt)
 	// Remove to be destroyed--------------------------------------------------------------------------------
 	GOM->DestroyQueued();
 	//--------------------------------------------------------------------------------
-	s.Reset();
 	m_Renderer->Update(dt);
 	m_Renderer->Render(CurrentScene);
 	if (TIMINGS)
@@ -150,7 +151,6 @@ void Engine::Update(double dt)
 		coord.Y = 0;
 		SetConsoleCursorPosition(handle, coord);
 		//
-		//std::clock_t start = std::clock(); // --------------------------------------------------------------------------------
 		// Print current logger user
 		std::string sLogUser = Preferences::GetPref(Resources::PreferencesTerm::LogUser);
 		Locator::eLoggerUsers eLoggerUser = StringToUser(sLogUser);
@@ -173,7 +173,6 @@ void Engine::Update(double dt)
 			break;
 		}
 		m_fLogUpdateTimer = 0;
-		//double duration = (std::clock() - start) / (double)CLOCKS_PER_SEC; // --------------------------------------------------------------------------------
 	}
 }
 void Engine::CheckGOForObserver(GameObject* go, std::vector<GameObject*>* GOList)
