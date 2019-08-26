@@ -86,8 +86,8 @@ void DataContainer::InitChunks()
 	m_map_Chunks["walledoff_2"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 2);
 	m_map_Chunks["walledoff_3"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 3);
 	m_map_Chunks["barline"] = new ChunkData("Content/chunks/1x2_barline.chunk");
-	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
-	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 1);
+	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 2);
 	m_map_Chunks["barline_3"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["flat"] = new ChunkData("Content/chunks/2x2_flatland.chunk");
 }
@@ -188,7 +188,10 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["QuadCentered"] = MeshBuilder::GenerateQuad("QuadCentered", {}, 1);
 
-	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("ItemInfo", { 1,1,1 }, 5);
+	m_map_Meshes["Render"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture(2);
+	m_map_Meshes["Render2"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture(3);
+
+	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", {}, 1.f)->AddTexture("particleSquareBorder");
 	m_map_Meshes["particlerockbreak"] = MeshBuilder::GenerateQuad("rockbreak", {}, 1.f)->AddTexture("particleHexagonGrey");
@@ -639,13 +642,28 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(10.f);
 	go->TRANS->SetScale(1.f);
 	go->AddComponent(new DestructibleEntityScript());
+
+	go = new GameObject();
+	m_map_GO["Render"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Render")));
+	go->TRANS->SetScale(1920, 1080, 1);
+	go->TRANS->SetPosition(0, 0, 1);
+
+	go = new GameObject();
+	m_map_GO["Render2"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Render2")));
+	go->TRANS->SetScale(1920, 1080, 1);
+	go->TRANS->SetPosition(0, 0, 1);
 }
 void  DataContainer::InitShaders()
 {
 	m_map_Shaders["Default"] = LoadShaders("Flare", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
+	m_map_Shaders["Post"] = LoadShaders("Post", "Post");
+	m_map_Shaders["EffectCRT"] = LoadShaders("Post", "EffectCRT");
 	m_map_Shaders["UI"] = LoadShaders("Default", "Default");
 	m_map_Shaders["Particles"] = LoadShaders("Default", "Default");
+	m_map_Shaders["PassThrough"] = LoadShaders("PassThrough", "PassThrough");
 }
 void DataContainer::InitBehaviour()
 {

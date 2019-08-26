@@ -24,7 +24,7 @@
 
 class RenderingManagerBase : public Renderer
 {
-protected:
+public:
 	enum UNIFORM_TYPE
 	{
 		U_MVP = 0,
@@ -83,8 +83,14 @@ protected:
 		U_SHADOW_COLOR_TEXTURE_ENABLED2,
 		U_SHADOW_COLOR_TEXTURE2,
 
+		U_POST_TEXTURE,
+		U_POST2_TEXTURE,
+
 		// extra
 		U_DIST_FROM_PLAYER,
+		U_VIGINETTE_VAL,
+
+		U_EFFECT0_INTENSITY,
 
 		U_TOTAL,
 	};
@@ -108,6 +114,8 @@ protected:
 	{
 		RENDER_PASS_PRE,
 		RENDER_PASS_MAIN,
+		RENDER_PASS_POST,
+		RENDER_PASS_POST_2,
 	};
 
 public:
@@ -118,6 +126,7 @@ public:
 	virtual void Update(double dt);
 	virtual void Render(Scene* scene);
 	virtual void Exit();
+	virtual void Resize(Vector3 size);
 
 protected:
 	void RenderText(RenderComponent* mesh);
@@ -132,6 +141,8 @@ protected:
 
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
+	unsigned m_PostProcessProgram;
+	unsigned m_PostProcessProgram2;
 	int m_parameters[U_TOTAL];
 	int m_LightParameters[U_LIGHT_TOTAL * MAX_LIGHTS];
 
@@ -153,6 +164,8 @@ protected:
 	Mtx44 m_lightDepthMVP;
 	Mtx44 m_lightDepthMVPGPass;
 	RENDER_PASS m_renderPass;
+public:
+	void SetUniform1f(UNIFORM_TYPE, float f);
 };
 
 #endif

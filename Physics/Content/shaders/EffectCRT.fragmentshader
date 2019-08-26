@@ -1,0 +1,20 @@
+#version 330 core
+
+uniform sampler2D SceneTexture;
+in vec2 texCoord;
+in float effect0Intensity;
+
+out vec4 color;
+
+
+void main()
+{
+	// Effect 1: CRT
+	vec2 effect1TexCoord = (texCoord - vec2(0.5, 0.5)) / (1.7 - pow(length(texCoord - vec2(0.5, 0.5)), 0.9999)) * (1.7) + vec2(0.5, 0.5);
+	vec4 effect1 = texture(SceneTexture, effect1TexCoord);
+	effect1 *= 0.95 + 0.05 * sin (effect1TexCoord.y * 135);
+	if(effect1TexCoord.x > 1.01 || effect1TexCoord.x < -0.01 || effect1TexCoord.y > 1.01 || effect1TexCoord.y < -0.01) effect1 = vec4(0,0,0,1);
+
+	vec4 effect1Color = effect1;
+	color = texture(SceneTexture, texCoord);
+}

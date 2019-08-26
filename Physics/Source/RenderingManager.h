@@ -17,6 +17,7 @@
 
 #include <vector>
 #include <sstream>
+#include "ColorFBO.h"
 
 class RenderingManager : public RenderingManagerBase
 {
@@ -24,12 +25,21 @@ class RenderingManager : public RenderingManagerBase
 private:
 	std::vector<GameObject*> RenderQueue;
 	void RenderQueued(Scene* scene);
+	ColorFBO Post, Post2;
+	// unsigned m_RenderPass;
+	unsigned m_PostBO;
+	unsigned m_PostBO2;
+	// unsigned m_FrameFBO;
 public:
 	virtual void SetMouseCallback(GLFWwindow* window) override;
 
 	virtual void RenderPassGPass(Scene* scene);
+	virtual void RenderPassPost(Scene* scene);
+	virtual void RenderPassPost2(Scene* scene);
 	virtual void RenderPassMain(Scene* scene);
 	virtual void RenderWorld(Scene* scene);
+	virtual void RenderPostQuad(Scene* scene);
+	virtual void RenderPostQuad2(Scene* scene);
 	static Vector3 MouseWorldDir();
 protected:
 	RenderingManager();
@@ -38,6 +48,7 @@ protected:
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render(Scene* scene);
+	virtual void Resize(Vector3 size);
 	void RenderGameObject(GameObject* go, Vector3 vCamPos, bool bIsUI, bool first = true);
 	virtual void Exit();
 	float m_speed;

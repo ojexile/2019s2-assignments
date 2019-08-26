@@ -153,6 +153,7 @@
     <ClCompile Include="Source\BossObserver.cpp" />
     <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MenuButtonsScript.cpp" />
+    <ClCompile Include="Source\ColorFBO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -334,6 +335,7 @@
     <ClInclude Include="Source\BossObserver.h" />
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MenuButtonsScript.h" />
+    <ClInclude Include="Source\ColorFBO.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />
@@ -349,5 +351,10 @@
     <None Include="Shader\water.vertexshader" />
     <None Include="Content\shaders\FancyFog.fragmentshader" />
     <None Include="Content\shaders\FancyFog.vertexshader" />
+    <None Include="Content\shaders\Post.fragmentshader" />
+    <None Include="Content\shaders\Post.vertexshader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Content\shaders\EffectCRT.fragmentshader" />
   </ItemGroup>
 </Project>

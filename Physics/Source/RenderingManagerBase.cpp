@@ -83,6 +83,9 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_SHADOW_COLOR_TEXTURE2] = glGetUniformLocation(m_gPassShaderID, "colorTexture[2]");
 	// extra--------------------------------------------------------------------------------
 	m_parameters[U_DIST_FROM_PLAYER] = glGetUniformLocation(m_programID, "distFromPlayer");
+	m_parameters[U_VIGINETTE_VAL] = glGetUniformLocation(m_programID, "vigenetteVal");
+	
+	m_parameters[U_EFFECT0_INTENSITY] = glGetUniformLocation(m_PostProcessProgram, "effect0Intensity");
 	//--------------------------------------------------------------------------------
 	glUseProgram(m_programID);
 	BindLightUniforms();
@@ -107,8 +110,15 @@ void RenderingManagerBase::BindLightUniforms()
 		m_LightParameters[U_LIGHT_EXPONENT + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, std::string(prefix + "exponent").c_str());
 	}
 }
+void RenderingManagerBase::SetUniform1f(UNIFORM_TYPE e, float f)
+{
+	glUniform1f(m_parameters[e], f);
+}
 void RenderingManagerBase::SetUniforms(Scene* scene)
 {
+	// Init vignette
+	glUniform1f(m_parameters[U_EFFECT0_INTENSITY], 0);
+
 	// Init fog================================================================================
 	Color fogColor{ COLOR };
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
@@ -149,6 +159,7 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 	}
 	// extra--------------------------------------------------------------------------------
 	glUniform1f(m_parameters[U_DIST_FROM_PLAYER], std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist)));
+	glUniform1f(m_parameters[U_VIGINETTE_VAL], 0);
 }
 
 void RenderingManagerBase::Init()
@@ -176,11 +187,14 @@ void RenderingManagerBase::Init()
 	// Main Shader--------------------------------------------------------------------------------
 	m_programID = DataContainer::GetInstance()->GetShader("Default");
 
+	m_PostProcessProgram = DataContainer::GetInstance()->GetShader("Post");
+	m_PostProcessProgram2 = DataContainer::GetInstance()->GetShader("EffectCRT");
+
 	// Shadows
 	m_lightDepthFBO.Init(2048, 2048);
 
 	bLightEnabled = true;
-	//BindUniforms();
+	BindUniforms();
 	//SetUniforms();
 }
 
@@ -604,4 +618,8 @@ void RenderingManagerBase::Exit()
 	glDeleteProgram(m_programID);
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_gPassShaderID);
+}
+
+void RenderingManagerBase::Resize(Vector3 size)
+{
 }
