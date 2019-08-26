@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="Source\AbilityBase.cpp" />
+    <ClCompile Include="Source\AbilityDash.cpp" />
+    <ClCompile Include="Source\AbilityGrenade.cpp" />
+    <ClCompile Include="Source\AbilityHeal.cpp" />
+    <ClCompile Include="Source\AbilityScript.cpp" />
+    <ClCompile Include="Source\AbilitySlowTime.cpp" />
     <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\AIEntityScript.cpp" />
     <ClCompile Include="Source\AIState.cpp" />
@@ -89,6 +95,7 @@
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
+    <ClCompile Include="Source\PlayerStateList.cpp" />
     <ClCompile Include="Source\WinLoseScript.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
@@ -127,37 +134,15 @@
     <ClCompile Include="Source\WeaponPartScript.cpp" />
     <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
-    <ClCompile Include="Source\BossCombat.cpp" />
-    <ClCompile Include="Source\BossShockwaveState.cpp" />
-    <ClCompile Include="Source\SuicideNoteScript.cpp" />
-    <ClCompile Include="Source\BirdWingScript.cpp" />
-    <ClCompile Include="Source\Augment.cpp" />
-    <ClCompile Include="Source\ExplodeAugment.cpp" />
-    <ClCompile Include="Source\HealthAugment.cpp" />
-    <ClCompile Include="Source\ReloadingAugment.cpp" />
-    <ClCompile Include="Source\BlackHoleAugment.cpp" />
-    <ClCompile Include="Source\ScalePatternScript.cpp" />
-    <ClCompile Include="Source\Utility.cpp" />
-    <ClCompile Include="Source\BossSpawnerScript.cpp" />
-    <ClCompile Include="Source\EntityLibrary.cpp" />
-    <ClCompile Include="Source\WinLoseScript.cpp" />
-    <ClCompile Include="Source\BossObserverCom.cpp" />
-    <ClCompile Include="Source\BossObserver.cpp" />
-    <ClCompile Include="Source\MainMenu.cpp" />
-    <ClCompile Include="Source\MenuButtonsScript.cpp" />
-    <ClCompile Include="Source\ColorFBO.cpp" />
-    <ClCompile Include="Source\PlayerDeathScript.cpp" />
-    <ClCompile Include="Source\GrenadePickupScript.cpp" />
-    <ClCompile Include="Source\RepairPickupScript.cpp" />
-    <ClCompile Include="Source\AbilityBase.cpp" />
-    <ClCompile Include="Source\AbilityDash.cpp" />
-    <ClCompile Include="Source\AbilityScript.cpp" />
-    <ClCompile Include="Source\AbilityGrenade.cpp" />
-    <ClCompile Include="Source\AbilitySlowTime.cpp" />
-    <ClCompile Include="Source\AbilityHeal.cpp" />
-    <ClCompile Include="Source\PlayerStateList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HealthAugment.h" />
+    <ClInclude Include="Source\AbilityBase.h" />
+    <ClInclude Include="Source\AbilityDash.h" />
+    <ClInclude Include="Source\AbilityGrenade.h" />
+    <ClInclude Include="Source\AbilityHeal.h" />
+    <ClInclude Include="Source\AbilityScript.h" />
+    <ClInclude Include="Source\AbilitySlowTime.h" />
     <ClInclude Include="Source\AIEntityScript.h" />
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
     <ClInclude Include="Source\AIState.h" />
@@ -249,6 +234,7 @@
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
+    <ClInclude Include="Source\PlayerStateList.h" />
     <ClInclude Include="Source\WinLoseScript.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
@@ -291,29 +277,6 @@
     <ClInclude Include="Source\WeaponPartScript.h" />
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
-    <ClInclude Include="Source\BossCombat.h" />
-    <ClInclude Include="Source\BossShockwaveState.h" />
-    <ClInclude Include="Source\SuicideNoteScript.h" />
-    <ClInclude Include="Source\BirdWingScript.h" />
-    <ClInclude Include="Source\ScalePatternScript.h" />
-    <ClInclude Include="Source\BossSpawnerScript.h" />
-    <ClInclude Include="Source\WinLoseScript.h" />
-    <ClInclude Include="Source\BossObserverCom.h" />
-    <ClInclude Include="Source\BossObserver.h" />
-    <ClInclude Include="Source\MainMenu.h" />
-    <ClInclude Include="Source\MenuButtonsScript.h" />
-    <ClInclude Include="Source\ColorFBO.h" />
-    <ClInclude Include="Source\PlayerDeathScript.h" />
-    <ClInclude Include="Source\HealthAugment.h" />
-    <ClInclude Include="Source\GrenadePickupScript.h" />
-    <ClInclude Include="Source\RepairPickupScript.h" />
-    <ClInclude Include="Source\AbilityBase.h" />
-    <ClInclude Include="Source\AbilityScript.h" />
-    <ClInclude Include="Source\AbilityDash.h" />
-    <ClInclude Include="Source\AbilityGrenade.h" />
-    <ClInclude Include="Source\AbilitySlowTime.h" />
-    <ClInclude Include="Source\AbilityHeal.h" />
-    <ClInclude Include="Source\PlayerStateList.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />
