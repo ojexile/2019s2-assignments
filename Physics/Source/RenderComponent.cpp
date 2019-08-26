@@ -199,6 +199,10 @@ void RenderComponent::SetText(std::string s)
 {
 	m_sText = s;
 }
+void RenderComponent::DeleteMeshBiomed()
+{
+	delete m_MeshBiomed;
+}
 void RenderComponent::SetAlpha(float a)
 {
 	m_Material.kAlpha = a;

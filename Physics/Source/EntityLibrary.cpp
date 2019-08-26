@@ -33,10 +33,10 @@ void EntityLibrary::Init()
 	m_LootArray[LOOT_CHEST] = DC->GetGameObjectRaw("treasurebox");
 
 	//Environmental Initialisation--------------------------------------------
-	m_EnvironmentArray[STONE_1] = DC->GetGameObject("stone1");
-	m_EnvironmentArray[STONE_2] = DC->GetGameObject("stone2");
-	m_EnvironmentArray[GRASS_1] = DC->GetGameObject("grass1");
-	m_EnvironmentArray[GRASS_2] = DC->GetGameObject("grass2");
+	m_EnvironmentArray[STONE_1] = DC->GetGameObjectRaw("stone1");
+	m_EnvironmentArray[STONE_2] = DC->GetGameObjectRaw("stone2");
+	m_EnvironmentArray[GRASS_1] = DC->GetGameObjectRaw("grass1");
+	m_EnvironmentArray[GRASS_2] = DC->GetGameObjectRaw("grass2");
 }
 
 GameObject* EntityLibrary::GetEntity(eEntities type)

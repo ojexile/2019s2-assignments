@@ -1,6 +1,5 @@
 #include "BiomeComponent.h"
-
-
+#include "RenderComponent.h"
 
 BiomeComponent::BiomeComponent(eBiomeTypes biomeType)
 	:
@@ -30,4 +29,3 @@ void BiomeComponent::SetBiomeType(BiomeComponent::eBiomeTypes biomeType)
 	this->m_biomeType = biomeType;
 	return;
 }
-

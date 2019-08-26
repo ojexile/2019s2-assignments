@@ -59,6 +59,7 @@ public:
 	bool IsTextOnScreen();
 	std::string GetText();
 	void SetText(std::string);
+	void DeleteMeshBiomed();
 
 	void SetAlpha(float a);
 };
