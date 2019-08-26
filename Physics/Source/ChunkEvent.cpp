@@ -13,6 +13,7 @@ ChunkEvent::ChunkEvent()
 
 ChunkEvent::~ChunkEvent()
 {
+
 }
 
 void ChunkEvent::SetEntityRef(GameObject* go)
@@ -163,44 +164,88 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 
 void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_ref, Vector3 Chunk_Pos, BiomeComponent::eBiomeTypes type)
 {
-	//const unsigned int SPAWNCOUNT = Math::RandIntMinMax(2, 4);
-	//Vector3 size = chunk_ref->GetSize();
-	//EntityLibrary* EL = EntityLibrary::GetInstance();
+	const unsigned int SPAWNCOUNT = Math::RandIntMinMax(2, 4);
+	Vector3 size = chunk_ref->GetSize();
+	EntityLibrary* EL = EntityLibrary::GetInstance();
 
-	//for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
-	//{
-	//	float x = Math::RandFloatMinMax(0.f, size.x);
-	//	float z = Math::RandFloatMinMax(0.f, size.z);
-	//	Vector3 pos =  /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+	for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
+	{
+		float x = Math::RandFloatMinMax(0.f, size.x);
+		float z = Math::RandFloatMinMax(0.f, size.z);
+		Vector3 pos =  /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 
-	//	int selectedEntity = Math::RandIntMinMax(EntityLibrary::FISH, EntityLibrary::NUM_ENTITIES - 1);
-	//	GameObject* newEntity = EL->GetEntityArray()[selectedEntity]->Clone();
+		int selectedEntity = Math::RandIntMinMax(EntityLibrary::FISH, EntityLibrary::NUM_ENTITIES - 1);
+		GameObject* newEntity = EL->GetEntityArray()[selectedEntity]->Clone();
 
-	//	if (selectedEntity == EntityLibrary::BIRD)
-	//	{
+		if (selectedEntity == EntityLibrary::BIRD)
+		{
 
-	//		pos.y = Math::RandFloatMinMax(25.f, 30.5f);
+			pos.y = Math::RandFloatMinMax(25.f, 30.5f);
 
-	//		newEntity->TRANS->SetPosition(pos);
-	//		newEntity->SetDisableDistance(100.f);
-	//		newEntity->RENDER->SetRenderDistance(100.f);
+			newEntity->TRANS->SetPosition(pos);
+			newEntity->SetDisableDistance(100.f);
+			newEntity->RENDER->SetRenderDistance(100.f);
 
-	//		GOM_ref->AddGameObject(newEntity, "Birds");
-	//	}
-	//	else
-	//	{
+			GOM_ref->AddGameObject(newEntity, "Birds");
+		}
+		else
+		{
 
-	//		newEntity->TRANS->SetPosition(pos);
-	//		newEntity->SetDisableDistance(100.f);
-	//		newEntity->RENDER->SetRenderDistance(100.f);
-	//		GOM_ref->AddGameObject(newEntity);
-	//	}
+			newEntity->TRANS->SetPosition(pos);
+			newEntity->SetDisableDistance(100.f);
+			newEntity->RENDER->SetRenderDistance(100.f);
+			GOM_ref->AddGameObject(newEntity);
+		}
 
-	//}
+	}
 
-	//switch (type)
-	//{
-	//default:
-	//	break;
-	//}
+	switch (type)
+	{
+	default:
+		break;
+	}
+}
+
+void ChunkEvent::GenerateEnvironment(GameObjectManager* GOM_ref, ChunkData* chunk_ref, Vector3 Chunk_Pos, BiomeComponent::eBiomeTypes type)
+{
+	const unsigned int SPAWNCOUNT = Math::RandIntMinMax(2, 4);
+	Vector3 size = chunk_ref->GetSize();
+	EntityLibrary* EL = EntityLibrary::GetInstance();
+
+	for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
+	{
+		float x = Math::RandFloatMinMax(0.f, size.x);
+		float z = Math::RandFloatMinMax(0.f, size.z);
+		Vector3 pos =  /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+
+		int selectedEntity = Math::RandIntMinMax(EntityLibrary::FISH, EntityLibrary::NUM_ENTITIES - 1);
+		GameObject* newEntity = EL->GetEntityArray()[selectedEntity]->Clone();
+
+		if (selectedEntity == EntityLibrary::BIRD)
+		{
+
+			pos.y = Math::RandFloatMinMax(25.f, 30.5f);
+
+			newEntity->TRANS->SetPosition(pos);
+			newEntity->SetDisableDistance(100.f);
+			newEntity->RENDER->SetRenderDistance(100.f);
+
+			GOM_ref->AddGameObject(newEntity, "Birds");
+		}
+		else
+		{
+
+			newEntity->TRANS->SetPosition(pos);
+			newEntity->SetDisableDistance(100.f);
+			newEntity->RENDER->SetRenderDistance(100.f);
+			GOM_ref->AddGameObject(newEntity);
+		}
+
+	}
+
+	switch (type)
+	{
+	default:
+		break;
+	}
 }

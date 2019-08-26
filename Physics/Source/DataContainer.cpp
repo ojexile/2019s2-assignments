@@ -212,6 +212,10 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Boulder");
 
+	m_map_Meshes["stone1"] = MeshBuilder::GenerateOBJ("stone1")->AddTexture("Boulder");
+
+	m_map_Meshes["stone2"] = MeshBuilder::GenerateOBJ("stone2")->AddTexture("Boulder");
+
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
 
 	m_map_Meshes["BirdBody"] = MeshBuilder::GenerateOBJ("Bird/Body");
@@ -620,6 +624,14 @@ void DataContainer::InitGO()
 	go->RIGID->SetMat(1.f, 0);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(1.f);
+
+	go = new GameObject();
+	m_map_GO["stone1"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("stone1")));
+
+	go = new GameObject();
+	m_map_GO["stone2"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("stone2")));
 
 	go = new GameObject();
 	m_map_GO["boulder"] = go;
