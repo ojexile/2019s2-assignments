@@ -84,7 +84,7 @@ void RenderingManagerBase::BindUniforms()
 	// extra--------------------------------------------------------------------------------
 	m_parameters[U_DIST_FROM_PLAYER] = glGetUniformLocation(m_programID, "distFromPlayer");
 	m_parameters[U_VIGINETTE_VAL] = glGetUniformLocation(m_programID, "vigenetteVal");
-	
+
 	m_parameters[U_EFFECT0_INTENSITY] = glGetUniformLocation(m_PostProcessProgram, "effect0Intensity");
 	//--------------------------------------------------------------------------------
 	glUseProgram(m_programID);

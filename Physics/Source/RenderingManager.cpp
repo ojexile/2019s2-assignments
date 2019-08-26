@@ -133,7 +133,7 @@ void RenderingManager::RenderPassPost(Scene * scene)
 	glEnable(GL_DEPTH_TEST);
 }
 void RenderingManager::RenderPassPost2(Scene* scene)
-{	
+{
 	// glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	m_renderPass = RENDER_PASS_POST;
 	glViewport(0, 0, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
@@ -311,7 +311,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 	std::vector<GameObject*>* GOListPart = map->at("Particle")->GetGOList();
 	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 	{
-		m_programID = (*map)["Particle"]->GetShader(); 
+		m_programID = (*map)["Particle"]->GetShader();
 		BindUniforms();
 		SetUniforms(scene);
 	}

@@ -40,30 +40,43 @@ void InventoryScript::Update(double dt)
 			if (m_WeaponSlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
 			{
 				hover = true;
+				bool bSuccess = true;
 				if (bClick)
 				{
 					switch (i)
 					{
 					case 0:
-						Attach(WeaponPartScript::MUZZLE);
-						m_Holding = nullptr;
+						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::MUZZLE)
+							Attach(WeaponPartScript::MUZZLE);
+						else
+							bSuccess = false;
 						break;
 					case 1:
-						Attach(WeaponPartScript::SCOPE);
-						m_Holding = nullptr;
+						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::SCOPE)
+							Attach(WeaponPartScript::SCOPE);
+						else
+							bSuccess = false;
 						break;
 					case 2:
-						Attach(WeaponPartScript::CLIP);
-						m_Holding = nullptr;
+						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::CLIP)
+							Attach(WeaponPartScript::CLIP);
+						else
+							bSuccess = false;
 						break;
 					case 3:
-						Attach(WeaponPartScript::GRIP);
-						m_Holding = nullptr;
+						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::GRIP)
+							Attach(WeaponPartScript::GRIP);
+						else
+							bSuccess = false;
 						break;
 					default:
 						break;
 					}
-					// CHENG_LOG("Part added");
+					// Audio
+					if (bSuccess)
+						Notify("PartAttachSuccess");
+					else
+						Notify("PartAttachFail");
 					break;
 				}
 			}
@@ -137,5 +150,6 @@ void InventoryScript::Attach(WeaponPartScript::SLOT_TYPE e)
 	m_Weapon->GetComponent<GunScript>()->EquipPart(cpy, e);
 	Destroy(go);
 	m_InventoryItems[m_iHoldingIndex] = nullptr;
+	m_Holding = nullptr;
 	--m_iNumInventory;
 }
