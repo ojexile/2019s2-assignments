@@ -153,6 +153,8 @@
     <ClCompile Include="Source\BossObserver.cpp" />
     <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MenuButtonsScript.cpp" />
+    <ClCompile Include="Source\AbilityBase.cpp" />
+    <ClCompile Include="Source\AbilityDash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -334,6 +336,9 @@
     <ClInclude Include="Source\BossObserver.h" />
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MenuButtonsScript.h" />
+    <ClInclude Include="Source\AbilityBase.h" />
+    <ClInclude Include="Source\AbilityScript.h" />
+    <ClInclude Include="Source\AbilityDash.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />
