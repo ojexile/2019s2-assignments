@@ -203,7 +203,7 @@ void DefaultScene::Init()
 	Gun->GUN->EquipPart(muz, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
 	// Grenade-------------------------------------------------------------------------------
-	GameObject* grenade = dataContainer->GetGameObject("Grenade");
+	GameObject* grenade = dataContainer->GetGameObjectRaw("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
