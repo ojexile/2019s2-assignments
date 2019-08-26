@@ -51,8 +51,8 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 			
 			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(100.f);
-			newEntity->RENDER->SetRenderDistance(100.f);
+			newEntity->SetDisableDistance(200.f);
+			newEntity->RENDER->SetRenderDistance(200.f);
 			
 			
 			GOM_ref->AddGameObject(newEntity);
@@ -73,8 +73,8 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 
 			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(100.f);
-			newEntity->RENDER->SetRenderDistance(100.f);
+			newEntity->SetDisableDistance(200.f);
+			newEntity->RENDER->SetRenderDistance(200.f);
 
 
 			GOM_ref->AddGameObject(newEntity);
@@ -95,8 +95,8 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 
 			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(100.f);
-			newEntity->RENDER->SetRenderDistance(100.f);
+			newEntity->SetDisableDistance(200.f);
+			newEntity->RENDER->SetRenderDistance(200.f);
 
 
 			GOM_ref->AddGameObject(newEntity);
@@ -115,8 +115,8 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 		GameObject* newEntity = EL->GetLoot(EntityLibrary::LOOT_CHEST)->Clone();
 
 		newEntity->TRANS->SetPosition(pos);
-		newEntity->SetDisableDistance(100.f);
-		newEntity->RENDER->SetRenderDistance(100.f);
+		newEntity->SetDisableDistance(200.f);
+		newEntity->RENDER->SetRenderDistance(200.f);
 
 
 		GOM_ref->AddGameObject(newEntity);
@@ -141,16 +141,16 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 				newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 
 				newEntity->TRANS->SetPosition(pos);
-				newEntity->SetDisableDistance(100.f);
-				newEntity->RENDER->SetRenderDistance(100.f);
+				newEntity->SetDisableDistance(200.f);
+				newEntity->RENDER->SetRenderDistance(200.f);
 			}
 			else
 			{
 				newEntity = EL->GetLoot(EntityLibrary::LOOT_CHEST)->Clone();
 
 				newEntity->TRANS->SetPosition(pos);
-				newEntity->SetDisableDistance(100.f);
-				newEntity->RENDER->SetRenderDistance(100.f);
+				newEntity->SetDisableDistance(200.f);
+				newEntity->RENDER->SetRenderDistance(200.f);
 			}
 
 

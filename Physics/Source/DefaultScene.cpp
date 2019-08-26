@@ -162,12 +162,32 @@ void DefaultScene::Init()
 
 	//TMP------------------------------------------------------------------------------------
 	GameObject* tmp = dataContainer->GetGameObject("Muzzle");
-	tmp->PART->SetAugment(new BlackHoleAugment);
-	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
-	GunScript* gs = Gun->GUN;
-	tmp->PART->GetAugment()->SetGunReference(gs);
+	//tmp->PART->SetAugment(new BlackHoleAugment);
+	//tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
+	//GunScript* gs = Gun->GUN;
+	//tmp->PART->GetAugment()->SetGunReference(gs);
 	Gun->AddChild(tmp);
 	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
+	tmp = dataContainer->GetGameObject("Muzzle");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
+	tmp = dataContainer->GetGameObject("Muzzle");
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
+	//tmp = dataContainer->GetGameObject("Muzzle");
+	//Gun->AddChild(tmp);
+	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
+	//tmp = dataContainer->GetGameObject("Muzzle");
+	//Gun->AddChild(tmp);
+	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
+	//tmp = dataContainer->GetGameObject("Muzzle");
+	//Gun->AddChild(tmp);
+	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
 	tmp = dataContainer->GetGameObject("Clip");
 	Gun->AddChild(tmp);
