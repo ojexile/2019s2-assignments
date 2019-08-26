@@ -8,8 +8,9 @@
 AbilityScript::AbilityScript()
 {
 	//m_ability = new AbilityDash(3.f, 45.f);
+	m_ability = new AbilityGrenade();
 	//m_ability = new AbilitySlowTime(3.f, 10.f, 75.f, 10.f);
-	m_ability = new AbilityHeal(3.f, 30.f, 70.f, 30.f);
+	//m_ability = new AbilityHeal(3.f, 30.f, 70.f, 30.f);
 }
 
 AbilityScript::AbilityScript(AbilityBase* ability)

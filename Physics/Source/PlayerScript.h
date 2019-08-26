@@ -15,6 +15,7 @@ private:
 	int m_iNumberOfGrenades;
 	Vector3 PrevPos; 
 	StopWatch PlayerIdleTimer;
+	StopWatch PlayerDeathTimer;
 
 	// Functions
 	void UpdateMovement(double dt);
@@ -32,5 +33,8 @@ public:
 	}
 	void Update(double dt) override;
 	virtual void Start() override;
+	void StartDeathAnim();
+	float GetTimeDead();
 	virtual void Collide(GameObject*) override;
+	void AddGrenade(int count = 1);
 };

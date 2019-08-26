@@ -128,6 +128,7 @@ bool EntityScript::CheckDeath()
 		if (this->GetComponent<PlayerScript>(true))
 		{
 			this->GetComponent<WinLoseScript>()->SetActive(true);
+			this->GetComponent<PlayerScript>(true)->StartDeathAnim();
 			Notify("PlayerDied");
 			RENDER->ResetColor();
 			m_bIsDead = true;

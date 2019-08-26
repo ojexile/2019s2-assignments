@@ -86,8 +86,8 @@ void DataContainer::InitChunks()
 	m_map_Chunks["walledoff_2"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 2);
 	m_map_Chunks["walledoff_3"] = new ChunkData("Content/chunks/1x1_walledoff.chunk", 3);
 	m_map_Chunks["barline"] = new ChunkData("Content/chunks/1x2_barline.chunk");
-	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
-	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
+	m_map_Chunks["barline_1"] = new ChunkData("Content/chunks/1x2_barline.chunk", 1);
+	m_map_Chunks["barline_2"] = new ChunkData("Content/chunks/1x2_barline.chunk", 2);
 	m_map_Chunks["barline_3"] = new ChunkData("Content/chunks/1x2_barline.chunk", 3);
 	m_map_Chunks["flat"] = new ChunkData("Content/chunks/2x2_flatland.chunk");
 }
@@ -113,6 +113,9 @@ void DataContainer::InitTextures()
 
 	m_map_Textures["Rifle"] = LoadTGA("rifle");
 	m_map_Textures["Muzzle"] = LoadTGA("muzzle");
+	m_map_Textures["Clip"] = LoadTGA("clip");
+	m_map_Textures["Scope"] = LoadTGA("scope");
+	m_map_Textures["Grip"] = LoadTGA("grip");
 	m_map_Textures["Bullet"] = LoadTGA("bullet");
 
 	m_map_Textures["CraftingSlotMuzzle"] = LoadTGA("CraftingSlotMuzzle");
@@ -152,11 +155,11 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Muzzle"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Muzzle");
 
-	m_map_Meshes["Clip"] = MeshBuilder::GenerateOBJ("Clip")->AddTexture("Revolver");
+	m_map_Meshes["Clip"] = MeshBuilder::GenerateOBJ("Clip")->AddTexture("Clip");
 
-	m_map_Meshes["Grip"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Revolver");
+	m_map_Meshes["Grip"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Grip");
 
-	m_map_Meshes["Scope"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Revolver");
+	m_map_Meshes["Scope"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Scope");
 
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
@@ -188,7 +191,10 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["QuadCentered"] = MeshBuilder::GenerateQuad("QuadCentered", {}, 1);
 
-	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("ItemInfo", { 1,1,1 }, 5);
+	m_map_Meshes["Render"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture(2);
+	m_map_Meshes["Render2"] = MeshBuilder::GenerateQuad("", {}, 1)->AddTexture(3);
+
+	m_map_Meshes["ItemInfo"] = MeshBuilder::GenerateQuad("", { 1,1,1 }, 5);
 
 	m_map_Meshes["particlequad"] = MeshBuilder::GenerateQuad("particlequad", {}, 1.f)->AddTexture("particleSquareBorder");
 	m_map_Meshes["particlerockbreak"] = MeshBuilder::GenerateQuad("rockbreak", {}, 1.f)->AddTexture("particleHexagonGrey");
@@ -208,6 +214,10 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["boulder"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Boulder");
 
 	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Boulder");
+
+	m_map_Meshes["stone1"] = MeshBuilder::GenerateOBJ("stone1")->AddTexture("Boulder");
+
+	m_map_Meshes["stone2"] = MeshBuilder::GenerateOBJ("stone2")->AddTexture("Boulder");
 
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
 
@@ -341,28 +351,28 @@ void DataContainer::InitGO()
 	m_map_GO["Muzzle"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Muzzle")));
-	go->AddComponent(new WeaponPartScript(WeaponPartScript::MUZZLE, 0.5, 3));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::MUZZLE, 0.5, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
 	m_map_GO["Clip"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Clip")));
-	go->AddComponent(new WeaponPartScript(WeaponPartScript::CLIP, 2.0, 3));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::CLIP, 2.0, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
 	m_map_GO["Scope"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Scope")));
-	go->AddComponent(new WeaponPartScript(WeaponPartScript::SCOPE, 0.5, 3));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::SCOPE, 0.5, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	go = new GameObject();
 	m_map_GO["Grip"] = go;
 	go->TRANS->SetScale(0.5f);
 	go->AddComponent(new RenderComponent(GetMesh("Grip")));
-	go->AddComponent(new WeaponPartScript(WeaponPartScript::GRIP, 2.0, 3));
+	go->AddComponent(new WeaponPartScript(WeaponPartScript::GRIP, 0.6, 4));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetResponseActive(false);
 	// Gun--------------------------------------------------------------------------------
@@ -529,7 +539,6 @@ void DataContainer::InitGO()
 	// Fish-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Fish"] = go;
-	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
@@ -634,6 +643,14 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(1.f);
 
 	go = new GameObject();
+	m_map_GO["stone1"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("stone1")));
+
+	go = new GameObject();
+	m_map_GO["stone2"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("stone2")));
+
+	go = new GameObject();
 	m_map_GO["boulder"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("boulderball")));
 	go->RENDER->SetColor({ 0.1f,0.1f,0.1f });
@@ -653,13 +670,28 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(10.f);
 	go->TRANS->SetScale(1.f);
 	go->AddComponent(new DestructibleEntityScript());
+
+	go = new GameObject();
+	m_map_GO["Render"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Render")));
+	go->TRANS->SetScale(1920, 1080, 1);
+	go->TRANS->SetPosition(0, 0, 1);
+
+	go = new GameObject();
+	m_map_GO["Render2"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Render2")));
+	go->TRANS->SetScale(1920, 1080, 1);
+	go->TRANS->SetPosition(0, 0, 1);
 }
 void  DataContainer::InitShaders()
 {
 	m_map_Shaders["Default"] = LoadShaders("Flare", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
+	m_map_Shaders["Post"] = LoadShaders("Post", "Post");
+	m_map_Shaders["EffectCRT"] = LoadShaders("Post", "EffectCRT");
 	m_map_Shaders["UI"] = LoadShaders("Default", "Default");
 	m_map_Shaders["Particles"] = LoadShaders("Default", "Default");
+	m_map_Shaders["PassThrough"] = LoadShaders("PassThrough", "PassThrough");
 }
 void DataContainer::InitBehaviour()
 {
@@ -709,11 +741,11 @@ DataContainer::~DataContainer()
 		delete x.second;
 	}
 	m_map_HeightMaps.clear();
-	//for (auto const& x : m_map_Chunks)
-	//{
-	//	delete x.second;
-	//}
-	//m_map_Chunks.clear();
+	for (auto const& x : m_map_Chunks)
+	{
+		delete x.second;
+	}
+	m_map_Chunks.clear();
 }
 Mesh* DataContainer::GetMesh(std::string name)
 {

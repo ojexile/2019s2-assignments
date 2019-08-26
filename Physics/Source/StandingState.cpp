@@ -7,6 +7,7 @@
 #include "TopDownState.h"
 #include "CameraScript.h"
 #include "Time.h"
+#include "SprintingState.h"
 StandingState::StandingState()
 {
 	m_fMovementBoost = 50;
@@ -22,28 +23,19 @@ State* StandingState::HandleState(ComponentBase* com)
 	float dt = Time::GetInstance()->GetDeltaTimeF();
 
 	// Sprint
-	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint"))
+	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint") && com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= 25.f)
 	{
-		float fDrain = 100;
-		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= dt * fDrain)
-		{
-			com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(m_fMovementBoost, m_fForrceBoost);
-			com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(dt * fDrain);
-		}
-		else
-		{
-			com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
-		}
+		return new SprintingState;
 	}
-	// Crouch
-	if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
-	{
-		// com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
-	}
-	if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint") && !InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
-	{
-		com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
-	}
+	//// Crouch
+	//if (InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
+	//{
+	//	// com->GetComponent<PlayerScript>()->GetAdditionalStats()->SetMovement(m_fBaseMovementSpeed / m_fSprintMultiplier, m_fBaseAccel / m_fSprintMultiplier);
+	//}
+	//if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint") && !InputManager::GetInstance()->GetInputStrength("PlayerCrouch"))
+	//{
+	//	com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(0, 0);
+	//}
 	// Dodge
 	/*if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
 	{

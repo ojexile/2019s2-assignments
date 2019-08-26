@@ -8,8 +8,9 @@ public:
 	virtual ~ExplodeAugment();
 
 	virtual void ActiveEffect(Component* proj, GameObject* go) override;
-	virtual void  PassiveEffect(GameObject* go) override;
+	virtual void PassiveEffect() override;
+	virtual void RemovePassive() override;
 
-	virtual Component* Clone() { return new ExplodeAugment(*this); }
+	virtual Augment* Clone() { return new ExplodeAugment(*this); }
 };
 

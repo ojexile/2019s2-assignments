@@ -51,9 +51,7 @@ void GrenadeScript::Collide(GameObject* go)
 	{
 		es->Damage((int)m_fDamage);
 		Vector3 relDir = go->TRANS->GetPosition() - GetPosition();
-
 		Explode();
-
 		es->Damage((int)m_fExplosionDamage);
 		go->RIGID->AddForce(relDir.Normalize() * 50);
 	}

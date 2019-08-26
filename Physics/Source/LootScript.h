@@ -29,6 +29,6 @@ private:
 	//Returns a partScript
 	WeaponPartScript* GenerateWeaponPart(void);
 	//Returns an Augment
-	Augment* GenerateAugment(void);
+	void GenerateAugment(GameObject* ptr);
 	GameObject* m_LootDrop;
 };

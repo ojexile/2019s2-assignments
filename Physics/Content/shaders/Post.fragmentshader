@@ -1,0 +1,55 @@
+#version 330 core
+
+uniform sampler2D SceneTexture;
+uniform float effect0Intensity;
+uniform float effect1Intensity;
+uniform float time;
+in vec2 texCoord;
+out vec4 color;
+
+uint hash( uint x ) {
+    x += ( x << 10u );
+    x ^= ( x >>  6u );
+    x += ( x <<  3u );
+    x ^= ( x >> 11u );
+    x += ( x << 15u );
+    return x;
+}
+
+float floatConstruct( uint m ) {
+    const uint ieeeMantissa = 0x007FFFFFu; // binary32 mantissa bitmask
+    const uint ieeeOne      = 0x3F800000u; // 1.0 in IEEE binary32
+
+    m &= ieeeMantissa;                     // Keep only mantissa bits (fractional part)
+    m |= ieeeOne;                          // Add fractional part to 1.0
+
+    float  f = uintBitsToFloat( m );       // Range [1:2]
+    return f - 1.0;                        // Range [0:1]
+}
+
+float random( float f )
+{
+	return floatConstruct(hash(floatBitsToUint(f)));
+}
+
+void main()
+{
+	vec4 original = texture(SceneTexture, texCoord);
+
+	// Effect 0: Red vignette (damage)
+	vec4 effect0 = texture(SceneTexture, texCoord);
+	float val = (effect0.r + effect0.g + effect0.b) / 2;
+	effect0.g = effect0.b = (val < 1? 0 : val - 1);
+	effect0.r = (val > 1? 1:val);
+	
+	if(effect0Intensity >= 0.01)
+		color = mix(original, effect0, pow(tanh(length(texCoord - vec2(0.5, 0.5))), 1 / atanh(1 - effect0Intensity)));
+	else
+		color = effect0;
+
+	// Effect 1: Fade to static (on death)
+	
+	vec4 staticColor = vec4(vec3(random(time + texCoord.x * 2.357391 + texCoord.y * 3416.239)), 1);
+	color = mix(color, staticColor, clamp(effect1Intensity, 0, 1));
+	color = vec4(mix(vec3(0.4f, 0.4f, 0.7f), color.xyz, color.a), 1);
+}

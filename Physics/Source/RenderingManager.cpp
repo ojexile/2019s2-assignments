@@ -1,10 +1,13 @@
 #include "RenderingManager.h"
 #include "Application.h"
 #include "RenderComponent.h"
+#include "EntityScript.h"
+#include "PlayerScript.h"
+
 #define VIEW_AS_LIGHT false
-#define SHADOW_VIEW_SIZE_X 200
-#define SHADOW_VIEW_SIZE_Y 100/16*9
-#define SHADOW_VIEW_SIZE_Z 200
+#define SHADOW_VIEW_SIZE_X 400
+#define SHADOW_VIEW_SIZE_Y 200/16*9
+#define SHADOW_VIEW_SIZE_Z 400
 #define SHADOW_RES 128*20.f
 
 #define SWITCH_SHADER true
@@ -24,7 +27,12 @@ void RenderingManager::Init()
 	RenderingManagerBase::Init();
 	// Shadows
 	m_lightDepthFBO.Init((unsigned)(SHADOW_RES), (unsigned)(SHADOW_RES));
+	m_lightDepthFBO.Init(SHADOW_RES, SHADOW_RES);
+	Post.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
+	Post2.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
 	Math::InitRNG();
+	glGenRenderbuffers(1, &m_PostBO);
+	glGenRenderbuffers(1, &m_PostBO2);
 }
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
@@ -54,6 +62,7 @@ void RenderingManager::Update(double dt)
 
 void RenderingManager::Render(Scene* scene)
 {
+	// CHENG_LOG("Tex: ", std::to_string(Post.GetTexture()));
 	if (!scene->GetCameraGameObject()->GetComponent<TransformComponent>())
 	{
 		DEFAULT_LOG("ERROR: NO CAMERA GAMEOBJECT");
@@ -61,11 +70,18 @@ void RenderingManager::Render(Scene* scene)
 	}
 	//******************************* PRE RENDER PASS
 	//*************************************
-	// RenderPassGPass(scene);
+	RenderPassGPass(scene);
 	//******************************* MAIN RENDER PASS
 	//************************************
 	RenderPassMain(scene);
 	RenderQueued(scene);
+	RenderPassPost(scene);
+	RenderPassPost2(scene);
+}
+void RenderingManager::Resize(Vector3 size)
+{
+	Post.Init(size.x, size.y);
+	Post2.Init(size.x, size.y);
 }
 void RenderingManager::RenderPassGPass(Scene* scene)
 {
@@ -89,11 +105,69 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 		0, 1, 0);
 	RenderWorld(scene);
 }
+void RenderingManager::RenderPassPost(Scene * scene)
+{
+	// glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	m_renderPass = RENDER_PASS_POST;
+	glViewport(0, 0, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
+
+	glUseProgram(m_PostProcessProgram);
+	glUniform1f(m_parameters[U_EFFECT0_INTENSITY], (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth()))));
+	glUniform1f(m_parameters[U_EFFECT1_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead() - 1);
+	glUniform1f(m_parameters[U_EFFECT1_TIME], Time::GetInstance()->GetElapsedTimeF());
+
+	std::stringstream k;
+	k << (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth())));
+	KZ_LOG("Intensity: ", k.str());
+	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_PostBO);
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//glDisable(GL_CULL_FACE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	Post.BindForReading(GL_TEXTURE8);
+	glDisable(GL_DEPTH_TEST);
+	// meshList[GEO_POST_PROC_QUAD]->Render();
+	Post2.BindForWriting();
+	RenderPostQuad(scene);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glEnable(GL_DEPTH_TEST);
+}
+void RenderingManager::RenderPassPost2(Scene* scene)
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	m_renderPass = RENDER_PASS_POST;
+	glViewport(0, 0, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
+
+	glUseProgram(m_PostProcessProgram2);
+	glUniform1f(m_parameters[U_EFFECT2_TIME], Time::GetInstance()->GetElapsedTimeF());
+	glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead() );
+
+	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO2);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_PostBO2);
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//glDisable(GL_CULL_FACE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	Post2.BindForReading(GL_TEXTURE8);
+	glDisable(GL_DEPTH_TEST);
+	// meshList[GEO_POST_PROC_QUAD]->Render();
+	RenderPostQuad2(scene);
+	glEnable(GL_DEPTH_TEST);
+}
 void RenderingManager::RenderPassMain(Scene* scene)
 {
 	m_renderPass = RENDER_PASS_MAIN;
-
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	Post.BindForWriting();
+	// glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, Application::GetWindowWidth(),
 		Application::GetWindowHeight());
 	glEnable(GL_CULL_FACE);
@@ -217,6 +291,10 @@ void RenderingManager::RenderWorld(Scene* scene)
 			continue;
 		if (it->first == "Particle")
 			continue;
+		if (it->first == "Post")
+			continue;
+		if (it->first == "Post2")
+			continue;
 		if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 		{
 			m_programID = it->second->GetShader();
@@ -274,6 +352,53 @@ void RenderingManager::RenderWorld(Scene* scene)
 		if (!go->IsActive())
 			continue;
 
+		RenderGameObject(go, vCamPos, true);
+	}
+}
+void RenderingManager::RenderPostQuad(Scene* scene)
+{
+	Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
+	Vector3 vCamDir = scene->GetCameraGameObject()->GetComponent<CameraComponent>()->GetCamera()->GetDir();
+
+	GameObjectManager* GOM = scene->GetGameObjectManager();
+	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
+	std::vector<GameObject*>* GOListUI = map->at("Post")->GetGOList();
+	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
+	{
+		m_programID = (*map)["Render"]->GetShader();
+		BindUniforms();
+		SetUniforms(scene);
+	}
+	for (unsigned i = 0; i < GOListUI->size(); ++i)
+	{
+		GameObject* go = GOListUI->at(i);
+		if (!go->IsActive())
+			continue;
+		// CHENG_LOG("", "Render");
+		RenderGameObject(go, vCamPos, true);
+	}
+}
+
+void RenderingManager::RenderPostQuad2(Scene* scene)
+{
+	Vector3 vCamPos = scene->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition();
+	Vector3 vCamDir = scene->GetCameraGameObject()->GetComponent<CameraComponent>()->GetCamera()->GetDir();
+
+	GameObjectManager* GOM = scene->GetGameObjectManager();
+	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
+	std::vector<GameObject*>* GOListUI = map->at("Post2")->GetGOList();
+	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
+	{
+		m_programID = (*map)["Render"]->GetShader();
+		BindUniforms();
+		SetUniforms(scene);
+	}
+	for (unsigned i = 0; i < GOListUI->size(); ++i)
+	{
+		GameObject* go = GOListUI->at(i);
+		if (!go->IsActive())
+			continue;
+		// CHENG_LOG("", "Render");
 		RenderGameObject(go, vCamPos, true);
 	}
 }
