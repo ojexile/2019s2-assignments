@@ -4,7 +4,7 @@
 
 AbilityScript::AbilityScript()
 {
-	m_ability = new AbilityDash(10.f, 45.f);
+	m_ability = new AbilityDash(3.f, 45.f);
 
 
 }
@@ -28,7 +28,6 @@ void AbilityScript::Update(double dt)
 	}
 	if (m_ability->IsInUse())
 	{
-
 		m_ability->Update(this);
 	}
 

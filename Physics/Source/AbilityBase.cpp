@@ -17,17 +17,21 @@ AbilityBase::~AbilityBase()
 
 void AbilityBase::Update(Component* com)
 {
-	if (m_SW.GetTime() > m_fCooldownTime + m_fUseTime)
+	if (m_SW.GetTime() > m_fCooldownTime)
 	{
 		m_bCanUse = true;
+		m_bInUse = false;
+
 		m_SW.Reset();
 	}
 
 	if (m_SW.GetTime() > m_fUseTime)
 	{
-		m_bInUse = false;
 		StopUse(com);
+		//m_SW.Start();
 	}
+
+
 }
 
 bool AbilityBase::CanUse()
