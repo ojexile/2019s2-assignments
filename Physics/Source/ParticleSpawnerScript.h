@@ -20,7 +20,6 @@ public:
 	virtual Component* Clone()
 	{
 		ParticleSpawnerScript* pss = new ParticleSpawnerScript(*this);
-		pss->m_ParticleRef = m_ParticleRef->Clone();
 		return pss;
 	}
 

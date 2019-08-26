@@ -233,7 +233,6 @@ void DefaultScene::Init()
 	Gun->AddChild(tmp);
 	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::GRIP);
 
-
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObjectRaw("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
