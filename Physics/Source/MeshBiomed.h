@@ -16,7 +16,7 @@ private:
 public:
 	MeshBiomed(const std::string &meshName);
 	//MeshBiomed(Mesh*) //upgradish function
-	~MeshBiomed();
+	virtual ~MeshBiomed();
 
 	MeshBiomed* AddTexture(unsigned i, BiomeComponent::eBiomeTypes);
 	MeshBiomed* AddTexture(std::string s, BiomeComponent::eBiomeTypes);
