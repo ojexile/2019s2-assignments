@@ -20,4 +20,6 @@ void main()
 		color = mix(original, effect0, pow(tanh(length(texCoord - vec2(0.5, 0.5))), 1 / atanh(1 - effect0Intensity)));
 	else
 		color = effect0;
+
+	color = vec4(mix(vec3(0.4f, 0.4f, 0.7f), color.xyz, color.a), 1);
 }
