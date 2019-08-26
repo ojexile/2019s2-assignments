@@ -28,9 +28,9 @@ public:
 	MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 		GameObject* QuitText, GameObject* QuitButt,
 		GameObject* TutorialText, GameObject* TutorialButt,
-		GameObject* TutorialBox,
-		GameObject* Ability0,
+		GameObject* TutorialBox, GameObject* Ability0,
 		GameObject* Ability1);
+	virtual void Start() override;
 	virtual ~MenuButtonsScript();
 	virtual Component* Clone() { return new MenuButtonsScript(*this); };
 	virtual void Update(double dt) override;

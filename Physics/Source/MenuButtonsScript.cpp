@@ -28,6 +28,14 @@ MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 	m_fTutorialFadeVal = 0.5f;
 }
 
+void MenuButtonsScript::Start()
+{
+	if (!PlayerData::GetInstance()->GetGetAbilityActivated(1))
+	{
+		m_Ability1->RENDER->SetColor(0.2f);
+	}
+}
+
 MenuButtonsScript::~MenuButtonsScript()
 {
 }
@@ -61,29 +69,35 @@ void MenuButtonsScript::Update(double dt)
 		m_fQuitFadeVal += UpRate + DownRate;
 	}
 	// Ability Selection--------------------------------------------------------------------------------
-	if (m_Ability0, IsActive())
+	if (m_Ability0->IsActive())
 	{
 		if (m_Ability0->GC(UIButtonComponent)->GetHover())
 		{
 			if (InputManager::GetInstance()->GetInputStrength("Click"))
 			{
-				// Set active ability
-				PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 20));
-				// Change scene
-				SceneManager::GetInstance()->ChangeScene(new DefaultScene());
+				if (PlayerData::GetInstance()->GetGetAbilityActivated(0))
+				{
+					// Set active ability
+					PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 20));
+					// Change scene
+					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
+				}
 			}
 		}
 	}
-	if (m_Ability1, IsActive())
+	if (m_Ability1->IsActive())
 	{
 		if (m_Ability1->GC(UIButtonComponent)->GetHover())
 		{
 			if (InputManager::GetInstance()->GetInputStrength("Click"))
 			{
-				// Set active ability
-				PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 50));
-				// Change scene
-				SceneManager::GetInstance()->ChangeScene(new DefaultScene());
+				if (PlayerData::GetInstance()->GetGetAbilityActivated(1))
+				{
+					// Set active ability
+					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 50));
+					// Change scene
+					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
+				}
 			}
 		}
 	}
