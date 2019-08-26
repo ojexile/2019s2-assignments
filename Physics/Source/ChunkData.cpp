@@ -5,7 +5,15 @@
 ChunkData::ChunkData(const std::string fileName, int rotate)
 {
 	m_event = new ChunkEvent();
-	FILE* file = fopen(fileName.c_str(), "r");
+	errno_t err;
+	FILE* file;
+	// Open for read (will fail if file "crt_fopen_s.c" does not exist)
+	err = fopen_s(&file, fileName.c_str(), "r");
+	if (!err == 0)
+	{
+		printf("The file 'crt_fopen_s.c' was not opened\n");
+	}
+
 	m_iXSize = fgetc(file);
 	m_iYSize = fgetc(file);
 	m_iZSize = fgetc(file);
@@ -13,13 +21,13 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 	unsigned int zSizeInBlocks = m_iZSize << 4;
 	for (int i = 0; i < m_iXSize * m_iZSize; ++i)
 	{
-		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][0] = 0;
-		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][1] = 0;
-		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][2] = 0;
-		m_chunkConnections[Vector3(i % m_iXSize, i / m_iXSize)][3] = 0;
+		m_chunkConnections[Vector3((float)(i % m_iXSize), (float)(i / m_iXSize))][0] = 0;
+		m_chunkConnections[Vector3((float)(i % m_iXSize), (float)(i / m_iXSize))][1] = 0;
+		m_chunkConnections[Vector3((float)(i % m_iXSize), (float)(i / m_iXSize))][2] = 0;
+		m_chunkConnections[Vector3((float)(i % m_iXSize), (float)(i / m_iXSize))][3] = 0;
 	}
 	std::vector<unsigned short> blocks_2;
-	for (int i = 0; i < xSizeInBlocks * zSizeInBlocks * m_iYSize; ++i)
+	for (unsigned i = 0; i < xSizeInBlocks * zSizeInBlocks * m_iYSize; ++i)
 	{
 		int k = fgetc(file);
 		int l = fgetc(file);
@@ -30,7 +38,7 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 	{
 		for (int y = 0; y < m_iYSize; ++y)
 		{
-			for (int x = 0; x < xSizeInBlocks; ++x)
+			for (unsigned x = 0; x < xSizeInBlocks; ++x)
 			{
 				for (int z = zSizeInBlocks - 1; z >= 0; --z)
 				{
@@ -59,9 +67,9 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 	{
 		for (int y = 0; y < m_iYSize; ++y)
 		{
-			for (int x = xSizeInBlocks - 1; x >= 0; --x)
+			for (int x = (int)xSizeInBlocks - 1; x >= 0; --x)
 			{
-				for (int z = 0; z < zSizeInBlocks; ++z)
+				for (int z = 0; z < (int)zSizeInBlocks; ++z)
 				{
 					m_blocks.push_back(blocks_2[x + z * xSizeInBlocks + y * xSizeInBlocks * zSizeInBlocks]);
 				}
@@ -81,7 +89,7 @@ ChunkData::ChunkData(const std::string fileName, int rotate)
 		int dir = fgetc(file);
 		int k = fgetc(file);
 		int l = fgetc(file);
-		m_chunkConnections[Vector3(x, z)][(dir + rotate) % 4] = k << 8 | l;
+		m_chunkConnections[Vector3((float)x, (float)z)][(dir + rotate) % 4] = k << 8 | l;
 	}
 	j = fgetc(file);
 	if (j == EOF) return;
@@ -109,13 +117,13 @@ bool ChunkData::IsSolid(Vector3 pos)
 	int x = (int)pos.x;
 	int y = (int)pos.y;
 	int z = (int)pos.z;
-	if (x < 0 || x >= m_iXSize * 16 || y < 0 || y >= m_iYSize || z < 0 || z >= m_iZSize* 16) return false;
+	if (x < 0 || x >= m_iXSize * 16 || y < 0 || y >= m_iYSize || z < 0 || z >= m_iZSize * 16) return false;
 	return m_blocks[x + z * m_iXSize * 16 + y * m_iXSize * m_iZSize * 256] != 0;
 }
 
 Vector3 ChunkData::GetSize()
 {
-	return Vector3(m_iXSize * 16, m_iYSize, m_iZSize * 16);
+	return Vector3((float)m_iXSize * 16, (float)m_iYSize, (float)m_iZSize * 16);
 }
 
 unsigned short ChunkData::GetChunkConnection(Vector3 coords, unsigned char dir)
@@ -131,16 +139,16 @@ void PutShort(FILE* f, unsigned short s)
 
 void ChunkData::WriteToFile(const std::string filename)
 {
-	FILE* file = fopen(filename.c_str(), "w");
+	FILE* file;
+	fopen_s(&file, filename.c_str(), "w");
 	fputc(m_iXSize, file);
 	fputc(m_iYSize, file);
 	fputc(m_iZSize, file);
 	for (auto bIt = m_blocks.begin(); bIt != m_blocks.end(); ++bIt)
 	{
-		  PutShort(file, *bIt);
+		PutShort(file, *bIt);
 	}
 }
-
 
 std::vector<unsigned short> * ChunkData::GetBlocks()
 {
@@ -167,7 +175,6 @@ MeshBiomed* ChunkData::GenerateMeshBiomed()
 	mesh->AddTexture("void", BiomeComponent::BIOME_VOID);
 	mesh->AddTexture("gray", BiomeComponent::BIOME_MONOCHROME);
 
-
 	return mesh;
 }
 
@@ -175,9 +182,10 @@ Vector3 ChunkData::GetGroundPosition(Vector3 in)
 {
 	for (int i = 0; i < m_iYSize; i++)
 	{
-		if (!IsSolid(Vector3(in.x, i, in.z)))
-			return Vector3(in.x, i, in.z);
+		if (!IsSolid(Vector3(in.x, (float)i, in.z)))
+			return Vector3(in.x, (float)i, in.z);
 	}
+	return Vector3(-1, -1, -1);
 }
 
 ChunkEvent* ChunkData::GetEvent()

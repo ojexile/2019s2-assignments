@@ -32,6 +32,7 @@ struct Material {
 	vec3 kDiffuse;
 	vec3 kSpecular;
 	float kShininess;
+	float kAlpha;
 };
 
 float getAttenuation(Light light, float distance) {
@@ -146,7 +147,11 @@ float getFogFactor(FogParam fog, float fogDistance)
 	// factor affected by height
 	factor = clamp(factor, 0.0, 1.0); 
 	factor += clamp((vertexPosition_modelspace_O.y - 16)/6,0,1.0);
-	factor += sin(0.8f * frag_et) / 8;
+	factor += sin(0.8f * frag_et) * 0.01f;
+	// afect by position
+	factor += sin(0.1f * vertexPosition_modelspace_O.x + sin(frag_et * 1) ) * 0.03f 
+	+ cos(0.2 * vertexPosition_modelspace_O.z + sin(frag_et * 1)) * 0.005f 
+	+ cos(0.4 * vertexPosition_modelspace_O.z + sin(frag_et * 2.2f)) * 0.001f;
 
 	// inverse factor
 	factor = 1.0 - clamp(factor, 0.0, 1.0); 
@@ -251,7 +256,7 @@ void main(){
 		}
 		
 	}
-
+	color.a = clamp(color.a,0 ,1)* material.kAlpha;
 	if (color.a < .3f) discard;
 	if(fogParam.enabled && lightEnabled)
 	{

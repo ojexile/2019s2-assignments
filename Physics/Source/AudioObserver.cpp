@@ -17,6 +17,6 @@ void AudioObserver::Notify(ComponentBase* com, std::string msg, std::vector<Game
 	}
 	if (msg == "Walk")
 	{
-		AudioManager::GetInstance()->Play3DWithCooldown("walk.wav", com->TRANS->GetPosition(), 0.4);
+		AudioManager::GetInstance()->Play3DWithCooldown("walk.wav", com->TRANS->GetPosition(), 0.4f);
 	}
 }

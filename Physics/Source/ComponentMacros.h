@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 
+#define GetComp(c) GetComponent<c>()
+
 #define TRANS GetComponent<TransformComponent>()
 #define RENDER GetComponent<RenderComponent>()
 #define CAMERA GetComponent<CameraComponent>()

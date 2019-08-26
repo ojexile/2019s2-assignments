@@ -12,7 +12,6 @@ AdvancedParticleSpawnerScript::AdvancedParticleSpawnerScript(eSpawnerType type, 
 
 AdvancedParticleSpawnerScript::~AdvancedParticleSpawnerScript()
 {
-
 }
 
 void AdvancedParticleSpawnerScript::Update(double dt)
@@ -41,7 +40,6 @@ void AdvancedParticleSpawnerScript::Update(double dt)
 				q1z = Math::RandFloatMinMax(-1.f, 1.f);
 
 				go->PARTICLE->SetVel(scalar * Vector3(q1x, 0, q1z));
-
 			}
 		}
 
@@ -106,8 +104,6 @@ void AdvancedParticleSpawnerScript::Update(double dt)
 					go->TRANS->SetPosition(TRANS->GetPosition());
 				}
 			}
-
-
 		}
 
 		m_fCurrentTime -= m_fSpawnRate;
@@ -130,7 +126,6 @@ void AdvancedParticleSpawnerScript::Trigger()
 				scalar = 1.f;
 			float q1x, q1z;
 
-
 			{
 				q1x = Math::RandFloatMinMax(-1.f, 1.f);
 				q1z = Math::RandFloatMinMax(-1.f, 1.f);
@@ -138,14 +133,10 @@ void AdvancedParticleSpawnerScript::Trigger()
 				go->PARTICLE->SetVel(scalar * Vector3(q1x, 0, q1z));
 				go->TRANS->SetPosition(TRANS->GetPosition());
 			}
-
 		}
-
 
 	else if (m_spawnerType == CIRCULAR)
 	{
-
-
 		float spaceperdegree = 360.f / (float)m_iSpawnCount;
 
 		for (float i = 0.f; i < 360.f; i += spaceperdegree)
@@ -154,7 +145,7 @@ void AdvancedParticleSpawnerScript::Trigger()
 			float scalar = go->PARTICLE->GetVel().Length();
 			if (scalar < Math::EPSILON)
 				scalar = 1.f;
-			float q1x, q1z;
+			// float q1x, q1z;
 
 			go->PARTICLE->SetVel(scalar * Vector3(cos(i), 0, sin(i)));
 			go->TRANS->SetPosition(TRANS->GetPosition());
@@ -220,10 +211,7 @@ void AdvancedParticleSpawnerScript::Trigger()
 		}
 	}
 	m_Triggered = true;
-
 }
-
-
 
 void AdvancedParticleSpawnerScript::ResetTrigger()
 {

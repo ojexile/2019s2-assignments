@@ -32,6 +32,7 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_MATERIAL_DIFFUSE] = glGetUniformLocation(m_programID, "material.kDiffuse");
 	m_parameters[U_MATERIAL_SPECULAR] = glGetUniformLocation(m_programID, "material.kSpecular");
 	m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
+	m_parameters[U_ALPHA] = glGetUniformLocation(m_programID, "material.kAlpha");
 	m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
 	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
 
@@ -112,8 +113,8 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
 	glUniform1f(m_parameters[U_FOG_START], 12);
 	glUniform1f(m_parameters[U_FOG_END], 80);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 0.07f);
-	glUniform1i(m_parameters[U_FOG_TYPE], 1);
+	glUniform1f(m_parameters[U_FOG_DENSITY], 0.1f);
+	glUniform1i(m_parameters[U_FOG_TYPE], 2);
 	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 
 	// Shadows================================================================================
@@ -321,6 +322,7 @@ void RenderingManagerBase::RenderUI(RenderComponent* rc, bool enableLight)
 		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
 		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
 		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
+		glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	}
 	else
 	{
@@ -407,6 +409,7 @@ void RenderingManagerBase::RenderMesh(RenderComponent *rc, bool enableLight)
 		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
 		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
 		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
+		glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	}
 	else
 	{
@@ -491,6 +494,7 @@ void RenderingManagerBase::RenderBiomedMesh(RenderComponent* rc, BiomeComponent 
 		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
 		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
 		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
+		glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	}
 	else
 	{
@@ -558,6 +562,7 @@ void RenderingManagerBase::RenderAnimatedMesh(RenderComponent *rc, bool enableLi
 		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
 		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
 		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
+		glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	}
 	else
 	{

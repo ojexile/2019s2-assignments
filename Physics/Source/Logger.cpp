@@ -2,6 +2,8 @@
 #include "Utility.h"
 #include "Resources.h"
 
+#define LOG_ENABLED true
+
 Logger::Logger(std::string sUser, SHORT Color)
 	: m_sUser(sUser)
 	, m_Color(Color)
@@ -14,6 +16,8 @@ Logger::~Logger()
 
 void Logger::Log(std::string s, std::string sOptional)
 {
+	if (!LOG_ENABLED)
+		return;
 	// Remove endline
 	for (unsigned i = 0; i < s.size(); ++i)
 	{

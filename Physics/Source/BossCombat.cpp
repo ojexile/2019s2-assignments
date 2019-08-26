@@ -38,7 +38,7 @@ State * BossCombat::HandleState(ComponentBase * com)
 		}
 	}
 	else
-		return &AIStatesList::Idle;
+		return com->GetComponent<EntityScript>()->GetBehaviour()->GetIdleState();
 	return this;
 }
 

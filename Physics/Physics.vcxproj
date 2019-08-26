@@ -22,19 +22,19 @@
     <ProjectGuid>{0A9B1DD2-76DC-427D-B5E8-D8CF2ADDA603}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Physics</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -169,6 +169,12 @@
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AbilityBase.cpp" />
+    <ClCompile Include="Source\AbilityDash.cpp" />
+    <ClCompile Include="Source\AbilityGrenade.cpp" />
+    <ClCompile Include="Source\AbilityHeal.cpp" />
+    <ClCompile Include="Source\AbilityScript.cpp" />
+    <ClCompile Include="Source\AbilitySlowTime.cpp" />
     <ClCompile Include="Source\AdvancedParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\AIEntityScript.cpp" />
     <ClCompile Include="Source\AIState.cpp" />
@@ -183,7 +189,10 @@
     <ClCompile Include="Source\BlackHoleAugment.cpp" />
     <ClCompile Include="Source\BlackholeScript.cpp" />
     <ClCompile Include="Source\BossCombat.cpp" />
+    <ClCompile Include="Source\BossObserver.cpp" />
+    <ClCompile Include="Source\BossObserverCom.cpp" />
     <ClCompile Include="Source\BossShockwaveState.cpp" />
+    <ClCompile Include="Source\BossSpawnerScript.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\CameraComponent.cpp" />
     <ClCompile Include="Source\CameraScript.cpp" />
@@ -234,8 +243,10 @@
     <ClCompile Include="Source\Logger.cpp" />
     <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MapSpawningScript.cpp" />
     <ClCompile Include="Source\MeleeCombatState.cpp" />
+    <ClCompile Include="Source\MenuButtonsScript.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBiomed.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
@@ -249,6 +260,7 @@
     <ClCompile Include="Source\ParticleScript.cpp" />
     <ClCompile Include="Source\ParticleSpawnerScript.cpp" />
     <ClCompile Include="Source\PhysicsMaterial.cpp" />
+    <ClCompile Include="Source\WinLoseScript.cpp" />
     <ClCompile Include="Source\PlayerScript.cpp" />
     <ClCompile Include="Source\PlayerState.cpp" />
     <ClCompile Include="Source\PlayerStatsScript.cpp" />
@@ -288,6 +300,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HealthAugment.h" />
+    <ClInclude Include="Source\AbilityBase.h" />
+    <ClInclude Include="Source\AbilityDash.h" />
+    <ClInclude Include="Source\AbilityGrenade.h" />
+    <ClInclude Include="Source\AbilityHeal.h" />
+    <ClInclude Include="Source\AbilityScript.h" />
+    <ClInclude Include="Source\AbilitySlowTime.h" />
     <ClInclude Include="Source\AIEntityScript.h" />
     <ClInclude Include="Source\AdvancedParticleSpawnerScript.h" />
     <ClInclude Include="Source\AIState.h" />
@@ -302,7 +320,10 @@
     <ClInclude Include="Source\BlackHoleAugment.h" />
     <ClInclude Include="Source\BlackholeScript.h" />
     <ClInclude Include="Source\BossCombat.h" />
+    <ClInclude Include="Source\BossObserver.h" />
+    <ClInclude Include="Source\BossObserverCom.h" />
     <ClInclude Include="Source\BossShockwaveState.h" />
+    <ClInclude Include="Source\BossSpawnerScript.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\CameraComponent.h" />
     <ClInclude Include="Source\CameraScript.h" />
@@ -354,9 +375,11 @@
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
     <ClInclude Include="Source\LootScript.h" />
+    <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MapSpawningScript.h" />
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\MeleeCombatState.h" />
+    <ClInclude Include="Source\MenuButtonsScript.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBiomed.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
@@ -370,6 +393,7 @@
     <ClInclude Include="Source\ParticleScript.h" />
     <ClInclude Include="Source\ParticleSpawnerScript.h" />
     <ClInclude Include="Source\PhysicsMaterial.h" />
+    <ClInclude Include="Source\WinLoseScript.h" />
     <ClInclude Include="Source\PlayerScript.h" />
     <ClInclude Include="Source\PlayerState.h" />
     <ClInclude Include="Source\PlayerStatsScript.h" />

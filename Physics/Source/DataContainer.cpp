@@ -25,6 +25,7 @@
 #include "BlackholeScript.h"
 #include "SuicideNoteScript.h"
 #include "BirdWingScript.h"
+#include "BossSpawnerScript.h"
 //
 #include "ScalePatternScript.h"
 
@@ -217,6 +218,8 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["EnemyReticle"] = MeshBuilder::GenerateOBJ("EnemyReticle");
 	m_map_Meshes["Fox"] = MeshBuilder::GenerateOBJ("Fox");
 	m_map_Meshes["Chick"] = MeshBuilder::GenerateOBJ("Chick");
+
+	m_map_Meshes["Dino0"] = MeshBuilder::GenerateOBJ("Dino0");
 }
 void DataContainer::InitTerrain()
 {
@@ -240,7 +243,8 @@ void DataContainer::InitParticles()
 	//go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->AddComponent(new ParticleScript(10.f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, 0.f, 0.f), {}, Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
-	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 10.f));
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+	go->m_sName = "particledestroy";
 
 	go = new GameObject();
 	m_map_GO["particlerockbreak"] = go;
@@ -250,6 +254,7 @@ void DataContainer::InitParticles()
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, -0.1f, 0.f), Vector3(0.f, -1.f, 0.f), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+	go->m_sName = "particlerockbreak";
 
 	go = new GameObject();
 	m_map_GO["particleexplosioncloud"] = go;
@@ -295,7 +300,6 @@ void DataContainer::InitParticles()
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, 0.1f, 0.f), Vector3(0, 1, 0), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
 	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
-
 }
 void DataContainer::InitGO()
 {
@@ -331,6 +335,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMat(0.9f, 1);
 	go->AddComponent(new ProjectileScript(1.0, 30.0));
 	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlebullettrail"), 30, Vector3(), 0));
+	go->m_sName = "Bullet";
 	/// Weapon Parts================================================================================
 	go = new GameObject();
 	m_map_GO["Muzzle"] = go;
@@ -399,39 +404,68 @@ void DataContainer::InitGO()
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Melee));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Melee")));
 	go->AddComponent(new LootScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->m_sName = "BaseEnemy";
 	// Melee--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Melee"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Melee, Stats(150, 0, 100, 0, 80, 15, 2000, 10)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Melee"), Stats(150, 0, 100, 0, 80, 15, 2000, 10)));
 	go->AddComponent(new LootScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 	// Range-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Ranged"] = go;
+	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Ranged, Stats(90, 0, 100, 0, 80, 25, 2000, 15)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Ranged"), Stats(90, 0, 100, 0, 80, 25, 2000, 15)));
 	go2 = GetGameObject("Gun");
 	go2->TRANS->SetRelativeRotation(-90, 0, 1, 0);
 	go->AddChild(go2);
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
 
-	// Boss================================================================================
+	/// Boss================================================================================
+	// A--------------------------------------------------------------------------------
 	go = new GameObject;
-	m_map_GO["Boss"] = go;
+	m_map_GO["Boss0"] = go;
+	go->AddChild(GetGameObject("EnemyReticle"));
+	go->AddComponent(new RenderComponent(GetMesh("Dino0")));
+	go->TRANS->SetScale(3);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 80, 20, 2000, 500)));
+	go->AddComponent(new LootScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
+	// B--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Boss1"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->TRANS->SetScale(3);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Boss, Stats(500, 0, 100, 0, 80, 20, 2000, 16)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 80, 20, 2000, 500)));
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
 
+	// C---------------------------------------------
+	go = new GameObject;
+	m_map_GO["Boss2"] = go;
+	go->AddChild(GetGameObject("EnemyReticle"));
+	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->TRANS->SetScale(3);
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 80, 20, 2000, 16)));
+	go->AddComponent(new LootScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
+	// Attacks--------------------------------------------------------------------------------
 	// Shockwave
 	go = new GameObject;
 	m_map_GO["Shockwave"] = go;
@@ -443,8 +477,9 @@ void DataContainer::InitGO()
 	go->RIGID->LockYAxis(true);
 	go->RIGID->SetMat(0.25f, 0);
 	go->AddComponent(new SuicideNoteScript(5.f));
-	go->AddComponent(new ParticleSpawnerScript(GetGameObject("particlerockbreak"), 10, Vector3(), 0));
-	//go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, go->TRANS->GetScale().x, 5.f));
+	go = new GameObject;
+	m_map_GO["BossSpawner"] = go;
+	go->AddComponent(new BossSpawnerScript(GetGameObject("Boss0"), GetGameObject("Boss1"), GetGameObject("Boss2")));
 	// Animals--------------------------------------------------------------------------------
 	// Cow-----------------------------------------------------------------------------
 	go = new GameObject;
@@ -452,7 +487,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddChild(GetGameObject("EnemyReticle"));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Idle, Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
 	// go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
 
@@ -462,7 +497,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, false));
 	go->TRANS->SetScale(0.5f);
 	go->RIGID->LockYAxis(true);
-	go->AddComponent(new AIEntityScript(GetBehaviour("Bird"), &AIStatesList::Flee, Stats(100, 0, 100, 0, 80, 20, 2000, 2)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Bird"), Stats(100, 0, 100, 0, 80, 20, 2000, 2)));
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new BirdWingScript);
 	go2 = new GameObject;
@@ -473,20 +508,24 @@ void DataContainer::InitGO()
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("WingRight")));
 	go2->TRANS->SetRelativePosition(-0.378f, 0.458f, 0.082f);
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+
 	//Fox-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Fox"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Fox")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddChild(GetGameObject("EnemyReticle"));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(60, 0, 100, 0, 80, 60, 2000, 12)));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(60, 0, 100, 0, 80, 60, 2000, 12)));
 	//Chick-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Chick"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Chick")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddChild(GetGameObject("EnemyReticle"));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(10, 0, 100, 0, 80, 10, 2000, 12)));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(10, 0, 100, 0, 80, 10, 2000, 12)));
 	// Fish-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Fish"] = go;
@@ -495,7 +534,8 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
 
-	go->AddComponent(new AIEntityScript(GetBehaviour("Default"), &AIStatesList::Flee, Stats(20, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(20, 0, 100, 0, 80, 20, 2000, 12)));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -504,7 +544,7 @@ void DataContainer::InitGO()
 	go->TRANS->SetPosition(50, 10, 25);
 	go->AddComponent(new RenderComponent(GetMesh("T7Seg"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
-	go->SetDisableDistance(10000);
+	go->SetDisableDistance(-1);
 	// InventorySlot--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["InventorySlot"] = go;
@@ -512,7 +552,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIInventory")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
-	go->SetDisableDistance(10000);
+	go->SetDisableDistance(-1);
 	// CustomiseSlot--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["CustomiseSlot"] = go;
@@ -520,7 +560,16 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent());
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
-	go->SetDisableDistance(10000);
+	go->SetDisableDistance(-1);
+	// CustomiseSlot--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["MenuButton"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
+	go->RENDER->SetLightEnabled(false);
+	go->RENDER->SetActive(false);
+	go->TRANS->SetScale(180, 100, 1);
+	go->SetDisableDistance(-1);
 	// BulletUI--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["BulletUI"] = go;
@@ -539,6 +588,7 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["particlespawnerdestroy"] = go;
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
+	go->m_sName = "particlespawnerdestroy";
 
 	go = new GameObject();
 	m_map_GO["plaintree"] = go;
@@ -608,15 +658,18 @@ void  DataContainer::InitShaders()
 {
 	m_map_Shaders["Default"] = LoadShaders("Flare", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
-	m_map_Shaders["UI"] = LoadShaders("Flare", "Flare");
-	m_map_Shaders["Particles"] = LoadShaders("Flare", "Flare");
-
+	m_map_Shaders["UI"] = LoadShaders("Default", "Default");
+	m_map_Shaders["Particles"] = LoadShaders("Default", "Default");
 }
 void DataContainer::InitBehaviour()
 {
 	m_map_Behaviour["Player"] = new Behaviour(new StandingState);
-	m_map_Behaviour["Default"] = new Behaviour(&AIStatesList::Idle);
-	m_map_Behaviour["Bird"] = new Behaviour(&AIStatesList::BirdIdle);
+	m_map_Behaviour["Default"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Melee, &AIStatesList::Wander, &AIStatesList::Idle);
+	m_map_Behaviour["Bird"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Flee, &AIStatesList::BirdWander, &AIStatesList::BirdIdle);
+	m_map_Behaviour["Flee"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Flee, &AIStatesList::Wander, &AIStatesList::Idle);
+	m_map_Behaviour["Melee"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Melee, &AIStatesList::Wander, &AIStatesList::Idle);
+	m_map_Behaviour["Ranged"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Ranged, &AIStatesList::Wander, &AIStatesList::Idle);
+	m_map_Behaviour["Boss"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Boss, &AIStatesList::Wander, &AIStatesList::Idle);
 }
 DataContainer::~DataContainer()
 {

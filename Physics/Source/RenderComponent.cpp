@@ -16,7 +16,7 @@ RenderComponent::RenderComponent()
 RenderComponent::RenderComponent(Mesh* Mesh)
 	:m_Mesh(Mesh)
 {
-	m_fRenderDistance = 3000;
+	m_fRenderDistance = -1;
 	m_AnimatedMesh = nullptr;
 	m_MeshBiomed = nullptr;
 	m_bLightEnabled = true;
@@ -28,7 +28,7 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 RenderComponent::RenderComponent(MeshBiomed * meshBiomed)
 	:m_MeshBiomed(meshBiomed)
 {
-	m_fRenderDistance = 3000;
+	m_fRenderDistance = 400;
 	m_Mesh = nullptr;
 	m_AnimatedMesh = nullptr;
 	m_bLightEnabled = true;
@@ -40,7 +40,7 @@ RenderComponent::RenderComponent(MeshBiomed * meshBiomed)
 RenderComponent::RenderComponent(Mesh* Mesh, std::string sText, bool OnScreen)
 	:m_Mesh(Mesh)
 {
-	m_fRenderDistance = 3000;
+	m_fRenderDistance = -1;
 	m_sText = sText;
 	m_AnimatedMesh = nullptr;
 	m_MeshBiomed = nullptr;
@@ -55,7 +55,7 @@ RenderComponent::RenderComponent(Mesh* Mesh, std::string sText, bool OnScreen)
 RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 	: m_AnimatedMesh(Mesh)
 {
-	m_fRenderDistance = 3000;
+	m_fRenderDistance = 400;
 	m_Mesh = nullptr;
 	m_MeshBiomed = nullptr;
 
@@ -67,7 +67,7 @@ RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 }
 RenderComponent::RenderComponent(RenderComponent& ref)
 {
-	m_fRenderDistance = 3000;
+	m_fRenderDistance = ref.m_fRenderDistance;
 	if (ref.m_Mesh)
 		m_Mesh = ref.m_Mesh;
 	else
@@ -160,6 +160,11 @@ void RenderComponent::SetColor(float x, float y, float z)
 {
 	m_Material.kAmbient.Set(x, y, z);
 	m_Material.kDiffuse.Set(x, y, z);
+}
+void RenderComponent::SetColor(float x)
+{
+	m_Material.kAmbient.Set(x, x, x);
+	m_Material.kDiffuse.Set(x, x, x);
 }
 void RenderComponent::ResetColor()
 {

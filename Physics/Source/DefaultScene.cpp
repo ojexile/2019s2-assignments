@@ -15,6 +15,12 @@
 #include "ReticleScript.h"
 #include "ParticleObserver.h"
 #include "AdvancedParticleSpawnerScript.h"
+#include "WinLoseScript.h"
+#include "AbilityScript.h"
+//Ob
+#include "BossObserver.h"
+//Obcom
+#include "BossObserverCom.h"
 //TMP
 #include "ExplodeAugment.h"
 #include "BlackHoleAugment.h"
@@ -27,14 +33,19 @@ DefaultScene::~DefaultScene()
 }
 void DefaultScene::Init()
 {
+	/// Layers================================================================================
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
+	///
+	Preferences::SetPref(Resources::PreferencesTerm::CamDist, "40");
 	/// Observers================================================================================
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
 	GenericSubject::GetInstance()->AddObserver(new ParticleObserver);
+	GenericSubject::GetInstance()->AddObserver(new BossObserver);
 
 	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg", "low_synth");
 	AudioManager::GetInstance()->SetBGMVolume(0, "low_synth");
@@ -101,38 +112,69 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(CustoPos - Vector3(0, fCustoDist, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotClip"));
 	CustoSlots.push_back(go);
+	/// End Inventor--------------------------------------------------------------------------------
+	/// Player Stats--------------------------------------------------------------------------------
 	// Stamina--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
-	go->TRANS->SetPosition(50, 50, 0);
+	go->TRANS->SetPosition(50, 940, 0);
 	go->TRANS->SetScale(200, 50, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
+	go->SetDisableDistance(-1);
 	//
 	GameObject* StaminaBar = m_GOM.AddGameObject("UI");
-	StaminaBar->TRANS->SetPosition(50, 50, 0);
+	StaminaBar->TRANS->SetPosition(50, 940, 0);
 	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	StaminaBar->RENDER->SetColor(1, 1, 0);
+	StaminaBar->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
-	go->TRANS->SetPosition(50, 90, 20);
+	go->TRANS->SetPosition(50, 970, 20);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Stamina"));
 	go->RENDER->SetColor(1, 1, 1);
+	go->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 1030, 0);
 	go->TRANS->SetScale(200, 50, 1);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
+	go->SetDisableDistance(-1);
 	//
 	GameObject* HealthBar = m_GOM.AddGameObject("UI");
 	HealthBar->TRANS->SetPosition(50, 1030, 0);
 	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
+	HealthBar->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 1060, 20);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "HEALTH"));
 	go->RENDER->SetColor(1, 1.f, 1.f);
+	go->SetDisableDistance(-1);
+	//
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(1920 / 3, 1040, 0);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	go->RENDER->SetColor(0.1f);
+	go->TRANS->SetScale(1920 / 3, 12, 1);
+	go->SetDisableDistance(-1);
+	//
+	GameObject* BossBarText = m_GOM.AddGameObject("UI");
+	BossBarText->TRANS->SetPosition(1920 / 2, 1000, 20);
+	BossBarText->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Unitialised"));
+	BossBarText->RENDER->SetColor(1, 1.f, 1.f);
+	BossBarText->SetDisableDistance(-1);
+	//
+	GameObject* BossBar = m_GOM.AddGameObject("UI");
+	BossBar->TRANS->SetPosition(1920 / 3, 1040, 0);
+	BossBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
+	BossBar->RENDER->SetColor(0.1f, 0.2f, 0.8f);
+	/// Start Systems--------------------------------------------------------------------------------
+	GameObject* BossSpawner = m_GOM.AddGameObject(dataContainer->GetGameObject("BossSpawner"));
+	BossSpawner->AddComponent(new BossObserverCom);
+	/// Ends Systems--------------------------------------------------------------------------------
+	/// End Player Stats--------------------------------------------------------------------------------
 	/// Player================================================================================
 	// Reticle
 	GameObject* ret = m_GOM.AddGameObject(GetGO("Reticle"));
@@ -160,17 +202,20 @@ void DefaultScene::Init()
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	m_Player = Player;
-	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade));
+	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(50)));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
+	Player->RIGID->SetMat(1.05f, 0.f);
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(0, 18, 0);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
-	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI")));
+	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI"), BossSpawner, BossBar, BossBarText));
 	Player->AddComponent(new MapSpawningScript());
 	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
-
+	Player->AddComponent(new WinLoseScript());
+	Player->GetComponent<EntityScript>()->SetCanDie(true);
+	Player->AddComponent(new AbilityScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
@@ -185,15 +230,10 @@ void DefaultScene::Init()
 	float size = 100;
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
-	// Enemy--------------------------------------------------------------------------------
-	/*go = m_GOM.AddGameObject(dataContainer->GetGameObject("Boss"));
-	go->TRANS->SetPosition(10, 20.5f, 0);*/
-	// --
+	/// Entities--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(3, 30.f, 0);
-	//--
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(0, 30.5f, 0);
+	go->TRANS->SetPosition(3, 24.f, 0);
+	/// End Entities--------------------------------------------------------------------------------
 	///interactable test
 
 	//go = m_GOM.AddGameObject();
@@ -219,10 +259,10 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(0, 16, 0);
 	go->SetActive(false);
 
-	go = m_GOM.AddGameObject("UI");
-	go->TRANS->SetPosition(0, 16, 0);
-	go->TRANS->SetScale(1);
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
-	go->RENDER->Set3DBillboard(true);
-	go->RENDER->SetColor(0, 1, 1);
+	//go = m_GOM.AddGameObject("UI");
+	//go->TRANS->SetPosition(0, 16, 0);
+	//go->TRANS->SetScale(1);
+	//go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
+	//go->RENDER->Set3DBillboard(true);
+	//go->RENDER->SetColor(0, 1, 1);
 }

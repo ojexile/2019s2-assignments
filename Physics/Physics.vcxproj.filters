@@ -146,7 +146,19 @@
     <ClCompile Include="Source\BlackHoleAugment.cpp" />
     <ClCompile Include="Source\ScalePatternScript.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\BossSpawnerScript.cpp" />
     <ClCompile Include="Source\EntityLibrary.cpp" />
+    <ClCompile Include="Source\WinLoseScript.cpp" />
+    <ClCompile Include="Source\BossObserverCom.cpp" />
+    <ClCompile Include="Source\BossObserver.cpp" />
+    <ClCompile Include="Source\MainMenu.cpp" />
+    <ClCompile Include="Source\MenuButtonsScript.cpp" />
+    <ClCompile Include="Source\AbilityBase.cpp" />
+    <ClCompile Include="Source\AbilityDash.cpp" />
+    <ClCompile Include="Source\AbilityScript.cpp" />
+    <ClCompile Include="Source\AbilityGrenade.cpp" />
+    <ClCompile Include="Source\AbilitySlowTime.cpp" />
+    <ClCompile Include="Source\AbilityHeal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AIEntityScript.h" />
@@ -322,6 +334,18 @@
     <ClInclude Include="Source\SuicideNoteScript.h" />
     <ClInclude Include="Source\BirdWingScript.h" />
     <ClInclude Include="Source\ScalePatternScript.h" />
+    <ClInclude Include="Source\BossSpawnerScript.h" />
+    <ClInclude Include="Source\WinLoseScript.h" />
+    <ClInclude Include="Source\BossObserverCom.h" />
+    <ClInclude Include="Source\BossObserver.h" />
+    <ClInclude Include="Source\MainMenu.h" />
+    <ClInclude Include="Source\MenuButtonsScript.h" />
+    <ClInclude Include="Source\AbilityBase.h" />
+    <ClInclude Include="Source\AbilityScript.h" />
+    <ClInclude Include="Source\AbilityDash.h" />
+    <ClInclude Include="Source\AbilityGrenade.h" />
+    <ClInclude Include="Source\AbilitySlowTime.h" />
+    <ClInclude Include="Source\AbilityHeal.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />
