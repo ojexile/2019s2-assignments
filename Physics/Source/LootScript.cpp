@@ -10,7 +10,7 @@
 
 LootScript::LootScript()
 {
-	m_LootDrop = DataContainer::GetInstance()->GetGameObject("Loot");
+	m_LootDrop = DataContainer::GetInstance()->GetGameObjectRaw("Loot");
 }
 
 

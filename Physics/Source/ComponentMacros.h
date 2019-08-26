@@ -2,6 +2,7 @@
 #include <vector>
 
 #define GetComp(c) GetComponent<c>()
+#define GC(c) GetComponent<c>()
 
 #define TRANS GetComponent<TransformComponent>()
 #define RENDER GetComponent<RenderComponent>()

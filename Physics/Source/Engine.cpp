@@ -11,11 +11,14 @@
 #include "StopWatch.h"
 #include "MyMath.h"
 #include "WorldValues.h"
+#include "InputManager.h"
+#include "MouseManager.h"
+#include "EntityLibrary.h"
 // Start Scene
 #include "DefaultScene.h"
 #include "MainMenu.h"
 RenderingManager* Engine::m_Renderer;
-#define TIMINGS true
+#define TIMINGS false
 
 Engine::Engine()
 {
@@ -38,7 +41,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new MainMenu());
+	SceneManager->ChangeScene(new DefaultScene());
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
@@ -197,8 +200,12 @@ void Engine::Exit()
 	delete m_Renderer;
 	SceneManager::DeleteInstance();
 	DataContainer::DeleteInstance();
+	InputManager::DeleteInstance();
 	KeyboardManager::DeleteInstance();
+	MouseManager::DeleteInstance();
 	AudioManager::DeleteInstance();
 	Preferences::Clear();
 	Time::DeleteInstance();
+	GenericSubject::DeleteInstance();
+	EntityLibrary::DeleteInstance();
 }

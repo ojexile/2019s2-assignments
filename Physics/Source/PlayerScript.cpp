@@ -108,14 +108,14 @@ void PlayerScript::UpdateMovement(double dt)
 		if (InputManager::GetInstance()->GetInputStrength("Reload"))
 			m_Gun->GUN->ReloadWeapon();
 
-		if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
+		/*if (InputManager::GetInstance()->GetInputStrength("Grenade") != 0)
 		{
 			m_Grenade->GetComponent<GrenadeScript>()->PullPin();
 		}
 		else if (InputManager::GetInstance()->GetInputStrength("Grenade") == 0)
 		{
 			m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDirRaw, m_Grenade, (float)dt);
-		}
+		}*/
 
 		if (InputManager::GetInstance()->GetInputStrength("Mouse"))
 		{
@@ -183,7 +183,20 @@ void PlayerScript::Dash()
 		vDir.Normalize();
 	RIGID->AddForce(vDir * 500);
 }
+
 void PlayerScript::AddGrenade(int count)
 {
 	m_iNumberOfGrenades = m_iNumberOfGrenades + count;
+}
+
+void PlayerScript::PullPin()
+{
+	m_Grenade->GetComponent<GrenadeScript>()->PullPin();
+}
+
+void PlayerScript::ThrowGrenade()
+{
+	Vector3 vDirRaw = m_Reticle->TRANS->GetPosition() - GetPosition();
+
+	m_Grenade->GetComponent<GrenadeScript>()->ThrowGrenade(vDirRaw, m_Grenade, (float)10.f);
 }

@@ -16,6 +16,8 @@
 #include "ParticleObserver.h"
 #include "AdvancedParticleSpawnerScript.h"
 #include "WinLoseScript.h"
+#include "CheatScript.h"
+#include "AbilityScript.h"
 //Ob
 #include "BossObserver.h"
 //Obcom
@@ -190,7 +192,7 @@ void DefaultScene::Init()
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
 
 	//TMP------------------------------------------------------------------------------------
-	GameObject* tmp = dataContainer->GetGameObject("Muzzle");
+	GameObject* tmp;
 
 	//tmp->PART->SetAugment(new ReloadingAugment);
 	//tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
@@ -232,9 +234,8 @@ void DefaultScene::Init()
 	Gun->AddChild(tmp);
 	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::GRIP);
 
-
 	// Grenade-------------------------------------------------------------------------------
-	GameObject* grenade = dataContainer->GetGameObject("Grenade");
+	GameObject* grenade = dataContainer->GetGameObjectRaw("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
@@ -247,11 +248,13 @@ void DefaultScene::Init()
 	Player->RENDER->SetActive(true);
 	Player->TRANS->SetPosition(8, 18, 8);
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
-	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, GetGO("BulletUI"), BossSpawner, BossBar, BossBarText));
+	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, dataContainer->GetGameObjectRaw("BulletUI"), BossSpawner, BossBar, BossBarText));
 	Player->AddComponent(new MapSpawningScript());
-	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObject("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
+	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObjectRaw("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
 	Player->AddComponent(new WinLoseScript());
 	Player->GetComponent<EntityScript>()->SetCanDie(true);
+	Player->AddComponent(new AbilityScript());
+	Player->AddComponent(new CheatScript());
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));

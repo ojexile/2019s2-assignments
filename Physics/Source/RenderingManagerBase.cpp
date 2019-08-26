@@ -4,6 +4,7 @@
 #include "KeyboardManager.h"
 #include "Preferences.h"
 #include "Resources.h"
+#include "WorldValues.h"
 
 #define FOG_ENABLED true
 #define COLOR 0.4f,0.4f,0.7f
@@ -125,10 +126,11 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 
 	// Init fog================================================================================
 	Color fogColor{ COLOR };
+
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
 	glUniform1f(m_parameters[U_FOG_START], 12);
 	glUniform1f(m_parameters[U_FOG_END], 80);
-	glUniform1f(m_parameters[U_FOG_DENSITY], 0.1f);
+	glUniform1f(m_parameters[U_FOG_DENSITY], WorldValues::FogDensity);
 	glUniform1i(m_parameters[U_FOG_TYPE], 2);
 	glUniform1i(m_parameters[U_FOG_ENABLED], m_bFogEnabled);
 

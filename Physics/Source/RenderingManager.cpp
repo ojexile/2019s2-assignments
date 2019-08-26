@@ -27,7 +27,7 @@ void RenderingManager::Init()
 	RenderingManagerBase::Init();
 	// Shadows
 	m_lightDepthFBO.Init((unsigned)(SHADOW_RES), (unsigned)(SHADOW_RES));
-	m_lightDepthFBO.Init(SHADOW_RES, SHADOW_RES);
+	m_lightDepthFBO.Init((int)(SHADOW_RES), (int)(SHADOW_RES));
 	Post.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
 	Post2.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
 	Math::InitRNG();
@@ -80,8 +80,8 @@ void RenderingManager::Render(Scene* scene)
 }
 void RenderingManager::Resize(Vector3 size)
 {
-	Post.Init(size.x, size.y);
-	Post2.Init(size.x, size.y);
+	Post.Init((unsigned)size.x, (unsigned)size.y);
+	Post2.Init((unsigned)size.x, (unsigned)size.y);
 }
 void RenderingManager::RenderPassGPass(Scene* scene)
 {
@@ -110,19 +110,27 @@ void RenderingManager::RenderPassPost(Scene * scene)
 	// glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	m_renderPass = RENDER_PASS_POST;
 	glViewport(0, 0, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
-
+	GLenum oof;
+	oof = glGetError();
 	glUseProgram(m_PostProcessProgram);
+	// BindUniforms();
 	glUniform1f(m_parameters[U_EFFECT0_INTENSITY], (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth()))));
+	oof = glGetError();
 	glUniform1f(m_parameters[U_EFFECT1_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead() - 1);
 	glUniform1f(m_parameters[U_EFFECT1_TIME], Time::GetInstance()->GetElapsedTimeF());
 
 	std::stringstream k;
 	k << (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth())));
 	KZ_LOG("Intensity: ", k.str());
+	oof = glGetError();
 	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO);
+	oof = glGetError();
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
+	oof = glGetError();
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	oof = glGetError();
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_PostBO);
+	oof = glGetError();
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

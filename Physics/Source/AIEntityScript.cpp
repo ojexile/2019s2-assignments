@@ -3,8 +3,6 @@
 AIEntityScript::AIEntityScript(Behaviour* Behaviour)
 	: EntityScript(Behaviour)
 {
-	if (m_Behaviour)
-		m_Behaviour->Init(this);
 	m_bInitialised = false;
 	m_bDamageAnim = false;
 	m_fAnimStartTime = -1;
@@ -15,8 +13,6 @@ AIEntityScript::AIEntityScript(Behaviour* Behaviour)
 AIEntityScript::AIEntityScript(Behaviour* Behaviour, Stats & Stats)
 	: EntityScript(Behaviour, Stats)
 {
-	if (m_Behaviour)
-		m_Behaviour->Init(this);
 	m_bInitialised = false;
 	m_bDamageAnim = false;
 	m_fAnimStartTime = -1;
@@ -51,14 +47,6 @@ AIEntityScript::AIEntityScript(AIEntityScript & ref)
 {
 	m_Values = ref.m_Values;
 	m_AdditionalStats = ref.m_AdditionalStats;
-
-	if (ref.m_Behaviour)
-	{
-		m_Behaviour = new Behaviour(*ref.m_Behaviour);
-		m_Behaviour->Init(this);
-	}
-	else
-		m_Behaviour = nullptr;
 	m_bInitialised = false;
 	m_fAnimStartTime = 0;
 	m_bFirstMove = true;
@@ -66,6 +54,7 @@ AIEntityScript::AIEntityScript(AIEntityScript & ref)
 
 AIEntityScript::~AIEntityScript()
 {
+	// EntityScript::~EntityScript();
 }
 
 void AIEntityScript::Update(double dt)
