@@ -11,8 +11,8 @@ ProjectileScript::~ProjectileScript()
 {
 	while (m_AugmentList.size() > 0)
 	{
-		Component* comp = static_cast<Component*>(*(m_AugmentList.rbegin()));
-		delete comp;
+		Augment* aug = static_cast<Augment*>(*(m_AugmentList.rbegin()));
+		delete aug;
 		m_AugmentList.pop_back();
 
 	}
@@ -60,7 +60,7 @@ void ProjectileScript::Collide(GameObject* go)
 	}
 }
 
-void ProjectileScript::AddAugment(Component* augment)
+void ProjectileScript::AddAugment(Augment* augment)
 {
 	m_AugmentList.push_back(augment);
 }

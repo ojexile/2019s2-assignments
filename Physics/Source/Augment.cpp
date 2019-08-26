@@ -4,6 +4,7 @@ Augment::Augment()
 	: m_EntityRef(nullptr),
 	  m_GunRef(nullptr)
 {
+	m_AugmentType = NIL;
 }
 
 

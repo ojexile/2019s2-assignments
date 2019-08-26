@@ -32,7 +32,7 @@ void ExplodeAugment::ActiveEffect(Component* proj, GameObject* go)
 
 void ExplodeAugment::PassiveEffect()
 {
-
+	RYAN_LOG("EXPLODE");
 }
 
 void ExplodeAugment::RemovePassive()

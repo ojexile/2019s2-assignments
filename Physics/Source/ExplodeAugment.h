@@ -11,6 +11,6 @@ public:
 	virtual void PassiveEffect() override;
 	virtual void RemovePassive() override;
 
-	virtual Component* Clone() { return new ExplodeAugment(*this); }
+	virtual Augment* Clone() { return new ExplodeAugment(*this); }
 };
 

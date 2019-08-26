@@ -10,6 +10,6 @@ public:
 	virtual void PassiveEffect() override;
 	virtual void RemovePassive() override;
 
-	virtual Component* Clone() { return new BlackHoleAugment(*this); }
+	virtual Augment* Clone() { return new BlackHoleAugment(*this); }
 };
 

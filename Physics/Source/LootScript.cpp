@@ -82,7 +82,7 @@ Augment* LootScript::GenerateAugment(void)
 		}
 	}
 
-	return nullptr;
+	return new BlackHoleAugment;
 }
 
 void LootScript::DropLoot(void)
@@ -111,10 +111,12 @@ void LootScript::DropLoot(void)
 			Loot->RIGID->SetAffectedByGravity(true);
 
 			//Augment Generation
-			auto part = GenerateAugment();
-			if (part != nullptr)
+			Augment* augment = nullptr;
+			augment = GenerateAugment();
+
+			if (augment != nullptr)
 			{
-				Loot->PART->SetAugment(part);
+				Loot->PART->SetAugment(augment);
 				Loot->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObject("particleRareDrop"),
 					5, { 0.1f,0.1f,0.1f }, 0.1f
 					));

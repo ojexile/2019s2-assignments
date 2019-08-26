@@ -57,7 +57,7 @@ void BlackholeScript::Update(double dt)
 			continue;
 		
 		float dmgDist = m_fMinDist / 2;
-		int dmg = 3;
+		int dmg = 10;
 		float fForceAttract = G_CONSTANT * (m_fMass * rigid->GetMass()) / (dist);
 		
 		if (go == SceneManager::GetInstance()->GetScene()->GetPlayer())
@@ -68,7 +68,7 @@ void BlackholeScript::Update(double dt)
 				Vector3 Up(0, 1, 0);
 				rigid->AddForce(Up * -fForceAttract * 400);
 				Vector3 force = (fForceAttract) * (pos1 - pos2).Normalize();
-				rigid->AddForce(force * 1000);
+				rigid->AddForce(force * 100);
 			}
 		}
 		try
