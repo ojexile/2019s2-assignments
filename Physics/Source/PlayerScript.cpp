@@ -13,6 +13,7 @@ PlayerScript::PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun,
 	m_Reticle = Reticle;
 	m_Gun = gun;
 	m_Grenade = grenade;
+	m_bIsDead = false;
 }
 
 PlayerScript::~PlayerScript()
@@ -24,6 +25,18 @@ void PlayerScript::Start()
 	PlayerIdleTimer.Start();
 	GetCameraGO()->GetComponent<CameraComponent>()->SetMouseUseFloatYaw(false);
 }
+
+void PlayerScript::StartDeathAnim()
+{
+	PlayerDeathTimer.Start();
+}
+
+float PlayerScript::GetTimeDead()
+{
+	if (!m_bIsDead) return 0;
+	return PlayerDeathTimer.GetTime();
+}
+
 void PlayerScript::Update(double dt)
 {
 	//if (CheckDeath())

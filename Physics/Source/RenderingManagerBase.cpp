@@ -6,6 +6,7 @@
 #include "Resources.h"
 
 #define FOG_ENABLED true
+#define COLOR 0.4f,0.4f,0.7f
 
 MS RenderingManagerBase::modelStack;
 MS RenderingManagerBase::viewStack;
@@ -82,6 +83,13 @@ void RenderingManagerBase::BindUniforms()
 	m_parameters[U_SHADOW_COLOR_TEXTURE2] = glGetUniformLocation(m_gPassShaderID, "colorTexture[2]");
 	// extra--------------------------------------------------------------------------------
 	m_parameters[U_DIST_FROM_PLAYER] = glGetUniformLocation(m_programID, "distFromPlayer");
+	m_parameters[U_VIGINETTE_VAL] = glGetUniformLocation(m_programID, "vigenetteVal");
+
+	m_parameters[U_EFFECT0_INTENSITY] = glGetUniformLocation(m_PostProcessProgram, "effect0Intensity");
+	m_parameters[U_EFFECT1_INTENSITY] = glGetUniformLocation(m_PostProcessProgram, "effect1Intensity");
+	m_parameters[U_EFFECT1_TIME] = glGetUniformLocation(m_PostProcessProgram, "time");
+	m_parameters[U_EFFECT2_TIME] = glGetUniformLocation(m_PostProcessProgram2, "time");
+	m_parameters[U_EFFECT2_INTENSITY] = glGetUniformLocation(m_PostProcessProgram2, "effect0Intensity");
 	//--------------------------------------------------------------------------------
 	glUseProgram(m_programID);
 	BindLightUniforms();
@@ -106,10 +114,17 @@ void RenderingManagerBase::BindLightUniforms()
 		m_LightParameters[U_LIGHT_EXPONENT + U_LIGHT_TOTAL * i] = glGetUniformLocation(m_programID, std::string(prefix + "exponent").c_str());
 	}
 }
+void RenderingManagerBase::SetUniform1f(UNIFORM_TYPE e, float f)
+{
+	glUniform1f(m_parameters[e], f);
+}
 void RenderingManagerBase::SetUniforms(Scene* scene)
 {
+	// Init vignette
+	glUniform1f(m_parameters[U_EFFECT0_INTENSITY], 0);
+
 	// Init fog================================================================================
-	Color fogColor{ 0.4f, 0.4f, 0.5f };
+	Color fogColor{ COLOR };
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
 	glUniform1f(m_parameters[U_FOG_START], 12);
 	glUniform1f(m_parameters[U_FOG_END], 80);
@@ -148,12 +163,13 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 	}
 	// extra--------------------------------------------------------------------------------
 	glUniform1f(m_parameters[U_DIST_FROM_PLAYER], std::stof(Preferences::GetPref(Resources::PreferencesTerm::CamDist)));
+	glUniform1f(m_parameters[U_VIGINETTE_VAL], 0);
 }
 
 void RenderingManagerBase::Init()
 {
 	// Black background
-	glClearColor(0.4f, 0.4f, 0.5f, 0.0f);
+	glClearColor(COLOR, 0.0f);
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
@@ -175,11 +191,14 @@ void RenderingManagerBase::Init()
 	// Main Shader--------------------------------------------------------------------------------
 	m_programID = DataContainer::GetInstance()->GetShader("Default");
 
+	m_PostProcessProgram = DataContainer::GetInstance()->GetShader("Post");
+	m_PostProcessProgram2 = DataContainer::GetInstance()->GetShader("EffectCRT");
+
 	// Shadows
 	m_lightDepthFBO.Init(2048, 2048);
 
 	bLightEnabled = true;
-	//BindUniforms();
+	BindUniforms();
 	//SetUniforms();
 }
 
@@ -235,6 +254,7 @@ void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string t
 	Mesh* mesh = rc->GetMesh();
 	if (!mesh || mesh->m_uTextureArray[0] <= 0)
 		return;
+	Material mat = rc->GetMaterial();
 
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -255,6 +275,12 @@ void RenderingManagerBase::RenderTextOnScreen(RenderComponent* rc, std::string t
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, mesh->m_uTextureArray[0]);
 	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
+	//load material
+	glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
+	glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
+	glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
+	glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
+	glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
@@ -603,4 +629,8 @@ void RenderingManagerBase::Exit()
 	glDeleteProgram(m_programID);
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_gPassShaderID);
+}
+
+void RenderingManagerBase::Resize(Vector3 size)
+{
 }

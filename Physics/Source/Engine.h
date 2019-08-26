@@ -11,14 +11,16 @@
 #include "Preferences.h"
 
 #include "CollisionManager.h"
-
+#include "Singleton.h"
+#include "RenderingManagerBase.h"
 #include <vector>
 
 //#define LOG_UPDATE_RATE 1
 
-class Engine
+class Engine : public Singleton<Engine>
 {
 	friend class Application;
+	friend class Singleton<Engine>;
 public:
 	void SetMouseCallback(GLFWwindow* window);
 private:
@@ -28,9 +30,10 @@ private:
 	void Init();
 	void Update(double dt);
 	void Exit();
-	static Renderer* m_Renderer;
+	static RenderingManager* m_Renderer;
 	CollisionManager m_CollisionManager;
 	void CheckGOForObserver(GameObject* go, std::vector<GameObject*>* GOList);
 	unsigned int m_frameCount;
 public:
+	RenderingManagerBase* GetRenderManager();
 };

@@ -165,6 +165,8 @@
     <None Include="Content\preferences.ini" />
     <None Include="Content\shaders\FancyFog.fragmentshader" />
     <None Include="Content\shaders\FancyFog.vertexshader" />
+    <None Include="Content\shaders\Post.fragmentshader" />
+    <None Include="Content\shaders\Post.vertexshader" />
     <None Include="Shader\water.fragmentshader" />
     <None Include="Shader\water.vertexshader" />
   </ItemGroup>
@@ -194,6 +196,7 @@
     <ClCompile Include="Source\ChunkData.cpp" />
     <ClCompile Include="Source\ChunkEvent.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
+    <ClCompile Include="Source\ColorFBO.cpp" />
     <ClCompile Include="Source\Command.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentBase.cpp" />
@@ -320,6 +323,7 @@
     <ClInclude Include="Source\ChunkData.h" />
     <ClInclude Include="Source\ChunkEvent.h" />
     <ClInclude Include="Source\CollisionManager.h" />
+    <ClInclude Include="Source\ColorFBO.h" />
     <ClInclude Include="Source\Command.h" />
     <ClInclude Include="Source\Component.h" />
     <ClInclude Include="Source\ComponentBase.h" />
@@ -426,6 +430,9 @@
     <ClInclude Include="Source\WeaponPartScript.h" />
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Content\shaders\EffectCRT.fragmentshader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

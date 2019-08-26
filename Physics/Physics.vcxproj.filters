@@ -153,6 +153,7 @@
     <ClCompile Include="Source\BossObserver.cpp" />
     <ClCompile Include="Source\MainMenu.cpp" />
     <ClCompile Include="Source\MenuButtonsScript.cpp" />
+    <ClCompile Include="Source\ColorFBO.cpp" />
     <ClCompile Include="Source\PlayerDeathScript.cpp" />
     <ClCompile Include="Source\GrenadePickupScript.cpp" />
     <ClCompile Include="Source\RepairPickupScript.cpp" />
@@ -336,6 +337,7 @@
     <ClInclude Include="Source\BossObserver.h" />
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MenuButtonsScript.h" />
+    <ClInclude Include="Source\ColorFBO.h" />
     <ClInclude Include="Source\PlayerDeathScript.h" />
     <ClInclude Include="Source\HealthAugment.h" />
     <ClInclude Include="Source\GrenadePickupScript.h" />
@@ -355,5 +357,10 @@
     <None Include="Shader\water.vertexshader" />
     <None Include="Content\shaders\FancyFog.fragmentshader" />
     <None Include="Content\shaders\FancyFog.vertexshader" />
+    <None Include="Content\shaders\Post.fragmentshader" />
+    <None Include="Content\shaders\Post.vertexshader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Content\shaders\EffectCRT.fragmentshader" />
   </ItemGroup>
 </Project>

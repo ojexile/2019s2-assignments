@@ -14,7 +14,7 @@
 // Start Scene
 #include "DefaultScene.h"
 #include "MainMenu.h"
-Renderer* Engine::m_Renderer;
+RenderingManager* Engine::m_Renderer;
 #define TIMINGS true
 
 Engine::Engine()
@@ -186,6 +186,10 @@ void Engine::CheckGOForObserver(GameObject* go, std::vector<GameObject*>* GOList
 		GameObject* GOChild = go->GetChildList()->at(i);
 		CheckGOForObserver(GOChild, GOList);
 	}
+}
+RenderingManagerBase * Engine::GetRenderManager()
+{
+	return m_Renderer;
 }
 void Engine::Exit()
 {

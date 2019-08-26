@@ -35,10 +35,16 @@ void DefaultScene::Init()
 {
 	/// Layers================================================================================
 	DataContainer* dataContainer = DataContainer::GetInstance();
+	m_GOM.CreateLayer(dataContainer->GetShader("Post"), "Post");
+	m_GOM.CreateLayer(dataContainer->GetShader("EffectCRT"), "Post2");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
+	///RENDER///
+	go = m_GOM.AddGameObject(GetGO("Render"), "Post");
+	go = m_GOM.AddGameObject(GetGO("Render2"), "Post2");
+	////////////
 	///
 	Preferences::SetPref(Resources::PreferencesTerm::CamDist, "40");
 	/// Observers================================================================================
@@ -233,7 +239,7 @@ void DefaultScene::Init()
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	m_Player = Player;
-	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(10000000)));
+	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(100)));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));

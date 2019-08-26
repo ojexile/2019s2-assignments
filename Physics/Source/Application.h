@@ -23,6 +23,7 @@ public:
 	static int GetWindowHeight();
 	static void GetScrollWheelPos(double* xpos, double* ypos);
 	static void SetCursorEnabled(bool);
+	static bool bExit;
 private:
 	Application();
 	~Application();

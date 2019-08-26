@@ -59,4 +59,6 @@ public:
 	bool IsTextOnScreen();
 	std::string GetText();
 	void SetText(std::string);
+
+	void SetAlpha(float a);
 };
