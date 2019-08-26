@@ -6,6 +6,7 @@
 #include "Resources.h"
 
 #define FOG_ENABLED true
+#define COLOR 0.4f,0.4f,0.7f
 
 MS RenderingManagerBase::modelStack;
 MS RenderingManagerBase::viewStack;
@@ -109,7 +110,7 @@ void RenderingManagerBase::BindLightUniforms()
 void RenderingManagerBase::SetUniforms(Scene* scene)
 {
 	// Init fog================================================================================
-	Color fogColor{ 0.4f, 0.4f, 0.5f };
+	Color fogColor{ COLOR };
 	glUniform3fv(m_parameters[U_FOG_COLOR], 1, &fogColor.r);
 	glUniform1f(m_parameters[U_FOG_START], 12);
 	glUniform1f(m_parameters[U_FOG_END], 80);
@@ -153,7 +154,7 @@ void RenderingManagerBase::SetUniforms(Scene* scene)
 void RenderingManagerBase::Init()
 {
 	// Black background
-	glClearColor(0.4f, 0.4f, 0.5f, 0.0f);
+	glClearColor(COLOR, 0.0f);
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
