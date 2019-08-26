@@ -32,6 +32,14 @@ void AbilityBase::Update(Component* com)
 	}
 }
 
+float AbilityBase::GetPercentageCooldownDone()
+{
+	float returnval = (m_SW.GetTime() / m_fCooldownTime);
+	Math::Clamp(returnval, 0.f, 100.f);
+
+	return returnval;
+}
+
 bool AbilityBase::IsInUse()
 {
 	return m_bInUse;
