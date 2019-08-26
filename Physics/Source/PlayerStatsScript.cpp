@@ -73,14 +73,14 @@ void PlayerStatsScript::Update(double dt)
 	const Stats* Add = ps->GetAdditionalStats();
 	m_Stamina->TRANS->SetScale(fStamina / (Base->GetMaxStamina() * Add->GetMaxStamina()) * 200, 50, 1);
 	// CHENG_LOG(std::to_string(fHealth));
-	m_Health->TRANS->SetScale((float)iHealth / (Base->GetMaxHealth() * Add->GetMaxHealth()) * 200, 50, 1);
+	m_Health->TRANS->SetScale((float)(iHealth) / (Base->GetMaxHealth() * Add->GetMaxHealth()) * 200, 50, 1);
 	float percen = m_BossSpawner->GetComp(BossSpawnerScript)->GetPercentageDone();
 	m_BossSpawnerUI->TRANS->SetScale(percen * 1920 / 3, 12, 1);
 
 	switch (m_BossSpawner->GetComp(BossSpawnerScript)->GetState())
 	{
 	case BossSpawnerScript::eSEARCHING:
-		m_BossSpawnerUIText->RENDER->SetText("Seaching for you...");
+		m_BossSpawnerUIText->RENDER->SetText("Searching for you...");
 		m_BossSpawnerUI->RENDER->SetColor(0.1f, 0.2f, 0.8f);
 		break;
 	case BossSpawnerScript::eFOUND:

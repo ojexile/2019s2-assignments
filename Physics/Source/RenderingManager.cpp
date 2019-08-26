@@ -2,10 +2,12 @@
 #include "Application.h"
 #include "RenderComponent.h"
 #include "EntityScript.h"
+#include "PlayerScript.h"
+
 #define VIEW_AS_LIGHT false
-#define SHADOW_VIEW_SIZE_X 200
-#define SHADOW_VIEW_SIZE_Y 100/16*9
-#define SHADOW_VIEW_SIZE_Z 200
+#define SHADOW_VIEW_SIZE_X 400
+#define SHADOW_VIEW_SIZE_Y 200/16*9
+#define SHADOW_VIEW_SIZE_Z 400
 #define SHADOW_RES 128*20.f
 
 #define SWITCH_SHADER true
@@ -111,6 +113,9 @@ void RenderingManager::RenderPassPost(Scene * scene)
 
 	glUseProgram(m_PostProcessProgram);
 	glUniform1f(m_parameters[U_EFFECT0_INTENSITY], (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth()))));
+	glUniform1f(m_parameters[U_EFFECT1_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead() - 1);
+	glUniform1f(m_parameters[U_EFFECT1_TIME], Time::GetInstance()->GetElapsedTimeF());
+
 	std::stringstream k;
 	k << (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth())));
 	KZ_LOG("Intensity: ", k.str());
@@ -134,11 +139,14 @@ void RenderingManager::RenderPassPost(Scene * scene)
 }
 void RenderingManager::RenderPassPost2(Scene* scene)
 {
-	// glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	m_renderPass = RENDER_PASS_POST;
 	glViewport(0, 0, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
 
 	glUseProgram(m_PostProcessProgram2);
+	glUniform1f(m_parameters[U_EFFECT2_TIME], Time::GetInstance()->GetElapsedTimeF());
+	glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead() );
+
 	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO2);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
