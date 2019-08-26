@@ -22,7 +22,8 @@ public:
 	virtual void StopUse(Component* com) = 0;
 
 	virtual void Update(Component* com);
-
+	
+	float GetPercentageCooldownDone(); // returns percentage of cooldown completed
 	bool IsInUse();
 
 };

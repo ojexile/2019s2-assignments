@@ -20,5 +20,6 @@ public:
 	Component* Clone() { return new AbilityScript(*this); }
 	virtual void Update(double dt);
 
+	float GetPercentageCooldownDone();
 
 };

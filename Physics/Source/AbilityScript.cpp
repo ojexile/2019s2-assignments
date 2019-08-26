@@ -36,3 +36,8 @@ void AbilityScript::Update(double dt)
 	}
 
 }
+
+float AbilityScript::GetPercentageCooldownDone()
+{
+	return m_ability->GetPercentageCooldownDone();
+}
