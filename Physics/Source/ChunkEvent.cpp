@@ -190,10 +190,19 @@ void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_r
 		}
 		else
 		{
-
 			newEntity->TRANS->SetPosition(pos);
 			newEntity->SetDisableDistance(100.f);
-			newEntity->RENDER->SetRenderDistance(100.f);
+			
+			auto ptr = newEntity->RENDER;
+			if (ptr == nullptr)
+			{
+				newEntity->GetChildList()->at(0)->RENDER->SetRenderDistance(100.f);
+			}
+			else
+			{
+				newEntity->RENDER->SetRenderDistance(100.f);
+
+			}
 			GOM_ref->AddGameObject(newEntity);
 		}
 
