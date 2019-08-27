@@ -26,6 +26,7 @@
 #include "SuicideNoteScript.h"
 #include "BirdWingScript.h"
 #include "BossSpawnerScript.h"
+#include "CoinPickupScript.h"
 //
 #include "ScalePatternScript.h"
 
@@ -228,6 +229,7 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["AbilitySlowTime"] = MeshBuilder::GenerateQuad("AbilitySlowTime", {}, 1)->AddTexture("AbilitySlowTime");
 
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
+	m_map_Meshes["Coin"] = MeshBuilder::GenerateOBJ("coin");
 
 	m_map_Meshes["BirdBody"] = MeshBuilder::GenerateOBJ("Bird/Body");
 	m_map_Meshes["WingLeft"] = MeshBuilder::GenerateOBJ("Bird/WingLeft");
@@ -543,6 +545,13 @@ void DataContainer::InitGO()
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(60, 0, 100, 0, 80, 60, 2000, 12)));
+	//Coin----------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Coin"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Coin")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new CoinPickupScript());
+	go->RENDER->SetColor(1, 1, 0);
 	//Chick-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Chick"] = go;

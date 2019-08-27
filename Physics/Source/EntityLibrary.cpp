@@ -31,6 +31,7 @@ void EntityLibrary::Init()
 
 	//Loot Initialisation-----------------------------------------------------
 	m_LootArray[LOOT_CHEST] = DC->GetGameObjectRaw("treasurebox");
+	m_LootArray[LOOT_COIN] = DC->GetGameObjectRaw("Coin");
 
 	//Environmental Initialisation--------------------------------------------
 	m_EnvironmentArray[STONE_1] = DC->GetGameObjectRaw("stone1");

@@ -184,9 +184,9 @@ void PlayerScript::Dash()
 	RIGID->AddForce(vDir * 3000);
 }
 
-void PlayerScript::AddGrenade(int count)
+void PlayerScript::AddCoin(int count)
 {
-	m_iNumberOfGrenades = m_iNumberOfGrenades + count;
+
 }
 
 void PlayerScript::PullPin()

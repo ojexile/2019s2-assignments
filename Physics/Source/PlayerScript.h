@@ -36,5 +36,5 @@ public:
 	void StartDeathAnim();
 	float GetTimeDead();
 	virtual void Collide(GameObject*) override;
-	void AddGrenade(int count = 1);
+	void AddCoin(int count = 1);
 };

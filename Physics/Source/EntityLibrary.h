@@ -46,6 +46,7 @@ public:
 	enum eLoot
 	{
 		LOOT_CHEST,
+		LOOT_COIN,
 		NUM_LOOT
 	};
 
