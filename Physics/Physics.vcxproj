@@ -246,6 +246,7 @@
     <ClCompile Include="Source\Locator.cpp" />
     <ClCompile Include="Source\LogData.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
+    <ClCompile Include="Source\LoginButtonScript.cpp" />
     <ClCompile Include="Source\LoginScene.cpp" />
     <ClCompile Include="Source\LoginScript.cpp" />
     <ClCompile Include="Source\LootScript.cpp" />
@@ -388,6 +389,7 @@
     <ClInclude Include="Source\Locator.h" />
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
+    <ClInclude Include="Source\LoginButtonScript.h" />
     <ClInclude Include="Source\LoginScene.h" />
     <ClInclude Include="Source\LoginScript.h" />
     <ClInclude Include="Source\LootScript.h" />

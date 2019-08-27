@@ -137,6 +137,7 @@
     <ClCompile Include="Source\PlayerData.cpp" />
     <ClCompile Include="Source\LoginScene.cpp" />
     <ClCompile Include="Source\LoginScript.cpp" />
+    <ClCompile Include="Source\LoginButtonScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HealthAugment.h" />
@@ -283,6 +284,7 @@
     <ClInclude Include="Source\PlayerData.h" />
     <ClInclude Include="Source\LoginScene.h" />
     <ClInclude Include="Source\LoginScript.h" />
+    <ClInclude Include="Source\LoginButtonScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />

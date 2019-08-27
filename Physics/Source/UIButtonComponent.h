@@ -16,7 +16,7 @@ public:
 	UIButtonComponent();
 	virtual ~UIButtonComponent();
 	virtual ComponentBase* Clone() { return new UIButtonComponent(*this); };
-
+	virtual void Start() override;
 	virtual void Update(double dt) override;
 	bool GetHover();
 };

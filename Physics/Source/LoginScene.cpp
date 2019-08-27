@@ -1,6 +1,9 @@
 #include "LoginScene.h"
+// Components--------------------------------------------------------------------------------
+#include "UIButtonComponent.h"
 // Scripts--------------------------------------------------------------------------------
 #include "LoginScript.h"
+#include "LoginButtonScript.h"
 // Systems--------------------------------------------------------------------------------
 #include "DataContainer.h"
 #include "AudioManager.h"
@@ -64,8 +67,8 @@ void LoginScene::Init()
 	PassInput->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), ""));
 	PassInput->TRANS->SetPosition(1920 / 2 + 100 + 50, 1080 / 2 - 200, 50);
 	//
-	go = m_GOM.AddGameObject("UI");
-	go->AddComponent(new LoginScript(UserInput, PassInput));
+	GameObject* Login = m_GOM.AddGameObject("UI");
+	Login->AddComponent(new LoginScript(UserInput, PassInput));
 	// User--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(1920 / 2, 1080 / 2, 50);
@@ -78,6 +81,22 @@ void LoginScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Pass::"));
 	go->RENDER->SetColor({ 0.4f,1.f,0.8f });
 	go->SetDisableDistance(-1);
+	/// Buttons--------------------------------------------------------------------------------
+	GameObject* LoginLocal = m_GOM.AddGameObject("UI");
+	LoginLocal->TRANS->SetPosition(1920 / 2 + 400, 100, 0);
+	LoginLocal->TRANS->SetScale(300, 100, 1);
+	LoginLocal->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Login Local"));
+	LoginLocal->AddComponent(new UIButtonComponent());
+	LoginLocal->SetDisableDistance(-1);
+	GameObject* CreateLocal = m_GOM.AddGameObject("UI");
+	CreateLocal->TRANS->SetPosition(1920 / 2 - 400, 100, 0);
+	CreateLocal->TRANS->SetScale(300, 100, 1);
+	CreateLocal->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
+	CreateLocal->AddComponent(new UIButtonComponent());
+	CreateLocal->SetDisableDistance(-1);
+	//
+	go = m_GOM.AddGameObject();
+	go->AddComponent(new LoginButtonScript(Login, nullptr, nullptr, LoginLocal, CreateLocal));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraComponent);

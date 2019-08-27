@@ -11,6 +11,11 @@ UIButtonComponent::~UIButtonComponent()
 {
 }
 
+void UIButtonComponent::Start()
+{
+	this->GetGO()->SetDisableDistance(-1);
+}
+
 void UIButtonComponent::Update(double dt)
 {
 	double x, y;

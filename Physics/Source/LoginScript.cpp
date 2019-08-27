@@ -32,15 +32,7 @@ void LoginScript::Update(double dt)
 	{
 		if (Selected == Pass)
 		{
-			std::string sUser = User->RENDER->GetText();
-			std::string sPass = Pass->RENDER->GetText();
-			if (PlayerData::GetInstance()->Load(sUser, sPass))
-			{
-				SceneManager::GetInstance()->ChangeScene(new MainMenu);
-			}
-			else
-			{
-			}
+			LoginLocal();
 		}
 		else
 		{
@@ -62,4 +54,21 @@ void LoginScript::SetSelected(eSelectedSpace e)
 	default:
 		break;
 	}
+}
+
+void LoginScript::LoginLocal()
+{
+	std::string sUser = User->RENDER->GetText();
+	std::string sPass = Pass->RENDER->GetText();
+	if (PlayerData::GetInstance()->Load(sUser, sPass))
+	{
+		SceneManager::GetInstance()->ChangeScene(new MainMenu);
+	}
+	else
+	{
+	}
+}
+
+void LoginScript::Create()
+{
 }
