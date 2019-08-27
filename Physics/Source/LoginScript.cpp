@@ -34,10 +34,6 @@ void LoginScript::Update(double dt)
 		{
 			LoginLocal();
 		}
-		else
-		{
-			Selected = Pass;
-		}
 	}
 }
 
@@ -69,12 +65,12 @@ void LoginScript::LoginLocal()
 	}
 }
 
-bool LoginScript::CreateLocal()
+void LoginScript::CreateLocal()
 {
 	std::string sUser = User->RENDER->GetText();
 	std::string sPass = Pass->RENDER->GetText();
 	if (sUser == "" || sPass == "")
-		return false;
+		return;
 	if (PlayerData::GetInstance()->Create(sUser, sPass))
 	{
 		LoginLocal();

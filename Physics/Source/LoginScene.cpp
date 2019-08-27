@@ -59,10 +59,25 @@ void LoginScene::Init()
 	go->RENDER->SetColor(1, 1, 1);
 	/// Login--------------------------------------------------------------------------------
 	// Input--------------------------------------------------------------------------------
+	GameObject* User = m_GOM.AddGameObject("UI");
+	User->TRANS->SetPosition(1920 / 2 + 100 + 50, 1080 / 2, 1);
+	User->TRANS->SetScale(500, 100, 1);
+	User->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
+	User->AddComponent(new UIButtonComponent());
+	User->SetDisableDistance(-1);
+	User->RENDER->SetColor(0.1f);
 	GameObject* UserInput = m_GOM.AddGameObject("UI");
 	UserInput->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), ""));
 	UserInput->TRANS->SetPosition(1920 / 2 + 100 + 50, 1080 / 2, 50);
 	//
+	GameObject* Pass = m_GOM.AddGameObject("UI");
+	Pass->TRANS->SetPosition(1920 / 2 + 100 + 50, 1080 / 2 - 200, 1);
+	Pass->TRANS->SetScale(500, 100, 1);
+	Pass->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
+	Pass->AddComponent(new UIButtonComponent());
+	Pass->SetDisableDistance(-1);
+	Pass->RENDER->SetColor(0.2f);
+	Pass->RENDER->SetAlpha(0.5f);
 	GameObject* PassInput = m_GOM.AddGameObject("UI");
 	PassInput->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), ""));
 	PassInput->TRANS->SetPosition(1920 / 2 + 100 + 50, 1080 / 2 - 200, 50);
@@ -96,7 +111,7 @@ void LoginScene::Init()
 	CreateLocal->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject();
-	go->AddComponent(new LoginButtonScript(Login, nullptr, nullptr, LoginLocal, CreateLocal));
+	go->AddComponent(new LoginButtonScript(Login, User, Pass, LoginLocal, CreateLocal));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraComponent);

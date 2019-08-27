@@ -30,5 +30,25 @@ void LoginButtonScript::Update(double dt)
 		{
 			m_LoginGO->GetComponent<LoginScript>()->CreateLocal();
 		}
+		else if (m_User->GC(UIButtonComponent)->GetHover())
+		{
+			m_User->RENDER->SetAlpha(1.f);
+			m_User->RENDER->SetColor(.2f);
+
+			m_Pass->RENDER->SetAlpha(.5f);
+			m_Pass->RENDER->SetColor(.1f);
+
+			m_LoginGO->GC(LoginScript)->SetSelected(LoginScript::eUSER);
+		}
+		else if (m_Pass->GC(UIButtonComponent)->GetHover())
+		{
+			m_Pass->RENDER->SetAlpha(1.f);
+			m_Pass->RENDER->SetColor(.2f);
+
+			m_User->RENDER->SetAlpha(.5f);
+			m_User->RENDER->SetColor(.1f);
+
+			m_LoginGO->GC(LoginScript)->SetSelected(LoginScript::ePASS);
+		}
 	}
 }

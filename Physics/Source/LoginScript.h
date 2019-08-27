@@ -22,5 +22,5 @@ public:
 	virtual void Update(double dt) override;
 	void SetSelected(eSelectedSpace e);
 	void LoginLocal();
-	bool CreateLocal();
+	void CreateLocal();
 };
