@@ -1,7 +1,9 @@
 #include "LoginScript.h"
 #include "Application.h"
 #include "InputManager.h"
-
+#include "SceneManager.h"
+#include "PlayerData.h"
+#include "MainMenu.h"
 LoginScript::LoginScript(GameObject * u, GameObject * p)
 {
 	User = u;
@@ -25,6 +27,39 @@ void LoginScript::Update(double dt)
 	if (InputManager::GetInstance()->GetInputStrength("Back"))
 	{
 		Selected->RENDER->RemoveText();
-		CHENG_LOG("bck");
+	}
+	if (InputManager::GetInstance()->GetInputStrength("Enter"))
+	{
+		if (Selected == Pass)
+		{
+			std::string sUser = User->RENDER->GetText();
+			std::string sPass = Pass->RENDER->GetText();
+			if (PlayerData::GetInstance()->Load(sUser, sPass))
+			{
+				SceneManager::GetInstance()->ChangeScene(new MainMenu);
+			}
+			else
+			{
+			}
+		}
+		else
+		{
+			Selected = Pass;
+		}
+	}
+}
+
+void LoginScript::SetSelected(eSelectedSpace e)
+{
+	switch (e)
+	{
+	case LoginScript::eUSER:
+		Selected = User;
+		break;
+	case LoginScript::ePASS:
+		Selected = Pass;
+		break;
+	default:
+		break;
 	}
 }

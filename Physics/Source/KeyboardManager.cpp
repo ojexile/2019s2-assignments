@@ -36,6 +36,7 @@ unsigned short ToKey(std::string str)
 	if (str == "space") return VK_SPACE;
 	if (str == "esc") return VK_ESCAPE;
 	if (str == "back") return VK_BACK;
+	if (str == "enter") return VK_RETURN;
 	return NULL;
 }
 

@@ -58,11 +58,11 @@ void LoginScene::Init()
 	// Input--------------------------------------------------------------------------------
 	GameObject* UserInput = m_GOM.AddGameObject("UI");
 	UserInput->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), ""));
-	UserInput->TRANS->SetPosition(1920 / 2 + 100, 1080 / 2, 50);
+	UserInput->TRANS->SetPosition(1920 / 2 + 100 + 50, 1080 / 2, 50);
 	//
 	GameObject* PassInput = m_GOM.AddGameObject("UI");
 	PassInput->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), ""));
-	PassInput->TRANS->SetPosition(1920 / 2 + 100, 1080 / 2 - 200, 50);
+	PassInput->TRANS->SetPosition(1920 / 2 + 100 + 50, 1080 / 2 - 200, 50);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->AddComponent(new LoginScript(UserInput, PassInput));

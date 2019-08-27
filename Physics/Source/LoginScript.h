@@ -3,6 +3,12 @@
 class LoginScript :
 	public ScriptComponent
 {
+public:
+	enum eSelectedSpace
+	{
+		eUSER,
+		ePASS,
+	};
 private:
 	GameObject* User;
 	GameObject* Pass;
@@ -14,4 +20,5 @@ public:
 	virtual Component* Clone() { return new LoginScript(*this); };
 
 	virtual void Update(double dt) override;
+	void SetSelected(eSelectedSpace e);
 };
