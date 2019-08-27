@@ -135,7 +135,8 @@ void DataContainer::InitTextures()
 	m_map_Textures["particleHexagonGrey"] = LoadTGA("particleHexagonGrey");
 	m_map_Textures["particleCloudGrey"] = LoadTGA("particleCloudGrey");
 	m_map_Textures["particleHexagonRed"] = LoadTGA("particleHexagonRed");
-	m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonBorderYellow");
+	//m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonBorderYellow");
+	m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonYellow"); 
 }
 void DataContainer::InitMeshes()
 {
@@ -640,7 +641,7 @@ void DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["treasureball"] = go;
-	go->AddComponent(new LootScript());
+	go->AddComponent(new LootScript(true));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMat(1.f, 0);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));

@@ -8,7 +8,9 @@
 #include "BlackHoleAugment.h"
 #include "ParticleSpawnerScript.h"
 
-LootScript::LootScript()
+LootScript::LootScript(bool isRigged)
+	: m_isRigged(isRigged),
+	m_hasDropped(false)
 {
 	m_LootDrop = DataContainer::GetInstance()->GetGameObjectRaw("Loot");
 }
@@ -25,8 +27,8 @@ void LootScript::Collide(GameObject * go)
 
 	//Vector3 chunkspacepos = TRANS->GetPosition() - go->TRANS->GetPosition();
 	DropLoot();
-	//DestroySelf();
-	SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
+	DestroySelf();
+	//SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
 	
 }
 
@@ -67,11 +69,13 @@ WeaponPartScript* LootScript::GenerateWeaponPart(void)
 
 void LootScript::GenerateAugment(GameObject* ptr)
 {
+	ptr->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObjectRaw("particleRareDrop"), 30, Vector3(), 0));
+
 	if (!ptr->PART)
 		return;
 
 	int GenerateAugmentChance = Math::RandIntMinMax(1, 10);
-
+	GenerateAugmentChance = 10;
 	if (GenerateAugmentChance > 7)
 	{
 		GenerateAugmentChance = Math::RandIntMinMax(1, 3);
@@ -81,25 +85,46 @@ void LootScript::GenerateAugment(GameObject* ptr)
 			ptr->PART->SetAugment(new ReloadingAugment);
 	/*	else if (GenerateAugmentChance == 3)
 			ptr->PART->SetAugment(new BlackHoleAugment);*/
-		ptr->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObject("particleRareDrop"),
-			5, { 0.1f,0.1f,0.1f }, 0.1f));
+
+		//ptr->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObjectRaw("particleRareDrop"), 30, Vector3(), 0));
+
 	}
 }
 
 void LootScript::DropLoot(void)
 {
-
+	if (m_hasDropped)
+		return;
 	//70% chance to drop loot
-	int DropChance = Math::RandIntMinMax(0, 100);
-	RYAN_LOG(std::to_string(DropChance));
+	int DropChance;
+	if (!m_isRigged)
+	{
+		DropChance = Math::RandIntMinMax(0, 100);
+		RYAN_LOG(std::to_string(DropChance));
+	}
+	else
+	{
+		DropChance = 100;
+		RYAN_LOG("Lootbox dropped loot");
+	}
+
 
 	if (DropChance >= 30)
 	{
-		DropChance = Math::RandIntMinMax(0, 100);
 		//30% chance to drop a part
 		//70% chacne to drop other loot
 
-		RYAN_LOG(std::to_string(DropChance));
+		if (!m_isRigged)
+		{
+			DropChance = Math::RandIntMinMax(0, 100);
+			RYAN_LOG(std::to_string(DropChance));
+		}
+		else
+		{
+			DropChance = 100;
+			RYAN_LOG("Lootbox dropped loot");
+		}
+
 		if (DropChance >= 30)
 		{
 			//Generate the part
@@ -112,11 +137,13 @@ void LootScript::DropLoot(void)
 			Loot->RENDER->SetActive(true);
 			Loot->RIGID->SetAffectedByGravity(true);
 
-			GenerateAugment(m_LootDrop);
+			GenerateAugment(Loot);
+
 		}
 		else
 		{
 
 		}
 	}
+	m_hasDropped = true;
 }
