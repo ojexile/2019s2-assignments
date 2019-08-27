@@ -23,13 +23,18 @@ void CheatScript::Update(double dt)
 		if (InputManager::GetInstance()->GetInputStrength("Fog"))
 		{
 			WorldValues::FogDensity = 1.f;
-			CHENG_LOG("Cheat Act", "FOG");
+			CHENG_LOG("Cheat Act: ", "FOG");
+		}
+		else if (InputManager::GetInstance()->GetInputStrength("God"))
+		{
+			SceneManager::GetInstance()->GetScene()->GetPlayer()->GC(EntityScript)->SetCanDie(false);
+			CHENG_LOG("Cheat Act: ", "Gog");
 		}
 		else if (InputManager::GetInstance()->GetInputStrength("Death"))
 		{
 			SceneManager::GetInstance()->GetScene()->GetPlayer()->GC(EntityScript)->SetCanDie(true);
 			SceneManager::GetInstance()->GetScene()->GetPlayer()->GC(EntityScript)->Damage(10000000);
-			CHENG_LOG("Cheat Act", "Death");
+			CHENG_LOG("Cheat Act: ", "Death");
 		}
 	}
 	else if (InputManager::GetInstance()->GetInputStrength("Cheat") < 0)
@@ -37,16 +42,16 @@ void CheatScript::Update(double dt)
 		if (InputManager::GetInstance()->GetInputStrength("Fog"))
 		{
 			WorldValues::FogDensity = 0.1f;
-			CHENG_LOG("Cheat Dis", "FOG");
+			CHENG_LOG("Cheat Dis: ", "FOG");
 		}
 		else if (InputManager::GetInstance()->GetInputStrength("God"))
 		{
 			SceneManager::GetInstance()->GetScene()->GetPlayer()->GC(EntityScript)->SetCanDie(true);
-			CHENG_LOG("Cheat Dis", "God");
+			CHENG_LOG("Cheat Dis: ", "God");
 		}
 		else if (InputManager::GetInstance()->GetInputStrength("Death"))
 		{
-			CHENG_LOG("Cheat Dis", "Death");
+			CHENG_LOG("Cheat Dis: ", "Death");
 		}
 	}
 	else

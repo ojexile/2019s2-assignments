@@ -78,7 +78,7 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 		m_AnimatedMesh = nullptr;
 
 	if (ref.m_MeshBiomed)
-		m_MeshBiomed = ref.m_MeshBiomed;
+		m_MeshBiomed = new MeshBiomed(*ref.m_MeshBiomed);
 	else
 		m_MeshBiomed = nullptr;
 
@@ -103,6 +103,10 @@ void RenderComponent::SetRenderDistance(float k)
 
 RenderComponent::~RenderComponent()
 {
+	if (m_AnimatedMesh)
+		delete m_AnimatedMesh;
+	if (m_MeshBiomed)
+		delete m_MeshBiomed;
 }
 
 Mesh* RenderComponent::GetMesh()

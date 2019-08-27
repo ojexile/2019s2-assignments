@@ -27,11 +27,9 @@ void InteractableObCom::Notify(ComponentBase* com, std::string msg)
 	if (distanceSq > INTERACTDISTSQ) // if you're too far,
 		return;						// return.
 
-	CHENG_LOG("Yeet", vtos(GetPosition()));
 	FlipEntityScript* flipscript = GetComponent<FlipEntityScript>(true);
 	if (flipscript && !flipscript->IsAlreadyTriggered())
 	{
-
 		LZ_LOG("flipentityscript rock yeeted");
 		flipscript->Trigger(com);
 		return;
