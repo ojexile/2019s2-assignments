@@ -103,7 +103,7 @@ Application::~Application()
 void character_callback(GLFWwindow* window, unsigned int codepoint)
 {
 	Application::Key = (char)(codepoint);
-	CHENG_LOG("key: ", Application::Key);
+	// CHENG_LOG("key: ", Application::Key);
 }
 
 void Application::Init()

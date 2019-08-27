@@ -228,7 +228,7 @@ void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_r
 			newEntity->TRANS->SetPosition(pos);
 			newEntity->SetDisableDistance(100.f);
 			
-			auto ptr = newEntity->RENDER;
+			auto ptr = newEntity->GetComponent<RenderComponent>(true);
 			if (ptr == nullptr)
 			{
 				newEntity->GetChildList()->at(0)->RENDER->SetRenderDistance(100.f);

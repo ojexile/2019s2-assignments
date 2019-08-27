@@ -47,6 +47,7 @@ void MainMenu::Init()
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	m_GOM.CreateLayer(dataContainer->GetShader("PassThrough"), "Post");
 	m_GOM.CreateLayer(dataContainer->GetShader("PassThrough"), "Post2");
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Grass");
 	GameObject* go = nullptr;
 	go = m_GOM.AddGameObject(GetGO("Render"), "Post");
 	go = m_GOM.AddGameObject(GetGO("Render2"), "Post2");

@@ -18,7 +18,6 @@ InteractableObCom::~InteractableObCom()
 }
 void InteractableObCom::Notify(ComponentBase* com, std::string msg)
 {
-	CHENG_LOG("Yeet", vtos(GetPosition()));
 	FlipEntityScript* flipscript = GetComponent<FlipEntityScript>();
 	if (flipscript && !flipscript->IsAlreadyTriggered())
 	{
@@ -43,7 +42,6 @@ void InteractableObCom::Notify(ComponentBase* com, std::string msg)
 		loot->RIGID->AddForce({ 0,50,0 });
 		loot->RIGID->SetVel({ 0,75,0 });
 		loot->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObjectRaw("particlebullettrail"), 30, Vector3(), 0));
-		
 
 		return;
 	}
