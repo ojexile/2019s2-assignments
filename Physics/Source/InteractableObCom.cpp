@@ -51,8 +51,7 @@ void InteractableObCom::Notify(ComponentBase* com, std::string msg)
 		GameObject* loot = Instantiate(dasd, Vector3(0, 0, 0));
 		float yoffset = (TRANS->GetScale() * 1.1f).y;
 		loot->TRANS->SetPosition(this->GetPosition() + Vector3(0, yoffset, 0));
-		loot->RIGID->AddForce({ 0,50,0 });
-		loot->RIGID->SetVel({ 0,75,0 });
+
 		loot->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObjectRaw("particlebullettrail"), 30, Vector3(), 0));
 		
 

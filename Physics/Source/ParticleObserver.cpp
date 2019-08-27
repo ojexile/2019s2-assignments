@@ -32,6 +32,12 @@ void ParticleObserver::Notify(ComponentBase * com, std::string msg, std::vector<
 	{
 		LZ_LOG(msg);
 		com->GetComponent<DestructibleEntityScript>()->DestroySelf();
+
+		AdvancedParticleSpawnerScript* script = com->GetComponent<AdvancedParticleSpawnerScript>(true);
+		if (script)
+		{
+			script->Trigger();
+		}
 	}
 	else if (msg == "RockDied")
 	{

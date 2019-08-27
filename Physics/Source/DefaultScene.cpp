@@ -257,8 +257,8 @@ void DefaultScene::Init()
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
 	/// Entities--------------------------------------------------------------------------------
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(3, 24.f, 0);
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
+	//go->TRANS->SetPosition(3, 24.f, 0);
 	/// End Entities--------------------------------------------------------------------------------
 	///interactable test
 
@@ -272,18 +272,18 @@ void DefaultScene::Init()
 	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
 	//go->TRANS->SetPosition(20, 18.5, 20);
 
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("treasurebox"));
-	go->TRANS->SetPosition(20, 18.5, 20);
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("treasurebox"));
+	//go->TRANS->SetPosition(5, 18.5, 0);
 
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("boulder"));
-	go->TRANS->SetPosition(10, 19, 20);
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("boulder"));
+	//go->TRANS->SetPosition(10, 19, 20);
 
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("fliprock"));
-	go->TRANS->SetPosition(0, 19, 20);
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("fliprock"));
+	//go->TRANS->SetPosition(0, 19, 20);
 
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("ItemInfo"));
-	go->TRANS->SetPosition(0, 16, 0);
-	go->SetActive(false);
+	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("ItemInfo"));
+	//go->TRANS->SetPosition(0, 16, 0);
+	//go->SetActive(false);
 
 	//go = m_GOM.AddGameObject("UI");
 	//go->TRANS->SetPosition(0, 16, 0);

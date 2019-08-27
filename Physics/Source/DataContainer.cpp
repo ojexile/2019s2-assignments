@@ -678,9 +678,12 @@ void DataContainer::InitGO()
 	m_map_GO["treasureball"] = go;
 	go->AddComponent(new LootScript(true));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetMass(1.f);
 	go->RIGID->SetMat(1.f, 0);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(1.f);
+	go->RIGID->AddForce({ 0,50,0 });
+	go->RIGID->SetVel({ 0,75,0 });
 
 	go = new GameObject();
 	m_map_GO["stone1"] = go;
@@ -704,7 +707,7 @@ void DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["boulder"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("boulderball")));
+	go->AddComponent(new RenderComponent(GetMesh("boulder")));
 	//go->RENDER->SetColor({ 0.1f,0.1f,0.1f });
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMass(1000.f);
@@ -717,13 +720,15 @@ void DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["boulder2"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("boulder")));
-	go->RENDER->SetColor(0.1f, 0.1f, 0.1f);
+
+	go->AddComponent(new RenderComponent(GetMesh("boulderball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetMass(10.f);
+	go->RIGID->SetMass(100.f);
+	//go->RIGID->SetMass(1.f);
+	go->RIGID->SetMat(1.f, 1.f);
 	go->TRANS->SetScale(1.f);
 	go->AddComponent(new DestructibleEntityScript());
-	go->GetComponent<DestructibleEntityScript>()->SetDamageAnim(false);
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particlerockbreak"], 100, Vector3(), 0.f, "Default", 10.f));
 
 	go = new GameObject();
 	m_map_GO["Render"] = go;
