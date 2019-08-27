@@ -344,14 +344,11 @@ void DataContainer::InitGO()
 	go->SetDisableDistance(1000);
 	go2 = new GameObject;
 	go->AddChild(go2);
-	go2->AddComponent(new RenderComponent(GetMesh("Text"), "Item Infomation", false));
-	go2->TRANS->SetRelativePosition(0.5f, 4.5f, 0);
-	go2->TRANS->SetRelativeScale(0.5f);
+	go2->AddComponent(new RenderComponent(GetMesh("Text"), "Item name", false));
+	go2->TRANS->SetRelativePosition(0.f, 3.5f, 0);
+	go2->TRANS->SetRelativeScale(1.8f);
+	go2->RENDER->SetColor(2, 2, 2);
 	go2 = new GameObject;
-	go->AddChild(go2);
-	go2->AddComponent(new RenderComponent(GetMesh("Quad")));
-	go2->TRANS->SetRelativeScale({ 5, 10, 5 });
-	go2->RENDER->Set3DBillboard(true);
 
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();

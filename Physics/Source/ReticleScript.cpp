@@ -89,12 +89,10 @@ void ReticleScript::Update(double dt)
 	{
 		GetChild(0)->SetActive(PartFound);
 		GetChild(0)->RENDER->SetText(PartFound->GetComponent<WeaponPartScript>()->GetName());
-		GetChild(1)->SetActive(PartFound);
 	}
 	else
 	{
 		GetChild(0)->SetActive(false);
-		GetChild(1)->SetActive(false);
 	}
 	Vector3 Dir = RenderingManager::MouseWorldDir();
 	Vector3 StartPos = GetCameraGO()->TRANS->GetPosition();
