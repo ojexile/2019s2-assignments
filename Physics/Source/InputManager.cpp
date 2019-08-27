@@ -17,6 +17,17 @@ InputManager::InputManager()
 	LoadBindings(Resources::Path::Keybinds);
 }
 
+InputManager::~InputManager()
+{
+	for (auto it = bindings.begin(); it != bindings.end(); ++it)
+	{
+		for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		{
+			delete *it2;
+		}
+	}
+}
+
 void InputManager::LoadBindings(std::string fileName)
 {
 	std::ifstream stream = std::ifstream(fileName);
