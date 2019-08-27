@@ -79,7 +79,7 @@ void DestructibleEntityScript::Damage(int damage)
 	m_SW.Start();
 	m_bDamageAnim = true;
 
-	auto childrenderer = RENDER;
+	auto childrenderer = GetComponent<RenderComponent>(true);
 	if (childrenderer == nullptr)
 	{
 		if (GetChild(0) != nullptr)

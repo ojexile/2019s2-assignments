@@ -158,8 +158,8 @@ void RenderingManager::RenderPassPost2(Scene* scene)
 
 	glUseProgram(m_PostProcessProgram2);
 	glUniform1f(m_parameters[U_EFFECT2_TIME], Time::GetInstance()->GetElapsedTimeF());
-	if(SceneManager::GetInstance()->GetScene()->GetPlayer())
-	glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead());
+	if (SceneManager::GetInstance()->GetScene()->GetPlayer())
+		glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead());
 
 	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO2);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());

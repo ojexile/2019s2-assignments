@@ -611,7 +611,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("UIBullet")));
 	go->RENDER->SetLightEnabled(false);
-	go->TRANS->SetScale(50, 20, 1);
+	go->TRANS->SetScale(100, 100, 1);
 	go->SetDisableDistance(10000);
 	// ItemInfo--------------------------------------------------------------------------------
 	go = new GameObject;
