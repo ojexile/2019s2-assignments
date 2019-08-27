@@ -10,15 +10,19 @@ WeaponPartScript::WeaponPartScript(SLOT_TYPE slot, float Multiplier, float durab
 	{
 	case SCOPE:
 		m_Name = "Scope";
+		m_Description = "Reduces Bullet spread by " + std::to_string(1 - m_fStatMultiplier) + "\n";
 		break;
 	case CLIP:
 		m_Name = "Clip";
+		m_Description = "Increases clip size by " + std::to_string(m_fStatMultiplier) + "\n";
 		break;
 	case GRIP:
 		m_Name = "Grip";
+		m_Description = "Reduces Bullet spread by " + std::to_string(1 - m_fStatMultiplier) + "\n";
 		break;
 	case MUZZLE:
 		m_Name = "Muzzle";
+		m_Description = "Increases fire rate by " + std::to_string(1 - m_fStatMultiplier) + "\n";
 		break;
 	}
 }
@@ -82,4 +86,14 @@ void WeaponPartScript::SetName(std::string s)
 std::string WeaponPartScript::GetName(void)
 {
 	return m_Name;
+}
+
+void WeaponPartScript::SetDescription(std::string s)
+{
+	m_Description = s;
+}
+
+std::string WeaponPartScript::GetDescription(void)
+{
+	return m_Description;
 }

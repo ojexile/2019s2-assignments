@@ -60,7 +60,7 @@ void BlackholeScript::Update(double dt)
 		int dmg = 10;
 		float fForceAttract = G_CONSTANT * (m_fMass * rigid->GetMass()) / (dist);
 		
-		if (go == SceneManager::GetInstance()->GetScene()->GetPlayer())
+		if (go->GetComponent<EntityScript>())
 		{
 			if (dist <= dmgDist)
 			{

@@ -39,8 +39,8 @@ float PlayerScript::GetTimeDead()
 
 void PlayerScript::Update(double dt)
 {
-	//if (CheckDeath())
-	//	return;
+	if (CheckDeath())
+		return;
 	EntityScript::Update(dt);
 	UpdateBehaviour();
 	AudioManager::GetInstance()->UpdateListener(GetPosition(), GetCamera()->GetDir());

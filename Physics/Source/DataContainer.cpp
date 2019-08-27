@@ -160,7 +160,7 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Grip"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Grip");
 
-	m_map_Meshes["Scope"] = MeshBuilder::GenerateOBJ("Muzzle")->AddTexture("Scope");
+	m_map_Meshes["Scope"] = MeshBuilder::GenerateOBJ("scope")->AddTexture("Scope");
 
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
