@@ -17,6 +17,7 @@
 // Start Scene
 #include "DefaultScene.h"
 #include "MainMenu.h"
+#include "LoginScene.h"
 RenderingManager* Engine::m_Renderer;
 #define TIMINGS false
 

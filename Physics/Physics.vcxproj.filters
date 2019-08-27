@@ -135,6 +135,7 @@
     <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
     <ClCompile Include="Source\PlayerData.cpp" />
+    <ClCompile Include="Source\LoginScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HealthAugment.h" />
@@ -279,6 +280,7 @@
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
     <ClInclude Include="Source\PlayerData.h" />
+    <ClInclude Include="Source\LoginScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />
