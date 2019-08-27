@@ -17,7 +17,8 @@ PlayerData::~PlayerData()
 
 void PlayerData::SetAbility(AbilityBase * a)
 {
-	delete m_SelectedAbility;
+	if (m_SelectedAbility)
+		delete m_SelectedAbility;
 	m_SelectedAbility = a;
 }
 

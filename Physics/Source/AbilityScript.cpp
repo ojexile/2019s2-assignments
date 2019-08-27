@@ -13,7 +13,6 @@ AbilityScript::AbilityScript(AbilityBase* ability, GameObject* UI)
 
 AbilityScript::~AbilityScript()
 {
-	delete m_ability;
 }
 
 void AbilityScript::Update(double dt)

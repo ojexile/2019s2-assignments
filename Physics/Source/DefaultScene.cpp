@@ -28,6 +28,8 @@
 #include "ReloadingAugment.h"
 //systems
 #include "PlayerData.h"
+
+#define PLAYER_HEALTH 10000
 DefaultScene::DefaultScene()
 {
 }
@@ -209,7 +211,7 @@ void DefaultScene::Init()
 	tmp->PART->SetAugment(new BlackHoleAugment);
 	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
 	tmp->PART->GetAugment()->SetGunReference(gs);
-	
+
 	Gun->AddChild(tmp);
 	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
@@ -227,7 +229,7 @@ void DefaultScene::Init()
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	m_Player = Player;
-	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(10000)));
+	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(PLAYER_HEALTH)));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));

@@ -7,6 +7,8 @@
 #include "GunScript.h"
 #include "GrenadeScript.h"
 #include "InventoryScript.h"
+#include "SceneManager.h"
+#include "MainMenu.h"
 PlayerScript::PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun, GameObject* grenade, Stats stats)
 	: EntityScript(beh, stats)
 {
@@ -39,6 +41,13 @@ float PlayerScript::GetTimeDead()
 
 void PlayerScript::Update(double dt)
 {
+	if (m_bIsDead)
+	{
+		if (PlayerDeathTimer.GetTime() > 10)
+		{
+			SceneManager::GetInstance()->ChangeScene(new MainMenu);
+		}
+	}
 	if (CheckDeath())
 		return;
 	EntityScript::Update(dt);
