@@ -713,6 +713,7 @@ void DataContainer::InitGO()
 	//go->GetComponent<DestructibleEntityScript>()->GetBaseStats()->SetMaxHealth(1);
 	go->AddComponent(new DebrisSpawningScript("boulder2", 2, 2));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particlerockbreak"], 100, Vector3(), 0.f, "Default", 10.f));
+	go->GetComponent<DestructibleEntityScript>()->SetDamageAnim(false);
 
 	go = new GameObject();
 	m_map_GO["boulder2"] = go;
@@ -722,6 +723,7 @@ void DataContainer::InitGO()
 	go->RIGID->SetMass(10.f);
 	go->TRANS->SetScale(1.f);
 	go->AddComponent(new DestructibleEntityScript());
+	go->GetComponent<DestructibleEntityScript>()->SetDamageAnim(false);
 
 	go = new GameObject();
 	m_map_GO["Render"] = go;
