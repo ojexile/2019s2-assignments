@@ -57,7 +57,7 @@ void BlackholeScript::Update(double dt)
 			continue;
 		
 		float dmgDist = m_fMinDist / 2;
-		int dmg = 10;
+		int dmg = 5;
 		float fForceAttract = G_CONSTANT * (m_fMass * rigid->GetMass()) / (dist);
 		
 		if (go->GetComponent<EntityScript>())

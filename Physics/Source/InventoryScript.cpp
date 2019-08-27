@@ -135,7 +135,14 @@ void InventoryScript::AddItem(GameObject* go)
 		Vector3 pos = m_SlotList[iSlot]->TRANS->GetPosition();
 		Vector3 scal = { 40,40,1 };
 		GameObject* go2 = Instantiate(go, pos, scal, "UI");
+		
+		Augment* aug = nullptr;
+		if (go->PART->GetAugment())
+			aug = go->PART->GetAugment()->Clone();
+
 		go2->RIGID->SetAffectedByGravity(false);
+		go2->PART->SetAugment(aug);
+
 		m_InventoryItems[iSlot] = go2;
 		Destroy(go);
 		++m_iNumInventory;
@@ -145,8 +152,14 @@ void InventoryScript::AddItem(GameObject* go)
 void InventoryScript::Attach(WeaponPartScript::SLOT_TYPE e)
 {
 	GameObject* go = m_InventoryItems[m_iHoldingIndex];
+
+	Augment* aug = nullptr;
+	if (go->PART->GetAugment())
+		aug = go->PART->GetAugment()->Clone();
+
 	GameObject* cpy = Instantiate(go, Vector3{ 0,0,0 }, Vector3{ 1,1,1 }, "Default", true);
 	cpy->RIGID->SetAffectedByGravity(false);
+	cpy->PART->SetAugment(aug);
 	m_Weapon->AddChild(cpy);
 	m_Weapon->GetComponent<GunScript>()->EquipPart(cpy, e);
 	Destroy(go);
