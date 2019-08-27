@@ -25,12 +25,12 @@ class RenderingManager : public RenderingManagerBase
 private:
 	std::vector<GameObject*> RenderQueue;
 	void RenderQueued(Scene* scene);
-	ColorFBO Post, Post2;
+	const ColorFBO Post, Post2;
 	// unsigned m_RenderPass;
-	unsigned m_PostBO;
-	unsigned m_PostBO2;
 	// unsigned m_FrameFBO;
 public:
+	unsigned m_PostBO;
+	unsigned m_PostBO2;
 	virtual void SetMouseCallback(GLFWwindow* window) override;
 
 	virtual void RenderPassGPass(Scene* scene);

@@ -419,7 +419,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Melee")));
 	go->AddComponent(new LootScript());
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	go->m_sName = "BaseEnemy";
 	// Melee--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -429,7 +429,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Melee"), Stats(150, 0, 100, 0, 80, 15, 2000, 10)));
 	go->AddComponent(new LootScript());
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 
 	// Range-----------------------------------------------------------------------------
 	go = new GameObject;
@@ -442,7 +442,7 @@ void DataContainer::InitGO()
 	go2->TRANS->SetRelativeRotation(-90, 0, 1, 0);
 	go->AddChild(go2);
 	go->AddComponent(new LootScript());
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 
 	/// Boss================================================================================
 	// A--------------------------------------------------------------------------------
@@ -454,7 +454,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 80, 20, 2000, 500)));
 	go->AddComponent(new LootScript());
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 
 	// B--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -465,7 +465,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 80, 20, 2000, 500)));
 	go->AddComponent(new LootScript());
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 
 	// C---------------------------------------------
 	go = new GameObject;
@@ -522,7 +522,7 @@ void DataContainer::InitGO()
 	go->AddChild(go2);
 	go2->AddComponent(new RenderComponent(GetMesh("WingRight")));
 	go2->TRANS->SetRelativePosition(-0.378f, 0.458f, 0.082f);
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 
 	//Fox-----------------------------------------------------------------------------
 	go = new GameObject;
@@ -530,7 +530,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Fox")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddChild(GetGameObject("EnemyReticle"));
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(60, 0, 100, 0, 80, 60, 2000, 12)));
 	//Chick-----------------------------------------------------------------------------
 	go = new GameObject;
@@ -538,7 +538,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Chick")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddChild(GetGameObject("EnemyReticle"));
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(10, 0, 100, 0, 80, 10, 2000, 12)));
 	// Fish-----------------------------------------------------------------------------
 	go = new GameObject;
@@ -548,7 +548,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 
 	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(20, 0, 100, 0, 80, 20, 2000, 12)));
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObject("particleentityhit"), 1, {}, 0.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -574,7 +574,7 @@ void DataContainer::InitGO()
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
 	go->SetDisableDistance(-1);
-	// CustomiseSlot--------------------------------------------------------------------------------
+	// MenuButton--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["MenuButton"] = go;
 	go->AddComponent(new UIButtonComponent);
@@ -596,6 +596,33 @@ void DataContainer::InitGO()
 	m_map_GO["ItemInfo"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
+	// Ability0--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Ability0"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
+	go->RENDER->SetLightEnabled(true);
+	go->RENDER->SetColor(0, 1, 1);
+	go->TRANS->SetScale(100, 100, 1);
+	go->SetDisableDistance(-1);
+	// Ability1--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Ability1"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
+	go->RENDER->SetLightEnabled(true);
+	go->RENDER->SetColor(0, 1, 0);
+	go->TRANS->SetScale(100, 100, 1);
+	go->SetDisableDistance(-1);
+	// Ability2--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Ability2"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
+	go->RENDER->SetLightEnabled(true);
+	go->RENDER->SetColor(1, 1, 0);
+	go->TRANS->SetScale(100, 100, 1);
+	go->SetDisableDistance(-1);
 	/// Interactabes/Foilage================================================================================
 
 	go = new GameObject();
@@ -649,17 +676,17 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["stone1"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("stone1")));
-	go->RENDER->SetColor(0.6, 0.6, 0.6);
+	go->RENDER->SetColor(0.6f, 0.6f, 0.6f);
 
 	go = new GameObject();
 	m_map_GO["stone2"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("stone2")));
-	go->RENDER->SetColor(0.3, 0.3, 0.3);
+	go->RENDER->SetColor(0.3f, 0.3f, 0.3f);
 
 	go = new GameObject();
 	m_map_GO["grass1"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("grass1")));
-	go->RENDER->SetColor(0, 1.0, 0);
+	go->RENDER->SetColor(0, 1.0f, 0);
 
 	go = new GameObject();
 	m_map_GO["grass2"] = go;

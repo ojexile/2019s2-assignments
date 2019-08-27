@@ -3,6 +3,7 @@
 SceneManager::SceneManager()
 {
 	m_CurrentScene = nullptr;
+	m_TempScene = nullptr;
 	m_bSceneChanged = false;
 }
 

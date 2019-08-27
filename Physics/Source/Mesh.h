@@ -31,6 +31,7 @@ public:
 	unsigned indexBuffer;
 	unsigned indexSize;
 
+	Mesh* SetTexture(unsigned i);
 	Mesh* AddTexture(unsigned i);
 	Mesh* AddTexture(std::string s);
 

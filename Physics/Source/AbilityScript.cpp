@@ -5,17 +5,10 @@
 #include "AbilityHeal.h"
 #include "InputManager.h"
 
-AbilityScript::AbilityScript()
-{
-	//m_ability = new AbilityDash(3.f, 45.f);
-	m_ability = new AbilityGrenade();
-	//m_ability = new AbilitySlowTime(3.f, 10.f, 75.f, 10.f);
-	//m_ability = new AbilityHeal(3.f, 30.f, 70.f, 30.f);
-}
-
-AbilityScript::AbilityScript(AbilityBase* ability)
+AbilityScript::AbilityScript(AbilityBase* ability, GameObject* UI)
 {
 	m_ability = ability;
+	m_UI = UI;
 }
 
 AbilityScript::~AbilityScript()
@@ -25,6 +18,8 @@ AbilityScript::~AbilityScript()
 
 void AbilityScript::Update(double dt)
 {
+	if (!m_ability)
+		return;
 	if (!m_ability->IsInUse())
 	{
 		if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
@@ -35,6 +30,17 @@ void AbilityScript::Update(double dt)
 		m_ability->Update(this);
 	}
 
+	float p = GetPercentageCooldownDone();
+	if (p == 1)
+	{
+		m_UI->RENDER->SetAlpha(1.2f);
+		m_UI->RENDER->SetColor(1.7f);
+	}
+	else
+	{
+		m_UI->RENDER->SetAlpha(p);
+		m_UI->RENDER->SetColor(0.5f);
+	}
 }
 
 float AbilityScript::GetPercentageCooldownDone()

@@ -12,6 +12,8 @@
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
+	: Post(1920, 1080)
+	, Post2(1920, 1080)
 {
 	m_worldHeight = 100.f;
 	m_worldWidth = 100.f;
@@ -28,8 +30,8 @@ void RenderingManager::Init()
 	// Shadows
 	m_lightDepthFBO.Init((unsigned)(SHADOW_RES), (unsigned)(SHADOW_RES));
 	m_lightDepthFBO.Init((int)(SHADOW_RES), (int)(SHADOW_RES));
-	Post.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
-	Post2.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
+	//Post.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
+	//Post2.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
 	Math::InitRNG();
 	glGenRenderbuffers(1, &m_PostBO);
 	glGenRenderbuffers(1, &m_PostBO2);
@@ -58,6 +60,8 @@ void RenderingManager::SetMouseCallback(GLFWwindow* window)
 void RenderingManager::Update(double dt)
 {
 	RenderingManagerBase::Update(dt);
+	CHENG_LOG("Tex1: ", std::to_string(Post.GetTexture()));
+	CHENG_LOG("Tex2: ", std::to_string(Post2.GetTexture()));
 }
 
 void RenderingManager::Render(Scene* scene)
@@ -80,8 +84,8 @@ void RenderingManager::Render(Scene* scene)
 }
 void RenderingManager::Resize(Vector3 size)
 {
-	Post.Init((unsigned)size.x, (unsigned)size.y);
-	Post2.Init((unsigned)size.x, (unsigned)size.y);
+	//Post.Init((unsigned)size.x, (unsigned)size.y);
+	//Post2.Init((unsigned)size.x, (unsigned)size.y);
 }
 void RenderingManager::RenderPassGPass(Scene* scene)
 {
@@ -153,7 +157,7 @@ void RenderingManager::RenderPassPost2(Scene* scene)
 
 	glUseProgram(m_PostProcessProgram2);
 	glUniform1f(m_parameters[U_EFFECT2_TIME], Time::GetInstance()->GetElapsedTimeF());
-	glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead() );
+	glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead());
 
 	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO2);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
@@ -383,6 +387,7 @@ void RenderingManager::RenderPostQuad(Scene* scene)
 		if (!go->IsActive())
 			continue;
 		// CHENG_LOG("", "Render");
+		go->GetComponent<RenderComponent>()->GetMesh()->SetTexture(Post.GetTexture());
 		RenderGameObject(go, vCamPos, true);
 	}
 }
@@ -407,6 +412,7 @@ void RenderingManager::RenderPostQuad2(Scene* scene)
 		if (!go->IsActive())
 			continue;
 		// CHENG_LOG("", "Render");
+		go->GetComponent<RenderComponent>()->GetMesh()->SetTexture(Post2.GetTexture());
 		RenderGameObject(go, vCamPos, true);
 	}
 }

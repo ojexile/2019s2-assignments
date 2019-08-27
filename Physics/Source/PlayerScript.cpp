@@ -181,7 +181,7 @@ void PlayerScript::Dash()
 	vDir.y = 0;
 	if (!vDir.IsZero())
 		vDir.Normalize();
-	RIGID->AddForce(vDir * 500);
+	RIGID->AddForce(vDir * 3000);
 }
 
 void PlayerScript::AddGrenade(int count)

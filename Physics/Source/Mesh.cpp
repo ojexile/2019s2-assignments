@@ -97,6 +97,12 @@ void Mesh::Render(unsigned offset, unsigned count)
 		glDisableVertexAttribArray(3);
 	}
 }
+Mesh * Mesh::SetTexture(unsigned i)
+{
+	m_uTextureArray[0] = i;
+	m_iNumTextures = 1;
+	return this;
+}
 Mesh* Mesh::AddTexture(unsigned i)
 {
 	if (m_iNumTextures >= 8)
