@@ -100,7 +100,9 @@ void RenderingManager::RenderPassGPass(Scene* scene)
 	else
 		m_lightDepthProj.SetToPerspective(90, 1.f, 0.1, 20);
 	Light* light = lm->GetSceneLights()[0];
-	Vector3 pos = scene->GetPlayer()->GetComponent<TransformComponent>()->GetPosition();
+	Vector3 pos;
+	if (scene->GetPlayer())
+		pos = scene->GetPlayer()->GetComponent<TransformComponent>()->GetPosition();
 	m_lightDepthView.SetToLookAt(
 		pos.x, light->position.y, pos.z,
 		-light->position.x, -light->position.y, -light->position.z,
@@ -116,23 +118,24 @@ void RenderingManager::RenderPassPost(Scene * scene)
 	oof = glGetError();
 	glUseProgram(m_PostProcessProgram);
 	// BindUniforms();
-	glUniform1f(m_parameters[U_EFFECT0_INTENSITY], (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth()))));
-	oof = glGetError();
-	glUniform1f(m_parameters[U_EFFECT1_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead() - 1);
+	if (scene->GetPlayer())
+	{
+		glUniform1f(m_parameters[U_EFFECT0_INTENSITY], (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth()))));
+		oof = glGetError();
+		glUniform1f(m_parameters[U_EFFECT1_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead() - 1);
+	}
 	glUniform1f(m_parameters[U_EFFECT1_TIME], Time::GetInstance()->GetElapsedTimeF());
 
 	std::stringstream k;
-	k << (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth())));
+	if (scene->GetPlayer())
+		k << (((float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetValues()->GetHealth()) / (float)(scene->GetPlayer()->GetComponent<EntityScript>()->GetBaseStats()->GetMaxHealth())));
 	KZ_LOG("Intensity: ", k.str());
 	oof = glGetError();
 	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO);
 	oof = glGetError();
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
-	oof = glGetError();
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
-	oof = glGetError();
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_PostBO);
-	oof = glGetError();
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -155,6 +158,7 @@ void RenderingManager::RenderPassPost2(Scene* scene)
 
 	glUseProgram(m_PostProcessProgram2);
 	glUniform1f(m_parameters[U_EFFECT2_TIME], Time::GetInstance()->GetElapsedTimeF());
+	if(SceneManager::GetInstance()->GetScene()->GetPlayer())
 	glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead());
 
 	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO2);

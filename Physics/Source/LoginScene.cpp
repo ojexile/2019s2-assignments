@@ -48,7 +48,7 @@ void LoginScene::Init()
 	go->SetDisableDistance(-1);
 	/// Background--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered"));
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
 	go->TRANS->SetPosition(1920 / 2, 1080 / 2);
 	go->TRANS->SetScale(1920, 1080, 1);
 	go->RENDER->SetColor(1, 1, 1);
