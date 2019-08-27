@@ -23,13 +23,11 @@ void ChunkEvent::SetEntityRef(GameObject* go)
 
 void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref, Vector3 Chunk_Pos)
 {
-	//unsigned int chance = Math::RandIntMinMax(0, 9);
-	//if (chance > 5)
-	//	m_eventType = NIL;
-	//else
-	//	m_eventType = static_cast<EVENT_TYPE>(Math::RandIntMinMax(NIL, LOOT_AND_ENEMIES));
-
-	m_eventType = COIN_WONDERLAND;
+	unsigned int chance = Math::RandIntMinMax(0, 9);
+	if (chance > 5)
+		m_eventType = NIL;
+	else
+		m_eventType = static_cast<EVENT_TYPE>(Math::RandIntMinMax(NIL, LOOT_AND_ENEMIES));
 	
 	Vector3 size = chunk_ref->GetSize();
 	EntityLibrary* EL = EntityLibrary::GetInstance();
@@ -103,7 +101,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			Vector3 pos = /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
 			GameObject* newEntity;
 
-			if (SPAWNCOUNT <= 3)
+			if (SPAWNCOUNT < 3)
 			{
 				selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 				newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
@@ -274,7 +272,7 @@ void ChunkEvent::GenerateEnvironment(GameObjectManager* GOM_ref, ChunkData* chun
 			static_cast<EntityLibrary::eEnvironment>(selectedEntity) == EntityLibrary::GRASS_2)
 			GOM_ref->AddGameObject(newEntity, "Grass");
 		else
-			GOM_ref->AddGameObject(newEntity);
+			GOM_ref->AddGameObject(newEntity, "NoCollision");
 
 	}
 }
