@@ -38,7 +38,6 @@ MainMenu::~MainMenu()
 void MainMenu::Init()
 {
 	///
-	PlayerData::GetInstance()->Load("Cheng", "69");
 	PlayerData::GetInstance()->Save();
 	/// Init================================================================================
 	DataContainer* dataContainer = DataContainer::GetInstance();

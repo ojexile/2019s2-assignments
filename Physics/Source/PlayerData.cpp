@@ -143,5 +143,7 @@ bool PlayerData::Load(std::string user, std::string pass)
 			m_bAbilityGrenade = std::stoi(sVal);
 	}
 	ifFile.close();
+	m_sUser = user;
+	m_sPass = pass;
 	return true;
 }
