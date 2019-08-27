@@ -19,6 +19,8 @@ private:
 	int m_iCoins;
 	bool m_bAbilityDash;
 	bool m_bAbilityGrenade;
+	bool m_bAbilityHeal;
+	bool m_bAbilitySlowTime;
 	eAbilities m_eAbility;
 public:
 	PlayerData();

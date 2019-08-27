@@ -134,7 +134,7 @@ void MainMenu::Init()
 	// Init Menu Buttons================================================================================
 	go = m_GOM.AddGameObject();
 	go->AddComponent(new MenuButtonsScript(PlayText, PlayButt, QuitText, QuitButt,
-		TutorialText, TutorialButt, TutBox, AbilityDash, AbilityGrenade));
+		TutorialText, TutorialButt, TutBox, AbilityDash, AbilityGrenade, AbilityHeal, AbilitySlowTime));
 	go->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
