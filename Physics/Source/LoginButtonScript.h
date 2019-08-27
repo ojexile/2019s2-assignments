@@ -17,7 +17,7 @@ private:
 	GameObject* m_CreateLocal;
 	GameObject* m_LoginGO;
 public:
-	LoginButtonScript(GameObject* LoginGO, GameObject* User, GameObject* Pass, GameObject* LoginLocal, GameObject* CreateLocal);
+	LoginButtonScript(GameObject* LoginGO, GameObject* LoginLocal, GameObject* CreateLocal);
 	virtual ~LoginButtonScript();
 	virtual void Update(double dt);
 	virtual Component* Clone() { return new LoginButtonScript(*this); };

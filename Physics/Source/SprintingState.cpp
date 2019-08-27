@@ -21,7 +21,7 @@ SprintingState::~SprintingState()
 State* SprintingState::HandleState(ComponentBase* com)
 {
 	float dt = Time::GetInstance()->GetDeltaTimeF();
-	com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(60 * dt);
+	com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(20 * dt);
 	// Sprint
 	if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint"))
 	{

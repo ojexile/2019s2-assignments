@@ -40,7 +40,7 @@ void DestructibleEntityScript::Update(double dt)
 	{
 		if (m_SW.GetTime() > DAMAGE_TIME)
 		{
-			auto childrenderer = GetComponent<RenderComponent>();
+			auto childrenderer = GetComponent<RenderComponent>(true);
 
 			if (!childrenderer)
 			{
