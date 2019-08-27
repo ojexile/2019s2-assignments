@@ -28,6 +28,7 @@
 #include "MenuButtonsScript.h"
 //
 #include "PlayerData.h"
+#include "WorldValues.h"
 MainMenu::MainMenu()
 {
 }
@@ -38,6 +39,7 @@ MainMenu::~MainMenu()
 void MainMenu::Init()
 {
 	///
+	WorldValues::TimeScale = 1;
 	PlayerData::GetInstance()->Save();
 	/// Init================================================================================
 	DataContainer* dataContainer = DataContainer::GetInstance();
