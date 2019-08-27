@@ -3,8 +3,8 @@
 PlayerData::PlayerData()
 {
 	m_SelectedAbility = new AbilityDash(3, 45);
-	m_bAbility0 = true;
-	m_bAbility1 = false;
+	m_bAbilityDash = true;
+	m_bAbilityGrenade = false;
 	m_iCoins = 5;
 }
 
@@ -34,18 +34,33 @@ void PlayerData::OffsetCoins(int i)
 	m_iCoins += i;
 }
 
-bool PlayerData::GetGetAbilityActivated(int i)
+bool PlayerData::GetGetAbilityActivated(eAbilities e)
 {
-	switch (i)
+	switch (e)
 	{
-	case 0:
-		return m_bAbility0;
+	case eDASH:
+		return m_bAbilityDash;
 		break;
-	case 1:
-		return m_bAbility1;
+	case eGRENADE:
+		return m_bAbilityGrenade;
 		break;
 	default:
 		break;
 	}
 	return false;
+}
+
+void PlayerData::ActivateAbility(eAbilities e)
+{
+	switch (e)
+	{
+	case PlayerData::eDASH:
+		m_bAbilityDash = true;
+		break;
+	case PlayerData::eGRENADE:
+		m_bAbilityGrenade = true;
+		break;
+	default:
+		break;
+	}
 }

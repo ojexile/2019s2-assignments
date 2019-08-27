@@ -3,10 +3,16 @@
 #include "AbilityBase.h"
 class PlayerData : public Singleton<PlayerData>
 {
+public:
+	enum eAbilities
+	{
+		eDASH,
+		eGRENADE,
+	};
 private:
 	AbilityBase* m_SelectedAbility;
-	bool m_bAbility0;
-	bool m_bAbility1;
+	bool m_bAbilityDash;
+	bool m_bAbilityGrenade;
 	int m_iCoins;
 public:
 	PlayerData();
@@ -16,5 +22,6 @@ public:
 	AbilityBase* GetAbility();
 	int GetCoins();
 	void OffsetCoins(int i);
-	bool GetGetAbilityActivated(int i);
+	bool GetGetAbilityActivated(eAbilities e);
+	void ActivateAbility(eAbilities e);
 };

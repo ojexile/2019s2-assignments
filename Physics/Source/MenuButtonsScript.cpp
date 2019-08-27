@@ -30,7 +30,7 @@ MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 
 void MenuButtonsScript::Start()
 {
-	if (!PlayerData::GetInstance()->GetGetAbilityActivated(1))
+	if (!PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eGRENADE))
 	{
 		m_Ability1->RENDER->SetColor(0.2f);
 	}
@@ -75,10 +75,10 @@ void MenuButtonsScript::Update(double dt)
 		{
 			if (InputManager::GetInstance()->GetInputStrength("Click"))
 			{
-				if (PlayerData::GetInstance()->GetGetAbilityActivated(0))
+				if (PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eDASH))
 				{
 					// Set active ability
-					PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 20));
+					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 20));
 					// Change scene
 					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
 				}
@@ -91,12 +91,22 @@ void MenuButtonsScript::Update(double dt)
 		{
 			if (InputManager::GetInstance()->GetInputStrength("Click"))
 			{
-				if (PlayerData::GetInstance()->GetGetAbilityActivated(1))
+				if (PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eGRENADE))
 				{
 					// Set active ability
-					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 50));
+					PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 50));
 					// Change scene
 					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
+				}
+				// Purchase
+				else
+				{
+					if (PlayerData::GetInstance()->GetCoins() > 3)
+					{
+						PlayerData::GetInstance()->OffsetCoins(-3);
+						PlayerData::GetInstance()->ActivateAbility(PlayerData::eGRENADE);
+						m_Ability1->RENDER->ResetColor();
+					}
 				}
 			}
 		}
