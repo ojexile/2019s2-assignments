@@ -485,14 +485,15 @@ void CollisionManager::Update(GameObjectManager* GOM, int frameCycle)
 					nCounts++;
 				}
 			}
-			for (unsigned j = 0; j < go1->GetChildList()->size(); ++j)
+			// ignore children
+			/*for (unsigned j = 0; j < go1->GetChildList()->size(); ++j)
 			{
 				GameObject* goChild = go1->GetChildList()->at(j);
 				if (!goChild->IsActive())
 					continue;
 				if (goChild->GetComponent<Rigidbody>(true))
 					CheckCollision(goChild, GOList, i);
-			}
+			}*/
 		}
 	}
 	std::ostringstream ss;

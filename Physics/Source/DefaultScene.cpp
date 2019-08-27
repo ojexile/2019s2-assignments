@@ -132,7 +132,6 @@ void DefaultScene::Init()
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotClip"));
 	CustoSlots.push_back(go);
 	/// End Inventory--------------------------------------------------------------------------------
-	/// End UI================================================================================
 	/// Player Stats--------------------------------------------------------------------------------
 	// Stamina--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
@@ -141,18 +140,21 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	//
 	GameObject* StaminaBar = m_GOM.AddGameObject("UI");
 	StaminaBar->TRANS->SetPosition(50, 940, 0);
 	StaminaBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	StaminaBar->RENDER->SetColor(1, 1, 0);
 	StaminaBar->SetDisableDistance(-1);
+	StaminaBar->RENDER->SetRenderDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 970, 20);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Stamina"));
 	go->RENDER->SetColor(1, 1, 1);
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 1030, 0);
@@ -160,18 +162,21 @@ void DefaultScene::Init()
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	go->RENDER->SetColor(0.7f, 0.7f, 0.7f);
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	//
 	GameObject* HealthBar = m_GOM.AddGameObject("UI");
 	HealthBar->TRANS->SetPosition(50, 1030, 0);
 	HealthBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	HealthBar->RENDER->SetColor(1, 0.2f, 0.2f);
 	HealthBar->SetDisableDistance(-1);
+	HealthBar->RENDER->SetRenderDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(50, 1060, 20);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "HEALTH"));
 	go->RENDER->SetColor(1, 1.f, 1.f);
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(1920 / 3, 1040, 0);
@@ -179,17 +184,20 @@ void DefaultScene::Init()
 	go->RENDER->SetColor(0.1f);
 	go->TRANS->SetScale(1920 / 3, 12, 1);
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	//
 	GameObject* BossBarText = m_GOM.AddGameObject("UI");
 	BossBarText->TRANS->SetPosition(1920 / 2, 1000, 20);
 	BossBarText->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Unitialised"));
 	BossBarText->RENDER->SetColor(1, 1.f, 1.f);
 	BossBarText->SetDisableDistance(-1);
+	BossBarText->RENDER->SetRenderDistance(-1);
 	//
 	GameObject* BossBar = m_GOM.AddGameObject("UI");
 	BossBar->TRANS->SetPosition(1920 / 3, 1040, 0);
 	BossBar->AddComponent(new RenderComponent(dataContainer->GetMesh("Quad")));
 	BossBar->RENDER->SetColor(0.1f, 0.2f, 0.8f);
+	BossBar->RENDER->SetRenderDistance(-1);
 	//
 	GameObject* AbilityUI = m_GOM.AddGameObject("UI");
 	AbilityUI->TRANS->SetPosition(100, 100, 0);
@@ -225,7 +233,7 @@ void DefaultScene::Init()
 	/// Ends Systems================================================================================
 	/// Player================================================================================
 	// Reticle
-	GameObject* ret = m_GOM.AddGameObject(GetGO("Reticle"));
+	GameObject* ret = m_GOM.AddGameObject(GetGO("Reticle"), "NoCollision");
 	//Gun------------------------------------------------------------------------------------
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 0.75, 1);

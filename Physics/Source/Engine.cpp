@@ -19,7 +19,7 @@
 #include "MainMenu.h"
 #include "LoginScene.h"
 RenderingManager* Engine::m_Renderer;
-#define TIMINGS false
+#define TIMINGS true
 
 //#define SCENE LoginScene
 // #define SCENE MainMenu
