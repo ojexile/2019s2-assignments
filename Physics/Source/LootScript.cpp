@@ -27,8 +27,8 @@ void LootScript::Collide(GameObject * go)
 
 	//Vector3 chunkspacepos = TRANS->GetPosition() - go->TRANS->GetPosition();
 	DropLoot();
-	DestroySelf();
-	//SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
+	//DestroySelf();
+	SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
 	
 }
 
