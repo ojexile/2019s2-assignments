@@ -14,7 +14,7 @@ CoinPickupScript::~CoinPickupScript()
 
 void CoinPickupScript::Collide(GameObject* go)
 {
-	PlayerScript* ps = go->GetComponent<PlayerScript>();
+	PlayerScript* ps = go->GetComponent<PlayerScript>(true);
 	if (ps)
 	{
 		ps->AddCoin();

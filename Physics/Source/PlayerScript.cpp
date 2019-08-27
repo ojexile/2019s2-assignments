@@ -9,6 +9,7 @@
 #include "InventoryScript.h"
 #include "SceneManager.h"
 #include "MainMenu.h"
+#include "PlayerData.h"
 PlayerScript::PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun, GameObject* grenade, Stats stats)
 	: EntityScript(beh, stats)
 {
@@ -195,7 +196,7 @@ void PlayerScript::Dash()
 
 void PlayerScript::AddCoin(int count)
 {
-
+	PlayerData::GetInstance()->OffsetCoins(1);
 }
 
 void PlayerScript::PullPin()
