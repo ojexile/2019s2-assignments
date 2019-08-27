@@ -138,6 +138,12 @@ void MainMenu::Init()
 	int NumCoins = PlayerData::GetInstance()->GetCoins();
 	go->TRANS->SetPosition(1800 + 100, 900, 40);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), std::to_string(NumCoins)));
+	// Name
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(30, 30, 40);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), PlayerData::GetInstance()->GetUsername()));
+	go->RENDER->SetColor({ 0.9f,1.f,0.9f });
+	go->SetDisableDistance(-1);
 	/// End UI================================================================================
 	/// Player================================================================================
 	//Gun------------------------------------------------------------------------------------

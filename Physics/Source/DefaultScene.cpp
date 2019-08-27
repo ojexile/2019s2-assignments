@@ -39,28 +39,33 @@ DefaultScene::~DefaultScene()
 }
 void DefaultScene::Init()
 {
-	/// Layers================================================================================
+	/// INIT ///
+	GameObject* go = nullptr;
+	GameObject* go2 = nullptr;
 	DataContainer* dataContainer = DataContainer::GetInstance();
+	/// INIT ///
+	/// Layers================================================================================
 	m_GOM.CreateLayer(dataContainer->GetShader("Post"), "Post");
 	m_GOM.CreateLayer(dataContainer->GetShader("EffectCRT"), "Post2");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Grass");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Particles");
-	GameObject* go = nullptr;
-	GameObject* go2 = nullptr;
-	///RENDER///
+	/// End Layers================================================================================
+	/// RENDER ///
 	go = m_GOM.AddGameObject(GetGO("Render"), "Post");
 	go = m_GOM.AddGameObject(GetGO("Render2"), "Post2");
-	////////////
-	///
+	/// RENDER ///
+	/// Misc Data================================================================================
 	Preferences::SetPref(Resources::PreferencesTerm::CamDist, "40");
+	/// End Misc Data================================================================================
 	/// Observers================================================================================
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
 	GenericSubject::GetInstance()->AddObserver(new ParticleObserver);
 	GenericSubject::GetInstance()->AddObserver(new BossObserver);
-
+	/// End Observers================================================================================
+	/// Audio================================================================================
 	AudioManager::GetInstance()->PlayBGM("bgm_01.ogg", "low_synth");
 	AudioManager::GetInstance()->SetBGMVolume(0, "low_synth");
 	AudioManager::GetInstance()->QueueFade(1, 0.05f, "low_synth");
@@ -68,7 +73,7 @@ void DefaultScene::Init()
 	AudioManager::GetInstance()->PlayBGM("bgm_03.ogg", "low_piano");
 	AudioManager::GetInstance()->PlayBGM("bgm_04.ogg", "high_piano");
 	AudioManager::GetInstance()->SetBGMVolume(0, "high_piano");
-	/// Layers================================================================================
+	/// End Audio================================================================================
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
@@ -126,7 +131,8 @@ void DefaultScene::Init()
 	go->TRANS->SetPosition(CustoPos - Vector3(0, fCustoDist, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotClip"));
 	CustoSlots.push_back(go);
-	/// End Inventor--------------------------------------------------------------------------------
+	/// End Inventory--------------------------------------------------------------------------------
+	/// End UI================================================================================
 	/// Player Stats--------------------------------------------------------------------------------
 	// Stamina--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
@@ -190,11 +196,11 @@ void DefaultScene::Init()
 	AbilityUI->TRANS->SetScale(100);
 	AbilityUI->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
 	AbilityUI->RENDER->SetColor(0.1f, 0.2f, 0.8f);
-	/// Start Systems--------------------------------------------------------------------------------
+	/// End Player Stats--------------------------------------------------------------------------------
+	/// Systems--------------------------------------------------------------------------------
 	GameObject* BossSpawner = m_GOM.AddGameObject(dataContainer->GetGameObject("BossSpawner"));
 	BossSpawner->AddComponent(new BossObserverCom);
 	/// Ends Systems--------------------------------------------------------------------------------
-	/// End Player Stats--------------------------------------------------------------------------------
 	/// Player================================================================================
 	// Reticle
 	GameObject* ret = m_GOM.AddGameObject(GetGO("Reticle"));
@@ -202,7 +208,6 @@ void DefaultScene::Init()
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 0.75, 1);
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
-
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObjectRaw("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
@@ -224,6 +229,7 @@ void DefaultScene::Init()
 	Player->GetComponent<EntityScript>()->SetCanDie(true);
 	Player->AddComponent(new AbilityScript(PlayerData::GetInstance()->GetAbility(), AbilityUI));
 	Player->AddComponent(new CheatScript());
+	/// End Player================================================================================
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
@@ -238,39 +244,20 @@ void DefaultScene::Init()
 	float size = 100;
 	this->m_Camera->InitOrtho(size);
 	SetCursorEnabled(false);
-	/// Entities--------------------------------------------------------------------------------
+	/// End Create Camera================================================================================
+	/// Entities================================================================================
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
 	go->TRANS->SetPosition(3, 24.f, 0);
-	/// End Entities--------------------------------------------------------------------------------
-	///interactable test
-
-	//go = m_GOM.AddGameObject();
-	//go->TRANS->SetPosition(dataContainer->GetHeightMap("TerrainPlains")->GetPos() - Vector3(200, 0, 0));
-	//go->AddComponent(new RenderComponent(dataContainer->GetHeightMap("TerrainPlains")->GetMeshBiomed()));
-	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
-
-	//go = m_GOM.AddGameObject(dataContainer->GetGameObject("plaintree"));
-	//go->GetComponent<EntityScript>()->GetValues()->SetHealth(1);saaaaedwssssssssssss
-	//go->AddComponent(new BiomeComponent(BiomeComponent::BIOME_PLAINS));
-	//go->TRANS->SetPosition(20, 18.5, 20);
-
+	/// End Entities================================================================================
+	/// Interactables================================================================================
+	// Treasure--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("treasurebox"));
 	go->TRANS->SetPosition(20, 18.5, 20);
-
+	// boulder--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("boulder"));
 	go->TRANS->SetPosition(10, 19, 20);
-
+	// fliprock--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("fliprock"));
 	go->TRANS->SetPosition(0, 19, 20);
-
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("ItemInfo"));
-	go->TRANS->SetPosition(0, 16, 0);
-	go->SetActive(false);
-
-	//go = m_GOM.AddGameObject("UI");
-	//go->TRANS->SetPosition(0, 16, 0);
-	//go->TRANS->SetScale(1);
-	//go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "oof", false));
-	//go->RENDER->Set3DBillboard(true);
-	//go->RENDER->SetColor(0, 1, 1);
+	/// End Interactables================================================================================
 }

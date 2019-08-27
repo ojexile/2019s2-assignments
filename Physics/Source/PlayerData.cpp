@@ -8,6 +8,9 @@ PlayerData::PlayerData()
 	m_bAbilityDash = true;
 	m_bAbilityGrenade = false;
 	m_iCoins = 0;
+
+	m_sUser = "DEBUG";
+	m_sPass = "DEBUG";
 }
 
 PlayerData::~PlayerData()
@@ -147,4 +150,9 @@ bool PlayerData::Load(std::string user, std::string pass)
 	m_sUser = user;
 	m_sPass = pass;
 	return true;
+}
+
+std::string PlayerData::GetUsername()
+{
+	return m_sUser;;
 }

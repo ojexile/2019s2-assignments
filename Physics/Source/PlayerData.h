@@ -31,4 +31,6 @@ public:
 	void Save();
 	bool Create(std::string user, std::string pass);
 	bool Load(std::string user, std::string pass);
+
+	std::string GetUsername();
 };

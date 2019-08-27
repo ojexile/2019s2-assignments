@@ -18,7 +18,7 @@ InteractableObCom::~InteractableObCom()
 }
 void InteractableObCom::Notify(ComponentBase* com, std::string msg)
 {
-	FlipEntityScript* flipscript = GetComponent<FlipEntityScript>();
+	FlipEntityScript* flipscript = GetComponent<FlipEntityScript>(true);
 	if (flipscript && !flipscript->IsAlreadyTriggered())
 	{
 		LZ_LOG("flipentityscript rock yeeted");
