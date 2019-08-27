@@ -7,7 +7,7 @@ class DepthFBO
 {
 public:
     DepthFBO();
-    ~DepthFBO();
+    virtual ~DepthFBO();
 
     bool Init(unsigned width, unsigned height);
     void BindForWriting();

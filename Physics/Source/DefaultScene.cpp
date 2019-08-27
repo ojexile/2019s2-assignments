@@ -41,6 +41,7 @@ void DefaultScene::Init()
 	m_GOM.CreateLayer(dataContainer->GetShader("EffectCRT"), "Post2");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Particles");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
 	///RENDER///
@@ -250,7 +251,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new InventoryScript(Gun, InventorySlots, CustoSlots, ret));
 	Player->AddComponent(new PlayerStatsScript(Player, StaminaBar, HealthBar, Gun, dataContainer->GetGameObjectRaw("BulletUI"), BossSpawner, BossBar, BossBarText));
 	Player->AddComponent(new MapSpawningScript());
-	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObjectRaw("particledestroy"), 100, Vector3(), 0.f, "Default", 10.f));
+	Player->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::CIRCULAR, 12, true, dataContainer->GetGameObjectRaw("particledestroy"), 100, Vector3(), 0.f, "Particles", 10.f));
 	Player->AddComponent(new WinLoseScript());
 	Player->GetComponent<EntityScript>()->SetCanDie(true);
 	Player->AddComponent(new AbilityScript());

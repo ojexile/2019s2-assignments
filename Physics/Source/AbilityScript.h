@@ -15,7 +15,7 @@ private:
 public:
 	AbilityScript();
 	AbilityScript(AbilityBase* Ability);
-	~AbilityScript();
+	virtual ~AbilityScript();
 	
 	Component* Clone() { return new AbilityScript(*this); }
 	virtual void Update(double dt);

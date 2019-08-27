@@ -600,7 +600,7 @@ void DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["particlespawnerdestroy"] = go;
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Default", 10.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Particles", 10.f));
 	go->m_sName = "particlespawnerdestroy";
 
 	go = new GameObject();
@@ -625,7 +625,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new DestructibleEntityScript(""));
 	static_cast<FlipEntityScript*>(
 		go->AddComponent(new FlipEntityScript()))->SetMaxElapsedTime(0.5f);
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particlerockbreak"], 100, Vector3(), 0.f, "Default", 10.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particlerockbreak"], 100, Vector3(), 0.f, "Particles", 10.f));
 
 	go->AddChild(GetGameObject("fliprockrender"));
 

@@ -17,7 +17,7 @@ public:
 public:
 	AnimatedMesh(std::string sMeshName, int row, int col, int start, int end, float time, bool loop, Mesh* mesh);
 	AnimatedMesh(AnimatedMesh& ref);
-	~AnimatedMesh();
+	virtual ~AnimatedMesh();
 	virtual void Update(double dt);
 	virtual void Render(); // Polymorphism
 

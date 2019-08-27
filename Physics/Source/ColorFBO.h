@@ -7,7 +7,7 @@ class ColorFBO
 {
 public:
 	ColorFBO();
-	~ColorFBO();
+	virtual ~ColorFBO();
 
 	bool Init(unsigned width, unsigned height);
 	void BindForWriting();

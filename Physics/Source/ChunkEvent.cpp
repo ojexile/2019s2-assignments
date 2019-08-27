@@ -105,7 +105,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 
 		break;
 	}
-	case LOOT_CHEST:
+	//case LOOT_CHEST:
 	{
 		float x = Math::RandFloatMinMax(0.f, size.x);
 		float z = Math::RandFloatMinMax(0.f, size.z);
@@ -124,7 +124,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 
 		break;
 	}
-	case LOOT_AND_ENEMIES:
+	//case LOOT_AND_ENEMIES:
 	{
 		//NOTE: Wait on chest interactable
 		const unsigned int SPAWNCOUNT = 4;

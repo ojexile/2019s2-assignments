@@ -21,8 +21,8 @@ private:
 	bool m_bOneTimeTrigger;
 	bool m_Triggered;
 public:
-	AdvancedParticleSpawnerScript(eSpawnerType type, int spawncount, bool isonetimetrigger, GameObject* refobj, float spawnrate, Vector3 spawnradius, const float fsizeoffset,  std::string layer = "Default", float flifeftime = -1.f);
-	~AdvancedParticleSpawnerScript();
+	AdvancedParticleSpawnerScript(eSpawnerType type, int spawncount, bool isonetimetrigger, GameObject* refobj, float spawnrate, Vector3 spawnradius, const float fsizeoffset,  std::string layer = "Particles", float flifeftime = -1.f);
+	virtual ~AdvancedParticleSpawnerScript();
 
 	virtual Component* Clone() { return new AdvancedParticleSpawnerScript(*this); }
 	virtual void Update(double dt);

@@ -26,14 +26,16 @@ MeshBiomed::~MeshBiomed()
 	{
 		for (int j = 0; j < MAX_TEXTURES; ++j)
 		{
-			glDeleteTextures(1, &m_uBiomedTextureArray[i][j]);
+			if(m_uBiomedTextureArray[i][j] != 0)
+				glDeleteTextures(1, &m_uBiomedTextureArray[i][j]);
 		}
 		//m_iNumBiomedTextures[i] = NULL;
 	}
 
 	for (int i = 0; i < MAX_TEXTURES; ++i)
 	{
-		glDeleteTextures(1, &m_uTextureArray[i]);
+		if (m_uTextureArray[i] != 0)
+			glDeleteTextures(1, &m_uTextureArray[i]);
 	}
 
 }

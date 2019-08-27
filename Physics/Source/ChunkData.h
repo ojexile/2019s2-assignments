@@ -19,7 +19,7 @@ class ChunkData
 	//std::vector<ChunkFeature> m_features;
 public:
 	ChunkData(const std::string fileName, int rotate = 0);
-	~ChunkData();
+	virtual ~ChunkData();
 	void WriteToFile(const std::string fileName);
 	Mesh* GenerateMesh();
 	MeshBiomed* GenerateMeshBiomed();

@@ -12,10 +12,12 @@ GameObjectManager::~GameObjectManager()
 {
 	std::map<std::string, LayerData*>::iterator it;
 
+	int i = 0;
 	for (it = m_map_Layers.begin(); it != m_map_Layers.end(); it++)
 	{
 		//	 it->first == key
 		//	 it->second == value
+		++i;
 		delete it->second;
 	}
 	m_map_Layers.clear();

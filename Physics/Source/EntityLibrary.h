@@ -50,7 +50,7 @@ public:
 	};
 
 	EntityLibrary();
-	~EntityLibrary();
+	virtual ~EntityLibrary();
 
 	void Init();
 	GameObject* GetEntity(eEntities type);

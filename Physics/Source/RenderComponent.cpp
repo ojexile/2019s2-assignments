@@ -103,10 +103,6 @@ void RenderComponent::SetRenderDistance(float k)
 
 RenderComponent::~RenderComponent()
 {
-	if (m_AnimatedMesh)
-		delete m_AnimatedMesh;
-	if (m_MeshBiomed)
-		delete m_MeshBiomed;
 }
 
 Mesh* RenderComponent::GetMesh()

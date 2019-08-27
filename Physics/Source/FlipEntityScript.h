@@ -26,7 +26,7 @@ private:
 public:
 
 	FlipEntityScript();
-	~FlipEntityScript();
+	virtual ~FlipEntityScript();
 
 	virtual void Update(double dt) override;
 	virtual void Trigger(ComponentBase* player) override;
