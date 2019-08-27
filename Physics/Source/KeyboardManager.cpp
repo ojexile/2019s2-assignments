@@ -12,7 +12,6 @@ KeyboardManager::~KeyboardManager()
 {
 }
 
-
 unsigned short ToKey(std::string str)
 {
 	if (str.substr(0, 2) == "kc")
@@ -36,9 +35,10 @@ unsigned short ToKey(std::string str)
 	if (str == "rctrl") return VK_RCONTROL;
 	if (str == "space") return VK_SPACE;
 	if (str == "esc") return VK_ESCAPE;
+	if (str == "back") return VK_BACK;
+	if (str == "enter") return VK_RETURN;
 	return NULL;
 }
-
 
 bool KeyboardManager::GetKeyTriggered(unsigned short key)
 {

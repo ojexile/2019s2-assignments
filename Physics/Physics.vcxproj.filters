@@ -55,7 +55,6 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
     <ClCompile Include="Source\GenericSubject.cpp" />
-    <ClCompile Include="Source\GrenadePickupScript.cpp" />
     <ClCompile Include="Source\GrenadeScript.cpp" />
     <ClCompile Include="Source\HealthAugment.cpp" />
     <ClCompile Include="Source\HeightMapData.cpp" />
@@ -108,7 +107,6 @@
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
-    <ClCompile Include="Source\RepairPickupScript.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\ReticleScript.cpp" />
     <ClCompile Include="Source\Rigidbody.cpp" />
@@ -135,6 +133,10 @@
     <ClCompile Include="Source\GunScript.cpp" />
     <ClCompile Include="Source\WorldValues.cpp" />
     <ClCompile Include="Source\PlayerData.cpp" />
+    <ClCompile Include="Source\LoginScene.cpp" />
+    <ClCompile Include="Source\LoginScript.cpp" />
+    <ClCompile Include="Source\LoginButtonScript.cpp" />
+    <ClCompile Include="Source\CoinPickupScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HealthAugment.h" />
@@ -193,7 +195,6 @@
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
     <ClInclude Include="Source\GenericSubject.h" />
-    <ClInclude Include="Source\GrenadePickupScript.h" />
     <ClInclude Include="Source\GrenadeScript.h" />
     <ClInclude Include="Source\HealthAugment.h" />
     <ClInclude Include="Source\HeightMapData.h" />
@@ -250,7 +251,6 @@
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />
     <ClInclude Include="Source\RenderingManagerBase.h" />
-    <ClInclude Include="Source\RepairPickupScript.h" />
     <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\ReticleScript.h" />
     <ClInclude Include="Source\Rigidbody.h" />
@@ -279,6 +279,10 @@
     <ClInclude Include="Source\GunScript.h" />
     <ClInclude Include="Source\WorldValues.h" />
     <ClInclude Include="Source\PlayerData.h" />
+    <ClInclude Include="Source\LoginScene.h" />
+    <ClInclude Include="Source\LoginScript.h" />
+    <ClInclude Include="Source\LoginButtonScript.h" />
+    <ClInclude Include="Source\CoinPickupScript.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\chunks\1x1_archway.chunk" />

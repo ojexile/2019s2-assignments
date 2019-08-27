@@ -60,13 +60,13 @@ void InventoryScript::Update(double dt)
 							bSuccess = false;
 						break;
 					case 2:
-						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::CLIP)
+						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::GRIP)
 							Attach(WeaponPartScript::GRIP);
 						else
 							bSuccess = false;
 						break;
 					case 3:
-						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::GRIP)
+						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::CLIP)
 							Attach(WeaponPartScript::CLIP);
 						else
 							bSuccess = false;
@@ -136,7 +136,7 @@ void InventoryScript::AddItem(GameObject* go)
 		Vector3 pos = m_SlotList[iSlot]->TRANS->GetPosition();
 		Vector3 scal = { 40,40,1 };
 		GameObject* go2 = Instantiate(go, pos, scal, "UI");
-		
+
 		Augment* aug = nullptr;
 		if (go->PART->GetAugment())
 			aug = go->PART->GetAugment()->Clone();

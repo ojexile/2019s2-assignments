@@ -22,19 +22,19 @@
     <ProjectGuid>{0A9B1DD2-76DC-427D-B5E8-D8CF2ADDA603}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Physics</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -225,7 +225,7 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GameObjectManager.cpp" />
     <ClCompile Include="Source\GenericSubject.cpp" />
-    <ClCompile Include="Source\GrenadePickupScript.cpp" />
+    <ClCompile Include="Source\CoinPickupScript.cpp" />
     <ClCompile Include="Source\GrenadeScript.cpp" />
     <ClCompile Include="Source\HealthAugment.cpp" />
     <ClCompile Include="Source\HeightMapData.cpp" />
@@ -246,6 +246,9 @@
     <ClCompile Include="Source\Locator.cpp" />
     <ClCompile Include="Source\LogData.cpp" />
     <ClCompile Include="Source\Logger.cpp" />
+    <ClCompile Include="Source\LoginButtonScript.cpp" />
+    <ClCompile Include="Source\LoginScene.cpp" />
+    <ClCompile Include="Source\LoginScript.cpp" />
     <ClCompile Include="Source\LootScript.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MainMenu.cpp" />
@@ -279,7 +282,6 @@
     <ClCompile Include="Source\RenderComponent.cpp" />
     <ClCompile Include="Source\RenderingManager.cpp" />
     <ClCompile Include="Source\RenderingManagerBase.cpp" />
-    <ClCompile Include="Source\RepairPickupScript.cpp" />
     <ClCompile Include="Source\Resources.cpp" />
     <ClCompile Include="Source\ReticleScript.cpp" />
     <ClCompile Include="Source\Rigidbody.cpp" />
@@ -363,7 +365,7 @@
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GameObjectManager.h" />
     <ClInclude Include="Source\GenericSubject.h" />
-    <ClInclude Include="Source\GrenadePickupScript.h" />
+    <ClInclude Include="Source\CoinPickupScript.h" />
     <ClInclude Include="Source\GrenadeScript.h" />
     <ClInclude Include="Source\HealthAugment.h" />
     <ClInclude Include="Source\HeightMapData.h" />
@@ -386,6 +388,9 @@
     <ClInclude Include="Source\Locator.h" />
     <ClInclude Include="Source\LogData.h" />
     <ClInclude Include="Source\Logger.h" />
+    <ClInclude Include="Source\LoginButtonScript.h" />
+    <ClInclude Include="Source\LoginScene.h" />
+    <ClInclude Include="Source\LoginScript.h" />
     <ClInclude Include="Source\LootScript.h" />
     <ClInclude Include="Source\MainMenu.h" />
     <ClInclude Include="Source\MapSpawningScript.h" />
@@ -421,7 +426,6 @@
     <ClInclude Include="Source\Renderer.h" />
     <ClInclude Include="Source\RenderingManager.h" />
     <ClInclude Include="Source\RenderingManagerBase.h" />
-    <ClInclude Include="Source\RepairPickupScript.h" />
     <ClInclude Include="Source\Resources.h" />
     <ClInclude Include="Source\ReticleScript.h" />
     <ClInclude Include="Source\Rigidbody.h" />

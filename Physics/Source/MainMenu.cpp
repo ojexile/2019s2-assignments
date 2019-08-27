@@ -28,6 +28,7 @@
 #include "MenuButtonsScript.h"
 //
 #include "PlayerData.h"
+#include "WorldValues.h"
 MainMenu::MainMenu()
 {
 }
@@ -38,7 +39,7 @@ MainMenu::~MainMenu()
 void MainMenu::Init()
 {
 	///
-	PlayerData::GetInstance()->Load("Cheng", "69");
+	WorldValues::TimeScale = 1;
 	PlayerData::GetInstance()->Save();
 	/// Init================================================================================
 	DataContainer* dataContainer = DataContainer::GetInstance();
@@ -46,6 +47,7 @@ void MainMenu::Init()
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	m_GOM.CreateLayer(dataContainer->GetShader("PassThrough"), "Post");
 	m_GOM.CreateLayer(dataContainer->GetShader("PassThrough"), "Post2");
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Grass");
 	GameObject* go = nullptr;
 	go = m_GOM.AddGameObject(GetGO("Render"), "Post");
 	go = m_GOM.AddGameObject(GetGO("Render2"), "Post2");
@@ -80,13 +82,13 @@ void MainMenu::Init()
 	PlayButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 6 + 40);
 	PlayButt->SetDisableDistance(-1);
 	//
-	GameObject* Ability0 = m_GOM.AddGameObject(GetGO("Ability0"), "UI");
-	Ability0->TRANS->SetPosition(50 + 50 + 150, 1080 - 1080 / 6 + 40);
-	Ability0->SetActive(false);
+	GameObject* AbilityDash = m_GOM.AddGameObject(GetGO("AbilityDash"), "UI");
+	AbilityDash->TRANS->SetPosition(50 + 50 + 150, 1080 - 1080 / 6 + 40);
+	AbilityDash->SetActive(false);
 	//
-	GameObject* Ability1 = m_GOM.AddGameObject(GetGO("Ability1"), "UI");
-	Ability1->TRANS->SetPosition(50 + 50 + 150 + 150, 1080 - 1080 / 6 + 40);
-	Ability1->SetActive(false);
+	GameObject* AbilityGrenade = m_GOM.AddGameObject(GetGO("AbilityGrenade"), "UI");
+	AbilityGrenade->TRANS->SetPosition(50 + 50 + 150 + 150, 1080 - 1080 / 6 + 40);
+	AbilityGrenade->SetActive(false);
 	//
 	GameObject* PlayText = m_GOM.AddGameObject("UI");
 	PlayText->TRANS->SetPosition(50, 1080 - 1080 / 6, 80);
@@ -123,9 +125,19 @@ void MainMenu::Init()
 	// Init Menu Buttons================================================================================
 	go = m_GOM.AddGameObject();
 	go->AddComponent(new MenuButtonsScript(PlayText, PlayButt, QuitText, QuitButt,
-		TutorialText, TutorialButt, TutBox, Ability0, Ability1));
+		TutorialText, TutorialButt, TutBox, AbilityDash, AbilityGrenade));
 	go->SetDisableDistance(-1);
 	//
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(1800, 900, 1);
+	go->TRANS->SetScale(120);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
+	go->RENDER->SetColor(1, 1, 0);
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(1800 + 100, 900, 1);
+	int NumCoins = PlayerData::GetInstance()->GetCoins();
+	go->TRANS->SetPosition(1800 + 100, 900, 40);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), std::to_string(NumCoins)));
 	/// End UI================================================================================
 	/// Player================================================================================
 	//Gun------------------------------------------------------------------------------------

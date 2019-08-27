@@ -7,10 +7,7 @@ PlayerData::PlayerData()
 	m_SelectedAbility = new AbilityDash(3, 45);
 	m_bAbilityDash = true;
 	m_bAbilityGrenade = false;
-	m_iCoins = 5;
-
-	m_sUser = "Cheng";
-	m_sPass = "69";
+	m_iCoins = 0;
 }
 
 PlayerData::~PlayerData()
@@ -20,7 +17,8 @@ PlayerData::~PlayerData()
 
 void PlayerData::SetAbility(AbilityBase * a)
 {
-	delete m_SelectedAbility;
+	if (m_SelectedAbility)
+		delete m_SelectedAbility;
 	m_SelectedAbility = a;
 }
 
@@ -89,6 +87,23 @@ void PlayerData::Save()
 	File << "GRENADE=" << m_bAbilityGrenade << '\n';
 }
 
+bool PlayerData::Create(std::string user, std::string pass)
+{
+	std::string filePath = Resources::Path::SaveData + "/" + user + ".dat";
+	std::ifstream File;
+	File.open(filePath);
+	if (File.is_open())
+	{
+		// exists
+		File.close();
+		return false;
+	}
+	m_sUser = user;
+	m_sPass = pass;
+	Save();
+	return true;
+}
+
 bool PlayerData::Load(std::string user, std::string pass)
 {
 	std::string filePath = Resources::Path::SaveData + user + ".dat";
@@ -129,5 +144,7 @@ bool PlayerData::Load(std::string user, std::string pass)
 			m_bAbilityGrenade = std::stoi(sVal);
 	}
 	ifFile.close();
+	m_sUser = user;
+	m_sPass = pass;
 	return true;
 }

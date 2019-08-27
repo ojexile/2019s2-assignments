@@ -26,6 +26,7 @@
 #include "SuicideNoteScript.h"
 #include "BirdWingScript.h"
 #include "BossSpawnerScript.h"
+#include "CoinPickupScript.h"
 //
 #include "ScalePatternScript.h"
 
@@ -218,14 +219,17 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Boulder");
 
 	m_map_Meshes["stone1"] = MeshBuilder::GenerateOBJ("stone1")->AddTexture("Boulder");
-
 	m_map_Meshes["stone2"] = MeshBuilder::GenerateOBJ("stone2")->AddTexture("Boulder");
-
 	m_map_Meshes["grass1"] = MeshBuilder::GenerateOBJ("grass1")->AddTexture("Boulder");
-
 	m_map_Meshes["grass2"] = MeshBuilder::GenerateOBJ("grass2")->AddTexture("Boulder");
 
+	m_map_Meshes["AbilityDash"] = MeshBuilder::GenerateQuad("AbilityDash", {}, 1)->AddTexture("AbilityDash");
+	m_map_Meshes["AbilityGrenade"] = MeshBuilder::GenerateQuad("AbilityGrenade", {}, 1)->AddTexture("AbilityGrenade");
+	m_map_Meshes["AbilityHeal"] = MeshBuilder::GenerateQuad("AbilityHeal", {}, 1)->AddTexture("AbilityHeal");
+	m_map_Meshes["AbilitySlowTime"] = MeshBuilder::GenerateQuad("AbilitySlowTime", {}, 1)->AddTexture("AbilitySlowTime");
+
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
+	m_map_Meshes["Coin"] = MeshBuilder::GenerateOBJ("coin");
 
 	m_map_Meshes["BirdBody"] = MeshBuilder::GenerateOBJ("Bird/Body");
 	m_map_Meshes["WingLeft"] = MeshBuilder::GenerateOBJ("Bird/WingLeft");
@@ -541,6 +545,13 @@ void DataContainer::InitGO()
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(60, 0, 100, 0, 80, 60, 2000, 12)));
+	//Coin----------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Coin"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Coin")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new CoinPickupScript());
+	go->RENDER->SetColor(1, 1, 0);
 	//Chick-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Chick"] = go;
@@ -605,31 +616,33 @@ void DataContainer::InitGO()
 	m_map_GO["ItemInfo"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
-	// Ability0--------------------------------------------------------------------------------
+	// AbilityDash--------------------------------------------------------------------------------
 	go = new GameObject;
-	m_map_GO["Ability0"] = go;
+	m_map_GO["AbilityDash"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
-	go->RENDER->SetLightEnabled(true);
-	go->RENDER->SetColor(0, 1, 1);
+	go->AddComponent(new RenderComponent(GetMesh("AbilityDash")));
+	go->TRANS->SetScale(100, 100, 1);
+	go->RENDER->SetLightEnabled(false);
+	go->SetDisableDistance(-1);
+	// AbilityGrenade--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["AbilityGrenade"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("AbilityGrenade")));
 	go->TRANS->SetScale(100, 100, 1);
 	go->SetDisableDistance(-1);
-	// Ability1--------------------------------------------------------------------------------
+	// AbilityHeal--------------------------------------------------------------------------------
 	go = new GameObject;
-	m_map_GO["Ability1"] = go;
+	m_map_GO["AbilityHeal"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
-	go->RENDER->SetLightEnabled(true);
-	go->RENDER->SetColor(0, 1, 0);
+	go->AddComponent(new RenderComponent(GetMesh("AbilityHeal")));
 	go->TRANS->SetScale(100, 100, 1);
 	go->SetDisableDistance(-1);
-	// Ability2--------------------------------------------------------------------------------
+	// AbilitySlowTime--------------------------------------------------------------------------------
 	go = new GameObject;
-	m_map_GO["Ability2"] = go;
+	m_map_GO["AbilitySlowTime"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
-	go->RENDER->SetLightEnabled(true);
-	go->RENDER->SetColor(1, 1, 0);
+	go->AddComponent(new RenderComponent(GetMesh("AbilitySlowTime")));
 	go->TRANS->SetScale(100, 100, 1);
 	go->SetDisableDistance(-1);
 	/// Interactabes/Foilage================================================================================

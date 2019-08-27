@@ -62,21 +62,29 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 	}
 	case ENEMIES_LEVEL_2:
 	{
-		const unsigned int SPAWNCOUNT = 3;
+		const unsigned int SPAWNCOUNT = 4;
 		for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
 		{
+			int selectedEnemy;
 			float x = Math::RandFloatMinMax(0.f, size.x);
 			float z = Math::RandFloatMinMax(0.f, size.z);
 			Vector3 pos = /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+			GameObject* newEntity;
 
-			int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
-
-			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
+			if (SPAWNCOUNT <= 2)
+			{
+				selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
+				newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
+			}
+			else
+			{
+				selectedEnemy = EntityLibrary::LOOT_COIN;
+				newEntity = EL->GetLootArray()[selectedEnemy]->Clone();
+			}
 
 			newEntity->TRANS->SetPosition(pos);
 			newEntity->SetDisableDistance(200.f);
 			newEntity->RENDER->SetRenderDistance(200.f);
-
 
 			GOM_ref->AddGameObject(newEntity);
 		}
@@ -87,25 +95,33 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 		const unsigned int SPAWNCOUNT = 5;
 		for (unsigned int i = 0; i < SPAWNCOUNT; ++i)
 		{
+			int selectedEnemy;
 			float x = Math::RandFloatMinMax(0.f, size.x);
 			float z = Math::RandFloatMinMax(0.f, size.z);
 			Vector3 pos = /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+			GameObject* newEntity;
 
-			int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
-
-			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
+			if (SPAWNCOUNT < 3)
+			{
+				selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
+				newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
+			}
+			else
+			{
+				selectedEnemy = EntityLibrary::LOOT_COIN;
+				newEntity = EL->GetLootArray()[selectedEnemy]->Clone();
+			}
 
 			newEntity->TRANS->SetPosition(pos);
 			newEntity->SetDisableDistance(200.f);
 			newEntity->RENDER->SetRenderDistance(200.f);
-
 
 			GOM_ref->AddGameObject(newEntity);
 		}
 
 		break;
 	}
-	//case LOOT_CHEST:
+	case LOOT_CHEST:
 	{
 		float x = Math::RandFloatMinMax(0.f, size.x);
 		float z = Math::RandFloatMinMax(0.f, size.z);
@@ -124,7 +140,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 
 		break;
 	}
-	//case LOOT_AND_ENEMIES:
+	case LOOT_AND_ENEMIES:
 	{
 		//NOTE: Wait on chest interactable
 		const unsigned int SPAWNCOUNT = 4;
@@ -154,6 +170,25 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 				newEntity->RENDER->SetRenderDistance(200.f);
 			}
 
+
+			GOM_ref->AddGameObject(newEntity);
+		}
+		break;
+	}
+	case COIN_WONDERLAND:
+	{
+		int coin = EntityLibrary::LOOT_COIN;
+		for (unsigned i = 0; i < 5; ++i)
+		{
+			float x = Math::RandFloatMinMax(0.f, size.x);
+			float z = Math::RandFloatMinMax(0.f, size.z);
+			Vector3 pos = /*Vector3(x, 16.5, z)*/chunk_ref->GetGroundPosition(Vector3(x, 0.f, z)) + Chunk_Pos;
+
+			GameObject* newEntity = EL->GetLootArray()[coin]->Clone();
+
+			newEntity->TRANS->SetPosition(pos);
+			newEntity->SetDisableDistance(200.f);
+			newEntity->RENDER->SetRenderDistance(200.f);
 
 			GOM_ref->AddGameObject(newEntity);
 		}
@@ -193,7 +228,7 @@ void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_r
 			newEntity->TRANS->SetPosition(pos);
 			newEntity->SetDisableDistance(100.f);
 			
-			auto ptr = newEntity->RENDER;
+			auto ptr = newEntity->GetComponent<RenderComponent>(true);
 			if (ptr == nullptr)
 			{
 				newEntity->GetChildList()->at(0)->RENDER->SetRenderDistance(100.f);
@@ -237,7 +272,7 @@ void ChunkEvent::GenerateEnvironment(GameObjectManager* GOM_ref, ChunkData* chun
 			static_cast<EntityLibrary::eEnvironment>(selectedEntity) == EntityLibrary::GRASS_2)
 			GOM_ref->AddGameObject(newEntity, "Grass");
 		else
-			GOM_ref->AddGameObject(newEntity);
+			GOM_ref->AddGameObject(newEntity, "NoCollision");
 
 	}
 }

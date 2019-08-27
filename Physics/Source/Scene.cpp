@@ -3,6 +3,7 @@
 Scene::Scene()
 {
 	m_bCursorEnabled = false;
+	m_Player = nullptr;
 }
 
 Scene::~Scene()

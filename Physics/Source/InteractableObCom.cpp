@@ -53,7 +53,6 @@ void InteractableObCom::Notify(ComponentBase* com, std::string msg)
 		loot->TRANS->SetPosition(this->GetPosition() + Vector3(0, yoffset, 0));
 
 		loot->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObjectRaw("particlebullettrail"), 30, Vector3(), 0));
-		
 
 		return;
 	}

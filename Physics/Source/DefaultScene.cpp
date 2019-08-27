@@ -28,6 +28,8 @@
 #include "ReloadingAugment.h"
 //systems
 #include "PlayerData.h"
+
+#define PLAYER_HEALTH 10000
 DefaultScene::DefaultScene()
 {
 }
@@ -201,33 +203,13 @@ void DefaultScene::Init()
 	Gun->TRANS->SetRelativePosition(1, 0.75, 1);
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
 
-	//TMP------------------------------------------------------------------------------------
-	GameObject* tmp;
-	GunScript* gs = Gun->GUN;
-
-	tmp = dataContainer->GetGameObject("Muzzle");
-	tmp->PART->SetAugment(new BlackHoleAugment);
-	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
-	tmp->PART->GetAugment()->SetGunReference(gs);
-	
-	Gun->AddChild(tmp);
-	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
-
-	tmp = dataContainer->GetGameObject("Scope");
-	tmp->PART->SetAugment(new ExplodeAugment);
-	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
-	tmp->PART->GetAugment()->SetGunReference(gs);
-
-	Gun->AddChild(tmp);
-	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
-
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObjectRaw("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
 	// Player--------------------------------------------------------------------------------
 	GameObject* Player = m_GOM.AddGameObject();
 	m_Player = Player;
-	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(10000)));
+	Player->AddComponent(new PlayerScript(dataContainer->GetBehaviour("Player"), ret, Gun, grenade, Stats(PLAYER_HEALTH)));
 	Player->AddChild(Gun);
 	Player->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	Player->AddComponent(new RenderComponent(dataContainer->GetMesh("Player")));
