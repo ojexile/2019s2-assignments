@@ -25,7 +25,10 @@ void LoginButtonScript::Update(double dt)
 		if (m_LoginLocal->GC(UIButtonComponent)->GetHover())
 		{
 			m_LoginGO->GetComponent<LoginScript>()->LoginLocal();
-			CHENG_LOG("oof");
+		}
+		else if (m_CreateLocal->GC(UIButtonComponent)->GetHover())
+		{
+			m_LoginGO->GetComponent<LoginScript>()->CreateLocal();
 		}
 	}
 }

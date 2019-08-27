@@ -83,15 +83,15 @@ void LoginScene::Init()
 	go->SetDisableDistance(-1);
 	/// Buttons--------------------------------------------------------------------------------
 	GameObject* LoginLocal = m_GOM.AddGameObject("UI");
-	LoginLocal->TRANS->SetPosition(1920 / 2 + 400, 100, 0);
+	LoginLocal->TRANS->SetPosition(1920 / 2 + 400, 100, 50);
 	LoginLocal->TRANS->SetScale(300, 100, 1);
 	LoginLocal->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Login Local"));
 	LoginLocal->AddComponent(new UIButtonComponent());
 	LoginLocal->SetDisableDistance(-1);
 	GameObject* CreateLocal = m_GOM.AddGameObject("UI");
-	CreateLocal->TRANS->SetPosition(1920 / 2 - 400, 100, 0);
+	CreateLocal->TRANS->SetPosition(1920 / 2 - 400, 100, 50);
 	CreateLocal->TRANS->SetScale(300, 100, 1);
-	CreateLocal->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
+	CreateLocal->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Create Local"));
 	CreateLocal->AddComponent(new UIButtonComponent());
 	CreateLocal->SetDisableDistance(-1);
 	//

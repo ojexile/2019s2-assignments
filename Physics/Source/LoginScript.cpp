@@ -69,6 +69,17 @@ void LoginScript::LoginLocal()
 	}
 }
 
-void LoginScript::Create()
+bool LoginScript::CreateLocal()
 {
+	std::string sUser = User->RENDER->GetText();
+	std::string sPass = Pass->RENDER->GetText();
+	if (sUser == "" || sPass == "")
+		return false;
+	if (PlayerData::GetInstance()->Create(sUser, sPass))
+	{
+		LoginLocal();
+	}
+	else
+	{
+	}
 }
