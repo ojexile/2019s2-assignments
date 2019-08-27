@@ -129,7 +129,6 @@ void DataContainer::InitTextures()
 
 	m_map_Textures["plaintree"] = LoadTGA("plain_tree");
 	m_map_Textures["snowtree"] = LoadTGA("snow_tree");
-
 	m_map_Textures["particleSquareBorder"] = LoadTGA("particleSquareBorder");
 	m_map_Textures["particleHexagon"] = LoadTGA("particleHexagon");
 	m_map_Textures["particleHexagonGrey"] = LoadTGA("particleHexagonGrey");
@@ -137,6 +136,9 @@ void DataContainer::InitTextures()
 	m_map_Textures["particleHexagonRed"] = LoadTGA("particleHexagonRed");
 	m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonBorderYellow");
 	//m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonYellow"); 
+
+	m_map_Textures["Boulder"] = LoadTGA("Boulder");
+
 }
 void DataContainer::InitMeshes()
 {
