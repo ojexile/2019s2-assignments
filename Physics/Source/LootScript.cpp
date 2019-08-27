@@ -67,12 +67,11 @@ WeaponPartScript* LootScript::GenerateWeaponPart(void)
 
 }
 
-void LootScript::GenerateAugment(GameObject* ptr)
+bool LootScript::GenerateAugment(GameObject* ptr)
 {
-	ptr->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObjectRaw("particleRareDrop"), 30, Vector3(), 0));
 
-	if (!ptr->PART)
-		return;
+	if (ptr->PART == nullptr)
+		return false;
 
 	int GenerateAugmentChance = Math::RandIntMinMax(1, 10);
 	GenerateAugmentChance = 10;
@@ -85,10 +84,10 @@ void LootScript::GenerateAugment(GameObject* ptr)
 			ptr->PART->SetAugment(new ReloadingAugment);
 	/*	else if (GenerateAugmentChance == 3)
 			ptr->PART->SetAugment(new BlackHoleAugment);*/
-
-		//ptr->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObjectRaw("particleRareDrop"), 30, Vector3(), 0));
-
+			return true;
 	}
+
+	return false;
 }
 
 void LootScript::DropLoot(void)
@@ -137,7 +136,11 @@ void LootScript::DropLoot(void)
 			Loot->RENDER->SetActive(true);
 			Loot->RIGID->SetAffectedByGravity(true);
 
-			GenerateAugment(Loot);
+			if (GenerateAugment(Loot))
+			{
+				auto go = Instantiate(DataContainer::GetInstance()->GetGameObjectRaw("particleRareDropSpawner"));
+				go->TRANS->SetPosition(TRANS->GetPosition());
+			}
 
 		}
 		else
