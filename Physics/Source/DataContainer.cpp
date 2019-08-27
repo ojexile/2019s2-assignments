@@ -664,12 +664,12 @@ void DataContainer::InitGO()
 	m_map_GO["fliprockrender"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("fliprock")));
 	//go->AddComponent(new InteractableObCom());
+
 	go = new GameObject();
 	m_map_GO["fliprock"] = go;
 	go->TRANS->SetScale(1.f, 0.5f, 1.f);
-
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	//go->RIGID->SetMat(0.9f, 0);
+	go->RIGID->SetMat(5.f, 0);
 	go->AddComponent(new InteractableObCom());
 	go->AddComponent(new DestructibleEntityScript(""));
 	static_cast<FlipEntityScript*>(
@@ -724,7 +724,7 @@ void DataContainer::InitGO()
 	//go->RENDER->SetColor({ 0.1f,0.1f,0.1f });
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMass(1000.f);
-	go->TRANS->SetScale(2.f);
+	go->TRANS->SetScale(1.5f);
 	go->AddComponent(new DestructibleEntityScript("RockDied"));
 	//go->GetComponent<DestructibleEntityScript>()->GetBaseStats()->SetMaxHealth(1);
 	go->AddComponent(new DebrisSpawningScript("boulder2", 2, 2));
