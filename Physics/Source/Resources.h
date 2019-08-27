@@ -13,6 +13,7 @@ namespace Resources
 		extern const std::string HeightMap;
 		extern const std::string Preferences;
 		extern const std::string Keybinds;
+		extern const std::string SaveData;
 	}
 
 	namespace PreferencesTerm
