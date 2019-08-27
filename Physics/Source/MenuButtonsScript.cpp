@@ -78,7 +78,7 @@ void MenuButtonsScript::Update(double dt)
 				if (PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eDASH))
 				{
 					// Set active ability
-					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 20));
+					PlayerData::GetInstance()->SetAbility(new AbilityDash(1.5f, 60));
 					// Change scene
 					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
 				}
