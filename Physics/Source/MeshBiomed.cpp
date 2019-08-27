@@ -6,7 +6,6 @@
 #include "DataContainer.h"
 
 MeshBiomed::MeshBiomed(const std::string & meshName) : Mesh(meshName)
-
 {
 	for (int i = 0; i < MAX_BIOMES; i++)
 	{
@@ -20,22 +19,25 @@ MeshBiomed::MeshBiomed(const std::string & meshName) : Mesh(meshName)
 
 MeshBiomed::~MeshBiomed()
 {
+	// DISABLE DESTRUCTION OF MESHBIOMED
+	return;
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteBuffers(1, &indexBuffer);
 	for (int i = 0; i < MAX_BIOMES; ++i)
 	{
 		for (int j = 0; j < MAX_TEXTURES; ++j)
 		{
-			glDeleteTextures(1, &m_uBiomedTextureArray[i][j]);
+			if(m_uBiomedTextureArray[i][j] != 0)
+				glDeleteTextures(1, &m_uBiomedTextureArray[i][j]);
 		}
 		//m_iNumBiomedTextures[i] = NULL;
 	}
 
 	for (int i = 0; i < MAX_TEXTURES; ++i)
 	{
-		glDeleteTextures(1, &m_uTextureArray[i]);
+		if (m_uTextureArray[i] != 0)
+			glDeleteTextures(1, &m_uTextureArray[i]);
 	}
-
 }
 
 MeshBiomed * MeshBiomed::AddTexture(unsigned i, BiomeComponent::eBiomeTypes e)
@@ -134,5 +136,3 @@ void MeshBiomed::Render(BiomeComponent::eBiomeTypes type, unsigned offset, unsig
 		glDisableVertexAttribArray(3);
 	}
 }
-
-

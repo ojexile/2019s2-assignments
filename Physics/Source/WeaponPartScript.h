@@ -19,7 +19,7 @@ public:
 	};
 
 	WeaponPartScript(SLOT_TYPE slot, float Multiplier, float Durability = 5.f, Augment* Augment = nullptr);
-	~WeaponPartScript();
+	virtual ~WeaponPartScript();
 
 	bool DecreaseDurability(double deltaTime);
 	void RepairPart(float healingAmt);

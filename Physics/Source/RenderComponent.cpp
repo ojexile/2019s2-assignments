@@ -87,7 +87,7 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 	m_bIsText = ref.m_bIsText;
 	m_sText = ref.m_sText;
 	m_b3DBillboard = ref.m_b3DBillboard;
-	this->m_Material = ref.m_Material;
+	m_Material = ref.m_Material;
 	m_bTextOnScreen = ref.m_bTextOnScreen;
 }
 
@@ -103,10 +103,6 @@ void RenderComponent::SetRenderDistance(float k)
 
 RenderComponent::~RenderComponent()
 {
-	if (m_AnimatedMesh)
-		delete m_AnimatedMesh;
-	if (m_MeshBiomed)
-		delete m_MeshBiomed;
 }
 
 Mesh* RenderComponent::GetMesh()
@@ -198,6 +194,10 @@ std::string RenderComponent::GetText()
 void RenderComponent::SetText(std::string s)
 {
 	m_sText = s;
+}
+void RenderComponent::DeleteMeshBiomed()
+{
+	delete m_MeshBiomed;
 }
 void RenderComponent::SetAlpha(float a)
 {

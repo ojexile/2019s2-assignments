@@ -12,7 +12,7 @@ private:
 	std::map<std::string, float> m_cooldowns;
 public:
 	AudioManager();
-	~AudioManager();
+	virtual ~AudioManager();
 	void PlayBGM(std::string filePath, std::string ref = "main_bgm");
 	void SetBGMVolume(float m, std::string ref = "main_bgm");
 	void StopBGM(std::string ref = "main_bgm");

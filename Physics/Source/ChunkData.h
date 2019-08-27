@@ -14,11 +14,12 @@ class ChunkData
 	std::vector<std::vector<unsigned short>> m_roofworlds;// vector of vectors of same size defining separate roofworlds
 	std::map<Vector3, std::map<unsigned char, unsigned short>> m_chunkConnections;
 	std::map<BiomeComponent::eBiomeTypes, bool> m_validBiomes;
+	MeshBiomed* meshBiomed;
 	ChunkEvent* m_event;
 	//std::vector<ChunkFeature> m_features;
 public:
 	ChunkData(const std::string fileName, int rotate = 0);
-	~ChunkData();
+	virtual ~ChunkData();
 	void WriteToFile(const std::string fileName);
 	Mesh* GenerateMesh();
 	MeshBiomed* GenerateMeshBiomed();

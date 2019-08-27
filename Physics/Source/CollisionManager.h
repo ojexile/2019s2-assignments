@@ -13,7 +13,7 @@ private:
 	void CollisionResponse(GameObject* go1, GameObject* go2, Rigidbody::ePhysicsTypes e);
 public:
 	CollisionManager();
-	~CollisionManager();
+	virtual ~CollisionManager();
 
 	void Update(GameObjectManager* GOM, int frameCycle);
 };

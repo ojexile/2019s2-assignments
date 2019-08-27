@@ -8,7 +8,6 @@ AbilityBase::AbilityBase(const float usetime, const float cooldowntime, const fl
 	//m_bCanUse(true),
 	m_SW()
 {
-
 }
 
 AbilityBase::~AbilityBase()
@@ -17,8 +16,6 @@ AbilityBase::~AbilityBase()
 
 void AbilityBase::Update(Component* com)
 {
-	
-
 	if (m_SW.GetTime() > m_fUseTime)
 	{
 		StopUse(com);
@@ -34,6 +31,8 @@ void AbilityBase::Update(Component* com)
 
 float AbilityBase::GetPercentageCooldownDone()
 {
+	if (!m_bInUse)
+		return 1;
 	float returnval = (m_SW.GetTime() / m_fCooldownTime);
 	Math::Clamp(returnval, 0.f, 100.f);
 

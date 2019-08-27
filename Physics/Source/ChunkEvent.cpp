@@ -105,7 +105,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 
 		break;
 	}
-	case LOOT_CHEST:
+	//case LOOT_CHEST:
 	{
 		float x = Math::RandFloatMinMax(0.f, size.x);
 		float z = Math::RandFloatMinMax(0.f, size.z);
@@ -124,7 +124,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 
 		break;
 	}
-	case LOOT_AND_ENEMIES:
+	//case LOOT_AND_ENEMIES:
 	{
 		//NOTE: Wait on chest interactable
 		const unsigned int SPAWNCOUNT = 4;
@@ -190,10 +190,19 @@ void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_r
 		}
 		else
 		{
-
 			newEntity->TRANS->SetPosition(pos);
 			newEntity->SetDisableDistance(100.f);
-			newEntity->RENDER->SetRenderDistance(100.f);
+			
+			auto ptr = newEntity->RENDER;
+			if (ptr == nullptr)
+			{
+				newEntity->GetChildList()->at(0)->RENDER->SetRenderDistance(100.f);
+			}
+			else
+			{
+				newEntity->RENDER->SetRenderDistance(100.f);
+
+			}
 			GOM_ref->AddGameObject(newEntity);
 		}
 

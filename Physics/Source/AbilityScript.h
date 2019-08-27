@@ -11,15 +11,13 @@ class AbilityScript : public ScriptComponent
 {
 private:
 	AbilityBase* m_ability;
-
+	GameObject* m_UI;
 public:
-	AbilityScript();
-	AbilityScript(AbilityBase* Ability);
-	~AbilityScript();
-	
+	AbilityScript(AbilityBase* Ability, GameObject* UI);
+	virtual ~AbilityScript();
+
 	Component* Clone() { return new AbilityScript(*this); }
 	virtual void Update(double dt);
 
 	float GetPercentageCooldownDone();
-
 };

@@ -30,7 +30,7 @@ private:
 public:
 
 	Camera();
-	~Camera();
+	virtual ~Camera();
 	virtual void Init(const Vector3& target, const Vector3& up);
 	void InitOrtho(float size);
 	virtual void Reset();

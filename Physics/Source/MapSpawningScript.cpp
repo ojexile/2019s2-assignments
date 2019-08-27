@@ -197,7 +197,7 @@ void MapSpawningScript::Update(double dt)
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 				for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
 				{
-					Vector3 noise = GetNoiseAt(Vector3((offsetX + xDiff) / 2, 0, (offsetZ + zDiff) / 2)) * 1 + Vector3(1, 1, 1);
+					Vector3 noise = GetNoiseAt(Vector3((float)((offsetX + xDiff) / 2), 0, (offsetZ + zDiff) / 2)) * 1 + Vector3(1, 1, 1);
 					noise.y = 0;
 					if (floor(noise.x) == Mod(offsetX + xDiff, 2))
 						if (floor(noise.z) == Mod(offsetZ + zDiff, 2))
@@ -207,7 +207,6 @@ void MapSpawningScript::Update(double dt)
 						}
 				}
 			chunk->GetEvent()->GenerateEnvironment(GOM, chunk, go->TRANS->GetPosition());
-
 		}
 	}
 }

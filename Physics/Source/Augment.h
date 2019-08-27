@@ -10,7 +10,7 @@ class Augment
 {
 public:
 	Augment();
-	~Augment();
+	virtual ~Augment();
 
 	enum eAugmentType
 	{

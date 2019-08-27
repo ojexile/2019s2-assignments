@@ -64,7 +64,7 @@ void ReticleScript::Update(double dt)
 		WeaponPartScript* wp = go->GetComponent<WeaponPartScript>(true);
 		if (wp)
 		{
-			float maxPartDist = 1;
+			float maxPartDist = 2;
 			Vector3 PartPos = wp->TRANS->GetPosition();
 			Vector3 Pos = GetPosition();
 			// dist check
@@ -85,8 +85,17 @@ void ReticleScript::Update(double dt)
 			continue;
 		}
 	}
-	GetChild(0)->SetActive(PartFound);
-	GetChild(1)->SetActive(PartFound);
+	if (PartFound)
+	{
+		GetChild(0)->SetActive(PartFound);
+		GetChild(0)->RENDER->SetText(PartFound->GetComponent<WeaponPartScript>()->GetName());
+		GetChild(1)->SetActive(PartFound);
+	}
+	else
+	{
+		GetChild(0)->SetActive(false);
+		GetChild(1)->SetActive(false);
+	}
 	Vector3 Dir = RenderingManager::MouseWorldDir();
 	Vector3 StartPos = GetCameraGO()->TRANS->GetPosition();
 	float Offset = 1.73205f; // diag of cube

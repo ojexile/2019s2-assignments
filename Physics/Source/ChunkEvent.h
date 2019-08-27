@@ -26,7 +26,7 @@ public:
 	};
 
 	ChunkEvent();
-	~ChunkEvent();
+	virtual ~ChunkEvent();
 
 	void SetEntityRef(GameObject* go);
 

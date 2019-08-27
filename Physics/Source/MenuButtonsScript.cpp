@@ -4,11 +4,15 @@
 #include "SceneManager.h"
 #include "DefaultScene.h"
 #include "Application.h"
+#include "PlayerData.h"
+
+#include "AbilityGrenade.h"
+#include "AbilityDash.h"
 
 MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 	GameObject* QuitText, GameObject* QuitButt,
 	GameObject* TutorialText, GameObject* TutorialButt,
-	GameObject* TutorialBox)
+	GameObject* TutorialBox, GameObject* Ability0, GameObject* Ability1)
 	: m_PlayText(PlayText)
 	, m_PlayButt(PlayButt)
 	, m_QuitText(QuitText)
@@ -16,10 +20,20 @@ MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 	, m_TutorialText(TutorialText)
 	, m_TutorialButt(TutorialButt)
 	, m_TutorialBox(TutorialBox)
+	, m_Ability0(Ability0)
+	, m_Ability1(Ability1)
 {
 	m_fPlayFadeVal = 0.5f;
 	m_fQuitFadeVal = 0.5f;
 	m_fTutorialFadeVal = 0.5f;
+}
+
+void MenuButtonsScript::Start()
+{
+	if (!PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eGRENADE))
+	{
+		m_Ability1->RENDER->SetColor(0.2f);
+	}
 }
 
 MenuButtonsScript::~MenuButtonsScript()
@@ -34,7 +48,10 @@ void MenuButtonsScript::Update(double dt)
 	if (m_PlayButt->GetComponent<UIButtonComponent>()->GetHover())
 	{
 		if (InputManager::GetInstance()->GetInputStrength("Click"))
-			SceneManager::GetInstance()->ChangeScene(new DefaultScene);
+		{
+			m_Ability0->SetActive(!m_Ability0->IsActive());
+			m_Ability1->SetActive(!m_Ability1->IsActive());
+		}
 		m_fPlayFadeVal += UpRate + DownRate;
 	}
 	if (m_TutorialButt->GetComponent<UIButtonComponent>()->GetHover())
@@ -50,6 +67,49 @@ void MenuButtonsScript::Update(double dt)
 		if (InputManager::GetInstance()->GetInputStrength("Click"))
 			Application::bExit = true;
 		m_fQuitFadeVal += UpRate + DownRate;
+	}
+	// Ability Selection--------------------------------------------------------------------------------
+	if (m_Ability0->IsActive())
+	{
+		if (m_Ability0->GC(UIButtonComponent)->GetHover())
+		{
+			if (InputManager::GetInstance()->GetInputStrength("Click"))
+			{
+				if (PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eDASH))
+				{
+					// Set active ability
+					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 20));
+					// Change scene
+					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
+				}
+			}
+		}
+	}
+	if (m_Ability1->IsActive())
+	{
+		if (m_Ability1->GC(UIButtonComponent)->GetHover())
+		{
+			if (InputManager::GetInstance()->GetInputStrength("Click"))
+			{
+				if (PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eGRENADE))
+				{
+					// Set active ability
+					PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 50));
+					// Change scene
+					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
+				}
+				// Purchase
+				else
+				{
+					if (PlayerData::GetInstance()->GetCoins() > 3)
+					{
+						PlayerData::GetInstance()->OffsetCoins(-3);
+						PlayerData::GetInstance()->ActivateAbility(PlayerData::eGRENADE);
+						m_Ability1->RENDER->ResetColor();
+					}
+				}
+			}
+		}
 	}
 
 	m_PlayText->RENDER->SetAlpha(m_fPlayFadeVal);

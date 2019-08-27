@@ -18,7 +18,7 @@ public:
 		AIState* i = nullptr);
 	Behaviour(Behaviour &ref);
 	void Init(ComponentBase* com);
-	~Behaviour();
+	virtual ~Behaviour();
 
 	void Update();
 
