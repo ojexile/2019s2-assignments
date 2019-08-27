@@ -20,6 +20,9 @@ ParticleSpawnerScript::~ParticleSpawnerScript()
 
 void ParticleSpawnerScript::Update(double dt)
 {
+	/*if (!IsActive())
+		return;*/
+
 	m_fCurrentTime += (float)dt;
 	m_fCurrentLifeTime += (float)dt;
 	//--------------------------------------------------------------------------------
@@ -55,5 +58,6 @@ void ParticleSpawnerScript::Update(double dt)
 	{
 		if (m_fCurrentLifeTime >= m_fLifeTime)
 			DestroySelf();
+			//SetActive(false); // disable component, we dont want accidental deletions 
 	}
 }
