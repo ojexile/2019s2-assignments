@@ -214,10 +214,15 @@ void DefaultScene::Init()
 	AbilityUI->RENDER->SetLightEnabled(true);
 	AbilityUI->RENDER->SetColor(0.1f, 0.2f, 0.8f);
 	/// End Player Stats--------------------------------------------------------------------------------
-	/// Systems--------------------------------------------------------------------------------
-	GameObject* BossSpawner = m_GOM.AddGameObject(dataContainer->GetGameObject("BossSpawner"));
+	GameObject* CheatSheet = m_GOM.AddGameObject("UI");
+	CheatSheet->AddComponent(new RenderComponent(dataContainer->GetMesh("CheatSheet")));
+	CheatSheet->TRANS->SetPosition(1400, 400, 0);
+	CheatSheet->TRANS->SetScale(500);
+	/// End UI================================================================================
+	/// Systems================================================================================
+	GameObject* BossSpawner = m_GOM.AddGameObject(dataContainer->GetGameObject("BossSpawner"), "NoCollision");
 	BossSpawner->AddComponent(new BossObserverCom);
-	/// Ends Systems--------------------------------------------------------------------------------
+	/// Ends Systems================================================================================
 	/// Player================================================================================
 	// Reticle
 	GameObject* ret = m_GOM.AddGameObject(GetGO("Reticle"));
@@ -245,7 +250,7 @@ void DefaultScene::Init()
 	Player->AddComponent(new WinLoseScript());
 	Player->GetComponent<EntityScript>()->SetCanDie(true);
 	Player->AddComponent(new AbilityScript(PlayerData::GetInstance()->GetAbility(), AbilityUI));
-	Player->AddComponent(new CheatScript());
+	Player->AddComponent(new CheatScript(CheatSheet));
 	/// End Player================================================================================
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();

@@ -244,6 +244,8 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["Chick"] = MeshBuilder::GenerateOBJ("Chick");
 
 	m_map_Meshes["Dino0"] = MeshBuilder::GenerateOBJ("Dino0");
+
+	m_map_Meshes["CheatSheet"] = MeshBuilder::GenerateQuad("QuadCentered", {}, 1);
 }
 void DataContainer::InitTerrain()
 {

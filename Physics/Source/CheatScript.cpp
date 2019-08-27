@@ -6,7 +6,8 @@
 #include "EntityScript.h"
 #include "WorldValues.h"
 
-CheatScript::CheatScript()
+CheatScript::CheatScript(GameObject * Sheet)
+	:m_Sheet(Sheet)
 {
 }
 
@@ -16,6 +17,7 @@ CheatScript::~CheatScript()
 
 void CheatScript::Update(double dt)
 {
+	m_Sheet->SetActive(true);
 	if (InputManager::GetInstance()->GetInputStrength("Cheat") > 0)
 	{
 		if (InputManager::GetInstance()->GetInputStrength("Fog"))
@@ -30,7 +32,7 @@ void CheatScript::Update(double dt)
 			CHENG_LOG("Cheat Act", "Death");
 		}
 	}
-	if (InputManager::GetInstance()->GetInputStrength("Cheat") < 0)
+	else if (InputManager::GetInstance()->GetInputStrength("Cheat") < 0)
 	{
 		if (InputManager::GetInstance()->GetInputStrength("Fog"))
 		{
@@ -44,9 +46,9 @@ void CheatScript::Update(double dt)
 		}
 		else if (InputManager::GetInstance()->GetInputStrength("Death"))
 		{
-			SceneManager::GetInstance()->GetScene()->GetPlayer()->GC(EntityScript)->SetCanDie(true);
-			SceneManager::GetInstance()->GetScene()->GetPlayer()->GC(EntityScript)->Damage(-10000000);
 			CHENG_LOG("Cheat Dis", "Death");
 		}
 	}
+	else
+		m_Sheet->SetActive(false);
 }

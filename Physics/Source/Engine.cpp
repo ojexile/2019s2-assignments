@@ -21,9 +21,9 @@
 RenderingManager* Engine::m_Renderer;
 #define TIMINGS false
 
-#define SCENE LoginScene
+//#define SCENE LoginScene
 // #define SCENE MainMenu
-// #define SCENE DefaultScene
+#define SCENE DefaultScene
 
 Engine::Engine()
 {
