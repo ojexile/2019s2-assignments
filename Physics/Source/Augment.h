@@ -27,13 +27,20 @@ public:
 
 	void SetGunReference(ScriptComponent* ref);
 	void SetEntityReference(ScriptComponent* ref);
+	void SetDescription(std::string s);
+	void SetName(std::string s);
 
+	std::string GetName(void);
+	std::string GetDescription(void);
 	eAugmentType GetAugmentType();
 
 protected:
 	//Allows the augment to access the object's variables
 	ScriptComponent* m_EntityRef;
 	ScriptComponent* m_GunRef;
+	
+	std::string m_Description;
+	std::string m_Name;
 
 	eAugmentType m_AugmentType;
 };

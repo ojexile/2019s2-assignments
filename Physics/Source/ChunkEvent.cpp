@@ -232,7 +232,12 @@ void ChunkEvent::GenerateEnvironment(GameObjectManager* GOM_ref, ChunkData* chun
 		newEntity->TRANS->SetScale(Math::RandFloatMinMax(0.5f, 1.0f));
 		newEntity->SetDisableDistance(100.f);
 		newEntity->RENDER->SetRenderDistance(100.f);
-		GOM_ref->AddGameObject(newEntity);
+
+		if (static_cast<EntityLibrary::eEnvironment>(selectedEntity) == EntityLibrary::GRASS_1 ||
+			static_cast<EntityLibrary::eEnvironment>(selectedEntity) == EntityLibrary::GRASS_2)
+			GOM_ref->AddGameObject(newEntity, "Grass");
+		else
+			GOM_ref->AddGameObject(newEntity);
 
 	}
 }

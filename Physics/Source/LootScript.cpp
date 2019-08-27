@@ -72,15 +72,15 @@ void LootScript::GenerateAugment(GameObject* ptr)
 
 	int GenerateAugmentChance = Math::RandIntMinMax(1, 10);
 
-	if (GenerateAugmentChance > 7)
+	if (GenerateAugmentChance % 2 == 0)
 	{
 		GenerateAugmentChance = Math::RandIntMinMax(1, 3);
-		//if (GenerateAugmentChance == 1)
-		//	ptr->PART->SetAugment(new ExplodeAugment);
-		//else if (GenerateAugmentChance == 2)
+		if (GenerateAugmentChance == 1)
+			ptr->PART->SetAugment(new ExplodeAugment);
+		else if (GenerateAugmentChance == 2)
 			ptr->PART->SetAugment(new ReloadingAugment);
-	/*	else if (GenerateAugmentChance == 3)
-			ptr->PART->SetAugment(new BlackHoleAugment);*/
+		else if (GenerateAugmentChance == 3)
+			ptr->PART->SetAugment(new BlackHoleAugment);
 		ptr->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObject("particleRareDrop"),
 			5, { 0.1f,0.1f,0.1f }, 0.1f));
 	}
@@ -112,7 +112,7 @@ void LootScript::DropLoot(void)
 			Loot->RENDER->SetActive(true);
 			Loot->RIGID->SetAffectedByGravity(true);
 
-			GenerateAugment(m_LootDrop);
+			GenerateAugment(Loot);
 		}
 		else
 		{

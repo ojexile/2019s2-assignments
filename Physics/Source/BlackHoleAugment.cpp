@@ -9,6 +9,7 @@
 BlackHoleAugment::BlackHoleAugment()
 {
 	m_AugmentType = BULLET;
+	m_Description = "Upon hitting an enemy, the bullet becomes a black hole for 1 second";
 }
 
 
@@ -22,12 +23,16 @@ void BlackHoleAugment::ActiveEffect(Component* proj, GameObject* go)
 	proj->GetGO()->AddComponent(new BlackholeScript(go->RIGID->GetMass(), 5));
 	
 	proj->TRANS->SetScale(1.f);
+	
+	proj->RENDER->SetColor(0, 0, 0);
+
 	proj->RIGID->SetVel(Vector3(0, 0, 0));
 	proj->RIGID->SetResponseActive(false);
+
 	proj->PROJECTILE->SetLifespan(1.f);
 	proj->PROJECTILE->SetDamage(10.f);
 	
-	proj->GetComponent<BlackholeScript>()->SetActive(false);
+	//proj->GetComponent<BlackholeScript>()->SetActive(false);
 }
 
 void BlackHoleAugment::PassiveEffect()

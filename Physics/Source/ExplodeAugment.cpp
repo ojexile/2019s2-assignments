@@ -8,6 +8,8 @@
 ExplodeAugment::ExplodeAugment()
 {
 	m_AugmentType = BULLET;
+	m_Name = "Explode Augment";
+	m_Description = "Bullet explodes and pushes back enemies when colliding\n";
 }
 
 ExplodeAugment::~ExplodeAugment()

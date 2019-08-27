@@ -43,6 +43,7 @@ void DefaultScene::Init()
 	m_GOM.CreateLayer(dataContainer->GetShader("EffectCRT"), "Post2");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
+	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Grass");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Particles");
 	GameObject* go = nullptr;
 	GameObject* go2 = nullptr;
@@ -202,46 +203,23 @@ void DefaultScene::Init()
 
 	//TMP------------------------------------------------------------------------------------
 	GameObject* tmp;
+	GunScript* gs = Gun->GUN;
 
-	//tmp->PART->SetAugment(new ReloadingAugment);
-	//tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
-	//
-	//GunScript* gs = Gun->GUN;
-	//tmp->PART->GetAugment()->SetGunReference(gs);
-	//Gun->AddChild(tmp);
-	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
-
-	//tmp = dataContainer->GetGameObject("Muzzle");
-	//Gun->AddChild(tmp);
-	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
-
-	//tmp = dataContainer->GetGameObject("Muzzle");
-	//Gun->AddChild(tmp);
-	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
-
-	//tmp = dataContainer->GetGameObject("Muzzle");
-	//Gun->AddChild(tmp);
-	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
-
-	//tmp = dataContainer->GetGameObject("Muzzle");
-	//Gun->AddChild(tmp);
-	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
-
-	//tmp = dataContainer->GetGameObject("Muzzle");
-	//Gun->AddChild(tmp);
-	//Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
-
-	tmp = dataContainer->GetGameObject("Clip");
+	tmp = dataContainer->GetGameObject("Muzzle");
+	tmp->PART->SetAugment(new BlackHoleAugment);
+	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
+	tmp->PART->GetAugment()->SetGunReference(gs);
+	
 	Gun->AddChild(tmp);
-	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::CLIP);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
 	tmp = dataContainer->GetGameObject("Scope");
-	Gun->AddChild(tmp);
-	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::SCOPE);
+	tmp->PART->SetAugment(new ExplodeAugment);
+	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
+	tmp->PART->GetAugment()->SetGunReference(gs);
 
-	tmp = dataContainer->GetGameObject("Grip");
 	Gun->AddChild(tmp);
-	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::GRIP);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObjectRaw("Grenade");
