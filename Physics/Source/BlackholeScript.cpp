@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Rigidbody.h"
 #include "EntityScript.h"
+
 #define G_CONSTANT 200.f
 BlackholeScript::BlackholeScript(float fMass, float fMinDist)
 	: m_fMass(fMass)
@@ -60,7 +61,7 @@ void BlackholeScript::Update(double dt)
 		int dmg = 5;
 		float fForceAttract = G_CONSTANT * (m_fMass * rigid->GetMass()) / (dist);
 		
-		if (go->GetComponent<EntityScript>())
+		if (go->GetComponent<EntityScript>(true) )
 		{
 			if (dist <= dmgDist)
 			{

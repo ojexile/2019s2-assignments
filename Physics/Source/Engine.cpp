@@ -21,6 +21,8 @@
 RenderingManager* Engine::m_Renderer;
 #define TIMINGS false
 
+#define SCENE DefaultScene
+
 Engine::Engine()
 {
 	m_Renderer = new RenderingManager;
@@ -42,7 +44,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new LoginScene());
+	SceneManager->ChangeScene(new SCENE());
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position

@@ -37,7 +37,7 @@ State * BossShockwaveState::HandleState(ComponentBase * com)
 		{
 			float angle = angleOffset * i;
 			GameObject* go = GOM->AddGameObject(DataContainer::GetInstance()->
-				GetGameObject("Shockwave"), "Birds");
+				GetGameObject("Shockwave"), "NoCollision");
 			Vector3 vForce = { cos(angle), 0, sin(angle) };
 			vForce *= 130.f;
 			go->RIGID->AddForce(vForce);
@@ -49,7 +49,6 @@ State * BossShockwaveState::HandleState(ComponentBase * com)
 		}
 		//
 		m_bTriggered = true;
-		CHENG_LOG("Shock");
 	}
 
 	if (s.Stop()->GetTime() >= SHOCKWAVE_TIME)
