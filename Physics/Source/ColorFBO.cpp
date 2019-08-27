@@ -1,12 +1,11 @@
 #include "ColorFBO.h"
 #include <iostream>
 
-ColorFBO::ColorFBO(unsigned width, unsigned height)
+ColorFBO::ColorFBO()
 {
 	//Allocate memory for frame buffer object and texture
 	glGenFramebuffers(1, &m_fbo);
 	glGenTextures(1, &m_texture);
-	this->Init(width, height);
 }
 
 ColorFBO::~ColorFBO()

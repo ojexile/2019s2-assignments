@@ -61,6 +61,7 @@ void Preferences::GetData()
 			DEFAULT_LOG("Unknown preference term: " + sTerm);
 		m_map_Data[sTerm] = sVal;
 	}
+	ifFile.close();
 }
 
 std::string Preferences::GetPref(std::string s)

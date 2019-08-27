@@ -11,6 +11,7 @@ namespace Resources
 		extern const std::string HeightMap = Content + "heightMaps/";
 		extern const std::string Preferences = Content + "preferences.ini";
 		extern const std::string Keybinds = Content + "keybinds.cfg";
+		extern const std::string SaveData = Content + "SaveData/";
 	}
 
 	namespace PreferencesTerm

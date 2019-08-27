@@ -26,6 +26,8 @@
 #include "UIButtonComponent.h"
 // Scripts
 #include "MenuButtonsScript.h"
+//
+#include "PlayerData.h"
 MainMenu::MainMenu()
 {
 }
@@ -35,6 +37,9 @@ MainMenu::~MainMenu()
 }
 void MainMenu::Init()
 {
+	///
+	PlayerData::GetInstance()->Load("Cheng", "69");
+	PlayerData::GetInstance()->Save();
 	/// Init================================================================================
 	DataContainer* dataContainer = DataContainer::GetInstance();
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");

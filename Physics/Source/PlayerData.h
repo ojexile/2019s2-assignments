@@ -10,10 +10,13 @@ public:
 		eGRENADE,
 	};
 private:
+	std::string m_sUser;
+	std::string m_sPass;
+
 	AbilityBase* m_SelectedAbility;
+	int m_iCoins;
 	bool m_bAbilityDash;
 	bool m_bAbilityGrenade;
-	int m_iCoins;
 public:
 	PlayerData();
 	~PlayerData();
@@ -24,4 +27,7 @@ public:
 	void OffsetCoins(int i);
 	bool GetGetAbilityActivated(eAbilities e);
 	void ActivateAbility(eAbilities e);
+
+	void Save();
+	bool Load(std::string user, std::string pass);
 };
