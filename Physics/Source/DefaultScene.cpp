@@ -192,9 +192,26 @@ void DefaultScene::Init()
 	BossBar->RENDER->SetColor(0.1f, 0.2f, 0.8f);
 	//
 	GameObject* AbilityUI = m_GOM.AddGameObject("UI");
-	AbilityUI->TRANS->SetPosition(1920 - 100, 1040, 0);
-	AbilityUI->TRANS->SetScale(100);
-	AbilityUI->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
+	AbilityUI->TRANS->SetPosition(100, 100, 0);
+	AbilityUI->TRANS->SetScale(200);
+	switch (PlayerData::GetInstance()->GetCurrentAbility())
+	{
+	case PlayerData::eDASH:
+		AbilityUI->AddComponent(new RenderComponent(dataContainer->GetMesh("AbilityDash")));
+		break;
+	case PlayerData::eGRENADE:
+		AbilityUI->AddComponent(new RenderComponent(dataContainer->GetMesh("AbilityGrenade")));
+		break;
+	case PlayerData::eHEAL:
+		AbilityUI->AddComponent(new RenderComponent(dataContainer->GetMesh("AbilityHeal")));
+		break;
+	case PlayerData::eSLOW_TIME:
+		AbilityUI->AddComponent(new RenderComponent(dataContainer->GetMesh("AbilitySlowTime")));
+		break;
+	default:
+		break;
+	}
+	AbilityUI->RENDER->SetLightEnabled(true);
 	AbilityUI->RENDER->SetColor(0.1f, 0.2f, 0.8f);
 	/// End Player Stats--------------------------------------------------------------------------------
 	/// Systems--------------------------------------------------------------------------------

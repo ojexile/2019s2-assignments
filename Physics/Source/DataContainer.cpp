@@ -624,7 +624,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("AbilityDash")));
 	go->TRANS->SetScale(100, 100, 1);
-	go->RENDER->SetLightEnabled(false);
+	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
 	// AbilityGrenade--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -632,6 +632,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("AbilityGrenade")));
 	go->TRANS->SetScale(100, 100, 1);
+	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
 	// AbilityHeal--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -639,6 +640,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("AbilityHeal")));
 	go->TRANS->SetScale(100, 100, 1);
+	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
 	// AbilitySlowTime--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -646,6 +648,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("AbilitySlowTime")));
 	go->TRANS->SetScale(100, 100, 1);
+	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
 	/// Interactabes/Foilage================================================================================
 

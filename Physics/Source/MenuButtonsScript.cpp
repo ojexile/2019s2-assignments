@@ -30,7 +30,7 @@ MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 
 void MenuButtonsScript::Start()
 {
-	if (!PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eGRENADE))
+	if (!PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eGRENADE))
 	{
 		m_Ability1->RENDER->SetColor(0.2f);
 	}
@@ -75,10 +75,10 @@ void MenuButtonsScript::Update(double dt)
 		{
 			if (InputManager::GetInstance()->GetInputStrength("Click"))
 			{
-				if (PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eDASH))
+				if (PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eDASH))
 				{
 					// Set active ability
-					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 20));
+					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 20), PlayerData::eDASH);
 					// Change scene
 					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
 				}
@@ -91,10 +91,10 @@ void MenuButtonsScript::Update(double dt)
 		{
 			if (InputManager::GetInstance()->GetInputStrength("Click"))
 			{
-				if (PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eGRENADE))
+				if (PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eGRENADE))
 				{
 					// Set active ability
-					PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 50));
+					PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 50), PlayerData::eGRENADE);
 					// Change scene
 					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
 				}

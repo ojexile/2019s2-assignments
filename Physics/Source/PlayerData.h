@@ -8,6 +8,8 @@ public:
 	{
 		eDASH,
 		eGRENADE,
+		eHEAL,
+		eSLOW_TIME,
 	};
 private:
 	std::string m_sUser;
@@ -17,15 +19,17 @@ private:
 	int m_iCoins;
 	bool m_bAbilityDash;
 	bool m_bAbilityGrenade;
+	eAbilities m_eAbiltiy;
 public:
 	PlayerData();
 	~PlayerData();
 
-	void SetAbility(AbilityBase* a);
+	void SetAbility(AbilityBase* a, eAbilities e);
 	AbilityBase* GetAbility();
 	int GetCoins();
 	void OffsetCoins(int i);
-	bool GetGetAbilityActivated(eAbilities e);
+	bool GetAbilityActivated(eAbilities e);
+	eAbilities GetCurrentAbility();
 	void ActivateAbility(eAbilities e);
 
 	void Save();
