@@ -29,7 +29,7 @@ private:
 	//Returns a partScript
 	WeaponPartScript* GenerateWeaponPart(void);
 	//Returns an Augment
-	void GenerateAugment(GameObject* ptr);
+	bool GenerateAugment(GameObject* ptr);
 	GameObject* m_LootDrop;
 	bool m_isRigged;
 	bool m_hasDropped;
