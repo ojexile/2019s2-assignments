@@ -705,7 +705,7 @@ void DataContainer::InitGO()
 	go = new GameObject();
 	m_map_GO["boulder"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("boulderball")));
-	go->RENDER->SetColor({ 0.1f,0.1f,0.1f });
+	//go->RENDER->SetColor({ 0.1f,0.1f,0.1f });
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMass(1000.f);
 	go->TRANS->SetScale(2.f);
