@@ -7,6 +7,7 @@
 #include "Behaviour.h"
 
 EntityScript::EntityScript(Behaviour* _Behaviour)
+	: m_SW()
 {
 	if (_Behaviour)
 	{
@@ -24,7 +25,8 @@ EntityScript::EntityScript(Behaviour* _Behaviour)
 	m_bCanDie = true;
 }
 EntityScript::EntityScript(Behaviour * _Behaviour, const Stats & Stats)
-	: m_BaseStats(Stats)
+	: m_BaseStats(Stats),
+	m_SW()
 {
 	m_Values.SetHealth(Stats.GetMaxHealth());
 	if (_Behaviour)
@@ -43,7 +45,8 @@ EntityScript::EntityScript(Behaviour * _Behaviour, const Stats & Stats)
 	m_bCanDie = true;
 }
 EntityScript::EntityScript(EntityScript & ref)
-	: m_BaseStats(ref.m_BaseStats)
+	: m_BaseStats(ref.m_BaseStats),
+	m_SW()
 {
 	m_Values = ref.m_Values;
 	m_AdditionalStats = ref.m_AdditionalStats;

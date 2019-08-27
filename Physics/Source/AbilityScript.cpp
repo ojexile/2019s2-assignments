@@ -3,6 +3,7 @@
 #include "AbilityGrenade.h"
 #include "AbilitySlowTime.h"
 #include "AbilityHeal.h"
+#include "PlayerScript.h"
 #include "InputManager.h"
 
 AbilityScript::AbilityScript(AbilityBase* ability, GameObject* UI)
@@ -22,7 +23,10 @@ void AbilityScript::Update(double dt)
 	if (!m_ability->IsInUse())
 	{
 		if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
+		{
+			if (m_ability->GetCost() < GetComponent<PlayerScript>()->GetValues()->GetStamina())
 			m_ability->Use(this);
+		}
 	}
 	else/*if (m_ability->IsInUse())*/
 	{

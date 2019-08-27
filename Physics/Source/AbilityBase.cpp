@@ -40,6 +40,11 @@ float AbilityBase::GetPercentageCooldownDone()
 	return returnval;
 }
 
+const float AbilityBase::GetCost()
+{
+	return m_fStaminaCost;
+}
+
 bool AbilityBase::IsInUse()
 {
 	return m_bInUse;

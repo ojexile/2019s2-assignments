@@ -78,7 +78,7 @@ void MenuButtonsScript::Update(double dt)
 				if (PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eDASH))
 				{
 					// Set active ability
-					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 20), PlayerData::eDASH);
+					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 75), PlayerData::eDASH);
 					// Change scene
 					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
 				}
@@ -94,7 +94,7 @@ void MenuButtonsScript::Update(double dt)
 				if (PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eGRENADE))
 				{
 					// Set active ability
-					PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 50), PlayerData::eGRENADE);
+					PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 90), PlayerData::eGRENADE);
 					// Change scene
 					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
 				}

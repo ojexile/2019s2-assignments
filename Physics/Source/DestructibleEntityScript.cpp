@@ -5,7 +5,6 @@ DestructibleEntityScript::DestructibleEntityScript()
 	: EntityScript(),
 	m_sMessage(""),
 	m_iHealth(50)
-
 {
 }
 
@@ -36,25 +35,50 @@ void DestructibleEntityScript::Update(double dt)
 		//destroy self
 		return;
 	}
-	if (m_SW.Stop()->GetTime() >= DAMAGE_TIME && m_bDamageAnim)
+
+	if (m_bDamageAnim)
 	{
-		m_bDamageAnim = false;
-
-		auto childrenderer = GetComponent<RenderComponent>(true);
-		if (!childrenderer)
+		if (m_SW.GetTime() > DAMAGE_TIME)
 		{
-			if (GetChild(0) != nullptr)
-				GetChild(0)->RENDER->ResetColor();
+			auto childrenderer = GetComponent<RenderComponent>();
 
+			if (!childrenderer)
+			{
+				if (GetChild(0) != nullptr)
+					GetChild(0)->RENDER->ResetColor();
+			}
 			else
-				RENDER->ResetColor();
+			RENDER->ResetColor();
+
 		}
 	}
-	if (IsDamageAnim())
-	{
-	}
-}
+	//if (IsDamageAnim())
+	//{
+	//	auto childrenderer = RENDER;
+	//	if (childrenderer == nullptr)
+	//	{
+	//		if (GetChild(0) != nullptr)
+	//			GetChild(0)->RENDER->SetColor(50, 50, 50);
+	//	}
+	//	else
+	//		RENDER->SetColor(50, 50, 50);
+	//}
 
+	//if (m_SW.GetTime() >= DAMAGE_TIME && m_bDamageAnim)
+	//{
+	//	m_bDamageAnim = false;
+
+	//	auto childrenderer = GetComponent<RenderComponent>(true);
+	//	if (!childrenderer)
+	//	{
+	//		if (GetChild(0) != nullptr)
+	//			GetChild(0)->RENDER->ResetColor();
+
+	//		else
+	//			RENDER->ResetColor();
+	//	}
+	//}
+}
 void DestructibleEntityScript::Collide(GameObject *)
 {
 }
@@ -76,6 +100,7 @@ int DestructibleEntityScript::GetHealth()
 
 void DestructibleEntityScript::Damage(int damage)
 {
+	m_SW.Stop()->Reset();
 	m_SW.Start();
 	m_bDamageAnim = true;
 
@@ -87,5 +112,6 @@ void DestructibleEntityScript::Damage(int damage)
 	}
 	else
 		RENDER->SetColor(50, 50, 50);
+
 	m_iHealth -= damage;
 }
