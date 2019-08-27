@@ -12,8 +12,6 @@
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
-	: Post(1920, 1080)
-	, Post2(1920, 1080)
 {
 	m_worldHeight = 100.f;
 	m_worldWidth = 100.f;
@@ -30,8 +28,8 @@ void RenderingManager::Init()
 	// Shadows
 	m_lightDepthFBO.Init((unsigned)(SHADOW_RES), (unsigned)(SHADOW_RES));
 	m_lightDepthFBO.Init((int)(SHADOW_RES), (int)(SHADOW_RES));
-	//Post.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
-	//Post2.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
+	Post.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
+	Post2.Init(Application::GetWindowWidth(), Application::GetWindowHeight());
 	Math::InitRNG();
 	glGenRenderbuffers(1, &m_PostBO);
 	glGenRenderbuffers(1, &m_PostBO2);
@@ -84,8 +82,8 @@ void RenderingManager::Render(Scene* scene)
 }
 void RenderingManager::Resize(Vector3 size)
 {
-	//Post.Init((unsigned)size.x, (unsigned)size.y);
-	//Post2.Init((unsigned)size.x, (unsigned)size.y);
+	Post.Init((unsigned)size.x, (unsigned)size.y);
+	Post2.Init((unsigned)size.x, (unsigned)size.y);
 }
 void RenderingManager::RenderPassGPass(Scene* scene)
 {

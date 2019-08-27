@@ -6,7 +6,7 @@
 class ColorFBO
 {
 public:
-	ColorFBO(unsigned width, unsigned height);
+	ColorFBO();
 	~ColorFBO();
 
 	bool Init(unsigned width, unsigned height);
