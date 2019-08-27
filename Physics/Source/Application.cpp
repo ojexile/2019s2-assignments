@@ -18,7 +18,9 @@ const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 static double scrollX = 0;
 static double scrollY = 0;
+
 bool Application::bExit = false;
+char Application::Key = ' ';
 int m_width, m_height;
 
 //Define an error callback
@@ -98,6 +100,12 @@ Application::~Application()
 {
 }
 
+void character_callback(GLFWwindow* window, unsigned int codepoint)
+{
+	Application::Key = (char)(codepoint);
+	CHENG_LOG("key: ", Application::Key);
+}
+
 void Application::Init()
 {
 	//Set the error callback
@@ -136,6 +144,7 @@ void Application::Init()
 
 	//Sets the key callback
 	//glfwSetKeyCallback(m_window, key_callback);
+	glfwSetCharCallback(m_window, character_callback);
 	glfwSetWindowSizeCallback(m_window, resize_callback);
 	glfwSetScrollCallback(m_window, scroll_callback);
 
@@ -166,6 +175,7 @@ void Application::Run()
 		double dt = m_timer.getElapsedTime();
 		// Run GameEngine
 		m_Engine->Update(dt);
+		Application::Key = ' ';
 		//Swap buffers
 		glfwSwapBuffers(m_window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...

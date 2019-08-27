@@ -24,6 +24,7 @@ public:
 	static void GetScrollWheelPos(double* xpos, double* ypos);
 	static void SetCursorEnabled(bool);
 	static bool bExit;
+	static char Key;
 private:
 	Application();
 	~Application();

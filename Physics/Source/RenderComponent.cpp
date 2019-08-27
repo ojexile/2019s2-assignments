@@ -195,6 +195,19 @@ void RenderComponent::SetText(std::string s)
 {
 	m_sText = s;
 }
+void RenderComponent::AddText(std::string s)
+{
+	m_sText += s;
+}
+void RenderComponent::AddText(char c)
+{
+	m_sText += c;
+}
+void RenderComponent::RemoveText()
+{
+	if (m_sText.size() > 0)
+		m_sText = m_sText.substr(0, m_sText.size() - 1);
+}
 void RenderComponent::DeleteMeshBiomed()
 {
 	delete m_MeshBiomed;

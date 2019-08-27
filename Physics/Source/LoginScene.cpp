@@ -1,9 +1,11 @@
 #include "LoginScene.h"
 // Scripts--------------------------------------------------------------------------------
+#include "LoginScript.h"
 // Systems--------------------------------------------------------------------------------
 #include "DataContainer.h"
 #include "AudioManager.h"
 #include "Utility.h"
+
 LoginScene::LoginScene()
 {
 }
@@ -53,16 +55,27 @@ void LoginScene::Init()
 	go->TRANS->SetScale(1920, 1080, 1);
 	go->RENDER->SetColor(1, 1, 1);
 	/// Login--------------------------------------------------------------------------------
-	// User
+	// Input--------------------------------------------------------------------------------
+	GameObject* UserInput = m_GOM.AddGameObject("UI");
+	UserInput->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), ""));
+	UserInput->TRANS->SetPosition(1920 / 2 + 100, 1080 / 2, 50);
+	//
+	GameObject* PassInput = m_GOM.AddGameObject("UI");
+	PassInput->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), ""));
+	PassInput->TRANS->SetPosition(1920 / 2 + 100, 1080 / 2 - 200, 50);
+	//
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new LoginScript(UserInput, PassInput));
+	// User--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(1920 / 2, 1080 / 2, 50);
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "User"));
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "User::"));
 	go->RENDER->SetColor({ 0.4f,1.f,0.8f });
 	go->SetDisableDistance(-1);
-	// Pass
+	// Pass--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(1920 / 2, 1080 / 2 - 200, 50);
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Pass"));
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Pass::"));
 	go->RENDER->SetColor({ 0.4f,1.f,0.8f });
 	go->SetDisableDistance(-1);
 	/// Create Camera================================================================================
