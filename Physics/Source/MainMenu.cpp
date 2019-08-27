@@ -127,6 +127,16 @@ void MainMenu::Init()
 		TutorialText, TutorialButt, TutBox, Ability0, Ability1));
 	go->SetDisableDistance(-1);
 	//
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(1800, 900, 1);
+	go->TRANS->SetScale(120);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
+	go->RENDER->SetColor(1, 1, 0);
+	go = m_GOM.AddGameObject("UI");
+	go->TRANS->SetPosition(1800 + 100, 900, 1);
+	int NumCoins = PlayerData::GetInstance()->GetCoins();
+	go->TRANS->SetPosition(1800 + 100, 900, 40);
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), std::to_string(NumCoins)));
 	/// End UI================================================================================
 	/// Player================================================================================
 	//Gun------------------------------------------------------------------------------------
