@@ -5,7 +5,7 @@
 PlayerData::PlayerData()
 {
 	m_SelectedAbility = new AbilityDash(3, 45);
-	m_eAbiltiy = eDASH;
+	m_eAbility = eDASH;
 	m_bAbilityDash = true;
 	m_bAbilityGrenade = false;
 	m_iCoins = 0;
@@ -21,7 +21,7 @@ PlayerData::~PlayerData()
 
 void PlayerData::SetAbility(AbilityBase * a, eAbilities e)
 {
-	m_eAbiltiy = e;
+	m_eAbility = e;
 	if (m_SelectedAbility)
 		delete m_SelectedAbility;
 	m_SelectedAbility = a;
@@ -60,7 +60,7 @@ bool PlayerData::GetAbilityActivated(eAbilities e)
 
 PlayerData::eAbilities PlayerData::GetCurrentAbility()
 {
-	return m_eAbiltiy;
+	return m_eAbility;
 }
 
 void PlayerData::ActivateAbility(eAbilities e)

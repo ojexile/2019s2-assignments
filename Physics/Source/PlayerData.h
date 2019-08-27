@@ -19,7 +19,7 @@ private:
 	int m_iCoins;
 	bool m_bAbilityDash;
 	bool m_bAbilityGrenade;
-	eAbilities m_eAbiltiy;
+	eAbilities m_eAbility;
 public:
 	PlayerData();
 	~PlayerData();
