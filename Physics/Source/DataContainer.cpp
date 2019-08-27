@@ -135,8 +135,8 @@ void DataContainer::InitTextures()
 	m_map_Textures["particleHexagonGrey"] = LoadTGA("particleHexagonGrey");
 	m_map_Textures["particleCloudGrey"] = LoadTGA("particleCloudGrey");
 	m_map_Textures["particleHexagonRed"] = LoadTGA("particleHexagonRed");
-	//m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonBorderYellow");
-	m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonYellow"); 
+	m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonBorderYellow");
+	//m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonYellow"); 
 }
 void DataContainer::InitMeshes()
 {
@@ -313,7 +313,13 @@ void DataContainer::InitParticles()
 	go->RENDER->SetLightEnabled(false);
 	go->AddComponent(new ParticleScript(0.5f, Vector3(0.f, 0.1f, 0.f), Vector3(0, 1, 0), Vector3(), Vector3(), Vector3()));
 	go->PARTICLE->SetRot({ 80.f, 80.f, 80.f });
-	//go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+	go->AddComponent(new ScalePatternScript(ScalePatternScript::SHRINK, 1.f, 0.5f));
+
+	go = new GameObject();
+	m_map_GO["particleRareDropSpawner"] = go;
+	go->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObjectRaw("particleRareDrop"), 15, Vector3(0.5f, 0.f, 0.5f), 0.3f, "Default", 5.f));
+
+
 }
 void DataContainer::InitGO()
 {
