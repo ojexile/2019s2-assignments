@@ -226,6 +226,8 @@ void EntityScript::SetDamageAnim(bool anim)
 }
 void EntityScript::Damage(int iDamage)
 {
+	if (m_bDamageAnim)
+		return;
 	m_bDamageAnim = true;
 	RENDER->SetColor(50, 50, 50);
 	m_SW.Start();

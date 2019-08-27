@@ -6,7 +6,7 @@
 #include "EntityValues.h"
 #include "Behaviour.h"
 
-#define DAMAGE_TIME 1.f
+#define DAMAGE_TIME .4f
 
 /********************************************************************************/
 /*!
