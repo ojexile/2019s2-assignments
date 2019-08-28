@@ -5,6 +5,7 @@
 #include "Preferences.h"
 #include "Resources.h"
 #include "WorldValues.h"
+#include "InputManager.h"
 
 #define FOG_ENABLED true
 #define COLOR 0.4f,0.4f,0.7f
@@ -203,19 +204,27 @@ void RenderingManagerBase::Init()
 	BindUniforms();
 	//SetUniforms();
 }
-
+static bool cull = true;
+static bool wire = false;
 void RenderingManagerBase::Update(double dt)
 {
 	//Keyboard Section
-	// TODO SET DRAW MODE
-	if (KeyboardManager::GetInstance()->GetKeyDown("EnableCull"))
-		glEnable(GL_CULL_FACE);
-	if (KeyboardManager::GetInstance()->GetKeyDown("DisableCull"))
-		glDisable(GL_CULL_FACE);
-	if (KeyboardManager::GetInstance()->GetKeyDown("DisableWireframe"))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	if (KeyboardManager::GetInstance()->GetKeyDown("EnableWireframe"))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	if (InputManager::GetInstance()->GetInputStrength("TriggerCull"))
+	{
+		if (cull)
+			glEnable(GL_CULL_FACE);
+		else
+			glDisable(GL_CULL_FACE);
+		cull = !cull;
+	}
+	if (InputManager::GetInstance()->GetInputStrength("TriggerWire"))
+	{
+		if (wire)
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		else
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		wire = !wire;
+	}
 
 	// fps = (float)(1.f / dt);
 	// CHENG_LOG("FPS: ", std::to_string(fps));

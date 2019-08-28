@@ -25,6 +25,7 @@ public:
 	static void SetCursorEnabled(bool);
 	static bool bExit;
 	static char Key;
+	Engine* GetEngine();
 private:
 	Application();
 	~Application();

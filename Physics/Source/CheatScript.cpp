@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "EntityScript.h"
 #include "WorldValues.h"
+#include "Application.h"
 
 CheatScript::CheatScript(GameObject * Sheet)
 	:m_Sheet(Sheet)

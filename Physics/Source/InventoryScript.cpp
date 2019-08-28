@@ -143,6 +143,7 @@ void InventoryScript::AddItem(GameObject* go)
 
 		go2->RIGID->SetAffectedByGravity(false);
 		go2->PART->SetAugment(aug);
+		go2->RENDER->SetRenderDistance(-1);
 
 		m_InventoryItems[iSlot] = go2;
 		Destroy(go);

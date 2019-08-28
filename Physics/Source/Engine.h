@@ -11,13 +11,12 @@
 #include "Preferences.h"
 
 #include "CollisionManager.h"
-#include "Singleton.h"
 #include "RenderingManagerBase.h"
 #include <vector>
 
 //#define LOG_UPDATE_RATE 1
 
-class Engine : public Singleton<Engine>
+class Engine
 {
 	friend class Application;
 	friend class Singleton<Engine>;
