@@ -343,11 +343,11 @@ void RenderingManager::RenderWorld(Scene* scene)
 		if (!go->IsActive())
 			continue;
 
-		RenderGameObject(go, vCamPos, true);
+		RenderGameObject(go, vCamPos, false);
 		for (unsigned i = 0; i < GOListPart->at(i)->GetChildList()->size(); ++i)
 		{
 			GameObject* goChild = GOListPart->at(i);
-			if (!go->IsActive())
+			if (!goChild->IsActive())
 				continue;
 			RenderGameObject(goChild, vCamPos, true);
 		}
