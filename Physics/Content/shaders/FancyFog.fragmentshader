@@ -163,7 +163,7 @@ void main(){
 	if(lightEnabled == true)
 	{
 		// Material properties
-		vec4 materialColor = vec4(0, 0, 0, 1);
+		vec4 materialColor = vec4(0, 0, 0, 0);
 		
 		int texCount = 0;
 		

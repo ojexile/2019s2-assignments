@@ -22,7 +22,7 @@ public:
 	virtual ~WeaponPartScript();
 
 	bool DecreaseDurability(double deltaTime);
-	void RepairPart(float healingAmt);
+
 	SLOT_TYPE GetSlotType();
 	float GetMultiplier();
 	Augment* GetAugment();
