@@ -257,9 +257,9 @@ void main(){
 		}
 		
 	}
-	if (color.a < .3f) discard;
+	if (color.a < .5f) discard;
 	color.a = clamp(color.a, 0 ,1) * material.kAlpha;
-	if (color.a < .3f) discard;
+	if (color.a < .5f) discard;
 	if(fogParam.enabled && lightEnabled)
 	{
 		vec3 Player_CameraSpace = vec3(0,0,-distFromPlayer);

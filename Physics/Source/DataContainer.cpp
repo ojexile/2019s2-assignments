@@ -514,9 +514,8 @@ void DataContainer::InitGO()
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(50, 0, 100, 0, 80, 20, 2000, 12)));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
-	// Bird--------------------------------------------------------------------------------
 	go->TRANS->SetScale(2);
-
+	// Bird--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Bird"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("BirdBody")));
@@ -784,7 +783,7 @@ void DataContainer::InitBehaviour()
 {
 	m_map_Behaviour["Player"] = new Behaviour(&PlayerStateList::Standing);
 	m_map_Behaviour["Default"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Melee, &AIStatesList::Wander, &AIStatesList::Idle);
-	m_map_Behaviour["Bird"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Flee, &AIStatesList::BirdWander, &AIStatesList::BirdIdle);
+	m_map_Behaviour["Bird"] = new Behaviour(&AIStatesList::BirdIdle, &AIStatesList::Flee, &AIStatesList::BirdWander, &AIStatesList::BirdIdle);
 	m_map_Behaviour["Flee"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Flee, &AIStatesList::Wander, &AIStatesList::Idle);
 	m_map_Behaviour["Melee"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Melee, &AIStatesList::Wander, &AIStatesList::Idle);
 	m_map_Behaviour["Ranged"] = new Behaviour(&AIStatesList::Idle, &AIStatesList::Ranged, &AIStatesList::Wander, &AIStatesList::Idle);
