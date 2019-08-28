@@ -34,7 +34,7 @@ void BossSpawnerScript::Update(double dt)
 	{
 		m_CurrentTime = 0;
 		Vector3 Pos = SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition();
-		Pos.x += 25;
+		Pos.x += 12;
 		Instantiate(m_Boss[m_iCurrentBoss], Pos);
 		++m_iCurrentBoss;
 		m_fCurrentInterval = m_fSpawnIntervals[m_iCurrentBoss];

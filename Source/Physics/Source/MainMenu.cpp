@@ -193,6 +193,7 @@ void MainMenu::Init()
 	// Set up camera
 	m_CameraGO->TRANS->SetPosition(0, 0, 0);
 	m_CameraGO->CAMERA->SetCameraType(CameraComponent::CAM_CUSTOM_ORTHO);
+	m_CameraGO->SetDisableDistance(-1);
 	Vector3 WindowSize = StringToVector(Preferences::GetPref(Resources::PreferencesTerm::WindowSize));
 	float aspect = WindowSize.x / WindowSize.y;
 	float size = 100;
