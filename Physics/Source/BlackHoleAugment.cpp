@@ -21,14 +21,15 @@ BlackHoleAugment::~BlackHoleAugment()
 void BlackHoleAugment::ActiveEffect(Component* proj, GameObject* go)
 {
 	//Bullet expands & becomes a black hole
-	proj->GetGO()->AddComponent(new BlackholeScript(go->RIGID->GetMass(), 10));
+	proj->GetGO()->AddComponent(new BlackholeScript(0.025, 10));
 	
 	proj->TRANS->SetScale(2.f);
 	
 	proj->RENDER->SetColor(0, 0, 0);
 
 	proj->RIGID->SetVel(Vector3(0, 0, 0));
-	proj->RIGID->SetResponseActive(false);
+	//proj->RIGID->SetResponseActive(false);
+	proj->RIGID->SetActive(false);
 
 	proj->PROJECTILE->SetLifespan(1.f);
 	proj->PROJECTILE->SetDamage(10.f);
