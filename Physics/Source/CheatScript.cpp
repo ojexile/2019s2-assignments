@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "EntityScript.h"
 #include "WorldValues.h"
+#include "Application.h"
 
 CheatScript::CheatScript(GameObject * Sheet)
 	:m_Sheet(Sheet)
@@ -23,7 +24,7 @@ void CheatScript::Update(double dt)
 		if (InputManager::GetInstance()->GetInputStrength("Fog"))
 		{
 			WorldValues::FogDensity = 1.f;
-			Engine::GetInstance()->GetRenderManager()->oof = 1.f;
+			Application::GetInstance().GetEngine()->GetRenderManager()->oof = 1.f;
 			CHENG_LOG("Cheat Act: ", "FOG");
 		}
 		else if (InputManager::GetInstance()->GetInputStrength("God"))

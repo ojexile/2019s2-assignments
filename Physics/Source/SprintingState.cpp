@@ -37,10 +37,6 @@ State* SprintingState::HandleState(ComponentBase* com)
 			com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(fDrain);
 		}
 	}
-	if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() < 25)
-	{
-		Engine::GetInstance()->GetRenderManager()->SetUniform1f(RenderingManager::UNIFORM_TYPE::U_VIGINETTE_VAL, 0.1f);
-	}
 	// Top Down
 	if (InputManager::GetInstance()->GetInputStrength("SwitchCam"))
 	{
