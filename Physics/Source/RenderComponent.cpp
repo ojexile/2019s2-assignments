@@ -3,7 +3,7 @@
 RenderComponent::RenderComponent()
 {
 	m_Mesh = nullptr;
-	m_fRenderDistance = 300;
+	m_fRenderDistance = 50;
 	m_AnimatedMesh = nullptr;
 	m_MeshBiomed = nullptr;
 	m_bLightEnabled = true;
@@ -16,7 +16,7 @@ RenderComponent::RenderComponent()
 RenderComponent::RenderComponent(Mesh* Mesh)
 	:m_Mesh(Mesh)
 {
-	m_fRenderDistance = 300;
+	m_fRenderDistance = 50;
 	m_AnimatedMesh = nullptr;
 	m_MeshBiomed = nullptr;
 	m_bLightEnabled = true;
@@ -28,7 +28,7 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 RenderComponent::RenderComponent(MeshBiomed * meshBiomed)
 	:m_MeshBiomed(meshBiomed)
 {
-	m_fRenderDistance = 300;
+	m_fRenderDistance = 50;
 	m_Mesh = nullptr;
 	m_AnimatedMesh = nullptr;
 	m_bLightEnabled = true;
