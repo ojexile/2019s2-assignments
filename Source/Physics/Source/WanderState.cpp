@@ -5,12 +5,11 @@
 #include "AIStatesList.h"
 #include "AIEntityScript.h"
 
-WanderState::WanderState(AIState* idle, float min, float max)
+WanderState::WanderState(float min, float max)
 {
 	m_fTime = 0;
 	m_fMinTime = min;
 	m_fMaxTime = max;
-	m_Idle = idle;
 }
 
 WanderState::~WanderState()

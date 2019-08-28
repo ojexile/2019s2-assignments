@@ -10,9 +10,8 @@ private:
 	Vector3 m_vDir;
 	float m_fMinTime;
 	float m_fMaxTime;
-	AIState* m_Idle;
 public:
-	WanderState(AIState* idle, float min = 1, float max = 5);
+	WanderState(float min = 1, float max = 5);
 	virtual ~WanderState();
 
 	virtual State* HandleState(ComponentBase* com) override;
