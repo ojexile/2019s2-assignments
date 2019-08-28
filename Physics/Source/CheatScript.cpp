@@ -37,6 +37,11 @@ void CheatScript::Update(double dt)
 			SceneManager::GetInstance()->GetScene()->GetPlayer()->GC(EntityScript)->Damage(10000000);
 			CHENG_LOG("Cheat Act: ", "Death");
 		}
+		else if (InputManager::GetInstance()->GetInputStrength("Boss"))
+		{
+			Notify("ForceBoss");
+			CHENG_LOG("Cheat Act: ", "Boss");
+		}
 	}
 	else if (InputManager::GetInstance()->GetInputStrength("Cheat") < 0)
 	{

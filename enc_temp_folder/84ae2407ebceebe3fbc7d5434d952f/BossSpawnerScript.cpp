@@ -63,8 +63,6 @@ BossSpawnerScript::eSearchState BossSpawnerScript::GetState()
 
 void BossSpawnerScript::ForceSpawn()
 {
-	if (m_iCurrentBoss >= 3)
-		return;
 	m_CurrentTime = 0;
 	Vector3 Pos = SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition();
 	Pos.x += 25;

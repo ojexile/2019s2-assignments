@@ -29,4 +29,5 @@ public:
 	void SetSpawnRate(float f);
 	void SetState(eSearchState state);
 	eSearchState GetState();
+	void ForceSpawn();
 };

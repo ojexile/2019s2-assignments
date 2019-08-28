@@ -452,34 +452,39 @@ void DataContainer::InitGO()
 	m_map_GO["Boss0"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Dino0")));
-	go->TRANS->SetScale(3);
+	go->TRANS->SetScale(5);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(300, 0, 100, 0, 80, 20, 2000, 500)));
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	go->GC(EntityScript)->SetBoss();
+	go->SetDisableDistance(-1);
 	// B--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Boss1"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
-	go->TRANS->SetScale(3);
+	go->TRANS->SetScale(6);
+	go->RENDER->SetColor(1.0f, 0.9f, 0.9f);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 100, 40, 2000, 500)));
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	go->GC(EntityScript)->SetBoss();
+	go->SetDisableDistance(-1);
 	// C---------------------------------------------
 	go = new GameObject;
 	m_map_GO["Boss2"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
-	go->TRANS->SetScale(3);
+	go->TRANS->SetScale(6);
+	go->RENDER->SetColor(1.0f, 0.8f, 0.8f);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(600, 0, 100, 0, 110, 50, 2000, 500)));
 	go->AddComponent(new LootScript());
 	go->GC(EntityScript)->SetBoss();
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
+	go->SetDisableDistance(-1);
 	// Attacks--------------------------------------------------------------------------------
 	// Shockwave
 	go = new GameObject;
