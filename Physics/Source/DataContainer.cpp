@@ -347,7 +347,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.005f);
 	go->RIGID->SetMat(0.9f, 1);
-	go->AddComponent(new ProjectileScript(1.0, 30.0));
+	go->AddComponent(new ProjectileScript(1.0, 40.0));
 	go->AddComponent(new ParticleSpawnerScript(GetGameObjectRaw("particlebullettrail"), 30, Vector3(), 0));
 	go->m_sName = "Bullet";
 	/// Weapon Parts================================================================================
