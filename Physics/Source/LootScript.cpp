@@ -15,7 +15,6 @@ LootScript::LootScript(bool isRigged)
 	m_LootDrop = DataContainer::GetInstance()->GetGameObjectRaw("Loot");
 }
 
-
 LootScript::~LootScript()
 {
 }
@@ -29,7 +28,6 @@ void LootScript::Collide(GameObject * go)
 	DropLoot();
 	//DestroySelf();
 	SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
-	
 }
 
 WeaponPartScript* LootScript::GenerateWeaponPart(void)
@@ -42,12 +40,12 @@ WeaponPartScript* LootScript::GenerateWeaponPart(void)
 		SlotType == WeaponPartScript::SLOT_TYPE::GRIP)
 	{
 		Multiplier = Math::RandFloatMinMax(0.5f, 0.65f);
-		
+
 		if (SlotType == WeaponPartScript::SLOT_TYPE::MUZZLE)
 		{
 			m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Muzzle"));
 		}
-		else if(SlotType == WeaponPartScript::SLOT_TYPE::SCOPE)
+		else if (SlotType == WeaponPartScript::SLOT_TYPE::SCOPE)
 		{
 			m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Scope"));
 		}
@@ -60,16 +58,13 @@ WeaponPartScript* LootScript::GenerateWeaponPart(void)
 	{
 		Multiplier = 2;
 		m_LootDrop->RENDER->SetMesh(DataContainer::GetInstance()->GetMesh("Clip"));
-
 	}
 
 	return new WeaponPartScript(SlotType, Multiplier, Durability);
-
 }
 
 bool LootScript::GenerateAugment(GameObject* ptr)
 {
-
 	if (ptr->PART == nullptr)
 		return false;
 
@@ -96,7 +91,6 @@ bool LootScript::GenerateAugment(GameObject* ptr)
 			aug = new BlackHoleAugment;
 			ptr->PART->SetAugment(aug);
 			ptr->PART->SetName(ptr->PART->GetName() + " " + aug->GetName());
-
 		}return true;
 	}
 
@@ -119,7 +113,6 @@ void LootScript::DropLoot(void)
 		DropChance = 100;
 		RYAN_LOG("Lootbox dropped loot");
 	}
-
 
 	if (DropChance >= 30)
 	{
@@ -154,11 +147,9 @@ void LootScript::DropLoot(void)
 				auto go = Instantiate(DataContainer::GetInstance()->GetGameObjectRaw("particleRareDropSpawner"));
 				go->TRANS->SetPosition(TRANS->GetPosition());
 			}
-
 		}
 		else
 		{
-
 		}
 	}
 	m_hasDropped = true;
