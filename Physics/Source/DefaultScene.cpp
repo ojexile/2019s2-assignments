@@ -202,7 +202,6 @@ void DefaultScene::Init()
 	GameObject* AbilityUI = m_GOM.AddGameObject("UI");
 	AbilityUI->TRANS->SetPosition(100, 100, 0);
 	AbilityUI->TRANS->SetScale(200);
-	AbilityUI->RENDER->SetRenderDistance(-1);
 	switch (PlayerData::GetInstance()->GetCurrentAbility())
 	{
 	case PlayerData::eDASH:
@@ -220,6 +219,7 @@ void DefaultScene::Init()
 	default:
 		break;
 	}
+	AbilityUI->RENDER->SetRenderDistance(-1);
 	AbilityUI->RENDER->SetLightEnabled(true);
 	AbilityUI->RENDER->SetColor(0.1f, 0.2f, 0.8f);
 	/// End Player Stats--------------------------------------------------------------------------------

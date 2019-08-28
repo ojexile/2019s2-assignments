@@ -454,7 +454,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Dino0")));
 	go->TRANS->SetScale(3);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 80, 20, 2000, 500)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(300, 0, 100, 0, 80, 20, 2000, 500)));
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 
@@ -465,7 +465,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->TRANS->SetScale(3);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 80, 20, 2000, 500)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 100, 40, 2000, 500)));
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 
@@ -476,7 +476,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->TRANS->SetScale(3);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 80, 20, 2000, 16)));
+	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(600, 0, 100, 0, 110, 50, 2000, 500)));
 	go->AddComponent(new LootScript());
 	// Attacks--------------------------------------------------------------------------------
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
