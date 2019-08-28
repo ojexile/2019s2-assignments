@@ -281,6 +281,7 @@ preferences.ini
 common.lib
 /Common/Release
 /Physics/Release
+Source/Physics/Release
 /Release
 Source/Release
 Physics/Content/textures/LOW/plain_tree\.psd
