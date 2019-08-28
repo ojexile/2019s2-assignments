@@ -203,8 +203,6 @@ void RenderingManagerBase::Init()
 	bLightEnabled = true;
 	BindUniforms();
 	//SetUniforms();
-
-	oof = 1;
 }
 static bool cull = true;
 static bool wire = false;
