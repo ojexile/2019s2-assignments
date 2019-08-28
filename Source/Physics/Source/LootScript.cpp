@@ -21,13 +21,13 @@ LootScript::~LootScript()
 
 void LootScript::Collide(GameObject * go)
 {
-	if (go->GetComponent<ChunkCollider>(true) != nullptr)
-		return;
+	//if (go->GetComponent<ChunkCollider>(true) != nullptr)
+	//	return;
 
 	//Vector3 chunkspacepos = TRANS->GetPosition() - go->TRANS->GetPosition();
 	DropLoot();
-	//DestroySelf();
-	SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);
+	DestroySelf();
+	/*SceneManager::GetInstance()->GetScene()->GetGameObjectManager()->QueueDestroyFromComponent(this);*/
 }
 
 WeaponPartScript* LootScript::GenerateWeaponPart(void)
