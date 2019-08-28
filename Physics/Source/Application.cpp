@@ -91,6 +91,10 @@ void Application::SetCursorEnabled(bool b)
 	else
 		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
+Engine * Application::GetEngine()
+{
+	return m_Engine;
+}
 Application::Application()
 {
 	bExit = false;

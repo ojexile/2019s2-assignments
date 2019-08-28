@@ -132,7 +132,6 @@ public:
 	virtual void Render(Scene* scene);
 	virtual void Exit();
 	virtual void Resize(Vector3 size);
-
 protected:
 	void RenderText(RenderComponent* mesh);
 	void RenderTextOnScreen(RenderComponent* rc, std::string text, Color color, float size, float x, float y, int align = 0);

@@ -24,20 +24,10 @@ State* StandingState::HandleState(ComponentBase* com)
 	float dt = Time::GetInstance()->GetDeltaTimeF();
 
 	// Sprint
-	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint") && com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= 25.f)
+	if (InputManager::GetInstance()->GetInputStrength("PlayerSprint") && com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= 50.f)
 	{
 		return &PlayerStateList::Sprinting;
 	}
-	// Dodge
-	/*if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
-	{
-		float fDrain = 25;
-		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= fDrain)
-		{
-			com->GetComponent<PlayerScript>()->Dash();
-			com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(fDrain);
-		}
-	}*/
 	// Top Down
 	if (InputManager::GetInstance()->GetInputStrength("SwitchCam"))
 	{
