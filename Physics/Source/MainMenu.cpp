@@ -26,6 +26,7 @@
 #include "UIButtonComponent.h"
 // Scripts
 #include "MenuButtonsScript.h"
+#include "CoinUIScript.h"
 //
 #include "PlayerData.h"
 #include "WorldValues.h"
@@ -151,6 +152,7 @@ void MainMenu::Init()
 	int NumCoins = PlayerData::GetInstance()->GetCoins();
 	go->TRANS->SetPosition(1600, 900, 40);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), std::to_string(NumCoins) + "Coins"));
+	go->AddComponent(new CoinUIScript);
 	go->SetDisableDistance(-1);
 	// Name
 	go = m_GOM.AddGameObject("UI");

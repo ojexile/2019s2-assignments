@@ -202,6 +202,7 @@
     <ClCompile Include="Source\ChunkCollider.cpp" />
     <ClCompile Include="Source\ChunkData.cpp" />
     <ClCompile Include="Source\ChunkEvent.cpp" />
+    <ClCompile Include="Source\CoinUIScript.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
     <ClCompile Include="Source\ColorFBO.cpp" />
     <ClCompile Include="Source\Command.cpp" />
@@ -341,6 +342,7 @@
     <ClInclude Include="Source\ChunkCollider.h" />
     <ClInclude Include="Source\ChunkData.h" />
     <ClInclude Include="Source\ChunkEvent.h" />
+    <ClInclude Include="Source\CoinUIScript.h" />
     <ClInclude Include="Source\CollisionManager.h" />
     <ClInclude Include="Source\ColorFBO.h" />
     <ClInclude Include="Source\Command.h" />
