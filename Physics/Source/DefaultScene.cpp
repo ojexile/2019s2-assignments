@@ -48,7 +48,7 @@ void DefaultScene::Init()
 	m_GOM.CreateLayer(dataContainer->GetShader("Post"), "Post");
 	m_GOM.CreateLayer(dataContainer->GetShader("EffectCRT"), "Post2");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
-	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Grass");
+	m_GOM.CreateLayer(dataContainer->GetShader("Grass"), "Grass");
 	/// End Layers================================================================================
 	/// RENDER ///
 	go = m_GOM.AddGameObject(GetGO("Render"), "Post");

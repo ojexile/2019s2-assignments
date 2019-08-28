@@ -770,14 +770,15 @@ void DataContainer::InitGO()
 }
 void  DataContainer::InitShaders()
 {
-	m_map_Shaders["Default"] = LoadShaders("Flare", "FancyFog");
-	m_map_Shaders["Particles"] = LoadShaders("Flare", "FancyFog");
+	m_map_Shaders["Default"] = LoadShaders("Default", "FancyFog");
+	m_map_Shaders["Particles"] = LoadShaders("Default", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	m_map_Shaders["Post"] = LoadShaders("Post", "Post");
 	m_map_Shaders["EffectCRT"] = LoadShaders("Post", "EffectCRT");
 	m_map_Shaders["UI"] = LoadShaders("Default", "Default");
 	m_map_Shaders["Particles"] = LoadShaders("Default", "Default");
 	m_map_Shaders["PassThrough"] = LoadShaders("PassThrough", "PassThrough");
+	m_map_Shaders["Grass"] = LoadShaders("Grass", "FancyFog");
 }
 void DataContainer::InitBehaviour()
 {

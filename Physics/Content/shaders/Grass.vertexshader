@@ -20,14 +20,30 @@ uniform mat4 MV;
 uniform mat4 MV_inverse_transpose;
 uniform bool lightEnabled;
 uniform mat4 lightDepthMVP;
+uniform float vert_et;
+uniform float distFromPlayer;
 
 void main(){
-vertexPosition_modelspace_O = vertexPosition_modelspace;
-	// Output position of the vertex, in clip space : MVP * position
-	gl_Position =  MVP * vec4(vertexPosition_modelspace, 1);
-	
+	vertexPosition_modelspace_O = vertexPosition_modelspace;
+	gl_Position =  MVP * vec4(vertexPosition_modelspace_O, 1);
 	// Vector position, in camera space
-	vertexPosition_cameraspace = ( MV * vec4(vertexPosition_modelspace, 1) ).xyz;
+	vertexPosition_cameraspace = ( MV * vec4(vertexPosition_modelspace_O, 1) ).xyz;
+	// sway
+	if(vertexPosition_modelspace.y > 0.3f) // min height
+	{
+		gl_Position.x += sin(0.6f * vert_et) * .5f * pow(vertexPosition_modelspace_O.y,1.f);
+	
+		// push away
+		vec3 Player_CameraSpace = vec3(0,0,-distFromPlayer);
+		vec3 PlayerToV =  vertexPosition_cameraspace - Player_CameraSpace;
+		float dist = length(PlayerToV);
+		if( dist < 1.5f )
+		{
+			gl_Position.y -= 0.5f;
+		}
+	}
+
+	// Output position of the vertex, in clip space : MVP * position
 
 	if(lightEnabled == true)
 	{
@@ -36,7 +52,7 @@ vertexPosition_modelspace_O = vertexPosition_modelspace;
 		vertexNormal_cameraspace = ( MV_inverse_transpose * vec4(vertexNormal_modelspace, 0) ).xyz;
 
 		// Output position of the vertex, in light space : lightDepthMVP * position
-		shadowCoord = lightDepthMVP * vec4(vertexPosition_modelspace, 1);
+		shadowCoord = lightDepthMVP * vec4(vertexPosition_modelspace_O, 1);
 		shadowCoord = shadowCoord / shadowCoord.w;
 		shadowCoord.xyz = shadowCoord.xyz * 0.5 + 0.5;
 	}
