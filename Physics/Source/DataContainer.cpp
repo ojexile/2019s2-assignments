@@ -496,7 +496,7 @@ void DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["BossSpawner"] = go;
 	go->AddComponent(new BossSpawnerScript(GetGameObjectRaw("Boss0"), GetGameObjectRaw("Boss1"), GetGameObjectRaw("Boss2")));
-	// Animals--------------------------------------------------------------------------------
+	/// Animals--------------------------------------------------------------------------------
 	// Cow-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Cow"] = go;
@@ -506,7 +506,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
 	// go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
-
+	// Bird--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Bird"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("BirdBody")));
@@ -525,7 +525,6 @@ void DataContainer::InitGO()
 	go2->AddComponent(new RenderComponent(GetMesh("WingRight")));
 	go2->TRANS->SetRelativePosition(-0.378f, 0.458f, 0.082f);
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
-
 	//Fox-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Fox"] = go;
@@ -552,6 +551,7 @@ void DataContainer::InitGO()
 	// Fish-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Fish"] = go;
+	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
