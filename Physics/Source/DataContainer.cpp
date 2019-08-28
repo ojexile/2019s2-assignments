@@ -431,13 +431,14 @@ void DataContainer::InitGO()
 	go->AddComponent(new AIEntityScript(GetBehaviour("Melee"), Stats(150, 0, 100, 0, 80, 15, 2000, 10)));
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
-
+	go->TRANS->SetScale(2);
 	// Range-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Ranged"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->TRANS->SetScale(2);
 	go->AddComponent(new AIEntityScript(GetBehaviour("Ranged"), Stats(90, 0, 100, 0, 80, 25, 2000, 15)));
 	go2 = GetGameObject("Gun");
 	go2->TRANS->SetRelativeRotation(-90, 0, 1, 0);

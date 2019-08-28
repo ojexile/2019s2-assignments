@@ -16,7 +16,7 @@ Script to handle Dropping of loot such as weapon parts, augmented parts and
 class LootScript : public ScriptComponent
 {
 public:
-	LootScript(bool isRigged = false);
+	LootScript(bool isRigged = true);
 	virtual ~LootScript();
 
 	void DropLoot(void);

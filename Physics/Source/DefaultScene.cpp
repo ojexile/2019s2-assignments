@@ -239,6 +239,18 @@ void DefaultScene::Init()
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 0.75, 1);
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
+
+	GameObject* tmp;
+	GunScript* gs = Gun->GUN;
+
+	tmp = dataContainer->GetGameObject("Muzzle");
+	tmp->PART->SetAugment(new BlackHoleAugment);
+	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
+	tmp->PART->GetAugment()->SetGunReference(gs);
+
+	Gun->AddChild(tmp);
+	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
+
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObjectRaw("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
