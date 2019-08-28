@@ -9,9 +9,9 @@ BossSpawnerScript::BossSpawnerScript(GameObject * a, GameObject * b, GameObject 
 	m_Boss[1] = b;
 	m_Boss[2] = c;
 
-	m_fSpawnIntervals[0] = 100;
-	m_fSpawnIntervals[1] = 200;
-	m_fSpawnIntervals[2] = 250;
+	m_fSpawnIntervals[0] = 60;
+	m_fSpawnIntervals[1] = 100;
+	m_fSpawnIntervals[2] = 200;
 
 	m_fCurrentInterval = m_fSpawnIntervals[0];
 	m_fSpawnRate = 1;
