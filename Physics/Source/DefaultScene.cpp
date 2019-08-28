@@ -219,7 +219,7 @@ void DefaultScene::Init()
 	default:
 		break;
 	}
-	AbilityUI->RENDER->SetLightEnabled(true);
+	AbilityUI->RENDER->SetLightEnabled(false);
 	AbilityUI->RENDER->SetColor(0.1f, 0.2f, 0.8f);
 	/// End Player Stats--------------------------------------------------------------------------------
 	GameObject* CheatSheet = m_GOM.AddGameObject("UI");
