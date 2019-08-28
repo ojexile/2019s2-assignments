@@ -211,7 +211,7 @@ void EntityScript::RotateTowards(Vector3 vDir)
 	// current angle
 	float CurrentAngle = TRANS->GetDegrees();
 
-	float newAngle = LerpAngle(TargetAngle, CurrentAngle, 0.001f);
+	float newAngle = LerpAngle(TargetAngle, CurrentAngle, 0.0000001f);
 	TRANS->SetRotation(newAngle, 0, 1, 0);
 }
 void EntityScript::Jump()
