@@ -24,7 +24,6 @@ void CheatScript::Update(double dt)
 		if (InputManager::GetInstance()->GetInputStrength("Fog"))
 		{
 			WorldValues::FogDensity = 1.f;
-			Application::GetInstance().GetEngine()->GetRenderManager()->oof = 1.f;
 			CHENG_LOG("Cheat Act: ", "FOG");
 		}
 		else if (InputManager::GetInstance()->GetInputStrength("God"))

@@ -211,12 +211,6 @@ static bool wire = false;
 void RenderingManagerBase::Update(double dt)
 {
 	//Keyboard Section
-	// TODO SET DRAW MODE
-	if (InputManager::GetInstance()->GetInputStrength("oof"))
-	{
-		CHENG_LOG("oof");
-		oof = 1.f;
-	}
 	if (InputManager::GetInstance()->GetInputStrength("TriggerCull"))
 	{
 		if (cull)
