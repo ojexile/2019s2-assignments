@@ -5,7 +5,6 @@
 
 #include <vector>
 
-
 /********************************************************************************/
 /*!
 \author Ryan Tan Zheng Rong
@@ -20,7 +19,7 @@ public:
 
 	GunScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8,
 		int iMagazineRounds_Max = 8, float fReloadTimeBuffer = 1.2f, float fFirerate = 0.75f,
-		float fBulletSpread = 12.5f, float fBulletForce = 12.f);
+		float fBulletSpread = 4.5f, float fBulletForce = 12.f);
 	~GunScript();
 
 	//Interface Functions

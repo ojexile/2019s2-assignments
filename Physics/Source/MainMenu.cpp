@@ -52,7 +52,7 @@ void MainMenu::Init()
 	go = m_GOM.AddGameObject(GetGO("Render"), "Post");
 	go = m_GOM.AddGameObject(GetGO("Render2"), "Post2");
 	GameObject* go2 = nullptr;
-	Preferences::SetPref(Resources::PreferencesTerm::CamDist, "80");
+	Preferences::SetPref(Resources::PreferencesTerm::CamDist, "50");
 	/// Observers================================================================================
 	GenericSubject::GetInstance()->AddObserver(new AudioObserver);
 	GenericSubject::GetInstance()->AddObserver(new InteractablesObserver);
@@ -74,7 +74,7 @@ void MainMenu::Init()
 	// Title--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(1920 / 2 + 200, 10, 120);
-	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "TITLE OF GAME"));
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "SUSUcubed"));
 	go->RENDER->SetColor({ 0.4f,1.f,0.8f });
 	go->SetDisableDistance(-1);
 	// Play--------------------------------------------------------------------------------

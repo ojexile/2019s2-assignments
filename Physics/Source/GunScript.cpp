@@ -31,6 +31,10 @@ void GunScript::PullTrigger(const Vector3& dir, const double deltaTime)
 	if (!m_Projectile || m_bIsReloading)
 		return;
 
+	if (m_iMagazineRounds <= 0)
+	{
+		ReloadWeapon();
+	}
 	if (m_iMagazineRounds > 0 && m_fBufferTime > m_fFirerate)
 	{
 		m_fBufferTime = 0.f;
@@ -232,7 +236,7 @@ void GunScript::DestroyPart(std::vector<GameObject*>& m_vector, GameObject* targ
 	{
 		GameObject* go = static_cast<GameObject*>(*(m_vector.rbegin()));
 
-		if(go->PART->GetAugment())
+		if (go->PART->GetAugment())
 			go->PART->GetAugment()->RemovePassive();
 
 		if (target == go)
@@ -281,7 +285,6 @@ void GunScript::ApplyAugmentOnBullet(std::vector<GameObject*>& m_vector, GameObj
 		GameObject* wp = static_cast<GameObject*>(*it);
 		if (wp->PART->GetAugment())
 			go->GetComponent<ProjectileScript>()->AddAugment(wp->PART->GetAugment()->Clone());
-		
 	}
 }
 
