@@ -108,6 +108,7 @@ void MainMenu::Init()
 	GameObject* TutorialButt = m_GOM.AddGameObject(GetGO("MenuButton"), "UI");
 	TutorialButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 6 * 2 + 40);
 	TutorialButt->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	//
 	GameObject* TutorialText = m_GOM.AddGameObject("UI");
 	TutorialText->TRANS->SetPosition(50, 1080 - 1080 / 6 * 2, 80);
