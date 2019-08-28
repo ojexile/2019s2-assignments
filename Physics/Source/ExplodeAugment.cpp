@@ -26,10 +26,11 @@ void ExplodeAugment::ActiveEffect(Component* proj, GameObject* go)
 
 	//Entity gets damaged and pushed back
 	es->Damage((int)(proj->GetComponent<ProjectileScript>()->GetDamage() * 1.5f));
-	go->RIGID->AddForce(relDir.Normalize() * 1000);
+	go->RIGID->AddForce(relDir.Normalize() * 500);
 
 	//Bullet expands
 	proj->TRANS->SetScale(1.5);
+	proj->GetComponent<ProjectileScript>()->SetLifespan(0.05f);
 }
 
 void ExplodeAugment::PassiveEffect()

@@ -9,6 +9,7 @@
 BlackHoleAugment::BlackHoleAugment()
 {
 	m_AugmentType = BULLET;
+	m_Name = "Black Hole Augment";
 	m_Description = "Upon hitting an enemy, the bullet becomes a black hole for 1 second";
 }
 

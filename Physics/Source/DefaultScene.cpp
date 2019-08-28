@@ -244,7 +244,7 @@ void DefaultScene::Init()
 	GunScript* gs = Gun->GUN;
 
 	tmp = dataContainer->GetGameObject("Muzzle");
-	tmp->PART->SetAugment(new ExplodeAugment);
+	tmp->PART->SetAugment(new BlackHoleAugment);
 	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
 	tmp->PART->GetAugment()->SetGunReference(gs);
 	
@@ -252,7 +252,7 @@ void DefaultScene::Init()
 	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
 
 	tmp = dataContainer->GetGameObject("Muzzle");
-	tmp->PART->SetAugment(new ExplodeAugment);
+	tmp->PART->SetAugment(new BlackHoleAugment);
 	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
 	tmp->PART->GetAugment()->SetGunReference(gs);
 
