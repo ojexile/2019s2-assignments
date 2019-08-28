@@ -47,10 +47,8 @@ void DefaultScene::Init()
 	/// Layers================================================================================
 	m_GOM.CreateLayer(dataContainer->GetShader("Post"), "Post");
 	m_GOM.CreateLayer(dataContainer->GetShader("EffectCRT"), "Post2");
-	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Grass");
-	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Particles");
 	/// End Layers================================================================================
 	/// RENDER ///
 	go = m_GOM.AddGameObject(GetGO("Render"), "Post");
@@ -88,7 +86,7 @@ void DefaultScene::Init()
 	float height1 = 220;
 	go = m_GOM.AddGameObject("UI");
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Inventory"));
-	go->TRANS->SetPosition(1920 - 100 * 3, height1 + 40, 40);
+	go->TRANS->SetPosition(1920 - 100 * 3, height1 + 50, 40);
 	go->RENDER->SetColor(2);
 
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
@@ -307,6 +305,7 @@ void DefaultScene::Init()
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
 	m_CameraGO->AddComponent(new CameraComponent);
+	m_CameraGO->SetDisableDistance(-1);
 	// m_CameraGO->AddChild(go2);
 	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	// Set up camera
@@ -319,8 +318,6 @@ void DefaultScene::Init()
 	SetCursorEnabled(false);
 	/// End Create Camera================================================================================
 	/// Entities================================================================================
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(3, 24.f, 0);
 	/// End Entities================================================================================
 	/// Interactables================================================================================
 	// Treasure--------------------------------------------------------------------------------

@@ -163,12 +163,12 @@ void MapSpawningScript::Update(double dt)
 			Vector3 goPos = Vector3((float)offsetX * 16, 0, (float)offsetZ * 16);
 			go->TRANS->SetPosition(goPos);
 			RenderComponent* render = new RenderComponent(chunk->GenerateMeshBiomed());
-			render->SetRenderDistance(80);
+			render->SetRenderDistance(64);
 			go->AddComponent(render);
 			go->AddComponent(new BiomeComponent(GetBiomeAt(Vector3((float)offsetX, 0, (float)offsetZ))));
 			//
 			go->AddComponent(new ChunkCollider(chunk));
-			go->SetDisableDistance(80);
+			go->SetDisableDistance(64);
 
 #ifdef DEBUG_NUMBERS
 			for (int i = 0; i < 4; ++i) {

@@ -303,7 +303,7 @@ void RenderingManager::RenderWorld(Scene* scene)
 		// Switch shader
 		if (it->first == "UI")
 			continue;
-		if (it->first == "Particle")
+		if (it->first == "Particles")
 			continue;
 		if (it->first == "Post")
 			continue;
@@ -330,10 +330,10 @@ void RenderingManager::RenderWorld(Scene* scene)
 		return;
 	m_bFogEnabled = false;
 	std::map<std::string, LayerData*>* map = GOM->GetLayerList();
-	std::vector<GameObject*>* GOListPart = map->at("Particle")->GetGOList();
+	std::vector<GameObject*>* GOListPart = map->at("Particles")->GetGOList();
 	if (SWITCH_SHADER && m_renderPass == RENDER_PASS_MAIN)
 	{
-		m_programID = (*map)["Particle"]->GetShader();
+		m_programID = (*map)["Particles"]->GetShader();
 		BindUniforms();
 		SetUniforms(scene);
 	}

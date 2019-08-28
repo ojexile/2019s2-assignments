@@ -7,7 +7,7 @@ GameObject::GameObject()
 	, m_bStatic{ false }
 {
 	AddComponent(new TransformComponent);
-	m_fDisableDistance = 300;
+	m_fDisableDistance = 32;
 	m_Parent = nullptr;
 }
 // Copy
@@ -31,6 +31,7 @@ GameObject::GameObject(const GameObject& go, GameObject* parent)
 		child->m_Parent = this;
 		m_vec_ChildList.push_back(child);
 	}
+	m_fDisableDistance = go.m_fDisableDistance;
 }
 
 GameObject::~GameObject()
@@ -68,7 +69,9 @@ bool GameObject::IsActive()
 
 bool GameObject::IsDisabled()
 {
-	return (m_fDisableDistance < (SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition() - TRANS->GetPosition()).Length());
+	if (!SceneManager::GetInstance()->GetScene()->GetPlayer() || m_fDisableDistance < 0)
+		return false;
+	return (m_fDisableDistance < (SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<TransformComponent>()->GetPosition() - TRANS->GetPosition()).Length());
 }
 
 void GameObject::SetDisableDistance(float f)
@@ -83,11 +86,8 @@ float GameObject::GetDisableDistance()
 
 void GameObject::Update(double dt)
 {
-	if (m_fDisableDistance > 0)
-	{
-		if (m_fDisableDistance < (SceneManager::GetInstance()->GetScene()->GetCameraGameObject()->GetComponent<TransformComponent>()->GetPosition() - TRANS->GetPosition()).Length())
-			return;
-	}
+	if (IsDisabled())
+		return;
 	// Update components
 	for (unsigned i = 0; i < m_vec_ComponentList.size(); ++i)
 	{
