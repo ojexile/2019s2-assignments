@@ -268,7 +268,10 @@ __pycache__/
 *.exe
 #*.lib
 /Common/Debug
+Source/Common/Release
+Source/Common/Release/.obj
 /Physics/Debug
+/Physics/Release
 *.mtl
 /Common/Release
 /Physics/Release
@@ -279,8 +282,7 @@ common.lib
 /Common/Release
 /Physics/Release
 /Release
-
+Source/Release
 Physics/Content/textures/LOW/plain_tree\.psd
-
 Physics/Content/textures/LOW/snow_tree\.psd
 /docs.dxg
