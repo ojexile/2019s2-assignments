@@ -3,7 +3,7 @@
 RenderComponent::RenderComponent()
 {
 	m_Mesh = nullptr;
-	m_fRenderDistance = 300;
+	m_fRenderDistance = 32;
 	m_AnimatedMesh = nullptr;
 	m_MeshBiomed = nullptr;
 	m_bLightEnabled = true;
@@ -16,7 +16,7 @@ RenderComponent::RenderComponent()
 RenderComponent::RenderComponent(Mesh* Mesh)
 	:m_Mesh(Mesh)
 {
-	m_fRenderDistance = 300;
+	m_fRenderDistance = 32;
 	m_AnimatedMesh = nullptr;
 	m_MeshBiomed = nullptr;
 	m_bLightEnabled = true;
@@ -28,7 +28,7 @@ RenderComponent::RenderComponent(Mesh* Mesh)
 RenderComponent::RenderComponent(MeshBiomed * meshBiomed)
 	:m_MeshBiomed(meshBiomed)
 {
-	m_fRenderDistance = 300;
+	m_fRenderDistance = 48;
 	m_Mesh = nullptr;
 	m_AnimatedMesh = nullptr;
 	m_bLightEnabled = true;
@@ -55,7 +55,7 @@ RenderComponent::RenderComponent(Mesh* Mesh, std::string sText, bool OnScreen)
 RenderComponent::RenderComponent(AnimatedMesh* Mesh)
 	: m_AnimatedMesh(Mesh)
 {
-	m_fRenderDistance = 300;
+	m_fRenderDistance = 32;
 	m_Mesh = nullptr;
 	m_MeshBiomed = nullptr;
 
@@ -89,6 +89,7 @@ RenderComponent::RenderComponent(RenderComponent& ref)
 	m_b3DBillboard = ref.m_b3DBillboard;
 	m_Material = ref.m_Material;
 	m_bTextOnScreen = ref.m_bTextOnScreen;
+	m_fRenderDistance = ref.m_fRenderDistance;
 }
 
 float RenderComponent::GetRenderDistance()

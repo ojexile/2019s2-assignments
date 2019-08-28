@@ -649,7 +649,7 @@ void DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["particlespawnerdestroy"] = go;
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Particles", 10.f));
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particledestroy"], 100, Vector3(), 0.f, "Particle", 10.f));
 	go->m_sName = "particlespawnerdestroy";
 
 	go = new GameObject();
@@ -760,6 +760,7 @@ void DataContainer::InitGO()
 void  DataContainer::InitShaders()
 {
 	m_map_Shaders["Default"] = LoadShaders("Flare", "FancyFog");
+	m_map_Shaders["Particles"] = LoadShaders("Flare", "FancyFog");
 	m_map_Shaders["GPass"] = LoadShaders("GPass", "GPass");
 	m_map_Shaders["Post"] = LoadShaders("Post", "Post");
 	m_map_Shaders["EffectCRT"] = LoadShaders("Post", "EffectCRT");

@@ -47,10 +47,8 @@ void DefaultScene::Init()
 	/// Layers================================================================================
 	m_GOM.CreateLayer(dataContainer->GetShader("Post"), "Post");
 	m_GOM.CreateLayer(dataContainer->GetShader("EffectCRT"), "Post2");
-	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Birds");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "NoCollision");
 	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Grass");
-	m_GOM.CreateLayer(dataContainer->GetShader("Default"), "Particles");
 	/// End Layers================================================================================
 	/// RENDER ///
 	go = m_GOM.AddGameObject(GetGO("Render"), "Post");
@@ -88,7 +86,7 @@ void DefaultScene::Init()
 	float height1 = 220;
 	go = m_GOM.AddGameObject("UI");
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Inventory"));
-	go->TRANS->SetPosition(1920 - 100 * 3, height1 + 40, 40);
+	go->TRANS->SetPosition(1920 - 100 * 3, height1 + 50, 40);
 	go->RENDER->SetColor(2);
 
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
@@ -269,18 +267,6 @@ void DefaultScene::Init()
 	GameObject* Gun = dataContainer->GetGameObject("Gun");
 	Gun->TRANS->SetRelativePosition(1, 0.75, 1);
 	Gun->TRANS->SetRelativeRotation(25, Vector3(0, 1, 0));
-
-	GameObject* tmp;
-	GunScript* gs = Gun->GUN;
-
-	tmp = dataContainer->GetGameObject("Muzzle");
-	tmp->PART->SetAugment(new BlackHoleAugment);
-	tmp->PART->GetAugment()->SetEntityReference(tmp->GetComponent<PlayerScript>());
-	tmp->PART->GetAugment()->SetGunReference(gs);
-
-	Gun->AddChild(tmp);
-	Gun->GUN->EquipPart(tmp, WeaponPartScript::SLOT_TYPE::MUZZLE);
-
 	// Grenade-------------------------------------------------------------------------------
 	GameObject* grenade = dataContainer->GetGameObjectRaw("Grenade");
 	grenade->TRANS->SetRelativePosition(0, 1, 1);
@@ -307,6 +293,7 @@ void DefaultScene::Init()
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraScript(Player));
 	m_CameraGO->AddComponent(new CameraComponent);
+	m_CameraGO->SetDisableDistance(-1);
 	// m_CameraGO->AddChild(go2);
 	m_Camera = m_CameraGO->GetComponent<CameraComponent>()->GetCamera();
 	// Set up camera
@@ -319,8 +306,6 @@ void DefaultScene::Init()
 	SetCursorEnabled(false);
 	/// End Create Camera================================================================================
 	/// Entities================================================================================
-	go = m_GOM.AddGameObject(dataContainer->GetGameObject("Bird"), "Birds");
-	go->TRANS->SetPosition(3, 24.f, 0);
 	/// End Entities================================================================================
 	/// Interactables================================================================================
 	// Treasure--------------------------------------------------------------------------------

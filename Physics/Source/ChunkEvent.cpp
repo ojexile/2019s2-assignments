@@ -6,14 +6,12 @@
 #include "EntityLibrary.h"
 
 ChunkEvent::ChunkEvent()
-	: m_eventType (NIL)
+	: m_eventType(NIL)
 {
 }
 
-
 ChunkEvent::~ChunkEvent()
 {
-
 }
 
 void ChunkEvent::SetEntityRef(GameObject* go)
@@ -28,7 +26,7 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 		m_eventType = NIL;
 	else
 		m_eventType = static_cast<EVENT_TYPE>(Math::RandIntMinMax(NIL, LOOT_AND_ENEMIES));
-	
+
 	Vector3 size = chunk_ref->GetSize();
 	EntityLibrary* EL = EntityLibrary::GetInstance();
 
@@ -50,12 +48,9 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			int selectedEnemy = Math::RandIntMinMax(EntityLibrary::MELEE, EntityLibrary::NUM_ENEMIES - 1);
 
 			GameObject* newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
-			
+
 			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(200.f);
-			newEntity->RENDER->SetRenderDistance(200.f);
-			
-			
+
 			GOM_ref->AddGameObject(newEntity);
 		}
 		break;
@@ -83,8 +78,6 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			}
 
 			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(200.f);
-			newEntity->RENDER->SetRenderDistance(200.f);
 
 			GOM_ref->AddGameObject(newEntity);
 		}
@@ -113,8 +106,6 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			}
 
 			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(200.f);
-			newEntity->RENDER->SetRenderDistance(200.f);
 
 			GOM_ref->AddGameObject(newEntity);
 		}
@@ -132,9 +123,6 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 		GameObject* newEntity = EL->GetLoot(EntityLibrary::LOOT_CHEST)->Clone();
 
 		newEntity->TRANS->SetPosition(pos);
-		newEntity->SetDisableDistance(200.f);
-		newEntity->RENDER->SetRenderDistance(200.f);
-
 
 		GOM_ref->AddGameObject(newEntity);
 
@@ -158,18 +146,13 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 				newEntity = EL->GetEnemyArray()[selectedEnemy]->Clone();
 
 				newEntity->TRANS->SetPosition(pos);
-				newEntity->SetDisableDistance(200.f);
-				newEntity->RENDER->SetRenderDistance(200.f);
 			}
 			else
 			{
 				newEntity = EL->GetLoot(EntityLibrary::LOOT_CHEST)->Clone();
 
 				newEntity->TRANS->SetPosition(pos);
-				newEntity->SetDisableDistance(200.f);
-				newEntity->RENDER->SetRenderDistance(200.f);
 			}
-
 
 			GOM_ref->AddGameObject(newEntity);
 		}
@@ -187,8 +170,6 @@ void ChunkEvent::GenerateEvent(GameObjectManager* GOM_ref, ChunkData* chunk_ref,
 			GameObject* newEntity = EL->GetLootArray()[coin]->Clone();
 
 			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(200.f);
-			newEntity->RENDER->SetRenderDistance(200.f);
 
 			GOM_ref->AddGameObject(newEntity);
 		}
@@ -214,33 +195,18 @@ void ChunkEvent::GenerateEntities(GameObjectManager* GOM_ref, ChunkData* chunk_r
 
 		if (selectedEntity == EntityLibrary::BIRD)
 		{
-
 			pos.y = Math::RandFloatMinMax(25.f, 30.5f);
 
 			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(100.f);
-			newEntity->RENDER->SetRenderDistance(100.f);
 
-			GOM_ref->AddGameObject(newEntity, "Birds");
+			GOM_ref->AddGameObject(newEntity, "NoCollision");
 		}
 		else
 		{
 			newEntity->TRANS->SetPosition(pos);
-			newEntity->SetDisableDistance(100.f);
-			
-			auto ptr = newEntity->GetComponent<RenderComponent>(true);
-			if (ptr == nullptr)
-			{
-				newEntity->GetChildList()->at(0)->RENDER->SetRenderDistance(100.f);
-			}
-			else
-			{
-				newEntity->RENDER->SetRenderDistance(100.f);
 
-			}
 			GOM_ref->AddGameObject(newEntity);
 		}
-
 	}
 }
 
@@ -259,20 +225,16 @@ void ChunkEvent::GenerateEnvironment(GameObjectManager* GOM_ref, ChunkData* chun
 		if (pos.y > 17)
 			continue;
 
-
 		int selectedEntity = Math::RandIntMinMax(EntityLibrary::STONE_1, EntityLibrary::NUM_ENVIRONMENT - 1);
 		GameObject* newEntity = EL->GetEnvironmentArray()[selectedEntity]->Clone();
 
 		newEntity->TRANS->SetPosition(pos);
 		newEntity->TRANS->SetScale(Math::RandFloatMinMax(0.5f, 1.0f));
-		newEntity->SetDisableDistance(100.f);
-		newEntity->RENDER->SetRenderDistance(100.f);
 
 		if (static_cast<EntityLibrary::eEnvironment>(selectedEntity) == EntityLibrary::GRASS_1 ||
 			static_cast<EntityLibrary::eEnvironment>(selectedEntity) == EntityLibrary::GRASS_2)
 			GOM_ref->AddGameObject(newEntity, "Grass");
 		else
 			GOM_ref->AddGameObject(newEntity, "NoCollision");
-
 	}
 }
