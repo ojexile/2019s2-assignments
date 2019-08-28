@@ -31,7 +31,7 @@ void BossSpawnerScript::Update(double dt)
 {
 	m_CurrentTime += Time::GetInstance()->GetDeltaTimeF() * m_fSpawnRate;
 
-	if (m_CurrentTime >= m_fCurrentInterval && m_iCurrentBoss < 2)
+	if (m_CurrentTime >= m_fCurrentInterval && m_iCurrentBoss < 3)
 	{
 		m_CurrentTime = 0;
 		Vector3 Pos = SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition();
