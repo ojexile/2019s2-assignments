@@ -86,6 +86,11 @@ void DefaultScene::Init()
 	InventorySlots = new GameObject*[INVENTORY_SIZE];
 	float height0 = 100;
 	float height1 = 220;
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Inventory"));
+	go->TRANS->SetPosition(1920 - 100 * 3, height1 + 40, 40);
+	go->RENDER->SetColor(2);
+
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100, height0);
 	InventorySlots[0] = go;
