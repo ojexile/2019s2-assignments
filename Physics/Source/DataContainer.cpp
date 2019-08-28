@@ -144,6 +144,9 @@ void DataContainer::InitTextures()
 	m_map_Textures["AbilityGrenade"] = LoadTGA("AbilityGrenade");
 	m_map_Textures["AbilityHeal"] = LoadTGA("AbilityHeal");
 	m_map_Textures["AbilitySlowTime"] = LoadTGA("AbilitySlowTime");
+
+	m_map_Textures["Cheat"] = LoadTGA("Cheat");
+	m_map_Textures["Tutorial"] = LoadTGA("Tutorial");
 }
 void DataContainer::InitMeshes()
 {
@@ -239,7 +242,8 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Dino0"] = MeshBuilder::GenerateOBJ("Dino0");
 
-	m_map_Meshes["CheatSheet"] = MeshBuilder::GenerateQuad("QuadCentered", {}, 1);
+	m_map_Meshes["CheatSheet"] = MeshBuilder::GenerateQuad("QuadCentered", {}, 1)->AddTexture("Cheat");
+	m_map_Meshes["Tutorial"] = MeshBuilder::GenerateQuad("QuadCentered", {}, 1)->AddTexture("Tutorial");
 }
 void DataContainer::InitTerrain()
 {

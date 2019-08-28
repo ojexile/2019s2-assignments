@@ -107,7 +107,8 @@ void MainMenu::Init()
 	PlayText->SetDisableDistance(-1);
 	// Tutorial--------------------------------------------------------------------------------
 	GameObject* TutorialButt = m_GOM.AddGameObject(GetGO("MenuButton"), "UI");
-	TutorialButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 6 * 2 + 40);
+	TutorialButt->TRANS->SetPosition(50 + 130, 1080 - 1080 / 6 * 2 + 40);
+	TutorialButt->TRANS->SetScale(300, 100, 1);
 	TutorialButt->SetDisableDistance(-1);
 	TutorialButt->RENDER->SetRenderDistance(-1);
 	//
@@ -116,14 +117,6 @@ void MainMenu::Init()
 	TutorialText->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Tutorial"));
 	TutorialText->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	TutorialText->SetDisableDistance(-1);
-	//
-	GameObject* TutBox = m_GOM.AddGameObject("UI");
-	TutBox->TRANS->SetPosition(1920 / 2 + 500, 1080 / 2);
-	TutBox->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
-	TutBox->SetDisableDistance(-1);
-	TutBox->TRANS->SetScale(600, 800, 1);
-	TutBox->SetActive(false);
-	TutBox->RENDER->SetRenderDistance(-1);
 	// Quit--------------------------------------------------------------------------------
 	GameObject* QuitButt = m_GOM.AddGameObject(GetGO("MenuButton"), "UI");
 	QuitButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 6 * 3 + 40);
@@ -135,10 +128,6 @@ void MainMenu::Init()
 	QuitText->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	QuitText->SetDisableDistance(-1);
 	// Init Menu Buttons================================================================================
-	go = m_GOM.AddGameObject();
-	go->AddComponent(new MenuButtonsScript(PlayText, PlayButt, QuitText, QuitButt,
-		TutorialText, TutorialButt, TutBox, AbilityDash, AbilityGrenade, AbilityHeal, AbilitySlowTime));
-	go->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(1400, 900, 1);
@@ -159,6 +148,19 @@ void MainMenu::Init()
 	go->TRANS->SetPosition(30, 30, 40);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), PlayerData::GetInstance()->GetUsername()));
 	go->RENDER->SetColor({ 0.9f,1.f,0.9f });
+	go->SetDisableDistance(-1);
+	//
+	GameObject* TutBox = m_GOM.AddGameObject("UI");
+	TutBox->TRANS->SetPosition(1920 / 2 + 500, 1080 / 2);
+	TutBox->AddComponent(new RenderComponent(dataContainer->GetMesh("Tutorial")));
+	TutBox->SetDisableDistance(-1);
+	TutBox->TRANS->SetScale(600, 800, 1);
+	TutBox->SetActive(false);
+	TutBox->RENDER->SetRenderDistance(-1);
+	//
+	go = m_GOM.AddGameObject();
+	go->AddComponent(new MenuButtonsScript(PlayText, PlayButt, QuitText, QuitButt,
+		TutorialText, TutorialButt, TutBox, AbilityDash, AbilityGrenade, AbilityHeal, AbilitySlowTime));
 	go->SetDisableDistance(-1);
 	/// End UI================================================================================
 	/// Player================================================================================
