@@ -10,7 +10,7 @@
 #include "StandingState.h"
 #include "Engine.h"
 #include "PlayerStateList.h"
-#define INFINITE true
+#define INFINITE false
 SprintingState::SprintingState()
 {
 }
