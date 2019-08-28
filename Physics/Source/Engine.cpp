@@ -212,5 +212,6 @@ void Engine::Exit()
 	Time::DeleteInstance();
 	GenericSubject::DeleteInstance();
 	EntityLibrary::DeleteInstance();
+	PlayerData::GetInstance()->Save();
 	PlayerData::DeleteInstance();
 }

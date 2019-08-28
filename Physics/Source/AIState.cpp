@@ -11,7 +11,7 @@ bool AIState::PlayerInRange(ComponentBase* com)
 		return false;
 	Vector3 PlayerPos = Player->TRANS->GetPosition();
 	Vector3 Pos = com->TRANS->GetPosition();
-	if (fabs(PlayerPos.y - Pos.y) > 4)
+	if ((PlayerPos.y - Pos.y) > 5)
 		return false;
 	PlayerPos.y = 0;
 	Pos.y = 0;
