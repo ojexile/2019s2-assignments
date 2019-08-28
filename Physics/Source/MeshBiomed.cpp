@@ -21,6 +21,7 @@ MeshBiomed::~MeshBiomed()
 {
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteBuffers(1, &indexBuffer);
+	return; // disable deletion of textures
 	for (int i = 0; i < MAX_BIOMES; ++i)
 	{
 		for (int j = 0; j < MAX_TEXTURES; ++j)
