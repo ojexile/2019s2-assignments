@@ -78,12 +78,19 @@ void DefaultScene::Init()
 	// FPS--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	go->TRANS->SetPosition(1920 - 40, 1080 - 20, 25);
+	go->RENDER->SetRenderDistance(-1);
+	go->SetDisableDistance(-1);
 	/// Inventory--------------------------------------------------------------------------------
 	// slots--------------------------------------------------------------------------------
 	GameObject** InventorySlots;
 	InventorySlots = new GameObject*[INVENTORY_SIZE];
 	float height0 = 100;
 	float height1 = 220;
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Inventory"));
+	go->TRANS->SetPosition(1920 - 100 * 3, height1 + 40, 40);
+	go->RENDER->SetColor(2);
+
 	go = m_GOM.AddGameObject(GetGO("InventorySlot"), "UI");
 	go->TRANS->SetPosition(1920 - 100, height0);
 	InventorySlots[0] = go;
@@ -110,27 +117,49 @@ void DefaultScene::Init()
 	// customise--------------------------------------------------------------------------------
 	std::vector<GameObject*> CustoSlots;
 	Vector3 CustoPos(1920 - 200, 600);
+	Vector3 CustoPos1(1920 - 200, 600, 25);
+	CustoPos1 -= {28, 40, 0};
 	float fCustoDist = 100;
-	//
+	///
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotMuzzle"));
 	CustoSlots.push_back(go);
 	//
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Muzzle"));
+	go->TRANS->SetPosition(CustoPos1 - Vector3(fCustoDist, 0, 0));
+	go->RENDER->SetColor(2);
+	///
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos + Vector3(0, fCustoDist, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotScope"));
 	CustoSlots.push_back(go);
 	//
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Scope"));
+	go->TRANS->SetPosition(CustoPos1 + Vector3(0, fCustoDist, 0));
+	go->RENDER->SetColor(2);
+	///
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos + Vector3(fCustoDist, 0, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotStock"));
 	CustoSlots.push_back(go);
 	//
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Grip"));
+	go->TRANS->SetPosition(CustoPos1 + Vector3(fCustoDist, 0, 0));
+	go->RENDER->SetColor(2);
+	///
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos - Vector3(0, fCustoDist, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotClip"));
 	CustoSlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Clip"));
+	go->TRANS->SetPosition(CustoPos1 - Vector3(0, fCustoDist, 0));
+	go->RENDER->SetColor(2);
 	/// End Inventory--------------------------------------------------------------------------------
 	/// Player Stats--------------------------------------------------------------------------------
 	// Stamina--------------------------------------------------------------------------------
@@ -219,6 +248,7 @@ void DefaultScene::Init()
 	default:
 		break;
 	}
+	AbilityUI->RENDER->SetRenderDistance(-1);
 	AbilityUI->RENDER->SetLightEnabled(true);
 	AbilityUI->RENDER->SetColor(0.1f, 0.2f, 0.8f);
 	/// End Player Stats--------------------------------------------------------------------------------

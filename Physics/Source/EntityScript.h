@@ -39,6 +39,7 @@ protected:
 	bool m_bDamageAnim;
 	float m_fAnimStartTime;
 	bool m_bCanJump;
+	bool m_bIsBoss;
 	//--------------------------------------------------------------------------------
 	bool CheckDeath();
 public:
@@ -67,4 +68,5 @@ public:
 	Behaviour* GetBehaviour();
 	void SetCanDie(bool);
 	bool GetCanDie();
+	void SetBoss();
 };
