@@ -1,6 +1,7 @@
 #pragma once
 #include "ScriptComponent.h"
 #include "WeaponPartScript.h"
+#include "StopWatch.h"
 #include <vector>
 #define INVENTORY_SIZE 6
 class InventoryScript :
@@ -15,6 +16,8 @@ private:
 	GameObject** m_SlotList;
 	std::vector<GameObject*> m_WeaponSlotList;
 	GameObject* m_Reticle;
+	StopWatch s;
+	bool m_bAttach;
 public:
 	InventoryScript(GameObject* gun, GameObject** list
 		, std::vector<GameObject*> wlist, GameObject* reticle);

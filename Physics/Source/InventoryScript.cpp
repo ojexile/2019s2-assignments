@@ -18,6 +18,7 @@ InventoryScript::InventoryScript(GameObject* weapon, GameObject** list, std::vec
 	{
 		m_InventoryItems[i] = nullptr;
 	}
+	m_bAttach = false;
 }
 
 InventoryScript::~InventoryScript()
@@ -33,53 +34,62 @@ void InventoryScript::Update(double dt)
 		bClick = true;
 	}
 	bool hover = false;
-
+	if (s.GetTime() > 5.f && m_bAttach)
+	{
+		s.Reset();
+		m_bAttach = false;
+	}
 	// check for hover
 	for (int i = 0; i < 4; ++i)
 	{
+		if (!m_bAttach)
+			m_WeaponSlotList[i]->RENDER->SetAlpha(1.f);
 		if (m_WeaponSlotList[i]->GetComponent<UIButtonComponent>()->GetHover())
 		{
-			hover = true;
-			bool bSuccess = true;
-			if (m_Holding)
+			if (!m_bAttach)
 			{
-				if (bClick)
+				hover = true;
+				bool bSuccess = true;
+				if (m_Holding)
 				{
-					switch (i)
+					if (bClick)
 					{
-					case 0:
-						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::MUZZLE)
-							Attach(WeaponPartScript::MUZZLE);
+						switch (i)
+						{
+						case 0:
+							if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::MUZZLE)
+								Attach(WeaponPartScript::MUZZLE);
+							else
+								bSuccess = false;
+							break;
+						case 1:
+							if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::SCOPE)
+								Attach(WeaponPartScript::SCOPE);
+							else
+								bSuccess = false;
+							break;
+						case 2:
+							if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::GRIP)
+								Attach(WeaponPartScript::GRIP);
+							else
+								bSuccess = false;
+							break;
+						case 3:
+							if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::CLIP)
+								Attach(WeaponPartScript::CLIP);
+							else
+								bSuccess = false;
+							break;
+						default:
+							break;
+						}
+						// Audio
+						if (bSuccess)
+							Notify("PartAttachSuccess");
 						else
-							bSuccess = false;
-						break;
-					case 1:
-						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::SCOPE)
-							Attach(WeaponPartScript::SCOPE);
-						else
-							bSuccess = false;
-						break;
-					case 2:
-						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::GRIP)
-							Attach(WeaponPartScript::GRIP);
-						else
-							bSuccess = false;
-						break;
-					case 3:
-						if (m_Holding->GetComp(WeaponPartScript)->GetSlotType() == WeaponPartScript::CLIP)
-							Attach(WeaponPartScript::CLIP);
-						else
-							bSuccess = false;
-						break;
-					default:
+							Notify("PartAttachFail");
 						break;
 					}
-					// Audio
-					if (bSuccess)
-						Notify("PartAttachSuccess");
-					else
-						Notify("PartAttachFail");
-					break;
 				}
 			}
 		}
@@ -153,6 +163,12 @@ void InventoryScript::AddItem(GameObject* go)
 
 void InventoryScript::Attach(WeaponPartScript::SLOT_TYPE e)
 {
+	s.Start();
+	m_bAttach = true;
+	for (int i = 0; i < 4; ++i)
+	{
+		m_WeaponSlotList[i]->RENDER->SetAlpha(0.5f);
+	}
 	GameObject* go = m_InventoryItems[m_iHoldingIndex];
 
 	Augment* aug = nullptr;
