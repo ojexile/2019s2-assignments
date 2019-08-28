@@ -147,6 +147,7 @@ void MainMenu::Init()
 	int NumCoins = PlayerData::GetInstance()->GetCoins();
 	go->TRANS->SetPosition(1600, 900, 40);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), std::to_string(NumCoins) + "Coins"));
+	go->SetDisableDistance(-1);
 	// Name
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(30, 30, 40);

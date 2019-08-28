@@ -603,7 +603,8 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("UIBullet")));
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100, 100, 1);
-	go->SetDisableDistance(10000);
+	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	// ItemInfo--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["ItemInfo"] = go;
@@ -617,6 +618,7 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(100, 100, 1);
 	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	// AbilityGrenade--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["AbilityGrenade"] = go;
@@ -625,6 +627,7 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(100, 100, 1);
 	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	// AbilityHeal--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["AbilityHeal"] = go;
@@ -633,6 +636,7 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(100, 100, 1);
 	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	// AbilitySlowTime--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["AbilitySlowTime"] = go;
@@ -641,6 +645,7 @@ void DataContainer::InitGO()
 	go->TRANS->SetScale(100, 100, 1);
 	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	/// Interactabes/Foilage================================================================================
 
 	go = new GameObject();
