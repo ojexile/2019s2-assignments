@@ -241,6 +241,7 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["Chick"] = MeshBuilder::GenerateOBJ("Chick");
 
 	m_map_Meshes["Dino0"] = MeshBuilder::GenerateOBJ("Dino0");
+	m_map_Meshes["Dino1"] = MeshBuilder::GenerateOBJ("Dino1");
 
 	m_map_Meshes["CheatSheet"] = MeshBuilder::GenerateQuad("QuadCentered", {}, 1)->AddTexture("Cheat");
 	m_map_Meshes["Tutorial"] = MeshBuilder::GenerateQuad("QuadCentered", {}, 1)->AddTexture("Tutorial");
@@ -468,7 +469,7 @@ void DataContainer::InitGO()
 	go = new GameObject;
 	m_map_GO["Boss1"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
-	go->AddComponent(new RenderComponent(GetMesh("Cow")));
+	go->AddComponent(new RenderComponent(GetMesh("Dino1")));
 	go->TRANS->SetScale(6);
 	go->RENDER->SetColor(1.0f, 0.9f, 0.9f);
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));

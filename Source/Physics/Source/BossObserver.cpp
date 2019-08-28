@@ -3,6 +3,7 @@
 #include "BossSpawnerScript.h"
 #include "SceneManager.h"
 #include "MainMenu.h"
+#include "PlayerData.h"
 BossObserver::BossObserver()
 {
 	m_iNumBoss = 0;
@@ -19,6 +20,7 @@ void BossObserver::Notify(ComponentBase * com, std::string msg, std::vector<Game
 		++m_iNumBoss;
 		if (m_iNumBoss >= 3)
 		{
+			PlayerData::GetInstance()->OffsetCoins(6);
 			SceneManager::GetInstance()->ChangeScene(new MainMenu);
 		}
 	}

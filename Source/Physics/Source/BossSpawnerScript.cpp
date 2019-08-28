@@ -1,6 +1,7 @@
 #include "BossSpawnerScript.h"
 #include "SceneManager.h"
 #include "Time.h"
+#include "EntityScript.h"
 BossSpawnerScript::BossSpawnerScript(GameObject * a, GameObject * b, GameObject * c)
 	: m_iCurrentBoss(0)
 {
@@ -68,7 +69,8 @@ void BossSpawnerScript::ForceSpawn()
 	m_CurrentTime = 0;
 	Vector3 Pos = SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition();
 	Pos.x += 25;
-	Instantiate(m_Boss[m_iCurrentBoss], Pos);
+	GameObject* boss = Instantiate(m_Boss[m_iCurrentBoss], Pos);
+	boss->GetComponent<EntityScript>()->SetBoss();
 	++m_iCurrentBoss;
 	m_fCurrentInterval = m_fSpawnIntervals[m_iCurrentBoss];
 }
