@@ -58,8 +58,8 @@ void RenderingManager::SetMouseCallback(GLFWwindow* window)
 void RenderingManager::Update(double dt)
 {
 	RenderingManagerBase::Update(dt);
-	CHENG_LOG("Tex1: ", std::to_string(Post.GetTexture()));
-	CHENG_LOG("Tex2: ", std::to_string(Post2.GetTexture()));
+	//CHENG_LOG("Tex1: ", std::to_string(Post.GetTexture()));
+	//CHENG_LOG("Tex2: ", std::to_string(Post2.GetTexture()));
 }
 
 void RenderingManager::Render(Scene* scene)

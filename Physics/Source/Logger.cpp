@@ -2,7 +2,7 @@
 #include "Utility.h"
 #include "Resources.h"
 
-#define LOG_ENABLED true
+#define LOG_ENABLED false
 
 Logger::Logger(std::string sUser, SHORT Color)
 	: m_sUser(sUser)
