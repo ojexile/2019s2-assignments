@@ -457,7 +457,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(300, 0, 100, 0, 80, 20, 2000, 500)));
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
-
+	go->GC(EntityScript)->SetBoss();
 	// B--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Boss1"] = go;
@@ -468,7 +468,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(500, 0, 100, 0, 100, 40, 2000, 500)));
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
-
+	go->GC(EntityScript)->SetBoss();
 	// C---------------------------------------------
 	go = new GameObject;
 	m_map_GO["Boss2"] = go;
@@ -478,9 +478,8 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Boss"), Stats(600, 0, 100, 0, 110, 50, 2000, 500)));
 	go->AddComponent(new LootScript());
-	// Attacks--------------------------------------------------------------------------------
+	go->GC(EntityScript)->SetBoss();
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
-
 	// Attacks--------------------------------------------------------------------------------
 	// Shockwave
 	go = new GameObject;
@@ -493,6 +492,7 @@ void DataContainer::InitGO()
 	go->RIGID->LockYAxis(true);
 	go->RIGID->SetMat(0.25f, 0);
 	go->AddComponent(new SuicideNoteScript(5.f));
+	//
 	go = new GameObject;
 	m_map_GO["BossSpawner"] = go;
 	go->AddComponent(new BossSpawnerScript(GetGameObjectRaw("Boss0"), GetGameObjectRaw("Boss1"), GetGameObjectRaw("Boss2")));

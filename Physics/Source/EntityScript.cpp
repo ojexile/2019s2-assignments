@@ -23,6 +23,7 @@ EntityScript::EntityScript(Behaviour* _Behaviour)
 	m_AdditionalStats.SetOne();
 	m_bIsDead = false;
 	m_bCanDie = true;
+	m_bIsBoss = false;
 }
 EntityScript::EntityScript(Behaviour * _Behaviour, const Stats & Stats)
 	: m_BaseStats(Stats),
@@ -43,6 +44,7 @@ EntityScript::EntityScript(Behaviour * _Behaviour, const Stats & Stats)
 	m_AdditionalStats.SetOne();
 	m_bIsDead = false;
 	m_bCanDie = true;
+	m_bIsBoss = false;
 }
 EntityScript::EntityScript(EntityScript & ref)
 	: m_BaseStats(ref.m_BaseStats),
@@ -62,6 +64,7 @@ EntityScript::EntityScript(EntityScript & ref)
 	m_fAnimStartTime = 0;
 	m_bIsDead = false;
 	m_bCanDie = ref.m_bCanDie;
+	m_bIsBoss = ref.m_bIsBoss;
 }
 EntityScript::~EntityScript()
 {
@@ -115,6 +118,10 @@ bool EntityScript::GetCanDie()
 {
 	return m_bCanDie;
 }
+void EntityScript::SetBoss()
+{
+	m_bIsBoss = true;
+}
 const Stats * EntityScript::GetBaseStats()
 {
 	return &m_BaseStats;
@@ -150,6 +157,8 @@ bool EntityScript::CheckDeath()
 		{
 			this->LOOT->DropLoot();
 		}
+		if (m_bIsBoss)
+			Notify("BossDied");
 		Notify("EntityDied");
 		DestroySelf(); // should switch to play death anim
 		m_bIsDead = true;

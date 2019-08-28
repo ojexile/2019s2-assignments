@@ -3,6 +3,8 @@
 class BossObserver :
 	public ObserverBase
 {
+private:
+	bool m_iNumBoss;
 public:
 	BossObserver();
 	virtual ~BossObserver();
