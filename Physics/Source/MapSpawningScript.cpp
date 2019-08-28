@@ -163,12 +163,12 @@ void MapSpawningScript::Update(double dt)
 			Vector3 goPos = Vector3((float)offsetX * 16, 0, (float)offsetZ * 16);
 			go->TRANS->SetPosition(goPos);
 			RenderComponent* render = new RenderComponent(chunk->GenerateMeshBiomed());
-			render->SetRenderDistance(100);
+			render->SetRenderDistance(80);
 			go->AddComponent(render);
 			go->AddComponent(new BiomeComponent(GetBiomeAt(Vector3((float)offsetX, 0, (float)offsetZ))));
 			//
 			go->AddComponent(new ChunkCollider(chunk));
-			go->SetDisableDistance(300);
+			go->SetDisableDistance(80);
 
 #ifdef DEBUG_NUMBERS
 			for (int i = 0; i < 4; ++i) {
@@ -183,7 +183,7 @@ void MapSpawningScript::Update(double dt)
 				s0->AddComponent(rc0);
 				rc0->Set3DBillboard(true);
 				rc0->SetColor(0, 1, 0);
-		}
+			}
 #endif
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 				for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
@@ -208,8 +208,8 @@ void MapSpawningScript::Update(double dt)
 						}
 				}
 			chunk->GetEvent()->GenerateEnvironment(GOM, chunk, go->TRANS->GetPosition());
+		}
 	}
-}
 }
 
 Vector3 MapSpawningScript::GetNoiseAt(Vector3 v)

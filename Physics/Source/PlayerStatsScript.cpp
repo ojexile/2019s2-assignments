@@ -80,11 +80,11 @@ void PlayerStatsScript::Update(double dt)
 	switch (m_BossSpawner->GetComp(BossSpawnerScript)->GetState())
 	{
 	case BossSpawnerScript::eSEARCHING:
-		m_BossSpawnerUIText->RENDER->SetText("Searching for you...");
+		m_BossSpawnerUIText->RENDER->SetText("Boss is searching for you...");
 		m_BossSpawnerUI->RENDER->SetColor(0.1f, 0.2f, 0.8f);
 		break;
 	case BossSpawnerScript::eFOUND:
-		m_BossSpawnerUIText->RENDER->SetText("Found you...DO NOT IDLE");
+		m_BossSpawnerUIText->RENDER->SetText("Boss has found you...DO NOT IDLE");
 		m_BossSpawnerUI->RENDER->SetColor(0.4f, 0.7f, 0.9f);
 		break;
 	default:

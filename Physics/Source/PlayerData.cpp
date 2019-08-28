@@ -132,6 +132,8 @@ bool PlayerData::Create(std::string user, std::string pass)
 
 bool PlayerData::Load(std::string user, std::string pass)
 {
+	if (user == "" || pass == "")
+		return false;
 	std::string filePath = Resources::Path::SaveData + user + ".dat";
 	std::ifstream ifFile(filePath);
 	if (!ifFile.is_open())
