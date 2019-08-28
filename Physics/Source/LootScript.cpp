@@ -77,14 +77,27 @@ bool LootScript::GenerateAugment(GameObject* ptr)
 
 	if (GenerateAugmentChance % 2 == 0)
 	{
+		Augment* aug = nullptr;
 		GenerateAugmentChance = Math::RandIntMinMax(1, 3);
 		if (GenerateAugmentChance == 1)
-			ptr->PART->SetAugment(new ExplodeAugment);
+		{
+			aug = new ExplodeAugment;
+			ptr->PART->SetAugment(aug);
+			ptr->PART->SetName(ptr->PART->GetName() + " " + aug->GetName());
+		}
 		else if (GenerateAugmentChance == 2)
-			ptr->PART->SetAugment(new ReloadingAugment);
+		{
+			aug = new ReloadingAugment;
+			ptr->PART->SetAugment(aug);
+			ptr->PART->SetName(ptr->PART->GetName() + " " + aug->GetName());
+		}
 		else if (GenerateAugmentChance == 3)
-			ptr->PART->SetAugment(new BlackHoleAugment);
-		return true;
+		{
+			aug = new BlackHoleAugment;
+			ptr->PART->SetAugment(aug);
+			ptr->PART->SetName(ptr->PART->GetName() + " " + aug->GetName());
+
+		}return true;
 	}
 
 	return false;
