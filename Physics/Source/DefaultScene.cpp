@@ -226,6 +226,7 @@ void DefaultScene::Init()
 	CheatSheet->AddComponent(new RenderComponent(dataContainer->GetMesh("CheatSheet")));
 	CheatSheet->TRANS->SetPosition(1400, 400, 0);
 	CheatSheet->TRANS->SetScale(500);
+	CheatSheet->RENDER->SetRenderDistance(-1);
 	/// End UI================================================================================
 	/// Systems================================================================================
 	GameObject* BossSpawner = m_GOM.AddGameObject(dataContainer->GetGameObject("BossSpawner"), "NoCollision");

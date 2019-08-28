@@ -339,8 +339,6 @@ void DataContainer::InitGO()
 	go2->TRANS->SetRelativePosition(0.f, 3.5f, 0);
 	go2->TRANS->SetRelativeScale(1.8f);
 	go2->RENDER->SetColor(2, 2, 2);
-	go2 = new GameObject;
-
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
@@ -750,12 +748,14 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Render")));
 	go->TRANS->SetScale(1920, 1080, 1);
 	go->TRANS->SetPosition(0, 0, 1);
+	go->RENDER->SetRenderDistance(-1);
 
 	go = new GameObject();
 	m_map_GO["Render2"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Render2")));
 	go->TRANS->SetScale(1920, 1080, 1);
 	go->TRANS->SetPosition(0, 0, 1);
+	go->RENDER->SetRenderDistance(-1);
 }
 void  DataContainer::InitShaders()
 {

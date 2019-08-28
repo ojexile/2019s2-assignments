@@ -167,7 +167,6 @@ Mesh* ChunkData::GenerateMesh()
 
 MeshBiomed* ChunkData::GenerateMeshBiomed()
 {
-	if (meshBiomed == nullptr)
 	{
 		MeshBiomed* mesh = dynamic_cast<MeshBiomed*>(MeshBuilder::GenerateChunk("chunk", m_iXSize, m_iYSize, m_iZSize, &m_blocks, true));
 		// mesh->AddTexture("terrainflat", BiomeComponent::BIOME_FLAT);
@@ -182,7 +181,6 @@ MeshBiomed* ChunkData::GenerateMeshBiomed()
 		meshBiomed = mesh;
 		return mesh;
 	}
-	else return meshBiomed;
 }
 
 Vector3 ChunkData::GetGroundPosition(Vector3 in)

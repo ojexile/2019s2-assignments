@@ -14,12 +14,13 @@
 #include "InputManager.h"
 #include "MouseManager.h"
 #include "EntityLibrary.h"
+#include "PlayerData.h"
 // Start Scene
 #include "DefaultScene.h"
 #include "MainMenu.h"
 #include "LoginScene.h"
 RenderingManager* Engine::m_Renderer;
-#define TIMINGS true
+#define TIMINGS false
 
 #define SCENE LoginScene
 
@@ -211,4 +212,5 @@ void Engine::Exit()
 	Time::DeleteInstance();
 	GenericSubject::DeleteInstance();
 	EntityLibrary::DeleteInstance();
+	PlayerData::DeleteInstance();
 }

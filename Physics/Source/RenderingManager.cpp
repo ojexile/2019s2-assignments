@@ -423,13 +423,13 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent)
 	{
-		if (go->RENDER->GetRenderDistance() > 0 && SceneManager::GetInstance()->GetScene()->GetPlayer())
-		{
-			if ((go->TRANS->GetPosition() - SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition()).Length() > go->RENDER->GetRenderDistance()) return;
-		}
 		bool isActive = renderComponent->IsActive();
 		if (!isActive)
 			return;
+		if (go->RENDER->GetRenderDistance() > 0 && SceneManager::GetInstance()->GetScene()->GetPlayer())
+		{
+			if ((go->TRANS->GetPosition() - SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition()).LengthSquared() > go->RENDER->GetRenderDistance() * go->RENDER->GetRenderDistance()) return;
+		}
 		Mesh* CurrentMesh = renderComponent->GetMesh();
 		Mesh* MeshBiomed = renderComponent->GetMeshBiomed();
 		AnimatedMesh* AnimatedMesh = renderComponent->GetAnimatedMesh();

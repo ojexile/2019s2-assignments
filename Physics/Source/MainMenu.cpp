@@ -108,6 +108,7 @@ void MainMenu::Init()
 	GameObject* TutorialButt = m_GOM.AddGameObject(GetGO("MenuButton"), "UI");
 	TutorialButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 6 * 2 + 40);
 	TutorialButt->SetDisableDistance(-1);
+	TutorialButt->RENDER->SetRenderDistance(-1);
 	//
 	GameObject* TutorialText = m_GOM.AddGameObject("UI");
 	TutorialText->TRANS->SetPosition(50, 1080 - 1080 / 6 * 2, 80);
@@ -121,6 +122,7 @@ void MainMenu::Init()
 	TutBox->SetDisableDistance(-1);
 	TutBox->TRANS->SetScale(600, 800, 1);
 	TutBox->SetActive(false);
+	TutBox->RENDER->SetRenderDistance(-1);
 	// Quit--------------------------------------------------------------------------------
 	GameObject* QuitButt = m_GOM.AddGameObject(GetGO("MenuButton"), "UI");
 	QuitButt->TRANS->SetPosition(50 + 50, 1080 - 1080 / 6 * 3 + 40);
@@ -142,6 +144,8 @@ void MainMenu::Init()
 	go->TRANS->SetScale(120);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
 	go->RENDER->SetColor(1, 1, 0);
+	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	// num
 	go = m_GOM.AddGameObject("UI");
 	int NumCoins = PlayerData::GetInstance()->GetCoins();
