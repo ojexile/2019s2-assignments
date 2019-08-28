@@ -182,7 +182,7 @@ MeshBiomed* ChunkData::GenerateMeshBiomed()
 		meshBiomed = mesh;
 		return mesh;
 	}
-	else return meshBiomed;
+	else return new MeshBiomed(*meshBiomed);
 }
 
 Vector3 ChunkData::GetGroundPosition(Vector3 in)

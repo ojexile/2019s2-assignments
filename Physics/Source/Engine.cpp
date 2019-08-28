@@ -14,6 +14,7 @@
 #include "InputManager.h"
 #include "MouseManager.h"
 #include "EntityLibrary.h"
+#include "PlayerData.h"
 // Start Scene
 #include "DefaultScene.h"
 #include "MainMenu.h"
@@ -211,4 +212,5 @@ void Engine::Exit()
 	Time::DeleteInstance();
 	GenericSubject::DeleteInstance();
 	EntityLibrary::DeleteInstance();
+	PlayerData::DeleteInstance();
 }

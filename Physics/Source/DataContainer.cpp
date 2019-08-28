@@ -339,8 +339,6 @@ void DataContainer::InitGO()
 	go2->TRANS->SetRelativePosition(0.f, 3.5f, 0);
 	go2->TRANS->SetRelativeScale(1.8f);
 	go2->RENDER->SetColor(2, 2, 2);
-	go2 = new GameObject;
-
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
