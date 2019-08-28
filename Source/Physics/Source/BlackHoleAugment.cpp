@@ -5,14 +5,12 @@
 #include "RenderComponent.h"
 #include "BlackholeScript.h"
 
-
 BlackHoleAugment::BlackHoleAugment()
 {
 	m_AugmentType = BULLET;
 	m_Name = "Black Hole Augment";
 	m_Description = "Upon hitting an enemy, the bullet becomes a black hole for 1 second";
 }
-
 
 BlackHoleAugment::~BlackHoleAugment()
 {
@@ -21,10 +19,10 @@ BlackHoleAugment::~BlackHoleAugment()
 void BlackHoleAugment::ActiveEffect(Component* proj, GameObject* go)
 {
 	//Bullet expands & becomes a black hole
-	proj->GetGO()->AddComponent(new BlackholeScript(0.025, 10));
-	
+	proj->GetGO()->AddComponent(new BlackholeScript(0.025f, 10));
+
 	proj->TRANS->SetScale(2.f);
-	
+
 	proj->RENDER->SetColor(0, 0, 0);
 
 	proj->RIGID->SetVel(Vector3(0, 0, 0));
@@ -33,7 +31,7 @@ void BlackHoleAugment::ActiveEffect(Component* proj, GameObject* go)
 
 	proj->PROJECTILE->SetLifespan(1.f);
 	proj->PROJECTILE->SetDamage(10.f);
-	
+
 	//proj->GetComponent<BlackholeScript>()->SetActive(false);
 }
 
@@ -44,5 +42,4 @@ void BlackHoleAugment::PassiveEffect()
 
 void BlackHoleAugment::RemovePassive()
 {
-
 }
