@@ -268,7 +268,7 @@ void main(){
 		campos.y = 0;
 		float fogAbDistance = length(PlayerToVertex);
 		float fStartNoise = noise(vertexPosition_modelspace_O.z + vertexPosition_modelspace_O.x) * 2 + sin(0.8f*frag_et + vertexPosition_modelspace_O.x);
-		if(fogAbDistance >= fogParam.start +fStartNoise )
+		if(fogAbDistance >= fogParam.start + fStartNoise )
 		{
 			float fogDistance = abs(fogAbDistance - fogParam.start);
 			float fogFactor = getFogFactor(fogParam, fogDistance);

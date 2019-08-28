@@ -259,6 +259,7 @@ void DefaultScene::Init()
 	/// Systems================================================================================
 	GameObject* BossSpawner = m_GOM.AddGameObject(dataContainer->GetGameObject("BossSpawner"), "NoCollision");
 	BossSpawner->AddComponent(new BossObserverCom);
+	BossSpawner->SetDisableDistance(-1);
 	/// Ends Systems================================================================================
 	/// Player================================================================================
 	// Reticle
