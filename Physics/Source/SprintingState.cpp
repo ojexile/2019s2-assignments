@@ -10,7 +10,7 @@
 #include "StandingState.h"
 #include "Engine.h"
 #include "PlayerStateList.h"
-#define INFINITE false
+#define INFINITE_RUN false
 SprintingState::SprintingState()
 {
 }
@@ -23,7 +23,7 @@ State* SprintingState::HandleState(ComponentBase* com)
 {
 	float dt = Time::GetInstance()->GetDeltaTimeF();
 	float fDrain;
-	if (INFINITE)
+	if (INFINITE_RUN)
 		fDrain = 0.f;
 	else
 		fDrain = 20 * (float)dt;
@@ -49,7 +49,7 @@ State* SprintingState::HandleState(ComponentBase* com)
 void SprintingState::OnEnter(ComponentBase* com)
 {
 	CameraScript::SetTopDown(false);
-	if (INFINITE)
+	if (INFINITE_RUN)
 		com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(800, 500);
 	else
 		com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(100, 50);
