@@ -112,27 +112,49 @@ void DefaultScene::Init()
 	// customise--------------------------------------------------------------------------------
 	std::vector<GameObject*> CustoSlots;
 	Vector3 CustoPos(1920 - 200, 600);
+	Vector3 CustoPos1(1920 - 200, 600, 25);
+	CustoPos1 -= {28, 40, 0};
 	float fCustoDist = 100;
-	//
+	///
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos - Vector3(fCustoDist, 0, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotMuzzle"));
 	CustoSlots.push_back(go);
 	//
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Muzzle"));
+	go->TRANS->SetPosition(CustoPos1 - Vector3(fCustoDist, 0, 0));
+	go->RENDER->SetColor(2);
+	///
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos + Vector3(0, fCustoDist, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotScope"));
 	CustoSlots.push_back(go);
 	//
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Scope"));
+	go->TRANS->SetPosition(CustoPos1 + Vector3(0, fCustoDist, 0));
+	go->RENDER->SetColor(2);
+	///
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos + Vector3(fCustoDist, 0, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotStock"));
 	CustoSlots.push_back(go);
 	//
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Grip"));
+	go->TRANS->SetPosition(CustoPos1 + Vector3(fCustoDist, 0, 0));
+	go->RENDER->SetColor(2);
+	///
 	go = m_GOM.AddGameObject(GetGO("CustomiseSlot"), "UI");
 	go->TRANS->SetPosition(CustoPos - Vector3(0, fCustoDist, 0));
 	go->RENDER->SetMesh(dataContainer->GetMesh("CraftingSlotClip"));
 	CustoSlots.push_back(go);
+	//
+	go = m_GOM.AddGameObject("UI");
+	go->AddComponent(new RenderComponent(dataContainer->GetMesh("Text"), "Clip"));
+	go->TRANS->SetPosition(CustoPos1 - Vector3(0, fCustoDist, 0));
+	go->RENDER->SetColor(2);
 	/// End Inventory--------------------------------------------------------------------------------
 	/// Player Stats--------------------------------------------------------------------------------
 	// Stamina--------------------------------------------------------------------------------
