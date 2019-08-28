@@ -202,6 +202,7 @@ void DefaultScene::Init()
 	GameObject* AbilityUI = m_GOM.AddGameObject("UI");
 	AbilityUI->TRANS->SetPosition(100, 100, 0);
 	AbilityUI->TRANS->SetScale(200);
+	AbilityUI->RENDER->SetRenderDistance(-1);
 	switch (PlayerData::GetInstance()->GetCurrentAbility())
 	{
 	case PlayerData::eDASH:
