@@ -78,6 +78,8 @@ void DefaultScene::Init()
 	// FPS--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject(dataContainer->GetGameObject("FPS"), "UI");
 	go->TRANS->SetPosition(1920 - 40, 1080 - 20, 25);
+	go->RENDER->SetRenderDistance(-1);
+	go->SetDisableDistance(-1);
 	/// Inventory--------------------------------------------------------------------------------
 	// slots--------------------------------------------------------------------------------
 	GameObject** InventorySlots;
