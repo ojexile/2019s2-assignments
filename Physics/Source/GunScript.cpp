@@ -6,7 +6,7 @@
 #include "ProjectileScript.h"
 #include "ExplodeAugment.h"
 
-GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, float fReloadTime, float fFirerate, float fBulletSpread, float fBulletForce, FIRING_MODE FiringMode)
+GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazineRounds, int iMagazineRounds_Max, float fReloadTime, float fFirerate, float fBulletSpread, float fBulletForce)
 	: m_iBulletsFiredCount(iBulletsFiredCount),
 	m_iMagazineRounds(iMagazineRounds),
 	m_iMagazineRounds_Max(iMagazineRounds_Max),
@@ -16,7 +16,6 @@ GunScript::GunScript(GameObject* Projectile, int iBulletsFiredCount, int iMagazi
 	m_fBulletSpread(fBulletSpread),
 	m_fBulletForce(fBulletForce),
 	m_Projectile(Projectile),
-	m_FiringMode(FiringMode),
 	m_fBufferTime(fFirerate),
 	m_bIsReloading(false),
 	m_bSingleFired(false)
@@ -35,28 +34,7 @@ void GunScript::PullTrigger(const Vector3& dir, const double deltaTime)
 	if (m_iMagazineRounds > 0 && m_fBufferTime > m_fFirerate)
 	{
 		m_fBufferTime = 0.f;
-
-		switch (m_FiringMode)
-		{
-		case SINGLE:
-		{
-			if (!m_bSingleFired)
-			{
-				FireWeapon(dir, deltaTime);
-				m_bSingleFired = true;
-			}
-			break;
-		}
-		case AUTO:
-		{
-			FireWeapon(dir, deltaTime);
-			break;
-		}
-		default:
-		{
-			break;
-		}
-		}
+		FireWeapon(dir, deltaTime);
 	}
 }
 

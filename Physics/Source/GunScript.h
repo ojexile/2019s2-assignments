@@ -18,15 +18,9 @@ class GunScript : public ScriptComponent
 {
 public:
 
-	enum FIRING_MODE
-	{
-		SINGLE,
-		AUTO
-	};
-
 	GunScript(GameObject* Projectile, int iBulletsFiredCount = 1, int iMagazineRounds = 8,
 		int iMagazineRounds_Max = 8, float fReloadTimeBuffer = 1.2f, float fFirerate = 0.75f,
-		float fBulletSpread = 12.5f, float fBulletForce = 8.f, FIRING_MODE FiringMode = AUTO);
+		float fBulletSpread = 12.5f, float fBulletForce = 12.f);
 	~GunScript();
 
 	//Interface Functions
@@ -82,8 +76,6 @@ private:
 
 	bool m_bSingleFired;
 	bool m_bIsReloading;
-
-	enum FIRING_MODE m_FiringMode;
 
 	GameObject* m_Projectile;
 
