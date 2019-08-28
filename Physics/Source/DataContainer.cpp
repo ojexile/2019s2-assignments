@@ -347,7 +347,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->RIGID->SetMass(0.005f);
 	go->RIGID->SetMat(0.9f, 1);
-	go->AddComponent(new ProjectileScript(1.0, 30.0));
+	go->AddComponent(new ProjectileScript(1.0, 40.0));
 	go->AddComponent(new ParticleSpawnerScript(GetGameObjectRaw("particlebullettrail"), 30, Vector3(), 0));
 	go->m_sName = "Bullet";
 	/// Weapon Parts================================================================================
@@ -431,7 +431,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new AIEntityScript(GetBehaviour("Melee"), Stats(150, 0, 100, 0, 80, 15, 2000, 10)));
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
-	go->TRANS->SetScale(2);
+	go->TRANS->SetScale(1.5);
 	// Range-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Ranged"] = go;
@@ -508,10 +508,11 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddChild(GetGameObject("EnemyReticle"));
-	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(100, 0, 100, 0, 80, 20, 2000, 12)));
-	// go->AddComponent(new LootScript());
+	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(50, 0, 100, 0, 80, 20, 2000, 12)));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	// Bird--------------------------------------------------------------------------------
+	go->TRANS->SetScale(2);
+
 	go = new GameObject;
 	m_map_GO["Bird"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("BirdBody")));
@@ -538,6 +539,7 @@ void DataContainer::InitGO()
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(60, 0, 100, 0, 80, 60, 2000, 12)));
+	go->TRANS->SetScale(1.5);
 	//Coin----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Coin"] = go;
@@ -545,6 +547,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new CoinPickupScript());
 	go->RENDER->SetColor(1, 1, 0);
+	go->TRANS->SetScale(0.75);
 	//Chick-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Chick"] = go;
@@ -560,9 +563,8 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("Fish")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
-
 	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(20, 0, 100, 0, 80, 20, 2000, 12)));
-	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
+	go->TRANS->SetScale(1.25);
 	/// UI================================================================================
 	// FPS--------------------------------------------------------------------------------
 	go = new GameObject;

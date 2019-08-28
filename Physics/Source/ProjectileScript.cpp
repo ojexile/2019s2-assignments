@@ -58,7 +58,7 @@ void ProjectileScript::Collide(GameObject* go)
 		if (m_AugmentList.size() > 0 && !m_bIsAugmented)
 		{
 			ActivateEffects(this, go);
-			m_bIsAugmented = true;	
+			m_bIsAugmented = true;
 		}
 		else if(m_AugmentList.size() == 0)
 			m_fLifespan = 0.01f;
