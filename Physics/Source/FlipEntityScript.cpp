@@ -46,6 +46,8 @@ void FlipEntityScript::Update(double dt)
 
 void FlipEntityScript::Trigger(ComponentBase * player)
 {
+	if (m_bIsTriggered)
+		return;
 	// distance check needed
 	Vector3 dist = this->GetPosition() - dynamic_cast<Component*>(player)->GetPosition();
 	Vector3 distCheck = Vector3(TRANS->GetScale().x, TRANS->GetScale().z, 0.f);
@@ -77,7 +79,6 @@ void FlipEntityScript::Trigger(ComponentBase * player)
 			m_flipDirection = FLIP_EAST;
 		}
 	}
-
 	m_bIsTriggered = true;
 	
 }

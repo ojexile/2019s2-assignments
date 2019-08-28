@@ -26,6 +26,7 @@
 #include "SuicideNoteScript.h"
 #include "BirdWingScript.h"
 #include "BossSpawnerScript.h"
+#include "CoinPickupScript.h"
 //
 #include "ScalePatternScript.h"
 
@@ -135,10 +136,14 @@ void DataContainer::InitTextures()
 	m_map_Textures["particleCloudGrey"] = LoadTGA("particleCloudGrey");
 	m_map_Textures["particleHexagonRed"] = LoadTGA("particleHexagonRed");
 	m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonBorderYellow");
-	//m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonYellow"); 
+	//m_map_Textures["particleHexagonBorderYellow"] = LoadTGA("particleHexagonYellow");
 
 	m_map_Textures["Boulder"] = LoadTGA("Boulder");
 
+	m_map_Textures["AbilityDash"] = LoadTGA("AbilityDash");
+	m_map_Textures["AbilityGrenade"] = LoadTGA("AbilityGrenade");
+	m_map_Textures["AbilityHeal"] = LoadTGA("AbilityHeal");
+	m_map_Textures["AbilitySlowTime"] = LoadTGA("AbilitySlowTime");
 }
 void DataContainer::InitMeshes()
 {
@@ -153,7 +158,7 @@ void DataContainer::InitMeshes()
 
 	m_map_Meshes["Cube"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Cube");
 
-	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball")->AddTexture("InventorySlot");
+	m_map_Meshes["Ball"] = MeshBuilder::GenerateOBJ("Ball");
 
 	m_map_Meshes["Stamina"] = MeshBuilder::GenerateOBJ("Stamina")->AddTexture("InventorySlot");
 
@@ -168,12 +173,6 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["Player"] = MeshBuilder::GenerateOBJ("Player")->AddTexture("Cube");
 
 	m_map_Meshes["Reticle"] = MeshBuilder::GenerateOBJ("Reticle");
-
-	//Mesh
-	m_map_Meshes["plaintree"] = MeshBuilder::GenerateOBJ("plain_tree", true);
-	GetMeshBiomed("plaintree")
-		->AddTexture("plaintree", BiomeComponent::BIOME_PLAINS)
-		->AddTexture("snowtree", BiomeComponent::BIOME_SNOW);
 
 	m_map_Meshes["Gun"] = MeshBuilder::GenerateOBJ("rifle")->AddTexture("Rifle");
 
@@ -218,14 +217,17 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["fliprock"] = MeshBuilder::GenerateOBJ("Cube")->AddTexture("Boulder");
 
 	m_map_Meshes["stone1"] = MeshBuilder::GenerateOBJ("stone1")->AddTexture("Boulder");
-
 	m_map_Meshes["stone2"] = MeshBuilder::GenerateOBJ("stone2")->AddTexture("Boulder");
-
 	m_map_Meshes["grass1"] = MeshBuilder::GenerateOBJ("grass1")->AddTexture("Boulder");
-
 	m_map_Meshes["grass2"] = MeshBuilder::GenerateOBJ("grass2")->AddTexture("Boulder");
 
+	m_map_Meshes["AbilityDash"] = MeshBuilder::GenerateQuad("AbilityDash", {}, 1)->AddTexture("AbilityDash");
+	m_map_Meshes["AbilityGrenade"] = MeshBuilder::GenerateQuad("AbilityGrenade", {}, 1)->AddTexture("AbilityGrenade");
+	m_map_Meshes["AbilityHeal"] = MeshBuilder::GenerateQuad("AbilityHeal", {}, 1)->AddTexture("AbilityHeal");
+	m_map_Meshes["AbilitySlowTime"] = MeshBuilder::GenerateQuad("AbilitySlowTime", {}, 1)->AddTexture("AbilitySlowTime");
+
 	m_map_Meshes["chest"] = MeshBuilder::GenerateOBJ("Cube");
+	m_map_Meshes["Coin"] = MeshBuilder::GenerateOBJ("coin");
 
 	m_map_Meshes["BirdBody"] = MeshBuilder::GenerateOBJ("Bird/Body");
 	m_map_Meshes["WingLeft"] = MeshBuilder::GenerateOBJ("Bird/WingLeft");
@@ -236,14 +238,11 @@ void DataContainer::InitMeshes()
 	m_map_Meshes["Chick"] = MeshBuilder::GenerateOBJ("Chick");
 
 	m_map_Meshes["Dino0"] = MeshBuilder::GenerateOBJ("Dino0");
+
+	m_map_Meshes["CheatSheet"] = MeshBuilder::GenerateQuad("QuadCentered", {}, 1);
 }
 void DataContainer::InitTerrain()
 {
-	/// Terrain================================================================================
-	// Plains--------------------------------------------------------------------------------
-	MeshBiomed* mesh1 = GenerateTerrainBiomed("TerrainPlains", "heightmapPlains", { 200,60,200 }, { 0,0,0 })
-		->AddTexture("Cube", BiomeComponent::BIOME_PLAINS);
-	//->AddTexture(("grassdirt"), BiomeComponent::BIOME_FLAT);
 }
 void DataContainer::InitParticles()
 {
@@ -320,8 +319,6 @@ void DataContainer::InitParticles()
 	go = new GameObject();
 	m_map_GO["particleRareDropSpawner"] = go;
 	go->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObjectRaw("particleRareDrop"), 15, Vector3(0.5f, 0.f, 0.5f), 0.3f, "Default", 5.f));
-
-
 }
 void DataContainer::InitGO()
 {
@@ -338,15 +335,10 @@ void DataContainer::InitGO()
 	go->SetDisableDistance(1000);
 	go2 = new GameObject;
 	go->AddChild(go2);
-	go2->AddComponent(new RenderComponent(GetMesh("Text"), "Item Infomation", false));
-	go2->TRANS->SetRelativePosition(0.5f, 4.5f, 0);
-	go2->TRANS->SetRelativeScale(0.5f);
-	go2 = new GameObject;
-	go->AddChild(go2);
-	go2->AddComponent(new RenderComponent(GetMesh("Quad")));
-	go2->TRANS->SetRelativeScale({ 5, 10, 5 });
-	go2->RENDER->Set3DBillboard(true);
-
+	go2->AddComponent(new RenderComponent(GetMesh("Text"), "Item name", false));
+	go2->TRANS->SetRelativePosition(0.f, 3.5f, 0);
+	go2->TRANS->SetRelativeScale(1.8f);
+	go2->RENDER->SetColor(2, 2, 2);
 	//Bullet--------------------------------------------------------------------------------
 	go = new GameObject();
 	m_map_GO["Bullet"] = go;
@@ -439,13 +431,14 @@ void DataContainer::InitGO()
 	go->AddComponent(new AIEntityScript(GetBehaviour("Melee"), Stats(150, 0, 100, 0, 80, 15, 2000, 10)));
 	go->AddComponent(new LootScript());
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
-
+	go->TRANS->SetScale(2);
 	// Range-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Ranged"] = go;
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new RenderComponent(GetMesh("Cow")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->TRANS->SetScale(2);
 	go->AddComponent(new AIEntityScript(GetBehaviour("Ranged"), Stats(90, 0, 100, 0, 80, 25, 2000, 15)));
 	go2 = GetGameObject("Gun");
 	go2->TRANS->SetRelativeRotation(-90, 0, 1, 0);
@@ -541,6 +534,13 @@ void DataContainer::InitGO()
 	go->AddChild(GetGameObject("EnemyReticle"));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 10, true, GetGameObjectRaw("particleentityhit"), 1, {}, 0.f));
 	go->AddComponent(new AIEntityScript(GetBehaviour("Flee"), Stats(60, 0, 100, 0, 80, 60, 2000, 12)));
+	//Coin----------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["Coin"] = go;
+	go->AddComponent(new RenderComponent(GetMesh("Coin")));
+	go->AddComponent(new Rigidbody(Rigidbody::BALL));
+	go->AddComponent(new CoinPickupScript());
+	go->RENDER->SetColor(1, 1, 0);
 	//Chick-----------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["Chick"] = go;
@@ -567,12 +567,14 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent(GetMesh("T7Seg"), "0"));
 	go->RENDER->SetColor({ 0.7f,1.7f,0.7f });
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	// InventorySlot--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["InventorySlot"] = go;
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("UIInventory")));
 	go->RENDER->SetLightEnabled(false);
+	go->RENDER->SetRenderDistance(-1);
 	go->TRANS->SetScale(100);
 	go->SetDisableDistance(-1);
 	// CustomiseSlot--------------------------------------------------------------------------------
@@ -582,6 +584,7 @@ void DataContainer::InitGO()
 	go->AddComponent(new RenderComponent());
 	go->RENDER->SetLightEnabled(false);
 	go->TRANS->SetScale(100);
+	go->RENDER->SetRenderDistance(-1);
 	go->SetDisableDistance(-1);
 	// MenuButton--------------------------------------------------------------------------------
 	go = new GameObject;
@@ -598,40 +601,50 @@ void DataContainer::InitGO()
 	go->AddComponent(new UIButtonComponent);
 	go->AddComponent(new RenderComponent(GetMesh("UIBullet")));
 	go->RENDER->SetLightEnabled(false);
-	go->TRANS->SetScale(50, 20, 1);
-	go->SetDisableDistance(10000);
+	go->TRANS->SetScale(100, 100, 1);
+	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	// ItemInfo--------------------------------------------------------------------------------
 	go = new GameObject;
 	m_map_GO["ItemInfo"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("ItemInfo")));
 	go->RENDER->Set3DBillboard(true);
-	// Ability0--------------------------------------------------------------------------------
+	// AbilityDash--------------------------------------------------------------------------------
 	go = new GameObject;
-	m_map_GO["Ability0"] = go;
+	m_map_GO["AbilityDash"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
-	go->RENDER->SetLightEnabled(true);
-	go->RENDER->SetColor(0, 1, 1);
+	go->AddComponent(new RenderComponent(GetMesh("AbilityDash")));
 	go->TRANS->SetScale(100, 100, 1);
+	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
-	// Ability1--------------------------------------------------------------------------------
+	go->RENDER->SetRenderDistance(-1);
+	// AbilityGrenade--------------------------------------------------------------------------------
 	go = new GameObject;
-	m_map_GO["Ability1"] = go;
+	m_map_GO["AbilityGrenade"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
-	go->RENDER->SetLightEnabled(true);
-	go->RENDER->SetColor(0, 1, 0);
+	go->AddComponent(new RenderComponent(GetMesh("AbilityGrenade")));
 	go->TRANS->SetScale(100, 100, 1);
+	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
-	// Ability2--------------------------------------------------------------------------------
+	go->RENDER->SetRenderDistance(-1);
+	// AbilityHeal--------------------------------------------------------------------------------
 	go = new GameObject;
-	m_map_GO["Ability2"] = go;
+	m_map_GO["AbilityHeal"] = go;
 	go->AddComponent(new UIButtonComponent);
-	go->AddComponent(new RenderComponent(GetMesh("QuadCentered")));
-	go->RENDER->SetLightEnabled(true);
-	go->RENDER->SetColor(1, 1, 0);
+	go->AddComponent(new RenderComponent(GetMesh("AbilityHeal")));
 	go->TRANS->SetScale(100, 100, 1);
+	go->RENDER->SetLightEnabled(true);
 	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
+	// AbilitySlowTime--------------------------------------------------------------------------------
+	go = new GameObject;
+	m_map_GO["AbilitySlowTime"] = go;
+	go->AddComponent(new UIButtonComponent);
+	go->AddComponent(new RenderComponent(GetMesh("AbilitySlowTime")));
+	go->TRANS->SetScale(100, 100, 1);
+	go->RENDER->SetLightEnabled(true);
+	go->SetDisableDistance(-1);
+	go->RENDER->SetRenderDistance(-1);
 	/// Interactabes/Foilage================================================================================
 
 	go = new GameObject();
@@ -651,12 +664,12 @@ void DataContainer::InitGO()
 	m_map_GO["fliprockrender"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("fliprock")));
 	//go->AddComponent(new InteractableObCom());
+
 	go = new GameObject();
 	m_map_GO["fliprock"] = go;
 	go->TRANS->SetScale(1.f, 0.5f, 1.f);
-
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	//go->RIGID->SetMat(0.9f, 0);
+	go->RIGID->SetMat(5.f, 0);
 	go->AddComponent(new InteractableObCom());
 	go->AddComponent(new DestructibleEntityScript(""));
 	static_cast<FlipEntityScript*>(
@@ -678,9 +691,12 @@ void DataContainer::InitGO()
 	m_map_GO["treasureball"] = go;
 	go->AddComponent(new LootScript(true));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
+	go->RIGID->SetMass(1.f);
 	go->RIGID->SetMat(1.f, 0);
 	go->AddComponent(new RenderComponent(GetMesh("Ball")));
 	go->TRANS->SetScale(1.f);
+	go->RIGID->AddForce({ 0,50,0 });
+	go->RIGID->SetVel({ 0,75,0 });
 
 	go = new GameObject();
 	m_map_GO["stone1"] = go;
@@ -704,36 +720,42 @@ void DataContainer::InitGO()
 
 	go = new GameObject();
 	m_map_GO["boulder"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("boulderball")));
-	go->RENDER->SetColor({ 0.1f,0.1f,0.1f });
+	go->AddComponent(new RenderComponent(GetMesh("boulder")));
+	//go->RENDER->SetColor({ 0.1f,0.1f,0.1f });
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
 	go->RIGID->SetMass(1000.f);
-	go->TRANS->SetScale(2.f);
+	go->TRANS->SetScale(1.5f);
 	go->AddComponent(new DestructibleEntityScript("RockDied"));
 	//go->GetComponent<DestructibleEntityScript>()->GetBaseStats()->SetMaxHealth(1);
 	go->AddComponent(new DebrisSpawningScript("boulder2", 2, 2));
 	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particlerockbreak"], 100, Vector3(), 0.f, "Default", 10.f));
+	go->GetComponent<DestructibleEntityScript>()->SetDamageAnim(false);
 
 	go = new GameObject();
 	m_map_GO["boulder2"] = go;
-	go->AddComponent(new RenderComponent(GetMesh("boulder")));
-	go->RENDER->SetColor(0.1f, 0.1f, 0.1f);
+
+	go->AddComponent(new RenderComponent(GetMesh("boulderball")));
 	go->AddComponent(new Rigidbody(Rigidbody::BALL, true));
-	go->RIGID->SetMass(10.f);
+	go->RIGID->SetMass(100.f);
+	//go->RIGID->SetMass(1.f);
+	go->RIGID->SetMat(1.f, 1.f);
 	go->TRANS->SetScale(1.f);
 	go->AddComponent(new DestructibleEntityScript());
+	go->AddComponent(new AdvancedParticleSpawnerScript(AdvancedParticleSpawnerScript::SPEW, 20, true, m_map_GO["particlerockbreak"], 100, Vector3(), 0.f, "Default", 10.f));
 
 	go = new GameObject();
 	m_map_GO["Render"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Render")));
 	go->TRANS->SetScale(1920, 1080, 1);
 	go->TRANS->SetPosition(0, 0, 1);
+	go->RENDER->SetRenderDistance(-1);
 
 	go = new GameObject();
 	m_map_GO["Render2"] = go;
 	go->AddComponent(new RenderComponent(GetMesh("Render2")));
 	go->TRANS->SetScale(1920, 1080, 1);
 	go->TRANS->SetPosition(0, 0, 1);
+	go->RENDER->SetRenderDistance(-1);
 }
 void  DataContainer::InitShaders()
 {
@@ -887,15 +909,15 @@ Mesh* DataContainer::GenerateTerrain(std::string key, std::string path, Vector3 
 	m_map_HeightMaps[key] = new HeightMapData(mesh, heightMap, vScale, vPos);
 	return mesh;
 }
-MeshBiomed * DataContainer::GenerateTerrainBiomed(std::string key, std::string path, Vector3 vScale, Vector3 vPos)
-{
-	_heightmap* heightMap = new _heightmap;
-	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale, true);
-	MeshBiomed* meshBiomed = dynamic_cast<MeshBiomed*>(mesh);
-
-	m_map_HeightMaps[key] = new HeightMapData(meshBiomed, heightMap, vScale, vPos);
-	return meshBiomed;
-}
+//MeshBiomed * DataContainer::GenerateTerrainBiomed(std::string key, std::string path, Vector3 vScale, Vector3 vPos)
+//{
+//	_heightmap* heightMap = new _heightmap;
+//	Mesh* mesh = MeshBuilder::GenerateTerrain(key, path, *heightMap, vScale, true);
+//	MeshBiomed* meshBiomed = dynamic_cast<MeshBiomed*>(mesh);
+//
+//	m_map_HeightMaps[key] = new HeightMapData(meshBiomed, heightMap, vScale, vPos);
+//	return meshBiomed;
+//}
 Mesh* DataContainer::GenerateTerrainTerrace(std::string key, std::string path, Vector3 vScale, Vector3 vPos)
 {
 	_heightmap* heightMap = new _heightmap;

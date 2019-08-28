@@ -5,6 +5,7 @@
 #include "Preferences.h"
 #include "Resources.h"
 #include "WorldValues.h"
+#include "InputManager.h"
 
 #define FOG_ENABLED true
 #define COLOR 0.4f,0.4f,0.7f
@@ -203,19 +204,27 @@ void RenderingManagerBase::Init()
 	BindUniforms();
 	//SetUniforms();
 }
-
+static bool cull = true;
+static bool wire = false;
 void RenderingManagerBase::Update(double dt)
 {
 	//Keyboard Section
-	// TODO SET DRAW MODE
-	if (KeyboardManager::GetInstance()->GetKeyDown("EnableCull"))
-		glEnable(GL_CULL_FACE);
-	if (KeyboardManager::GetInstance()->GetKeyDown("DisableCull"))
-		glDisable(GL_CULL_FACE);
-	if (KeyboardManager::GetInstance()->GetKeyDown("DisableWireframe"))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	if (KeyboardManager::GetInstance()->GetKeyDown("EnableWireframe"))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	if (InputManager::GetInstance()->GetInputStrength("TriggerCull"))
+	{
+		if (cull)
+			glEnable(GL_CULL_FACE);
+		else
+			glDisable(GL_CULL_FACE);
+		cull = !cull;
+	}
+	if (InputManager::GetInstance()->GetInputStrength("TriggerWire"))
+	{
+		if (wire)
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		else
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		wire = !wire;
+	}
 
 	// fps = (float)(1.f / dt);
 	// CHENG_LOG("FPS: ", std::to_string(fps));
@@ -227,6 +236,7 @@ void RenderingManagerBase::RenderText(RenderComponent* rc)
 	Mesh* mesh = rc->GetMesh();
 	if (!mesh || mesh->m_uTextureArray[0] <= 0)
 		return;
+	Material mat = rc->GetMaterial();
 	std::string text = rc->GetText();
 	Color color = rc->GetMaterial().kAmbient;
 	glDisable(GL_DEPTH_TEST);
@@ -237,6 +247,12 @@ void RenderingManagerBase::RenderText(RenderComponent* rc)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, mesh->m_uTextureArray[0]);
 	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
+	//load material
+	glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
+	glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
+	glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
+	glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
+	glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
@@ -329,7 +345,12 @@ void RenderingManagerBase::RenderUI(RenderComponent* rc, bool enableLight)
 		return;
 	}
 	//--
-
+	//load material
+	glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
+	glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
+	glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
+	glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
+	glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 	if (enableLight && bLightEnabled)
@@ -345,12 +366,6 @@ void RenderingManagerBase::RenderUI(RenderComponent* rc, bool enableLight)
 		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1,
 			GL_FALSE, &lightDepthMVP.a[0]);*/
 			//--
-			//load material
-		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
-		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
-		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
-		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
-		glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	}
 	else
 	{
@@ -416,7 +431,12 @@ void RenderingManagerBase::RenderMesh(RenderComponent *rc, bool enableLight)
 		return;
 	}
 	//--
-
+	//load material
+	glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
+	glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
+	glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
+	glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
+	glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 	if (enableLight && bLightEnabled)
@@ -432,12 +452,6 @@ void RenderingManagerBase::RenderMesh(RenderComponent *rc, bool enableLight)
 		glUniformMatrix4fv(m_parameters[U_LIGHT_DEPTH_MVP], 1,
 			GL_FALSE, &m_lightDepthMVP.a[0]);
 		//--
-		//load material
-		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mat.kAmbient.r);
-		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mat.kDiffuse.r);
-		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mat.kSpecular.r);
-		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mat.kShininess);
-		glUniform1f(m_parameters[U_ALPHA], mat.kAlpha);
 	}
 	else
 	{

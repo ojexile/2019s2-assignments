@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Rigidbody.h"
 #include "EntityScript.h"
+
 #define G_CONSTANT 200.f
 BlackholeScript::BlackholeScript(float fMass, float fMinDist)
 	: m_fMass(fMass)
@@ -60,7 +61,7 @@ void BlackholeScript::Update(double dt)
 		int dmg = 5;
 		float fForceAttract = G_CONSTANT * (m_fMass * rigid->GetMass()) / (dist);
 		
-		if (go->GetComponent<EntityScript>())
+		if (go->GetComponent<EntityScript>(true) )
 		{
 			if (dist <= dmgDist)
 			{
@@ -68,7 +69,7 @@ void BlackholeScript::Update(double dt)
 				Vector3 Up(0, 1, 0);
 				rigid->AddForce(Up * -fForceAttract * 400);
 				Vector3 force = (fForceAttract) * (pos1 - pos2).Normalize();
-				rigid->AddForce(force * 100);
+				rigid->AddForce(force * 10);
 			}
 		}
 		try

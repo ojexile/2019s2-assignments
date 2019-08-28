@@ -24,6 +24,7 @@ public:
 	virtual void Update(Component* com);
 	
 	float GetPercentageCooldownDone(); // returns percentage of cooldown completed
+	const float GetCost();
 	bool IsInUse();
 
 };

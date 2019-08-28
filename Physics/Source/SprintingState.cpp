@@ -10,6 +10,7 @@
 #include "StandingState.h"
 #include "Engine.h"
 #include "PlayerStateList.h"
+#define INFINITE false
 SprintingState::SprintingState()
 {
 }
@@ -21,32 +22,26 @@ SprintingState::~SprintingState()
 State* SprintingState::HandleState(ComponentBase* com)
 {
 	float dt = Time::GetInstance()->GetDeltaTimeF();
-	com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(60 * dt);
+	float fDrain;
+	if (INFINITE)
+		fDrain = 0.f;
+	else
+		fDrain = 20 * (float)dt;
+	com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(fDrain);
 	// Sprint
 	if (!InputManager::GetInstance()->GetInputStrength("PlayerSprint"))
 	{
 		return  &PlayerStateList::Standing;
-	}
-	// Dodge
-	if (InputManager::GetInstance()->GetInputStrength("PlayerDodge"))
-	{
-		float fDrain = 25;
-		if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() >= fDrain)
-		{
-			com->GetComponent<PlayerScript>()->Dash();
-			com->GetComponent<EntityScript>()->GetValues()->OffsetStamina(fDrain);
-		}
-	}
-	if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() < 25)
-	{
-		Engine::GetInstance()->GetRenderManager()->SetUniform1f(RenderingManager::UNIFORM_TYPE::U_VIGINETTE_VAL, 0.1f);
 	}
 	// Top Down
 	if (InputManager::GetInstance()->GetInputStrength("SwitchCam"))
 	{
 		return  &PlayerStateList::TopDown;
 	}
-
+	if (com->GetComponent<PlayerScript>()->GetValues()->GetStamina() < fDrain)
+	{
+		return  &PlayerStateList::Standing;
+	}
 	m_MovementCommand.HandleCommand(com);
 
 	return nullptr;
@@ -54,7 +49,10 @@ State* SprintingState::HandleState(ComponentBase* com)
 void SprintingState::OnEnter(ComponentBase* com)
 {
 	CameraScript::SetTopDown(false);
-	com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(50, 20);
+	if (INFINITE)
+		com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(800, 500);
+	else
+		com->GetComponent<EntityScript>()->GetAdditionalStats()->SetMovement(100, 50);
 }
 
 void SprintingState::OnExit(ComponentBase * com)

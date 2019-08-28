@@ -19,15 +19,14 @@ MeshBiomed::MeshBiomed(const std::string & meshName) : Mesh(meshName)
 
 MeshBiomed::~MeshBiomed()
 {
-	// DISABLE DESTRUCTION OF MESHBIOMED
-	return;
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteBuffers(1, &indexBuffer);
+	return; // disable deletion of textures
 	for (int i = 0; i < MAX_BIOMES; ++i)
 	{
 		for (int j = 0; j < MAX_TEXTURES; ++j)
 		{
-			if(m_uBiomedTextureArray[i][j] != 0)
+			if (m_uBiomedTextureArray[i][j] != 0)
 				glDeleteTextures(1, &m_uBiomedTextureArray[i][j]);
 		}
 		//m_iNumBiomedTextures[i] = NULL;

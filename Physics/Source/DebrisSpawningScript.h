@@ -12,6 +12,8 @@ private:
 	std::string m_sDebrisName;  
 	int m_iMin;
 	int m_iMax;
+	
+	bool m_bTriggered;
 public:
 	DebrisSpawningScript();
 	DebrisSpawningScript(std::string name, int, int );

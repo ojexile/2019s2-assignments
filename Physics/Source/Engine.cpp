@@ -14,12 +14,15 @@
 #include "InputManager.h"
 #include "MouseManager.h"
 #include "EntityLibrary.h"
+#include "PlayerData.h"
 // Start Scene
 #include "DefaultScene.h"
 #include "MainMenu.h"
 #include "LoginScene.h"
 RenderingManager* Engine::m_Renderer;
 #define TIMINGS false
+
+#define SCENE LoginScene
 
 Engine::Engine()
 {
@@ -42,7 +45,7 @@ void Engine::Init()
 	m_Renderer->Init();
 	// Init first scene
 	SceneManager* SceneManager = SceneManager::GetInstance();
-	SceneManager->ChangeScene(new LoginScene());
+	SceneManager->ChangeScene(new SCENE());
 	// Window settings
 	HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
 	// Window size and position
@@ -209,4 +212,5 @@ void Engine::Exit()
 	Time::DeleteInstance();
 	GenericSubject::DeleteInstance();
 	EntityLibrary::DeleteInstance();
+	PlayerData::DeleteInstance();
 }

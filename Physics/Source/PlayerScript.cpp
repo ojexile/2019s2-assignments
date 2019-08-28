@@ -7,6 +7,9 @@
 #include "GunScript.h"
 #include "GrenadeScript.h"
 #include "InventoryScript.h"
+#include "SceneManager.h"
+#include "MainMenu.h"
+#include "PlayerData.h"
 PlayerScript::PlayerScript(Behaviour* beh, GameObject* Reticle, GameObject* gun, GameObject* grenade, Stats stats)
 	: EntityScript(beh, stats)
 {
@@ -39,6 +42,13 @@ float PlayerScript::GetTimeDead()
 
 void PlayerScript::Update(double dt)
 {
+	if (m_bIsDead)
+	{
+		if (PlayerDeathTimer.GetTime() > 10)
+		{
+			SceneManager::GetInstance()->ChangeScene(new MainMenu);
+		}
+	}
 	if (CheckDeath())
 		return;
 	EntityScript::Update(dt);
@@ -184,9 +194,9 @@ void PlayerScript::Dash()
 	RIGID->AddForce(vDir * 3000);
 }
 
-void PlayerScript::AddGrenade(int count)
+void PlayerScript::AddCoin(int count)
 {
-	m_iNumberOfGrenades = m_iNumberOfGrenades + count;
+	PlayerData::GetInstance()->OffsetCoins(1);
 }
 
 void PlayerScript::PullPin()

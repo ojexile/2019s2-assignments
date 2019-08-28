@@ -83,7 +83,7 @@ void LoginScene::Init()
 	PassInput->TRANS->SetPosition(1920 / 2 + 100 + 50, 1080 / 2 - 200, 50);
 	//
 	GameObject* Login = m_GOM.AddGameObject("UI");
-	Login->AddComponent(new LoginScript(UserInput, PassInput));
+	Login->AddComponent(new LoginScript(UserInput, PassInput, User, Pass));
 	// User--------------------------------------------------------------------------------
 	go = m_GOM.AddGameObject("UI");
 	go->TRANS->SetPosition(1920 / 2, 1080 / 2, 50);
@@ -111,7 +111,7 @@ void LoginScene::Init()
 	CreateLocal->SetDisableDistance(-1);
 	//
 	go = m_GOM.AddGameObject();
-	go->AddComponent(new LoginButtonScript(Login, User, Pass, LoginLocal, CreateLocal));
+	go->AddComponent(new LoginButtonScript(Login, LoginLocal, CreateLocal));
 	/// Create Camera================================================================================
 	m_CameraGO = m_GOM.AddGameObject();
 	m_CameraGO->AddComponent(new CameraComponent);

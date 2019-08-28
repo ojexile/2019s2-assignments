@@ -29,7 +29,7 @@ private:
 	std::map<std::string, Behaviour*> m_map_Behaviour;
 
 	Mesh* GenerateTerrain(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
-	MeshBiomed* GenerateTerrainBiomed(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
+	// MeshBiomed* GenerateTerrainBiomed(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
 	Mesh* GenerateTerrainTerrace(std::string key, std::string path, Vector3 vScale, Vector3 vPos);
 
 	bool m_bInitialsed;

@@ -485,14 +485,15 @@ void CollisionManager::Update(GameObjectManager* GOM, int frameCycle)
 					nCounts++;
 				}
 			}
-			for (unsigned j = 0; j < go1->GetChildList()->size(); ++j)
+			// ignore children
+			/*for (unsigned j = 0; j < go1->GetChildList()->size(); ++j)
 			{
 				GameObject* goChild = go1->GetChildList()->at(j);
 				if (!goChild->IsActive())
 					continue;
 				if (goChild->GetComponent<Rigidbody>(true))
 					CheckCollision(goChild, GOList, i);
-			}
+			}*/
 		}
 	}
 	std::ostringstream ss;
@@ -504,6 +505,7 @@ void CollisionManager::Update(GameObjectManager* GOM, int frameCycle)
 Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, std::vector<GameObject*>* GOList)
 {
 	std::map<Vector3, ChunkData*> chunks;
+	GameObject* collidedChunk = nullptr;
 	TransformComponent* trans1 = go1->GetComponent<TransformComponent>();
 	float halfPlayerSize = trans1->GetScale().x;
 	float halfPlayerHeight = trans1->GetScale().y;
@@ -539,6 +541,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 				{
 					if (go2->GetComponent<ChunkCollider>()->GetChunk()->IsSolid(vertices[i] - go2->GetComponent<TransformComponent>()->GetPosition()))
 					{
+						collidedChunk = go2;
 						chunks.emplace(go2->GetComponent<TransformComponent>()->GetPosition(), go2->GetComponent<ChunkCollider>()->GetChunk());
 						break;
 					}
@@ -600,7 +603,7 @@ Rigidbody::ePhysicsTypes CollisionManager::CheckChunkCollision(GameObject* go1, 
 	if (shortestDirection.z != 0) vel.z *= -0.9f;
 	go1->GetComponent<Rigidbody>()->QueueVel(vel - go1->RIGID->GetVel());
 	if (go1->GetComponent<ScriptComponent>() != nullptr)
-		go1->GetComponent<ScriptComponent>()->Collide(GOList->front());
+		go1->GetComponent<ScriptComponent>()->Collide(collidedChunk);
 	if (go1->GetComponent<EntityScript>(true) && shortestDirection.y == 1)
 	{
 		go1->GetComponent<EntityScript>()->SetCanJump(true);

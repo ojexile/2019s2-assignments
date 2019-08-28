@@ -4,16 +4,24 @@
 #include "SceneManager.h"
 #include "PlayerData.h"
 #include "MainMenu.h"
-LoginScript::LoginScript(GameObject * u, GameObject * p)
+#include "UIButtonComponent.h"
+LoginScript::LoginScript(GameObject * u, GameObject * p, GameObject* uq, GameObject* pq)
 {
 	User = u;
 	Pass = p;
+	UserQ = uq;
+	PassQ = pq;
 	m_bTriggered = false;
 	Selected = u;
 }
 
 LoginScript::~LoginScript()
 {
+}
+
+void LoginScript::Start()
+{
+	SetSelected(LoginScript::eUSER);
 }
 
 void LoginScript::Update(double dt)
@@ -35,6 +43,29 @@ void LoginScript::Update(double dt)
 			LoginLocal();
 		}
 	}
+
+	if (InputManager::GetInstance()->GetInputStrength("Tab"))
+	{
+		if (Selected == User)
+		{
+			SetSelected(LoginScript::ePASS);
+		}
+		else
+		{
+			SetSelected(LoginScript::eUSER);
+		}
+	}
+	if (InputManager::GetInstance()->GetInputStrength("Click"))
+	{
+		if (UserQ->GC(UIButtonComponent)->GetHover())
+		{
+			SetSelected(LoginScript::eUSER);
+		}
+		else if (PassQ->GC(UIButtonComponent)->GetHover())
+		{
+			SetSelected(LoginScript::ePASS);
+		}
+	}
 }
 
 void LoginScript::SetSelected(eSelectedSpace e)
@@ -43,9 +74,19 @@ void LoginScript::SetSelected(eSelectedSpace e)
 	{
 	case LoginScript::eUSER:
 		Selected = User;
+		PassQ->RENDER->SetAlpha(1.f);
+		PassQ->RENDER->SetColor(.2f);
+
+		UserQ->RENDER->SetAlpha(.5f);
+		UserQ->RENDER->SetColor(.1f);
 		break;
 	case LoginScript::ePASS:
 		Selected = Pass;
+		UserQ->RENDER->SetAlpha(1.f);
+		UserQ->RENDER->SetColor(.2f);
+
+		PassQ->RENDER->SetAlpha(.5f);
+		PassQ->RENDER->SetColor(.1f);
 		break;
 	default:
 		break;

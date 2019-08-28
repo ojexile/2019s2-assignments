@@ -91,6 +91,10 @@ void Application::SetCursorEnabled(bool b)
 	else
 		glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
+Engine * Application::GetEngine()
+{
+	return m_Engine;
+}
 Application::Application()
 {
 	bExit = false;
@@ -103,7 +107,7 @@ Application::~Application()
 void character_callback(GLFWwindow* window, unsigned int codepoint)
 {
 	Application::Key = (char)(codepoint);
-	CHENG_LOG("key: ", Application::Key);
+	// CHENG_LOG("key: ", Application::Key);
 }
 
 void Application::Init()

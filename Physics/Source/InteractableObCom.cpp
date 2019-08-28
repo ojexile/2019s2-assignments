@@ -9,6 +9,8 @@
 #include "AdvancedParticleSpawnerScript.h"
 #include "ScalePatternScript.h"
 
+#define INTERACTDISTSQ 10.f // about 3.f, pretty generous
+
 InteractableObCom::InteractableObCom()
 {
 }
@@ -18,14 +20,21 @@ InteractableObCom::~InteractableObCom()
 }
 void InteractableObCom::Notify(ComponentBase* com, std::string msg)
 {
-	CHENG_LOG("Yeet", vtos(GetPosition()));
-	FlipEntityScript* flipscript = GetComponent<FlipEntityScript>();
+	// reminder to self; this: the GO with the object. com: the player.
+
+	float distanceSq = (this->GetPosition() - com->TRANS->GetPosition()).LengthSquared();
+
+	if (distanceSq > INTERACTDISTSQ) // if you're too far,
+		return;						// return.
+
+	FlipEntityScript* flipscript = GetComponent<FlipEntityScript>(true);
 	if (flipscript && !flipscript->IsAlreadyTriggered())
 	{
 		LZ_LOG("flipentityscript rock yeeted");
 		flipscript->Trigger(com);
 		return;
 	}
+
 	SpawnLootScript* lootscript = GetComponent<SpawnLootScript>();
 	if (lootscript)
 	{
@@ -40,10 +49,8 @@ void InteractableObCom::Notify(ComponentBase* com, std::string msg)
 		GameObject* loot = Instantiate(dasd, Vector3(0, 0, 0));
 		float yoffset = (TRANS->GetScale() * 1.1f).y;
 		loot->TRANS->SetPosition(this->GetPosition() + Vector3(0, yoffset, 0));
-		loot->RIGID->AddForce({ 0,50,0 });
-		loot->RIGID->SetVel({ 0,75,0 });
+
 		loot->AddComponent(new ParticleSpawnerScript(DataContainer::GetInstance()->GetGameObjectRaw("particlebullettrail"), 30, Vector3(), 0));
-		
 
 		return;
 	}

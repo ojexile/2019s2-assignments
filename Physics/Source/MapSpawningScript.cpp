@@ -168,6 +168,7 @@ void MapSpawningScript::Update(double dt)
 			go->AddComponent(new BiomeComponent(GetBiomeAt(Vector3((float)offsetX, 0, (float)offsetZ))));
 			//
 			go->AddComponent(new ChunkCollider(chunk));
+			go->SetDisableDistance(300);
 
 #ifdef DEBUG_NUMBERS
 			for (int i = 0; i < 4; ++i) {
@@ -182,7 +183,7 @@ void MapSpawningScript::Update(double dt)
 				s0->AddComponent(rc0);
 				rc0->Set3DBillboard(true);
 				rc0->SetColor(0, 1, 0);
-			}
+		}
 #endif
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 				for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
@@ -197,7 +198,7 @@ void MapSpawningScript::Update(double dt)
 			for (int xDiff = 0; xDiff < chunk->GetSize().x / 16; ++xDiff)
 				for (int zDiff = 0; zDiff < chunk->GetSize().z / 16; ++zDiff)
 				{
-					Vector3 noise = GetNoiseAt(Vector3((float)((offsetX + xDiff) / 2), 0, (offsetZ + zDiff) / 2)) * 1 + Vector3(1, 1, 1);
+					Vector3 noise = GetNoiseAt(Vector3((float)((offsetX + xDiff) / 2), 0, (float)((offsetZ + zDiff) / 2))) * 1 + Vector3(1, 1, 1);
 					noise.y = 0;
 					if (floor(noise.x) == Mod(offsetX + xDiff, 2))
 						if (floor(noise.z) == Mod(offsetZ + zDiff, 2))
@@ -207,8 +208,8 @@ void MapSpawningScript::Update(double dt)
 						}
 				}
 			chunk->GetEvent()->GenerateEnvironment(GOM, chunk, go->TRANS->GetPosition());
-		}
 	}
+}
 }
 
 Vector3 MapSpawningScript::GetNoiseAt(Vector3 v)

@@ -8,11 +8,10 @@
 
 #include "AbilityGrenade.h"
 #include "AbilityDash.h"
+#include "AbilityHeal.h"
+#include "AbilitySlowTime.h"
 
-MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
-	GameObject* QuitText, GameObject* QuitButt,
-	GameObject* TutorialText, GameObject* TutorialButt,
-	GameObject* TutorialBox, GameObject* Ability0, GameObject* Ability1)
+MenuButtonsScript::MenuButtonsScript(GameObject * PlayText, GameObject * PlayButt, GameObject * QuitText, GameObject * QuitButt, GameObject * TutorialText, GameObject * TutorialButt, GameObject * TutorialBox, GameObject * Ability0, GameObject * Ability1, GameObject * Ability2, GameObject * Ability3)
 	: m_PlayText(PlayText)
 	, m_PlayButt(PlayButt)
 	, m_QuitText(QuitText)
@@ -22,6 +21,8 @@ MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 	, m_TutorialBox(TutorialBox)
 	, m_Ability0(Ability0)
 	, m_Ability1(Ability1)
+	, m_Ability2(Ability2)
+	, m_Ability3(Ability3)
 {
 	m_fPlayFadeVal = 0.5f;
 	m_fQuitFadeVal = 0.5f;
@@ -30,9 +31,17 @@ MenuButtonsScript::MenuButtonsScript(GameObject* PlayText, GameObject* PlayButt,
 
 void MenuButtonsScript::Start()
 {
-	if (!PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eGRENADE))
+	if (!PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eGRENADE))
 	{
 		m_Ability1->RENDER->SetColor(0.2f);
+	}
+	if (!PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eHEAL))
+	{
+		m_Ability2->RENDER->SetColor(0.2f);
+	}
+	if (!PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eSLOW_TIME))
+	{
+		m_Ability3->RENDER->SetColor(0.2f);
 	}
 }
 
@@ -45,18 +54,21 @@ void MenuButtonsScript::Update(double dt)
 	float UpRate = (float)dt * 1.04f;
 	float DownRate = (float)dt * 1.04f;
 	float Default = 0.8f;
+	bool bClick = InputManager::GetInstance()->GetInputStrength("Click");
 	if (m_PlayButt->GetComponent<UIButtonComponent>()->GetHover())
 	{
-		if (InputManager::GetInstance()->GetInputStrength("Click"))
+		if (bClick)
 		{
 			m_Ability0->SetActive(!m_Ability0->IsActive());
 			m_Ability1->SetActive(!m_Ability1->IsActive());
+			m_Ability2->SetActive(!m_Ability2->IsActive());
+			m_Ability3->SetActive(!m_Ability3->IsActive());
 		}
 		m_fPlayFadeVal += UpRate + DownRate;
 	}
 	if (m_TutorialButt->GetComponent<UIButtonComponent>()->GetHover())
 	{
-		if (InputManager::GetInstance()->GetInputStrength("Click"))
+		if (bClick)
 		{
 			m_TutorialBox->SetActive(!m_TutorialBox->IsActive());
 		}
@@ -64,7 +76,7 @@ void MenuButtonsScript::Update(double dt)
 	}
 	if (m_QuitButt->GetComponent<UIButtonComponent>()->GetHover())
 	{
-		if (InputManager::GetInstance()->GetInputStrength("Click"))
+		if (bClick)
 			Application::bExit = true;
 		m_fQuitFadeVal += UpRate + DownRate;
 	}
@@ -73,39 +85,95 @@ void MenuButtonsScript::Update(double dt)
 	{
 		if (m_Ability0->GC(UIButtonComponent)->GetHover())
 		{
-			if (InputManager::GetInstance()->GetInputStrength("Click"))
+			if (bClick)
 			{
-				if (PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eDASH))
+				if (PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eDASH))
 				{
 					// Set active ability
-					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 20));
+					PlayerData::GetInstance()->SetAbility(new AbilityDash(5, 75), PlayerData::eDASH);
 					// Change scene
 					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
 				}
 			}
 		}
 	}
+
 	if (m_Ability1->IsActive())
 	{
 		if (m_Ability1->GC(UIButtonComponent)->GetHover())
 		{
-			if (InputManager::GetInstance()->GetInputStrength("Click"))
+			if (bClick)
 			{
-				if (PlayerData::GetInstance()->GetGetAbilityActivated(PlayerData::eGRENADE))
+				if (PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eGRENADE))
 				{
 					// Set active ability
-					PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 50));
+					PlayerData::GetInstance()->SetAbility(new AbilityGrenade(5, 90), PlayerData::eGRENADE);
 					// Change scene
 					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
 				}
 				// Purchase
 				else
 				{
-					if (PlayerData::GetInstance()->GetCoins() > 3)
+					if (PlayerData::GetInstance()->GetCoins() >= 3)
 					{
 						PlayerData::GetInstance()->OffsetCoins(-3);
 						PlayerData::GetInstance()->ActivateAbility(PlayerData::eGRENADE);
 						m_Ability1->RENDER->ResetColor();
+						PlayerData::GetInstance()->Save();
+					}
+				}
+			}
+		}
+	}
+	if (m_Ability2->IsActive())
+	{
+		if (m_Ability2->GC(UIButtonComponent)->GetHover())
+		{
+			if (bClick)
+			{
+				if (PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eHEAL))
+				{
+					// Set active ability
+					PlayerData::GetInstance()->SetAbility(new AbilityHeal(3, 5, 90), PlayerData::eHEAL);
+					// Change scene
+					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
+				}
+				// Purchase
+				else
+				{
+					if (PlayerData::GetInstance()->GetCoins() >= 3)
+					{
+						PlayerData::GetInstance()->OffsetCoins(-3);
+						PlayerData::GetInstance()->ActivateAbility(PlayerData::eHEAL);
+						m_Ability2->RENDER->ResetColor();
+						PlayerData::GetInstance()->Save();
+					}
+				}
+			}
+		}
+	}
+	if (m_Ability3->IsActive())
+	{
+		if (m_Ability3->GC(UIButtonComponent)->GetHover())
+		{
+			if (bClick)
+			{
+				if (PlayerData::GetInstance()->GetAbilityActivated(PlayerData::eSLOW_TIME))
+				{
+					// Set active ability
+					PlayerData::GetInstance()->SetAbility(new AbilitySlowTime(3, 5, 90), PlayerData::eSLOW_TIME);
+					// Change scene
+					SceneManager::GetInstance()->ChangeScene(new DefaultScene());
+				}
+				// Purchase
+				else
+				{
+					if (PlayerData::GetInstance()->GetCoins() >= 3)
+					{
+						PlayerData::GetInstance()->OffsetCoins(-3);
+						PlayerData::GetInstance()->ActivateAbility(PlayerData::eSLOW_TIME);
+						m_Ability3->RENDER->ResetColor();
+						PlayerData::GetInstance()->Save();
 					}
 				}
 			}

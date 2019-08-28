@@ -27,8 +27,8 @@ void PlayerStatsScript::Start()
 }
 void PlayerStatsScript::InitBulletUI()
 {
-	Vector3 vStartPos = { 30,900,0 };
-	float fOffset = -25;
+	Vector3 vStartPos = { 55,800,0 };
+	float fOffset = -35;
 	if (m_BulletList.size() > 0)
 	{
 		for (int i = 0; i < m_iMaxMag; ++i)

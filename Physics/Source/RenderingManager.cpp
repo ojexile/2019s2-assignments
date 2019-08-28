@@ -8,7 +8,7 @@
 #define SHADOW_VIEW_SIZE_X 400
 #define SHADOW_VIEW_SIZE_Y 200/16*9
 #define SHADOW_VIEW_SIZE_Z 400
-#define SHADOW_RES 128*20.f
+#define SHADOW_RES 128*10.f
 
 #define SWITCH_SHADER true
 RenderingManager::RenderingManager()
@@ -158,8 +158,8 @@ void RenderingManager::RenderPassPost2(Scene* scene)
 
 	glUseProgram(m_PostProcessProgram2);
 	glUniform1f(m_parameters[U_EFFECT2_TIME], Time::GetInstance()->GetElapsedTimeF());
-	if(SceneManager::GetInstance()->GetScene()->GetPlayer())
-	glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead());
+	if (SceneManager::GetInstance()->GetScene()->GetPlayer())
+		glUniform1f(m_parameters[U_EFFECT2_INTENSITY], SceneManager::GetInstance()->GetScene()->GetPlayer()->GetComponent<PlayerScript>()->GetTimeDead());
 
 	glBindRenderbuffer(GL_RENDERBUFFER, m_PostBO2);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight());
@@ -423,13 +423,13 @@ void RenderingManager::RenderGameObject(GameObject* go, Vector3 vCamPos, bool bI
 	RenderComponent* renderComponent = go->GetComponent<RenderComponent>(true);
 	if (renderComponent)
 	{
-		if (go->RENDER->GetRenderDistance() > 0)
-		{
-			if ((go->TRANS->GetPosition() - SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition()).Length() > go->RENDER->GetRenderDistance()) return;
-		}
 		bool isActive = renderComponent->IsActive();
 		if (!isActive)
 			return;
+		if (go->RENDER->GetRenderDistance() > 0 && SceneManager::GetInstance()->GetScene()->GetPlayer())
+		{
+			if ((go->TRANS->GetPosition() - SceneManager::GetInstance()->GetScene()->GetPlayer()->TRANS->GetPosition()).LengthSquared() > go->RENDER->GetRenderDistance() * go->RENDER->GetRenderDistance()) return;
+		}
 		Mesh* CurrentMesh = renderComponent->GetMesh();
 		Mesh* MeshBiomed = renderComponent->GetMeshBiomed();
 		AnimatedMesh* AnimatedMesh = renderComponent->GetAnimatedMesh();
