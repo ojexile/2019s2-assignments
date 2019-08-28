@@ -21,7 +21,7 @@
 RenderingManager* Engine::m_Renderer;
 #define TIMINGS true
 
-#define SCENE LoginScene
+#define SCENE DefaultScene
 
 Engine::Engine()
 {
