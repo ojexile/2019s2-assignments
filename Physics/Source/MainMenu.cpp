@@ -142,6 +142,7 @@ void MainMenu::Init()
 	go->TRANS->SetScale(120);
 	go->AddComponent(new RenderComponent(dataContainer->GetMesh("QuadCentered")));
 	go->RENDER->SetColor(1, 1, 0);
+	go->SetDisableDistance(-1);
 	// num
 	go = m_GOM.AddGameObject("UI");
 	int NumCoins = PlayerData::GetInstance()->GetCoins();
