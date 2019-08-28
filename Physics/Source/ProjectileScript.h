@@ -35,5 +35,6 @@ public:
 protected:
 	float m_fDamage;
 	float m_fLifespan;
+	bool m_bIsAugmented;
 	std::vector<Augment*> m_AugmentList;
 };
