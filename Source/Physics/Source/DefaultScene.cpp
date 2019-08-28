@@ -29,7 +29,7 @@
 //systems
 #include "PlayerData.h"
 
-#define PLAYER_HEALTH 10000
+#define PLAYER_HEALTH 100
 DefaultScene::DefaultScene()
 {
 }
