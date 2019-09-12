@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\application.cpp">
+      <Filter>Movables\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Movables\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\movables\asteroid.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\movables\movables.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\movables\ship.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\net\process_received_packet.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
+    <ClCompile Include="src\net\process_send_packet.cpp">
+      <Filter>Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shares\timer\timer.cpp">
+      <Filter>Shares\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\movables\missile.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\movables\boom.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\movables\Timebomb.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\movables\Explosion.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\movables\medKit.cpp">
+      <Filter>Movables</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Movables">
+      <UniqueIdentifier>{12e2483b-240a-4c0a-b2f0-cb38f82f6de3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Net">
+      <UniqueIdentifier>{51050d6e-8a9a-4312-8472-9d5b9c5f5d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shares">
+      <UniqueIdentifier>{8dc44950-a025-4b43-bc88-9d4b52be5b34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shares\packets">
+      <UniqueIdentifier>{7457552c-90ac-4b0f-939e-1ea8ed3736b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shares\timer">
+      <UniqueIdentifier>{fe8acb8b-fd00-4ad9-bf87-fba6545e2719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Movables\Main">
+      <UniqueIdentifier>{17f16469-73f8-425e-83e0-7cb9b57bb41d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\application.h">
+      <Filter>Movables\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\globals.h">
+      <Filter>Movables\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="src\movables\ship.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\movables\asteroid.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\movables\movables.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\net\process_received_packet.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="src\net\process_send_packet.h">
+      <Filter>Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shares\packets\packets_c2s.h">
+      <Filter>Shares\packets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shares\packets\packets_s2c.h">
+      <Filter>Shares\packets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shares\timer\timer.h">
+      <Filter>Shares\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\movables\missile.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\movables\boom.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\movables\Timebomb.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\movables\Explosion.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\movables\medKit.h">
+      <Filter>Movables</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
