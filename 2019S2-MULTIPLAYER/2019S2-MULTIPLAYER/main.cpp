@@ -56,13 +56,17 @@ void Init()
 	std::cout << "// Connected!\n";
 	std::cout << "// Waiting for message...\n";
 	
-	char buffer[80];
-	int length = recv(clientsocket, buffer, sizeof(buffer), 0);
 
-	if (length > 0)
+	do
 	{
-		std::cout << "[] Message Received: " << std::string(buffer).substr(0, length) << std::endl;
-	}
+		char buffer[80];
+		int length = recv(clientsocket, buffer, sizeof(buffer), 0);
+
+		if (length > 0)
+		{
+			std::cout << "[] Message Received: " << std::string(buffer).substr(0, length) << std::endl;
+		}
+	} while (true);
 
 }
 
@@ -73,9 +77,11 @@ void Shutdown()
 	closesocket(clientsocket);
 	WSACleanup();
 }
-void main()
+
+int main()
 {
 	Init();
 	std::cout << "===================\n";
 	Shutdown();
+	return 0;
 }
