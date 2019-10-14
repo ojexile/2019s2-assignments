@@ -1,0 +1,278 @@
+﻿  AbilityBase.cpp
+  AbilityDash.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  AbilityGrenade.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  AbilityHeal.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  AbilityScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  AbilitySlowTime.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  AdvancedParticleSpawnerScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  AIEntityScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  AIState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  AIStatesList.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  AnimatedMesh.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Application.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Vertex.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  AudioManager.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Application.h(4,10): error C1083:  Cannot open include file: 'timer.h': No such file or directory
+  AudioObserver.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\AudioManager.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Behaviour.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  BiomeComponent.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  BirdWingScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  BlackHoleAugment.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  BlackholeScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  BossCombat.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Generating Code...
+  Compiling...
+  BossObserver.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  BossObserverCom.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  BossShockwaveState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  BossSpawnerScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Camera.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  CameraComponent.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Camera.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  CameraScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  CheatScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ChunkCollider.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ChunkData.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ChunkEvent.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  CoinUIScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  CollisionManager.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ColorFBO.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Command.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ColorFBO.h(4,10): error C1083:  Cannot open include file: 'GL/glew.h': No such file or directory
+  Component.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ComponentBase.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Constrain.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  CrouchingState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  DataContainer.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Generating Code...
+  Compiling...
+  DefaultScene.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Vertex.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  DepthFBO.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  DestructibleEntityScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\DepthFBO.h(4,10): error C1083:  Cannot open include file: 'GL/glew.h': No such file or directory
+  Engine.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  EntityScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  EntityValues.cpp
+  EntityLibrary.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ExplodeAugment.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Vertex.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  FleeState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  FlipEntityScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  FoilageGeneratorComponent.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  FPSScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  GameObject.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  GameObjectManager.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  GenericSubject.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  CoinPickupScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  GrenadeScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  HealthAugment.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  HeightMapData.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  IdleState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Vertex.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Generating Code...
+  Compiling...
+  InputBinding.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  InputManager.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  DebrisSpawningScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  InteractableObCom.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  InteractablesObserver.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  InteractionBaseScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  InventoryScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  KeyboardManager.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  LayerData.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  LightManager.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  LoadHmap.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Vertex.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  LoadOBJ.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Preferences.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  LoadTGA.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Vertex.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Locator.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\LoadTGA.cpp(3,10): error C1083:  Cannot open include file: 'GL\glew.h': No such file or directory
+  LogData.cpp
+  Logger.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Preferences.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  LoginButtonScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Preferences.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  LoginScene.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  LoginScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  LootScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Generating Code...
+  Compiling...
+  main.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  MainMenu.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Application.h(4,10): error C1083:  Cannot open include file: 'timer.h': No such file or directory
+  MapSpawningScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  MeleeCombatState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  MenuButtonsScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Mesh.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  MeshBiomed.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Vertex.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  MeshBuilder.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  MeshController.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Vertex.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Message.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  MouseManager.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  MovementCommand.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Application.h(4,10): error C1083:  Cannot open include file: 'timer.h': No such file or directory
+  ObserverBase.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ObserverComponent.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ParticleObserver.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ParticleScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ParticleSpawnerScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  PhysicsMaterial.cpp
+  PlayerData.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  PlayerStateList.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Generating Code...
+  Compiling...
+  WinLoseScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  PlayerScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  PlayerState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  PlayerStatsScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Preferences.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ProjectileScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Preferences.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  RangedState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ReloadUIScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ReloadingAugment.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  RenderComponent.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  RenderingManager.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  RenderingManagerBase.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Resources.cpp
+  ReticleScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Rigidbody.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ScalePatternScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Scene.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  SceneManager.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  ScriptComponent.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  shader.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Generating Code...
+  Compiling...
+  SpawnLootScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\shader.cpp(12,10): error C1083:  Cannot open include file: 'GL/glew.h': No such file or directory
+  SprintingState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  StandingState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  State.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  SuicideNoteScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Time.cpp
+  TopDownState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  TransformComponent.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\GameObject.h(4,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  UIButtonComponent.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Utility.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  WanderState.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\Utility.h(4,10): error C1083:  Cannot open include file: 'Mtx44.h': No such file or directory
+  Augment.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  WeaponPartScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  GunScript.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  WorldValues.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\ComponentBase.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
+  Generating Code...
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\Source\Physics\Source\WorldValues.h(2,10): error C1083:  Cannot open include file: 'Vector3.h': No such file or directory
