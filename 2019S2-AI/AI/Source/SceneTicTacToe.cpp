@@ -240,6 +240,11 @@ int SceneTicTacToe::GetAIDecision()
 	return random;
 }
 
+void SceneTicTacToe::PlaceAIDecision(int choice, WHO_CONTENT player)
+{
+	m_grid[choice];
+}
+
 void SceneTicTacToe::Update(double dt)
 {
 	SceneBase::Update(dt);
@@ -287,7 +292,7 @@ void SceneTicTacToe::Update(double dt)
 				{
 					std::cout << "m_grid of 0\n";
 					m_grid[0] = WHO_CIRCLE;
-					m_wincondition[0][0]++;
+					m_wincondition[1][0]++;
 					m_wincondition[4][0]++;
 					m_wincondition[8][0]++;
 				}
@@ -398,6 +403,7 @@ void SceneTicTacToe::Update(double dt)
 	{
 		GetAIDecision();
 		//Exercise: Call GetAIDecision() and put cross on grid
+
 	}
 
 	//Game Logic Section

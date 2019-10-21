@@ -51,6 +51,7 @@ public:
 	GameObject* FetchGO();
 
 	int GetAIDecision();
+	void PlaceAIDecision(int choice, WHO_CONTENT player);
 protected:
 
 	std::vector<GameObject *> m_goList;
