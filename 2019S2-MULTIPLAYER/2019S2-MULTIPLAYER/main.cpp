@@ -65,6 +65,9 @@ void Init()
 		if (length > 0)
 		{
 			std::cout << "[] Message Received: " << std::string(buffer).substr(0, length) << std::endl;
+
+			// sending message back
+			send(clientsocket, buffer, length, 0); // note that we use the length variable
 		}
 	} while (true);
 

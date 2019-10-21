@@ -55,13 +55,27 @@ void Init()
 	
 	std::cout << "// Connected!\n";
 
+	char exitcode = ':';
 	do
 	{
 		char buffer[80];
 		std::cout << "[] Insert message: ";
 		std::cin >> buffer;
 
+		if (buffer[0] == exitcode)
+			break;
+
 		send(serversocket, buffer, sizeof(buffer), 0);
+
+
+		char buffer2[80];
+
+		int length = recv(serversocket, buffer2, sizeof(buffer2), 0);
+
+		if (length > 0)
+		{
+			std::cout << "[] Message Received From Server: " << std::string(buffer2).substr(0, length) << std::endl;
+		}
 	} while (true);
 
 
