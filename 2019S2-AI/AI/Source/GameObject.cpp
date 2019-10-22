@@ -8,7 +8,7 @@ GameObject::GameObject(GAMEOBJECT_TYPE typeValue)
 	mass(1.f),
 	currState(STATE_NONE),
 	energy(0.f),
-	countDown(0.f)
+	countDown(-1.f)
 {
 }
 

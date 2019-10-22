@@ -61,8 +61,8 @@ void SceneFish::Update(double dt)
 	SceneBase::Update(dt);
 
 	static const float BALL_SPEED = 20.f;
-	static const float SHARK_SPEED = BALL_SPEED * 1.5f;
-	static const float FOOD_SPEED = BALL_SPEED * 0.5f;
+	static const float SHARK_SPEED = BALL_SPEED * 1.2f;
+	static const float FOOD_SPEED = BALL_SPEED * 0.25f;
 	static const float FULL_SPEED = BALL_SPEED;
 	static const float HUNGRY_SPEED = BALL_SPEED * 0.8f;
 
@@ -91,6 +91,15 @@ void SceneFish::Update(double dt)
 	{
 		bLButtonState = true;
 		std::cout << "LBUTTON DOWN" << std::endl;
+		GameObject* go = FetchGO();
+		go->type = GameObject::GO_FISHFOOD;
+		go->scale.Set(m_gridSize, m_gridSize, m_gridSize);
+		go->pos.Set(m_gridOffset + Math::RandFloatMinMax(0.f, 20.f)
+			* m_gridSize, m_gridOffset + Math::RandFloatMinMax(0.f, 20.f) * m_gridSize, 0);				go->target = go->pos;
+		go->steps = 0;
+		Math::RandFloatMinMax(0.f, 20.f);
+
+		go->targetLocation.Set(m_gridOffset + 0 * m_gridSize, m_gridOffset + 0 * m_gridSize, 0);
 	}
 	else if (bLButtonState && !Application::IsMousePressed(0))
 	{
@@ -113,10 +122,12 @@ void SceneFish::Update(double dt)
 	{
 		bSpaceState = true;
 		GameObject* go = FetchGO();
-		go->id = m_objectCount;
-		go->scale.Set(m_gridSize * 0.5f, m_gridSize * 0.5f, m_gridSize * 0.5f);
-		go->pos.Set(m_gridOffset + 0 * m_gridSize, m_gridOffset + 0 * m_gridSize, 0);
-		go->target = go->pos;
+		go->type = GameObject::GO_FISH;
+		go->energy = Math::RandFloatMinMax(7.f, 9.f);
+		go->currState = GameObject::STATE_FULL;
+		go->scale.Set(m_gridSize, m_gridSize, m_gridSize);
+		go->pos.Set(m_gridOffset + Math::RandFloatMinMax(0.f, 20.f)
+			* m_gridSize, m_gridOffset + Math::RandFloatMinMax(0.f, 20.f) * m_gridSize, 0);		go->target = go->pos;
 		go->steps = 0;
 		go->targetLocation.Set(m_gridOffset + 0 * m_gridSize, m_gridOffset + 0 * m_gridSize, 0);
 	}
@@ -228,17 +239,52 @@ void SceneFish::Update(double dt)
 					else
 					{
 						go->target -= Vector3(0, m_gridSize, 0);
-						break;
+					}
+					break;
 
 				case GameObject::GO_FISH:
+					go->pos = go->target;
+					if (random <= 0.25f)
+					{
+						go->target += Vector3(m_gridSize, 0, 0);
+					}
+					else if (random <= 0.5f)
+					{
+						go->target -= Vector3(m_gridSize, 0, 0);
+					}
+					else if (random <= 0.75f)
+					{
+						go->target += Vector3(0, m_gridSize, 0);
+					}
+					else
+					{
+						go->target -= Vector3(0, m_gridSize, 0);
+					}
 					break;
 
 				case GameObject::GO_FISHFOOD:
-					break;
+					go->pos = go->target;
+					if (random <= 0.25f)
+					{
+						go->target += Vector3(m_gridSize, 0, 0);
 					}
-
-
+					else if (random <= 0.5f)
+					{
+						go->target -= Vector3(m_gridSize, 0, 0);
+					}
+					else if (random <= 0.75f)
+					{
+						go->target += Vector3(0, m_gridSize, 0);
+					}
+					else
+					{
+						go->target -= Vector3(0, m_gridSize, 0);
+					}
+					break;
 				}
+
+
+				
 
 				const float maxGridVal = m_worldHeight - m_gridOffset;
 
@@ -282,15 +328,38 @@ void SceneFish::Update(double dt)
 					switch (go->currState)
 					{
 					case GameObject::STATE_TOOFULL:
+						if (go->energy < 10)
+							go->currState = GameObject::STATE_FULL;
 						break;
 
 					case GameObject::STATE_FULL:
+
+						if (go->energy < 5)
+							go->currState = GameObject::STATE_HUNGRY;
+						if (go->energy >= 10)
+							go->currState = GameObject::STATE_TOOFULL;
+
 						break;
 
 					case GameObject::STATE_HUNGRY:
+						
+						if (go->energy <= 0)
+						{
+							go->currState = GameObject::STATE_DEAD;
+							go->countDown = 3.f;
+						}
+						if (go->energy >= 5)
+							go->currState = GameObject::STATE_FULL;
+
 						break;
 
 					case GameObject::STATE_DEAD:
+						
+						go->countDown -= dt;
+						if (go->countDown < 0.f)
+						{
+							go->active = false;
+						}
 						break;
 					}
 				}
@@ -361,10 +430,8 @@ void SceneFish::RenderGO(GameObject* go)
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 
 		RenderMesh(meshList[GEO_SHARK], false);
-
-		ss << go->id;
-		RenderText(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0));
 		modelStack.PopMatrix();
+
 		break;
 
 	case GameObject::GO_FISH:
@@ -387,7 +454,11 @@ void SceneFish::RenderGO(GameObject* go)
 			RenderMesh(meshList[GEO_TOOFULL], false);
 			break;
 
+			ss << go->energy;
+			RenderText(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0));
 		}
+
+		modelStack.PopMatrix();
 		break;
 
 	case GameObject::GO_FISHFOOD:
@@ -396,6 +467,8 @@ void SceneFish::RenderGO(GameObject* go)
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 
 		RenderMesh(meshList[GEO_FISHFOOD], false);
+		modelStack.PopMatrix();
+
 		break;
 
 	}
