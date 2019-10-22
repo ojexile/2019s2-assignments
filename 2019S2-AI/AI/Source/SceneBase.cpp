@@ -118,6 +118,19 @@ void SceneBase::Init()
 	meshList[GEO_CIRCLE]->textureID = LoadTGA("Image//circle.tga");
 	meshList[GEO_TEXT]->material.kAmbient.Set(1, 0, 0);
 
+	meshList[GEO_DEAD] = MeshBuilder::GenerateQuad("dead", Color(0, 0, 1));
+	meshList[GEO_DEAD]->textureID = LoadTGA("Image//dead.tga");
+	meshList[GEO_FISHFOOD] = MeshBuilder::GenerateQuad("fishfood", Color(0, 0, 1));
+	meshList[GEO_FISHFOOD]->textureID = LoadTGA("Image//fishfood.tga");
+	meshList[GEO_FULL] = MeshBuilder::GenerateQuad("full", Color(0, 0, 1));
+	meshList[GEO_FULL]->textureID = LoadTGA("Image//full.tga");
+	meshList[GEO_HUNGRY] = MeshBuilder::GenerateQuad("hungry", Color(0, 0, 1));
+	meshList[GEO_HUNGRY]->textureID = LoadTGA("Image//hungry.tga");
+	meshList[GEO_SHARK] = MeshBuilder::GenerateQuad("dead", Color(0, 0, 1));
+	meshList[GEO_SHARK]->textureID = LoadTGA("Image//shark.tga");
+	meshList[GEO_TOOFULL] = MeshBuilder::GenerateQuad("dead", Color(0, 0, 1));
+	meshList[GEO_TOOFULL]->textureID = LoadTGA("Image//toofull.tga");
+
 	bLightEnabled = false;
 }
 
