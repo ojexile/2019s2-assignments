@@ -11,8 +11,29 @@ struct GameObject
 		GO_BALL,
 		GO_CROSS,
 		GO_CIRCLE,
+
+		GO_FISH,
+		GO_SHARK,
+		GO_FISHFOOD,
+
 		GO_TOTAL, //must be last
 	};
+
+	enum STATE
+	{
+		STATE_NONE = 0,
+		STATE_TOOFULL, 
+		STATE_FULL,
+		STATE_HUNGRY,
+		STATE_DEAD
+	}; 
+
+	float energy;
+	float moveSpeed;
+	float countDown;
+	STATE currState;
+
+
 	GAMEOBJECT_TYPE type;
 	Vector3 pos;
 	Vector3 vel;
@@ -22,6 +43,8 @@ struct GameObject
 	Vector3 target;
 	int id;
 	int steps;
+
+	Vector3 targetLocation;
 
 	GameObject(GAMEOBJECT_TYPE typeValue = GO_BALL);
 	~GameObject();
