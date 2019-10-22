@@ -12,7 +12,10 @@
 #include <stdlib.h>
 
 #include "SceneMovement.h"
+#include "SceneMovementv2.h"
+#include "SceneTicTacToev2.h"
 #include "SceneTicTacToe.h"
+#include "SceneFish.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
@@ -124,7 +127,7 @@ void Application::Init()
 void Application::Run()
 {
 	//Main Loop
-	Scene *scene = new SceneTicTacToe();
+	Scene *scene = new SceneFish();
 	scene->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
