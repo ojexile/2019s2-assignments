@@ -306,4 +306,9 @@
   <ItemGroup>
     <Text Include="Content\shaders\EffectCRT.fragmentshader" />
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include="asdf">
+      <UniqueIdentifier>{66507592-8ffb-4264-9bc3-44d344b167a7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
 </Project>
