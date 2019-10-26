@@ -1,5 +1,4 @@
-﻿  Application.cpp
-  SceneTicTacToe.cpp
-C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneTicTacToe.cpp(245,9): error C2065: 'i': undeclared identifier
-  Generating Code...
-C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneTicTacToe.cpp(246,1): error C2143: syntax error: missing ';' before '}'
+﻿  SceneFish.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneFish.cpp(327,31): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneFish.cpp(358,26): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  AI.vcxproj -> C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\Debug\AI.exe

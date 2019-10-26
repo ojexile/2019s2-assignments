@@ -1,0 +1,19 @@
+﻿  Application.cpp
+  Camera.cpp
+  GameObject.cpp
+  LoadOBJ.cpp
+  LoadTGA.cpp
+  main.cpp
+  Mesh.cpp
+  MeshBuilder.cpp
+  SceneBase.cpp
+  SceneFish.cpp
+  SceneMovement.cpp
+  SceneTicTacToe.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\DM2242_AI\AI\Source\SceneTicTacToe.cpp(110,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  shader.cpp
+  Utility.cpp
+  Generating Code...
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\DM2242_AI\AI\Source\SceneTicTacToe.cpp(111,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  AI.vcxproj -> C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\DM2242_AI\Debug\AI.exe

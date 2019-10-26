@@ -15,9 +15,15 @@ C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments
 C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\Mesh.cpp(3,10): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
   SceneBase.cpp
 C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\Vertex.h(4,10): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
-  SceneMovement.cpp
+  SceneFish.cpp
 C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneBase.h(5,10): fatal error C1083: Cannot open include file: 'Mtx44.h': No such file or directory
+  SceneMovement.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\GameObject.h(4,10): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  SceneMovementv2.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\GameObject.h(4,10): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
   SceneTicTacToe.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\GameObject.h(4,10): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  SceneTicTacToev2.cpp
 C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\GameObject.h(4,10): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
   shader.cpp
 C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\GameObject.h(4,10): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory

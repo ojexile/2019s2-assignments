@@ -1,0 +1,22 @@
+﻿  Application.cpp
+  Camera.cpp
+  GameObject.cpp
+  LoadOBJ.cpp
+  LoadTGA.cpp
+  main.cpp
+  Mesh.cpp
+  MeshBuilder.cpp
+  SceneBase.cpp
+  SceneMovement.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\ReferenceProjects\AI LAB 2\AI\Source\SceneMovement.cpp(156,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\ReferenceProjects\AI LAB 2\AI\Source\SceneMovement.cpp(164,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\ReferenceProjects\AI LAB 2\AI\Source\SceneMovement.cpp(177,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  SceneTicTacToe.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\ReferenceProjects\AI LAB 2\AI\Source\SceneMovement.cpp(195,24): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\ReferenceProjects\AI LAB 2\AI\Source\SceneTicTacToe.cpp(110,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  shader.cpp
+  Utility.cpp
+  Generating Code...
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\ReferenceProjects\AI LAB 2\AI\Source\SceneTicTacToe.cpp(111,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  AI.vcxproj -> C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\ReferenceProjects\AI LAB 2\Debug\AI.exe
