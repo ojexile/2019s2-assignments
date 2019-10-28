@@ -30,10 +30,15 @@ void SceneFish::Init()
 	m_gridOffset = m_gridSize / 2;
 	m_hourOfTheDay = 0;
 
-	GameObject* shark = FetchGO();
-	shark->type = GameObject::GO_SHARK;
-	shark->scale.Set(m_gridSize, m_gridSize, m_gridSize);
+	//Spawn 1 shark
+	GameObject* go = FetchGO();
+	go->type = GameObject::GO_SHARK;
+	go->moveSpeed = 2;
+	go->scale.Set(m_gridSize, m_gridSize, m_gridSize);
+	go->pos.Set(m_gridOffset + Math::RandIntMinMax(0, 19) * m_gridSize, m_gridOffset + Math::RandIntMinMax(0, 19) * m_gridSize, 1);
+	go->target = go->pos;
 
+	overfull = deathByHunger = deathByShark = 0;
 }
 
 GameObject* SceneFish::FetchGO()
@@ -61,11 +66,6 @@ void SceneFish::Update(double dt)
 	SceneBase::Update(dt);
 
 	static const float BALL_SPEED = 20.f;
-	static const float SHARK_SPEED = BALL_SPEED * 1.2f;
-	static const float FOOD_SPEED = BALL_SPEED * 0.25f;
-	static const float FULL_SPEED = BALL_SPEED;
-	static const float HUNGRY_SPEED = BALL_SPEED * 0.8f;
-
 	static const float HOUR_SPEED = 1.f;
 
 	//Calculating aspect ratio
@@ -91,15 +91,6 @@ void SceneFish::Update(double dt)
 	{
 		bLButtonState = true;
 		std::cout << "LBUTTON DOWN" << std::endl;
-		GameObject* go = FetchGO();
-		go->type = GameObject::GO_FISHFOOD;
-		go->scale.Set(m_gridSize, m_gridSize, m_gridSize);
-		go->pos.Set(m_gridOffset + Math::RandFloatMinMax(0.f, 20.f)
-			* m_gridSize, m_gridOffset + Math::RandFloatMinMax(0.f, 20.f) * m_gridSize, 0);				go->target = go->pos;
-		go->steps = 0;
-		Math::RandFloatMinMax(0.f, 20.f);
-
-		go->targetLocation.Set(m_gridOffset + 0 * m_gridSize, m_gridOffset + 0 * m_gridSize, 0);
 	}
 	else if (bLButtonState && !Application::IsMousePressed(0))
 	{
@@ -117,27 +108,150 @@ void SceneFish::Update(double dt)
 		bRButtonState = false;
 		std::cout << "RBUTTON UP" << std::endl;
 	}
+
+	//Spawn Feesh
 	static bool bSpaceState = false;
 	if (!bSpaceState && Application::IsKeyPressed(VK_SPACE))
 	{
 		bSpaceState = true;
 		GameObject* go = FetchGO();
-		go->type = GameObject::GO_FISH;
-		go->energy = Math::RandFloatMinMax(7.f, 9.f);
-		go->currState = GameObject::STATE_FULL;
+		go->energy = 9;
 		go->scale.Set(m_gridSize, m_gridSize, m_gridSize);
-		go->pos.Set(m_gridOffset + Math::RandFloatMinMax(0.f, 20.f)
-			* m_gridSize, m_gridOffset + Math::RandFloatMinMax(0.f, 20.f) * m_gridSize, 0);		go->target = go->pos;
-		go->steps = 0;
-		go->targetLocation.Set(m_gridOffset + 0 * m_gridSize, m_gridOffset + 0 * m_gridSize, 0);
+		go->pos.Set(m_gridOffset + Math::RandIntMinMax(0, 19) * m_gridSize, m_gridOffset + Math::RandIntMinMax(0, 19) * m_gridSize, 0);
+		go->target = go->pos;
+		go->type = GameObject::GO_FISH;
+		go->currState = go->STATE_FULL;
 	}
 	else if (bSpaceState && !Application::IsKeyPressed(VK_SPACE))
 	{
 		bSpaceState = false;
 	}
 
-	//Movement Section
+	//Spawn FeeshFood
+	static bool bZState = false;
+	if (!bZState && Application::IsKeyPressed('Z'))
+	{
+		bZState = true;
+		GameObject* go = FetchGO();
+		go->scale.Set(m_gridSize, m_gridSize, m_gridSize);
+		go->pos.Set(m_gridOffset + Math::RandIntMinMax(0, 19) * m_gridSize, m_gridOffset + Math::RandIntMinMax(0, 19) * m_gridSize, 0);
+		go->target = go->pos;
+		go->moveSpeed = 0.5f;
+		go->type = GameObject::GO_FISHFOOD;
+	}
+	else if (bZState && !Application::IsKeyPressed('Z'))
+	{
+		bZState = false;
+	}
 
+	//State Machine
+	for (std::vector<GameObject*>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
+	{
+		GameObject* go = (GameObject*)*it;
+		if (go->active && go->type == GameObject::GO_FISH)
+		{
+			switch (go->currState)
+			{
+			case GameObject::STATE_TOOFULL:
+				go->energy -= dt;
+				go->moveSpeed = 0;
+				if (go->energy < 10)
+				{
+					go->currState = go->STATE_FULL;
+				}
+				break;
+			case GameObject::STATE_FULL:
+				go->energy -= dt;
+				go->moveSpeed = 2;
+				if (go->energy >= 10)
+				{
+					go->currState = go->STATE_TOOFULL;
+					overfull++;
+				}
+				else if (go->energy < 5)
+				{
+					go->currState = go->STATE_HUNGRY;
+				}
+				break;
+			case GameObject::STATE_HUNGRY:
+				go->energy -= dt;
+				go->moveSpeed = 1;
+				if (go->energy >= 5)
+				{
+					go->currState = go->STATE_FULL;
+				}
+				else if (go->energy <= 0)
+				{
+					if (go->energy > -1)
+					{
+						deathByHunger++;
+					}
+					go->currState = go->STATE_DEAD;
+					go->countDown = 3;
+				}
+				break;
+			case GameObject::STATE_DEAD:
+				go->moveSpeed = 0;
+				go->countDown -= dt;
+
+				if (go->countDown <= 0)
+				{
+					go->active = false;
+					m_objectCount--;
+				}
+				break;
+			}
+		}
+	}
+
+	//Collision check and response
+	for (std::vector<GameObject*>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
+	{
+		GameObject* go = (GameObject*)*it;
+		if (!go->active)
+			continue;
+
+		for (std::vector<GameObject*>::iterator it2 = it + 1; it2 != m_goList.end(); ++it2)
+		{
+			GameObject* go2 = static_cast<GameObject*>(*it2);
+			if (!go2->active)
+				continue;
+			if ((go->type != go->GO_FISH && go2->type != go->GO_FISH) || go->type == go2->type)
+				continue;
+
+			float dist = (go->pos - go2->pos).Length();
+
+			if (dist < 5)
+			{
+				GameObject* goA = go;
+				GameObject* goB = go2;
+
+				//Make goB always fish
+				if (go2->type != go->GO_FISH)
+				{
+					goA = go2;
+					goB = go;
+				}
+
+				if (goB->currState != go->STATE_DEAD)
+				{
+					switch (goA->type)
+					{
+					case goA->GO_SHARK:
+						goB->energy = -1;
+						deathByShark++;
+						break;
+					case goA->GO_FISHFOOD:
+						goB->energy += 3;
+						goA->active = false;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	//Movement Section
 	for (std::vector<GameObject*>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
 	{
 		GameObject* go = (GameObject*)*it;
@@ -145,224 +259,60 @@ void SceneFish::Update(double dt)
 		{
 			//if (go->steps > 100)
 			//	continue;
+
 			Vector3 dir = go->target - go->pos;
 			if (dir.Length() < BALL_SPEED * dt * m_speed)
 			{
+				//GO->pos reach target
+				go->pos = go->target;
 				float random = Math::RandFloatMinMax(0.f, 1.f);
-
-				switch (go->type)
+				//Exercise: use probability to decide direction to go
+				if (random < 0.25f)
 				{
-					//case GameObject::GO_CIRCLE:
-					//	//if (go->steps > 100)
-					////	continue;
-					////Vector3 dir = go->target - go->pos;
-					////if (dir.Length() < BALL_SPEED * dt * m_speed)
-					////{
-					////	//GO->pos reach target
-					////	go->pos = go->target;
-					////	float random = Math::RandFloatMinMax(0.f, 1.f);
-					////	//Exercise: use probability to decide go up or right
-					////	/*if (random < 0.25f)
-					////	{
-					////		go->target.Set(go->pos.x, go->pos.y + m_gridSize, 0);
-					////		go->steps++;
-					////	}
-					////	else if (random < 0.5f)
-					////	{
-					////		go->target.Set(go->pos.x + m_gridSize, go->pos.y, 0);
-					////		go->steps++;
-					////	}
-					////	else if (random < 0.75f)
-					////	{
-					////		go->target.Set(go->pos.x, go->pos.y - m_gridSize, 0);
-					////		go->steps++;
-					////	}
-					////	else
-					////	{
-					////		go->target.Set(go->pos.x - m_gridSize, go->pos.y, 0);
-					////		go->steps++;
-					////	}*/
-					////	if (go->pos.x != go->targetLocation.x)
-					////	{
-					////		go->target.Set(go->targetLocation.x, go->pos.y, 0);
-					////	}
-					////	if (go->pos.y != go->targetLocation.y && go->pos.x == go->targetLocation.x)
-					////	{
-					////		go->target.Set(go->pos.x, go->targetLocation.y, 0);
-					////	}
-					////	//Exercise: set boundaries so that game objects would not leave scene
-					////	if (go->target.x > m_gridSize* m_noGrid)
-					////	{
-					////		go->target.x = m_gridSize * m_noGrid - m_gridOffset;
-					////	}
-					////	else if (go->target.x < m_gridOffset)
-					////	{
-					////		go->target.x = m_gridOffset;
-					////	}
-					////	if (go->target.y > m_worldHeight)
-					////	{
-					////		go->target.y = m_worldHeight - m_gridOffset;
-					////	}
-					////	else if (go->target.y < m_gridOffset)
-					////	{
-					////		go->target.y = m_gridOffset;
-					////	}
-					////	//Exercise: change the conditions so that the game objects can move randomly
-
-					////	//Exercise: set some areas in the scene so that the game objects will go to different areas at various time of the day
-					////	if (m_hourOfTheDay >= 10 && m_hourOfTheDay < 11)
-					////	{
-					////		MoveAI();
-					////	}
-					////}
-					////else
-					////{
-					////	dir.Normalize();
-					////	go->pos += dir * BALL_SPEED * static_cast<float>(dt)* m_speed;
-					////}
-					//	break;
-
-				case GameObject::GO_SHARK:
-					go->pos = go->target;
-					if (random <= 0.25f)
-					{
-						go->target += Vector3(m_gridSize, 0, 0);
-					}
-					else if (random <= 0.5f)
-					{
-						go->target -= Vector3(m_gridSize, 0, 0);
-					}
-					else if (random <= 0.75f)
-					{
-						go->target += Vector3(0, m_gridSize, 0);
-					}
-					else
-					{
-						go->target -= Vector3(0, m_gridSize, 0);
-					}
-					break;
-
-				case GameObject::GO_FISH:
-					go->pos = go->target;
-					if (random <= 0.25f)
-					{
-						go->target += Vector3(m_gridSize, 0, 0);
-					}
-					else if (random <= 0.5f)
-					{
-						go->target -= Vector3(m_gridSize, 0, 0);
-					}
-					else if (random <= 0.75f)
-					{
-						go->target += Vector3(0, m_gridSize, 0);
-					}
-					else
-					{
-						go->target -= Vector3(0, m_gridSize, 0);
-					}
-					break;
-
-				case GameObject::GO_FISHFOOD:
-					go->pos = go->target;
-					if (random <= 0.25f)
-					{
-						go->target += Vector3(m_gridSize, 0, 0);
-					}
-					else if (random <= 0.5f)
-					{
-						go->target -= Vector3(m_gridSize, 0, 0);
-					}
-					else if (random <= 0.75f)
-					{
-						go->target += Vector3(0, m_gridSize, 0);
-					}
-					else
-					{
-						go->target -= Vector3(0, m_gridSize, 0);
-					}
-					break;
+					go->target.Set(go->pos.x, go->pos.y + m_gridSize, 0);
+				}
+				else if (random < 0.5f)
+				{
+					go->target.Set(go->pos.x + m_gridSize, go->pos.y, 0);
+				}
+				else if (random < 0.75f)
+				{
+					go->target.Set(go->pos.x, go->pos.y - m_gridSize, 0);
+				}
+				else
+				{
+					go->target.Set(go->pos.x - m_gridSize, go->pos.y, 0);
 				}
 
+				//Exercise: set boundaries so that game objects would not leave scene
+				if (go->target.x > m_gridSize* m_noGrid)
+				{
+					go->target.x = m_gridSize * m_noGrid - m_gridOffset;
+				}
+				else if (go->target.x < m_gridOffset)
+				{
+					go->target.x = m_gridOffset;
+				}
+				if (go->target.y > m_worldHeight)
+				{
+					go->target.y = m_worldHeight - m_gridOffset;
+				}
+				else if (go->target.y < m_gridOffset)
+				{
+					go->target.y = m_gridOffset;
+				}
+				//Exercise: change the conditions so that the game objects can move randomly
 
-				
-
-				const float maxGridVal = m_worldHeight - m_gridOffset;
-
-				go->target.x = Math::Clamp(go->target.x, m_gridOffset, maxGridVal);
-				go->target.y = Math::Clamp(go->target.y, m_gridOffset, maxGridVal);
+				//Exercise: set some areas in the scene so that the game objects will go to different areas at various time of the day
+				/*if (m_hourOfTheDay >= 10 && m_hourOfTheDay < 11)
+				{
+					MoveAI();
+				}*/
 			}
 			else
 			{
 				dir.Normalize();
-
-				switch (go->type)
-				{
-				case GameObject::GO_SHARK:
-					go->pos += dir * SHARK_SPEED * static_cast<float>(dt)* m_speed;
-					break;
-				case GameObject::GO_FISH:
-					if (go->currState == GameObject::STATE_DEAD || go->currState == GameObject::STATE_TOOFULL)
-						break;
-					else if (go->currState == GameObject::STATE_FULL)
-					{
-						go->pos += dir * FULL_SPEED * static_cast<float>(dt)* m_speed;
-						break;
-					}
-					else if (go->currState == GameObject::STATE_HUNGRY)
-					{
-						go->pos += dir * HUNGRY_SPEED * static_cast<float>(dt)* m_speed;
-						break;
-					}
-				default: // hungry
-					go->pos += dir * BALL_SPEED * static_cast<float>(dt)* m_speed;
-				}
-			}
-
-			//state machine here.
-			{
-				
-				if (go->type == GameObject::GO_FISH)
-				{
-					if (go->energy > 0.f)
-						go->energy -= dt * 0.25f;
-					switch (go->currState)
-					{
-					case GameObject::STATE_TOOFULL:
-						if (go->energy < 10)
-							go->currState = GameObject::STATE_FULL;
-						break;
-
-					case GameObject::STATE_FULL:
-
-						if (go->energy < 5)
-							go->currState = GameObject::STATE_HUNGRY;
-						if (go->energy >= 10)
-							go->currState = GameObject::STATE_TOOFULL;
-
-						break;
-
-					case GameObject::STATE_HUNGRY:
-						
-						if (go->energy <= 0)
-						{
-							go->currState = GameObject::STATE_DEAD;
-							go->countDown = 3.f;
-						}
-						if (go->energy >= 5)
-							go->currState = GameObject::STATE_FULL;
-
-						break;
-
-					case GameObject::STATE_DEAD:
-						
-						go->countDown -= dt;
-						if (go->countDown < 0.f)
-						{
-							go->active = false;
-						}
-						break;
-					}
-				}
+				go->pos += dir * BALL_SPEED * static_cast<float>(dt)* m_speed* go->moveSpeed;
 			}
 		}
 	}
@@ -404,45 +354,37 @@ void SceneFish::MoveAI()
 			randomY = Math::RandIntMinMax(2, 5);
 			break;
 		}
-		go->targetLocation.Set(randomX * m_gridSize + m_gridOffset, randomY * m_gridSize + m_gridOffset, 0);
+		//go->targetLocation.Set(randomX * m_gridSize + m_gridOffset, randomY * m_gridSize + m_gridOffset, 0);
 	}
 }
 
 void SceneFish::RenderGO(GameObject* go)
 {
-	std::ostringstream ss;
-
 	switch (go->type)
 	{
 	case GameObject::GO_BALL:
+	{
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 		RenderMesh(meshList[GEO_BALL], false);
 
+		std::ostringstream ss;
 		ss << go->id;
 		RenderText(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0));
 		modelStack.PopMatrix();
 		break;
-	case GameObject::GO_SHARK:
-		modelStack.PushMatrix();
-		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
-		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-
-		RenderMesh(meshList[GEO_SHARK], false);
-		modelStack.PopMatrix();
-
-		break;
-
+	}
 	case GameObject::GO_FISH:
+	{
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 
 		switch (go->currState)
 		{
-		case GameObject::STATE_DEAD:
-			RenderMesh(meshList[GEO_DEAD], false);
+		case GameObject::STATE_TOOFULL:
+			RenderMesh(meshList[GEO_TOOFULL], false);
 			break;
 		case GameObject::STATE_FULL:
 			RenderMesh(meshList[GEO_FULL], false);
@@ -450,27 +392,36 @@ void SceneFish::RenderGO(GameObject* go)
 		case GameObject::STATE_HUNGRY:
 			RenderMesh(meshList[GEO_HUNGRY], false);
 			break;
-		case GameObject::STATE_TOOFULL:
-			RenderMesh(meshList[GEO_TOOFULL], false);
+		case GameObject::STATE_DEAD:
+			RenderMesh(meshList[GEO_DEAD], false);
 			break;
-
-			ss << go->energy;
-			RenderText(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0));
 		}
+		modelStack.PopMatrix();
 
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y - 3.5f, go->pos.z);
+		modelStack.Scale(3, 3, 3);
+		std::ostringstream ss;
+		ss.precision(3);
+		ss << go->energy;
+		RenderText(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0));
 		modelStack.PopMatrix();
 		break;
-
+	}
 	case GameObject::GO_FISHFOOD:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-
 		RenderMesh(meshList[GEO_FISHFOOD], false);
 		modelStack.PopMatrix();
-
 		break;
-
+	case GameObject::GO_SHARK:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		RenderMesh(meshList[GEO_SHARK], false);
+		modelStack.PopMatrix();
+		break;
 	}
 }
 
@@ -531,7 +482,20 @@ void SceneFish::Render()
 	ss << "Hour:" << m_hourOfTheDay;
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 50, 12);
 
-	RenderTextOnScreen(meshList[GEO_TEXT], "Movement", Color(0, 1, 0), 3, 50, 0);
+	//Xtra Stats
+	ss.str("");
+	ss << "Death By Hunger:" << deathByHunger;
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 50, 17);
+
+	ss.str("");
+	ss << "Death By Shark:" << deathByShark;
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 50, 20);
+
+	ss.str("");
+	ss << "Overfull:" << overfull;
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 50, 23);
+
+	RenderTextOnScreen(meshList[GEO_TEXT], "SceneFish", Color(0, 1, 0), 3, 50, 0);
 }
 
 void SceneFish::Exit()

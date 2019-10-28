@@ -32,6 +32,10 @@ protected:
 	float m_gridSize;
 	float m_gridOffset;
 	float m_hourOfTheDay;
+
+	int overfull;
+	int deathByHunger;
+	int deathByShark;
 };
 
 #endif
