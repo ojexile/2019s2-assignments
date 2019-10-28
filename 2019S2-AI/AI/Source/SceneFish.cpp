@@ -492,7 +492,7 @@ void SceneFish::Render()
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 50, 20);
 
 	ss.str("");
-	ss << "Overfull:" << overfull;
+	ss << "Too full:" << overfull;
 	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 50, 23);
 
 	RenderTextOnScreen(meshList[GEO_TEXT], "SceneFish", Color(0, 1, 0), 3, 50, 0);

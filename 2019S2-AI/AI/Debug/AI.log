@@ -1,7 +1,0 @@
-﻿  SceneFish.cpp
-C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneFish.cpp(156,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneFish.cpp(164,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneFish.cpp(177,21): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneFish.cpp(195,24): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  AI.vcxproj -> C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\Debug\AI.exe
