@@ -1,4 +1,5 @@
 #include "SceneFish.h"
+#include "StatesFish.h"
 #include "GL\glew.h"
 #include "Application.h"
 #include <sstream>
@@ -41,12 +42,12 @@ void SceneFish::Init()
 	overfull = deathByHunger = deathByShark = 0;
 }
 
-GameObject* SceneFish::FetchGO()
+GameObject* SceneFish::FetchGO(GameObject::GAMEOBJECT_TYPE type)
 {
 	for (std::vector<GameObject*>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
 	{
 		GameObject* go = (GameObject*)*it;
-		if (!go->active)
+		if (!go->active && go->type == type)
 		{
 			go->active = true;
 			++m_objectCount;
@@ -55,10 +56,20 @@ GameObject* SceneFish::FetchGO()
 	}
 	for (unsigned i = 0; i < 10; ++i)
 	{
-		GameObject* go = new GameObject(GameObject::GO_BALL);
+		GameObject* go = new GameObject(type);
 		m_goList.push_back(go);
+
+		if (go->type == GameObject::GO_FISH)
+		{
+			go->sm = new StateMachine();
+			go->sm->AddState(new StateTooFull("StateTooFull", go));
+			go->sm->AddState(new StateFull("StateFull", go));
+			go->sm->AddState(new StateHungry("StateHungry", go));
+			go->sm->AddState(new StateDead("StateDead", go));
+
+		}
 	}
-	return FetchGO();
+	return FetchGO(type);
 }
 
 void SceneFish::Update(double dt)
@@ -114,13 +125,14 @@ void SceneFish::Update(double dt)
 	if (!bSpaceState && Application::IsKeyPressed(VK_SPACE))
 	{
 		bSpaceState = true;
-		GameObject* go = FetchGO();
+		GameObject* go = FetchGO(GameObject::GO_FISH);
 		go->energy = 9;
 		go->scale.Set(m_gridSize, m_gridSize, m_gridSize);
 		go->pos.Set(m_gridOffset + Math::RandIntMinMax(0, 19) * m_gridSize, m_gridOffset + Math::RandIntMinMax(0, 19) * m_gridSize, 0);
 		go->target = go->pos;
-		go->type = GameObject::GO_FISH;
-		go->currState = go->STATE_FULL;
+		//go->type = GameObject::GO_FISH;
+		//go->currState = go->STATE_FULL;
+		go->sm->SetNextState("StateFull");
 	}
 	else if (bSpaceState && !Application::IsKeyPressed(VK_SPACE))
 	{
@@ -132,12 +144,12 @@ void SceneFish::Update(double dt)
 	if (!bZState && Application::IsKeyPressed('Z'))
 	{
 		bZState = true;
-		GameObject* go = FetchGO();
+		GameObject* go = FetchGO(GameObject::GO_FISHFOOD);
 		go->scale.Set(m_gridSize, m_gridSize, m_gridSize);
 		go->pos.Set(m_gridOffset + Math::RandIntMinMax(0, 19) * m_gridSize, m_gridOffset + Math::RandIntMinMax(0, 19) * m_gridSize, 0);
 		go->target = go->pos;
 		go->moveSpeed = 0.5f;
-		go->type = GameObject::GO_FISHFOOD;
+		//go->type = GameObject::GO_FISHFOOD;
 	}
 	else if (bZState && !Application::IsKeyPressed('Z'))
 	{
@@ -331,7 +343,7 @@ void SceneFish::RenderGO(GameObject* go)
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
 		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
 
-		switch (go->currState)
+		/*switch (go->currState)
 		{
 		case GameObject::STATE_TOOFULL:
 			RenderMesh(meshList[GEO_TOOFULL], false);
@@ -345,6 +357,25 @@ void SceneFish::RenderGO(GameObject* go)
 		case GameObject::STATE_DEAD:
 			RenderMesh(meshList[GEO_DEAD], false);
 			break;
+		}*/
+
+		const std::string &currState = go->sm->GetCurrentState();
+		
+		if (currState == "StateTooFull")
+		{
+			RenderMesh(meshList[GEO_TOOFULL], false);
+		}
+		else if (currState == "StateFull")
+		{
+			RenderMesh(meshList[GEO_FULL], false);
+		}
+		else if (currState == "StateHungry")
+		{
+			RenderMesh(meshList[GEO_HUNGRY], false);
+		}
+		else if (currState == "StateDead")
+		{
+			RenderMesh(meshList[GEO_DEAD], false);
 		}
 		modelStack.PopMatrix();
 

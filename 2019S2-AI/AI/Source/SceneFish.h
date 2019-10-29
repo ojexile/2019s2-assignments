@@ -19,7 +19,7 @@ public:
 	void RenderGO(GameObject* go);
 	void MoveAI();
 
-	GameObject* FetchGO();
+	GameObject* FetchGO(GameObject::GAMEOBJECT_TYPE type = GameObject::GO_BALL);
 protected:
 
 	std::vector<GameObject*> m_goList;

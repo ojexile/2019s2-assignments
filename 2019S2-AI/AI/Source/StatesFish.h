@@ -16,4 +16,42 @@ public:
 	virtual void Exit();
 };
 
+class StateFull : public State
+{
+	GameObject* m_go;
+public:
+	StateFull(const std::string& stateID, GameObject* go);
+	virtual ~StateFull();
+
+	virtual void Enter();
+	virtual void Update(double dt);
+	virtual void Exit();
+
+};
+
+class StateHungry : public State
+{
+	GameObject* m_go;
+public:
+	StateHungry(const std::string& stateID, GameObject* go);
+	virtual ~StateHungry();
+
+	virtual void Enter();
+	virtual void Update(double dt);
+	virtual void Exit();
+};
+
+class StateDead : public State
+{
+	GameObject* m_go;
+	float m_despawnTimer;
+public:
+	StateDead(const std::string& stateID, GameObject* go);
+	virtual ~StateDead();
+
+	virtual void Enter();
+	virtual void Update(double dt);
+	virtual void Exit();
+};
+
 #endif
