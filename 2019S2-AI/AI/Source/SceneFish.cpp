@@ -150,57 +150,7 @@ void SceneFish::Update(double dt)
 		GameObject* go = (GameObject*)*it;
 		if (go->active && go->type == GameObject::GO_FISH)
 		{
-			switch (go->currState)
-			{
-			case GameObject::STATE_TOOFULL:
-				go->energy -= dt;
-				go->moveSpeed = 0;
-				if (go->energy < 10)
-				{
-					go->currState = go->STATE_FULL;
-				}
-				break;
-			case GameObject::STATE_FULL:
-				go->energy -= dt;
-				go->moveSpeed = 2;
-				if (go->energy >= 10)
-				{
-					go->currState = go->STATE_TOOFULL;
-					overfull++;
-				}
-				else if (go->energy < 5)
-				{
-					go->currState = go->STATE_HUNGRY;
-				}
-				break;
-			case GameObject::STATE_HUNGRY:
-				go->energy -= dt;
-				go->moveSpeed = 1;
-				if (go->energy >= 5)
-				{
-					go->currState = go->STATE_FULL;
-				}
-				else if (go->energy <= 0)
-				{
-					if (go->energy > -1)
-					{
-						deathByHunger++;
-					}
-					go->currState = go->STATE_DEAD;
-					go->countDown = 3;
-				}
-				break;
-			case GameObject::STATE_DEAD:
-				go->moveSpeed = 0;
-				go->countDown -= dt;
-
-				if (go->countDown <= 0)
-				{
-					go->active = false;
-					m_objectCount--;
-				}
-				break;
-			}
+			go->Update(dt);
 		}
 	}
 

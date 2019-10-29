@@ -31,7 +31,6 @@ struct GameObject
 	float energy;
 	float moveSpeed;
 	float countDown;
-	STATE currState;
 
 
 	GAMEOBJECT_TYPE type;
@@ -48,6 +47,11 @@ struct GameObject
 
 	GameObject(GAMEOBJECT_TYPE typeValue = GO_BALL);
 	~GameObject();
+
+	//states in gameobject
+	STATE currState;
+	void Update(double dt);
+
 };
 
 #endif
