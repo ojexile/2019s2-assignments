@@ -8,12 +8,15 @@ GameObject::GameObject(GAMEOBJECT_TYPE typeValue)
 	mass(1.f),
 	currState(STATE_NONE),
 	energy(0.f),
-	countDown(-1.f)
+	countDown(-1.f),
+	sm(NULL)
 {
 }
 
 GameObject::~GameObject()
 {
+	if (sm != nullptr)
+		delete sm;
 }
 
 void GameObject::Update(double dt)

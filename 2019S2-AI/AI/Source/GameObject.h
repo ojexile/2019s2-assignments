@@ -2,6 +2,7 @@
 #define GAME_OBJECT_H
 
 #include "Vector3.h"
+#include "StateMachine.h"
 
 struct GameObject
 {
@@ -50,6 +51,7 @@ struct GameObject
 
 	//states in gameobject
 	STATE currState;
+	StateMachine* sm;
 	void Update(double dt);
 
 };
