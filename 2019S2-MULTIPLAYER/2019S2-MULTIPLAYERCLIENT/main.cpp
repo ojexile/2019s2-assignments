@@ -46,15 +46,25 @@ void Init()
 		return;
 	}*/
 	
-	if (connect(serversocket, (sockaddr*)&addr,
-		sizeof(addr)) == SOCKET_ERROR)
-	{ // an error has occurred!
-		std::cout << "!! error in connecting\n";
-		WSACleanup();
-		return;
-	}
+	//if (connect(serversocket, (sockaddr*)&addr,
+	//	sizeof(addr)) == SOCKET_ERROR)
+	//{ // an error has occurred!
+	//	std::cout << "!! error in connecting\n";
+	//	WSACleanup();
+	//	return;
+	//}
+
+	// ioctlsocket
+	u_long somelong = 1;
+	int ioctl = ioctlsocket(serversocket, FIONBIO, &somelong);
+
+	// do not check == SOCKET_ERROR here because Async mode will always return SOCKET_ERROR
+	connect(serversocket, (sockaddr*)&addr, sizeof(addr));
 	
 	std::cout << "// Connected!\n";
+
+
+	
 
 	char exitcode = ':';
 	//std::cout << "[] Insert message: ";
@@ -79,13 +89,34 @@ void Init()
 		if (exitcodecheck == exitcode)
 			break;
 
-		/*char buffer2[80];
+		// FDSET STUFF
+		fd_set fset;
+		FD_ZERO(&fset);
+		FD_SET(serversocket, &fset);
 
-		int length = recv(serversocket, buffer2, sizeof(buffer2), 0);
-
-		if (length > 0)
+		timeval tval;
+		tval.tv_sec = 0;
+		tval.tv_usec = 10000;
+		if (select(0, &fset, 0, 0, &tval) > 0)
 		{
-			std::cout << "[] Message Received From Server: " << std::string(buffer2).substr(0, length) << std::endl;
+			// stuff is done ehre 
+			char buffer2[80];
+
+			int length = recv(serversocket, buffer2, sizeof(buffer2), 0);
+
+			if (length > 0)
+			{
+				std::cout << "[] Message Received From Server: " << std::string(buffer2).substr(0, length) << std::endl;
+			}
+			else if (length == SOCKET_ERROR)
+			{
+				std::cout << "[] Server went offline" << std::endl;
+				break;
+			}
+		}
+		/*if (FD_ISSET(serversocket, &fset))
+		{	
+
 		}*/
 	} while (true);
 
@@ -95,8 +126,8 @@ void Init()
 void Shutdown()
 {
 	std::cout << "// Shutting down...\n";
-	shutdown(clientsocket, SD_SEND);
-	closesocket(clientsocket);
+	shutdown(serversocket, SD_SEND);
+	closesocket(serversocket);
 	WSACleanup();
 }
 int main()
