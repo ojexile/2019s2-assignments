@@ -23,36 +23,13 @@ void Init()
 	// creating sockets.
 	clientsocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	serversocket = socket(AF_INET, SOCK_STREAM, 0);
+
 	// creating address structure for tcp socket
 	sockaddr_in addr;
 	addr.sin_family = AF_INET; // address family internet
 	addr.sin_port = htons(23456); // assigning port 
-
 	addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK); // 0.0.0.0 (no destination), for server mode use
-												// 127.0.0.1 for 
-
-	// binding is only needed for server
-	//if (bind(serversocket, (LPSOCKADDR)&addr, sizeof(addr)) == SOCKET_ERROR)
-	//{
-	//	std::cout << "!! error in binding\n";
-	//	WSACleanup();
-	//	return;
-	//}
-
-	/*if (listen(serversocket, 1) == SOCKET_ERROR)
-	{
-		std::cout << "!! error in listening (serversocket-side)\n";
-		WSACleanup();
-		return;
-	}*/
-	
-	//if (connect(serversocket, (sockaddr*)&addr,
-	//	sizeof(addr)) == SOCKET_ERROR)
-	//{ // an error has occurred!
-	//	std::cout << "!! error in connecting\n";
-	//	WSACleanup();
-	//	return;
-	//}
+													// 127.0.0.1 for smth else... cant remember.
 
 	// ioctlsocket
 	u_long somelong = 1;
@@ -62,20 +39,11 @@ void Init()
 	connect(serversocket, (sockaddr*)&addr, sizeof(addr));
 	
 	std::cout << "// Connected!\n";
-
-
-	
+	std::cout << "[] Insert message: ";
 
 	char exitcode = ':';
-	//std::cout << "[] Insert message: ";
 	do
 	{
-		//char buffer[80];
-		//std::cin >> buffer;
-		//if (buffer[0] == exitcode)
-		//	break;
-		//send(serversocket, buffer, sizeof(buffer), 0);
-
 		char exitcodecheck = '?';
 		if (_kbhit())
 		{
@@ -84,6 +52,7 @@ void Init()
 
 			send(serversocket, input.c_str(), (int)input.length() + 1, 0);
 			exitcodecheck = input[0];
+
 		}
 
 		if (exitcodecheck == exitcode)
@@ -97,6 +66,7 @@ void Init()
 		timeval tval;
 		tval.tv_sec = 0;
 		tval.tv_usec = 10000;
+
 		if (select(0, &fset, 0, 0, &tval) > 0)
 		{
 			// stuff is done ehre 
@@ -107,6 +77,7 @@ void Init()
 			if (length > 0)
 			{
 				std::cout << "[] Message Received From Server: " << std::string(buffer2).substr(0, length) << std::endl;
+				std::cout << "[] Insert message: ";
 			}
 			else if (length == SOCKET_ERROR)
 			{
