@@ -60,17 +60,30 @@ void Init()
 
 	std::cout << "// Connected!\n";
 
+	// making the socket non-blocking
+	u_long nonblocking = 1;
+	int m_ioctlsocket = ioctlsocket(clientsocket, FIONBIO, &nonblocking);
+
 	char exitcode = ':';
 	do
 	{
 		char buffer[80];
-		std::cout << "[] Insert message: ";
-		std::cin >> buffer;
+		//std::cout << "[] Insert message: ";
+		//std::cin >> buffer;
+
+		if (_kbhit())
+		{
+			std::string inputstring;
+			std::getline(std::cin, inputstring);
+			int length = sendto(serversocket, inputstring.c_str(), (int)inputstring.length() + 1, 0, (sockaddr*)&addr, sizeof(addr));
+
+			buffer[0] = inputstring[0];
+		}
 
 		if (buffer[0] == exitcode)
 			break;
 
-		int length = sendto(serversocket, buffer, strlen(buffer), 0, (sockaddr*)&addr, sizeof(addr));
+		//int length = sendto(serversocket, buffer, strlen(buffer), 0, (sockaddr*)&addr, sizeof(addr));
 		//send(serversocket, buffer, sizeof(buffer), 0);
 
 
