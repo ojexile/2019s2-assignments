@@ -2,6 +2,7 @@
 #include <WS2tcpip.h>
 #include <iostream>
 #include <string>
+#include <conio.h>
 
 SOCKET clientsocket, serversocket;
 WSADATA w;
