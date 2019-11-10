@@ -3,7 +3,7 @@
 #include <string>
 #include <conio.h>
 
-SOCKET clientsocket, serversocket;
+SOCKET serversocket;
 WSADATA w;
 
 void Init()
@@ -21,8 +21,7 @@ void Init()
 	std::cout << "// Winsock initialised." << std::endl;
 
 	// creating sockets.
-	clientsocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	serversocket = socket(AF_INET, SOCK_STREAM, 0);
+	serversocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	// creating address structure for tcp socket
 	sockaddr_in addr;
