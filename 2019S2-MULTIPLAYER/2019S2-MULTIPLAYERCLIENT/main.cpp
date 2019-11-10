@@ -1,8 +1,6 @@
 #include <WinSock2.h>
-#include <WS2tcpip.h>
 #include <iostream>
 #include <string>
-#include <conio.h>
 
 SOCKET clientsocket, serversocket;
 WSADATA w;
@@ -22,9 +20,8 @@ void Init()
 	std::cout << "// Winsock initialised." << std::endl;
 
 	// creating sockets.
-	 clientsocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-	 serversocket = socket(AF_INET, SOCK_DGRAM, 0);
-
+	clientsocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	serversocket = socket(AF_INET, SOCK_STREAM, 0);
 	// creating address structure for tcp socket
 	sockaddr_in addr;
 	addr.sin_family = AF_INET; // address family internet
@@ -48,53 +45,37 @@ void Init()
 		return;
 	}*/
 	
-	//if (connect(serversocket, (sockaddr*)&addr,
-	//	sizeof(addr)) == SOCKET_ERROR)
-	//{ // an error has occurred!
-	//	std::cout << "!! error in connecting\n";
-	//	WSACleanup();
-	//	return;
-	//}
-
-	InetPton(AF_INET, "127.0.0.1", &addr.sin_addr.s_addr);
-
+	if (connect(serversocket, (sockaddr*)&addr,
+		sizeof(addr)) == SOCKET_ERROR)
+	{ // an error has occurred!
+		std::cout << "!! error in connecting\n";
+		WSACleanup();
+		return;
+	}
+	
 	std::cout << "// Connected!\n";
-
-	// making the socket non-blocking
-	u_long nonblocking = 1;
-	int m_ioctlsocket = ioctlsocket(clientsocket, FIONBIO, &nonblocking);
 
 	char exitcode = ':';
 	do
 	{
 		char buffer[80];
-		//std::cout << "[] Insert message: ";
-		//std::cin >> buffer;
-
-		if (_kbhit())
-		{
-			std::string inputstring;
-			std::getline(std::cin, inputstring);
-			int length = sendto(serversocket, inputstring.c_str(), (int)inputstring.length() + 1, 0, (sockaddr*)&addr, sizeof(addr));
-
-			buffer[0] = inputstring[0];
-		}
+		std::cout << "[] Insert message: ";
+		std::cin >> buffer;
 
 		if (buffer[0] == exitcode)
 			break;
 
-		//int length = sendto(serversocket, buffer, strlen(buffer), 0, (sockaddr*)&addr, sizeof(addr));
-		//send(serversocket, buffer, sizeof(buffer), 0);
+		send(serversocket, buffer, sizeof(buffer), 0);
 
 
-		/*char buffer2[80];
+		char buffer2[80];
 
 		int length = recv(serversocket, buffer2, sizeof(buffer2), 0);
 
 		if (length > 0)
 		{
 			std::cout << "[] Message Received From Server: " << std::string(buffer2).substr(0, length) << std::endl;
-		}*/
+		}
 	} while (true);
 
 

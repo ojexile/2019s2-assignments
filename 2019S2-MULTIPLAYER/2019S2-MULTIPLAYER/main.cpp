@@ -1,5 +1,4 @@
 #include <WinSock2.h>
-#include <WS2tcpip.h>
 #include <iostream>
 #include <string>
 
@@ -21,9 +20,9 @@ void Init()
 	std::cout << "// Winsock initialised." << std::endl;
 
 	// creating sockets.
-	// setting up socket as UDP
-	serversocket = socket(AF_INET, SOCK_DGRAM, 0);
-	// creating address structure for UDP/TCP server socket
+	clientsocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	serversocket = socket(AF_INET, SOCK_STREAM, 0);
+	// creating address structure for tcp socket
 	sockaddr_in addr;
 	addr.sin_family = AF_INET; // address family internet
 	addr.sin_port = htons(23456); // assigning port 
@@ -37,41 +36,38 @@ void Init()
 		return;
 	}
 
-	//if (listen(serversocket, 1) == SOCKET_ERROR)
-	//{
-	//	std::cout << "!! error in listening (serversocket-side)\n";
-	//	WSACleanup();
-	//	return;
-	//}
+	if (listen(serversocket, 1) == SOCKET_ERROR)
+	{
+		std::cout << "!! error in listening (serversocket-side)\n";
+		WSACleanup();
+		return;
+	}
 
 	std::cout << "// listening on given port...\n";
+	int addr_size = 0;
 
 	// initialising client socket
-	/*clientsocket = INVALID_SOCKET;
+	clientsocket = INVALID_SOCKET;
 
 	while (clientsocket == INVALID_SOCKET)
 	{
 		clientsocket = accept(serversocket, NULL, NULL);
-	}*/
+	}
 	std::cout << "// Connected!\n";
 	std::cout << "// Waiting for message...\n";
 	
+
 	do
 	{
 		char buffer[80];
-		int fromlen = sizeof(addr);
-
-		//int length = recv(clientsocket, buffer, sizeof(buffer), 0);
-		int length = recvfrom(serversocket, buffer, 80, 0, (sockaddr*)&addr, &fromlen);
+		int length = recv(clientsocket, buffer, sizeof(buffer), 0);
 
 		if (length > 0)
 		{
 			std::cout << "[] Message Received: " << std::string(buffer).substr(0, length) << std::endl;
-			sockaddr_in* p = &addr;
-			std::cout << "[>>] Sender IP : " << inet_ntop(AF_INET, &p->sin_addr, buffer, sizeof(buffer))<< " || Port:" << ntohs(addr.sin_port) << std::endl;
 
-			//// sending message back
-			//send(clientsocket, buffer, length, 0); // note that we use the length variable
+			// sending message back
+			send(clientsocket, buffer, length, 0); // note that we use the length variable
 		}
 	} while (true);
 
