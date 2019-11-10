@@ -1,6 +1,7 @@
 #include <WinSock2.h>
 #include <iostream>
 #include <string>
+#include <conio.h>
 
 SOCKET clientsocket, serversocket;
 WSADATA w;
@@ -56,26 +57,36 @@ void Init()
 	std::cout << "// Connected!\n";
 
 	char exitcode = ':';
+	//std::cout << "[] Insert message: ";
 	do
 	{
-		char buffer[80];
-		std::cout << "[] Insert message: ";
-		std::cin >> buffer;
+		//char buffer[80];
+		//std::cin >> buffer;
+		//if (buffer[0] == exitcode)
+		//	break;
+		//send(serversocket, buffer, sizeof(buffer), 0);
 
-		if (buffer[0] == exitcode)
+		char exitcodecheck = '?';
+		if (_kbhit())
+		{
+			std::string input;
+			std::getline(std::cin, input);
+
+			send(serversocket, input.c_str(), (int)input.length() + 1, 0);
+			exitcodecheck = input[0];
+		}
+
+		if (exitcodecheck == exitcode)
 			break;
 
-		send(serversocket, buffer, sizeof(buffer), 0);
-
-
-		char buffer2[80];
+		/*char buffer2[80];
 
 		int length = recv(serversocket, buffer2, sizeof(buffer2), 0);
 
 		if (length > 0)
 		{
 			std::cout << "[] Message Received From Server: " << std::string(buffer2).substr(0, length) << std::endl;
-		}
+		}*/
 	} while (true);
 
 
