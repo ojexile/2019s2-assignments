@@ -66,28 +66,28 @@ void Init()
 		tval.tv_sec = 0;
 		tval.tv_usec = 10000;
 
-		if (select(0, &fset, 0, 0, &tval) > 0)
-		{
-			// stuff is done ehre 
-			char buffer2[80];
-
-			int length = recv(serversocket, buffer2, sizeof(buffer2), 0);
-
-			if (length > 0)
+		
+		if (FD_ISSET(serversocket, &fset))
+		{	
+			if (select(0, &fset, 0, 0, &tval) > 0)
 			{
-				std::cout << "[] Message Received From Server: " << std::string(buffer2).substr(0, length) << std::endl;
-				std::cout << "[] Insert message: ";
-			}
-			else if (length == SOCKET_ERROR)
-			{
-				std::cout << "[] Server went offline" << std::endl;
-				break;
+				// stuff is done ehre 
+				char buffer2[80];
+
+				int length = recv(serversocket, buffer2, sizeof(buffer2), 0);
+
+				if (length > 0)
+				{
+					std::cout << "[] Message Received From Server: " << std::string(buffer2).substr(0, length) << std::endl;
+					std::cout << "[] Insert message: ";
+				}
+				else if (length == SOCKET_ERROR)
+				{
+					std::cout << "[] Server went offline" << std::endl;
+					break;
+				}
 			}
 		}
-		/*if (FD_ISSET(serversocket, &fset))
-		{	
-
-		}*/
 	} while (true);
 
 
