@@ -19,7 +19,7 @@ public:
 	void RenderGO(GameObject* go);
 	void MoveAI();
 
-	GameObject* FetchGO();
+	GameObject* FetchGO(GameObject::GAMEOBJECT_TYPE type = GameObject::GO_BALL);
 protected:
 
 	std::vector<GameObject*> m_goList;
@@ -32,6 +32,10 @@ protected:
 	float m_gridSize;
 	float m_gridOffset;
 	float m_hourOfTheDay;
+
+	int overfull;
+	int deathByHunger;
+	int deathByShark;
 };
 
 #endif

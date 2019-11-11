@@ -2,6 +2,7 @@
 #define GAME_OBJECT_H
 
 #include "Vector3.h"
+#include "StateMachine.h"
 
 struct GameObject
 {
@@ -31,7 +32,6 @@ struct GameObject
 	float energy;
 	float moveSpeed;
 	float countDown;
-	STATE currState;
 
 
 	GAMEOBJECT_TYPE type;
@@ -48,6 +48,12 @@ struct GameObject
 
 	GameObject(GAMEOBJECT_TYPE typeValue = GO_BALL);
 	~GameObject();
+
+	//states in gameobject
+	STATE currState;
+	StateMachine* sm;
+	void Update(double dt);
+
 };
 
 #endif

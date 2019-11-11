@@ -138,9 +138,15 @@
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
+    <ClCompile Include="Source\SceneFish.cpp" />
     <ClCompile Include="Source\SceneMovement.cpp" />
+    <ClCompile Include="Source\SceneMovementv2.cpp" />
     <ClCompile Include="Source\SceneTicTacToe.cpp" />
+    <ClCompile Include="Source\SceneTicTacToev2.cpp" />
     <ClCompile Include="Source\shader.cpp" />
+    <ClCompile Include="Source\State.cpp" />
+    <ClCompile Include="Source\StateMachine.cpp" />
+    <ClCompile Include="Source\StatesFish.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,9 +162,15 @@
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />
+    <ClInclude Include="Source\SceneFish.h" />
     <ClInclude Include="Source\SceneMovement.h" />
+    <ClInclude Include="Source\SceneMovementv2.h" />
     <ClInclude Include="Source\SceneTicTacToe.h" />
+    <ClInclude Include="Source\SceneTicTacToev2.h" />
     <ClInclude Include="Source\shader.hpp" />
+    <ClInclude Include="Source\State.h" />
+    <ClInclude Include="Source\StateMachine.h" />
+    <ClInclude Include="Source\StatesFish.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
   </ItemGroup>
