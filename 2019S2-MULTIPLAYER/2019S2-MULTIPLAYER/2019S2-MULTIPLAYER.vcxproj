@@ -23,6 +23,7 @@
     <ProjectGuid>{E507FFBC-BDFD-45B3-9CE3-A18ED03EBAE3}</ProjectGuid>
     <RootNamespace>My2019S2MULTIPLAYER</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>2019S2-MULTIPLAYERSERVER</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
