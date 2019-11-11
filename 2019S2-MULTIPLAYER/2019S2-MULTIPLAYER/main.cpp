@@ -1,9 +1,12 @@
 #include <WinSock2.h>
 #include <iostream>
 #include <string>
+#include <vector> 
+#include "User.h"
 
 SOCKET clientsocket, serversocket;
 WSADATA w;
+std::vector<user*> socks;
 	
 void Init()
 {

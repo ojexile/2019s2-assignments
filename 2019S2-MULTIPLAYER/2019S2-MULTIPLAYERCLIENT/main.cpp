@@ -30,13 +30,15 @@ void Init()
 	addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK); // 0.0.0.0 (no destination), for server mode use
 													// 127.0.0.1 for smth else... cant remember.
 
-	// ioctlsocket
-	u_long somelong = 1;
-	int ioctl = ioctlsocket(serversocket, FIONBIO, &somelong);
+
 
 	// do not check == SOCKET_ERROR here because Async mode will always return SOCKET_ERROR
 	connect(serversocket, (sockaddr*)&addr, sizeof(addr));
 	
+	// ioctlsocket
+	u_long somelong = 1;
+	int ioctl = ioctlsocket(serversocket, FIONBIO, &somelong);
+
 	std::cout << "// Connected!\n";
 	std::cout << "[] Insert message: ";
 
@@ -67,9 +69,9 @@ void Init()
 		tval.tv_usec = 10000;
 
 		
-		if (FD_ISSET(serversocket, &fset))
+		if (select(0, &fset, 0, 0, &tval) > 0)
 		{	
-			if (select(0, &fset, 0, 0, &tval) > 0)
+			if (FD_ISSET(serversocket, &fset))
 			{
 				// stuff is done ehre 
 				char buffer2[80];
