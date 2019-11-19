@@ -16,6 +16,8 @@
 #include "SceneTicTacToev2.h"
 #include "SceneTicTacToe.h"
 #include "SceneFish.h"
+#include "SceneQueen.h"
+#include "SceneKnight.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game

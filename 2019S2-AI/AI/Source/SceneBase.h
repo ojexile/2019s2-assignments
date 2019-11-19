@@ -59,6 +59,10 @@ public:
 		GEO_SHARK,
 		GEO_TOOFULL,
 
+		GEO_CHESSBOARD,
+		GEO_QUEEN,
+		GEO_KNIGHT,
+
 		NUM_GEOMETRY,
 	};
 public:
