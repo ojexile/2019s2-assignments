@@ -1,18 +1,17 @@
 ﻿#include "SceneMovement.h"
 #include "SceneData.h"
-#include "StatesFish.h"
-#include "StatesShark.h"
-#include "StatesFishFood.h"
+//#include "StatesFish.h"
+//#include "StatesShark.h"
+//#include "StatesFishFood.h"
 #include "GL\glew.h"
 #include "Application.h"
 #include "PostOffice.h"
 #include "ConcreteMessages.h"
 
-#include "StatesArmoredSoldier.h"
-#include "StatesEnemyAircraft.h"
+#include "StatesPatroller.h"
+#include "StatesEnemy.h"
 #include "StatesHarvester.h"
-#include "StatesRepairBot.h"
-#include "StatesZergling.h"
+#include "StatesRepairer.h"
 
 #include <sstream>
 
@@ -45,7 +44,7 @@ void SceneMovement::Init()
 	SceneData::GetInstance()->setGridSize(m_worldHeight / SceneData::GetInstance()->getNoGrid());
 	m_hourOfTheDay = 0;
 
-	timerHarvester = timerArmoredSoldier = timerEnemyAircraft = timerRepairBot = 0;
+	timerHarvester = timerPatroller = timerEnemy = timerRepairer = 0;
 
 	//Spawn 1 shark
 	/*GameObject* go = FetchGO(GameObject::GO_SHARK);
@@ -109,7 +108,7 @@ bool SceneMovement::Handle(Message *msg)
 			for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
 			{
 				GameObject *go = (GameObject *)*it;
-				if (go->active && (go->type == GameObject::GO_ENEMYAIRCRAFT || go->type == GameObject::GO_ZERGLING))
+				if (go->active && go->type == GameObject::GO_ENEMY)
 				{
 					if ((go->pos - messageWRU->go->pos).Length() < shortestDist && (go->pos - messageWRU->go->pos).Length() < messageWRU->threshold)
 					{
@@ -120,14 +119,14 @@ bool SceneMovement::Handle(Message *msg)
 			}
 			break;
 		}
-		case MessageWRU::NEAREST_HARVESTER_REPAIRBOT:
+		case MessageWRU::NEAREST_HARVESTER_REPAIRER:
 		{
 			int shortestDist = 1000;
 			messageWRU->go->targetGO = NULL;
 			for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
 			{
 				GameObject *go = (GameObject *)*it;
-				if (go->active && (go->type == GameObject::GO_HARVESTER || go->type == GameObject::GO_REPAIRBOT))
+				if (go->active && (go->type == GameObject::GO_HARVESTER || go->type == GameObject::GO_REPAIRER))
 				{
 					if (go->sm->GetCurrentState() == "Destroyed")
 						continue;
@@ -148,7 +147,7 @@ bool SceneMovement::Handle(Message *msg)
 			for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
 			{
 				GameObject *go = (GameObject *)*it;
-				if (go->active && (go->type == GameObject::GO_HARVESTER || go->type == GameObject::GO_REPAIRBOT || go->type == GameObject::GO_ARMOREDSOLDIER))
+				if (go->active && (go->type == GameObject::GO_HARVESTER || go->type == GameObject::GO_REPAIRER || go->type == GameObject::GO_PATROLLER))
 				{
 					if (go->sm->GetCurrentState() == "Destroyed")
 						continue;
@@ -170,7 +169,7 @@ bool SceneMovement::Handle(Message *msg)
 			for (int i = 0; i < m_goList.size(); ++i)
 			{
 				GameObject *go = m_goList[i];
-				if (go->active && (go->type == GameObject::GO_HARVESTER || go->type == GameObject::GO_REPAIRBOT || go->type == GameObject::GO_ARMOREDSOLDIER))
+				if (go->active && (go->type == GameObject::GO_HARVESTER || go->type == GameObject::GO_REPAIRER || go->type == GameObject::GO_PATROLLER))
 				{
 					if (go->sm->GetCurrentState() == "Destroyed")
 					{
@@ -251,11 +250,11 @@ GameObject* SceneMovement::FetchGO(GameObject::GAMEOBJECT_TYPE type)
 
 		switch (go->type)
 		{
-		case GameObject::GO_ARMOREDSOLDIER:
+		case GameObject::GO_PATROLLER:
 			go->sm = new StateMachine();
-			go->sm->AddState(new StateASPatrolling("Patrol", go));
-			go->sm->AddState(new StateASAttacking("Attack", go));
-			go->sm->AddState(new StateASDestroyed("Destroyed", go));
+			go->sm->AddState(new StatePatrollerPatrolling("Patrol", go));
+			go->sm->AddState(new StatePatrollerAttacking("Attack", go));
+			go->sm->AddState(new StatePatrollerDestroyed("Destroyed", go));
 			break;
 		case GameObject::GO_HARVESTER:
 			go->sm = new StateMachine();
@@ -264,25 +263,20 @@ GameObject* SceneMovement::FetchGO(GameObject::GAMEOBJECT_TYPE type)
 			go->sm->AddState(new StateHAttacked("Attacked", go));
 			go->sm->AddState(new StateHDestroyed("Destroyed", go));
 			break;
-		case GameObject::GO_ENEMYAIRCRAFT:
-			go->sm = new StateMachine();
-			go->sm->AddState(new StateEMoving("Moving", go));
-			go->sm->AddState(new StateEAttacking("Attack", go));
-			go->sm->AddState(new StateEDestroyed("Destroyed", go));
-			break;
-		case GameObject::GO_REPAIRBOT:
+		case GameObject::GO_REPAIRER:
 			go->sm = new StateMachine();
 			go->sm->AddState(new StateRMoving("Moving", go));
 			go->sm->AddState(new StateRRepairing("Repairing", go));
 			go->sm->AddState(new StateRAttacked("Attacked", go));
 			go->sm->AddState(new StateRDestroyed("Destroyed", go));
 			break;
-		case GameObject::GO_ZERGLING:
+		case GameObject::GO_ENEMY:
 			go->sm = new StateMachine();
-			go->sm->AddState(new StateZMoving("Moving", go));
-			go->sm->AddState(new StateZAttacking("Attack", go));
-			go->sm->AddState(new StateZDestroyed("Destroyed", go));
+			go->sm->AddState(new StateEMoving("Moving", go));
+			go->sm->AddState(new StateEAttacking("Attack", go));
+			go->sm->AddState(new StateEDestroyed("Destroyed", go));
 			break;
+
 		}
 	}
 
@@ -337,16 +331,15 @@ void SceneMovement::Update(double dt)
 		std::cout << "RBUTTON UP" << std::endl;
 	}
 
-	timerZergling += (float)dt * m_speed;
-	timerRepairBot += (float)dt * m_speed;
-	timerEnemyAircraft += (float)dt * m_speed;
+	timerEnemy += (float)dt * m_speed;
+	timerRepairer += (float)dt * m_speed;
 	timerHarvester += (float)dt * m_speed;
-	timerArmoredSoldier += (float)dt * m_speed;
+	timerPatroller += (float)dt * m_speed;
 
-	//Spawn Repairbot
-	if (destroyedCount > 0 && timerRepairBot > 1.f && repairBotCount < 8 && enemyCount <= 2)
+	//Spawn Repairer
+	if (destroyedCount > 0 && timerRepairer > 1.f && repairerCount < 8 && enemyCount <= 2)
 	{
-		GameObject *go = FetchGO(go->GO_REPAIRBOT);
+		GameObject *go = FetchGO(go->GO_REPAIRER);
 		go->scale.Set(SceneData::GetInstance()->getGridSize(), SceneData::GetInstance()->getGridSize(), SceneData::GetInstance()->getGridSize());
 
 		float posX, posY;
@@ -364,21 +357,21 @@ void SceneMovement::Update(double dt)
 
 		go->pos.Set(posX, posY, go->pos.z);
 		go->target = go->pos;
-		go->type = GameObject::GO_REPAIRBOT;
+		go->type = GameObject::GO_REPAIRER;
 		go->sm->SetNextState("Moving");
 		go->hp = 15;
 
-		timerRepairBot = 0;
+		timerRepairer = 0;
 	}
 
-	//Spawn Zergling
-	if (timerZergling > 8 && zerglingCount <= 5)
+	//Spawn Enemy
+	if (timerEnemy > 8 && enemyCount <= 5)
 	{
 		int randCount = Math::RandIntMinMax(2, 4);
 
 		for (int i = 0; i < randCount; ++i)
 		{
-			GameObject *go = FetchGO(go->GO_ZERGLING);
+			GameObject *go = FetchGO(go->GO_ENEMY);
 			go->scale.Set(SceneData::GetInstance()->getGridSize(), SceneData::GetInstance()->getGridSize(), SceneData::GetInstance()->getGridSize());
 
 			float posX, posY;
@@ -410,58 +403,11 @@ void SceneMovement::Update(double dt)
 			go->hp = 5;
 			go->pos.Set(posX, posY, go->pos.z);
 			go->target = go->pos;
-			go->type = GameObject::GO_ZERGLING;
+			go->type = GameObject::GO_ENEMY;
 			go->targetGO = NULL;
 			go->sm->SetNextState("Moving");
 		}
-		timerZergling = 0;
-	}
-
-	//Spawn EnemyAircraft
-	if (timerEnemyAircraft > 15)
-	{
-		int randCount = Math::RandIntMinMax(2, 4);
-
-		for (int i = 0; i < randCount; ++i)
-		{
-			GameObject *go = FetchGO(go->GO_ENEMYAIRCRAFT);
-			go->scale.Set(SceneData::GetInstance()->getGridSize(), SceneData::GetInstance()->getGridSize(), SceneData::GetInstance()->getGridSize());
-
-			float posX, posY;
-			int SpawnDir = Math::RandIntMinMax(0, 3);
-			switch (SpawnDir)
-			{
-				//Left
-			case 0:
-				posX = SceneData::GetInstance()->getGridOffset() + 0 * SceneData::GetInstance()->getGridSize();
-				posY = SceneData::GetInstance()->getGridOffset() + Math::RandIntMinMax(10, 19) * SceneData::GetInstance()->getGridSize();
-				break;
-				//Up
-			case 1:
-				posX = SceneData::GetInstance()->getGridOffset() + Math::RandIntMinMax(1, 19) * SceneData::GetInstance()->getGridSize();
-				posY = SceneData::GetInstance()->getGridOffset() + 19 * SceneData::GetInstance()->getGridSize();
-				break;
-				//Right
-			case 2:
-				posX = SceneData::GetInstance()->getGridOffset() + 19 * SceneData::GetInstance()->getGridSize();
-				posY = SceneData::GetInstance()->getGridOffset() + Math::RandIntMinMax(1, 19) * SceneData::GetInstance()->getGridSize();
-				break;
-				//Down
-			case 3:
-				posX = SceneData::GetInstance()->getGridOffset() + Math::RandIntMinMax(10, 19) * SceneData::GetInstance()->getGridSize();
-				posY = SceneData::GetInstance()->getGridOffset() + 0 * SceneData::GetInstance()->getGridSize();
-				break;
-			}
-
-			go->hp = 10;
-			go->pos.Set(posX, posY, go->pos.z);
-			go->target = go->pos;
-			go->targetGO = NULL;
-			go->type = GameObject::GO_ENEMYAIRCRAFT;
-			go->sm->SetNextState("Moving");
-		}	
-
-		timerEnemyAircraft = 0;
+		timerEnemy = 0;
 	}
 
 	//Spawn Harvester
@@ -493,18 +439,18 @@ void SceneMovement::Update(double dt)
 		timerHarvester = 0;
 	}
 
-	//Spawn Armored Soldier
-	if (timerArmoredSoldier > 1.2f)
+	//Spawn Patroller
+	if (timerPatroller > 1.2f)
 	{
-		GameObject *go = FetchGO(go->GO_ARMOREDSOLDIER);
+		GameObject *go = FetchGO(go->GO_PATROLLER);
 		go->scale.Set(SceneData::GetInstance()->getGridSize(), SceneData::GetInstance()->getGridSize(), SceneData::GetInstance()->getGridSize());
 		go->pos.Set(SceneData::GetInstance()->getGridOffset() + 6 * SceneData::GetInstance()->getGridSize(), SceneData::GetInstance()->getGridOffset() + 2 * SceneData::GetInstance()->getGridSize(), 1);
 		go->target = go->pos;
-		go->type = GameObject::GO_ARMOREDSOLDIER;
+		go->type = GameObject::GO_PATROLLER;
 		go->sm->SetNextState("Patrol");
 		go->hp = 20;
 		go->patrolCheckpointIndex = -1;
-		timerArmoredSoldier = 0;
+		timerPatroller = 0;
 		go->targetGO = NULL;
 	}
 
@@ -583,9 +529,9 @@ void SceneMovement::Update(double dt)
 
 	//Update GameObjects
 	enemyCount = 0;
-	zerglingCount = 0;
+	enemyCount = 0;
 	destroyedCount = 0;
-	repairBotCount = 0;
+	repairerCount = 0;
 	int harvesterCount = 0;
 	int objectCount = 0;
 	for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
@@ -602,18 +548,16 @@ void SceneMovement::Update(double dt)
 		{
 			go->Update(dt * m_speed);
 
-			if ((go->type == GameObject::GO_ARMOREDSOLDIER || go->type == GameObject::GO_HARVESTER || go->type == GameObject::GO_REPAIRBOT) && go->sm->GetCurrentState() == "Destroyed")
+			if ((go->type == GameObject::GO_PATROLLER || go->type == GameObject::GO_HARVESTER || go->type == GameObject::GO_REPAIRER) && go->sm->GetCurrentState() == "Destroyed")
 				destroyedCount++;
 
-			if (go->type == GameObject::GO_ZERGLING || go->type == GameObject::GO_ENEMYAIRCRAFT)
+			if (go->type == GameObject::GO_ENEMY)
 				enemyCount++;
 
-			if (go->type == GameObject::GO_ZERGLING)
-				zerglingCount++;
 			else if (go->type == GameObject::GO_HARVESTER)
 				harvesterCount++;
-			else if (go->type == GameObject::GO_REPAIRBOT)
-				repairBotCount++;
+			else if (go->type == GameObject::GO_REPAIRER)
+				repairerCount++;
 		}
 		else if (go->active == true && go->type == GameObject::GO_MINERAL)
 		{
@@ -719,7 +663,7 @@ void SceneMovement::Update(double dt)
 					switch (goA->type)
 					{
 					case GameObject::GO_ENEMYBULLET:
-						if (goB->type != GameObject::GO_ENEMYAIRCRAFT && goB->type != GameObject::GO_ZERGLING)
+						if (goB->type != GameObject::GO_ENEMY)
 						{
 							goA->active = false;
 							goB->hp -= 1;
@@ -730,11 +674,11 @@ void SceneMovement::Update(double dt)
 								goB->targetGO = goA->bulletOwner;
 								goB->sm->SetNextState("Attacked");
 								break;
-							case GameObject::GO_REPAIRBOT:
+							case GameObject::GO_REPAIRER:
 								goB->sm->SetNextState("Attacked");
 								goB->targetGO = goA->bulletOwner;
 								break;
-							case GameObject::GO_ARMOREDSOLDIER:
+							case GameObject::GO_PATROLLER:
 								if (!(goB->targetGO))
 								{
 									goB->targetGO = goA->bulletOwner;
@@ -744,13 +688,13 @@ void SceneMovement::Update(double dt)
 						}						
 						break;
 					case GameObject::GO_FRIENDLYBULLET:
-						if (goB->type == GameObject::GO_ENEMYAIRCRAFT || goB->type == GameObject::GO_ZERGLING)
+						if (goB->type == GameObject::GO_ENEMY)
 						{
 							goA->active = false;
 							goB->hp -= 1;
 							
 							//switch target priority to guards
-							if(!(goB->targetGO) || goB->targetGO->type != GameObject::GO_ARMOREDSOLDIER)
+							if(!(goB->targetGO) || goB->targetGO->type != GameObject::GO_PATROLLER)
 								goB->targetGO = goA->bulletOwner;
 						}	
 					break;
@@ -824,7 +768,7 @@ void SceneMovement::Update(double dt)
 				}
 
 				//Boundaries for friendly units
-				if (go->type != GameObject::GO_ENEMYAIRCRAFT)
+				if (go->type != GameObject::GO_ENEMY)
 				{
 					if (go->target.x < 0 || go->target.x > SceneData::GetInstance()->getNoGrid() * SceneData::GetInstance()->getGridSize() || go->target.y < 0 || go->target.y > SceneData::GetInstance()->getNoGrid() * SceneData::GetInstance()->getGridSize())
 						go->target = go->pos;
@@ -897,62 +841,55 @@ void SceneMovement::RenderGO(GameObject *go)
 			modelStack.PopMatrix();
 		}
 		break;
-	case GameObject::GO_ARMOREDSOLDIER:
+	case GameObject::GO_PATROLLER:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
 		modelStack.Scale(go->scale.x, go->scale.y, 1);
 		if (go->hp <= 10 && go->hp > 0)
 		{
-			RenderMesh(meshList[GEO_ARMOREDSOLDIER_DAMAGED], false);
+			RenderMesh(meshList[GEO_PATROLLER_DAMAGED], false);
 		}
 		else if (go->sm->GetCurrentState() == "Patrol")
 		{
-			RenderMesh(meshList[GEO_ARMOREDSOLDIER_PATROL], false);
+			RenderMesh(meshList[GEO_PATROLLER_PATROL], false);
 		}
 		else if (go->sm->GetCurrentState() == "Attack")
 		{
-			RenderMesh(meshList[GEO_ARMOREDSOLDIER_ATTACKING], false);
+			RenderMesh(meshList[GEO_PATROLLER_ATTACKING], false);
 		}	
 		else if (go->sm->GetCurrentState() == "Destroyed")
 		{
-			RenderMesh(meshList[GEO_ARMOREDSOLDIER_DESTROYED], false);
+			RenderMesh(meshList[GEO_PATROLLER_DESTROYED], false);
 		}
 		modelStack.PopMatrix();
 		break;
-	case GameObject::GO_REPAIRBOT:
+	case GameObject::GO_REPAIRER:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
 		modelStack.Scale(go->scale.x, go->scale.y, 1);
 		if (go->sm->GetCurrentState() == "Moving")
 		{
-			RenderMesh(meshList[GEO_REPAIRBOT_MOVING], false);
+			RenderMesh(meshList[GEO_REPAIRER_MOVING], false);
 		}
 		else if (go->sm->GetCurrentState() == "Repairing")
 		{
-			RenderMesh(meshList[GEO_REPAIRBOT_REPAIRING], false);
+			RenderMesh(meshList[GEO_REPAIRER_REPAIRING], false);
 		}
 		else if (go->sm->GetCurrentState() == "Attacked")
 		{
-			RenderMesh(meshList[GEO_REPAIRBOT_ATTACKED], false);
+			RenderMesh(meshList[GEO_REPAIRER_ATTACKED], false);
 		}
 		else if (go->sm->GetCurrentState() == "Destroyed")
 		{
-			RenderMesh(meshList[GEO_REPAIRBOT_DESTROYED], false);
+			RenderMesh(meshList[GEO_REPAIRER_DESTROYED], false);
 		}
 		modelStack.PopMatrix();
 		break;
-	case GameObject::GO_ENEMYAIRCRAFT:
+	case GameObject::GO_ENEMY:
 		modelStack.PushMatrix();
 		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
 		modelStack.Scale(go->scale.x, go->scale.y, 1);
-		RenderMesh(meshList[GEO_ENEMY_AIRCRAFT], false);
-		modelStack.PopMatrix();
-		break;
-	case GameObject::GO_ZERGLING:
-		modelStack.PushMatrix();
-		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
-		modelStack.Scale(go->scale.x, go->scale.y, 1);
-		RenderMesh(meshList[GEO_ZERGLING], false);
+		RenderMesh(meshList[GEO_ENEMY], false);
 		modelStack.PopMatrix();
 		break;
 	case GameObject::GO_FRIENDLYBULLET:

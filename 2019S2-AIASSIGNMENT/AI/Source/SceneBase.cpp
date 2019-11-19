@@ -109,7 +109,7 @@ void SceneBase::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 	meshList[GEO_BG] = MeshBuilder::GenerateQuad("bg", Color(1, 1, 1));
-	meshList[GEO_BG]->textureID = LoadTGA("Image//Assignment1//MapGrid.tga");
+	meshList[GEO_BG]->textureID = LoadTGA("Image//Assignment1//GameGrid.tga");
 	meshList[GEO_TICTACTOE] = MeshBuilder::GenerateQuad("tictactoe", Color(1, 1, 1));
 	meshList[GEO_TICTACTOE]->textureID = LoadTGA("Image//tictactoe.tga");
 	meshList[GEO_CROSS] = MeshBuilder::GenerateQuad("cross", Color(1, 1, 1));
@@ -136,19 +136,17 @@ void SceneBase::Init()
 	meshList[GEO_SHARK_CRAZY]->textureID = LoadTGA("Image//crazy.tga");
 
 	//Assignment
-	meshList[GEO_ARMOREDSOLDIER_PATROL] = MeshBuilder::GenerateQuad("ArmoredSoldier", Color(1, 1, 1));
-	meshList[GEO_ARMOREDSOLDIER_PATROL]->textureID = LoadTGA("Image//Assignment1//ArmoredSoldier.tga");
-	meshList[GEO_ARMOREDSOLDIER_ATTACKING] = MeshBuilder::GenerateQuad("ArmoredSoldierAttacking", Color(1, 1, 1));
-	meshList[GEO_ARMOREDSOLDIER_ATTACKING]->textureID = LoadTGA("Image//Assignment1//ArmoredSoldier_Attacking.tga");
-	meshList[GEO_ARMOREDSOLDIER_DAMAGED] = MeshBuilder::GenerateQuad("ArmoredSoldierDamaged", Color(1, 1, 1));
-	meshList[GEO_ARMOREDSOLDIER_DAMAGED]->textureID = LoadTGA("Image//Assignment1//ArmoredSoldier_Damaged.tga");
-	meshList[GEO_ARMOREDSOLDIER_DESTROYED] = MeshBuilder::GenerateQuad("ArmoredSoldierDestroyed", Color(1, 1, 1));
-	meshList[GEO_ARMOREDSOLDIER_DESTROYED]->textureID = LoadTGA("Image//Assignment1//ArmoredSoldier_Destroyed.tga");
+	meshList[GEO_PATROLLER_PATROL] = MeshBuilder::GenerateQuad("Patroller", Color(1, 1, 1));
+	meshList[GEO_PATROLLER_PATROL]->textureID = LoadTGA("Image//Assignment1//Patroller.tga");
+	meshList[GEO_PATROLLER_ATTACKING] = MeshBuilder::GenerateQuad("PatrollerAttacking", Color(1, 1, 1));
+	meshList[GEO_PATROLLER_ATTACKING]->textureID = LoadTGA("Image//Assignment1//Patroller_Attacking.tga");
+	meshList[GEO_PATROLLER_DAMAGED] = MeshBuilder::GenerateQuad("PatrollerDamaged", Color(1, 1, 1));
+	meshList[GEO_PATROLLER_DAMAGED]->textureID = LoadTGA("Image//Assignment1//Patroller_Damaged.tga");
+	meshList[GEO_PATROLLER_DESTROYED] = MeshBuilder::GenerateQuad("PatrollerDestroyed", Color(1, 1, 1));
+	meshList[GEO_PATROLLER_DESTROYED]->textureID = LoadTGA("Image//Assignment1//Patroller_Destroyed.tga");
 
-	meshList[GEO_ENEMY_AIRCRAFT] = MeshBuilder::GenerateQuad("EnemyAircraft", Color(1, 1, 1));
-	meshList[GEO_ENEMY_AIRCRAFT]->textureID = LoadTGA("Image//Assignment1//EnemyAircraft.tga");
-	meshList[GEO_ZERGLING] = MeshBuilder::GenerateQuad("Zergling", Color(1, 1, 1));
-	meshList[GEO_ZERGLING]->textureID = LoadTGA("Image//Assignment1//Zergling.tga");
+	meshList[GEO_ENEMY] = MeshBuilder::GenerateQuad("Enemy", Color(1, 1, 1));
+	meshList[GEO_ENEMY]->textureID = LoadTGA("Image//Assignment1//Enemy.tga");
 
 	meshList[GEO_HARVESTER_MOVING] = MeshBuilder::GenerateQuad("HarvesterMoving", Color(1, 1, 1));
 	meshList[GEO_HARVESTER_MOVING]->textureID = LoadTGA("Image//Assignment1//Harvester.tga");
@@ -162,14 +160,14 @@ void SceneBase::Init()
 	meshList[GEO_MINERAL] = MeshBuilder::GenerateQuad("Mineral", Color(1, 1, 1));
 	meshList[GEO_MINERAL]->textureID = LoadTGA("Image//Assignment1//Mineral.tga");
 
-	meshList[GEO_REPAIRBOT_MOVING] = MeshBuilder::GenerateQuad("RepairBotMoving", Color(1, 1, 1));
-	meshList[GEO_REPAIRBOT_MOVING]->textureID = LoadTGA("Image//Assignment1//RepairBot.tga");
-	meshList[GEO_REPAIRBOT_ATTACKED] = MeshBuilder::GenerateQuad("RepairBotAttacked", Color(1, 1, 1));
-	meshList[GEO_REPAIRBOT_ATTACKED]->textureID = LoadTGA("Image//Assignment1//RepairBot_Attacked.tga");
-	meshList[GEO_REPAIRBOT_DESTROYED] = MeshBuilder::GenerateQuad("RepairBotDestroyed", Color(1, 1, 1));
-	meshList[GEO_REPAIRBOT_DESTROYED]->textureID = LoadTGA("Image//Assignment1//RepairBot_Destroyed.tga");
-	meshList[GEO_REPAIRBOT_REPAIRING] = MeshBuilder::GenerateQuad("RepairBotRepairing", Color(1, 1, 1));
-	meshList[GEO_REPAIRBOT_REPAIRING]->textureID = LoadTGA("Image//Assignment1//RepairBot_Repairing.tga");
+	meshList[GEO_REPAIRER_MOVING] = MeshBuilder::GenerateQuad("RepairerMoving", Color(1, 1, 1));
+	meshList[GEO_REPAIRER_MOVING]->textureID = LoadTGA("Image//Assignment1//Repairer.tga");
+	meshList[GEO_REPAIRER_ATTACKED] = MeshBuilder::GenerateQuad("RepairerAttacked", Color(1, 1, 1));
+	meshList[GEO_REPAIRER_ATTACKED]->textureID = LoadTGA("Image//Assignment1//Repairer_Attacked.tga");
+	meshList[GEO_REPAIRER_DESTROYED] = MeshBuilder::GenerateQuad("RepairerDestroyed", Color(1, 1, 1));
+	meshList[GEO_REPAIRER_DESTROYED]->textureID = LoadTGA("Image//Assignment1//Repairer_Destroyed.tga");
+	meshList[GEO_REPAIRER_REPAIRING] = MeshBuilder::GenerateQuad("RepairerRepairing", Color(1, 1, 1));
+	meshList[GEO_REPAIRER_REPAIRING]->textureID = LoadTGA("Image//Assignment1//Repairer_Repairing.tga");
 
 	meshList[GEO_ENEMYBULLET] = MeshBuilder::GenerateQuad("EnemyBullet", Color(1, 1, 1));
 	meshList[GEO_ENEMYBULLET]->textureID = LoadTGA("Image//Assignment1//EnemyBullet.tga");

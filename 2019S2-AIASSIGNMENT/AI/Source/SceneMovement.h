@@ -29,15 +29,13 @@ protected:
 	GameObject *m_ghost;
 	float m_hourOfTheDay;
 	float timerHarvester;
-	float timerArmoredSoldier;
-	float timerEnemyAircraft;
-	float timerRepairBot;
-	float timerZergling;
+	float timerPatroller;
+	float timerEnemy;
+	float timerRepairer;
 
 	int destroyedCount;
-	int repairBotCount;
+	int repairerCount;
 	int enemyCount;
-	int zerglingCount;
 };
 
 #endif

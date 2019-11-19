@@ -168,14 +168,10 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\State.cpp" />
     <ClCompile Include="Source\StateMachine.cpp" />
-    <ClCompile Include="Source\StatesArmoredSoldier.cpp" />
-    <ClCompile Include="Source\StatesEnemyAircraft.cpp" />
-    <ClCompile Include="Source\StatesFish.cpp" />
-    <ClCompile Include="Source\StatesFishFood.cpp" />
+    <ClCompile Include="Source\StatesPatroller.cpp" />
+    <ClCompile Include="Source\StatesEnemy.cpp" />
     <ClCompile Include="Source\StatesHarvester.cpp" />
-    <ClCompile Include="Source\StatesRepairBot.cpp" />
-    <ClCompile Include="Source\StatesShark.cpp" />
-    <ClCompile Include="Source\StatesZergling.cpp" />
+    <ClCompile Include="Source\StatesRepairer.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -201,14 +197,10 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\State.h" />
     <ClInclude Include="Source\StateMachine.h" />
-    <ClInclude Include="Source\StatesArmoredSoldier.h" />
-    <ClInclude Include="Source\StatesEnemyAircraft.h" />
-    <ClInclude Include="Source\StatesFish.h" />
-    <ClInclude Include="Source\StatesFishFood.h" />
+    <ClInclude Include="Source\StatesPatroller.h" />
+    <ClInclude Include="Source\StatesEnemy.h" />
     <ClInclude Include="Source\StatesHarvester.h" />
-    <ClInclude Include="Source\StatesRepairBot.h" />
-    <ClInclude Include="Source\StatesShark.h" />
-    <ClInclude Include="Source\StatesZergling.h" />
+    <ClInclude Include="Source\StatesRepairer.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
   </ItemGroup>

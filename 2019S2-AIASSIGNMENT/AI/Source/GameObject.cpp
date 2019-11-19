@@ -56,7 +56,7 @@ bool GameObject::Handle(Message *message)
 			}
 			break;
 		case MessageSendAll::KILL_ALL:
-			if (active == true && type == GO_ENEMYAIRCRAFT)
+			if (active == true && type == GO_ENEMY)
 			{
 				active = false;
 				delete message;

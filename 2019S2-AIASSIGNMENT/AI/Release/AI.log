@@ -1,0 +1,30 @@
+﻿  Application.cpp
+  Camera.cpp
+  GameObject.cpp
+  LoadOBJ.cpp
+  LoadTGA.cpp
+  main.cpp
+  Mesh.cpp
+  MeshBuilder.cpp
+  PostOffice.cpp
+  SceneBase.cpp
+  SceneData.cpp
+  SceneMovement.cpp
+  SceneTicTacToe.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AIASSIGNMENT\AI\Source\SceneMovement.cpp(169,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AIASSIGNMENT\AI\Source\SceneTicTacToe.cpp(110,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  shader.cpp
+  State.cpp
+  StateMachine.cpp
+  StatesPatroller.cpp
+  StatesEnemy.cpp
+  StatesHarvester.cpp
+  StatesRepairer.cpp
+  Compiling...
+  Utility.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AIASSIGNMENT\AI\Source\SceneTicTacToe.cpp(111,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 1071 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  AI.vcxproj -> C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AIASSIGNMENT\Release\AI.exe
