@@ -1,0 +1,9 @@
+﻿  SceneQueen.cpp
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneQueen.cpp(151,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\AI\Source\SceneQueen.cpp(165,24): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  2 of 640 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  AI.vcxproj -> C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AI\Release\AI.exe

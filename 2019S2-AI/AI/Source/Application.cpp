@@ -31,7 +31,7 @@ static void error_callback(int error, const char* description)
 	_fgetchar();
 }
 
-//Define the key input callback
+//Define thex	 key input callback
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -65,6 +65,14 @@ int Application::GetWindowWidth()
 int Application::GetWindowHeight()
 {
 	return m_height;
+}
+
+void Application::Iterate()
+{
+	scene->Update(0.f);
+	scene->Render();
+	glfwSwapBuffers(m_window);
+	glfwPollEvents();
 }
 
 Application::Application()
@@ -129,7 +137,7 @@ void Application::Init()
 void Application::Run()
 {
 	//Main Loop
-	Scene *scene = new SceneFish();
+	scene = new SceneQueen();
 	scene->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
