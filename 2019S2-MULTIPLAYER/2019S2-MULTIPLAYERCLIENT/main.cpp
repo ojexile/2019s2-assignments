@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <conio.h>
+#pragma comment(lib, "Ws2_32.lib")
 
 SOCKET serversocket;
 WSADATA w;
@@ -39,8 +40,8 @@ void Init()
 	u_long somelong = 1;
 	int ioctl = ioctlsocket(serversocket, FIONBIO, &somelong);
 
-	std::cout << "// Connected!\n";
-	std::cout << "[] Insert message: ";
+	//std::cout << "// Connected!\n";
+	//std::cout << "[] Insert message: ";
 
 	char exitcode = ':';
 	do
@@ -77,15 +78,11 @@ void Init()
 				char buffer2[80];
 
 				int length = recv(serversocket, buffer2, sizeof(buffer2), 0);
-
-				if (length > 0)
+				std::cout << std::string(buffer2).substr(0, length) << std::endl;
+				
+				if (length == SOCKET_ERROR)
 				{
-					std::cout << "[] Message Received From Server: " << std::string(buffer2).substr(0, length) << std::endl;
-					std::cout << "[] Insert message: ";
-				}
-				else if (length == SOCKET_ERROR)
-				{
-					std::cout << "[] Server went offline" << std::endl;
+					std::cout << "[] Disconnected from server" << std::endl;
 					break;
 				}
 			}

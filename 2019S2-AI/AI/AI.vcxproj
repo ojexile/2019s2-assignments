@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -132,17 +132,23 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\Graph.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Maze.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneFish.cpp" />
+    <ClCompile Include="Source\SceneFlappyBird.cpp" />
+    <ClCompile Include="Source\SceneGraph.cpp" />
     <ClCompile Include="Source\SceneKnight.cpp" />
+    <ClCompile Include="Source\SceneMaze.cpp" />
     <ClCompile Include="Source\SceneMovement.cpp" />
     <ClCompile Include="Source\SceneMovementv2.cpp" />
     <ClCompile Include="Source\SceneQueen.cpp" />
+    <ClCompile Include="Source\SceneReversi.cpp" />
     <ClCompile Include="Source\SceneTicTacToe.cpp" />
     <ClCompile Include="Source\SceneTicTacToev2.cpp" />
     <ClCompile Include="Source\shader.cpp" />
@@ -156,19 +162,26 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Geometry.h" />
+    <ClInclude Include="Source\Graph.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTGA.h" />
     <ClInclude Include="Source\Material.h" />
+    <ClInclude Include="Source\Maze.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
+    <ClInclude Include="Source\NeuralNode.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />
     <ClInclude Include="Source\SceneFish.h" />
+    <ClInclude Include="Source\SceneFlappyBird.h" />
+    <ClInclude Include="Source\SceneGraph.h" />
     <ClInclude Include="Source\SceneKnight.h" />
+    <ClInclude Include="Source\SceneMaze.h" />
     <ClInclude Include="Source\SceneMovement.h" />
     <ClInclude Include="Source\SceneMovementv2.h" />
     <ClInclude Include="Source\SceneQueen.h" />
+    <ClInclude Include="Source\SceneReversi.h" />
     <ClInclude Include="Source\SceneTicTacToe.h" />
     <ClInclude Include="Source\SceneTicTacToev2.h" />
     <ClInclude Include="Source\shader.hpp" />

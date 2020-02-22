@@ -136,7 +136,24 @@ void SceneBase::Init()
 	meshList[GEO_QUEEN]->textureID = LoadTGA("Image//queen.tga");
 	meshList[GEO_KNIGHT] = MeshBuilder::GenerateQuad("dead", Color(0, 0, 1));
 	meshList[GEO_KNIGHT]->textureID = LoadTGA("Image//knight.tga");
-
+	meshList[GEO_WHITEQUAD] = MeshBuilder::GenerateQuad("whitequad", Color());
+	meshList[GEO_GREYQUAD] = MeshBuilder::GenerateQuad("greyquad", Color(0.5f, 0.5f, 0.5f));
+	meshList[GEO_BLACKQUAD] = MeshBuilder::GenerateQuad("whitequad", Color(0.f, 0.f, 0.f));
+	meshList[GEO_BLACK] = MeshBuilder::GenerateQuad("blackpiece", Color(0, 0, 0));
+	meshList[GEO_BLACK]->textureID = LoadTGA("Image//black.tga");
+	meshList[GEO_WHITE] = MeshBuilder::GenerateQuad("whitepiece", Color(1.f, 1.f, 1.f));
+	meshList[GEO_WHITE]->textureID = LoadTGA("Image//white.tga");
+	meshList[GEO_REVERSI] = MeshBuilder::GenerateQuad("reversi", Color(0.1f, 0.5f, 0.1f));
+	meshList[GEO_REVERSI]->textureID = LoadTGA("Image//reversi.tga");
+	meshList[GEO_REVERSI4X4] = MeshBuilder::GenerateQuad("reversi4x4", Color(0.2f, 0.1f, 0.3f));
+	meshList[GEO_REVERSI4X4]->textureID = LoadTGA("Image//reversi4x4.tga");
+	meshList[GEO_BACKGROUND] = MeshBuilder::GenerateQuad("background", Color(0, 1, 0) );
+	meshList[GEO_BACKGROUND]->textureID = LoadTGA("Image//background-day.tga");
+	meshList[GEO_PIPE] = MeshBuilder::GenerateQuad("pipe", Color(0, 1, 1) );
+	meshList[GEO_PIPE]->textureID = LoadTGA("Image//pipe-green.tga");
+	meshList[GEO_BIRD] = MeshBuilder::GenerateQuad("bird", Color(1, 1, 1));
+	meshList[GEO_BIRD]->textureID = LoadTGA("Image//yellowbird-downflap.tga");
+	meshList[GEO_SIDEBAR] = MeshBuilder::GenerateQuad("sidebar", Color(0, 0, 0));
 	bLightEnabled = false;
 }
 

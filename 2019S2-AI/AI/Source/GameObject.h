@@ -3,7 +3,7 @@
 
 #include "Vector3.h"
 #include "StateMachine.h"
-
+#include "NeuralNode.h"
 struct GameObject
 {
 	enum GAMEOBJECT_TYPE
@@ -16,6 +16,10 @@ struct GameObject
 		GO_FISH,
 		GO_SHARK,
 		GO_FISHFOOD,
+
+		GO_PIPE,
+		GO_BIRD,
+		GO_NPC,
 
 		GO_TOTAL, //must be last
 	};
@@ -44,7 +48,15 @@ struct GameObject
 	int id;
 	int steps;
 
+	bool alive;
+	int score;
+	std::vector<NeuralNode> hiddenNode;
+	NeuralNode outputNode;
+
+
 	Vector3 targetLocation;
+
+
 
 	GameObject(GAMEOBJECT_TYPE typeValue = GO_BALL);
 	~GameObject();
