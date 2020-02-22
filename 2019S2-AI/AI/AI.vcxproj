@@ -139,8 +139,10 @@
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneFish.cpp" />
+    <ClCompile Include="Source\SceneKnight.cpp" />
     <ClCompile Include="Source\SceneMovement.cpp" />
     <ClCompile Include="Source\SceneMovementv2.cpp" />
+    <ClCompile Include="Source\SceneQueen.cpp" />
     <ClCompile Include="Source\SceneTicTacToe.cpp" />
     <ClCompile Include="Source\SceneTicTacToev2.cpp" />
     <ClCompile Include="Source\shader.cpp" />
@@ -163,8 +165,10 @@
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />
     <ClInclude Include="Source\SceneFish.h" />
+    <ClInclude Include="Source\SceneKnight.h" />
     <ClInclude Include="Source\SceneMovement.h" />
     <ClInclude Include="Source\SceneMovementv2.h" />
+    <ClInclude Include="Source\SceneQueen.h" />
     <ClInclude Include="Source\SceneTicTacToe.h" />
     <ClInclude Include="Source\SceneTicTacToev2.h" />
     <ClInclude Include="Source\shader.hpp" />

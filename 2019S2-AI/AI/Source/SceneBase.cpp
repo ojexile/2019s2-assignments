@@ -130,6 +130,12 @@ void SceneBase::Init()
 	meshList[GEO_SHARK]->textureID = LoadTGA("Image//shark.tga");
 	meshList[GEO_TOOFULL] = MeshBuilder::GenerateQuad("dead", Color(0, 0, 1));
 	meshList[GEO_TOOFULL]->textureID = LoadTGA("Image//toofull.tga");
+	meshList[GEO_CHESSBOARD] = MeshBuilder::GenerateQuad("dead", Color(0, 0, 1));
+	meshList[GEO_CHESSBOARD]->textureID = LoadTGA("Image//chessboard.tga");
+	meshList[GEO_QUEEN] = MeshBuilder::GenerateQuad("dead", Color(0, 0, 1));
+	meshList[GEO_QUEEN]->textureID = LoadTGA("Image//queen.tga");
+	meshList[GEO_KNIGHT] = MeshBuilder::GenerateQuad("dead", Color(0, 0, 1));
+	meshList[GEO_KNIGHT]->textureID = LoadTGA("Image//knight.tga");
 
 	bLightEnabled = false;
 }

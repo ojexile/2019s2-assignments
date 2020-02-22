@@ -3,7 +3,7 @@
 #define APPLICATION_H
 
 #include "timer.h"
-
+#include "Scene.h"
 class Application
 {
 public:
@@ -15,18 +15,21 @@ public:
 	void Init();
 	void Run();
 	void Exit();
+	void Iterate();
+
 	static bool IsKeyPressed(unsigned short key);
 	static bool IsMousePressed(unsigned short key);
 	static void GetCursorPos(double *xpos, double *ypos);
 	static int GetWindowWidth();
 	static int GetWindowHeight();
-
+	
 private:
 	Application();
 	~Application();
 
 	//Declare a window object
 	StopWatch m_timer;
+	Scene* scene;
 };
 
 #endif

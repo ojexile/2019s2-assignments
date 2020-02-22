@@ -1,0 +1,6 @@
+﻿  Application.cpp
+  SceneMovement.cpp
+  StatesRepairer.cpp
+  Generating Code...
+C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AIASSIGNMENT\AI\Source\SceneMovement.cpp(169,22): warning C4018: '<': signed/unsigned mismatch
+  AI.vcxproj -> C:\Users\ELIXEJO\Desktop\_ACTIVE\main-schoolwork-repositories\2019s2-assignments\2019S2-AIASSIGNMENT\Debug\AI.exe
